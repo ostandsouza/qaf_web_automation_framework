@@ -1,0 +1,30 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="QAF Demo" verbose="0" parallel="tests">
+	<test name="BDD Test Edge" enabled="true">
+		<parameter name="driver.name" value="edgeDriver" />
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/" />
+		<groups>
+			<run>
+				<include name="Regression" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="BDD Test Chrome" enabled="true">
+		<parameter name="driver.name" value="chromeDriver" />
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/" />
+		<groups>
+			<run>
+				<include name="Regression" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+</suite>

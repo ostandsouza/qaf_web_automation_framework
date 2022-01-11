@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding ="UTF-8"?> 
+
+<suite name="Mobile App-iOS" verbose="0">
+    <test name="Mobile App" enabled="true">
+        <parameter name="env.resources" value="resources/mobile/ios"/>
+        <parameter name="selenium.singletone" value="Tests"/>
+        <parameter name="step.provider.pkg" value="com.mobile.ios.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <groups>
+            <run>
+                <include name="Testthis"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+</suite>
