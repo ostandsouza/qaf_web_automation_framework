@@ -22,11 +22,12 @@ public class LoginSteps {
     
     @QAFTestStep(description="Verify Home page is displayed")
     public void verifyHomePageIsDisplayed(){
-    	SyncUtil.waitFor(3000);
+    	
     	if (loginPage.getCurrentURL().endsWith("/secure/dashboard/conveyors"))
             Reporter.log("Home page is displayed", MessageTypes.Pass);
         else
             Reporter.log("Home page is not displayed", MessageTypes.Fail);
+    	SyncUtil.waitFor(3000);
     }
 
 

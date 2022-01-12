@@ -1,5 +1,6 @@
 package com.web.pages;
 
+
 import org.openqa.selenium.WebElement;
 
 import com.common.component.CustomElement;
@@ -128,8 +129,8 @@ public class UsersPage extends BasePage{
 		tbFullName.type(Fullname, "Fullnmae");
 	}
 	
-	public void setfullname1(String Fullnamesc) {
-		tbFullName.type(Fullnamesc, "Fullnamesc");
+	public void setfullname1(String Fullname1) {
+		tbFullName.type(Fullname1, "Fullname1");
 	}
 
 	public void setPhone(String Phone) {
@@ -139,6 +140,8 @@ public class UsersPage extends BasePage{
 	public void setemail(String email) {
 		tbEmail.type(email,"email");		
 	}
+	
+	
 
 	public void setprofiletype(String profiletype) throws InterruptedException {
 
@@ -245,7 +248,7 @@ public class UsersPage extends BasePage{
 
 	public void Clicksaveandclose() {
 		btSaveandClose.click();
-		SyncUtil.waitFor(5000);
+		SyncUtil.waitFor(8000);
 	}
 
 	

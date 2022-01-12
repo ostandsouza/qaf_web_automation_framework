@@ -8,7 +8,7 @@ Launch the application through '/'
 @key:Login_02
 
 Scenario: Login with correct credentials with parameters
-   Given User is at Login page  
+    Given User is at Login page  
 	When  Login with '${UserName}' and '${Password}' 
 	Then  Verify Home page is displayed 
 	Given User is at home page
