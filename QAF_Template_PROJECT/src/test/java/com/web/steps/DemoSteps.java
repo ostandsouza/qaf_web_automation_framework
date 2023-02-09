@@ -49,7 +49,7 @@ public class DemoSteps extends BasePage {
     }
     @QAFTestStep(description="Create a Territory manager for Germany Max Mustermann {Fullname1} and {Phone} and {Profiletype} and {Userpassword} and {Retypepassword}")
     public void createATerritoryManagerForGermanyMaxMustermannAndAndAndAnd(String Fullname1,String Phone,String Profiletype,String Userpassword,String Retypepassword) throws InterruptedException{
-    	SyncUtil.waitFor(2000);
+    	waitForPageLoad(5000);
     	userpage.Addclick();
     	userpage.setfullname1(Fullname1);
 		userpage.setPhone(Phone);
@@ -61,17 +61,63 @@ public class DemoSteps extends BasePage {
 		userpage.Nextclick();
 		userpage.setpermission();
 		userpage.Clicksaveandclose();
+		
     }
-    @QAFTestStep(description="Create a Distributor Corporate Belt Associates Corp {companyname}")
-    public void createADistributorCorporateBeltAssociatesCorp(String companyname){
-    	demopage.clickcorporates();
-    	demopage.createcorportae(companyname);
     
+    @QAFTestStep(description="Create a Distributor Corporate Belt Associates Corp {companyname} and {Address}")
+    public void createADistributorCorporateBeltAssociatesCorp(String companyname, String Address) throws InterruptedException{
+    	demopage.clickcorporates();
+    	demopage.createcorportae(companyname, Address);
+    
+    } 
+    @QAFTestStep(description="Create a Distributor shop in India Belt Associates India with TM John Doe {companyname1} and {Address1}")
+    public void createADistributorShopInIndiaBeltAssociatesIndiaWithTMJohnDoe(String companyname1,String Address1){
+    	demopage.clickcorporates();
+    	demopage.createdistribtorshop(companyname1, Address1);
     }
-    @QAFTestStep(description="Create a Distributor shop in India Belt Associates India with TM John Doe")
-    public void createADistributorShopInIndiaBeltAssociatesIndiaWithTMJohnDoe(){
+    
+    @QAFTestStep(description="Create a Distributor shop in Germany Belt Associates Germany with TM Max Mustermann {companyname2} and {Address2}")
+    public void CreateaDistributorshopinGermanyBeltAssociatesGermanywithTMMaxMustermann(String companyname2,String Address2) {
+    	demopage.createdistribtorshop2(companyname2, Address2);
+    }
+
+    @QAFTestStep(description="Create a Customer Corporate Mining Corp {ccCompanyname} and {ccAddress}")
+    public void createACustomerCorporateMiningCorp(String ccCompanyname, String ccAddress) throws InterruptedException{
+    	demopage.clickcorporates();
+    	demopage.createcustomercorporate(ccCompanyname, ccAddress);
+    	
+    }
+    @QAFTestStep(description="Create a Customer site in India Â Mining Corp. India with Distrib Belt Associates India {csCompanyname} and {csAddress}")
+    public void createACustomerSiteInIndiaMiningCorpIndiaWithDistribBeltAssociatesIndia(String csCompanyname, String csAddress){
+    	demopage.clickcorporates();
+    	demopage.createcustomersiteIndia(csCompanyname, csAddress);
     	
     }
     
-
+    @QAFTestStep(description="Create a Customer site in Germany Mining Corp. Germany with Distrib Belt Associates Germany {csGCompanyname} and {csGAddress}")
+    public void createACustomerSiteInGermanyMiningCorpGermanyWithDistribBeltAssociatesGermanyAnd(String csGCompanyname,String csGAddress){
+    	demopage.clickcorporates();
+    	demopage.createcustomersiteGermany(csGCompanyname, csGAddress);
+    }
+  
+    @QAFTestStep(description="Create a conveyor C{0} Germany at Mining Corp. Germany {conveyorname}")
+    public void createAConveyorCGermanyAtMiningCorpGermany(long l0, String conveyorname){
+    	demopage.createconveyorc1Germany(conveyorname);
+    }
+    
+    @QAFTestStep(description="Create a conveyor C{0} India at Mining Corp. India {conveyorname1}")
+    public void createAConveyorCIndiaAtMiningCorpIndia(long l0, String conveyorname1){
+    	demopage.createconveyorc1India(conveyorname1);
+    }
+    
+        
+    @QAFTestStep(description="Show list of conveyors, sites, corporates and users as an admin {Searchtext}")
+    public void showListOfConveyorsSitesCorporatesAndUsersAsAnAdmin(String Searchtext) throws Throwable{
+    	demopage.showconveyorssitescorporatesandusers(Searchtext);
+    }
+    
+    @QAFTestStep(description="Show site page, conveyor page")
+    public void showSitePageConveyorPage(){
+    
+    }
 }

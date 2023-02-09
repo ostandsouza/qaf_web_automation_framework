@@ -15,6 +15,8 @@ public class CommonSteps {
     public void launchTheApplicationThrough(String url) {
         loginPage.getTestBase().getDriver().manage().window().maximize();
         loginPage.getTestBase().getDriver().get(url);
+        //loginPage.getTestBase().getDriver().get("https://Uie68917:Conti@2021@dev2.contiplus.net/#/auth/login:4444");
+        
         Reporter.log("Application is launched using :" + url, MessageTypes.Pass);
     }
     

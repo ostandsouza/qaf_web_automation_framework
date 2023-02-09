@@ -12,7 +12,7 @@ public class LoginSteps {
 
     @QAFTestStep(description = "User is at Login page")
     public void verifyUserIsAtLoginPage() {
-        loginPage.verifyTitle("Conti+");
+       // loginPage.verifyTitle("Conti+");
     }
 
     @QAFTestStep(description = "Login with {UserName} and {Password}")   

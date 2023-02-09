@@ -18,7 +18,7 @@ public class UserSteps extends BasePage {
 	
 	@QAFTestStep(description = "Click on users link")
     public void clickonuserslink() throws Throwable {
-		scrollPageDown();
+		
 		userpage.usersclick();
 		SyncUtil.waitFor(5000);
             }
@@ -58,13 +58,13 @@ public class UserSteps extends BasePage {
 		userpage.setpermission();
 		
             }                 
-	@QAFTestStep(description = "User enter the required details {Fullname} and {Phone} and {Profiletype} and {Userpassword} and {Retypepassword}")
-    public void Enteruserdetails1(String Fullname,String Phone,String Profiletype,String Userpassword,String Retypepassword) throws InterruptedException {
-		userpage.setfullname(Fullname);
+	@QAFTestStep(description = "User enter the required details {Fullname1} and {Phone} and {Profiletypetu} and {Userpassword} and {Retypepassword}")
+    public void Enteruserdetails1(String Fullname1,String Phone,String Profiletypetu,String Userpassword,String Retypepassword) throws InterruptedException {
+		userpage.setfullname(Fullname1);
 		userpage.setPhone(Phone);
 		String Email1 = "Demosc"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletype);
+		userpage.setprofiletype(Profiletypetu);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -72,13 +72,26 @@ public class UserSteps extends BasePage {
 		
             } 
 	
-	@QAFTestStep(description = "User enter required details {Fullname} and {Phone} and {Profiletype} and {Userpassword} and {Retypepassword}")
-    public void Enteruserdetail(String Fullname,String Phone,String Profiletype,String Userpassword,String Retypepassword) throws InterruptedException {
-		userpage.setfullname(Fullname);
+	@QAFTestStep(description = "User enter required details {Fullname2} and {Phone} and {Profiletypeta1} and {Userpassword} and {Retypepassword}")
+    public void Enteruserdetail(String Fullname2,String Phone,String Profiletypeta1,String Userpassword,String Retypepassword) throws InterruptedException {
+		userpage.setfullname(Fullname2);
 		userpage.setPhone(Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletype);
+		userpage.setprofiletype(Profiletypeta1);
+		userpage.setpassword(Userpassword);
+		userpage.setretypepassword(Retypepassword);
+		userpage.Nextclick();
+		userpage.setpermissionmm1();
+		
+            } 	
+	@QAFTestStep(description = "User enter required details {Fullname3} and {Phone} and {Profiletypeta1} and {Userpassword} and {Retypepassword}")
+    public void Enteruserdetailta2(String Fullname3,String Phone,String Profiletypeta1,String Userpassword,String Retypepassword) throws InterruptedException {
+		userpage.setfullname(Fullname3);
+		userpage.setPhone(Phone);
+		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
+		userpage.setemail(Email1);
+		userpage.setprofiletype(Profiletypeta1);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -86,12 +99,25 @@ public class UserSteps extends BasePage {
 		
             } 
 	
-	
+	@QAFTestStep(description = "User enter required details {Fullname4} and {Phone} and {Profiletypeta} and {Userpassword} and {Retypepassword}")
+    public void Enteruserdetailta(String Fullname4,String Phone,String Profiletypeta,String Userpassword,String Retypepassword) throws InterruptedException {
+		userpage.setfullname(Fullname4);
+		userpage.setPhone(Phone);
+		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
+		userpage.setemail(Email1);
+		userpage.setprofiletype(Profiletypeta);
+		userpage.setpassword(Userpassword);
+		userpage.setretypepassword(Retypepassword);
+		userpage.Nextclick();
+		userpage.setpermissionmm1();
+		
+            } 
 	
 	@QAFTestStep(description = "Click on Save and close button")
     public void Clickonsaveandclose() {
 		userpage.Clicksaveandclose();
 		SyncUtil.waitFor(3000);
+		Reporter.log( "User is cretaed", MessageTypes.Pass);
 	}
 	
 	@QAFTestStep(description = "Admin navigated to user page with created new user")

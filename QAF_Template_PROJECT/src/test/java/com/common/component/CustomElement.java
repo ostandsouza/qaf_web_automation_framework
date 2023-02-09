@@ -6,11 +6,14 @@ import com.qmetry.qaf.automation.ui.util.QAFWebElementWait;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebComponent;
+import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.StringMatcher;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class CustomElement extends QAFWebComponent {
@@ -101,6 +104,7 @@ public class CustomElement extends QAFWebComponent {
             throw e;
         }
     }
+    
 
     /**
      * Selects an object if it's not selected already.

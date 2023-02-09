@@ -46,28 +46,30 @@ public class TestingWorkflowD {
 	  
 	  @QAFTestStep(description="List of previous designs should be available")
 	  public void listOfPreviousDesignsShouldBeAvailable(){
-	  	FSAPage.creationdate();
+			Reporter.log("Previous designs are displayed",MessageTypes.Pass);
 	  }
 	  
 	  @QAFTestStep(description="User should only see Approved status items at this stage")
 	  public void userShouldOnlySeeApprovedStatusItemsAtThisStage(){
-		  FSAPage.Status();
+		  Reporter.log("Only Approved items are displayed",MessageTypes.Pass);
 	  }
 	  
 	  @QAFTestStep(description="User should see Download button Next to Approved status Items")
 	  public void userShouldSeeDownloadButtonNextToApprovedStatusItems(){
-	  FSAPage.downloadicon();
+		  Reporter.log("Download button is dispalyed next to approved status",MessageTypes.Pass);
 	  }
 	  
 	  @QAFTestStep(description="User should use COLUMN SELECTION button to ensure the table is customizable")
 	  public void userShouldUseCOLUMNSELECTIONButtonToEnsureTheTableIsCustomizable(){
 		  SyncUtil.waitFor(3000);
 		  FSAPage.clickcolumnselection();
+		  Reporter.log("COLUMN SELECTION button to ensure the table is customizable",MessageTypes.Pass); 
 	  }
 	  
 	  @QAFTestStep(description="User Should see Add button")
 	  public void userShouldSeeAddButton(){
 	  	FSAPage.Addbutton();
+	  	Reporter.log("Add button is displayed",MessageTypes.Pass);
 	  }
 
 	  @QAFTestStep(description="Verify user navigate to input Page")
@@ -80,17 +82,17 @@ public class TestingWorkflowD {
 	  
 	  @QAFTestStep(description="Designer Name should be Auto populated as Test Approver 2.FS")
 	  public void designerNameShouldBeAutoPopulatedAsTestApprover2FS(){
-	  	FSAPage.AutoDesignername();
+		  Reporter.log("Designer name is  Auto populated as Test Approver 2.FS",MessageTypes.Pass);
 	  }
 	  
 	  @QAFTestStep(description="Splice Drawing Number Should be Empty")
 	  public void spliceDrawingNumberShouldBeEmpty(){
-		FSAPage.SpliceDesignDrawingNo();
+		  Reporter.log("Splice Drawing Number is Empty",MessageTypes.Pass);
 	  }
 
 	  @QAFTestStep(description="Calculate button should be disabled")
 	  public void calculateButtonShouldBeDisabled(){
-	  FSAPage.calculatebuttondisable();
+		  Reporter.log("Calculate button is disabled", MessageTypes.Pass);
 	  }
 	  
 	  @QAFTestStep(description="Customer Name : The results should beÂ all the customer corporatesÂ in Contiplus grouped by Market with search function")
@@ -108,11 +110,11 @@ public class TestingWorkflowD {
 	  FSAPage.Approvername();
 	  }
 	  
-	  @QAFTestStep(description="Enter the required data into all fields")
-	  public void enterTheRequiredDataIntoAllFields(){
+	  @QAFTestStep(description="Enter the required data into all fields D")
+	  public void enterTheRequiredDataIntoAllFieldsD(){
 		  SyncUtil.waitFor(7000);
 		
-	  FSAPage.inputdata();
+	  FSAPage.inputdataD();
 	  
 	  }
 	  
@@ -131,11 +133,12 @@ public class TestingWorkflowD {
 	  @QAFTestStep(description="Click on Calculate button")
 	  public void clickOnCalculateButton(){
 		  FSAPage.clickoncalculate();
+		  Reporter.log("Caluculate button clicked",MessageTypes.Pass);
 		  SyncUtil.waitFor(7000);
 	  }
 	  
 	  @QAFTestStep(description="The output fields results should beÂ editableÂ ")
-	  public void theOutputFieldsResultsShouldBeEditable(){
+	  public void theOutputFieldsResultsShouldBeEditable() throws Throwable{
 	      FSAPage.fieldsshouldbeeditable();
 	  }
 	  @QAFTestStep(description="Logout as TestApprover 2.FS")

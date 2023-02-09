@@ -1,15 +1,27 @@
 package com.web.pages;
 
+import com.common.component.CustomElement;
+import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverExpectedConditions;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverWait;
+import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.util.Reporter;
+import com.web.component.DropDownListWithoutSearch;
+
+import static org.testng.Assert.assertEquals;
+
+import java.util.List;
+
 import org.apache.commons.lang.RandomStringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 
 
 public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
@@ -30,7 +42,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
             Reporter.log(title + "is verified", MessageTypes.Pass);
         else
             Reporter.log(title + "is not verified", MessageTypes.Fail);
-    }
+            }
 
     public void waitForPageLoad(long timeout) {
         try {
@@ -60,9 +72,37 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     
     public void scrollPageDown() throws Throwable {
     	Thread.sleep(5000);
-    	((JavascriptExecutor)driver).executeScript("scroll(0,400)");
+    	((JavascriptExecutor)driver).executeScript("scroll(0,800)");
     }
 
+    public void scrollPageup() throws Throwable {
+    	Thread.sleep(5000);
+    	((JavascriptExecutor)driver).executeScript("scroll(0,-500)");
+    }
    
-
+    public void dropdownselect(CustomElement dropDownButton, String dropDownItems, String itemText) {
+    	
+    	dropDownButton.click();
+    	
+    		List<QAFWebElement> Options = driver.findElements(dropDownItems);
+	       //  waitForPageLoad(4000);
+			for(WebElement ele:Options) {
+				String value = ele.getAttribute("innerText");
+				if(	value.equalsIgnoreCase(itemText)) {
+					ele.click();
+					Reporter.log(ele +" is selected", MessageTypes.Pass);
+					break;
+				}
+			}
+    }
+		
+    
+    public void dropdownselectsearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
+		dropDownButton.click();
+		Search.type(itemstosearch);
+		SyncUtil.waitFor(7000);
+		driver.findElement("//span[text()='"+itemstosearch+"']").click();
+		Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
+	}
+    
 }

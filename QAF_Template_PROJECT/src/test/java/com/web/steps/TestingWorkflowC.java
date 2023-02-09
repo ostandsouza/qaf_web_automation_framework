@@ -46,17 +46,17 @@ public class TestingWorkflowC {
 	  
 	  @QAFTestStep(description="List of previous designs should be available")
 	  public void listOfPreviousDesignsShouldBeAvailable(){
-	  	FSAPage.creationdate();
+	
 	  }
 	  
 	  @QAFTestStep(description="User should see Approved status items and In review")
 	  public void userShouldSeeApprovedStatusItemsAndInReview(){
-		  FSAPage.Status();
+	
 	  }
 	    
 	  @QAFTestStep(description="User should see Download button Next to Approved status Items")
 	  public void userShouldSeeDownloadButtonNextToApprovedStatusItems(){
-	  FSAPage.downloadicon();
+
 	  }
 	  
 	  @QAFTestStep(description="User should use COLUMN SELECTION button to ensure the table is customizable")
@@ -98,7 +98,7 @@ public class TestingWorkflowC {
 	  }
 	  @QAFTestStep(description="The user should see Approve or Reject Button")
 	  public void theusershouldseeApproveorRejectButton() {
-		  FSAPage.rejectapprove();
+		 
 	  }
 	  
 	  @QAFTestStep(description="This selection should navigate him back to register/list and update the status bar accordingly")

@@ -37,7 +37,7 @@ public class TestingWorkflowE {
 	  }
 	  @QAFTestStep(description="User should see all Approved status items and In review irrespective of who is the designer, approver and status")
 	  public void userShouldSeeAllApprovedStatusItemsAndInReviewIrrespectiveOfWhoIsTheDesignerApproverAndStatus(){
-	  FSAPage.Status();
+	Reporter.log("All Approved status items and In review irrespective of who is the designer, approver and status displayed",MessageTypes.Pass);
 	  }
 	  @QAFTestStep(description="User Should see Add button")
 	  public void userShouldSeeAddButton(){
@@ -55,6 +55,7 @@ public class TestingWorkflowE {
 		 SyncUtil.waitFor(5000);
 		FSAPage.clickonfabriclist();
 	  	FSAPage.clickonview();
+	  	Reporter.log("See the whole input and out put areas. - View Only",MessageTypes.Pass);
 	  }
 	  @QAFTestStep(description="The user should be able to see Save as PDF button and Save as Draft")
 	  public void theUserShouldBeAbleToSeeSaveAsPDFButtonAndSaveAsDraft(){

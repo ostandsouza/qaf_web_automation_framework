@@ -40,39 +40,26 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=(//input[@name='drawing_num'])[2]")
 	public CustomElement tbDesignerName;
 
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[6]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='marketType']//div[2]")
 	public CustomElement drChooseyourmarket;
 	//WebElement drChooseyourmarketvalue = driver.findElement(By.xpath("//li[@class='p-dropdown-item p-ripple']"));
 	
-	@FindBy(locator = "xpath=//p-dropdownitem[@ng-reflect-label='APAC']")
-	public CustomElement drChooseyourmarketAPAC;
+	@FindBy(locator = "xpath=//div[@ng-reflect-ng-class='p-dropdown-panel p-component']//input")
+	public CustomElement tbinput;
 
-	@FindBy(locator = "xpath=////span[text()='APAC']")
-	public CustomElement selectvalueAPAC;
-	
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[9]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='productionLocation']//div[2]")
 	public CustomElement drProductionLocationofSpliceKit;
 	
-	@FindBy(locator = "xpath=/html/body/app-root/app-layout/div/div[2]/div/app-fabric-add/div[2]/form/div[2]/div[4]/div[1]/div/app-master-data-picker/div/div/div/p-dropdown/div/div[3]/div[2]/ul/p-dropdownitem[4]/li")
-	public CustomElement drProductionLocationofSpliceKitvalue;
-
-	@FindBy(locator = "xpath=(//span[text()='Select'])[1]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='customer']//div[2]")
 	public CustomElement drCustomerName;
-	
-	@FindBy(locator = "xpath=((//ul[@ng-reflect-ng-class='[object Object]'])[2]//li[1])[2]")
-	public CustomElement drCustomerNamevalue;
 
-	@FindBy(locator = "xpath=(//div[@ng-reflect-ng-class='[object Object]'])[16]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='conveyor']//div[2]")
 	public CustomElement drConveyorName;
-	
-	@FindBy(locator = "xpath=(//li[@ng-reflect-ng-class='[object Object]'])[7]")
-	public CustomElement drConveyorNamevalue;
 
-	@FindBy(locator = "xpath=//span[@class='p-button-icon pi pi-chevron-down']")
+	@FindBy(locator = "xpath=//p-autocomplete[@ng-reflect-name='approverName']//button")
 	public CustomElement drApproverName;
-	
-	@FindBy(locator = "xpath=(//div[@class='ng-star-inserted'])[1]")
-	public CustomElement drApproverNamevalue;
+
+	public String drapproverlist = "xpath= //ul[contains(@class,'p-autocomplete-items')]//li//div//span";
 
 	@FindBy(locator = "xpath=//input[@id='normal']")
 	public CustomElement radioNormal;
@@ -86,44 +73,26 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=(//span[@class='p-radiobutton-icon'])[6]")
 	public CustomElement radioRightarrow;
 
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[13]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='beltConstruction']//div[2]")
 	public CustomElement drBeltConstruction;
 	
-	@FindBy(locator = "xpath=(//li[@class='p-dropdown-item p-ripple'])[1]")
-	public CustomElement drBeltConstructionvalue;
-
 	@FindBy(locator = "xpath=//input[@formcontrolname='beltWidth']")
 	public CustomElement tbBeltwidth;
 
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[18]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='beltFabric']//div[2]")
 	public CustomElement drBeltTypeFabric;
-	
-	@FindBy(locator = "xpath=((//ul[@ng-reflect-ng-class='[object Object]'])[2]//li)[1]")
-	public CustomElement drBeltTypeFabricvalue;
 
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[20]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='topCoverCompound']//div[2]")
 	public CustomElement drTopcovercompound;
 	
-	@FindBy(locator = "xpath=((//ul[@ng-reflect-ng-class='[object Object]'])[2]//li)[1]") 
-	public CustomElement drTopcovercompoundvalue;
-
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[23]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='bottomCoverCompound']//div[2]")
 	public CustomElement drBottomcovercompound;
-	
-	@FindBy(locator = "xpath=(//p-dropdownitem[@ng-reflect-option='[object Object]'])[1]")
-	public CustomElement drBottomcovercompoundvalue;
 
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[26]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='topThickness']//div[2]")
 	public CustomElement drTopcoverthickness;
-	
-	@FindBy(locator = "xpath=(//li[@ng-reflect-ng-class='[object Object]'])[7]")
-	public CustomElement drTopcoverthicknessvalue;
 
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[16]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='beltThickness']//div[2]")
 	public CustomElement drBottomcoverthickness;
-	
-	@FindBy(locator = "xpath=(//li[@ng-reflect-ng-class='[object Object]'])[7]")
-	public CustomElement drBottomcoverthicknessvalue;
 
 	@FindBy(locator = "xpath=//input[@type='number']")
 	public CustomElement tboverallbeltthickness;
@@ -134,10 +103,10 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=//span[@class='ng-tns-c82-76 p-dropdown-label p-inputtext ng-star-inserted']")
 	public CustomElement drBaisangle;
 
-	@FindBy(locator = "xpath=(//div[@class='p-fluid'])[25]")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='spliceType']//div[2]")
 	public CustomElement drSplicetype;
 
-	@FindBy(locator = "xpath=//span[@class='ng-tns-c82-92 p-dropdown-label p-inputtext p-placeholder ng-star-inserted']")
+	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='edge']//div[2]")
 	public CustomElement drEdge;
 
 	@FindBy(locator = "xpath=(//span[@class='p-radiobutton-icon'])[7]")
@@ -146,19 +115,19 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=(//span[@class='p-radiobutton-icon'])[8]")
 	public CustomElement radioReducedservicesplice;
 
-	@FindBy(locator = "xpath=//button[@class='p-mr-2 p-mb-2 p-button-secondary p-button p-component']")
+	@FindBy(locator = "xpath=//span[text()='Clear']")
 	public CustomElement btClear;
 	
-	@FindBy(locator = "xpath=(//button[@type='button'])[3]")
+	@FindBy(locator = "xpath=//span[text()='No']")
 	public CustomElement btclearNo;
 
-	@FindBy(locator = "xpath=//button[@type='submit']")
+	@FindBy(locator = "xpath=//button[@ng-reflect-label='Calculate']")
 	public CustomElement btCalculate;
 
 	@FindBy(locator = "xpath=//button[@label='Save as a Draft']")
 	public CustomElement btSaveasadraft;
 
-	@FindBy(locator = "xpath=//p-button[@ng-reflect-label='Generate PDF']")
+	@FindBy(locator = "xpath=//button[@ng-reflect-label='Generate PDF']")
 	public CustomElement btGeneratePDF;
 	
 	@FindBy(locator = "xpath=(//tr[@class='p-selectable-row conti-active-tr ng-star-inserted'])[1]")
@@ -167,34 +136,32 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=(//button[@icon='pi pi-eye'])[1]")
 	public CustomElement viewicon;
 
-	@FindBy(locator = "xpath=//*[@id=\"p-tabpanel-6\"]/div/div/app-fabric-step-result/div/form/div/div[2]/div/div[7]/div/textarea")
+	@FindBy(locator = "xpath=//textarea[@ng-reflect-name='addNotes']")
 	public CustomElement taAdditionalnotes;
+
 	
-	@FindBy(locator = "xpath=//html/body/app-root/app-layout/div/div[2]/div/app-fabric-add/div[4]/div/p-panel/div/div[2]/div/p-tabview/div/div/p-tabpanel[1]/div/div/div/app-fabric-step-result/div/form/div/div[2]/div/div[7]/div/textarea")
-	public CustomElement tadesignadditionalnotes;
-	
-	@FindBy(locator = "xpath=(//a[@class='p-tabview-nav-link p-ripple'])[1]")
+	@FindBy(locator = "xpath=//span[text()='Design']")
 	public CustomElement tabDesign;
 
-	@FindBy(locator = "xpath=(//a[@class='p-tabview-nav-link p-ripple'])[2]")
+	@FindBy(locator = "xpath=//span[text()='Splice Kit BOM']")
 	public CustomElement tabSplicekitBOM;
 
-	@FindBy(locator = "xpath=(//a[@class='p-tabview-nav-link p-ripple'])[3]")
+	@FindBy(locator = "xpath=//span[text()='Comments Log']")
 	public CustomElement tabCommentslog;
 
-	@FindBy(locator = "xpath=/html/body/app-root/app-layout/div/div[2]/div/app-fabric-add/div[4]/div/p-panel/div/div[2]/div/p-tabview/div/div/p-tabpanel[3]/div/textarea")
+	@FindBy(locator = "xpath=//textarea[contains(@class,'p-inputtextarea p-inputtext')]")
 	public CustomElement taDesignercomment;
 
 	@FindBy(locator = "xpath=//button[@label='Send for review']")
 	public CustomElement btsendforreview;
 
-	@FindBy(locator = "xpath=(//div[@ng-reflect-ng-class='[object Object]'])[25]")
+	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box p-component'])[1]")
 	public CustomElement checkbox;
 	
-	@FindBy(locator = "xpath=//span[@class='p-button-icon pi pi-chevron-down']")
+	@FindBy(locator = "xpath=//button[@ng-reflect-icon='pi pi-chevron-down']")
 	public CustomElement Actionsarrow;
 	
-	@FindBy(locator = "xpath=(//a[@class='p-menuitem-link ng-star-inserted'])[3]")
+	@FindBy(locator = "xpath=//span[text()='Edit']")
 	public CustomElement lupdate;
 	
 	@FindBy(locator = "xpath=//*[@id=\"p-tabpanel-0\"]/div/div/app-fabric-step-result/div/form/div/div[2]/div/div[7]/div/textarea")
@@ -224,10 +191,10 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=//span[text()='Login']")
 	public CustomElement btnLogIn;
 	
-	@FindBy(locator = "xpath=//span[text()='Splice Print']")
+	@FindBy(locator = "xpath=//span[text()='Splice Design']")
 	public CustomElement menuspliceprint;
 
-	 @FindBy(locator = "xpath=//span[text()='Fabric Splice Generator']")
+	 @FindBy(locator = "xpath=//span[text()='Fabric']")
 	 public CustomElement Fabricsplicelink;
 	 
 	 @FindBy(locator = "xpath=//span[@class='ng-star-inserted']")
@@ -237,7 +204,7 @@ public class FabricspliceAddPage extends BasePage{
 	 public CustomElement tbwidth;
 	  
 	  public void clickfabricsplicegenerator() {
-		    SyncUtil.waitFor(5000);
+		    waitForPageLoad(5000);
 		    menuspliceprint.click();
 			Fabricsplicelink.click();
 			}
@@ -247,68 +214,21 @@ public class FabricspliceAddPage extends BasePage{
 	  }
 
 	  public void Addbutton() {
-		  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", btAdd);
-		  btAdd.click();
+	     btAdd.click();
 	  }
-	  
-	  public void creationdate() {
-		  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", thcreatedate);
-	  }
-
-	  public void Status() {
-		  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", thApprovedStatus);
-	  }
-
-	  public void downloadicon() {
-		  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", btDownload);
-	  }
-	  
-	  
-	  public void AutoDesignername() {
-		  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", tbDesignerName);
-	  }
-
-      public void SpliceDesignDrawingNo() {
-    	  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", tbSpliceDesigndrawingNo);
-      }
-      
-      public void calculatebuttondisable() {
-    	  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", btCalculate);
-      }
+	         
       
       public void customername() {
-    	  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", drCustomerName);
 		  drCustomerName.click();
       }
 
       public void conveyorername() {
-    	  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", drConveyorName);
+    	
 		  drConveyorName.click();
       }
       
       public void Approvername() {
-    	  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", drApproverName);
-		  drApproverName.click();
+    			  drApproverName.click();
       }
       
       public void clickonclear() {
@@ -320,7 +240,9 @@ public class FabricspliceAddPage extends BasePage{
       }
       
       public void clickoncalculate() {
+    	  waitForPageLoad(6000);
     	  btCalculate.click();
+    	  waitForPageLoad(10000);
       }
       
       public void selectvalue(WebElement value) {
@@ -350,56 +272,49 @@ public class FabricspliceAddPage extends BasePage{
 		  js.executeScript("arguments[0].style.border='4px groove blue'", overallbeltthicknesserror);
      }
       public void inputdata() {
-    	  SyncUtil.waitFor(4000);
-    	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    	  drChooseyourmarket.click();
-    	  //selectvalueAPAC.click();
-    	 drChooseyourmarketAPAC.click();
-    	 //selectdropdownvalue("(//div[@class='p-fluid'])[6]", "//p-dropdownitem[@class='ng-tns-c82-106 ng-star-inserted']","APAC");
-    	 drProductionLocationofSpliceKit.click();
-    	 drProductionLocationofSpliceKitvalue.click();
-    	 drCustomerName.click();
-    	 drCustomerNamevalue.click();
-    	 SyncUtil.waitFor(2000);
-    	 drConveyorName.click();
-    	 drConveyorNamevalue.click();
-    	 drApproverName.click();
-    	 drApproverNamevalue.click();
-    	 drBeltConstruction.click();
-    	 drBeltConstructionvalue.click();
-    	 tbBeltwidth.sendKeys("1200");
-    	 drBeltTypeFabric.click();
-    	 drBeltTypeFabricvalue.click();
-    	 SyncUtil.waitFor(2000);
-    	 drTopcovercompound.click();
-    	 drTopcovercompoundvalue.click();
-    	 drBottomcovercompound.click();
-    	 drBottomcovercompoundvalue.click();
-    	 drTopcoverthickness.click();
-    	 drTopcoverthicknessvalue.click();
-    	 drBottomcoverthickness.click();
-    	 drBottomcoverthicknessvalue.click();
-    	 tboverallbeltthickness.sendKeys("1");
-    	 SyncUtil.waitFor(3000);
-    	 tboverallbeltthickness.clear();
-    	 tboverallbeltthickness.sendKeys("3");
-    	 
-    
+    	  waitForPageLoad(5000);
+    	  dropdownselectsearch(drChooseyourmarket, tbinput, "APAC");
+    	  dropdownselectsearch(drProductionLocationofSpliceKit, tbinput, "Moers");
+    	  dropdownselectsearch(drCustomerName, tbinput, "SiteAsia");
+    	  dropdownselectsearch(drConveyorName, tbinput, "rfb1");
+    	  dropdownselect(drApproverName, drapproverlist, "Test Approver 1.FS");
+    	  dropdownselectsearch(drBeltConstruction, tbinput, "ContiFlex");
+    	  tbBeltwidth.type("1200");
+    	  dropdownselectsearch(drBeltTypeFabric, tbinput, "EP800/5");
+    	  dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
+    	  dropdownselectsearch(drBottomcovercompound, tbinput, "DEFENDER Y");
+    	  dropdownselectsearch(drTopcoverthickness, tbinput, "7");
+    	  dropdownselectsearch(drBottomcoverthickness, tbinput, "6");
+    	  tboverallbeltthickness.type("10");
+    	  tboverallbeltthickness.type("20");
+    	  
+    	   
       }
       
-      public void Splicedrawingnovisible() {
-    	  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove red'", tbSpliceDesigndrawingNo);
+      public void inputdataD() {
+    	  waitForPageLoad(5000);
+    	  dropdownselectsearch(drChooseyourmarket, tbinput, "APAC");
+    	  dropdownselectsearch(drProductionLocationofSpliceKit, tbinput, "Jorf");
+    	  dropdownselectsearch(drCustomerName, tbinput, "Mining Corp. China");
+    	  dropdownselectsearch(drConveyorName, tbinput, "do not delete");
+    	  dropdownselect(drApproverName, drapproverlist, "Test Approver 1.FS");
+    	  dropdownselectsearch(drBeltConstruction, tbinput, "ContiFlex");
+    	  tbBeltwidth.type("1200");
+    	  dropdownselectsearch(drBeltTypeFabric, tbinput, "EP800/5");
+    	  dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
+    	  dropdownselectsearch(drBottomcovercompound, tbinput, "DEFENDER Y");
+    	  dropdownselectsearch(drTopcoverthickness, tbinput, "7");
+    	  dropdownselectsearch(drBottomcoverthickness, tbinput, "6");
+    	  tboverallbeltthickness.type("10");
+    	  tboverallbeltthickness.type("20");
+    	  
+    	   
       }
       
       public void clickongeneratePDF() {
-    	  SyncUtil.waitFor(3000);
-    	  JavascriptExecutor js1 = (JavascriptExecutor)driver;
-    	  js1.executeScript("window.scrollBy(0,500)", "");
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove red'", btGeneratePDF);
-    	 // btGeneratePDF.click();
+    	  
+           btGeneratePDF.click();
+           waitForPageLoad(5000);
       }
       
       public void clickonsaveasadraft() {
@@ -407,28 +322,25 @@ public class FabricspliceAddPage extends BasePage{
     	  SyncUtil.waitFor(5000);
       }
       
-      public void DrafteSplicerow() {
-    	  SyncUtil.waitFor(3000);
-		  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove blue'", Draftrow);
-      }
+     
       public void clickonview() {
     	  viewicon.click();
     	  SyncUtil.waitFor(3000);
       }
       
-      public void clickonsplicekitBOM() {
-    	  SyncUtil.waitFor(3000);
-    	  JavascriptExecutor js1 = (JavascriptExecutor)driver;
-    	  js1.executeScript("window.scrollBy(0,500)", "");
+      public void clickonsplicekitBOM() throws Throwable {
+    	 waitForPageLoad(4000);
+    
     	  tabSplicekitBOM.click();
+    	  scrollPageDown();
       }
       public void clickoncommentslog() {
-    	  SyncUtil.waitFor(2000);
+          waitForPageLoad(4000);
     	  tabCommentslog.click();
       }
       
       public void entercomments() {
+    	  tabDesign.click();
     	  taDesignercomment.click();
     	  taDesignercomment.sendKeys("Please Review it.");
       }
@@ -438,7 +350,7 @@ public class FabricspliceAddPage extends BasePage{
       }
       
       public void clickoncheckbox() {
-    	  SyncUtil.waitFor(3000);
+    	
     	  checkbox.click();
     	  Actionsarrow.click();
       }
@@ -447,13 +359,12 @@ public class FabricspliceAddPage extends BasePage{
     	  lupdate.click();
       }
       
-      public void enteradditionalnotes() {
-    	  
+      public void enteradditionalnotes() throws Throwable {
     	  tabDesign.click();
-    	  JavascriptExecutor js1 = (JavascriptExecutor)driver;
-    	  js1.executeScript("window.scrollBy(0,1500)", "");
+    	  scrollPageDown();
+    	  scrollPageDown();
     	  taAdditionalnotes.click();
-    	  taAdditionalnotes.sendKeys("Added additional notes");
+    	  taAdditionalnotes.type("Added additional notes");
     	 
       }
       
@@ -461,22 +372,14 @@ public class FabricspliceAddPage extends BasePage{
     	  lfabrickist.click();
       }
       
-      public void fieldsshouldbeeditable() {
-    	  JavascriptExecutor js1 = (JavascriptExecutor)driver;
-    	  js1.executeScript("window.scrollBy(0,1700)", "");
-    	  tadesignadditionalnotes.click();
-    	  tadesignadditionalnotes.sendKeys("Approver Comments");
-    	  
+      public void fieldsshouldbeeditable() throws Throwable {
+    	  scrollPageDown();
+    	  taAdditionalnotes.click();
+    	  taAdditionalnotes.sendKeys("Approver Comments");
+    	  scrollPageup();
       }
       
-      public void rejectapprove() {
-    	  SyncUtil.waitFor(3000);
-    	  JavascriptExecutor js = (JavascriptExecutor)driver;
-		  js.executeScript("arguments[0].style.border='4px groove red'", btreject);
-		  JavascriptExecutor js2 = (JavascriptExecutor)driver;
-		  js2.executeScript("arguments[0].style.border='4px groove red'", btapprove);
-      }
-      
+     
       public void clickonapprove() {
     	  btapprove.click();
       }

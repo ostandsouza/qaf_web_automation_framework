@@ -1,12 +1,16 @@
 package com.web.pages;
 
 
+
+
 import org.openqa.selenium.WebElement;
 
 import com.common.component.CustomElement;
 import com.common.utils.SyncUtil;
+import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
+import com.qmetry.qaf.automation.util.Reporter;
 
 public class UsersPage extends BasePage{
 
@@ -15,7 +19,7 @@ public class UsersPage extends BasePage{
 
 
 	@FindBy(locator = "xpath=//span[text()='Users']")
-	public CustomElement lUsers;
+	public CustomElement lnkUsers;
 
 	@FindBy(locator = "xpath=//span[@class='p-button-icon ctp-icon-Add-circle']")
 	public CustomElement btAdd;
@@ -29,95 +33,115 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//input[@name='email']")
 	public CustomElement tbEmail;
 
-	@FindBy(locator = "xpath=/html/body/app-root/app-layout/div/div[2]/div/app-user-add/div[2]/app-user-info/div/div[2]/form[1]/div/div[6]/div/div/p-dropdown/div/span")
-	public CustomElement Selectprofiletype;
+	@FindBy(locator = "xpath=//div[contains(@class,'conti-dropdown')]")
+	public CustomElement ddlSelectprofiletype;
 
-	@FindBy(locator = "xpath=//p-radiobutton[@ng-reflect-value='Master']")
-	public CustomElement SelectprofiletypeMaster;
+	@FindBy(locator = "xpath=//li[@aria-label='USERS.USER_INFO.PROFILE_TYPES_MASTER']")
+	public CustomElement rdbSelectprofiletypeMaster;
 
-	@FindBy(locator = "xpath=//p-radiobutton[@ng-reflect-value='Market manager']")
-	public CustomElement Selectprofiletypemarketmanager;
+	@FindBy(locator = "xpath=//li[@aria-label='USERS.USER_INFO.PROFILE_TYPES_MARKET_MANAGER']")
+	public CustomElement rdbSelectprofiletypemarketmanager;
 
-	@FindBy(locator = "xpath=//p-radiobutton[@ng-reflect-value='Territory Manager']")
-	public CustomElement Selectprofiletypeterritorymanager;
+	@FindBy(locator = "xpath=//li[@aria-label='USERS.USER_INFO.PROFILE_TYPES_TERRITORY_MANAGER']")
+	public CustomElement rdbSelectprofiletypeterritorymanager;
 
-	@FindBy(locator = "xpath=//p-radiobutton[@ng-reflect-value='Standard Continental User']")
-	public CustomElement SelectprofiletypeStandardContinentalUser;
-
-	@FindBy(locator = "xpath=(//input[@ng-reflect-ng-class='[object Object]'])[1]")
+	@FindBy(locator = "xpath=//li[@aria-label='USERS.USER_INFO.PROFILE_TYPES_STANDARD_CONTINENTAL_USER']")
+	public CustomElement rdbSelectprofiletypeStandardContinentalUser;
+	
+	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.PROFILE_TYPES_DISTRIBUTOR_USER']")
+	public CustomElement rdbSelectprofiletypeDistributorUser;
+	
+	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.PROFILE_TYPES_CUSTOMER_USER']")
+	public CustomElement rdbSelectprofiletypeCustomerUser;
+	
+	@FindBy(locator = "xpath=//p-password[@formcontrolname='password']//div//input")
 	public CustomElement tbuserPassword;
 
-	@FindBy(locator = "xpath=(//input[@ng-reflect-ng-class='[object Object]'])[2]")
+	@FindBy(locator = "xpath=//p-password[@formcontrolname='confirmPassword']//div//input")
 	public CustomElement tbRetypePassword;
 
 	@FindBy(locator = "xpath=//span[text()='Generate password']")
 	public CustomElement btGeneratePassword;
 
-	@FindBy(locator = "xpath=//button[@class='btn-next p-button p-component ng-star-inserted']")
+	@FindBy(locator = "xpath=//span[text()='Next']")
 	public CustomElement btNext;
-
-	@FindBy(locator = "xpath=(//span[@class='p-tree-toggler-icon pi pi-fw pi-chevron-right'])[1]")
-	public CustomElement ArrowMT;
-
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[3]")
-	public CustomElement CheckboxAPAC;
-
-	@FindBy(locator = "xpath=(//span[@class='p-tree-toggler-icon pi pi-fw pi-chevron-right'])[2]")
-	public CustomElement ArrowDistributors;
-
-	@FindBy(locator = "xpath=(//span[@class='p-tree-toggler-icon pi pi-fw pi-chevron-right'])[3]")
-	public CustomElement ArrowCustomers;
 	
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[1]")
-	public CustomElement AllcheckboxMarkets;
+	@FindBy(locator = "xpath=//div[@class='p-treenode-content p-treenode-selectable']//button")
+	public CustomElement eleArrowMT;
 
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[3]")
-	public CustomElement AllcheckboxDistributors;
+	@FindBy(locator = "xpath=//div[@aria-label='APAC']//button")
+	public CustomElement cbCheckboxAPAC;
+
+	@FindBy(locator = "xpath=//span[text()='Australia']")
+	public CustomElement cbCheckboxAustralia;
 	
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[1]")
-	public CustomElement AllcheckboxDistributors1;
+	@FindBy(locator = "xpath=//th[text()=' Add ']//p-checkbox")
+	public CustomElement cbAllcheckboxAdd;
 
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[4]")
-	public CustomElement AllcheckboxCustomers;
+	@FindBy(locator = "xpath=//th[text()=' Edit ']//p-checkbox")
+	public CustomElement cbAllcheckboxEdit;
+
+	@FindBy(locator = "xpath=//th[text()=' Delete ']//p-checkbox")
+	public CustomElement cbAllcheckboxDelete;
+
+	@FindBy(locator = "xpath=//th[text()=' View ']//p-checkbox")
+	public CustomElement cbAllcheckboxView;
+
+	@FindBy(locator = "xpath=//th[text()=' Download ']//p-checkbox")
+	public CustomElement cbAllcheckboxDownload;
 	
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[1]")
-	public CustomElement AllcheckboxCustomers1;
-
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[1]")
-	public CustomElement AllcheckboxAdd;
-
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[1]")
-	public CustomElement AllcheckboxEdit;
-
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[1]")
-	public CustomElement AllcheckboxDelete;
-
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[1]")
-	public CustomElement AllcheckboxView;
-	
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[4]")
-	public CustomElement AllcheckboxView1;
-
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[1]")
-	public CustomElement AllcheckboxDownload;
-	
-	@FindBy(locator = "xpath=(//div[@class='p-checkbox-box'])[4]")
-	public CustomElement AllcheckboxDownload1;
-
-	@FindBy(locator = "xpath=//button[@class='p-ripple p-button p-component']")
+	@FindBy(locator = "xpath=//span[text()='Save and Close']")
 	public CustomElement btSaveandClose;
 
-	@FindBy(locator = "xpath=(//span[text()='Admin'])[1]")
+	@FindBy(locator = "xpath=//span[text()='Admin']")
 	public CustomElement btprofile;
 
 	@FindBy(locator = "xpath=//h6[text()='Logout']")
 	public CustomElement btlogout;
 
+	@FindBy(locator = "xpath=//p-dropdown[@datakey='companyId']//div[@aria-label='dropdown trigger']")
+	public CustomElement ddlCorportaedropdown;
 	
+	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+	public CustomElement tbCorporateSearch;
+	
+	@FindBy(locator = "xpath=//p-dropdown[@formcontrolname='corporateRole']//div[@aria-label='dropdown trigger']")	
+	public CustomElement ddlCorporateroledropdown;
+	
+	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.CORPORATE_ROLE_MANAGER']")
+	public CustomElement rdbManager;
+	
+	@FindBy(locator="xpath=//p-multiselect[@formcontrolname='subscriptionType']")
+	public CustomElement ddlSubscriptionType;
 
+	@FindBy(locator="xpath=//div[text()=' Engineering ']")
+	public CustomElement eleEngineering;
+	
+	@FindBy(locator="xpath=//div[text()=' Basics ']")
+	public CustomElement eleBasics;
+	
+	@FindBy(locator="xpath=//tr[@class='p-selectable-row ng-star-inserted']//td//p-tablecheckbox")
+	public CustomElement cbTablecheckbox;
+	
+	@FindBy(locator="xpath=//button[@class='p-element p-splitbutton-menubutton p-button p-component p-button-icon-only']")
+	public CustomElement ddlActions;
+	
+	@FindBy(locator="xpath=//span[text()='Edit']")
+	public CustomElement btEdit;
+	
+	@FindBy(locator="xpath=//span[text()='Update']")
+	public CustomElement btUpdate;
+	
+	@FindBy(locator="//span[text()='Delete']")
+	public CustomElement btDelete;
+	
+	@FindBy(locator="//span[text()='Yes']")
+	public CustomElement btYes;
+	
+	
 	public void usersclick() {
 		SyncUtil.waitFor(3000);
-		lUsers.click();
+		lnkUsers.click();
 	}
 
 	public void Addclick() {
@@ -126,7 +150,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void setfullname(String Fullname) {
-		tbFullName.type(Fullname, "Fullnmae");
+		tbFullName.type(Fullname, "Fullname");
 	}
 	
 	public void setfullname1(String Fullname1) {
@@ -138,36 +162,45 @@ public class UsersPage extends BasePage{
 	}
 
 	public void setemail(String email) {
-		tbEmail.type(email,"email");		
+		tbEmail.type(email,"email");	
+		tbEmail.verifyText(email, "email");
 	}
 	
 	
 
 	public void setprofiletype(String profiletype) throws InterruptedException {
 
-		Selectprofiletype.click();
+		ddlSelectprofiletype.click();
 
 		WebElement listitem;
 		Thread.sleep(3000);
 
 		if(profiletype.equals("Master"))
 		{
-			listitem=SelectprofiletypeMaster;
+			listitem=rdbSelectprofiletypeMaster;
 		}
 		else if(profiletype.equals("Market manager"))
 		{
-			listitem=Selectprofiletypemarketmanager;
+			listitem=rdbSelectprofiletypemarketmanager;
 		}
 		else if(profiletype.equals("Territory Manager"))
 		{
-			listitem=Selectprofiletypeterritorymanager;
+			listitem=rdbSelectprofiletypeterritorymanager;
 		}
 		else if(profiletype.equals("Standard Continental User"))
 		{
-			listitem=SelectprofiletypeStandardContinentalUser;
+			listitem=rdbSelectprofiletypeStandardContinentalUser;
+		}
+		else if(profiletype.equals(" Distributor user "))
+		{
+			listitem=rdbSelectprofiletypeDistributorUser;
+		}
+		else if(profiletype.equals(" Customer user "))
+		{
+			listitem=rdbSelectprofiletypeCustomerUser;
 		}
 		else
-			listitem=Selectprofiletype;
+			listitem=ddlSelectprofiletype;
 
 		listitem.click();
 
@@ -186,79 +219,94 @@ public class UsersPage extends BasePage{
 	}
 
 	public void setpermission() {
+		waitForPageLoad(5000);
+		eleArrowMT.click();
+		cbCheckboxAPAC.click();
+		cbCheckboxAustralia.click();
+		//AllcheckboxDistributors.click();
 		SyncUtil.waitFor(10000);
-		ArrowMT.click();
-		SyncUtil.waitFor(3000);
-		CheckboxAPAC.click();
-		SyncUtil.waitFor(3000);
-		AllcheckboxCustomers.click();
-		SyncUtil.waitFor(3000);
-		AllcheckboxDistributors.click();
+	//	AllcheckboxCustomers.click();
 		btNext.click();
-		SyncUtil.waitFor(7000);
-		AllcheckboxAdd.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxEdit.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxDelete.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxView.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxDownload.click();
-
+		SyncUtil.waitFor(10000);
+		cbAllcheckboxAdd.click();
+		cbAllcheckboxEdit.click();
+		cbAllcheckboxDelete.click();
+		cbAllcheckboxView.click();
+		cbAllcheckboxDownload.click();
 	}
 	
 	public void setpermissionsc() {
-		SyncUtil.waitFor(10000);
-		ArrowMT.click();
+		waitForPageLoad(5000);
 		SyncUtil.waitFor(3000);
-		CheckboxAPAC.click();
-		SyncUtil.waitFor(3000);
-		AllcheckboxCustomers.click();
-		SyncUtil.waitFor(3000);
-		AllcheckboxDistributors.click();
 		btNext.click();
-		SyncUtil.waitFor(7000);
+		SyncUtil.waitFor(10000);
+		cbAllcheckboxView.click();
 		SyncUtil.waitFor(2000);
-		AllcheckboxView1.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxDownload1.click();
+		cbAllcheckboxDownload.click();
 
 	}
 	
 	public void setpermissionmm1() {
-		SyncUtil.waitFor(10000);
-		AllcheckboxMarkets.click();
-		SyncUtil.waitFor(3000);
-		AllcheckboxCustomers1.click();
-		SyncUtil.waitFor(3000);
-		AllcheckboxDistributors1.click();
+		waitForPageLoad(5000);
 		btNext.click();
 		SyncUtil.waitFor(7000);
-		AllcheckboxAdd.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxEdit.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxDelete.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxView.click();
-		SyncUtil.waitFor(2000);
-		AllcheckboxDownload.click();
+		cbAllcheckboxAdd.click();
+		cbAllcheckboxEdit.click();
+		cbAllcheckboxDelete.click();
+		cbAllcheckboxView.click();
+		cbAllcheckboxDownload.click();
 	}
 
 	public void Clicksaveandclose() {
+		waitForPageLoad(3000);
 		btSaveandClose.click();
-		SyncUtil.waitFor(8000);
+		SyncUtil.waitFor(10000);
+		Reporter.log("User is created",MessageTypes.Pass);
 	}
 
 	
     public void clickonlogout() {
-    	SyncUtil.waitFor(3000);
+    
     	btprofile.click();
     	btlogout.click();
     	
     }
 
+    public void Distributorinformation() {
+    	dropdownselectsearch(ddlCorportaedropdown, tbCorporateSearch, "Sudheer India Distributor corporate");
+    	ddlCorporateroledropdown.click();
+    	rdbManager.click();
+    	ddlSubscriptionType.click();
+    	eleEngineering.click();
+    	eleBasics.click();
+    }
+    
+    public void Customerinformation() {
+    	dropdownselectsearch(ddlCorportaedropdown, tbCorporateSearch, "sudheer custom corporate");
+    	ddlCorporateroledropdown.click();
+    	rdbManager.click();
+    	ddlSubscriptionType.click();
+    	eleEngineering.click();
+    	eleBasics.click();
+    }
+   
+    public void Edituser() {
+    	cbTablecheckbox.click();
+        ddlActions.click();
+        btEdit.click();
+        tbPhone.type("+919676734321");
+        btUpdate.click();
+        Reporter.log("User Updated Successfully",MessageTypes.Pass);
+ 	}
+    
+    public void Deleteuser() {
+    	cbTablecheckbox.click();
+    	ddlActions.click();
+    	btDelete.click();
+    	btYes.click();
+    	Reporter.log("User deleted successfully",MessageTypes.Pass);
+       
+    }
 
 
 }
