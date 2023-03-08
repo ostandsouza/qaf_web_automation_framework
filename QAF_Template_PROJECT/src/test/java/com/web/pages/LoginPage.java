@@ -55,7 +55,7 @@ public class LoginPage extends BasePage {
 		tbUserName.type(userName, "UserName"); 
         tbPassword.type(password, "Password");
         btnLogIn.click("LOGIN");
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+		waitForElementToInvisible(btnLogIn,15000);
     }
 
 

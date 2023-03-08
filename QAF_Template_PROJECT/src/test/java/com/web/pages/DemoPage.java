@@ -14,21 +14,25 @@ import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.util.Reporter;
-import com.web.component.AddressComponent;
-import com.web.component.DropDownListWithoutSearch;
+import org.openqa.selenium.support.FindAll;
+//import com.web.component.AddressComponent;
+//import com.web.component.DropDownListWithoutSearch;
 
-public class DemoPage extends BasePage{
+	public class 	DemoPage extends BasePage{
 	
 
 	
-	@FindBy(locator = "xpath=(//a[@routerlinkactive='active-menuitem-routerlink'])[15]")
+	@FindBy(locator = "xpath=//span[text()='Corporates']")
 	public CustomElement lCorporates;
 	
 	@FindBy(locator = "xpath=(//a[@routerlinkactive='active-menuitem-routerlink'])[3]")
 	public CustomElement lConveyors;
-	
+
 	@FindBy(locator = "xpath=//span[@class='p-button-icon ctp-icon-Add-circle']")
 	public CustomElement btAdd;
+
+	@FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
+	public CustomElement btAddCorp;
 	
 	@FindBy(locator = "xpath=//input[@name='company_name']")
 	public CustomElement tbCompanyName;
@@ -38,6 +42,9 @@ public class DemoPage extends BasePage{
 	
 	@FindBy(locator = "xpath=//button[@class='p-element p-button p-component ng-star-inserted']")
 	public CustomElement btSaveandclose;
+
+	@FindBy(locator = "xpath=//span[@class='p-button-label']")
+	public CustomElement btSaveandcloseCorp;
 	
 	@FindBy(locator = "xpath=(//div[@role='button'])[1]")
 	public CustomElement drTypeofcompany;
@@ -58,7 +65,7 @@ public class DemoPage extends BasePage{
 	public CustomElement drDistributorcorporatevalue;
 	
 	@FindBy(locator = "xpath=(.//button)[1]")
-	public DropDownListWithoutSearch drTerritory;
+	public CustomElement drTerritory;
 
 	@FindBy(locator = "xpath=//p-autocomplete[@ng-reflect-name='territory']//span//button")
 	public CustomElement drTerritorybutton;
@@ -72,7 +79,7 @@ public class DemoPage extends BasePage{
 	
 	
 	@FindBy(locator = "xpath=//span[text()='Anna Mueller']")
-	public DropDownListWithoutSearch drt;
+	public CustomElement drt;
 	
 	@FindBy(locator = "xpath=//input[@class='p-inputtext p-component p-element p-col-12 pac-target-input']")
 	public CustomElement inAddress;
@@ -81,7 +88,7 @@ public class DemoPage extends BasePage{
 	public CustomElement inAddressfilled;
 	
 	@FindBy(locator = "xpath=//input[@id='autocomplete-address']")
-	public AddressComponent tbAddress;
+	public CustomElement tbAddress;
 	
 	@FindBy(locator = "xpath=//input[@id='firstname1']")
 	public CustomElement tbConveyorname;
@@ -143,15 +150,19 @@ public class DemoPage extends BasePage{
 	 
 	public void clickcorporates() {
 		waitForPageLoad(4000);
+		waitForElementVisible(lCorporates, 10000,500);
 		lCorporates.click();
+		waitForPageLoad(4000);
+		SyncUtil.waitFor(2000);
 	}
 	
-	public void createcorportae(String companyname, String Address) throws InterruptedException {
+	public void createcorportae(String companyname, String Address) {
 		waitForPageLoad(4000);
-		btAdd.click();
-		SyncUtil.waitFor(10000);
+		waitForElementToDisplay(btAddCorp);
+		btAddCorp.click();
+		waitForElementVisible(tbCompanyName, 10000,500);
 		tbCompanyName.type(companyname);		
-	    tbAddress.selectAddress(Address);	    
+	    tbAddress.type(Address);
      	/*String text;
 		do
 		{    
@@ -166,14 +177,22 @@ public class DemoPage extends BasePage{
 			
 		}while(!text.isEmpty());
 		SyncUtil.waitFor(5000);*/
-		btSaveandclose.click();		
+		try {
+			scrollPageDown();
+		}
+		catch(Throwable e){
+
+		}
+		SyncUtil.waitFor(5000);
+		btSaveandcloseCorp.click();
 		Reporter.log(companyname +"corporate is created" , MessageTypes.Pass);
 	}
 	
 	public void createdistribtorshop(String companyname1, String Address1) {
-	
-		btAdd.click();
-		waitForPageLoad(7000);
+		waitForElementVisible(btAddCorp, 10000,500);
+		btAddCorp.click();
+		SyncUtil.waitFor(2000);
+		waitForElementVisible(drTypeofcompany, 10000,500);
 		drTypeofcompany.click();
 		radioDistribtorshop.click();
 		dropdownselectsearch(drDistributorcorporate, tbSitedropdown,"Belt Associates India 1");
@@ -183,8 +202,15 @@ public class DemoPage extends BasePage{
 		//waitForPageLoad(7000);
 		dropdownselect(drTerritorybutton, drTerritoryvalue, "Spain");
 		dropdownselect(drTerritoryManagerbutton, drTerritoryManagervalue, "Jhon Doe");
-		tbAddress.selectAddress(Address1);
-		btSaveandclose.click();		
+		tbAddress.type(Address1);
+		try {
+			scrollPageDown();
+		}
+		catch(Throwable e){
+
+		}
+		SyncUtil.waitFor(5000);
+		btSaveandcloseCorp.click();
 		Reporter.log(companyname1 + "distributorshop is created" , MessageTypes.Pass);
 	}
 	
@@ -201,7 +227,7 @@ public class DemoPage extends BasePage{
 		//waitForPageLoad(7000);
 		dropdownselect(drTerritorybutton, drTerritoryvalue, "Germany");
 		dropdownselect(drTerritoryManagerbutton, drTerritoryManagervalue, "Jhon Doe");
-		tbAddress.selectAddress(Address2);
+//		tbAddress.selectAddress(Address2);
 		btSaveandclose.click();	
 		Reporter.log(companyname2 + "distributorshop is created" , MessageTypes.Pass);
 	}
@@ -212,7 +238,7 @@ public class DemoPage extends BasePage{
 		drTypeofcompany.click();
 		radioCustomerCorportae.click();
 		tbCompanyName.sendKeys(ccCompanyname);
-		tbAddress.selectAddress(ccAddress);	
+//		tbAddress.selectAddress(ccAddress);
 		btSaveandclose.click();			
 		Reporter.log(ccCompanyname +" customercorporate is created", MessageTypes.Pass);
 	}
@@ -227,7 +253,7 @@ public class DemoPage extends BasePage{
 		tbCompanyName.type(csCompanyname);
 		dropdownselect(drTerritorybutton, drTerritoryvalue, "Italy");
 		dropdownselect(drTerritoryManagerbutton, drTerritoryManagervalue, "Anna Mueller");
-		tbAddress.selectAddress(csAddress);	
+//		tbAddress.selectAddress(csAddress);
 		btSaveandclose.click();	
 		Reporter.log(csCompanyname +" customersite is created", MessageTypes.Pass);
 		
@@ -243,7 +269,7 @@ public class DemoPage extends BasePage{
 		tbCompanyName.type(csGCompanyname);
 		dropdownselect(drTerritorybutton, drTerritoryvalue, "Italy");
 		dropdownselect(drTerritoryManagerbutton, drTerritoryManagervalue, "Axel Eckmann");
-		tbAddress.selectAddress(csAGddress);	
+//		tbAddress.selectAddress(csAGddress);
 		btSaveandclose.click();	
 		Reporter.log(csGCompanyname +" customersite is created", MessageTypes.Pass);
 	}

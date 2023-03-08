@@ -21,7 +21,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//span[text()='Users']")
 	public CustomElement lnkUsers;
 
-	@FindBy(locator = "xpath=//span[@class='p-button-icon ctp-icon-Add-circle']")
+	@FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
 	public CustomElement btAdd;
 
 	@FindBy(locator = "xpath=//input[@name='full_name']")
@@ -65,29 +65,34 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator = "xpath=//span[text()='Next']")
 	public CustomElement btNext;
-	
-	@FindBy(locator = "xpath=//div[@class='p-treenode-content p-treenode-selectable']//button")
+
+	@FindBy(locator = "xpath=//div[@aria-label='All']//button")
 	public CustomElement eleArrowMT;
+
+	@FindBy(locator = "xpath=//div[@aria-label='All']//div[contains(@class,'p-checkbox')]")
+	public CustomElement eleCheckboxMT;
 
 	@FindBy(locator = "xpath=//div[@aria-label='APAC']//button")
 	public CustomElement cbCheckboxAPAC;
 
 	@FindBy(locator = "xpath=//span[text()='Australia']")
 	public CustomElement cbCheckboxAustralia;
-	
-	@FindBy(locator = "xpath=//th[text()=' Add ']//p-checkbox")
+
+	@FindBy(locator = "xpath=//i[contains(@class,'pi-spinner')]")
+	public CustomElement cbSpinner;
+	@FindBy(locator = "xpath=//th[contains(text(),'Add')]/p-tristatecheckbox")
 	public CustomElement cbAllcheckboxAdd;
 
-	@FindBy(locator = "xpath=//th[text()=' Edit ']//p-checkbox")
+	@FindBy(locator = "//th[contains(text(),'Edit')]/p-tristatecheckbox")
 	public CustomElement cbAllcheckboxEdit;
 
-	@FindBy(locator = "xpath=//th[text()=' Delete ']//p-checkbox")
+	@FindBy(locator = "xpath=//th[contains(text(),'Delete')]/p-tristatecheckbox")
 	public CustomElement cbAllcheckboxDelete;
 
-	@FindBy(locator = "xpath=//th[text()=' View ']//p-checkbox")
+	@FindBy(locator = "xpath=//th[contains(text(),'View')]/p-tristatecheckbox")
 	public CustomElement cbAllcheckboxView;
 
-	@FindBy(locator = "xpath=//th[text()=' Download ']//p-checkbox")
+	@FindBy(locator = "xpath=//th[contains(text(),'Download')]/p-tristatecheckbox")
 	public CustomElement cbAllcheckboxDownload;
 	
 	@FindBy(locator = "xpath=//span[text()='Save and Close']")
@@ -140,16 +145,17 @@ public class UsersPage extends BasePage{
 	
 	
 	public void usersclick() {
-		SyncUtil.waitFor(3000);
+		waitForElementVisible(lnkUsers, 10000,500);
 		lnkUsers.click();
 	}
 
 	public void Addclick() {
-		SyncUtil.waitFor(5000);
+		waitForElementToDisplay(btAdd);
 		btAdd.click();
 	}
 
 	public void setfullname(String Fullname) {
+		waitForElementVisible(tbFullName, 5000,500);
 		tbFullName.type(Fullname, "Fullname");
 	}
 	
@@ -158,11 +164,12 @@ public class UsersPage extends BasePage{
 	}
 
 	public void setPhone(String Phone) {
+		waitForElementVisible(tbPhone, 5000,500);
 		tbPhone.type(Phone, "Phone");
 	}
 
 	public void setemail(String email) {
-		tbEmail.type(email,"email");	
+		tbEmail.type(email,"email");
 		tbEmail.verifyText(email, "email");
 	}
 	
@@ -173,7 +180,6 @@ public class UsersPage extends BasePage{
 		ddlSelectprofiletype.click();
 
 		WebElement listitem;
-		Thread.sleep(3000);
 
 		if(profiletype.equals("Master"))
 		{
@@ -220,14 +226,16 @@ public class UsersPage extends BasePage{
 
 	public void setpermission() {
 		waitForPageLoad(5000);
-		eleArrowMT.click();
+		waitForElementVisible(eleArrowMT, 10000,500);
+		eleCheckboxMT.click();
 		cbCheckboxAPAC.click();
 		cbCheckboxAustralia.click();
 		//AllcheckboxDistributors.click();
-		SyncUtil.waitFor(10000);
 	//	AllcheckboxCustomers.click();
+		waitForElementVisible(btNext, 5000,500);
 		btNext.click();
-		SyncUtil.waitFor(10000);
+		SyncUtil.waitFor(1000);
+		waitForElementToInvisible(cbSpinner,10000);
 		cbAllcheckboxAdd.click();
 		cbAllcheckboxEdit.click();
 		cbAllcheckboxDelete.click();
@@ -259,6 +267,7 @@ public class UsersPage extends BasePage{
 
 	public void Clicksaveandclose() {
 		waitForPageLoad(3000);
+		waitForElementVisible(btSaveandClose, 10000,500);
 		btSaveandClose.click();
 		SyncUtil.waitFor(10000);
 		Reporter.log("User is created",MessageTypes.Pass);

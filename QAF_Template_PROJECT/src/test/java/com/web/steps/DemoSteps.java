@@ -4,16 +4,17 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
-import com.web.pages.BasePage;
-import com.web.pages.DemoPage;
-import com.web.pages.LoginPage;
-import com.web.pages.UsersPage;
+import com.web.pages.*;
 
-public class DemoSteps extends BasePage {
+import static com.web.pages.BasePage.randomestring;
+
+public class DemoSteps{
 
 	LoginPage loginPage = new LoginPage();
 	UsersPage userpage = new UsersPage();
 	DemoPage demopage = new DemoPage();
+
+    DashboardPage dashboardpage = new DashboardPage();
 
     @QAFTestStep(description = "User is at Login page")
     public void verifyUserIsAtLoginPage() {
@@ -23,6 +24,7 @@ public class DemoSteps extends BasePage {
     @QAFTestStep(description = "Login with {UserName} and {Password}")   
      public void loginWithAnd(String UserName, String Password) {
         loginPage.loginToApp(UserName, Password);
+        dashboardpage.handleCookiePopup();
     }
     @QAFTestStep(description="Check profile")
     public void checkProfile(){
@@ -48,9 +50,9 @@ public class DemoSteps extends BasePage {
 		userpage.Clicksaveandclose();
     }
     @QAFTestStep(description="Create a Territory manager for Germany Max Mustermann {Fullname1} and {Phone} and {Profiletype} and {Userpassword} and {Retypepassword}")
-    public void createATerritoryManagerForGermanyMaxMustermannAndAndAndAnd(String Fullname1,String Phone,String Profiletype,String Userpassword,String Retypepassword) throws InterruptedException{
-    	waitForPageLoad(5000);
-    	userpage.Addclick();
+    public void createATerritoryManagerForGermanyMaxMustermannAndAndAndAnd(String Fullname1,String Phone,String Profiletype,String Userpassword,String Retypepassword) throws InterruptedException {
+        SyncUtil.waitFor(5000);
+        userpage.Addclick();
     	userpage.setfullname1(Fullname1);
 		userpage.setPhone(Phone);
 		String Email = "Demotm"+randomestring()+"@mailinator.com";
@@ -65,26 +67,26 @@ public class DemoSteps extends BasePage {
     }
     
     @QAFTestStep(description="Create a Distributor Corporate Belt Associates Corp {companyname} and {Address}")
-    public void createADistributorCorporateBeltAssociatesCorp(String companyname, String Address) throws InterruptedException{
+    public void createADistributorCorporateBeltAssociatesCorp(String companyname, String Address){
     	demopage.clickcorporates();
-    	demopage.createcorportae(companyname, Address);
+    	demopage.createcorportae(companyname, "india");
     
     } 
     @QAFTestStep(description="Create a Distributor shop in India Belt Associates India with TM John Doe {companyname1} and {Address1}")
     public void createADistributorShopInIndiaBeltAssociatesIndiaWithTMJohnDoe(String companyname1,String Address1){
     	demopage.clickcorporates();
-    	demopage.createdistribtorshop(companyname1, Address1);
+    	demopage.createdistribtorshop(companyname1, "india");
     }
     
     @QAFTestStep(description="Create a Distributor shop in Germany Belt Associates Germany with TM Max Mustermann {companyname2} and {Address2}")
     public void CreateaDistributorshopinGermanyBeltAssociatesGermanywithTMMaxMustermann(String companyname2,String Address2) {
-    	demopage.createdistribtorshop2(companyname2, Address2);
+    	demopage.createdistribtorshop2(companyname2, "india");
     }
 
     @QAFTestStep(description="Create a Customer Corporate Mining Corp {ccCompanyname} and {ccAddress}")
     public void createACustomerCorporateMiningCorp(String ccCompanyname, String ccAddress) throws InterruptedException{
     	demopage.clickcorporates();
-    	demopage.createcustomercorporate(ccCompanyname, ccAddress);
+    	demopage.createcustomercorporate(ccCompanyname, "india");
     	
     }
     @QAFTestStep(description="Create a Customer site in India Â Mining Corp. India with Distrib Belt Associates India {csCompanyname} and {csAddress}")
