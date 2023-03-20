@@ -48,34 +48,34 @@ public class UserSteps extends BasePage {
 	@QAFTestStep(description = "User enter all required details {Fullname} and {Phone} and {Profiletype} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetails(String Fullname,String Phone,String Profiletype,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullname);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email = "Demotm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email);
 		userpage.setprofiletype(Profiletype);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
-		userpage.setpermission();
+		userpage.setTerritory("APAC");
 		
             }                 
 	@QAFTestStep(description = "User enter the required details {Fullname1} and {Phone} and {Profiletypetu} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetails1(String Fullname1,String Phone,String Profiletypetu,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullname1);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email1 = "Demosc"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypetu);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
-		userpage.setpermissionsc();
+		userpage.setPermissions();
 		
             } 
 	
 	@QAFTestStep(description = "User enter required details {Fullname2} and {Phone} and {Profiletypeta1} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetail(String Fullname2,String Phone,String Profiletypeta1,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullname2);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypeta1);
@@ -88,7 +88,7 @@ public class UserSteps extends BasePage {
 	@QAFTestStep(description = "User enter required details {Fullname3} and {Phone} and {Profiletypeta1} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetailta2(String Fullname3,String Phone,String Profiletypeta1,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullname3);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypeta1);
@@ -102,7 +102,7 @@ public class UserSteps extends BasePage {
 	@QAFTestStep(description = "User enter required details {Fullname4} and {Phone} and {Profiletypeta} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetailta(String Fullname4,String Phone,String Profiletypeta,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullname4);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypeta);

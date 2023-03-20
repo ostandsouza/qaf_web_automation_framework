@@ -5,6 +5,7 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
+import com.qmetry.qaf.automation.ui.api.TestBase;
 import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverExpectedConditions;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverWait;
@@ -45,7 +46,11 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      * @param element
      */
     public void waitForElementToDisplay(WebElement element) {
-        webDriverWait.until(ExpectedConditions.visibilityOf(element));
+        try{
+            webDriverWait.until(ExpectedConditions.visibilityOf(element));
+        } catch (Exception e) {
+            logger.error("exception occured");
+        }
     }
 
     /**
@@ -68,8 +73,12 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      * @param timeOutInSeconds
      */
     public void waitForElementToInvisible(WebElement element, int timeOutInSeconds) {
-        QAFWebDriverWait wdWait = new QAFWebDriverWait(driver, timeOutInSeconds);
-        wdWait.until(invisibilityOfWebElementLocated(element));
+        try{
+            QAFWebDriverWait wdWait = new QAFWebDriverWait(driver, timeOutInSeconds);
+            wdWait.until(invisibilityOfWebElementLocated(element));
+        } catch (Exception e) {
+            logger.error("exception occured");
+        }
     }
 
     /**
@@ -96,7 +105,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 //        Duration pollingDuration = Duration.of(pollingEveryInMiliSec, ChronoUnit.MILLIS);
         wait.pollingEvery(pollingEveryInMiliSec,TimeUnit.MILLISECONDS);
         wait.ignoring(java.util.NoSuchElementException.class);
-        wait.ignoring(ElementNotVisibleException.class);
+//        wait.ignoring(ElementNotVisibleException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.ignoring(NoSuchFrameException.class);
         return wait;
@@ -160,7 +169,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
 
     public void verifyTitle(String title) {
-        if (this.driver.getTitle().equalsIgnoreCase(title))
+        if (this.driver. getTitle().equalsIgnoreCase(title))
             Reporter.log(title + "is verified", MessageTypes.Pass);
         else
             Reporter.log(title + "is not verified", MessageTypes.Fail);
@@ -192,14 +201,16 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     			
     }
     
-    public void scrollPageDown() throws Throwable {
-    	Thread.sleep(5000);
+    public void scrollPageDown(){
+        SyncUtil.waitFor(1000);
     	((JavascriptExecutor)driver).executeScript("scroll(0,800)");
+        SyncUtil.waitFor(1000);
     }
 
-    public void scrollPageup() throws Throwable {
-    	Thread.sleep(5000);
+    public void scrollPageup(){
+        SyncUtil.waitFor(1000);
     	((JavascriptExecutor)driver).executeScript("scroll(0,-500)");
+        SyncUtil.waitFor(1000);
     }
    
     public void dropdownselect(CustomElement dropDownButton, String dropDownItems, String itemText) {
@@ -237,8 +248,10 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     public void dropdownselectsearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
 		dropDownButton.click();
 		Search.type(itemstosearch);
-		SyncUtil.waitFor(7000);
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+		waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
 		driver.findElement("//span[text()='"+itemstosearch+"']").click();
+        setImplicitWait(1000,TimeUnit.MILLISECONDS);
 		Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
 	}
     

@@ -1,0 +1,44 @@
+{
+  "auth_controller": {
+    "user_login": "/user-login",
+    "refresh_token": "/refresh-user-token"
+  },
+  "auth_controller": {
+    "user_login": "/user-login",
+    "refresh_token": "/refresh-user-token"
+  },
+  "conveyor_controller": {
+    "conveyor": "/conveyors",
+    "conveyor_count": "/conveyors-count",
+    "conveyor_ultrasonic": "/conveyor-ultrasonic",
+    "conveyor_inspections_count": "/conveyor-inspections"
+  },
+  "company_controller": {
+    "companies": "/companies",
+    "company_count": "/companies-count"
+  },
+  "devices_controller": {
+    "devices_count": "/devices-count"
+  },
+  "inspection_controller": {
+    "inspection_count": "/count"
+  },
+  "preference_controller": {
+    "preference": "/preferences"
+  },
+  "ultrasonic_controller": {
+    "ultrasonic_count": "/count"
+  },
+  "profile_controller": {
+    "profile": "/profiles"
+  },
+  "market_controller": {
+    "market": "/markets"
+  },
+  "user_controller": {
+    "user": "/users"
+  },
+  "permission_controller": {
+    "permission": "/permissions"
+  }
+}

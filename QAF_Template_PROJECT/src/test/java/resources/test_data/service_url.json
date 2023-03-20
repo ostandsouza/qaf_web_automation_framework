@@ -1,0 +1,16 @@
+{
+  "dev2": {
+    "auth_ms": "https://authentication-management.service.stage.cloud1.ws.continental-industry.com",
+    "conveyor_ms": "https://conveyor-management.service.dev2.contiplus.net",
+    "company_ms": "https://company-management.service.dev2.contiplus.net",
+    "devices_ms": "https://monitoring-device-management.service.dev2.contiplus.net",
+    "inspection_ms": "https://inspection-management.service.dev2.contiplus.net",
+    "user_preference_ms": "https://user-preference-management.service.dev2.contiplus.net",
+    "ultrasonic_ms": "https://ultrasonic-management.service.dev2.contiplus.net",
+    "profile_ms": "https://profile-management.service.stage.cloud1.ws.continental-industry.com",
+    "market_ms": "https://market-management.service.dev2.contiplus.net",
+    "content_ms ": "https://content-management.service.dev2.contiplus.net",
+    "permission_ms": "https://permission-management.service.dev2.contiplus.net",
+    "user_ms": "https://user-management.service.stage.cloud1.ws.continental-industry.com"
+  }
+}

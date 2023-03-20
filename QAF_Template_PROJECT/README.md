@@ -26,9 +26,15 @@ To run the project, from command prompt go to project home and run mvn. Open das
 7. Update the locators at several places
 8. Test Data not present for several steps
 9. Feature file and steps file are updated to be in sync.
+10. Handled chromedriver -v111 issue
 
 # Proposed changes
-1. Selenium library version updation
-2. Focus on framework methods helps in faster development
-3. Driver dependency can be removed by bumping the lib version
-4. Cleaning the code.
+1. Selenium library version updation - DONE
+2. Focus on framework methods helps in faster development - PROGRESS
+3. Driver dependency can be removed by bumping the lib version - QAF has open issue after selenium 4.3.0
+4. Cleaning the code. PROGRESS
+5. Before/After hooks - DONE
+6. Convert Test Data Excel to json/yml 
+7. Add API calling functionality - DONE
+8. CDP integration - NOT POSSIBLE
+9. Testcases continuous run Fix - PENDING

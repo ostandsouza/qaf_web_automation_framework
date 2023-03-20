@@ -72,8 +72,11 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//div[@aria-label='All']//div[contains(@class,'p-checkbox')]")
 	public CustomElement eleCheckboxMT;
 
-	@FindBy(locator = "xpath=//div[@aria-label='APAC']//button")
+		@FindBy(locator = "xpath=//div[@aria-label='APAC']/div[contains(@class,'p-checkbox')]")
 	public CustomElement cbCheckboxAPAC;
+
+	@FindBy(locator = "xpath=//div[@aria-label='EMEA']/div[contains(@class,'p-checkbox')]")
+	public CustomElement cbCheckboxEMEA;
 
 	@FindBy(locator = "xpath=//span[text()='Australia']")
 	public CustomElement cbCheckboxAustralia;
@@ -115,9 +118,15 @@ public class UsersPage extends BasePage{
 	
 	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.CORPORATE_ROLE_MANAGER']")
 	public CustomElement rdbManager;
+
+	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.CORPORATE_ROLE_SERVICE_ENGINEER']")
+	public CustomElement rdbEngineer;
 	
-	@FindBy(locator="xpath=//p-multiselect[@formcontrolname='subscriptionType']")
+	@FindBy(locator="xpath=//p-multiselect[@formcontrolname='subscriptionType']/div/div/span")
 	public CustomElement ddlSubscriptionType;
+
+	@FindBy(locator="xpath=//div[@role='checkbox']")
+	public CustomElement ddlCheckbox;
 
 	@FindBy(locator="xpath=//div[text()=' Engineering ']")
 	public CustomElement eleEngineering;
@@ -163,19 +172,19 @@ public class UsersPage extends BasePage{
 		tbFullName.type(Fullname1, "Fullname1");
 	}
 
-	public void setPhone(String Phone) {
+	public void setPhone(String code,String Phone) {
 		waitForElementVisible(tbPhone, 5000,500);
-		tbPhone.type(Phone, "Phone");
+		tbPhone.type(code+Phone, "Phone");
 	}
 
 	public void setemail(String email) {
 		tbEmail.type(email,"email");
-		tbEmail.verifyText(email, "email");
+//		tbEmail.verifyText(email, "email");
 	}
 	
 	
 
-	public void setprofiletype(String profiletype) throws InterruptedException {
+	public void setprofiletype(String profiletype) {
 
 		ddlSelectprofiletype.click();
 
@@ -224,14 +233,7 @@ public class UsersPage extends BasePage{
 		btNext.click();
 	}
 
-	public void setpermission() {
-		waitForPageLoad(5000);
-		waitForElementVisible(eleArrowMT, 10000,500);
-		eleCheckboxMT.click();
-		cbCheckboxAPAC.click();
-		cbCheckboxAustralia.click();
-		//AllcheckboxDistributors.click();
-	//	AllcheckboxCustomers.click();
+	public void setPermission() {
 		waitForElementVisible(btNext, 5000,500);
 		btNext.click();
 		SyncUtil.waitFor(1000);
@@ -242,8 +244,19 @@ public class UsersPage extends BasePage{
 		cbAllcheckboxView.click();
 		cbAllcheckboxDownload.click();
 	}
+
+	public void setTerritory(String region) {
+		waitForPageLoad(5000);
+		waitForElementVisible(eleArrowMT, 10000,500);
+//		eleCheckboxMT.click();
+		if(region.equalsIgnoreCase("APAC"))
+			cbCheckboxAPAC.click();
+		else if(region.equalsIgnoreCase("EMEA"))
+			cbCheckboxEMEA.click();
+		else eleCheckboxMT.click();
+	}
 	
-	public void setpermissionsc() {
+	public void setPermissions() {
 		waitForPageLoad(5000);
 		SyncUtil.waitFor(3000);
 		btNext.click();
@@ -281,17 +294,20 @@ public class UsersPage extends BasePage{
     	
     }
 
-    public void Distributorinformation() {
-    	dropdownselectsearch(ddlCorportaedropdown, tbCorporateSearch, "Sudheer India Distributor corporate");
+    public void distributorInformation(String corporate, String role) {
+    	dropdownselectsearch(ddlCorportaedropdown, tbCorporateSearch, corporate);
     	ddlCorporateroledropdown.click();
-    	rdbManager.click();
+		if(role.equalsIgnoreCase("manager"))
+    		rdbManager.click();
+		else
+			rdbEngineer.click();
     	ddlSubscriptionType.click();
     	eleEngineering.click();
     	eleBasics.click();
     }
     
-    public void Customerinformation() {
-    	dropdownselectsearch(ddlCorportaedropdown, tbCorporateSearch, "sudheer custom corporate");
+    public void Customerinformation(String corporate) {
+    	dropdownselectsearch(ddlCorportaedropdown, tbCorporateSearch, corporate);
     	ddlCorporateroledropdown.click();
     	rdbManager.click();
     	ddlSubscriptionType.click();

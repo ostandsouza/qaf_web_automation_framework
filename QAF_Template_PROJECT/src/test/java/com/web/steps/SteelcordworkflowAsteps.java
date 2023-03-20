@@ -28,14 +28,14 @@ public class SteelcordworkflowAsteps extends BasePage{
 	  userpage.usersclick();
 	  userpage.Addclick();
 	  userpage.setfullname(Fullname);
-	  userpage.setPhone(Phone); 
+	  userpage.setPhone("+91",Phone); 
 	  String Email ="Demotm"+randomestring()+"@mailinator.com"; 
 	  userpage.setemail(Email);
 	  userpage.setprofiletype(Profiletype); 
 	  userpage.setpassword(Userpassword);
 	  userpage.setretypepassword(Retypepassword); 
 	  userpage.Nextclick();
-	  userpage.setpermission(); 
+	  userpage.setTerritory("APAC");
 	  userpage.Clicksaveandclose();
 	  }
 	 
@@ -45,14 +45,14 @@ public class SteelcordworkflowAsteps extends BasePage{
 		//userpage.usersclick();
 		userpage.Addclick();
 		userpage.setfullname(Fullnametu);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email1 = "Demosc"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypetu);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
-		userpage.setpermissionsc();
+		userpage.setPermissions();
 		userpage.Clicksaveandclose();
 		
 	}
@@ -62,7 +62,7 @@ public class SteelcordworkflowAsteps extends BasePage{
 		userpage.usersclick();
 		userpage.Addclick();
 		userpage.setfullname(Fullnameta1);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypeta1);
@@ -78,7 +78,7 @@ public class SteelcordworkflowAsteps extends BasePage{
 		userpage.usersclick();
 		userpage.Addclick();
 		userpage.setfullname(Fullnameta2);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypeta1);
@@ -96,7 +96,7 @@ public class SteelcordworkflowAsteps extends BasePage{
 		userpage.usersclick();
 		userpage.Addclick();
 		userpage.setfullname(Fullnameta);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypeta);

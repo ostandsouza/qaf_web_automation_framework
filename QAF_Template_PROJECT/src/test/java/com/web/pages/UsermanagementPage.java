@@ -91,7 +91,7 @@ public class UsermanagementPage extends UsersPage {
 		users.btNext.click();
 	}
 	
-	public void setpermission() {
+	public void setTerritory() {
 
 		SyncUtil.waitFor(10000);
 		cbAllcheckboxAdd.click();
@@ -160,12 +160,12 @@ public class UsermanagementPage extends UsersPage {
 		cbAllcheckboxDownload.click();
 	}
 
-	public void DistributorAssignment() {
+	public void DistributorAssignment(String distCorp, String custCorp) {
 		SyncUtil.waitFor(7000);
-		tbSearch.type("sudheer distributor shop 2");
+		tbSearch.type(distCorp);
 		eledistributorshopcheckbox.click();
 		SyncUtil.waitFor(5000);
-		tbSearchCustomerSites.type("sudheer dist site");
+		tbSearchCustomerSites.type(custCorp);
 		eleCustomerSitescheckbox.click();	
 	}
 	public void CustomerAssignment() {

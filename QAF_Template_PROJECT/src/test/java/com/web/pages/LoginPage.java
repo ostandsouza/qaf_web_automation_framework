@@ -31,7 +31,7 @@ public class LoginPage extends BasePage {
    
 	public void loginToApp(String userName, String password)  {
     	
-		SyncUtil.waitFor(5000);
+//		SyncUtil.waitFor(5000);
 		
 		
 		/*

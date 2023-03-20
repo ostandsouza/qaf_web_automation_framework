@@ -2,8 +2,6 @@ package com.web.steps;
 
 import static org.testng.Assert.assertEquals;
 
-import org.testng.Assert;
-
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
@@ -59,7 +57,7 @@ UsermanagementPage usermpage = new UsermanagementPage();
 		userpage.setfullname(FullnameMaster);
 		
 	    //assertEquals(FullnameMaster, "Test Master 2");
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 assertEquals(Phone, "+919676736246");
 		String Email1 = "Demomas"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
@@ -83,7 +81,7 @@ assertEquals(Phone, "+919676736246");
 	@QAFTestStep(description="User enter required detail {FullnameMarketManager} and {Phone} and {Profiletypemarketmanager} and {Userpassword} and {Retypepassword} and {Templatename}")
 	public void userEnterRequiredDetailAndAndAndAndAnd(String FullnameMarketManager,String Phone,String Profiletypemarketmanager,String Userpassword,String Retypepassword,String Templatename) throws InterruptedException{
 		userpage.setfullname(FullnameMarketManager);
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		assertEquals(Phone, "+919676736246");
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
@@ -107,7 +105,7 @@ assertEquals(Phone, "+919676736246");
     public void Enteruserdetails(String Fullnametr,String Phone,String Profiletypetr,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullnametr);
 		//assertEquals(Fullnametr, "Test tr manager");
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		assertEquals(Phone, "+919676736246");
 		String Email = "Demotm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email);
@@ -120,7 +118,7 @@ assertEquals(Phone, "+919676736246");
 		userpage.Nextclick();
 		usermpage.MasterAssignment();
 		userpage.Nextclick();
-		usermpage.setpermission();
+		usermpage.setTerritory();
 		userpage.Clicksaveandclose();
             } 
 	//Standard Continental User
@@ -128,7 +126,7 @@ assertEquals(Phone, "+919676736246");
     public void Enteruserdetails1(String Fullnamescu,String Phone,String Profiletypescu,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullnamescu);
 		//assertEquals(Fullnamescu, "Test scu user");
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		assertEquals(Phone, "+919676736246");
 		String Email1 = "Demosc"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
@@ -141,7 +139,7 @@ assertEquals(Phone, "+919676736246");
 		userpage.Nextclick();
 		usermpage.Standardassignment();
 		userpage.Nextclick();
-		usermpage.setpermission();
+		usermpage.setTerritory();
 		userpage.Clicksaveandclose();
 		
             } 
@@ -150,7 +148,7 @@ assertEquals(Phone, "+919676736246");
     public void Enteruserdetaildb(String Fullnamedb,String Phone,String Profiletypedb,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullnamedb);
 		//assertEquals(Fullnamedb, "Test Db user");
-		userpage.setPhone(Phone);
+		userpage.setPhone("+91",Phone);
 		assertEquals(Phone, "+919676736246");
 		String Email1 = "Demodb"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
@@ -161,11 +159,11 @@ assertEquals(Phone, "+919676736246");
 		userpage.setretypepassword(Retypepassword);
 		assertEquals(Retypepassword, "Abc@123456");
 		SyncUtil.waitFor(3000);
-		userpage.Distributorinformation();
+		userpage.distributorInformation("Sudheer India Distributor corporate","Manager");
 		userpage.Nextclick();
-		usermpage.DistributorAssignment();
+		usermpage.DistributorAssignment("sudheer distributor shop 2","sudheer dist site");
 		userpage.Nextclick();
-		usermpage.setpermission();
+		usermpage.setTerritory();
 		userpage.Clicksaveandclose();
 	}
 	
@@ -174,7 +172,7 @@ assertEquals(Phone, "+919676736246");
 	    public void Enteruserdetailcu(String Fullnamecu,String Phone,String Profiletypecu,String Userpassword,String Retypepassword) throws InterruptedException {
 			userpage.setfullname(Fullnamecu);
 			//assertEquals(Fullnamecu, "Test Cu user");
-			userpage.setPhone(Phone);
+			userpage.setPhone("+91",Phone);
 			assertEquals(Phone, "+919676736246");
 			String Email1 = "Democu"+randomestring()+"@mailinator.com";
 			userpage.setemail(Email1);
@@ -185,11 +183,11 @@ assertEquals(Phone, "+919676736246");
 			userpage.setretypepassword(Retypepassword);
 			assertEquals(Retypepassword, "Abc@123456");
 			SyncUtil.waitFor(3000);
-			userpage.Customerinformation();
+			userpage.Customerinformation("sudheer custom corporate");
 			userpage.Nextclick();
 			usermpage.CustomerAssignment();
 			userpage.Nextclick();
-			usermpage.setpermission();
+			usermpage.setTerritory();
 			userpage.Clicksaveandclose();
 		}
 
