@@ -119,7 +119,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         Reporter.log("timeout[{}]");
         unit = unit == null ? TimeUnit.SECONDS : unit;
         driver.manage().timeouts().implicitlyWait(unit.toMillis(timeout), TimeUnit.MILLISECONDS);
-
+//        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(timeout));
     }
 
     public void waitForElementVisible(WebElement elem, int timeOutInSeconds, int pollingEveryInMiliSec) {

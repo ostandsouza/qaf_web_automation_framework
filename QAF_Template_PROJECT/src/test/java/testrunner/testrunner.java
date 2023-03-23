@@ -4,9 +4,9 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-//		plugin = {"com.qmetry.qaf.automation.cucumber.QAFCucumberPlugin", "pretty", "html:target", "timeline:target"},
+		plugin = {"com.qmetry.qaf.automation.cucumber.QAFCucumberPlugin", "pretty", "timeline:target"},
 		features = {"scenarios/Web/Demoflow.feature"},
-		glue = {"classpath:com.web.steps"},
+		glue = {"com.web.steps"},
 		tags = "@Regression"
 		)
 

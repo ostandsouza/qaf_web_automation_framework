@@ -4,9 +4,10 @@
 <suite name="QAF Demo" verbose="0">
 	<listeners>
 		<listener class-name="com.common.utils.TestListener" />
+		<listener class-name="com.common.utils.EmailableTestNGReport" />
 	</listeners>
 
-	<test name="BDD Test" enabled="true">
+	<test name="Business Flow Test" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />
 		<parameter name="step.provider.sharedinstance" value="true" />
@@ -16,7 +17,7 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />	
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
 		</classes>
 	</test>
 </suite>

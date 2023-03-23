@@ -130,7 +130,7 @@ public class APIBase {
         String baseUrl = commonPaths.get("profile_ms");
         restApiHelper.setBaseURI(baseUrl);
         JSONObject obj = JsonReader.getJsonObject(userType, null);
-        requestBody.putAll(MiscUtils.getUpdatedPayload(obj,"userid",userid));
+        requestBody.putAll(MiscUtils.getFullUpdatedPayload(obj,"userid",userid));
         headersMap.put("usertoken",accessToken);
         Map<String, String> authPaths = JsonReader.getMapTestData("path", "profile_controller");
         Response userResponse =restApiHelper.makePostRequest(authPaths.get("profiles"), new JSONObject(requestBody), headersMap);
@@ -218,20 +218,41 @@ public class APIBase {
         return profileResponse.getBody().as(JSONObject.class);
     }
 
-    public JSONObject putConveyorAPI(String conveyorId, JSONObject payload, String newConveyorName) {
+    public void putConveyorAPI(String conveyorId, JSONObject payload, String newConveyorName) {
         configureRestAssured();
         String baseUrl = commonPaths.get("conveyor_ms");
         restApiHelper.setBaseURI(baseUrl);
         headersMap.put("user-token",accessToken);
         Map<String, String> companyPaths = JsonReader.getMapTestData("path", "conveyor_controller");
+        Reporter.log("payload: ="+MiscUtils.getSingleUpdatedPayload(payload,"name",newConveyorName));
         if(conveyorId != null)
-            restApiHelper.makePutRequest(companyPaths.get("conveyor")+"/"+conveyorId, MiscUtils.getUpdatedPayload(payload,"name",newConveyorName), headersMap);
+            restApiHelper.makePutRequest(companyPaths.get("conveyor")+"/"+conveyorId, MiscUtils.getSingleUpdatedPayload(payload,"name",newConveyorName), headersMap);
         else
             Reporter.log("conveyor id was null");
         Response profileResponse = restApiHelper.getResponse();
         tearDown();
-        return profileResponse.getBody().as(JSONObject.class);
     }
 
+    public void resendVerifyAPI(String email) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("user_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        requestBody.put("email",email);
+        headersMap.put("usertoken",accessToken);
+        Map<String, String> authPaths = JsonReader.getMapTestData("path", "user_controller");
+        Response verifyResponse =restApiHelper.makePostRequest(authPaths.get("verify"), new JSONObject(requestBody), headersMap);
+        tearDown();
+    }
 
+    public void secretVerifyAPI(String email, String secret) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("user_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        requestBody.put("email",email);
+        requestBody.put("secret",secret);
+        headersMap.put("usertoken",accessToken);
+        Map<String, String> authPaths = JsonReader.getMapTestData("path", "user_controller");
+        Response secretResponse =restApiHelper.makePostRequest(authPaths.get("secret"), new JSONObject(requestBody), headersMap);
+        tearDown();
+    }
 }

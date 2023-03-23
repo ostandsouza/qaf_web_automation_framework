@@ -15,12 +15,11 @@ import com.qmetry.qaf.automation.util.Reporter;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chromium.ChromiumDriver;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v101.network.Network;
 import org.openqa.selenium.remote.RemoteWebDriver;
 //import com.web.component.AddressComponent;
 //import com.web.component.DropDownListWithoutSearch;
 
-	public class 	DemoPage extends BasePage{
+	public class DemoPage extends BasePage{
 	
 
 	@UiElement(
@@ -251,6 +250,9 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 	@FindBy(locator="xpath=//i[@class='pi pi-user']/following-sibling::h6")
 	public CustomElement profileOption;
 
+	@FindBy(locator="xpath=//i[@class='pi pi-power-off']/following-sibling::h6")
+	public CustomElement logoutOption;
+
 	@FindBy(locator="xpath=//div[text()=' User information ']")
 	public CustomElement userInfo;
 
@@ -277,6 +279,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 	@FindBy(locator = "xpath=(//span[@class='p-button-icon pi pi-refresh'])[2]")
 	public CustomElement btRefresh;
+
 
 		public void clickcorporates() {
 		waitForPageLoad(4000);
@@ -448,22 +451,22 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 	}
 
 	public void checkConveyorGermany(String conveyorName, String custCorpName) {
+		scrollPageup();
 		breakcrumHome.click();
 		waitForElementVisible(btSearchinput, 10000,500);
+		btRefresh.click();
 		btSearchinput.type(conveyorName);
 		waitForPageLoad(10000);
-		SyncUtil.waitFor(7000);
 		Reporter.log("Image :="+btImg.isDisplayed());
-		Reporter.log("Name :="+btName.getText());
-		Reporter.log("Site :="+btType.getText());
+		Reporter.log("Name :="+crName.getText());
+		Reporter.log("Site :="+crSite.getText());
 	}
 
 	public void editConveyorGermany(String oldConveyorName, String newConveyorName) {
-		SyncUtil.waitFor(45000);
+		SyncUtil.waitFor(10000);
 		waitForElementVisible(btRefresh, 10000,500);
 		btRefresh.click();
 		btSearchinput.type(oldConveyorName);
-		Reporter.log("input: "+oldConveyorName);
 		waitForPageLoad(10000);
 //		SyncUtil.waitFor(7000);
 		Reporter.log("Image :="+btImg.isDisplayed());
@@ -478,7 +481,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 //		waitForElementVisible(conveyorTitle, 10000,500);
 //		Reporter.log("title :="+conveyorTitle.getText());
 //		editConveyor.click();
-		waitForElementVisible(tbConveyorname, 10000,500);
+		waitForElementToDisplay(tbConveyorname);
 		tbConveyorname.type(newConveyorName);
 		btyUpdate.click();
 		waitForElementToDisplay(crUpdateMsg);
@@ -507,7 +510,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		SyncUtil.waitFor(5000);
 		waitForPageLoad(7000);
 		lCorporates.click();
-		SyncUtil.waitFor(30000);
+		SyncUtil.waitFor(50000);
 		waitForElementVisible(btSearchinput, 10000,500);
 		btSearchinput.type(searchtext);
 		waitForPageLoad(10000);
@@ -516,7 +519,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		Reporter.log("Name :="+btName.getText());
 		Reporter.log("Type :="+btType.getText());
 		Reporter.log("Address :="+btAddress.getText());
-		Reporter.log("Market :="+(btMarket2.isVisible()?btMarket2.getText():btMarket2.getText()));
+		Reporter.log("Market :="+(btMarket2.isVisible()?btMarket2.getText():btMarket1.getText()));
 		Reporter.log("Shop :="+btShopNumber.getText());
 		btviewicon.click();
 		SyncUtil.waitFor(5000);
@@ -569,5 +572,55 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		profileIcon.click();
 		profileOption.click();
 		return userInfo.isDisplayed();
+	}
+
+	public LoginPage logoutUser() {
+		waitForElementVisible(profileIcon, 15000,500);
+		waitForPageLoad(4000);
+		profileIcon.click();
+		logoutOption.click();
+		return new LoginPage();
+	}
+
+	public void deleteConveyor() {
+		waitForElementVisible(profileIcon, 15000,500);
+		waitForPageLoad(4000);
+		profileIcon.click();
+		logoutOption.click();
+	}
+
+	public void deleteCustomerSie() {
+		waitForElementVisible(profileIcon, 15000,500);
+		waitForPageLoad(4000);
+		profileIcon.click();
+		logoutOption.click();
+	}
+
+	public void deleteDistributorShop() {
+		waitForElementVisible(profileIcon, 15000,500);
+		waitForPageLoad(4000);
+		profileIcon.click();
+		logoutOption.click();
+	}
+
+	public void deleteCustomerCorp() {
+		waitForElementVisible(profileIcon, 15000,500);
+		waitForPageLoad(4000);
+		profileIcon.click();
+		logoutOption.click();
+	}
+
+	public void deleteDistributorCorp() {
+		waitForElementVisible(profileIcon, 15000,500);
+		waitForPageLoad(4000);
+		profileIcon.click();
+		logoutOption.click();
+	}
+
+	public void deleteUser() {
+		waitForElementVisible(profileIcon, 15000,500);
+		waitForPageLoad(4000);
+		profileIcon.click();
+		logoutOption.click();
 	}
 }

@@ -1,6 +1,7 @@
 package com.web.steps;
 
 import com.common.utils.APIBase;
+import com.common.utils.MaildropHelper;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
@@ -19,6 +20,8 @@ public class CreateFlowSteps {
 	UsersPage userpage = new UsersPage();
 	DemoPage demopage = new DemoPage();
     DashboardPage dashboardpage = new DashboardPage();
+
+    UsermanagementPage uManagementPage = new UsermanagementPage();
 
     @QAFTestStep(description = "User is at Login page")
     public void verifyUserIsAtLoginPage() {
@@ -81,7 +84,6 @@ public class CreateFlowSteps {
 		userpage.setTerritory("EMEA");
         userpage.setPermission();
 		userpage.Clicksaveandclose();
-		
     }
     
     @QAFTestStep(description="Create a Distributor Corporate with {DistCorpName} and {DistCorpAddress}")
@@ -97,8 +99,6 @@ public class CreateFlowSteps {
         String companyId = api.getCompanyAPI(DistShopIndName);
         api.deleteCompanyAPI(companyId);
         demopage.clickcorporates();
-        demopage.goToCorporate();
-        demopage.clickcorporates();
     	demopage.createdistribtorshop(DistShopIndName, DistShopIndAddress, DistCorpName, "Indonesia", FullNameInd);
     }
     
@@ -107,8 +107,6 @@ public class CreateFlowSteps {
         String companyId = api.getCompanyAPI(DistShopGerName);
         api.deleteCompanyAPI(companyId);
         demopage.clickcorporates();
-        demopage.goToCorporate();
-        demopage.clickcorporates();
         demopage.createdistribtorshop2(DistShopGerName, DistShopGerAddress,DistCorpName,"Germany",FullNameGer);
     }
 
@@ -116,9 +114,6 @@ public class CreateFlowSteps {
     public void createACustomerCorporateMiningCorp(String CustCorpName, String CustCorpAddress){
         String companyId = api.getCompanyAPI(CustCorpName);
         api.deleteCompanyAPI(companyId);
-        demopage.clickcorporates();
-        demopage.goToCorporate();
-        demopage.clickcorporates();
     	demopage.createcustomercorporate(CustCorpName, CustCorpAddress);
     	
     }
@@ -126,8 +121,6 @@ public class CreateFlowSteps {
     public void createACustomerSiteInIndiaMiningCorpIndiaWithDistribBeltAssociatesIndia(String CustShopIndName, String CustShopIndAddress,String CustCorpName, String DistShopIndName, String FullNameInd){
         String companyId = api.getCompanyAPI(CustShopIndName);
         api.deleteCompanyAPI(companyId);
-        demopage.clickcorporates();
-        demopage.goToCorporate();
         demopage.clickcorporates();
     	demopage.createcustomersiteIndia(CustShopIndName, CustShopIndAddress,CustCorpName,DistShopIndName,"Indonesia",FullNameInd);
     	
@@ -137,8 +130,6 @@ public class CreateFlowSteps {
     public void createACustomerSiteInGermanyMiningCorpGermanyWithDistribBeltAssociatesGermanyAnd(String CustShopGerName,String CustShopGerAddress,String CustCorpName,String DistShopGerName,String FullNameGer){
         String companyId = api.getCompanyAPI(CustShopGerName);
         api.deleteCompanyAPI(companyId);
-        demopage.clickcorporates();
-        demopage.goToCorporate();
         demopage.clickcorporates();
     	demopage.createcustomersiteGermany(CustShopGerName, CustShopGerAddress,CustCorpName,DistShopGerName,"Germany",FullNameGer);
     }
@@ -184,16 +175,85 @@ public class CreateFlowSteps {
 ////        throw new NotYetImplementedException();
 //    }
 
+    @QAFTestStep(description="Edit {ConveyorNameGer1} to {ConveyorNameGer1Edit}")
+    public void editAConveyorGermanyAtMiningCorpGermany(String ConveyorNameGer1, String ConveyorNameGer1Edit){
+        String conveyorId = api.getConveyorsAPI(ConveyorNameGer1Edit);
+        api.putConveyorAPI(conveyorId, api.getConveyorAPI(conveyorId), ConveyorNameGer1);
+        demopage.editConveyorGermany(ConveyorNameGer1, ConveyorNameGer1Edit);
+    }
+
+    @QAFTestStep(description="Edit {ConveyorNameGer1} into {ConveyorNameGer1Edit}")
+    public void editConveyorGermanyAtMiningCorpGermany(String ConveyorNameGer1, String ConveyorNameGer1Edit){
+        String conveyorId = api.getConveyorsAPI(ConveyorNameGer1Edit);
+        api.deleteConveyorAPI(conveyorId);
+        demopage.editConveyorGermany(ConveyorNameGer1, ConveyorNameGer1Edit);
+    }
 
     @QAFTestStep(description="Edit {ConveyorNameGer1} name to {ConveyorNameGer1Edit}")
-    public void editAConveyorC1GermanyAtMiningCorpGermany(String ConveyorNameGer1, String ConveyorNameGer1Edit){
-        String conveyorId = api.getConveyorsAPI(ConveyorNameGer1Edit);
-        api.putConveyorAPI(conveyorId, api.getConveyorAPI(conveyorId), ConveyorNameGer1Edit);
+    public void editAConveyorC2GermanyAtMiningCorpGermany(String ConveyorNameGer1, String ConveyorNameGer1Edit){
         demopage.editConveyorGermany(ConveyorNameGer1, ConveyorNameGer1Edit);
     }
 
     @QAFTestStep(description="Check {ConveyorNameGer2} at {CustCorpName}")
     public void checkAConveyorC1GermanyAtMiningCorpGermany(String ConveyorNameGer2, String CustCorpName){
         demopage.checkConveyorGermany(ConveyorNameGer2, CustCorpName);
+    }
+
+    @QAFTestStep(description = "Login with normal user {UserName} and {Password}")
+    public void loginWith(String UserName, String Password) {
+        api = new APIBase();
+        api.resendVerifyAPI(UserName);
+        SyncUtil.waitFor(10000);
+        if(!MaildropHelper.getMaildropInbox(UserName).isEmpty()) {
+            String otp = MaildropHelper.getOtpfromMail(MaildropHelper.getInboxMsg(UserName, MaildropHelper.getLatestMailId(MaildropHelper.getMaildropInbox(UserName))));
+            api.secretVerifyAPI(UserName, otp);
+        }
+        loginPage.loginToApp(UserName, Password);
+        dashboardpage.handleCookiePopup();
+    }
+
+    @QAFTestStep(description="Create a Distributor User for Germany {0} and {1} and {2} and {3} and {4} and {5} and {6} and {7} and {8} and {9}")
+    public void createATerritoryManagerForIndiaJohnDoe(String FullNameInd,String Phone,String EmailInd, String ProfileType,String UserPassword,String RetypePassword, String CoporateRole, String DistCorpName, String DistShopGerName, String CustSiteGerName) {
+        getBundle().setProperty("email.ind2", EmailInd);
+        String userid = api.getUserProfileAPI(EmailInd);
+        api.deleteProfileAPI(userid);
+        api.deleteUserAPI(userid);
+        userpage.usersclick();
+        userpage.Addclick();
+        userpage.setfullname(FullNameInd);
+        userpage.setPhone("+91",Phone);
+        userpage.setemail(EmailInd);
+        userpage.setprofiletype(ProfileType);
+        userpage.setpassword(UserPassword);
+        userpage.setretypepassword(RetypePassword);
+        userpage.distributorInformation(DistCorpName,CoporateRole);
+        userpage.Nextclick();
+        uManagementPage.DistributorAssignment(DistShopGerName,CustSiteGerName);
+        userpage.setPermission();
+        userpage.Clicksaveandclose();
+    }
+
+    @QAFTestStep(description="Change permission for {0} to see {1}")
+    public void changePermissionForToSee(String FullNameInd,String region) {
+        userpage.goToEditUserPage(FullNameInd);
+        userpage.clickOnNextBtn();
+        userpage.setTerritory(region);
+        userpage.clickOnNextBtn();
+        userpage.clickOnUpdateBtn();
+    }
+
+    @QAFTestStep(description="Logout from the current user")
+    public void logoutFromCurrentUser() {
+        demopage.logoutUser().verifyUserOnLoginPage();
+    }
+
+    @QAFTestStep(description="Delete everything {DistCorpName} and {DistShopIndName} and {DistShopGerName} and {CustCorpName} and {CustShopIndName} and {CustShopGerName} and {ConveyorNameGer} and {ConveyorNameInd} and {ConveyorNameGer2} and {ConveyorNameInd} and {ConveyorNameGer} and {FullNameInd} and {FullNameGer} and {FullNameDistGer}")
+    public void deleteEverything(String distCorpName, String distShopIndName, String distShopGerName, String custCorpName, String custShopIndName, String custShopGerName, String conveyorNameGer, String conveyorNameInd1, String conveyorNameGer2, String conveyorNameInd, String ConveyorNameGer ) {
+        demopage.deleteConveyor();
+        demopage.deleteCustomerSie();
+        demopage.deleteDistributorShop();
+        demopage.deleteCustomerCorp();
+        demopage.deleteDistributorCorp();
+        demopage.deleteUser();
     }
 }

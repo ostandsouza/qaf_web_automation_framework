@@ -8,13 +8,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -31,7 +30,20 @@ public class MiscUtils {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern(pattern));
     }
 
-    public static JSONObject getUpdatedPayload(JSONObject obj, String finder, String replaceText) {
+    public static String getCurrentDateTime() {
+        Calendar currentDate = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy:HH.mm.ss");
+        return formatter.format(currentDate.getTime());
+    }
+
+    public static String convertTimeToString(long miliSeconds) {
+        int hrs = (int) TimeUnit.MILLISECONDS.toHours(miliSeconds) % 24;
+        int min = (int) TimeUnit.MILLISECONDS.toMinutes(miliSeconds) % 60;
+        int sec = (int) TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % 60;
+        return String.format("%02d:%02d:%02d", hrs, min, sec);
+    }
+
+    public static JSONObject getFullUpdatedPayload(JSONObject obj, String finder, String replaceText) {
         try {
             JSONParser parser = new JSONParser();
             DocumentContext parsed = JsonPath.using(CONFIGURATION).parse(obj.toJSONString());
@@ -45,6 +57,19 @@ public class MiscUtils {
         }
     }
 
+    public static JSONObject getSingleUpdatedPayload(JSONObject obj, String finder, String replaceText) {
+        try {
+            JSONParser parser = new JSONParser();
+            DocumentContext parsed = JsonPath.using(CONFIGURATION).parse(obj.toJSONString());
+            newArrayList(
+                    "$." + finder
+            ).forEach(path -> parsed.set(path, replaceText));
+            String newStr = parsed.jsonString();
+            return (JSONObject) parser.parse(newStr);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private static final Configuration CONFIGURATION = Configuration
             .builder()

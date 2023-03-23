@@ -31,10 +31,12 @@ To run the project, from command prompt go to project home and run mvn. Open das
 # Proposed changes
 1. Selenium library version updation - DONE
 2. Focus on framework methods helps in faster development - PROGRESS
-3. Driver dependency can be removed by bumping the lib version - QAF has open issue after selenium 4.3.0
+3. Driver dependency can be removed by bumping the lib version - DONE
 4. Cleaning the code. PROGRESS
 5. Before/After hooks - DONE
-6. Convert Test Data Excel to json/yml 
+6. Convert Test Data Excel to json/yml - NOT STARTED
 7. Add API calling functionality - DONE
-8. CDP integration - NOT POSSIBLE
+8. CDP integration - PENDING
 9. Testcases continuous run Fix - PENDING
+10. Allure report Integration
+11. Jenkins Integration

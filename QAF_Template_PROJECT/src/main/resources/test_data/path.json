@@ -36,7 +36,9 @@
     "market": "/markets"
   },
   "user_controller": {
-    "user": "/users"
+    "user": "/users",
+    "secret": "/users/verify",
+    "verify": "/users/resend-verification"
   },
   "permission_controller": {
     "permission": "/permissions"

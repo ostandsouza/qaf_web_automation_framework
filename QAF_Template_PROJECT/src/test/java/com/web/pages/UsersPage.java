@@ -72,7 +72,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//div[@aria-label='All']//div[contains(@class,'p-checkbox')]")
 	public CustomElement eleCheckboxMT;
 
-		@FindBy(locator = "xpath=//div[@aria-label='APAC']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//div[@aria-label='APAC']/div[contains(@class,'p-checkbox')]")
 	public CustomElement cbCheckboxAPAC;
 
 	@FindBy(locator = "xpath=//div[@aria-label='EMEA']/div[contains(@class,'p-checkbox')]")
@@ -151,6 +151,33 @@ public class UsersPage extends BasePage{
 	
 	@FindBy(locator="//span[text()='Yes']")
 	public CustomElement btYes;
+
+	@FindBy(locator = "xpath=//input[contains(@class,'p-inputtext')]")
+	public CustomElement btSearch;
+
+	@FindBy(locator="xpath=(//td//img)[1]")
+	public CustomElement btImg;
+
+	@FindBy(locator="xpath=(//td[3])[1]")
+	public CustomElement btName;
+
+	@FindBy(locator="xpath=(//td[4]/span)[1]")
+	public CustomElement btProfile;
+
+	@FindBy(locator="xpath=(//td[5])[1]")
+	public CustomElement btCorporate;
+
+	@FindBy(locator="xpath=(//td[6])[1]")
+	public CustomElement btSubscription;
+
+	@FindBy(locator="xpath=(//td[8]//p-chip/div)[1]")
+	public CustomElement btTerritory;
+
+	@FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+	public CustomElement btviewicon;
+
+	@FindBy(locator="xpath=//span[text()='Edit']")
+	public CustomElement editBtn;
 	
 	
 	public void usersclick() {
@@ -190,27 +217,27 @@ public class UsersPage extends BasePage{
 
 		WebElement listitem;
 
-		if(profiletype.equals("Master"))
+		if(profiletype.equalsIgnoreCase("Master"))
 		{
 			listitem=rdbSelectprofiletypeMaster;
 		}
-		else if(profiletype.equals("Market manager"))
+		else if(profiletype.equalsIgnoreCase("Market manager"))
 		{
 			listitem=rdbSelectprofiletypemarketmanager;
 		}
-		else if(profiletype.equals("Territory Manager"))
+		else if(profiletype.equalsIgnoreCase("Territory Manager"))
 		{
 			listitem=rdbSelectprofiletypeterritorymanager;
 		}
-		else if(profiletype.equals("Standard Continental User"))
+		else if(profiletype.equalsIgnoreCase("Standard Continental User"))
 		{
 			listitem=rdbSelectprofiletypeStandardContinentalUser;
 		}
-		else if(profiletype.equals(" Distributor user "))
+		else if(profiletype.equalsIgnoreCase("Distributor user"))
 		{
 			listitem=rdbSelectprofiletypeDistributorUser;
 		}
-		else if(profiletype.equals(" Customer user "))
+		else if(profiletype.equalsIgnoreCase("Customer user"))
 		{
 			listitem=rdbSelectprofiletypeCustomerUser;
 		}
@@ -333,5 +360,28 @@ public class UsersPage extends BasePage{
        
     }
 
+	public void goToEditUserPage(String userName) {
+		waitForElementVisible(lnkUsers, 10000,500);
+		lnkUsers.click();
+		SyncUtil.waitFor(30000);
+		btSearch.type(userName);
+		Reporter.log("Image :="+btImg.isDisplayed());
+		Reporter.log("Name :="+btName.getText());
+		Reporter.log("Profile :="+btProfile.getText());
+		Reporter.log("Corp :="+btCorporate.getText());
+		Reporter.log("SUbs :="+(btSubscription.getText()));
+		Reporter.log("Territory :="+btTerritory.getText());
+		btviewicon.click();
+		waitForElementVisible(editBtn, 10000,500);
+		editBtn.click();
+	}
+
+	public void clickOnNextBtn() {
+		btNext.click();
+	}
+
+	public void clickOnUpdateBtn() {
+		btUpdate.click();
+	}
 
 }

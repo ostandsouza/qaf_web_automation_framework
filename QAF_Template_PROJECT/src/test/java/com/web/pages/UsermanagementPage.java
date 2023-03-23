@@ -7,6 +7,9 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
+import org.openqa.selenium.By;
+
+import java.util.concurrent.TimeUnit;
 
 public class UsermanagementPage extends UsersPage {
 	
@@ -161,12 +164,17 @@ public class UsermanagementPage extends UsersPage {
 	}
 
 	public void DistributorAssignment(String distCorp, String custCorp) {
-		SyncUtil.waitFor(7000);
+		SyncUtil.waitFor(1000);
+		waitForElementToInvisible(cbSpinner,45000);
+		waitForElementToDisplay(tbSearch);
 		tbSearch.type(distCorp);
-		eledistributorshopcheckbox.click();
-		SyncUtil.waitFor(5000);
+		setImplicitWait(30000, TimeUnit.MILLISECONDS);
+		waitForPresenceOfElement(By.xpath("//span[text()='"+distCorp+"']"));
+		getTestBase().getDriver().findElement("//span[text()='"+distCorp+"']").click();
 		tbSearchCustomerSites.type(custCorp);
-		eleCustomerSitescheckbox.click();	
+		waitForPresenceOfElement(By.xpath("//span[text()='"+custCorp+"']"));
+		getTestBase().getDriver().findElement("//span[text()='"+custCorp+"']").click();
+		setImplicitWait(1000,TimeUnit.MILLISECONDS);
 	}
 	public void CustomerAssignment() {
 		SyncUtil.waitFor(15000);

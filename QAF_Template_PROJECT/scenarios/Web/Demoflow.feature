@@ -3,7 +3,7 @@ Feature: Business Flow for Web
 Background: 
 Launch the application through '/'
 
-@Regression1
+@Regression
 @dataFile:resources/data/TestData.xls 
 @key:Create_Flow
 Scenario: Verify the create flow with admin user
@@ -24,7 +24,7 @@ Scenario: Verify the create flow with admin user
     Then  Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
 	And   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
-@Regression
+@Regression1
 @dataFile:resources/data/TestData.xls
 @key:Edit_Flow
 Scenario: Verify the edit flow with admin user
@@ -33,14 +33,14 @@ Scenario: Verify the edit flow with admin user
     When  Login with '${UserName}' and '${Password}'
     And   Check profile
     And   Create a conveyor Germany with '${ConveyorNameGer2}' and '${DistShopGerName}' and '${CustShopGerName}'
-    And   Edit '${ConveyorNameGer1}' name to '${ConveyorNameGer1Edit}'
+    And   Edit '${ConveyorNameGer1}' to '${ConveyorNameGer1Edit}'
     And   Check '${ConveyorNameGer2}' at '${CustCorpName}'
-    And   Edit '${ConveyorNameGer2}' name to '${ConveyorNameGer2Edit}'
+    And   Edit '${ConveyorNameGer2}' into '${ConveyorNameGer2Edit}'
     And   Check '${ConveyorNameGer1}' at '${CustCorpName}'
     And   Edit '${ConveyorNameGer1Edit}' name to '${ConveyorNameGer1}'
-    And   Check '${ConveyorNameGer1Edit}' at '${CustCorpName}'
+    And   Check '${ConveyorNameGer1}' at '${CustCorpName}'
     And   Check '${ConveyorNameGer2Edit}' at '${CustCorpName}'
-    And   Edit '${ConveyorNameGer2Edit}' back to '${ConveyorNameGer1}'
+    And   Edit '${ConveyorNameGer2Edit}' name to '${ConveyorNameGer1}'
     Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
 @Regression1
@@ -49,10 +49,10 @@ Scenario: Verify the edit flow with admin user
     Scenario: Verify the list and create flow with John Doe user
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+    When  Login with normal user '${UserName}' and '${Password}'
 	And   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 	And   Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
-    And   Create a conveyor '${ConveyorNameInd}' at '${DistShopIndName}' and '${CustSiteIndName}'
+    And   Create a conveyor India with '${ConveyorNameInd}' and '${DistShopIndName}' and '${CustSiteIndName}'
     Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
 @Regression1
@@ -61,10 +61,10 @@ Scenario: Verify the edit flow with admin user
     Scenario: Verify the list and create flow with Max Mustermann user
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-	And   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
-	And   Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
-    And   Create a conveyor '${ConveyorNameGer}' at '${DistShopGerName}' and '${CustSiteGerName}'
+    When  Login with normal user '${UserName}' and '${Password}'
+    And   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
+    And   Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
+    And   Create a conveyor Germany with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustSiteGerName}'
     And   Create a Distributor User for Germany '${FullNameDistGer}' and '${Phone}' and '${EmailDistGer}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}' and '${CoporateRole}' and '${DistCorpName}' and '${DistShopGerName}' and '${CustSiteGerName}'
     Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
@@ -74,8 +74,8 @@ Scenario: Verify the edit flow with admin user
     Scenario: Verify the list flow with Anna Mueller user
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-	Then   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
+    When  Login with normal user '${UserName}' and '${Password}'
+	Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 	And   Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
 
 @Regression1
@@ -86,9 +86,9 @@ Scenario: Verify the edit flow with admin user
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
 	And   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
-	And   Change permission for Max Mustermann to see Mining Corp. India
-	And   Logout from admin
-	And   Login with '${UserName}' and '${Password}'
+	And   Change permission for '${FullNameGer}' to see "APAC"
+	And   Logout from the current user
+	And   Login with normal user '${UserNameTer}' and '${PasswordTer}'
     Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
 
@@ -99,6 +99,6 @@ Scenario: Verify the edit flow with admin user
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    And   Delete everything that was created
+    And   Delete everything '${DistCorpName}' and '${DistShopIndName}' and '${DistShopGerName}' and '${CustCorpName}' and ${CustShopIndName}' and '${CustShopGerName}' and '${ConveyorNameGer}' and '${ConveyorNameInd}' and '${ConveyorNameGer2}' and '${ConveyorNameInd}' and '${ConveyorNameGer}' and '${FullNameInd}' and '${FullNameGer}' and ${FullNameDistGer}'
 	Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 	And   Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'

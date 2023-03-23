@@ -28,7 +28,11 @@ public class LoginPage extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Login']")
     public CustomElement btnLogIn;
 
-   
+	public boolean verifyUserOnLoginPage()  {
+		waitForElementVisible(tbUserName,10000,500);
+		return tbUserName.isDisplayed();
+	}
+
 	public void loginToApp(String userName, String password)  {
     	
 //		SyncUtil.waitFor(5000);

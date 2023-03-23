@@ -79,8 +79,8 @@ public class EditFlowSteps {
 //        demopage.checkConveyorGermany(ConveyorNameGer2, CustCorpName);
 //    }
 
-    @QAFTestStep(description="Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with {CustCorpName} and {CustCorpAddress}")
-    public void showSitePageConveyorPage(){
+//    @QAFTestStep(description="Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with {CustCorpName} and {CustCorpAddress}")
+//    public void showSitePageConveyorPage(){
 //        api = new APIBase();
 //        String userid = api.getUserProfileAPI((String) getBundle().getProperty("email.ind"));
 //        api.deleteProfileAPI(userid);
@@ -88,5 +88,5 @@ public class EditFlowSteps {
 //        userid = api.getUserProfileAPI((String) getBundle().getProperty("email.ger"));
 //        api.deleteProfileAPI(userid);
 //        api.deleteUserAPI(userid);
-    }
+//    }
 }
