@@ -9,18 +9,16 @@ def prod_account  = "${CTP_PROD_AWS_ACCOUNT_NUMBER}"
 
 pipeline {
     agent { label "IBDGenericAgent" }
+    tools {
+        maven 'maven3.6.3'
+        jdk 'jdk1.8'
+    }
     environment {
         CREDS = credentials('CTP_DEV_CREDS')
        
         IBD_CLIENT_GITHUB_TOKEN = credentials('IBD_CLIENT_GITHUB_TOKEN')
         IBD_CLIENT_GITHUB_API = "https://github.geo.conti.de"
         IBD_CLIENT_GITHUB_KEY_TITLE = "IBD CLI Jenkins SSH Manager"
-
-        NPM_PROXY="http://cias3basic.conti.de:8080/"
-        NPM_CREDS = credentials('IBD_NPM_REGISTRY_CREDS')
-        NPM_CREDS_EMAIL = credentials('IBD_NPM_REGISTRY_CREDS_EMAIL')
-        NPM_REGISTRY = "https://eu.artifactory.conti.de/artifactory/api/npm/ct_ibd_digital_npm_l/"
-        NPM_GLOBAL_REGISTRY = "https://registry.npmjs.org/"
     }
 
     stages {
@@ -34,24 +32,26 @@ pipeline {
         stage('Test') {
             steps {
                 script {
+                    sh( script: 'uname -a')
+                    sh( script: 'printenv')
                     sh ( script: 'mvn clean test')
                 }
             }
         }
-        stage('Report') {
-            steps {
-                script {
-                    env.FAILURE_STAGE = 'reports'
-                    allure([
-                            includeProperties: false,
-                            jdk: '',
-                            properties: [],
-                            reportBuildPolicy: 'ALWAYS',
-                            results: [[path: 'target/allure-results']]
-                    ])
-                }
-            }
-        }
+//         stage('Report') {
+//             steps {
+//                 script {
+//                     env.FAILURE_STAGE = 'reports'
+//                     allure([
+//                             includeProperties: false,
+//                             jdk: '',
+//                             properties: [],
+//                             reportBuildPolicy: 'ALWAYS',
+//                             results: [[path: 'target/allure-results']]
+//                     ])
+//                 }
+//             }
+//         }
         stage ('publish_HTML') {
             when {
                 expression {

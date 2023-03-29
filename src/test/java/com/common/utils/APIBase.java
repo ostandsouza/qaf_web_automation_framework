@@ -244,7 +244,7 @@ public class APIBase {
         tearDown();
     }
 
-    public void secretVerifyAPI(String email, String secret) {
+    public int secretVerifyAPI(String email, String secret) {
         configureRestAssured();
         String baseUrl = commonPaths.get("user_ms");
         restApiHelper.setBaseURI(baseUrl);
@@ -254,5 +254,6 @@ public class APIBase {
         Map<String, String> authPaths = JsonReader.getMapTestData("path", "user_controller");
         Response secretResponse =restApiHelper.makePostRequest(authPaths.get("secret"), new JSONObject(requestBody), headersMap);
         tearDown();
+        return secretResponse.getStatusCode();
     }
 }

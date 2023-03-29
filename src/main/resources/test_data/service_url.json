@@ -12,5 +12,8 @@
     "content_ms ": "https://content-management.service.dev2.contiplus.net",
     "permission_ms": "https://permission-management.service.dev2.contiplus.net",
     "user_ms": "https://user-management.service.stage.cloud1.ws.continental-industry.com"
+  },
+  "prod": {
+
   }
 }

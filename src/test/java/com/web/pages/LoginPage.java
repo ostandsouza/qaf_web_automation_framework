@@ -29,12 +29,11 @@ public class LoginPage extends BasePage {
     public CustomElement btnLogIn;
 
 	public boolean verifyUserOnLoginPage()  {
-		waitForElementVisible(tbUserName,10000,500);
+		waitForElementToDisplay(tbUserName);
 		return tbUserName.isDisplayed();
 	}
 
 	public void loginToApp(String userName, String password)  {
-    	
 //		SyncUtil.waitFor(5000);
 		
 		

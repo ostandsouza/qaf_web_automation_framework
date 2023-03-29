@@ -80,7 +80,7 @@ public class EmailableTestNGReport implements IReporter {
     protected void writeHead() {
         writer.println("<head>");
         writer.println("<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"/>");
-        writer.println("<title>ENHO Report</title>");
+        writer.println("<title>Conti+ Report</title>");
         writeStylesheet();
 
         writer.println("</head>");

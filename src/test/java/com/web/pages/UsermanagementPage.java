@@ -85,8 +85,12 @@ public class UsermanagementPage extends UsersPage {
 	
 	@FindBy(locator="xpath=//input[@class='p-inputtext p-component p-element']")
 	public CustomElement tbUsertablesearch;
-	
-	
+
+	@FindBy(locator="xpath=(//div[@aria-label='All']/div)[1]")
+	public CustomElement distShopCheckbox;
+
+	@FindBy(locator="xpath=(//div[@aria-label='All']/div)[2]")
+	public CustomElement custShopCheckbox;
 	
 	public void MarketsAssigmentmaster() {
 		eleMarketarrow.click();
@@ -167,14 +171,16 @@ public class UsermanagementPage extends UsersPage {
 		SyncUtil.waitFor(1000);
 		waitForElementToInvisible(cbSpinner,45000);
 		waitForElementToDisplay(tbSearch);
-		tbSearch.type(distCorp);
-		setImplicitWait(30000, TimeUnit.MILLISECONDS);
-		waitForPresenceOfElement(By.xpath("//span[text()='"+distCorp+"']"));
-		getTestBase().getDriver().findElement("//span[text()='"+distCorp+"']").click();
-		tbSearchCustomerSites.type(custCorp);
-		waitForPresenceOfElement(By.xpath("//span[text()='"+custCorp+"']"));
-		getTestBase().getDriver().findElement("//span[text()='"+custCorp+"']").click();
-		setImplicitWait(1000,TimeUnit.MILLISECONDS);
+//		tbSearch.type(distCorp);
+//		setImplicitWait(30000, TimeUnit.MILLISECONDS);
+//		waitForPresenceOfElement(By.xpath("//span[text()='"+distCorp+"']"));
+//		getTestBase().getDriver().findElement("//span[text()='"+distCorp+"']").click();
+//		tbSearchCustomerSites.type(custCorp);
+//		waitForPresenceOfElement(By.xpath("//span[text()='"+custCorp+"']"));
+//		getTestBase().getDriver().findElement("//span[text()='"+custCorp+"']").click();
+//		setImplicitWait(1000,TimeUnit.MILLISECONDS);
+		distShopCheckbox.click();
+		custShopCheckbox.click();
 	}
 	public void CustomerAssignment() {
 		SyncUtil.waitFor(15000);

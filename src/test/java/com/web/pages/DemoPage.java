@@ -1,7 +1,7 @@
 package com.web.pages;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import com.qmetry.qaf.automation.ui.annotations.UiElement;
 import org.openqa.selenium.By;
@@ -12,10 +12,6 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chromium.ChromiumDriver;
-import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.remote.RemoteWebDriver;
 //import com.web.component.AddressComponent;
 //import com.web.component.DropDownListWithoutSearch;
 
@@ -75,7 +71,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 	@FindBy(locator = "xpath=(.//button)[1]")
 	public CustomElement drTerritory;
 
-	@FindBy(locator = "xpath=//label[text()='Territory ']/..//span[string-length(text()) > 0]")
+	@FindBy(locator = "xpath=//li[text()=' No results found ']")
 	public CustomElement drTerritoryLoader;
 	@FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[2]")
 	public CustomElement drTerritorybutton;
@@ -163,6 +159,9 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 	@FindBy(locator="xpath=//span[text()='Edit']")
 	public CustomElement btEdit;
+
+	@FindBy(locator="xpath=//span[text()='Delete']")
+	public CustomElement btDelete;
 	@FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
 	public CustomElement btviewicon;
 
@@ -280,6 +279,18 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 	@FindBy(locator = "xpath=(//span[@class='p-button-icon pi pi-refresh'])[2]")
 	public CustomElement btRefresh;
 
+	@FindBy(locator = "xpath=//span[text()='Users']")
+	public CustomElement lnkUsers;
+
+	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
+	public CustomElement noList;
+
+	@FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
+	public CustomElement pagination;
+
+	@FindBy(locator = "xpath=//span[text()='Yes']")
+	public CustomElement yesConfirmation;
+
 
 		public void clickcorporates() {
 		waitForPageLoad(4000);
@@ -289,7 +300,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		SyncUtil.waitFor(2000);
 	}
 
-		public void goToCorporate() {
+		public void goToAddCorporate() {
 			scrollPageup();
 			waitForPageLoad(4000);
 			waitForElementToDisplay(btAddCorp);
@@ -305,6 +316,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		tbCompanyName.type(companyname);
 		tbAddress.type(Address);
 		waitForElementToDisplay(tbMapFirstSearchOption);
+		tbAddress.click();
 		tbMapFirstSearchOption.click();
 		scrollPageDown();
 		btSaveandclose.click();
@@ -320,13 +332,14 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		scrollPageup();
 		waitForPageLoad(4000);
 		drTypeofcompany.click();
+		waitForElementToDisplay(radioDistribtorshop);
 		radioDistribtorshop.click();
 		dropdownselectsearch(drDistributorcorporate, tbSitedropdown,distCorp);
 		//drDistributorcorporate.click();
 		//drDistributorcorporatevalue.click();
 		tbCompanyName.sendKeys(companyname1);
 		//waitForPageLoad(7000);
-		waitForElementToDisplay(drTerritoryLoader);
+		waitForElementToInvisible(drTerritoryLoader,5000);
 		dropdownselectsearch(drTerritorybutton, drTerritoryvalue, territory);
 		drTerritoryManagerbutton.type(manager);
 		tbAddress.type(Address1);
@@ -346,13 +359,14 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		scrollPageup();
 		waitForPageLoad(4000);
 		drTypeofcompany.click();
+		waitForElementToDisplay(radioDistribtorshop);
 		radioDistribtorshop.click();
 		dropdownselectsearch(drDistributorcorporate, tbSitedropdown,DistCorpName);
 		//drDistributorcorporate.click();
 		//drDistributorcorporatevalue.click();
 		tbCompanyName.sendKeys(companyname2);
 		//waitForPageLoad(7000);
-		waitForElementToDisplay(drTerritoryLoader);
+		waitForElementToInvisible(drTerritoryLoader,5000);
 		dropdownselectsearch(drTerritorybutton, drTerritoryvalue, DistCorpGerTerritory);
 		drTerritoryManagerbutton.type(manager);
 		tbAddress.type(Address2);
@@ -372,6 +386,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		scrollPageup();
 		waitForPageLoad(4000);
 		drTypeofcompany.click();
+		waitForElementToDisplay(radioCustomerCorportae);
 		radioCustomerCorportae.click();
 		tbCompanyName.sendKeys(ccCompanyname);
 		tbAddress.type(ccAddress);
@@ -391,11 +406,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		scrollPageup();
 		waitForPageLoad(4000);
 		drTypeofcompany.click();
+		waitForElementToDisplay(radioCustomeSite);
 		radioCustomeSite.click();
 		dropdownselectsearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
 		dropdownselectsearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopIndName);
 		tbCompanyName.type(csCompanyname);
-		waitForElementToDisplay(drTerritoryLoader);
+		waitForElementToInvisible(drTerritoryLoader,5000);
 		dropdownselectsearch(drTerritorybutton, drTerritoryvalue, DistCorpIndTerritory);
 		drTerritoryManagerbutton.type(manager);
 		tbAddress.type(csAddress);
@@ -418,11 +434,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		scrollPageup();
 		waitForPageLoad(4000);
 		drTypeofcompany.click();
+		waitForElementToDisplay(radioCustomeSite);
 		radioCustomeSite.click();
 		dropdownselectsearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
 		dropdownselectsearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopGerName);
 		tbCompanyName.type(csGCompanyname);
-		waitForElementToDisplay(drTerritoryLoader);
+		waitForElementToInvisible(drTerritoryLoader,5000);
 		dropdownselectsearch(drTerritorybutton, drTerritoryvalue, DistShopTerritory);
 		drTerritoryManagerbutton.type(manager);
 		tbAddress.type(csAGddress);
@@ -463,36 +480,32 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 	}
 
 	public void editConveyorGermany(String oldConveyorName, String newConveyorName) {
-		SyncUtil.waitFor(10000);
 		waitForElementVisible(btRefresh, 10000,500);
 		btRefresh.click();
+		SyncUtil.waitFor(5000);
 		btSearchinput.type(oldConveyorName);
 		waitForPageLoad(10000);
 //		SyncUtil.waitFor(7000);
 		Reporter.log("Image :="+btImg.isDisplayed());
 		Reporter.log("Name :="+crName.getText());
 		Reporter.log("Site :="+crSite.getText());
-		btCheckbox.click();
-		btActions.click();
-		waitForElementVisible(btEdit, 10000,500);
-		btEdit.click();
-//		btviewicon.click();
-//		SyncUtil.waitFor(15000);
-//		waitForElementVisible(conveyorTitle, 10000,500);
-//		Reporter.log("title :="+conveyorTitle.getText());
-//		editConveyor.click();
+//		btCheckbox.click();
+//		btActions.click();
+//		waitForElementVisible(btEdit, 10000,500);
+//		btEdit.click();
+		btviewicon.click();
+		waitForElementVisible(conveyorTitle, 10000,500);
+		Reporter.log("title :="+conveyorTitle.getText());
+		editConveyor.click();
 		waitForElementToDisplay(tbConveyorname);
 		tbConveyorname.type(newConveyorName);
 		btyUpdate.click();
 		waitForElementToDisplay(crUpdateMsg);
-		Reporter.log("Toast :="+crUpdateMsg.isDisplayed());
+//		Reporter.log("Toast :="+crUpdateMsg.isDisplayed());
 	}
 	
 	public void createconveyorc1India(String conveyorname1, String DistShopIndName, String CustShopIndName) {
-//		waitForElementVisible(btAddCorp, 10000,500);
-		if(btAddCorp.isVisible())
-			btAddCorp.click();
-		else lConveyors.click();
+		lConveyors.click();
 		waitForPageLoad(7000);
 		waitForElementVisible(tbConveyorname, 10000,500);
 	    tbConveyorname.type(conveyorname1);
@@ -507,10 +520,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 	}
 	
 	public void showconveyorssitescorporatesandusers(String searchtext, String DistCorpAddress){
-		SyncUtil.waitFor(5000);
-		waitForPageLoad(7000);
-		lCorporates.click();
-		SyncUtil.waitFor(50000);
+		goToCorporate();
 		waitForElementVisible(btSearchinput, 10000,500);
 		btSearchinput.type(searchtext);
 		waitForPageLoad(10000);
@@ -571,6 +581,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		waitForPageLoad(4000);
 		profileIcon.click();
 		profileOption.click();
+		waitForElementToDisplay(userInfo);
 		return userInfo.isDisplayed();
 	}
 
@@ -582,45 +593,137 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		return new LoginPage();
 	}
 
-	public void deleteConveyor() {
-		waitForElementVisible(profileIcon, 15000,500);
-		waitForPageLoad(4000);
-		profileIcon.click();
-		logoutOption.click();
+	public void goToCorporate() {
+		SyncUtil.waitFor(7000);
+		waitForPageLoad(7000);
+		lCorporates.click();
+		scrollPageDown();
+		String val="";
+		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(60); stop>System.nanoTime();) {
+			Reporter.log("Val: ="+pagination.getText());
+			if (val.equalsIgnoreCase(pagination.getText())) {
+				Reporter.log("Pagination: ="+pagination.getText());
+				break;
+			}
+			val = pagination.getText();
+			SyncUtil.waitFor(5000);
+		}
 	}
 
-	public void deleteCustomerSie() {
-		waitForElementVisible(profileIcon, 15000,500);
-		waitForPageLoad(4000);
-		profileIcon.click();
-		logoutOption.click();
+		public void goToUsers() {
+			waitForElementVisible(lnkUsers, 10000,500);
+			lnkUsers.click();
+			SyncUtil.waitFor(5000);
+			scrollPageDown();
+			String val="";
+			for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(30); stop>System.nanoTime();) {
+				if (val.equalsIgnoreCase(pagination.getText())) {
+					Reporter.log("Pagination: ="+pagination.getText());
+					break;
+				}
+				val = pagination.getText();
+				SyncUtil.waitFor(5000);
+			}
+		}
+//
+//	public void goToCorporate() {
+//		SyncUtil.waitFor(7000);
+//		waitForPageLoad(7000);
+//		lCorporates.click();
+//	}
+
+	public void deleteConveyor(String custCorp, String conveyorName) {
+		goToCorporate();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(custCorp);
+		waitForPageLoad(10000);
+		btviewicon.click();
+		SyncUtil.waitFor(1000);
+		btConveyorCardNo.click();
+		SyncUtil.waitFor(1000);
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(conveyorName);
+		btCheckbox.click();
+		btActions.click();
+		waitForElementVisible(btDelete, 10000,500);
+		btDelete.click();
+		yesConfirmation.click();
 	}
 
-	public void deleteDistributorShop() {
-		waitForElementVisible(profileIcon, 15000,500);
-		waitForPageLoad(4000);
-		profileIcon.click();
-		logoutOption.click();
+	public boolean verifyConveyor(String custCorp, String conveyorName) {
+		goToCorporate();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(custCorp);
+		waitForPageLoad(10000);
+		btviewicon.click();
+		SyncUtil.waitFor(1000);
+		btConveyorCardNo.click();
+		SyncUtil.waitFor(1000);
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(conveyorName);
+		return noList.isVisible();
 	}
 
-	public void deleteCustomerCorp() {
-		waitForElementVisible(profileIcon, 15000,500);
-		waitForPageLoad(4000);
-		profileIcon.click();
-		logoutOption.click();
+	public void deleteSiteOrShop(String custCorp, String custSite) {
+		goToCorporate();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(custCorp);
+		waitForPageLoad(10000);
+		btviewicon.click();
+		waitForElementToDisplay(btSearchinput);
+		btSearchinput.type(custSite);
+		btCheckbox.click();
+		btActions.click();
+		waitForElementVisible(btDelete, 10000,500);
+		btDelete.click();
+		yesConfirmation.click();
 	}
 
-	public void deleteDistributorCorp() {
-		waitForElementVisible(profileIcon, 15000,500);
-		waitForPageLoad(4000);
-		profileIcon.click();
-		logoutOption.click();
+	public boolean verifySiteOrShop(String custCorp, String custSite) {
+		goToCorporate();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(custCorp);
+		waitForPageLoad(10000);
+		btviewicon.click();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(custSite);
+		scrollPageDown();
+		return noList.isVisible();
 	}
 
-	public void deleteUser() {
-		waitForElementVisible(profileIcon, 15000,500);
-		waitForPageLoad(4000);
-		profileIcon.click();
-		logoutOption.click();
+	public void deleteCorporate(String corpName) {
+		goToCorporate();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(corpName);
+		btCheckbox.click();
+		btActions.click();
+		waitForElementVisible(btDelete, 10000,500);
+		btDelete.click();
+		yesConfirmation.click();
+	}
+
+	public boolean verifyCorporate(String corpName) {
+		goToCorporate();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(corpName);
+		return noList.isVisible();
+	}
+
+	public void deleteUser(String user) {
+		goToUsers();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(user);
+		btCheckbox.click();
+		btActions.click();
+		waitForElementVisible(btDelete, 10000,500);
+		btDelete.click();
+		yesConfirmation.click();
+	}
+
+	public boolean verifyUser(String user) {
+		goToUsers();
+		waitForElementVisible(btSearchinput, 10000,500);
+		btSearchinput.type(user);
+		return noList.isVisible();
 	}
 }

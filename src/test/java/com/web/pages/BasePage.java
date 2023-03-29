@@ -169,7 +169,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
 
     public void verifyTitle(String title) {
-        if (this.driver. getTitle().equalsIgnoreCase(title))
+        if (this.driver.getTitle().equalsIgnoreCase(title))
             Reporter.log(title + "is verified", MessageTypes.Pass);
         else
             Reporter.log(title + "is not verified", MessageTypes.Fail);
@@ -248,7 +248,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     public void dropdownselectsearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
 		dropDownButton.click();
 		Search.type(itemstosearch);
-        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        setImplicitWait(40000,TimeUnit.MILLISECONDS);
 		waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
 		driver.findElement("//span[text()='"+itemstosearch+"']").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);

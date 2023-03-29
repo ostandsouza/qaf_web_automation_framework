@@ -276,10 +276,16 @@ public class UsersPage extends BasePage{
 		waitForPageLoad(5000);
 		waitForElementVisible(eleArrowMT, 10000,500);
 //		eleCheckboxMT.click();
-		if(region.equalsIgnoreCase("APAC"))
-			cbCheckboxAPAC.click();
-		else if(region.equalsIgnoreCase("EMEA"))
-			cbCheckboxEMEA.click();
+		if(region.equalsIgnoreCase("APAC")){
+			Reporter.log("isSelected: ="+cbCheckboxAPAC.getAttribute("aria-checked"));
+			if(cbCheckboxAPAC.getAttribute("aria-checked").equalsIgnoreCase("false"))
+				cbCheckboxAPAC.click();
+		}
+		else if(region.equalsIgnoreCase("EMEA")) {
+			Reporter.log("isSelected: ="+cbCheckboxEMEA.getAttribute("aria-checked"));
+			if(cbCheckboxEMEA.getAttribute("aria-checked").equalsIgnoreCase("false"))
+				cbCheckboxEMEA.click();
+		}
 		else eleCheckboxMT.click();
 	}
 	
@@ -331,6 +337,7 @@ public class UsersPage extends BasePage{
     	ddlSubscriptionType.click();
     	eleEngineering.click();
     	eleBasics.click();
+		SyncUtil.waitFor(5000);
     }
     
     public void Customerinformation(String corporate) {

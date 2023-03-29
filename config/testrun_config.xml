@@ -10,7 +10,7 @@
 	<test name="Business Flow Test" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />
-		<parameter name="step.provider.sharedinstance" value="true" />
+		<parameter name="step.provider.sharedinstance" value="false" />
 		<groups>
 			<run>
 				<include name="Regression" />
