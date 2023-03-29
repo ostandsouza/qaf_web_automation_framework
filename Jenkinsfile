@@ -71,7 +71,7 @@ pipeline {
     post {
         always {
             script {
-               def summary = junit testDataPublishers: [[$class: 'AutomateTestDataPublisher']], testResults: 'target/surefire-reports/TEST-*.xml'
+               def summary = junit testResults: 'target/surefire-reports/TEST-*.xml'
 
                env.mailRecipients = 'ostan@codecraft.co.in, oston.prithesh.dsouza-EXT@continental.com'
             }
@@ -79,7 +79,6 @@ pipeline {
          success{
             echo "Success Pipeline: ${currentBuild.fullDisplayName}"
             script {
-                    def capsEnv= "${env.env.toUpperCase()}";
                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
                     def jobName = currentBuild.fullDisplayName
                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
@@ -94,7 +93,6 @@ pipeline {
             echo "Failure Pipeline: ${currentBuild.result}"
             echo "Attention @here ${env.JOB_NAME} #${env.BUILD_NUMBER} has failed."
             script {
-                    def capsEnv= "${env.env.toUpperCase()}";
                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
                     def jobName = currentBuild.fullDisplayName
                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
@@ -108,7 +106,6 @@ pipeline {
         unstable{
             echo "Unstable Pipeline: ${currentBuild.result}"
             script {
-                   def capsEnv= "${env.env.toUpperCase()}";
                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
                     def jobName = currentBuild.fullDisplayName
                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
