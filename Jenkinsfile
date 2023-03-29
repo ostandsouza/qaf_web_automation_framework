@@ -10,7 +10,7 @@ def prod_account  = "${CTP_PROD_AWS_ACCOUNT_NUMBER}"
 pipeline {
     agent { label "IBDGenericAgent" }
     tools {
-        maven 'maven3.6.3'
+        maven 'maven3.8.6'
         jdk 'jdk1.8'
     }
     environment {
@@ -34,6 +34,8 @@ pipeline {
                 script {
                     sh( script: 'uname -a')
                     sh( script: 'printenv')
+                    sh( script: 'mvn -v')
+                    sh( script: 'java -version')
                     sh ( script: 'mvn clean test')
                 }
             }
