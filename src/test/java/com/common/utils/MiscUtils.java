@@ -4,18 +4,30 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
+import com.qmetry.qaf.automation.util.Reporter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.io.File.separator;
 
 public class MiscUtils {
     public static String getAbsolutePath(String relativePath) {
@@ -43,6 +55,85 @@ public class MiscUtils {
         return String.format("%02d:%02d:%02d", hrs, min, sec);
     }
 
+    public static String getOtpfromMail(String body) {
+        try {
+            String val = null;
+            Pattern pattern = Pattern.compile("([0-9]{6})\\s+");
+            Matcher matcher = pattern.matcher(body);
+            if (matcher.find()) {
+                val = matcher.group(1);
+                System.out.println("match text: =" + matcher.groupCount());
+            }
+            System.out.println("Mail OTP is:" + val.trim());
+            return val.trim();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static boolean isNewEmailTriggered(String email) {
+        String[] extract_username = email.split("@");
+        String username = extract_username[0];
+        SyncUtil.waitFor(20000);
+        if (email.contains("gmail"))
+            return GmailHelper.getUnreadMails(GmailHelper.getGmailService(username),"is:unread").isEmpty();
+        else if (email.contains("maildrop"))
+            return MaildropHelper.getMaildropInbox(username).isEmpty();
+        return false;
+    }
+
+    public static String getLatestEmailBody(String email) {
+        String[] extract_username = email.split("@");
+        String username = extract_username[0];
+        String emailBody = null;
+        SyncUtil.waitFor(10000);
+        if (email.contains("gmail"))
+            emailBody = GmailHelper.getMailBody(GmailHelper.getGmailService(username),"is:unread");
+        else if (email.contains("maildrop"))
+            emailBody = MaildropHelper.getInboxMsg(username, MaildropHelper.getLatestMailId(MaildropHelper.getMaildropInbox(username)));
+        return emailBody;
+    }
+
+    public static boolean checkDownloadedFiles(String name){
+        SyncUtil.waitFor(3000);
+        File folder = new File(System.getProperty("user.dir")+separator+"target"+separator+"downloads");  //List the files on that folder
+        File[] listOfFiles = folder.listFiles();
+        boolean found = false;
+        //Look for the file in the files
+        // You should write smart REGEX according to the filename
+
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                String fileName = listOfFile.getName();
+                System.out.println("File " + listOfFile.getName());
+                if (fileName.matches(name)) {
+                    found = true;
+                }
+            }
+        }
+        return found;
+    }
+
+    public static void deleteDownloadedFiles(String name){
+        File folder = new File(System.getProperty("user.dir")+separator+"target"+separator+"downloads");  //List the files on that folder
+        File[] listOfFiles = folder.listFiles();
+        File f = null;
+        //Look for the file in the files
+        // You should write smart REGEX according to the filename
+
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                String fileName = listOfFile.getName();
+                System.out.println("File " + listOfFile.getName());
+                if (fileName.matches(name)) {
+                    System.out.println("Delete File " + listOfFile.getName());
+                    f = new File(folder.getAbsolutePath()+separator+fileName);
+                    f.delete();
+                }
+            }
+        }
+    }
     public static JSONObject getFullUpdatedPayload(JSONObject obj, String finder, String replaceText) {
         try {
             JSONParser parser = new JSONParser();

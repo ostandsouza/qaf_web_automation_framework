@@ -21,6 +21,7 @@
     "devices_count": "/devices-count"
   },
   "inspection_controller": {
+    "inspection": "/inspections",
     "inspection_count": "/count"
   },
   "preference_controller": {

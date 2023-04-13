@@ -25,6 +25,8 @@
 		<output.dir>${test.results.dir}/${run.time}</output.dir>
 		<maven.build.timestamp.format>dd_MMM_yyyy_hh_mm_aa</maven.build.timestamp.format>
 		<testng.report.title>Demo</testng.report.title>
+		<testng.version>7.1.0</testng.version>
+		<assist.version>3.28.0-GA</assist.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -110,7 +112,31 @@
 			<artifactId>qaf-cucumber</artifactId>
 			<version>${qaf.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>${assist.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-gmail</artifactId>
+			<version>v1-rev33-1.20.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.22.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.27</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

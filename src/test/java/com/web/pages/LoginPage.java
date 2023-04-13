@@ -1,6 +1,7 @@
 package com.web.pages;
 import java.util.concurrent.TimeUnit;
 
+import com.common.utils.APIBase;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -53,8 +54,7 @@ public class LoginPage extends BasePage {
 		 * 
 		 * driver = ChromeDriver(desiredcapabilities);
 		 */
-		
-		
+
 		tbUserName.type(userName, "UserName"); 
         tbPassword.type(password, "Password");
         btnLogIn.click("LOGIN");

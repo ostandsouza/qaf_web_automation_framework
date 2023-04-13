@@ -8,12 +8,12 @@ import com.qmetry.qaf.automation.util.Reporter;
 
     @Override
     public void beforExecute(StepExecutionTracker stepExecutionTracker) {
-        Reporter.log("--------------------TestListener beforExecute---------------------"+stepExecutionTracker.getStep().getName());
+        System.out.println("--------------------TestListener beforExecute---------------------"+stepExecutionTracker.getStep().getName());
     }
 
     @Override
     public void afterExecute(StepExecutionTracker stepExecutionTracker) {
-        Reporter.log("--------------------TestListener afterExecute---------------------"+stepExecutionTracker.getStep().getName());
+        System.out.println("--------------------TestListener afterExecute---------------------"+stepExecutionTracker.getStep().getName());
     }
 
 }

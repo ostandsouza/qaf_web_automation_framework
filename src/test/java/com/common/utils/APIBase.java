@@ -1,6 +1,5 @@
 package com.common.utils;
 
-import com.qmetry.qaf.automation.util.Reporter;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -21,23 +20,24 @@ public class APIBase {
     Map<String, String> queryMaps = new HashMap<>();
     Map<String, Object> requestBody = new HashMap<>();
 
-    String accessToken;
-    String refreshToken;
+    public static String accessToken;
+    public static String refreshToken;
 
     public APIBase() {
         commonPaths = JsonReader.getMapTestData("service_url", "dev2");
-        getLoginAPI("contiplus_admin@maildrop.cc","Test@12345");
     }
 
     public void configureRestAssured() {
-        Reporter.log("Configuring RestAssured");
+        System.out.println("Configuring RestAssured");
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         RestAPIHelper.configure();
         headersMap.put("appclientid","pvr1dnvs0gntbsr95dvkdco8l");
+//      queryMaps.put(CoreConnectionPNames.CONNECTION_TIMEOUT, 1000)
+//      queryMaps.put(CoreConnectionPNames.SO_TIMEOUT, 1000));
     }
 
     public void tearDown() {
-        Reporter.log("Resetting base uri and path after method");
+        System.out.println("Resetting base uri and path after method");
         restApiHelper.resetBaseURI();
         restApiHelper.resetBasePath();
         headersMap.clear();
@@ -55,8 +55,6 @@ public class APIBase {
         Response loginResponse =restApiHelper.makePostRequest(authPaths.get("user_login"), new JSONObject(requestBody), headersMap);
         accessToken = loginResponse.getBody().as(JSONObject.class).get("accessToken").toString();
         refreshToken = loginResponse.getBody().as(JSONObject.class).get("refreshToken").toString();
-        Reporter.log("accessToken, "+accessToken);
-        Reporter.log("refreshToken, "+refreshToken);
         tearDown();
     }
 
@@ -101,9 +99,29 @@ public class APIBase {
         if(userId != null)
             restApiHelper.makeDeleteRequest(userPaths.get("user")+"/"+userId, headersMap);
         else
-            Reporter.log("user id was null");
+            System.out.println("user id was null");
         Response profileResponse = restApiHelper.getResponse();
         tearDown();
+    }
+
+    public boolean getUserAPI(String userId) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("user_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("usertoken",accessToken);
+        Map<String, String> userPaths = JsonReader.getMapTestData("path", "user_controller");
+        if(userId != null)
+            restApiHelper.makeGetRequest(userPaths.get("user")+"/"+userId,queryMaps ,headersMap);
+        else
+            System.out.println("user id was null");
+        Response userResponse = restApiHelper.getResponse();
+        boolean val = false;
+        if(userResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = userResponse.jsonPath();
+            val = (boolean) jsnPath.get("verified");
+        }
+        tearDown();
+        return val;
     }
 
     public String createUserAPI(String email, String password, String phone, String username) {
@@ -165,7 +183,7 @@ public class APIBase {
         if(companyId != null)
             restApiHelper.makeDeleteRequest(companyPaths.get("companies")+"/"+companyId, headersMap);
         else
-            Reporter.log("company id was null");
+            System.out.println("company id was null");
         Response profileResponse = restApiHelper.getResponse();
         tearDown();
     }
@@ -198,7 +216,7 @@ public class APIBase {
         if(conveyorId != null)
             restApiHelper.makeDeleteRequest(companyPaths.get("conveyor")+"/"+conveyorId, headersMap);
         else
-            Reporter.log("conveyor id was null");
+            System.out.println("conveyor id was null");
         Response profileResponse = restApiHelper.getResponse();
         tearDown();
     }
@@ -212,7 +230,7 @@ public class APIBase {
         if(conveyorId != null)
             restApiHelper.makeGetRequest(companyPaths.get("conveyor")+"/"+conveyorId,null, headersMap);
         else
-            Reporter.log("conveyor id was null");
+            System.out.println("conveyor id was null");
         Response profileResponse = restApiHelper.getResponse();
         tearDown();
         return profileResponse.getBody().as(JSONObject.class);
@@ -224,11 +242,11 @@ public class APIBase {
         restApiHelper.setBaseURI(baseUrl);
         headersMap.put("user-token",accessToken);
         Map<String, String> companyPaths = JsonReader.getMapTestData("path", "conveyor_controller");
-        Reporter.log("payload: ="+MiscUtils.getSingleUpdatedPayload(payload,"name",newConveyorName));
+        System.out.println("payload: ="+MiscUtils.getSingleUpdatedPayload(payload,"name",newConveyorName));
         if(conveyorId != null)
             restApiHelper.makePutRequest(companyPaths.get("conveyor")+"/"+conveyorId, MiscUtils.getSingleUpdatedPayload(payload,"name",newConveyorName), headersMap);
         else
-            Reporter.log("conveyor id was null");
+            System.out.println("conveyor id was null");
         Response profileResponse = restApiHelper.getResponse();
         tearDown();
     }
@@ -255,5 +273,37 @@ public class APIBase {
         Response secretResponse =restApiHelper.makePostRequest(authPaths.get("secret"), new JSONObject(requestBody), headersMap);
         tearDown();
         return secretResponse.getStatusCode();
+    }
+
+    public String getInspectionAPI(String inspectionName) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("inspection_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        queryMaps.put("inspectionName",inspectionName);
+        Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "inspection_controller");
+        Response inspectionResponse =restApiHelper.makeGetRequest(inspectionPaths.get("inspection"),queryMaps , headersMap);
+        String val = null;
+        JsonPath jsnPath = inspectionResponse.jsonPath();
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+            val = (String) jsnPath.getMap("data[0]").get("inspectionId");
+        }
+        tearDown();
+        return val;
+    }
+
+    public void deleteInspectionAPI(String inspectionId) {
+        configureRestAssured();
+        Response inspectionResponse;
+        String baseUrl = commonPaths.get("inspection_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "inspection_controller");
+        if(inspectionId != null)
+            inspectionResponse =restApiHelper.makeDeleteRequest(inspectionPaths.get("inspection")+"/"+inspectionId , headersMap);
+        else
+            System.out.println("inspection id was null");
+        inspectionResponse = restApiHelper.getResponse();
+        tearDown();
     }
 }

@@ -2,6 +2,8 @@ package com.common.component;
 
 import com.google.common.base.Function;
 import com.qmetry.qaf.automation.core.MessageTypes;
+import com.qmetry.qaf.automation.ui.util.ExpectedCondition;
+import com.qmetry.qaf.automation.ui.util.QAFWebElementExpectedConditions;
 import com.qmetry.qaf.automation.ui.util.QAFWebElementWait;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
@@ -9,9 +11,12 @@ import com.qmetry.qaf.automation.ui.webdriver.QAFWebComponent;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.StringMatcher;
+import com.qmetry.qaf.automation.util.StringUtil;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -90,6 +95,23 @@ public class CustomElement extends QAFWebComponent {
     }
 
     /**
+     * Performs a click operation using Action class
+     *
+     * @param objName Name of object for reporting purpose. It's optional
+     */
+    public void actionClick(String... objName) {
+        try {
+            Actions act = new Actions(this.getWrappedDriver());
+            act.moveToElement(this,0,150).click().build().perform();
+            if (objName.length > 0)
+                Reporter.log("Clicked on " + objName, MessageTypes.Info);
+        } catch (Exception e) {
+            Reporter.log("Failed to click on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
+        }
+    }
+
+    /**
      * Perform left-click on the object
      *
      * @param objName Name of object for reporting purpose.
@@ -104,7 +126,24 @@ public class CustomElement extends QAFWebComponent {
             throw e;
         }
     }
-    
+
+    /**
+     * Get text from element
+     *
+     * @param objName Name of object for reporting purpose.
+     */
+    public String getText(String objName) {
+        String text;
+        try {
+            text = this.getText();
+            Reporter.log("Getting text from " + objName, MessageTypes.Info);
+
+        } catch (Exception e) {
+            Reporter.log("Failed to get text from " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
+        }
+        return text;
+    }
 
     /**
      * Selects an object if it's not selected already.
@@ -144,6 +183,27 @@ public class CustomElement extends QAFWebComponent {
             throw e;
         }
 
+    }
+
+    /**
+     * Checks if the element i enabled
+     * @param objName Name of object for reporting purpose.
+     * @return True if element is enabled otherwise False
+     */
+    public boolean isEnable(String... objName) {
+        boolean result = false;
+        try {
+            if (this.isEnabled())
+                result = true;
+
+        } catch (Exception ignore) {
+        }
+        if (objName.length > 0)
+            if (result)
+                Reporter.log("'" + objName[0] + "'" + " is enabled", MessageTypes.Info);
+            else
+                Reporter.log("'" + objName[0] + "'" + " is not enabled", MessageTypes.Fail);
+        return result;
     }
 
     /**
@@ -264,8 +324,8 @@ public class CustomElement extends QAFWebComponent {
      * @param objName Name of object for reporting purpose.
      */
     public void verifyTextIgnoringNewLineChar(String message, String objName) {
-        String actMsgDetails = this.getText().replaceAll("\r\n", "").replaceAll("\n", "");
-        if (message.equalsIgnoreCase(actMsgDetails))
+        String actMsgDetails = this.getText().replaceAll("\r\n", "").replaceAll("\n", "").trim();
+        if (message.trim().equalsIgnoreCase(actMsgDetails))
             Reporter.log(message + " is verified in " + objName, MessageTypes.Pass);
         else
             Reporter.log(message + " is not verified in " + objName, MessageTypes.Fail);
@@ -287,5 +347,22 @@ public class CustomElement extends QAFWebComponent {
         } catch (Exception ignore) {
         }
         return result;
+    }
+
+    /**
+     * Wait until element has part of text
+     *
+     * @param timeout      in milliseconds
+     * @param text Part of text element need to wait for
+     */
+    public void waitForPartialText(String text, long... timeout) {
+        (new QAFWebElementWait(this, timeout)).
+                ignoring(new Class[]{NoSuchElementException.class, RuntimeException.class}).
+                withMessage("Wait time out for " + this.getDescription() + " text " + text).
+                until(new ExpectedCondition<QAFExtendedWebElement, Boolean>() {
+                    public Boolean apply(QAFExtendedWebElement element) {
+                        return StringUtil.contains(element.getText(), String.valueOf(text.trim()));
+                }
+        });
     }
 }

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding ="UTF-8"?> 
+
+
+<suite name="Sanity Flow Test" verbose="0">
+	<listeners>
+		<listener class-name="com.common.utils.TestListener" />
+		<listener class-name="com.common.utils.EmailableTestNGReport" />
+	</listeners>
+
+	<test name="User Management - Continental" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity1" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+
+	<test name="User Management - External" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity2" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+
+
+	<test name="Corporate Management - Create" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity3" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Corporate Management - Edit" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity4" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Corporate Management - Delete" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity5" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Conveyor Management" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity6" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Conveyor - Bulk Upload" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity7" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Corporate - Card Data" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity8" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Conveyor - Edit" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity9" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Inspection - Management" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity10" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Inspection - Report" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity11" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+	<test name="Inspection - Delete" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<groups>
+			<run>
+				<include name="Sanity12" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+</suite>

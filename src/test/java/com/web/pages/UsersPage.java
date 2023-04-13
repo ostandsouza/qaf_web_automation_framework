@@ -3,6 +3,7 @@ package com.web.pages;
 
 
 
+import com.qmetry.qaf.automation.util.Validator;
 import org.openqa.selenium.WebElement;
 
 import com.common.component.CustomElement;
@@ -11,6 +12,8 @@ import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.util.Reporter;
+
+import java.util.concurrent.TimeUnit;
 
 public class UsersPage extends BasePage{
 
@@ -78,24 +81,30 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//div[@aria-label='EMEA']/div[contains(@class,'p-checkbox')]")
 	public CustomElement cbCheckboxEMEA;
 
+	@FindBy(locator = "xpath=//div[@aria-label='South America']/div[contains(@class,'p-checkbox')]")
+	public CustomElement cbCheckboxSA;
+
+	@FindBy(locator = "xpath=//div[@aria-label='North America']/div[contains(@class,'p-checkbox')]")
+	public CustomElement cbCheckboxNA;
+
 	@FindBy(locator = "xpath=//span[text()='Australia']")
 	public CustomElement cbCheckboxAustralia;
 
 	@FindBy(locator = "xpath=//i[contains(@class,'pi-spinner')]")
 	public CustomElement cbSpinner;
-	@FindBy(locator = "xpath=//th[contains(text(),'Add')]/p-tristatecheckbox")
+	@FindBy(locator = "xpath=//th[contains(text(),'Add')]/p-tristatecheckbox//div[@role='checkbox']")
 	public CustomElement cbAllcheckboxAdd;
 
-	@FindBy(locator = "//th[contains(text(),'Edit')]/p-tristatecheckbox")
+	@FindBy(locator = "//th[contains(text(),'Edit')]/p-tristatecheckbox//div[@role='checkbox']")
 	public CustomElement cbAllcheckboxEdit;
 
-	@FindBy(locator = "xpath=//th[contains(text(),'Delete')]/p-tristatecheckbox")
+	@FindBy(locator = "xpath=//th[contains(text(),'Delete')]/p-tristatecheckbox//div[@role='checkbox']")
 	public CustomElement cbAllcheckboxDelete;
 
-	@FindBy(locator = "xpath=//th[contains(text(),'View')]/p-tristatecheckbox")
+	@FindBy(locator = "xpath=//th[contains(text(),'View')]/p-tristatecheckbox//div[@role='checkbox']")
 	public CustomElement cbAllcheckboxView;
 
-	@FindBy(locator = "xpath=//th[contains(text(),'Download')]/p-tristatecheckbox")
+	@FindBy(locator = "xpath=//th[contains(text(),'Download')]/p-tristatecheckbox//div[@role='checkbox']")
 	public CustomElement cbAllcheckboxDownload;
 	
 	@FindBy(locator = "xpath=//span[text()='Save and Close']")
@@ -178,11 +187,37 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator="xpath=//span[text()='Edit']")
 	public CustomElement editBtn;
+
+	@FindBy(locator="xpath=//input[@placeholder='Search']")
+	public CustomElement btSearchinput;
+
+	@FindBy(locator="xpath=(//button[@icon='pi pi-chevron-down'])[2]")
+	public CustomElement btActions;
+
+	@FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
+	public CustomElement btCheckbox;
+
+	@FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
+	public CustomElement pagination;
+
+	@FindBy(locator="xpath=//input[@class='p-tree-filter p-inputtext p-component']")
+	public CustomElement tbSearch;
+
+	@FindBy(locator="xpath=(//div[@aria-label='All']/div)[1]")
+	public CustomElement distShopCheckbox;
+
+	@FindBy(locator="xpath=(//div[@aria-label='All']/div)[2]")
+	public CustomElement custShopCheckbox;
 	
 	
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
 		lnkUsers.click();
+	}
+
+	public void searchUser(String searchtext) {
+		waitForElementVisible(btSearchinput, 10000, 500);
+		btSearchinput.type(searchtext);
 	}
 
 	public void Addclick() {
@@ -272,6 +307,22 @@ public class UsersPage extends BasePage{
 		cbAllcheckboxDownload.click();
 	}
 
+	public void setPermission(String add, String edit, String delete, String view, String download) {
+		waitForElementVisible(btNext, 5000,500);
+		btNext.click();
+		SyncUtil.waitFor(1000);
+		waitForElementToInvisible(cbSpinner,10000);
+		if(add.equalsIgnoreCase("true"))
+			cbAllcheckboxAdd.click();
+		if(edit.equalsIgnoreCase("true"))
+			cbAllcheckboxEdit.click();
+		if(delete.equalsIgnoreCase("true"))
+			cbAllcheckboxDelete.click();
+		if(view.equalsIgnoreCase("true"))
+			cbAllcheckboxView.click();
+		if(download.equalsIgnoreCase("true"))
+			cbAllcheckboxDownload.click();
+	}
 	public void setTerritory(String region) {
 		waitForPageLoad(5000);
 		waitForElementVisible(eleArrowMT, 10000,500);
@@ -367,19 +418,44 @@ public class UsersPage extends BasePage{
        
     }
 
-	public void goToEditUserPage(String userName) {
-		waitForElementVisible(lnkUsers, 10000,500);
-		lnkUsers.click();
-		SyncUtil.waitFor(30000);
-		btSearch.type(userName);
+	public void DistributorAssignment(String distCorp, String custCorp) {
+		SyncUtil.waitFor(1000);
+		waitForElementToInvisible(cbSpinner,45000);
+		waitForElementToDisplay(tbSearch);
+//		tbSearch.type(distCorp);
+//		setImplicitWait(30000, TimeUnit.MILLISECONDS);
+//		waitForPresenceOfElement(By.xpath("//span[text()='"+distCorp+"']"));
+//		getTestBase().getDriver().findElement("//span[text()='"+distCorp+"']").click();
+//		tbSearchCustomerSites.type(custCorp);
+//		waitForPresenceOfElement(By.xpath("//span[text()='"+custCorp+"']"));
+//		getTestBase().getDriver().findElement("//span[text()='"+custCorp+"']").click();
+//		setImplicitWait(1000,TimeUnit.MILLISECONDS);
+		distShopCheckbox.click();
+		custShopCheckbox.click();
+	}
+
+	public void goToUserDetail(String userName) {
 		Reporter.log("Image :="+btImg.isDisplayed());
 		Reporter.log("Name :="+btName.getText());
+		Validator.assertTrue(btName.getText().equalsIgnoreCase(userName),"User search result did not match", "User search result verification successful");
 		Reporter.log("Profile :="+btProfile.getText());
 		Reporter.log("Corp :="+btCorporate.getText());
 		Reporter.log("SUbs :="+(btSubscription.getText()));
 		Reporter.log("Territory :="+btTerritory.getText());
 		btviewicon.click();
 		waitForElementVisible(editBtn, 10000,500);
+	}
+
+	public void goToEditUserPage(String userName) {
+		Reporter.log("Image :="+btImg.isDisplayed());
+		Reporter.log("Name :="+btName.getText());
+		Validator.assertTrue(btName.getText().equalsIgnoreCase(userName),"User search result did not match", "User search result verification successful");
+		Reporter.log("Profile :="+btProfile.getText());
+		Reporter.log("Corp :="+btCorporate.getText());
+		Reporter.log("SUbs :="+(btSubscription.getText()));
+		Reporter.log("Territory :="+btTerritory.getText());
+		btviewicon.click();
+		waitForElementToDisplay(editBtn);
 		editBtn.click();
 	}
 
@@ -389,6 +465,68 @@ public class UsersPage extends BasePage{
 
 	public void clickOnUpdateBtn() {
 		btUpdate.click();
+	}
+
+	public void goToUsers() {
+		waitForElementVisible(lnkUsers, 10000,500);
+		lnkUsers.click();
+		SyncUtil.waitFor(5000);
+		scrollPageDown();
+		String val="";
+		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(30); stop>System.nanoTime();) {
+			if (val.equalsIgnoreCase(pagination.getText())) {
+				Reporter.log("Pagination: ="+pagination.getText());
+				break;
+			}
+			val = pagination.getText();
+			SyncUtil.waitFor(5000);
+		}
+	}
+
+	public void verifyTerritory(String region) {
+		if(region.equalsIgnoreCase("APAC"))
+			Validator.assertTrue(cbCheckboxAPAC.getAttribute("aria-checked").equalsIgnoreCase("true"),"APAC region for this user was supposed to checked","APAC region for this user is checked as expected");
+		else
+			Validator.assertTrue(cbCheckboxAPAC.getAttribute("aria-checked").equalsIgnoreCase("false"),"APAC region for this user was supposed to unchecked","APAC region for this user is unchecked as expected");
+		if(region.equalsIgnoreCase("EMEA"))
+			Validator.assertTrue(cbCheckboxEMEA.getAttribute("aria-checked").equalsIgnoreCase("true"),"EMEA region for this user was supposed to checked","EMEA region for this user is checked as expected");
+		else
+			Validator.assertTrue(cbCheckboxEMEA.getAttribute("aria-checked").equalsIgnoreCase("false"),"EMEA region for this user was supposed to unchecked","EMEA region for this user is unchecked as expected");
+		if(region.equalsIgnoreCase("South America"))
+			Validator.assertTrue(cbCheckboxSA.getAttribute("aria-checked").equalsIgnoreCase("true"),"South America region for this user was supposed to checked","South America region for this user is checked as expected");
+		else
+			Validator.assertTrue(cbCheckboxSA.getAttribute("aria-checked").equalsIgnoreCase("false"),"South America region for this user was supposed to unchecked","South America region for this user is unchecked as expected");
+		if(region.equalsIgnoreCase("North America"))
+			Validator.assertTrue(cbCheckboxNA.getAttribute("aria-checked").equalsIgnoreCase("true"),"North America region for this user was supposed to checked","North America region for this user is checked as expected");
+		else
+			Validator.assertTrue(cbCheckboxNA.getAttribute("aria-checked").equalsIgnoreCase("false"),"North America region for this user was supposed to unchecked","North America region for this user is unchecked as expected");
+		if(region.equalsIgnoreCase("All"))
+			Validator.assertTrue(eleCheckboxMT.getAttribute("aria-checked").equalsIgnoreCase("true"),"All regions for this user was supposed to checked","All regions for this user is checked as expected");
+		else
+			Validator.assertTrue(eleCheckboxMT.getAttribute("aria-checked").equalsIgnoreCase("false"),"All regions for this user was supposed to unchecked","All regions for this user is unchecked as expected");
+	}
+
+	public void verifyPermission(String add, String edit, String delete, String view, String download) {
+		if(add.equalsIgnoreCase("TRUE"))
+			Validator.assertTrue(cbAllcheckboxAdd.getAttribute("aria-checked").equalsIgnoreCase("true"),"ADD permission for this user was supposed to checked","ADD permission  for this user is checked as expected");
+		else
+			Validator.assertTrue(cbAllcheckboxAdd.getAttribute("aria-checked").equalsIgnoreCase("false"),"ADD permission for this user was supposed to unchecked","ADD permission  for this user is unchecked as expected");
+		if(edit.equalsIgnoreCase("TRUE"))
+			Validator.assertTrue(cbAllcheckboxEdit.getAttribute("aria-checked").equalsIgnoreCase("true"),"EDIT permission for this user was supposed to checked","EDIT permission for this user is checked as expected");
+		else
+			Validator.assertTrue(cbAllcheckboxEdit.getAttribute("aria-checked").equalsIgnoreCase("false"),"EDIT permission for this user was supposed to unchecked","EDIT permission for this user is unchecked as expected");
+		if(delete.equalsIgnoreCase("TRUE"))
+			Validator.assertTrue(cbAllcheckboxDelete.getAttribute("aria-checked").equalsIgnoreCase("true"),"DELETE permission for this user was supposed to checked","DELETE permission for this user is checked as expected");
+		else
+			Validator.assertTrue(cbAllcheckboxDelete.getAttribute("aria-checked").equalsIgnoreCase("false"),"DELETE permission for this user was supposed to unchecked","DELETE permission for this user is unchecked as expected");
+		if(view.equalsIgnoreCase("TRUE"))
+			Validator.assertTrue(cbAllcheckboxView.getAttribute("aria-checked").equalsIgnoreCase("true"),"VIEW permission for this user was supposed to checked","VIEW permission for this user is checked as expected");
+		else
+			Validator.assertTrue(cbAllcheckboxView.getAttribute("aria-checked").equalsIgnoreCase("false"),"VIEW permission for this user was supposed to unchecked","VIEW permission for this user is unchecked as expected");
+		if(download.equalsIgnoreCase("TRUE"))
+			Validator.assertTrue(cbAllcheckboxDownload.getAttribute("aria-checked").equalsIgnoreCase("true"),"DOWNLOAD permission for this user was supposed to checked","DOWNLOAD permission for this user is checked as expected");
+		else
+			Validator.assertTrue(cbAllcheckboxDownload.getAttribute("aria-checked").equalsIgnoreCase("false"),"DOWNLOAD permission for this user was supposed to unchecked","DOWNLOAD permission for this user is unchecked as expected");
 	}
 
 }

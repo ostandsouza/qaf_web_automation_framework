@@ -1,11 +1,11 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.APIBase;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
-import com.qmetry.qaf.automation.ui.api.TestBase;
 import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverExpectedConditions;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverWait;
@@ -15,16 +15,14 @@ import com.qmetry.qaf.automation.util.Reporter;
 
 import static org.testng.Assert.assertEquals;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import groovyjarjarantlr4.v4.codegen.model.Sync;
 import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
@@ -32,6 +30,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 	//QAFWebDriver driver;
     QAFWebDriverWait webDriverWait = new QAFWebDriverWait(driver, 90000);
     long implicitWait = Long.parseLong("2");
+
+    public APIBase apiBase = new APIBase();
 
     public BasePage(){
         setImplicitWait(1, TimeUnit.SECONDS);
@@ -74,8 +74,10 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      */
     public void waitForElementToInvisible(WebElement element, int timeOutInSeconds) {
         try{
+            setImplicitWait(1000, TimeUnit.MILLISECONDS);
             QAFWebDriverWait wdWait = new QAFWebDriverWait(driver, timeOutInSeconds);
             wdWait.until(invisibilityOfWebElementLocated(element));
+            setImplicitWait(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             logger.error("exception occured");
         }
@@ -116,14 +118,12 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      * @param unit
      */
     public void setImplicitWait(long timeout, TimeUnit unit) {
-        Reporter.log("timeout[{}]");
         unit = unit == null ? TimeUnit.SECONDS : unit;
         driver.manage().timeouts().implicitlyWait(unit.toMillis(timeout), TimeUnit.MILLISECONDS);
 //        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(timeout));
     }
 
     public void waitForElementVisible(WebElement elem, int timeOutInSeconds, int pollingEveryInMiliSec) {
-        Reporter.log("locator[{}]");
         setImplicitWait(1, TimeUnit.SECONDS);
         QAFWebDriverWait wait = getWait(timeOutInSeconds, pollingEveryInMiliSec);
         wait.until(ExpectedConditions.visibilityOf(elem));
@@ -145,7 +145,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
                 try {
                     notDisplayed = !element.isDisplayed();
                 } catch (Exception e) {
-                    Reporter.log("invisible");
+                    System.out.println("invisible");
                 }
                 return notDisplayed;
             }
@@ -156,7 +156,6 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      * @param timeOutInMiliSec
      */
     public void hardWait(int timeOutInMiliSec) {
-        Reporter.log("timeOutInMiliSec[{}]");
         try {
             Thread.sleep(timeOutInMiliSec);
         } catch (InterruptedException e) {
@@ -213,34 +212,33 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         SyncUtil.waitFor(1000);
     }
    
-    public void dropdownselect(CustomElement dropDownButton, String dropDownItems, String itemText) {
+    public void dropdownSelect(CustomElement dropDownButton, String dropDownItems, String itemText) {
     	
     	dropDownButton.click();
-    	
-    		List<QAFWebElement> Options = driver.findElements(dropDownItems);
+        setImplicitWait(10000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(1000);
+        List<QAFWebElement> Options = driver.findElements(dropDownItems);
 	       //  waitForPageLoad(4000);
-			for(WebElement ele:Options) {
-				String value = ele.getAttribute("innerText");
-				if(	value.equalsIgnoreCase(itemText)) {
-					ele.click();
-					Reporter.log(ele +" is selected", MessageTypes.Pass);
-					break;
-				}
-			}
+        for(WebElement ele:Options) {
+            String value = ele.getAttribute("innerText");
+            if(	value.equalsIgnoreCase(itemText)) {
+                ele.click();
+                Reporter.log(ele +" is selected", MessageTypes.Pass);
+                break;
+            }
+        }
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
     }
 
     public void scrollToElemet(WebElement element) {
-        Reporter.log("element[{}]");
         executeScript("window.scrollTo(arguments[0],arguments[1])", element.getLocation().x, element.getLocation().y);
     }
 
     public void scrollIntoView(WebElement element) {
-        Reporter.log("element[{}]");
         executeScript("arguments[0].scrollIntoView()", element);
     }
 
     public Object executeScript(String script, Object... args) {
-        Reporter.log("script[{}]");
         JavascriptExecutor exe = (JavascriptExecutor) driver;
         return exe.executeScript(script, args);
     }
@@ -248,7 +246,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     public void dropdownselectsearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
 		dropDownButton.click();
 		Search.type(itemstosearch);
-        setImplicitWait(40000,TimeUnit.MILLISECONDS);
+        setImplicitWait(50000,TimeUnit.MILLISECONDS);
 		waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
 		driver.findElement("//span[text()='"+itemstosearch+"']").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);

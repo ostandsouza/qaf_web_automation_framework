@@ -1,14 +1,15 @@
 package com.web.steps;
 
+import com.common.utils.APIBase;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.web.pages.BasePage;
+import com.web.pages.LoginPage;
 import com.web.pages.UsersPage;
 
 public class UserSteps extends BasePage {
-	
 	UsersPage userpage = new UsersPage();
 	
 	@QAFTestStep(description = "User is at home page")
@@ -133,5 +134,69 @@ public class UserSteps extends BasePage {
 		SyncUtil.waitFor(3000);
 		userpage.clickonlogout();
 	}
-	
+
+	@QAFTestStep(description="Create a Market manager {FullNameInd} and {Phone} and {EmailInd} and {ProfileType} and {UserPassword} and {RetypePassword}")
+	public void createMarketManager(String FullNameInd,String Phone,String EmailInd, String ProfileType,String UserPassword,String RetypePassword) {
+		String userid = userpage.apiBase.getUserProfileAPI(EmailInd);
+		userpage.apiBase.deleteProfileAPI(userid);
+		userpage.apiBase.deleteUserAPI(userid);
+		userpage.usersclick();
+		userpage.Addclick();
+		userpage.setfullname(FullNameInd);
+		userpage.setPhone("+91",Phone);
+		userpage.setemail(EmailInd);
+		userpage.setprofiletype(ProfileType);
+		userpage.setpassword(UserPassword);
+		userpage.setretypepassword(RetypePassword);
+		userpage.Nextclick();
+	}
+
+	@QAFTestStep(description="Create a Distributor User {FullName} and {Phone} and {EmailDist} and {ProfileTypeDist} and {UserPassword} and {RetypePassword} and {CoporateRole} and {DistCorpName} and {DistShopName} and {CustSiteName}")
+	public void createDistributorUserForIndiaJohnDoe(String FullName,String Phone,String EmailDist, String ProfileTypeDist,String UserPassword,String RetypePassword, String CoporateRole, String DistCorpName, String DistShopName, String CustSiteName) {
+		String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
+		userpage.apiBase.deleteProfileAPI(userid);
+		userpage.apiBase.deleteUserAPI(userid);
+		userpage.usersclick();
+		userpage.Addclick();
+		userpage.setfullname(FullName);
+		userpage.setPhone("+91",Phone);
+		userpage.setemail(EmailDist);
+		userpage.setprofiletype(ProfileTypeDist);
+		userpage.setpassword(UserPassword);
+		userpage.setretypepassword(RetypePassword);
+		userpage.distributorInformation(DistCorpName,CoporateRole);
+		userpage.Nextclick();
+		userpage.DistributorAssignment(DistShopName,CustSiteName);
+	}
+	@QAFTestStep(description="Add territory as {Region} for the user")
+	public void addTerritoryForUser(String region) {
+		userpage.setTerritory(region);
+	}
+
+	@QAFTestStep(description="Add permission rights with {Add} {Edit} {Delete} {View} {Download} and create user")
+	public void addPermissionForUser(String add, String edit, String delete, String view, String download) {
+		userpage.setPermission(add, edit, delete, view, download);
+		userpage.Clicksaveandclose();
+	}
+
+	@QAFTestStep(description = "Verify {FullName} user with market manager for market as {Region} and permission rights as {Add} {Edit} {Delete} {View} {Download}")
+	public void verifyMarketAndPermissionForUser(String fullName, String region, String add, String edit, String delete, String view, String download) {
+		userpage.goToUsers();
+		userpage.searchUser(fullName);
+		userpage.goToEditUserPage(fullName);
+		userpage.Nextclick();
+		userpage.verifyTerritory(region);
+		userpage.Nextclick();
+		userpage.verifyPermission(add, edit, delete, view, download);
+	}
+
+	@QAFTestStep(description = "Verify {FullName} user with distributor user for market as {Region} and permission rights as {Add} {Edit} {Delete} {View} {Download}")
+	public void verifyMarketAndPermissionForDistUser(String fullName, String region, String add, String edit, String delete, String view, String download) {
+		userpage.goToUsers();
+		userpage.searchUser(fullName);
+		userpage.goToEditUserPage(fullName);
+		userpage.Nextclick();
+		userpage.Nextclick();
+		userpage.verifyPermission(add, edit, delete, view, download);
+	}
 }

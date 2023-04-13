@@ -106,7 +106,7 @@ public class SteelcordgeneratorPage extends BasePage {
 		dropdownselectsearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
 		dropdownselectsearch(drcustomername, tbinput, "SiteAsia");
 		dropdownselectsearch(drconveyorname, tbinput, "rfb1");
-	    dropdownselect(drapprovername, drapproverlist, "Test Approver 1.FS");
+	    dropdownSelect(drapprovername, drapproverlist, "Test Approver 1.FS");
 		dropdownselectsearch(drBeltrating, tbinput, "ST 1000");
 		tbBeltwidth.type("1200");
 		dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
@@ -132,7 +132,7 @@ public class SteelcordgeneratorPage extends BasePage {
 			dropdownselectsearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
 			dropdownselectsearch(drcustomername, tbinput, "Miguel Site");
 			dropdownselectsearch(drconveyorname, tbinput, "conMex");
-		    dropdownselect(drapprovername, drapproverlist, "Test admin.SC");
+		    dropdownSelect(drapprovername, drapproverlist, "Test admin.SC");
 			dropdownselectsearch(drBeltrating, tbinput, "ST 1000");
 			tbBeltwidth.type("1200");
 			dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
@@ -157,7 +157,7 @@ public class SteelcordgeneratorPage extends BasePage {
 			dropdownselectsearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
 			dropdownselectsearch(drcustomername, tbinput, "SiteMex");
 			dropdownselectsearch(drconveyorname, tbinput, "rfbmex1");
-		    dropdownselect(drapprovername, drapproverlist, "Test Approver 1.FS");
+		    dropdownSelect(drapprovername, drapproverlist, "Test Approver 1.FS");
 			dropdownselectsearch(drBeltrating, tbinput, "ST 1600");
 			tbBeltwidth.type("1800");
 			dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");

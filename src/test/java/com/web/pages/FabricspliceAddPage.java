@@ -2,7 +2,7 @@ package com.web.pages;
 
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -277,7 +277,7 @@ public class FabricspliceAddPage extends BasePage{
     	  dropdownselectsearch(drProductionLocationofSpliceKit, tbinput, "Moers");
     	  dropdownselectsearch(drCustomerName, tbinput, "SiteAsia");
     	  dropdownselectsearch(drConveyorName, tbinput, "rfb1");
-    	  dropdownselect(drApproverName, drapproverlist, "Test Approver 1.FS");
+    	  dropdownSelect(drApproverName, drapproverlist, "Test Approver 1.FS");
     	  dropdownselectsearch(drBeltConstruction, tbinput, "ContiFlex");
     	  tbBeltwidth.type("1200");
     	  dropdownselectsearch(drBeltTypeFabric, tbinput, "EP800/5");
@@ -297,7 +297,7 @@ public class FabricspliceAddPage extends BasePage{
     	  dropdownselectsearch(drProductionLocationofSpliceKit, tbinput, "Jorf");
     	  dropdownselectsearch(drCustomerName, tbinput, "Mining Corp. China");
     	  dropdownselectsearch(drConveyorName, tbinput, "do not delete");
-    	  dropdownselect(drApproverName, drapproverlist, "Test Approver 1.FS");
+    	  dropdownSelect(drApproverName, drapproverlist, "Test Approver 1.FS");
     	  dropdownselectsearch(drBeltConstruction, tbinput, "ContiFlex");
     	  tbBeltwidth.type("1200");
     	  dropdownselectsearch(drBeltTypeFabric, tbinput, "EP800/5");

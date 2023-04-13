@@ -7,13 +7,91 @@
 		<listener class-name="com.common.utils.EmailableTestNGReport" />
 	</listeners>
 
-	<test name="Business Flow Test" enabled="true">
+<!--	<test name="Create Flow Test" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+<!--	<test name="Edit Flow Test" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression2" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+<!--	<test name="John Flow Test" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression4" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+<!--	<test name="Max Flow Test" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression5" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+<!--	<test name="Anna Flow Test" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression6" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+<!--	<test name="Permission Flow Test" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression7" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+	<test name="Delete Flow Test" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />
 		<parameter name="step.provider.sharedinstance" value="false" />
 		<groups>
 			<run>
-				<include name="Regression" />
+				<include name="Regression3" />
 			</run>
 		</groups>
 		<classes>

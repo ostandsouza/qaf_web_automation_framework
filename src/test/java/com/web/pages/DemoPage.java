@@ -50,6 +50,7 @@ import com.qmetry.qaf.automation.util.Reporter;
 
 	@FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span[text()='Distributor Corporate']")
 	public CustomElement drCompanyDropdownLoader;
+
 	@FindBy(locator = "xpath=(//div[@role='button'])[1]")
 	public CustomElement drTypeofcompany;
 	
@@ -73,6 +74,7 @@ import com.qmetry.qaf.automation.util.Reporter;
 
 	@FindBy(locator = "xpath=//li[text()=' No results found ']")
 	public CustomElement drTerritoryLoader;
+
 	@FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[2]")
 	public CustomElement drTerritorybutton;
 
@@ -292,7 +294,7 @@ import com.qmetry.qaf.automation.util.Reporter;
 	public CustomElement yesConfirmation;
 
 
-		public void clickcorporates() {
+	public void clickcorporates() {
 		waitForPageLoad(4000);
 		waitForElementVisible(lCorporates, 10000,500);
 		lCorporates.click();
@@ -339,7 +341,6 @@ import com.qmetry.qaf.automation.util.Reporter;
 		//drDistributorcorporatevalue.click();
 		tbCompanyName.sendKeys(companyname1);
 		//waitForPageLoad(7000);
-		waitForElementToInvisible(drTerritoryLoader,5000);
 		dropdownselectsearch(drTerritorybutton, drTerritoryvalue, territory);
 		drTerritoryManagerbutton.type(manager);
 		tbAddress.type(Address1);
@@ -600,9 +601,7 @@ import com.qmetry.qaf.automation.util.Reporter;
 		scrollPageDown();
 		String val="";
 		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(60); stop>System.nanoTime();) {
-			Reporter.log("Val: ="+pagination.getText());
 			if (val.equalsIgnoreCase(pagination.getText())) {
-				Reporter.log("Pagination: ="+pagination.getText());
 				break;
 			}
 			val = pagination.getText();

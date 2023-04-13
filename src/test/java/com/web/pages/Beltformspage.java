@@ -3,7 +3,6 @@ package com.web.pages;
 import static org.testng.Assert.assertEquals;
 
 import com.common.component.CustomElement;
-import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
@@ -98,7 +97,7 @@ public class Beltformspage extends BasePage{
 		dropdownselectsearch(ddlBottomCoverGauge, tbinput, "4");
 		//tbBeltlength.type("1500");
 		dropdownselectsearch(ddlBeltwidth, tbinput, "1800");
-		dropdownselect(ddlBreaker, breakeritems, "TC");
+		dropdownSelect(ddlBreaker, breakeritems, "TC");
 	    tbOverallbeltthickness.type("20");
 		textareaComment.type("Added Comments");	
 		waitForPageLoad(6000);

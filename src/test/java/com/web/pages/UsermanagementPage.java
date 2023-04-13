@@ -7,9 +7,6 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
-import org.openqa.selenium.By;
-
-import java.util.concurrent.TimeUnit;
 
 public class UsermanagementPage extends UsersPage {
 	
@@ -139,11 +136,11 @@ public class UsermanagementPage extends UsersPage {
 		tbTemplatename.type(Temaplatename);
 		btnTemplatesave.click();
 		SyncUtil.waitFor(5000);
-		dropdownselect(ddlSelecttemplate, ddlSelecttemplatelist, Temaplatename);
+		dropdownSelect(ddlSelecttemplate, ddlSelecttemplatelist, Temaplatename);
 		btnClear.click();	
 	}
 	public void DeleteTemplate(String Temaplatename) {
-		dropdownselect(ddlSelecttemplate, ddlSelecttemplatelist, Temaplatename);
+		dropdownSelect(ddlSelecttemplate, ddlSelecttemplatelist, Temaplatename);
 		btnDeleteicon.click();
 		btnDeleteYes.click();
 	}
