@@ -149,7 +149,7 @@ public class EmailableTestNGReport implements IReporter {
         writer.println("<div class=\"easy-test-overview\">");
         writer.println("<table class=\"stripe easy-overview\">");
         writer.print("<tr>");
-        writer.print("<th>Features/Devices</th>");
+        writer.print("<th>Features/Modules</th>");
         writer.print("<th>Total</th>");
         writer.print("<th>Passed</th>");
         writer.print("<th>Failed</th>");
@@ -980,7 +980,7 @@ public class EmailableTestNGReport implements IReporter {
         writer.print(">");
         String paltform= System.getenv("platform") == null ? "Web": System.getenv("platform");
         String env= System.getenv("ENV")== null ? "dev 2": System.getenv("ENV");
-        String type= System.getenv("type")== null ? "Business flow": System.getenv("type");
+        String type= System.getenv("type")== null ? "Sanity flow": System.getenv("type");
         String automatableUrl= System.getenv("AutomatableUrl")== null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("AutomatableUrl");
         writeColumnValue("Conti Plus", "num");
         writeColumnValue(paltform,"");

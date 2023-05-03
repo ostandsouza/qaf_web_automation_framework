@@ -1,0 +1,91 @@
+{
+  "name": "C1 Conveyor Inspector",
+  "customer": {
+    "location": {
+      "zipcode": "1050",
+      "country": "South Africa",
+      "state": "Mpumalanga",
+      "city": "Nkangala District Municipality",
+      "latitude": -25.7944583,
+      "longitude": 29.7378982
+    },
+    "createdDate": 1682409883559,
+    "companyId": "01GYVQ387310NYN8D750Z3BTE9",
+    "customerCorporate": {
+      "companyId": "01G6MK06E0M2WRCD51EHAYD4MA",
+      "companyType": {
+        "name": "Customer Corporate",
+        "category": "Customer",
+        "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX"
+      },
+      "street": "152 Marwan Bin Abdul Rahman, Al Mohammadiyyah, ",
+      "conveyorsCount": 25,
+      "name": "Conveyor Inspect Sanity Corp",
+      "location": {
+        "zipcode": "21411",
+        "country": "Saudi Arabia",
+        "state": "Makkah Province",
+        "city": "Jiddah",
+        "latitude": 21.6458309,
+        "longitude": 39.1140586
+      },
+      "territory": {
+        "market": {}
+      }
+    },
+    "updatedBy": {
+      "userId": "8ada2c68-238e-4e7a-9e98-d7daee95d1ad",
+      "fullName": "Conti Automation",
+      "image": ""
+    },
+    "associatedDistributor": "",
+    "name": "Conveyor Inspect Sanity Site",
+    "distributorCorporate": "",
+    "companyType": {
+      "name": "Customer Site",
+      "sortKey": "CUSTOMER",
+      "companyTypeId": "01FEN46X9FV4FK4ZTCNGQWZRDB",
+      "category": "Customer"
+    },
+    "image": "",
+    "territory": {
+      "name": "India",
+      "market": {
+        "name": "APAC",
+        "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+      },
+      "territoryId": "01FSY1KDK6N1BR2S603B44XN6D",
+      "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+    },
+    "territoryManager": {
+      "name": "Teritory Germany Automation",
+      "userId": "75c0ad25-fa8e-4ba8-8734-c328c8a3730f"
+    },
+    "updatedDate": 1682409883559,
+    "street": " "
+  },
+  "isDroneInspection": true,
+  "idlerReturn": {
+    "diameter": "4521.1998553216035",
+    "angle": "15",
+    "numberOfIdlers": "3000"
+  },
+  "idlerCarry": {
+    "diameter": "4521.1998553216035",
+    "angle": "45",
+    "numberOfIdlers": "6000"
+  },
+  "location": {
+    "head": {
+      "latitude": -25.798871663341405,
+      "longitude": 29.74336838283704
+    },
+    "tail": {
+      "latitude": -25.740876707495847,
+      "longitude": 29.76916406844297
+    }
+  },
+  "isValid": true,
+  "status": "active",
+  "updatedDate": "2023-04-25T18:44:18.213Z"
+}

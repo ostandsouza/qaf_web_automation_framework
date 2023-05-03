@@ -273,18 +273,18 @@ public class FabricspliceAddPage extends BasePage{
      }
       public void inputdata() {
     	  waitForPageLoad(5000);
-    	  dropdownselectsearch(drChooseyourmarket, tbinput, "APAC");
-    	  dropdownselectsearch(drProductionLocationofSpliceKit, tbinput, "Moers");
-    	  dropdownselectsearch(drCustomerName, tbinput, "SiteAsia");
-    	  dropdownselectsearch(drConveyorName, tbinput, "rfb1");
+    	  dropdownSelectSearch(drChooseyourmarket, tbinput, "APAC");
+    	  dropdownSelectSearch(drProductionLocationofSpliceKit, tbinput, "Moers");
+    	  dropdownSelectSearch(drCustomerName, tbinput, "SiteAsia");
+    	  dropdownSelectSearch(drConveyorName, tbinput, "rfb1");
     	  dropdownSelect(drApproverName, drapproverlist, "Test Approver 1.FS");
-    	  dropdownselectsearch(drBeltConstruction, tbinput, "ContiFlex");
+    	  dropdownSelectSearch(drBeltConstruction, tbinput, "ContiFlex");
     	  tbBeltwidth.type("1200");
-    	  dropdownselectsearch(drBeltTypeFabric, tbinput, "EP800/5");
-    	  dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
-    	  dropdownselectsearch(drBottomcovercompound, tbinput, "DEFENDER Y");
-    	  dropdownselectsearch(drTopcoverthickness, tbinput, "7");
-    	  dropdownselectsearch(drBottomcoverthickness, tbinput, "6");
+    	  dropdownSelectSearch(drBeltTypeFabric, tbinput, "EP800/5");
+    	  dropdownSelectSearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
+    	  dropdownSelectSearch(drBottomcovercompound, tbinput, "DEFENDER Y");
+    	  dropdownSelectSearch(drTopcoverthickness, tbinput, "7");
+    	  dropdownSelectSearch(drBottomcoverthickness, tbinput, "6");
     	  tboverallbeltthickness.type("10");
     	  tboverallbeltthickness.type("20");
     	  
@@ -293,18 +293,18 @@ public class FabricspliceAddPage extends BasePage{
       
       public void inputdataD() {
     	  waitForPageLoad(5000);
-    	  dropdownselectsearch(drChooseyourmarket, tbinput, "APAC");
-    	  dropdownselectsearch(drProductionLocationofSpliceKit, tbinput, "Jorf");
-    	  dropdownselectsearch(drCustomerName, tbinput, "Mining Corp. China");
-    	  dropdownselectsearch(drConveyorName, tbinput, "do not delete");
+    	  dropdownSelectSearch(drChooseyourmarket, tbinput, "APAC");
+    	  dropdownSelectSearch(drProductionLocationofSpliceKit, tbinput, "Jorf");
+    	  dropdownSelectSearch(drCustomerName, tbinput, "Mining Corp. China");
+    	  dropdownSelectSearch(drConveyorName, tbinput, "do not delete");
     	  dropdownSelect(drApproverName, drapproverlist, "Test Approver 1.FS");
-    	  dropdownselectsearch(drBeltConstruction, tbinput, "ContiFlex");
+    	  dropdownSelectSearch(drBeltConstruction, tbinput, "ContiFlex");
     	  tbBeltwidth.type("1200");
-    	  dropdownselectsearch(drBeltTypeFabric, tbinput, "EP800/5");
-    	  dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
-    	  dropdownselectsearch(drBottomcovercompound, tbinput, "DEFENDER Y");
-    	  dropdownselectsearch(drTopcoverthickness, tbinput, "7");
-    	  dropdownselectsearch(drBottomcoverthickness, tbinput, "6");
+    	  dropdownSelectSearch(drBeltTypeFabric, tbinput, "EP800/5");
+    	  dropdownSelectSearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
+    	  dropdownSelectSearch(drBottomcovercompound, tbinput, "DEFENDER Y");
+    	  dropdownSelectSearch(drTopcoverthickness, tbinput, "7");
+    	  dropdownSelectSearch(drBottomcoverthickness, tbinput, "6");
     	  tboverallbeltthickness.type("10");
     	  tboverallbeltthickness.type("20");
     	  

@@ -57,7 +57,7 @@ public class UsermanagementPage extends UsersPage {
 	@FindBy(locator="xpath=//div[@aria-label='dropdown trigger']")
 	public CustomElement ddlSelecttemplate;
 	
-	public String ddlSelecttemplatelist = "xpath=//ul[@role='listbox']//li//span";
+	public String ddlSelecttemplatelist = "//ul[@role='listbox']//li//span";
 	
 	@FindBy(locator="xpath=//span[text()='Clear']")
 	public CustomElement btnClear;

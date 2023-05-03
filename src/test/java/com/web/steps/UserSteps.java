@@ -5,6 +5,7 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
+import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.BasePage;
 import com.web.pages.LoginPage;
 import com.web.pages.UsersPage;
@@ -22,7 +23,7 @@ public class UserSteps extends BasePage {
 		
 		userpage.usersclick();
 		SyncUtil.waitFor(5000);
-            }
+	}
 	
 	@QAFTestStep(description = "User can view list of users page")
     public void verifyuserspage() {
@@ -36,7 +37,7 @@ public class UserSteps extends BasePage {
     public void clickonaddbutton() {
 		SyncUtil.waitFor(5000);
 		userpage.Addclick();
-            }  
+	}
 	
 	@QAFTestStep(description = "User can view add user page")
     public void verifyadduserspage() {
@@ -58,7 +59,7 @@ public class UserSteps extends BasePage {
 		userpage.Nextclick();
 		userpage.setTerritory("APAC");
 		
-            }                 
+	}
 	@QAFTestStep(description = "User enter the required details {Fullname1} and {Phone} and {Profiletypetu} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetails1(String Fullname1,String Phone,String Profiletypetu,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullname1);
@@ -71,7 +72,7 @@ public class UserSteps extends BasePage {
 		userpage.Nextclick();
 		userpage.setPermissions();
 		
-            } 
+	}
 	
 	@QAFTestStep(description = "User enter required details {Fullname2} and {Phone} and {Profiletypeta1} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetail(String Fullname2,String Phone,String Profiletypeta1,String Userpassword,String Retypepassword) throws InterruptedException {
@@ -85,7 +86,7 @@ public class UserSteps extends BasePage {
 		userpage.Nextclick();
 		userpage.setpermissionmm1();
 		
-            } 	
+	}
 	@QAFTestStep(description = "User enter required details {Fullname3} and {Phone} and {Profiletypeta1} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetailta2(String Fullname3,String Phone,String Profiletypeta1,String Userpassword,String Retypepassword) throws InterruptedException {
 		userpage.setfullname(Fullname3);
@@ -98,7 +99,7 @@ public class UserSteps extends BasePage {
 		userpage.Nextclick();
 		userpage.setpermissionmm1();
 		
-            } 
+	}
 	
 	@QAFTestStep(description = "User enter required details {Fullname4} and {Phone} and {Profiletypeta} and {Userpassword} and {Retypepassword}")
     public void Enteruserdetailta(String Fullname4,String Phone,String Profiletypeta,String Userpassword,String Retypepassword) throws InterruptedException {
@@ -112,7 +113,7 @@ public class UserSteps extends BasePage {
 		userpage.Nextclick();
 		userpage.setpermissionmm1();
 		
-            } 
+	}
 	
 	@QAFTestStep(description = "Click on Save and close button")
     public void Clickonsaveandclose() {
@@ -198,5 +199,15 @@ public class UserSteps extends BasePage {
 		userpage.Nextclick();
 		userpage.Nextclick();
 		userpage.verifyPermission(add, edit, delete, view, download);
+	}
+
+	@QAFTestStep(description="Delete User with name {userName}")
+	public void deleteUserWithName(String userName){
+		userpage.deleteUser(userName);
+	}
+
+	@QAFTestStep(description="Verify user {0} is deleted")
+	public void verifyUserIsDelete(String str0){
+		Validator.assertTrue(userpage.verifyUser(str0),"User did not delete properly","User deleted successfully");
 	}
 }

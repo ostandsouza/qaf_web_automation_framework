@@ -55,10 +55,9 @@ UsermanagementPage usermpage = new UsermanagementPage();
 	@QAFTestStep(description = "User enter required details {FullnameMaster} and {Phone} and {Profiletypemaster} and {Userpassword} and {Retypepassword} and {Templatename}")
     public void userEnterRequiredDetails(String FullnameMaster,String Phone,String Profiletypemaster,String Userpassword,String Retypepassword,String Templatename) throws InterruptedException {
 		userpage.setfullname(FullnameMaster);
-		
 	    //assertEquals(FullnameMaster, "Test Master 2");
 		userpage.setPhone("+91",Phone);
-assertEquals(Phone, "+919676736246");
+		assertEquals(Phone, "+919676736246");
 		String Email1 = "Demomas"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
 		userpage.setprofiletype(Profiletypemaster);

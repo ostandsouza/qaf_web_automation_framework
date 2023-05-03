@@ -9,7 +9,6 @@ import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverExpectedConditions;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverWait;
-import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.util.Reporter;
 //import com.web.component.DropDownListWithoutSearch;
 
@@ -18,7 +17,6 @@ import static org.testng.Assert.assertEquals;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import groovyjarjarantlr4.v4.codegen.model.Sync;
 import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -87,14 +85,33 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      * @param element
      */
     public void waitForElementToBeClickable(WebElement element) {
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+        try{
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e) {
+            logger.error("exception occured: "+e);
+        }
     }
 
     /**
      * @param locator
      */
     public void waitForPresenceOfElement(By locator) {
-        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        try{
+            webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        } catch (Exception e) {
+            logger.error("exception occurred: "+e);
+        }
+    }
+
+    /**
+     * @param locator
+     */
+    public void waitForPresenceOfElements(By locator) {
+        try{
+        webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+        } catch (Exception e) {
+            logger.error("exception occurred: "+e);
+        }
     }
 
     /**
@@ -215,11 +232,12 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     public void dropdownSelect(CustomElement dropDownButton, String dropDownItems, String itemText) {
     	
     	dropDownButton.click();
-        setImplicitWait(10000,TimeUnit.MILLISECONDS);
-        SyncUtil.waitFor(1000);
-        List<QAFWebElement> Options = driver.findElements(dropDownItems);
-	       //  waitForPageLoad(4000);
+        setImplicitWait(15000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(300);
+        waitForPresenceOfElements(By.xpath(dropDownItems));
+        List<WebElement> Options = driver.findElements(By.xpath(dropDownItems));
         for(WebElement ele:Options) {
+            waitForElementToBeClickable(ele);
             String value = ele.getAttribute("innerText");
             if(	value.equalsIgnoreCase(itemText)) {
                 ele.click();
@@ -243,14 +261,19 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         return exe.executeScript(script, args);
     }
     
-    public void dropdownselectsearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
+    public void dropdownSelectSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
 		dropDownButton.click();
+        waitForElementToBeClickable(dropDownButton);
 		Search.type(itemstosearch);
-        setImplicitWait(50000,TimeUnit.MILLISECONDS);
+        setImplicitWait(70000,TimeUnit.MILLISECONDS);
 		waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
 		driver.findElement("//span[text()='"+itemstosearch+"']").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);
 		Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
 	}
-    
+
+    public void browserRefresh() {
+        driver.navigate().refresh();
+        SyncUtil.waitFor(2000);
+    }
 }

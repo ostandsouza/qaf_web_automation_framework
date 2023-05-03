@@ -93,7 +93,6 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
-
     @FindBy(locator="xpath=(//button[@icon='pi pi-chevron-down'])[2]")
     public CustomElement btActions;
 
@@ -106,8 +105,14 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
     public CustomElement btviewicon;
 
+    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[2]")
+    public CustomElement btviewicon2;
+
     @FindBy(locator = "xpath=//span[text()='Update']")
     public CustomElement btUpdate;
+
+    @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
+    public CustomElement buttonLoader;
 
     @FindBy(locator = "xpath=//span[text()='Yes']")
     public CustomElement yesConfirmation;
@@ -223,8 +228,8 @@ public class CorporatePage extends BasePage{
         goToAddCorp();
         scrollPageup();
         selectDistributorShop();
-        dropdownselectsearch(drDistributorcorporate, tbSitedropdown,distCorp);
-        dropdownselectsearch(drTerritorybutton, drTerritoryvalue, territory);
+        dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,distCorp);
+        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, territory);
         drTerritoryManagerbutton.type(manager, "Territory");
         addCorporateDetails(companyName, address);
         saveCorp();
@@ -248,9 +253,9 @@ public class CorporatePage extends BasePage{
         goToAddCorp();
         scrollPageup();
         selectCustomerSite();
-        dropdownselectsearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
-        dropdownselectsearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopIndName);
-        dropdownselectsearch(drTerritorybutton, drTerritoryvalue, DistCorpIndTerritory);
+        dropdownSelectSearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
+        dropdownSelectSearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopIndName);
+        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, DistCorpIndTerritory);
         drTerritoryManagerbutton.type(manager);
         addCorporateDetails(companyName, address);
         saveCorp();
@@ -283,6 +288,8 @@ public class CorporatePage extends BasePage{
     public void updateCorp() {
         scrollPageDown();
         btUpdate.click("Update");
+        waitForElementToInvisible(buttonLoader,10000);
+        btSearchinput.isVisible("Corporate list screen");
     }
 
     public void selectDistributorShop() {
@@ -324,7 +331,7 @@ public class CorporatePage extends BasePage{
 
     public void corporateImgUpload(String fileName) {
         imageIcon.jsClick("Img_Icon");
-        String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "images_data").getAbsolutePath();
+        String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         fileUpload.sendKeys(file_path, "img_upload");
         btSave.click("Save_ImgUpload");
         waitForElementToInvisible(btSave, 30000);
@@ -334,7 +341,7 @@ public class CorporatePage extends BasePage{
         lCorporates.click("Corporate Menu");
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(60); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
@@ -356,12 +363,12 @@ public class CorporatePage extends BasePage{
         btEdit.jsClick("Edit");
         typeOfCompanyLoader.waitForText("Customer Site");
         tbCompanyName.type(editSiteName);
-        dropdownselectsearch(drTerritorybutton, drTerritoryvalue, "India");
+        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
         drTerritoryManagerbutton.type("Market India Automation", "Territory");
     }
 
     public void deleteSiteOrShop(String custCorp, String custSite) {
-        goToCorporateDetails(custCorp);
+        goToDistCorporateDetails(custCorp);
         btSearchinput.type(custSite, "Site/Shop name");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         btCheckbox.check("Site/Shop Checkbox");
@@ -393,6 +400,16 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btSiteShopCardNo);
     }
 
+    public void goToDistCorporateDetails(String corpName) {
+        searchCorporate(corpName);
+        SyncUtil.waitFor(2000);
+        if(btviewicon2.isEnable())
+            btviewicon2.click("Dist Corp shop Details");
+        else
+            btviewicon.click("Corp Site Details");
+        waitForElementToDisplay(btSiteShopCardNo);
+    }
+
     public void verifySiteOrShopEdit(String corpName, String siteName) {
         goToCorporateDetails(corpName);
         btSearchinput.type(siteName, "Site/Shop name");
@@ -404,18 +421,33 @@ public class CorporatePage extends BasePage{
     }
 
     public void verifySiteOrShopDelete(String corpName, String siteName) {
-        goToCorporateDetails(corpName);
+        goToDistCorporateDetails(corpName);
         btSearchinput.type(siteName, "Site/Shop name");
-        Validator.assertFalse(noList.isVisible("No Site/Shop"), "Site/Shop found even after delete", "Site/Shop not found after delete");
+        Validator.assertTrue(noList.isVisible("No Site/Shop"), "Site/Shop found even after delete", "Site/Shop not found after delete");
     }
 
     public void verifyCardDetails(String siteName) {
-//        Validator.assertFalse(btSiteShopCardNo.getText("Site Card").equalsIgnoreCase("2"),"Site/Shop card count shown in corporate details screen is incorrect","Successfully verified Site/Shop card count shown in corporate details screen");
-//        Validator.assertFalse(btConveyorCardNo.getText("Conveyor Card").equalsIgnoreCase("2"),"Conveyor card count shown in corporate details screen is incorrect","Successfully verified Conveyor card count shown in corporate details screen");
         siteNameLoader.waitForPartialText(siteName, 15000);
-        SyncUtil.waitFor(2000);
-        System.out.println("logger:= "+btSiteShopCardNo.getText("Site Card"));
-        System.out.println("logger:= "+btConveyorCardNo.getText("Conveyor Card"));
+        SyncUtil.waitFor(15000);
+        Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase("2"),"Site/Shop card count shown in corporate details screen is incorrect","Successfully verified Site/Shop card count shown in corporate details screen");
+        Validator.assertTrue(btConveyorCardNo.getText("Conveyor Card").trim().equalsIgnoreCase("6"),"Conveyor card count shown in corporate details screen is incorrect","Successfully verified Conveyor card count shown in corporate details screen");
     }
 
+    public void deleteCorporate(String corpName) {
+        goToCorporate();
+        waitForElementVisible(btSearchinput, 10000,500);
+        btSearchinput.type(corpName);
+        btCheckbox.click();
+        btActions.click();
+        waitForElementVisible(btDelete, 10000,500);
+        btDelete.click();
+        yesConfirmation.click();
+    }
+
+    public boolean verifyCorporate(String corpName) {
+        goToCorporate();
+        waitForElementVisible(btSearchinput, 10000,500);
+        btSearchinput.type(corpName);
+        return noList.isVisible();
+    }
 }

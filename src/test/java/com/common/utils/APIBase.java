@@ -6,7 +6,9 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
+import org.openqa.selenium.json.Json;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,6 +92,25 @@ public class APIBase {
         tearDown();
     }
 
+    public String getUserDataAPI(String email) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("user_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        if(email != null)
+            queryMaps.put("email", email);
+        headersMap.put("usertoken",accessToken);
+        Map<String, String> profilePaths = JsonReader.getMapTestData("path", "user_controller");
+        restApiHelper.makeGetRequest(profilePaths.get("user"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        String val = null;
+        if(profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = (String) jsnPath.getMap("data[0]").get("userId");
+        }
+        tearDown();
+        return val;
+    }
+
     public void deleteUserAPI(String userId) {
         configureRestAssured();
         String baseUrl = commonPaths.get("user_ms");
@@ -100,7 +121,6 @@ public class APIBase {
             restApiHelper.makeDeleteRequest(userPaths.get("user")+"/"+userId, headersMap);
         else
             System.out.println("user id was null");
-        Response profileResponse = restApiHelper.getResponse();
         tearDown();
     }
 
@@ -184,7 +204,6 @@ public class APIBase {
             restApiHelper.makeDeleteRequest(companyPaths.get("companies")+"/"+companyId, headersMap);
         else
             System.out.println("company id was null");
-        Response profileResponse = restApiHelper.getResponse();
         tearDown();
     }
 
@@ -217,7 +236,6 @@ public class APIBase {
             restApiHelper.makeDeleteRequest(companyPaths.get("conveyor")+"/"+conveyorId, headersMap);
         else
             System.out.println("conveyor id was null");
-        Response profileResponse = restApiHelper.getResponse();
         tearDown();
     }
 
@@ -247,7 +265,6 @@ public class APIBase {
             restApiHelper.makePutRequest(companyPaths.get("conveyor")+"/"+conveyorId, MiscUtils.getSingleUpdatedPayload(payload,"name",newConveyorName), headersMap);
         else
             System.out.println("conveyor id was null");
-        Response profileResponse = restApiHelper.getResponse();
         tearDown();
     }
 
@@ -303,7 +320,135 @@ public class APIBase {
             inspectionResponse =restApiHelper.makeDeleteRequest(inspectionPaths.get("inspection")+"/"+inspectionId , headersMap);
         else
             System.out.println("inspection id was null");
-        inspectionResponse = restApiHelper.getResponse();
+        tearDown();
+    }
+
+    public Response getFilesListAPI(String type, String relatedId) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("file_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        queryMaps.put("relatedToType",type);
+        queryMaps.put("relatedToId",relatedId);
+        Map<String, String> filePaths = JsonReader.getMapTestData("path", "file_controller");
+        Response fileManagerResponse =restApiHelper.makeGetRequest(filePaths.get("files"),queryMaps , headersMap);
+        return fileManagerResponse;
+    }
+
+    public ArrayList<String> getRootFileID(Response res){
+        ArrayList<String> val = new ArrayList<>();
+        JsonPath jsnPath = res.jsonPath();
+        int count = (Integer) jsnPath.getMap("pagination").get("count");
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+            for(int i = 0; i<count; i++)
+                val.add((String) jsnPath.getMap("data["+i+"]").get("fileId"));
+        }
+        return val;
+    }
+
+    public ArrayList<String> getMetaFileID(Response res){
+        ArrayList<String> val = new ArrayList<>();
+        JsonPath jsnPath = res.jsonPath();
+        int count = (Integer) jsnPath.getMap("pagination").get("count");
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+            for(int i = 0; i<count; i++)
+                val.add(((HashMap<String, String>)jsnPath.getMap("data["+i+"]").get("fileMetaData")).get("fileId"));
+        }
+        return val;
+    }
+
+    public void deleteFilesAPI(String fileId) {
+        configureRestAssured();
+        Response fileResponse;
+        String baseUrl = commonPaths.get("file_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> filePaths = JsonReader.getMapTestData("path", "file_controller");
+        if(fileId != null)
+            fileResponse =restApiHelper.makeDeleteRequest(filePaths.get("files")+"/"+fileId , headersMap);
+        else
+            System.out.println("inspection id was null");
+        tearDown();
+    }
+
+    public String getUltrasonicAPI(String conveyorId) {
+        configureRestAssured();
+        if(conveyorId != null)
+            queryMaps.put("conveyor.conveyorId", conveyorId);
+        String baseUrl = commonPaths.get("ultrasonic_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> ultrasonicsPaths = JsonReader.getMapTestData("path", "ultrasonic_controller");
+        restApiHelper.makeGetRequest(ultrasonicsPaths.get("ultrasonics"),queryMaps, headersMap);
+        Response ultrasonicResponse = restApiHelper.getResponse();
+        String val = null;
+        JsonPath jsnPath = ultrasonicResponse.jsonPath();
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+            val = (String) jsnPath.getMap("data[0]").get("ultrasonicId");
+        }
+        tearDown();
+        return val;
+    }
+
+    public void deleteUltrasonicAPI(String ultrasonicId) {
+        configureRestAssured();
+        Response ultrasonicResponse;
+        String baseUrl = commonPaths.get("ultrasonic_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "ultrasonic_controller");
+        if(ultrasonicId != null)
+            ultrasonicResponse =restApiHelper.makeDeleteRequest(inspectionPaths.get("ultrasonics")+"/"+ultrasonicId , headersMap);
+        else
+            System.out.println("ultrasonic id was null");
+        tearDown();
+    }
+
+    public String createCustomerCorpAPI() {
+        String baseUrl = commonPaths.get("company_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale("customer_corp", ClasspathResourceHelper.FileType.JSON, "test_data"));
+        System.out.println(obj);
+        requestBody.putAll(obj);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> companyPaths = JsonReader.getMapTestData("path", "company_controller");
+        Response companyResponse =restApiHelper.makePostRequest(companyPaths.get("companies"), new JSONObject(requestBody), headersMap);
+        String val = null;
+        if(companyResponse.getStatusCode() == 201) {
+            JsonPath jsnPath = companyResponse.jsonPath();
+            val = (String) jsnPath.get("companyId");
+        }
+        tearDown();
+        return val;
+    }
+
+    public String createCustomerSiteAPI(String companyId) {
+        String baseUrl = commonPaths.get("company_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale("customer_site", ClasspathResourceHelper.FileType.JSON, "test_data"));
+        System.out.println(obj.toJSONString());
+        requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"customerCorporate.companyId",companyId));
+        headersMap.put("user-token",accessToken);
+        Map<String, String> companyPaths = JsonReader.getMapTestData("path", "company_controller");
+        Response companyResponse =restApiHelper.makePostRequest(companyPaths.get("companies"), new JSONObject(requestBody), headersMap);
+        String val = null;
+        if(companyResponse.getStatusCode() == 201) {
+            JsonPath jsnPath = companyResponse.jsonPath();
+            val = (String) jsnPath.get("companyId");
+        }
+        tearDown();
+        return val;
+    }
+
+    public void createConveyorAPI(String companyId, String siteCompanyId) {
+        String baseUrl = commonPaths.get("conveyor_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale("conveyor", ClasspathResourceHelper.FileType.JSON, "test_data"));
+        requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"customer.customerCorporate.companyId",companyId));
+        requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"customer.companyId",siteCompanyId));
+        headersMap.put("user-token",accessToken);
+        Map<String, String> conveyorPaths = JsonReader.getMapTestData("path", "conveyor_controller");
+        Response conveyorResponse =restApiHelper.makePostRequest(conveyorPaths.get("conveyor"), new JSONObject(requestBody), headersMap);
         tearDown();
     }
 }

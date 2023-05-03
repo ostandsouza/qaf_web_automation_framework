@@ -102,17 +102,17 @@ public class SteelcordgeneratorPage extends BasePage {
 
 	public void createsteelcord() {
 	//	tbdesignerName.type(Designername);
-		dropdownselectsearch(drchoosetyourmarket, tbinput, "APAC");
-		dropdownselectsearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
-		dropdownselectsearch(drcustomername, tbinput, "SiteAsia");
-		dropdownselectsearch(drconveyorname, tbinput, "rfb1");
+		dropdownSelectSearch(drchoosetyourmarket, tbinput, "APAC");
+		dropdownSelectSearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
+		dropdownSelectSearch(drcustomername, tbinput, "SiteAsia");
+		dropdownSelectSearch(drconveyorname, tbinput, "rfb1");
 	    dropdownSelect(drapprovername, drapproverlist, "Test Approver 1.FS");
-		dropdownselectsearch(drBeltrating, tbinput, "ST 1000");
+		dropdownSelectSearch(drBeltrating, tbinput, "ST 1000");
 		tbBeltwidth.type("1200");
-		dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
-		dropdownselectsearch(drBottomcovercompound, tbinput, "ARCTIC GOLD PLUS");
-		dropdownselectsearch(drTopcoverthickness, tbinput, "4");
-		dropdownselectsearch(drBottomcoverthickness, tbinput, "2");
+		dropdownSelectSearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
+		dropdownSelectSearch(drBottomcovercompound, tbinput, "ARCTIC GOLD PLUS");
+		dropdownSelectSearch(drTopcoverthickness, tbinput, "4");
+		dropdownSelectSearch(drBottomcoverthickness, tbinput, "2");
 		tbOverallthickness.type("5");
 		tbOverallthickness.type("8");
 		tbCorddaiameter.type("20");
@@ -128,17 +128,17 @@ public class SteelcordgeneratorPage extends BasePage {
 	
 	public void createsteelcordD() {
 		//	tbdesignerName.type(Designername);
-			dropdownselectsearch(drchoosetyourmarket, tbinput, "APAC");
-			dropdownselectsearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
-			dropdownselectsearch(drcustomername, tbinput, "Miguel Site");
-			dropdownselectsearch(drconveyorname, tbinput, "conMex");
+			dropdownSelectSearch(drchoosetyourmarket, tbinput, "APAC");
+			dropdownSelectSearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
+			dropdownSelectSearch(drcustomername, tbinput, "Miguel Site");
+			dropdownSelectSearch(drconveyorname, tbinput, "conMex");
 		    dropdownSelect(drapprovername, drapproverlist, "Test admin.SC");
-			dropdownselectsearch(drBeltrating, tbinput, "ST 1000");
+			dropdownSelectSearch(drBeltrating, tbinput, "ST 1000");
 			tbBeltwidth.type("1200");
-			dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
-			dropdownselectsearch(drBottomcovercompound, tbinput, "ARCTIC GOLD PLUS");
-			dropdownselectsearch(drTopcoverthickness, tbinput, "4");
-			dropdownselectsearch(drBottomcoverthickness, tbinput, "2");
+			dropdownSelectSearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
+			dropdownSelectSearch(drBottomcovercompound, tbinput, "ARCTIC GOLD PLUS");
+			dropdownSelectSearch(drTopcoverthickness, tbinput, "4");
+			dropdownSelectSearch(drBottomcoverthickness, tbinput, "2");
 			tbOverallthickness.type("5");
 			tbOverallthickness.type("8");
 			tbCorddaiameter.type("20");
@@ -153,17 +153,17 @@ public class SteelcordgeneratorPage extends BasePage {
 		}
 
 	public void createsteelcordF() {
-			dropdownselectsearch(drchoosetyourmarket, tbinput, "APAC");
-			dropdownselectsearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
-			dropdownselectsearch(drcustomername, tbinput, "SiteMex");
-			dropdownselectsearch(drconveyorname, tbinput, "rfbmex1");
+			dropdownSelectSearch(drchoosetyourmarket, tbinput, "APAC");
+			dropdownSelectSearch(drproductionlocationofsplicekit, tbinput, "Kalyani");
+			dropdownSelectSearch(drcustomername, tbinput, "SiteMex");
+			dropdownSelectSearch(drconveyorname, tbinput, "rfbmex1");
 		    dropdownSelect(drapprovername, drapproverlist, "Test Approver 1.FS");
-			dropdownselectsearch(drBeltrating, tbinput, "ST 1600");
+			dropdownSelectSearch(drBeltrating, tbinput, "ST 1600");
 			tbBeltwidth.type("1800");
-			dropdownselectsearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
-			dropdownselectsearch(drBottomcovercompound, tbinput, "ARCTIC GOLD PLUS");
-			dropdownselectsearch(drTopcoverthickness, tbinput, "16");
-			dropdownselectsearch(drBottomcoverthickness, tbinput, "6");
+			dropdownSelectSearch(drTopcovercompound, tbinput, "ARCTIC GOLD");
+			dropdownSelectSearch(drBottomcovercompound, tbinput, "ARCTIC GOLD PLUS");
+			dropdownSelectSearch(drTopcoverthickness, tbinput, "16");
+			dropdownSelectSearch(drBottomcoverthickness, tbinput, "6");
 			tbOverallthickness.type("5");
 			tbOverallthickness.type("25");
 			tbCorddaiameter.type("5.3");

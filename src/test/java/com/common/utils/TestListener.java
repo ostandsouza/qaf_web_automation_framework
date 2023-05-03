@@ -32,8 +32,8 @@ public class TestListener implements ITestListener {
         {
             String scrFile = new BasePage().getTestBase().getDriver().getScreenshotAs(OutputType.BASE64);
             String val= "data:image/jpg;base64," + scrFile ;
-            org.testng.Reporter.log("<a title ='click to download image' href='" + val + "' download>" +
-                    " <img src='" + val + "' height='100' width='100' /> </a>");
+            org.testng.Reporter.log("<a title ='click to download image' href='" + val + "' onclick='(function(){window.open().document.body.innerHTML = \" <img src=" + val +" height=100% width=100%/>  \"})();return false;'>" +
+                    " <img src='" + val + "' height='100' width='100'/> </a>");
             Reporter.log("Screenshot captured for test case: " + iTestResult.getMethod().getConstructorOrMethod().getName());
         } catch (Exception e) {
             Reporter.log("Failed to capture screenshot "+e);

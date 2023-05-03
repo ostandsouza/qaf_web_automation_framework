@@ -1,6 +1,7 @@
 package com.web.steps;
 
 import com.qmetry.qaf.automation.step.QAFTestStep;
+import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.CorporatePage;
 
 public class CorporateSteps {
@@ -99,5 +100,20 @@ public class CorporateSteps {
     @QAFTestStep(description="Verify card count in details screen for {CustCorpName}")
     public void verifyTheCardDetails(String custCorpName){
         corpPage.verifyCardDetails(custCorpName);
+    }
+
+//    @QAFTestStep(description="Delete Corporate with name {CustCorpName}")
+//    public void deleteCorporate(String custCorpName){
+//        corpPage.deleteCorporate(custCorpName);
+//    }
+
+    @QAFTestStep(description="Delete Corporate with name {0}")
+    public void deleteCorporateWithName(String str0){
+        corpPage.deleteCorporate(str0);
+    }
+
+    @QAFTestStep(description="Verify Deleted corporate {CustCorpName}")
+    public void verifyDeleteCorporate(String distCorpName) {
+        Validator.assertTrue(corpPage.verifyCorporate(distCorpName),"Corporate did not delete properly","Corporate deleted successfully");
     }
 }

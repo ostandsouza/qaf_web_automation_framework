@@ -63,8 +63,8 @@ public class JsonReader {
 	public static Object getJsonProperties(String fileName, String header, String... dirs) {
 		File propFile = ClasspathResourceHelper.getPropertyFileByLocale(fileName, ClasspathResourceHelper.FileType.JSON, dirs);
 		JSONObject jsonContent = loadJsonFile(propFile);
-
 		Object val = jsonContent.get(header); // default value (could be null), e.g., props common for all envs
+
 
 		if (env != null && jsonContent.containsKey(env)) {
 			jsonContent = (JSONObject) jsonContent.get(env);

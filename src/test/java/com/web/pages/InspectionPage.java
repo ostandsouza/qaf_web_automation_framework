@@ -3,11 +3,6 @@ package com.web.pages;
 import static java.io.File.separator;
 import static org.testng.Assert.assertEquals;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 import com.common.component.CustomElement;
@@ -58,7 +53,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//p-multiselect[@optionlabel='name']//span")
 	public CustomElement ddlCollaborators;
 	
-	public String ListItem = "xpath=//ul[@role='listbox']//li//span";
+	public String ListItem = "//ul[@role='listbox']//li//span";
 	
 	@FindBy(locator = "xpath=//span[text()='Add new']")
 	public CustomElement btnAddnew;
@@ -200,6 +195,12 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
 	public CustomElement noList;
 
+	@FindBy(locator = "xpath=//span[contains(@class,'ctp-icon-Save')]")
+	public CustomElement ddlSave;
+
+	@FindBy(locator = "xpath=//div[text()='Inspection updated.']")
+	public CustomElement inepctionUpdated;
+
 
 	public void goToInspection() {
 		if(!lnkInspection.isVisible())
@@ -212,12 +213,12 @@ public class InspectionPage extends BasePage {
 		goToInspection();
 		scrollPageDown();
 		String val="";
-		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(60); stop>System.nanoTime();) {
+		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
 			if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
 				break;
 			}
 			val = pagination.getText();
-			SyncUtil.waitFor(6000);
+			SyncUtil.waitFor(5000);
 		}
 	}
 
@@ -232,25 +233,27 @@ public class InspectionPage extends BasePage {
 		btnItemlist.click();
 	}
 
-	public void addInspection(String conveyorName, String inspectionName, String siteName, String fullName) {
+	public void addInspection(String inspectionName, String siteName, String fullName) {
 		btnAddInspection.click("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
-		dropdownselectsearch(ddlSiteCustomername, tbInput, siteName);
-		dropdownselectsearch(ddlConveyor, tbInput, conveyorName);
+		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
+//		dropdownselectsearch(ddlConveyor, tbInput, conveyorName);
 //		ddlInspectorName.verifyText(fullName,"Inspector Name");
 		Reporter.log("Inspection is created",MessageTypes.Pass);
 	}
 	
 	
-	public void addInspectionItem(String assetName, String assetDetail, String failureMode, String condition, String status) {
-		btnAddnew.click();
+	public void addInspectionItem(String conveyorName, String assetName, String assetDetail, String failureMode, String condition, String status) {
+		waitForElementToBeClickable(btnAddnew);
+		btnAddnew.click("Add New Inspection");
 		waitForElementToDisplay(ddlAsset);
-		dropdownselectsearch(ddlAsset, tbInput, assetName);
+		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
+		dropdownSelectSearch(ddlAsset, tbInput, assetName);
 		dropdownSelect(ddlDetails, ListItem, assetDetail);
-		dropdownselectsearch(ddlFailureMode, tbInput, failureMode);
+		dropdownSelectSearch(ddlFailureMode, tbInput, failureMode);
 		dropdownSelect(ddlCondition, ListItem, condition);
 		dropdownSelect(ddlStatus, ListItem, status);
-		btnSave.click();
+		btnSave.click("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
 		Reporter.log("Inspection Item is created",MessageTypes.Pass);
 	}
@@ -262,14 +265,14 @@ public class InspectionPage extends BasePage {
 		inspectionHeader.verifyText(inspectionName,"Inspection Header");
 	}
 	
-	public void Edit() {
+	public void edit() {
 		btnEdit.click();
-		dropdownselectsearch(ddlFailureMode, tbInput, "Broken");
+		dropdownSelectSearch(ddlFailureMode, tbInput, "Broken");
 		btnSave.click();
 		Reporter.log("Inspection Item is updated",MessageTypes.Pass);
 	}
 	
-	public void Delete() {
+	public void delete() {
 		waitForPageLoad(3000);
 		btnDelete.click();
 		btnYes.click();
@@ -299,6 +302,7 @@ public class InspectionPage extends BasePage {
 		waitForElementVisible(btnDeleteInspection, 10000,500);
 		btnDeleteInspection.click("Delete");
 		btnYes.click("Confirm");
+		waitForElementToDisplay(noList);
 		Reporter.log("Inspection Item is deleted",MessageTypes.Pass);
 	}
 	
@@ -320,33 +324,12 @@ public class InspectionPage extends BasePage {
 		Reporter.log("PDF is downloaded",MessageTypes.Pass);
 	}
 	
-	public void imageupload() throws AWTException {
-		Robot rb = new Robot();
-		rb.delay(2000);
-		
-		StringSelection ss = new StringSelection("C:\\Users\\sudheerkumar.pola\\OneDrive - HCL Technologies Ltd\\Desktop\\IMG-4749.jpg");
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
-		
-		rb.keyPress(KeyEvent.VK_CONTROL);
-	    rb.keyPress(KeyEvent.VK_V);
-		
-		rb.keyRelease(KeyEvent.VK_CONTROL);
-		rb.keyRelease(KeyEvent.VK_V);
-		
-
-		rb.keyPress(KeyEvent.VK_ENTER);
-		rb.keyRelease(KeyEvent.VK_ENTER);
-		SyncUtil.waitFor(10000);
-		
-		
-	}
-	
-	public void verifyInspection(String inspectionName) {
+	public void verifyInspection(String inspectionName, String itemCount) {
 		Validator.assertTrue(searchInspection(inspectionName),"Inspection event is not found","Inspection event is found");
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
 		inspectionHeader.verifyText(inspectionName,"Inspection Header");
-		Validator.assertTrue(pagination.getText("Inspection Item").contains("2"),"All Inspections Items are not listed","All Inspections Items are listed");
+		Validator.assertTrue(pagination.getText("Inspection Item").contains(itemCount),"All Inspections Items are not listed","All Inspections Items are listed");
 	}
 
 	public void verifyPDFContents(String fullName, String custSiteName, String conveyorName, String inspectionName, String inspectionId) {
@@ -367,5 +350,47 @@ public class InspectionPage extends BasePage {
 		btSearchinput.type(inspectionName, "Inspection Search");
 		Validator.assertTrue(noList.isVisible("No Inspection"),"Inspection list was found","Inspection list was not found");
 		noList.isVisible("No Inspection List");
+	}
+
+	public void editInspection(String inspectionName) {
+		searchInspection(inspectionName);
+		cbCheckbox.check("Select Checkbox");
+		ddlActions.click("Actions");
+		waitForElementVisible(btnEditInspection, 10000,500);
+		btnEditInspection.click("Edit");
+		ddlSave.isVisible("Edit save");
+	}
+
+	public void editInspectionName(String inspectionName, String newInspName) {
+		editInspection(inspectionName);
+		waitForElementToDisplay(tbInspectionName);
+		SyncUtil.waitFor(1000);
+		tbInspectionName.type(newInspName);
+	}
+
+	public void editInspectionItem(String inspectionItem, String newStatus) {
+		btSearchinput.type(inspectionItem, "Inspection Search");
+		waitForElementToDisplay(cbCheckbox);
+		btnEdit.click("Edit Inspection Item");
+		waitForElementToDisplay(ddlStatus);
+		dropdownSelect(ddlStatus, ListItem, newStatus);
+		btnSave.click("Save");
+		waitForElementToDisplay(inspectionUpdateMsg);
+		Reporter.log("Inspection Item is Updated",MessageTypes.Pass);
+	}
+
+	public void deleteInspectionItem(String inspectionItem) {
+		btSearchinput.type(inspectionItem, "Inspection Search");
+		waitForElementToDisplay(cbCheckbox);
+		btnDelete.click("Delete Inspection Item");
+		btnYes.click("Confirm delete");
+		waitForElementToDisplay(noList);
+		noList.isVisible("No Item Found");
+	}
+
+	public void saveInspectionEvent() {
+		waitForElementToBeClickable(ddlSave);
+		ddlSave.jsClick("Save Inspection Event");
+		waitForElementToDisplay(inepctionUpdated);
 	}
 }

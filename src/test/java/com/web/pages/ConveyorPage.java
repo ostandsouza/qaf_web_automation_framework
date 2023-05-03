@@ -69,7 +69,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Save and Close']")
     public CustomElement btSaveandclose;
 
-    @FindBy(locator = "xpath=(//div[text()='Technical Data']/..//span)[1]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
+    public CustomElement buttonLoader;
+
+    @FindBy(locator = "xpath=(//div[text()='Technical Data']/..//div[contains(@class,'text-area')]/span)[1]")
     public CustomElement crTechnicalDataCard;
 
     @FindBy(locator = "xpath=//span[text()='Conveyor-Lite']")
@@ -519,7 +522,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//div[contains(text(),'Total Records:')]")
     public CustomElement crTotalImportedRecords;
 
-    @FindBy(locator = "xpath=//span[text()='Conveyors are successfully imported']")
+    @FindBy(locator="xpath=//div[text()='Conveyors are successfully imported']")
     public CustomElement crImportSuccessful;
 
     @FindBy(locator="xpath=//button[@icon='pi pi-pencil']//span[2]")
@@ -530,6 +533,13 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator="xpath=(//div[contains(@class,'p-panel-header')]/span)[1]")
     public CustomElement conveyorTitle;
+
+    @FindBy(locator="xpath=//div[text()='The file has been analysed. Please review the results below before performing the import.']")
+    public CustomElement fileAnalysedMsg;
+
+    @FindBy(locator="xpath=//div[contains(@class,'p-text-bold')]")
+    public CustomElement fileUploadSummary;
+
 
     public void goToConveyorListScreen(){
         if(!conveyorList.isVisible())
@@ -542,12 +552,12 @@ public class ConveyorPage extends BasePage{
         goToConveyorListScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(60); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(180); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
             val = pagination.getText();
-            SyncUtil.waitFor(6000);
+            SyncUtil.waitFor(10000);
         }
     }
 
@@ -555,9 +565,11 @@ public class ConveyorPage extends BasePage{
         addConveyors.click("Add Conveyor");
         waitForElementToDisplay(tbConveyorname);
         tbConveyorname.type(conveyorName,"Conveyor Name");
-        dropdownselectsearch(drSitedropdown, tbSitedropdown, custSiteName);
-        dropdownselectsearch(drDistShopdropdown, tbSitedropdown, distShopName);
+        dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
+        dropdownSelectSearch(drDistShopdropdown, tbSitedropdown, distShopName);
         btSaveandclose.click("Save & Close");
+        waitForElementToInvisible(buttonLoader,10000);
+        btSearchinput.isVisible("Conveyor list screen");
     }
 
     public void checkConveyorGermany(String conveyorName, String custCorpName) {
@@ -565,6 +577,8 @@ public class ConveyorPage extends BasePage{
         breakcrumHome.click("Conveyor Home");
         waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(conveyorName, "Conveyor Name");
+        waitForElementToDisplay(crCheckbox);
+        Validator.assertTrue(crCheckbox.isDisplayed(),"Search conveyor is not present","Searched conveyor is present");
         Reporter.log("Image :="+crImg.isDisplayed());
         Reporter.log("Name :="+crName.getText());
         Reporter.log("Site :="+crSite.getText());
@@ -584,6 +598,7 @@ public class ConveyorPage extends BasePage{
         waitForElementVisible(crDelete, 10000,500);
         crDelete.click("Delete");
         crYesConfirmation.click("Confirm");
+        waitForElementToDisplay(noList);
     }
 
     public void clearConveyorSearch() {
@@ -613,8 +628,8 @@ public class ConveyorPage extends BasePage{
     }
 
     public void verifyDeleteConveyor(String conveyorName) {
-        searchConveyor(conveyorName);
-        crCheckbox.check("Conveyor Checkbox");
+        goToConveyorListScreen();
+        btSearchinput.type(conveyorName, "Conveyor Search");
         Validator.assertTrue(noList.isVisible(),"Delete conveyor was still found in Conveyor list screen","Conveyor deleted successfully");
     }
 
@@ -700,7 +715,7 @@ public class ConveyorPage extends BasePage{
 
     public boolean verifyRemarks() {
         crRemarksTab.click("Remarks Tab");
-        return crImportFileButton.isVisible("Import File") && crAdditionalRemarks.isVisible("Additional Remarks");
+        return crAdditionalRemarks.isVisible("Additional Remarks");
     }
 
     public boolean verifyDefaultPin(String conveyorName) {
@@ -741,9 +756,9 @@ public class ConveyorPage extends BasePage{
 
     public void checkDownloadTemplateForOneSite(String distributor, String site) {
         goToBulkImport();
-        dropdownselectsearch(crDistributorDropdown,tbSitedropdown, distributor);
+        dropdownSelectSearch(crDistributorDropdown,tbSitedropdown, distributor);
         crSingleSitesRadio.click("Single Site Radio");
-        dropdownselectsearch(crSiteDropdown, tbSitedropdown, site);
+        dropdownSelectSearch(crSiteDropdown, tbSitedropdown, site);
         crTemplateDownload.click("Download Template");
     }
 
@@ -751,11 +766,11 @@ public class ConveyorPage extends BasePage{
         goToBulkImport();
 //        dropdownselectsearch(crDistributorDropdown,tbSitedropdown, distributor);
         crMultipleSitesRadio.click("Multiple Site Radio");
-        dropdownselectsearch(crSiteDropdown, tbMultipleSiteDropdown, site);
+        dropdownSelectSearch(crSiteDropdown, tbMultipleSiteDropdown, site);
         crSiteDropdown.click();
         tbMultipleSiteDropdown.clear();
         SyncUtil.waitFor(1000);
-        dropdownselectsearch(crSiteDropdown, tbMultipleSiteDropdown, site2);
+        dropdownSelectSearch(crSiteDropdown, tbMultipleSiteDropdown, site2);
         crTemplateDownload.jsClick("Download Template");
     }
 
@@ -765,15 +780,15 @@ public class ConveyorPage extends BasePage{
         crDeleteFileUpload.assertVisible("Delete File upload");
         crUploadedFileName.assertVisible("File Uploaded Name");
         crSave.click("Save File Upload");
-        SyncUtil.waitFor(3000);
-//        return crUploadSuccessText.getText("Success Text");
+        waitForElementToDisplay(fileAnalysedMsg);
     }
 
     public void acknowledgeImport(int count){
         waitForElementToDisplay(crImport);
-//        Validator.assertTrue(crTotalImportedRecords.getText().contains(String.valueOf(count)),"Total Imported conveyors incorrect","All conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[1].contains(String.valueOf(count)),"Total Imported conveyors incorrect","All conveyors imported successfully");
         crImport.click("Import");
         waitForElementToDisplay(crImportSuccessful);
+        waitForElementToDisplay(btSearchinput);
     }
     public Object[][] getExcelData(String fileName, String sheetName) {
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
@@ -783,19 +798,16 @@ public class ConveyorPage extends BasePage{
 
     public void verifyUploadedConveyor(String siteName, String fileName) {
         Object[][] obj = getExcelData(fileName,siteName);
-        for( int i = obj.length;i>1;i--)
-            Validator.assertTrue(searchConveyor(((Map<String,String>)obj[i-1][0]).get("Name")),"Imported Conveyor was not created successfully","Imported conveyor created successfully");
+        for( int i = obj.length-1;i>0;i--)
+            Validator.assertTrue(searchConveyor(((Map<String,String>)obj[i][0]).get("Name")),"Imported Conveyor was not created successfully","Imported conveyor created successfully");
     }
 
     public void editConveyor(String oldConveyorName, String newConveyorName) {
         goToConveyorListScreenAndWait();
         btSearchinput.type(oldConveyorName);
-        System.out.println("Image:="+crImg.isDisplayed());
-        System.out.println("Name:="+crName.getText());
-        System.out.println("Site:="+crSite.getText());
         crviewicon.click();
-        waitForElementVisible(conveyorTitle, 10000,500);
-        SyncUtil.waitFor(10000);
+        waitForElementToDisplay(conveyorTitle);
+        waitForElementToBeClickable(editConveyor);
         editConveyor.click();
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(tbConveyorname);

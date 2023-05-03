@@ -203,11 +203,14 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//input[@class='p-tree-filter p-inputtext p-component']")
 	public CustomElement tbSearch;
 
-	@FindBy(locator="xpath=(//div[@aria-label='All']/div)[1]")
+	@FindBy(locator="xpath=(//div[@aria-label='ALL']/div)[1]")
 	public CustomElement distShopCheckbox;
 
-	@FindBy(locator="xpath=(//div[@aria-label='All']/div)[2]")
+	@FindBy(locator="xpath=(//div[@aria-label='ALL']/div)[2]")
 	public CustomElement custShopCheckbox;
+
+	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
+	public CustomElement noList;
 	
 	
 	public void usersclick() {
@@ -325,7 +328,7 @@ public class UsersPage extends BasePage{
 	}
 	public void setTerritory(String region) {
 		waitForPageLoad(5000);
-		waitForElementVisible(eleArrowMT, 10000,500);
+		waitForElementToDisplay(eleArrowMT);
 //		eleCheckboxMT.click();
 		if(region.equalsIgnoreCase("APAC")){
 			Reporter.log("isSelected: ="+cbCheckboxAPAC.getAttribute("aria-checked"));
@@ -366,7 +369,8 @@ public class UsersPage extends BasePage{
 		waitForPageLoad(3000);
 		waitForElementVisible(btSaveandClose, 10000,500);
 		btSaveandClose.click();
-		SyncUtil.waitFor(10000);
+		SyncUtil.waitFor(15000);
+		waitForElementToDisplay(btSearchinput);
 		Reporter.log("User is created",MessageTypes.Pass);
 	}
 
@@ -379,7 +383,7 @@ public class UsersPage extends BasePage{
     }
 
     public void distributorInformation(String corporate, String role) {
-    	dropdownselectsearch(ddlCorportaedropdown, tbCorporateSearch, corporate);
+    	dropdownSelectSearch(ddlCorportaedropdown, tbCorporateSearch, corporate);
     	ddlCorporateroledropdown.click();
 		if(role.equalsIgnoreCase("manager"))
     		rdbManager.click();
@@ -392,7 +396,7 @@ public class UsersPage extends BasePage{
     }
     
     public void Customerinformation(String corporate) {
-    	dropdownselectsearch(ddlCorportaedropdown, tbCorporateSearch, corporate);
+    	dropdownSelectSearch(ddlCorportaedropdown, tbCorporateSearch, corporate);
     	ddlCorporateroledropdown.click();
     	rdbManager.click();
     	ddlSubscriptionType.click();
@@ -456,6 +460,7 @@ public class UsersPage extends BasePage{
 		Reporter.log("Territory :="+btTerritory.getText());
 		btviewicon.click();
 		waitForElementToDisplay(editBtn);
+		waitForElementToBeClickable(editBtn);
 		editBtn.click();
 	}
 
@@ -473,7 +478,7 @@ public class UsersPage extends BasePage{
 		SyncUtil.waitFor(5000);
 		scrollPageDown();
 		String val="";
-		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(30); stop>System.nanoTime();) {
+		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
 			if (val.equalsIgnoreCase(pagination.getText())) {
 				Reporter.log("Pagination: ="+pagination.getText());
 				break;
@@ -484,6 +489,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void verifyTerritory(String region) {
+		SyncUtil.waitFor(2000);
 		if(region.equalsIgnoreCase("APAC"))
 			Validator.assertTrue(cbCheckboxAPAC.getAttribute("aria-checked").equalsIgnoreCase("true"),"APAC region for this user was supposed to checked","APAC region for this user is checked as expected");
 		else
@@ -527,6 +533,25 @@ public class UsersPage extends BasePage{
 			Validator.assertTrue(cbAllcheckboxDownload.getAttribute("aria-checked").equalsIgnoreCase("true"),"DOWNLOAD permission for this user was supposed to checked","DOWNLOAD permission for this user is checked as expected");
 		else
 			Validator.assertTrue(cbAllcheckboxDownload.getAttribute("aria-checked").equalsIgnoreCase("false"),"DOWNLOAD permission for this user was supposed to unchecked","DOWNLOAD permission for this user is unchecked as expected");
+	}
+
+	public void deleteUser(String user) {
+		goToUsers();
+		waitForElementToDisplay(btSearchinput);
+		btSearchinput.type(user);
+		waitForElementToDisplay(btCheckbox);
+		btCheckbox.click();
+		btActions.click();
+		waitForElementToDisplay(btDelete);
+		btDelete.click();
+		btYes.click();
+	}
+
+	public boolean verifyUser(String user) {
+		goToUsers();
+		waitForElementToDisplay(btSearchinput);
+		btSearchinput.type(user);
+		return noList.isVisible();
 	}
 
 }

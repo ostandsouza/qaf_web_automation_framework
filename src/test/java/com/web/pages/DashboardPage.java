@@ -23,7 +23,7 @@ public class DashboardPage extends BasePage {
     public void handleCookiePopup()  {
         SyncUtil.waitFor(5000);
         if(popupHeader.isVisible())
-            rejectBtn.click();
+            acceptBtn.click();
     }
 
 }

@@ -3,8 +3,6 @@ package com.web.pages;
 import com.common.component.CustomElement;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
-import com.qmetry.qaf.automation.ui.annotations.UiElement;
-import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 
 import java.util.concurrent.TimeUnit;
@@ -33,7 +31,7 @@ public class SitePage  extends BasePage{
     public CustomElement btDelete;
 
     @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
-    public CustomElement btviewicon;
+    public CustomElement btViewIcon;
 
     @FindBy(locator = "xpath=//span[text()='Update']")
     public CustomElement btUpdate;
@@ -47,8 +45,15 @@ public class SitePage  extends BasePage{
     @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
     public CustomElement pagination;
 
+    @FindBy(locator = "xpath=(//app-card//div[text()='File Manager'])[1]")
+    public CustomElement fileManager;
+
+    @FindBy(locator="xpath=(//span[contains(@class,'p-panel-title')])[1]")
+    public CustomElement siteHeader;
+
     public void goToSiteListScreen(){
-        home.click("Home");
+        if(!sites.isVisible())
+            home.click("Home");
         sites.click("Sites List");
         btSearchinput.isVisible("Site Page");
     }
@@ -57,7 +62,7 @@ public class SitePage  extends BasePage{
         goToSiteListScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(60); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
@@ -68,6 +73,14 @@ public class SitePage  extends BasePage{
     public void searchSite(String siteName) {
         goToSiteListScreenAndWait();
         btSearchinput.type(siteName, "site Search");
+    }
+
+    public void goToSiteDetails(String siteName) {
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btViewIcon.click("Site Details");
+        waitForElementToDisplay(siteHeader);
+        siteHeader.isEnable("File Manager");
     }
 
     public void deleteSite(String siteName) {

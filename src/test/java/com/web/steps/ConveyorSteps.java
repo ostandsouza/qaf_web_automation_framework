@@ -34,7 +34,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description="Verify Deleted Conveyor {ConveyorName1} from Conveyor list screen")
     public void verifyDeleteConveyor(String conveyorName){
-//        conveyorPage.verifyDeleteConveyor(conveyorName);
+        conveyorPage.verifyDeleteConveyor(conveyorName);
     }
 
     @QAFTestStep(description="Verify red pin on conveyor list with {ConveyorName2} and {ConveyorName5}")
@@ -76,7 +76,7 @@ public class ConveyorSteps {
             conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         }
         conveyorPage.conveyorFileImport(fileName);
-        conveyorPage.acknowledgeImport(obj.length);
+        conveyorPage.acknowledgeImport(obj.length-1);
     }
 
     @QAFTestStep(description="Validate conveyor {CustSiteName} should display in list with same data as filled in exel sheet {FileName}")

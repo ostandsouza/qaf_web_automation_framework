@@ -24,18 +24,20 @@ public class InspectionSteps {
 	public void createAddInspection(String conveyorName, String inspectionName, String custSiteName, String fullName){
 		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
 		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
+		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
 		inspectionpage.goToInspection();
-		inspectionpage.addInspection(conveyorName,inspectionName,custSiteName,fullName);
+		inspectionpage.addInspection(inspectionName,custSiteName,fullName);
 	}
 	
-	@QAFTestStep(description="Add inspection Item for conveyor for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
-	public void createAddInspectionItem(String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status){
-		inspectionpage.addInspectionItem(assetName, assetDetail, failureMode, condition, status);
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void createAddInspectionItem(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
+		inspectionpage.addInspectionItem(conveyorName,assetName, assetDetail, failureMode, condition, status);
 	}
 
-	@QAFTestStep(description="Verify And validate the changes for {InspectionName}")
-	public void verifyInspectionItem(String inspectionName){
-		inspectionpage.verifyInspection(inspectionName);
+	@QAFTestStep(description="Verify And validate the changes for {InspectionName} with {ItemCount}")
+	public void verifyInspectionItem(String inspectionName, String itemCount){
+		inspectionpage.verifyInspection(inspectionName,itemCount);
 	}
 	
 	@QAFTestStep(description="Download inspection {InspectionName} from inspection list")
@@ -62,5 +64,21 @@ public class InspectionSteps {
 	@QAFTestStep(description="Verify inspection {InspectionName} is deleted from inspection list")
 	public void verifyInspectionDelete(String inspectionName){
 		inspectionpage.verifyDeleteInspection(inspectionName);
+	}
+
+	@QAFTestStep(description="Edit inspection Event from {InspectionName} to {EditInspectionName}")
+	public void editInspectionName(String inspectionName, String editInspectionName){
+		inspectionpage.editInspectionName(inspectionName,editInspectionName);
+	}
+
+	@QAFTestStep(description="Edit inspection Item status for {ConveyorName} to {EditStatus}")
+	public void editInspectionItem(String inspectionName, String editStatus){
+		inspectionpage.editInspectionItem(inspectionName,editStatus);
+	}
+
+	@QAFTestStep(description="Delete inspection Item for {ConveyorName1}")
+	public void deleteInspectionItem(String inspectionName){
+		inspectionpage.deleteInspectionItem(inspectionName);
+		inspectionpage.saveInspectionEvent();
 	}
 }

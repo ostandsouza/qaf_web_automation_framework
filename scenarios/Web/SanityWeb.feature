@@ -5,6 +5,7 @@ Launch the application through '/'
 
 @Sanity1
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Usermanagement_MarketUser
 Scenario: Verify the create market manager with all permission
 
@@ -17,19 +18,19 @@ Scenario: Verify the create market manager with all permission
 
 @Sanity2
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Usermanagement_DistributorUser
-Scenario: Verify the create distributor user with limited permission
+Scenario: Verify the create Distributor user with limited permission
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-    And   Create a Distributor User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}' and '${CoporateRole}' and '${DistCorpName}' and '${DistShopName}' and '${CustSiteName}'
+    When  Create a Distributor User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}' and '${CoporateRole}' and '${DistCorpName}' and '${DistShopName}' and '${CustSiteName}'
     And   Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
     Then  Verify '${FullName}' user with distributor user for market as '${Region}' and permission rights as '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}'
 
 @Sanity3
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:CorporateMangement_Create
-Scenario: Verify the create corporate scenario
+Scenario: Verify with create corporate scenario
 
     Given User is at Login page
     When  Login with normal user '${UserName}' and '${Password}'
@@ -44,12 +45,11 @@ Scenario: Verify the create corporate scenario
 
 @Sanity4
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:CorporateMangement_Edit
-Scenario: Verify the edit corporate scenario
+Scenario: Verify with Edit corporate scenario
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Edit Customer Corporate with '${CustCorpName}' and '${EditCustCorpName}'
+    When  Edit Customer Corporate with '${CustCorpName}' and '${EditCustCorpName}'
     And   Add '${CorpImageName}' image to Corporate and save changes
     Then  Verify the Distributor Corp details with '${EditCustCorpName}' and '${CorpImageName}'
     When  Edit Customer site with '${CustSiteName}' and '${EditCustSiteName}' using corporate '${EditCustCorpName}'
@@ -58,24 +58,22 @@ Scenario: Verify the edit corporate scenario
 
 @Sanity5
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:CorporateMangement_Delete
-Scenario: Verify the Delete corporate scenario
+Scenario: Verify with Delete corporate scenario
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Delete Customer site with '${CustSiteName}'
+    When  Delete Customer site with '${CustSiteName}'
     Then  Verify Deleted Customer site with '${CustSiteName}'
     When  Delete Distributor Shop for Corporate '${DistCorpName}' with '${DistShopIndName}'
     Then  Verify Deleted Distributor shop with '${DistCorpName}' with '${DistShopIndName}'
 
 @Sanity6
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Conveyor_Management
-Scenario: Verify the Conveyor management
+Scenario: Verify the conveyor management
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
+    When  Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName2}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName3}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName4}' and '${DistShopAusName}' and '${CustSiteAusName}'
@@ -91,67 +89,156 @@ Scenario: Verify the Conveyor management
 
 @Sanity7
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Conveyor_BulkUpload
-Scenario: Verify the Conveyor Bulk Upload
+Scenario: Verify the conveyor bulk upload
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Download bulk upload template for distributor '${DistCorpName}' and with sites '${CustSiteName}' and '${CustSite2Name}'
+    When  Download bulk upload template for distributor '${DistCorpName}' and with sites '${CustSiteName}' and '${CustSite2Name}'
     And   Add two conveyor via bulk upload in site '${CustSiteName}' with file '${FileName}'
     Then  Validate conveyor '${CustSiteName}' should display in list with same data as filled in exel sheet '${FileName}'
 
 @Sanity8
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Corporate_Card
-Scenario: Verify corporate card data
+Scenario: Verify scenario for corporate card data
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Navigate to Corporate details screen for corporate '${CustCorpName}'
+    When  Navigate to Corporate details screen for corporate '${CustCorpName}'
     Then  Verify card count in details screen for '${CustCorpName}'
 
 @Sanity9
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Conveyor_Edit
-Scenario: Verify conveyor edit
+Scenario: Verify the conveyor Edit
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Edit Conveyor '${ConveyorName}' from conveyor list screen to '${EditConveyorName}'
+    When  Edit Conveyor '${ConveyorName}' from conveyor list screen to '${EditConveyorName}'
     Then  Verify Edited conveyor details with '${EditConveyorName}' for Corporate '${CustSiteName}'
-    When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
-    And   Edit inspection Item from '${Status}' to '${EditStatus}'
-    Then  Verify And validate the changes for '${EditInspectionName}'
 
 @Sanity10
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Inspection_Management
-Scenario: Verify the inspection management
+Scenario: Verify Inspection management
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
-    And   Add inspection Item for conveyor for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    And   Add inspection Item for conveyor for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
-    Then  Verify And validate the changes for '${InspectionName}'
+    When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
+    Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
+    When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
+    And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}'
+    And   Delete inspection Item for '${ConveyorName1}'
+    Then  Verify And validate the changes for '${EditInspectionName}' with '${ActionItemCount}'
 
 @Sanity11
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Inspection_Report
-Scenario: Verify the inspection Report
+Scenario: Verify Inspection Report
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Download inspection '${InspectionName}' from inspection list
+    When  Download inspection '${InspectionName}' from inspection list
     Then  Verify data displayed in report for '${FullName}' '${CustSiteName}' '${ConveyorName}' '${InspectionName}'
 
 @Sanity12
 @dataFile:resources/data/TestData.xls
+@sheetName:Sanity
 @key:Inspection_Delete
-Scenario: Verify the inspection Report
+Scenario: Verify Inspection Delete
+
+    When  Delete inspection '${InspectionName}' from inspection list
+    Then  Verify inspection '${InspectionName}' is deleted from inspection list
+
+
+@Sanity13
+@dataFile:resources/data/TestData.xls
+@sheetName:Sanity
+@key:CoverWear_Management
+Scenario: Verify Cover Wear Management
+
+    When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
+    Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
+    When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'
+    Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${SegmentName}' with durometer as '${PositionDurometer}'
+    When  Edit Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' to '${EditSegmentName}'
+    Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}' with durometer as '${PositionDurometer}'
+    When  Delete Cover wear position for conveyor '${ConveyorName}' with data '${EditSegmentName}'
+    Then  Verify Delete Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}'
+    When  Edit Cover wear measurement for conveyor '${ConveyorName}'
+    When  Delete Cover wear measurement for conveyor '${ConveyorName}'
+    Then  Verify Delete Cover wear measurement for conveyor '${ConveyorName}'
+
+@Sanity14
+@dataFile:resources/data/TestData.xls
+@sheetName:Sanity
+@key:File_Manager
+Scenario: Verify File manager
+
+    When  Add Folder by the name '${FolderName}' under site '${CustSiteName}'
+    And   Upload file '${ImgName}' into the folder '${FolderName}'
+    Then  Verify folder '${FolderName}' and file '${ImgName}'
+    When  Upload file '${pdfFile}' into the folder "root"
+    And   Move the file with '${pdfFile}' inside folder '${FolderName}'
+    Then  Verify folder '${FolderName}' and file '${pdfFile}'
+    When  Upload file '${videoFile}' into the folder '${FolderName}'
+    Then  Verify folder '${FolderName}' and file '${videoFile}'
+    When  Open image with name '${ImgName}' inside folder '${FolderName}'
+    And   Open file with name '${pdfFile}' inside folder '${FolderName}'
+    And   Open file with name '${videoFile}' inside folder '${FolderName}'
+    And   Delete file with name '${ImgName}' inside folder '${FolderName}'
+    And   Delete file with name '${pdfFile}' inside folder '${FolderName}'
+    And   Delete file with name '${videoFile}' inside folder '${FolderName}'
+    Then  Verify the deleted file '${ImgName}' '${pdfFile}' '${videoFile}' inside folder '${FolderName}'
+    When  Delete the folder '${FolderName}'
+    Then  Verify the deleted folder '${FolderName}'
+
+
+@Sanity15
+@dataFile:resources/data/TestData.xls
+@sheetName:Sanity
+@key:Conveyor_Inspect
+Scenario: Verify Conveyor Inspect
+
+    When  Assign Object detection model '${DetectionModel}' for Corporate '${CustCorpName}' with site '${CustSiteName}' and conveyor '${ConveyorName}'
+    And   Upload drone files with '${Side}' '${colorMap}' '${irName}' '${rgbName}'
+
+
+@Sanity16
+@dataFile:resources/data/TestData.xls
+@sheetName:Sanity
+@key:Delete_Functionality
+Scenario: Verify the Delete functionality across the application
 
     Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
-    And   Delete inspection '${InspectionName}' from inspection list
-    Then  Verify inspection '${InspectionName}' is deleted from inspection list
+    When  Login with '${UserName}' and '${Password}'
+    When  Delete Conveyor from Conveyor list screen '${ConveyorName2}'
+    Then  Verify Deleted Conveyor '${ConveyorName2}' from Conveyor list screen
+    When  Delete Conveyor from Conveyor list screen '${ConveyorName3}'
+    Then  Verify Deleted Conveyor '${ConveyorName3}' from Conveyor list screen
+    When  Delete Conveyor from Conveyor list screen '${ConveyorName5}'
+    Then  Verify Deleted Conveyor '${ConveyorName5}' from Conveyor list screen
+    When  Delete Conveyor from Conveyor list screen '${ConveyorName6}'
+    Then  Verify Deleted Conveyor '${ConveyorName6}' from Conveyor list screen
+    When  Delete Conveyor from Conveyor list screen '${ConveyorName7}'
+    Then  Verify Deleted Conveyor '${ConveyorName7}' from Conveyor list screen
+    When  Delete Conveyor from Conveyor list screen '${ConveyorName8}'
+    Then  Verify Deleted Conveyor '${ConveyorName8}' from Conveyor list screen
+    And   Delete Customer site with '${CustSiteAusName}'
+    Then  Verify Deleted Customer site with '${CustSiteAusName}'
+    And   Delete Customer site with '${CustSiteNZName}'
+    Then  Verify Deleted Customer site with '${CustSiteNZName}'
+    Then  Verify Deleted Distributor shop with '${DistCorpName}' with '${DistShopAusName}'
+    When  Delete Corporate with name '${CustCorpName}'
+    Then  Verify Deleted corporate '${CustCorpName}'
+    When  Delete Corporate with name '${DistCorpName}'
+    Then  Verify Deleted corporate '${DistCorpName}'
+    When  Delete User with name '${FullName}'
+    Then  Verify user '${FullName}' is deleted
+    When  Delete User with name '${FullName1}'
+    Then  Verify user '${FullName1}' is deleted
+
+
+
+
+
+
 

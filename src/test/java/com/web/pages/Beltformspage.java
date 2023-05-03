@@ -57,7 +57,7 @@ public class Beltformspage extends BasePage{
 	@FindBy(locator = "xpath=//label[text()='Breaker ']/parent::div//div[@role='button']")
 	public CustomElement ddlBreaker;
 	
-	public String breakeritems = "xpath=//ul[@role='listbox']";
+	public String breakeritems = "//ul[@role='listbox']";
 	
 	@FindBy(locator = "xpath=//label[text()='Select Location Address ']/parent::div//div[@role='button']")
 	public CustomElement ddlSelectLocationAddress;
@@ -87,16 +87,16 @@ public class Beltformspage extends BasePage{
 	}
 	
 	public void Input() {
-		dropdownselectsearch(ddlMarket, tbinput, "APAC");
-		dropdownselectsearch(ddlStdRequestedbyCustomer, tbinput, "INDIA");
-		dropdownselectsearch(ddlBeltConstruction, tbinput, "ContiTitan");
-		dropdownselectsearch(ddlCarcassConstruction, tbinput, "2000/2");
-		dropdownselectsearch(ddlTopCoverCompound, tbinput, "SHIELD KG");
-		dropdownselectsearch(ddlTopCoverGauge, tbinput, "5");
-		dropdownselectsearch(ddlBottomCoverCompound, tbinput, "GOLD PLUS");
-		dropdownselectsearch(ddlBottomCoverGauge, tbinput, "4");
+		dropdownSelectSearch(ddlMarket, tbinput, "APAC");
+		dropdownSelectSearch(ddlStdRequestedbyCustomer, tbinput, "INDIA");
+		dropdownSelectSearch(ddlBeltConstruction, tbinput, "ContiTitan");
+		dropdownSelectSearch(ddlCarcassConstruction, tbinput, "2000/2");
+		dropdownSelectSearch(ddlTopCoverCompound, tbinput, "SHIELD KG");
+		dropdownSelectSearch(ddlTopCoverGauge, tbinput, "5");
+		dropdownSelectSearch(ddlBottomCoverCompound, tbinput, "GOLD PLUS");
+		dropdownSelectSearch(ddlBottomCoverGauge, tbinput, "4");
 		//tbBeltlength.type("1500");
-		dropdownselectsearch(ddlBeltwidth, tbinput, "1800");
+		dropdownSelectSearch(ddlBeltwidth, tbinput, "1800");
 		dropdownSelect(ddlBreaker, breakeritems, "TC");
 	    tbOverallbeltthickness.type("20");
 		textareaComment.type("Added Comments");	
@@ -118,16 +118,16 @@ public class Beltformspage extends BasePage{
 	}
 	
 	public void InputSteel() {
-		dropdownselectsearch(ddlMarket, tbinput, "APAC");
-		dropdownselectsearch(ddlStdRequestedbyCustomer, tbinput, "AS 1333");
-		dropdownselectsearch(ddlBeltConstruction, tbinput, "Flexsteel");
-		dropdownselectsearch(ddlCarcassConstruction, tbinput, "1250");
-		dropdownselectsearch(ddlTopCoverCompound, tbinput, "SHIELD KG");
-		dropdownselectsearch(ddlTopCoverGauge, tbinput, "5");
-		dropdownselectsearch(ddlBottomCoverCompound, tbinput, "GOLD PLUS");
-		dropdownselectsearch(ddlBottomCoverGauge, tbinput, "4");
-		dropdownselectsearch(ddlBeltwidth, tbinput, "1800");
-		dropdownselectsearch(ddlBreaker, tbinput, "TC");
+		dropdownSelectSearch(ddlMarket, tbinput, "APAC");
+		dropdownSelectSearch(ddlStdRequestedbyCustomer, tbinput, "AS 1333");
+		dropdownSelectSearch(ddlBeltConstruction, tbinput, "Flexsteel");
+		dropdownSelectSearch(ddlCarcassConstruction, tbinput, "1250");
+		dropdownSelectSearch(ddlTopCoverCompound, tbinput, "SHIELD KG");
+		dropdownSelectSearch(ddlTopCoverGauge, tbinput, "5");
+		dropdownSelectSearch(ddlBottomCoverCompound, tbinput, "GOLD PLUS");
+		dropdownSelectSearch(ddlBottomCoverGauge, tbinput, "4");
+		dropdownSelectSearch(ddlBeltwidth, tbinput, "1800");
+		dropdownSelectSearch(ddlBreaker, tbinput, "TC");
 		textareaComment.type("Added comments");
 	}
 }

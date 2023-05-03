@@ -28,7 +28,8 @@
     "preference": "/preferences"
   },
   "ultrasonic_controller": {
-    "ultrasonic_count": "/count"
+    "ultrasonic_count": "/count",
+    "ultrasonics": "/ultrasonics"
   },
   "profile_controller": {
     "profile": "/profiles"
@@ -43,5 +44,9 @@
   },
   "permission_controller": {
     "permission": "/permissions"
+  },
+  "file_controller": {
+    "count": "/files-count",
+    "files": "/files"
   }
 }
