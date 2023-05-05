@@ -803,7 +803,6 @@ public class ConveyorPage extends BasePage{
     }
 
     public void editConveyor(String oldConveyorName, String newConveyorName) {
-        goToConveyorListScreenAndWait();
         btSearchinput.type(oldConveyorName);
         crviewicon.click();
         waitForElementToDisplay(conveyorTitle);

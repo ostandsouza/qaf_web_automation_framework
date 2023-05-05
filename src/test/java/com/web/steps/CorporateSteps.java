@@ -2,17 +2,20 @@ package com.web.steps;
 
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
+import com.web.pages.ConveyorPage;
 import com.web.pages.CorporatePage;
 
 public class CorporateSteps {
 
     CorporatePage corpPage = new CorporatePage();
+    ConveyorPage conveyorPage = new ConveyorPage();
 
     @QAFTestStep(description="Create a Distributor Corporate with {DistCorpName} and {DistCorpAddress}")
     public void createADistributorCorporateBeltAssociatesCorp(String DistCorpName, String DistCorpAddress){
         String companyId = corpPage.apiBase.getCompanyAPI(DistCorpName);
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
+        corpPage.goToAddCorp();
         corpPage.createDistributorCorporate(DistCorpName, DistCorpAddress);
 
     }
@@ -21,6 +24,7 @@ public class CorporateSteps {
         String companyId = corpPage.apiBase.getCompanyAPI(DistShopIndName);
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
+        corpPage.goToAddCorp();
         corpPage.createDistributorShop(DistShopIndName, DistShopIndAddress, DistCorpName, territory, FullNameInd);
     }
 
@@ -36,6 +40,8 @@ public class CorporateSteps {
     public void createACustomerCorporateMiningCorp(String CustCorpName, String CustCorpAddress){
         String companyId = corpPage.apiBase.getCompanyAPI(CustCorpName);
         corpPage.apiBase.deleteCompanyAPI(companyId);
+        corpPage.clickCorporates();
+        corpPage.goToAddCorp();
         corpPage.createCustomerCorporate(CustCorpName, CustCorpAddress);
 
     }
@@ -45,6 +51,7 @@ public class CorporateSteps {
         String companyId = corpPage.apiBase.getCompanyAPI(CustShopIndName);
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
+        corpPage.goToAddCorp();
         corpPage.createCustomerSite(CustShopIndName, CustShopIndAddress,CustCorpName,DistShopIndName,territory,FullNameInd);
     }
 
@@ -53,6 +60,7 @@ public class CorporateSteps {
         String companyId = corpPage.apiBase.getCompanyAPI(CustShopGerName);
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
+        corpPage.goToAddCorp();
         corpPage.createCustomerSite(CustShopGerName, CustShopGerAddress,CustCorpName,DistShopGerName,territory,FullNameGer);
     }
 
@@ -75,6 +83,7 @@ public class CorporateSteps {
     @QAFTestStep(description="Edit Customer site with {CustSiteName} and {EditCustSiteName} using corporate {EditCustCorpName}")
     public void editCustomerSiteName(String custSiteName,String editCustSiteName, String corp){
         corpPage.editCustomerSite(custSiteName, editCustSiteName, corp);
+        corpPage.updateCorp();
     }
 
     @QAFTestStep(description="Verify the Customer site details with {EditCustSiteName} and {CorpImageName} using corporate {EditCustCorpName}")
@@ -115,5 +124,121 @@ public class CorporateSteps {
     @QAFTestStep(description="Verify Deleted corporate {CustCorpName}")
     public void verifyDeleteCorporate(String distCorpName) {
         Validator.assertTrue(corpPage.verifyCorporate(distCorpName),"Corporate did not delete properly","Corporate deleted successfully");
+    }
+
+    @QAFTestStep(description="Navigate to Add Company screen")
+    public void verifyAddCompanyNavigation(){
+        corpPage.goToAddCompany();
+    }
+
+    @QAFTestStep(description="Verify image upload functionality with {imageName}")
+    public void verifyImageUpload(String fileName){
+        corpPage.corporateImgUpload(fileName);
+        corpPage.verifyImageUpload();
+    }
+
+    @QAFTestStep(description="Add Distributor Corporate with {DistCorpName} and {DistCorpAddress}")
+    public void createDistributorCorporate(String DistCorpName, String DistCorpAddress){
+        String companyId = corpPage.apiBase.getCompanyAPI(DistCorpName);
+        corpPage.apiBase.deleteCompanyAPI(companyId);
+        corpPage.goToAddCompany();
+        corpPage.createDistributorCorporate(DistCorpName, DistCorpAddress);
+
+    }
+    @QAFTestStep(description="Add Distributor shop with {DistShopIndName} and {DistShopIndAddress} and {DistCorpName} and {FullName} and {TerritoryInd}")
+    public void createDistributorShop(String DistShopIndName,String DistShopIndAddress, String DistCorpName,String FullNameInd, String territory){
+        String companyId = corpPage.apiBase.getCompanyAPI(DistShopIndName);
+        corpPage.apiBase.deleteCompanyAPI(companyId);
+        corpPage.goToAddCompany();
+        corpPage.createDistributorShop(DistShopIndName, DistShopIndAddress, DistCorpName, territory, FullNameInd);
+    }
+
+    @QAFTestStep(description="Add Customer Corporate with {CustCorpName} and {CustCorpAddress}")
+    public void createACustomerCorporate(String CustCorpName, String CustCorpAddress){
+        String companyId = corpPage.apiBase.getCompanyAPI(CustCorpName);
+        corpPage.apiBase.deleteCompanyAPI(companyId);
+        corpPage.goToAddCompany();
+        corpPage.createCustomerCorporate(CustCorpName, CustCorpAddress);
+
+    }
+
+    @QAFTestStep(description="Add Customer site {CustShopName} and {CustShopAddress} and {CustCorpName} and {DistShopIndName} and {FullNameInd} and {territory}")
+    public void addCustomerSite(String CustShopIndName, String CustShopIndAddress,String CustCorpName, String DistShopIndName, String FullNameInd, String territory){
+        String companyId = corpPage.apiBase.getCompanyAPI(CustShopIndName);
+        corpPage.apiBase.deleteCompanyAPI(companyId);
+        corpPage.goToAddCompany();
+        corpPage.createCustomerSite(CustShopIndName, CustShopIndAddress,CustCorpName,DistShopIndName,territory,FullNameInd);
+    }
+
+    @QAFTestStep(description="Navigation of corporate list screen")
+    public void verifyCorporateListNavigation(){
+        corpPage.verifyCorporateNav();
+    }
+
+    @QAFTestStep(description="Verify market type {Type} for Corporate with name {DistCorpName}")
+    public void verifyMarketTypeForCorp(String type, String corp){
+        corpPage.searchCorporate(corp);
+        corpPage.verifyMarketType(type);
+    }
+
+    @QAFTestStep(description="Verify navigation to {DistShopName} detail screen")
+    public void verifyShopDetailsNavigation(String site){
+        corpPage.goToShopSiteDetails(site);
+    }
+
+    @QAFTestStep(description="Edit Customer shop with {DistShopName} and {EditDistShopName} using corporate {DistCorpName}")
+    public void editDistributorShopName(String custSiteName,String editCustSiteName, String corp){
+        corpPage.editDistributorShop(custSiteName, editCustSiteName, corp);
+        corpPage.updateCorp();
+    }
+
+    @QAFTestStep(description="Verify expected card count in details screen is {Count}")
+    public void verifySiteShopCardDetails(String count){
+        corpPage.verifyShopSiteCardCount(count);
+    }
+
+    @QAFTestStep(description="Go to add Corporates from details screen")
+    public void goToAddCorp(){
+        corpPage.goToAddCorp();
+    }
+
+    @QAFTestStep(description="Verify distributor corporate dropdown contains {CustCorpName}")
+    public void verifyAddDistCorporateDropdown(String corp){
+        corpPage.verifyAddDistCorporateDropdown(corp);
+    }
+
+    @QAFTestStep(description="Verify customer corporate dropdown contains {CustCorpName}")
+    public void verifyAddCustCorporateDropdown(String corp){
+        corpPage.verifyAddCustCorporateDropdown(corp);
+    }
+
+    @QAFTestStep(description="Create a conveyor with {ConveyorName} and {CustSiteName}")
+    public void verifyNavigationFromSiteToConveyor(String conveyorName, String custSiteName){
+        corpPage.goToAddConveyor();
+        corpPage.createConveyor(conveyorName,custSiteName);
+    }
+
+    @QAFTestStep(description="Delete conveyor {conveyor} customer site {custSite} with Corporate name {CorpName}")
+    public void deleteConveyor(String conveyor, String custSite, String corpName){
+        corpPage.goToCorporateDetails(corpName);
+        corpPage.goToShopSiteDetails(custSite);
+        corpPage.deleteConveyor(conveyor);
+    }
+
+    @QAFTestStep(description="Verify Deleted conveyor {conveyor} customer site {custSite} with Corporate name {CorpName}")
+    public void verifyConveyorDelete(String conveyor, String custSite, String corpName){
+        corpPage.goToCorporateDetails(corpName);
+        corpPage.goToShopSiteDetails(custSite);
+        corpPage.verifyDeleteConveyor(conveyor);
+    }
+
+    @QAFTestStep(description="Edit Conveyor {ConveyorName} from site list screen to {EditCustCorpName}")
+    public void editAConveyorC2GermanyAtMiningCorpGermany(String conveyorName, String conveyorNameEdit){
+        conveyorPage.editConveyor(conveyorName, conveyorNameEdit);
+    }
+
+    @QAFTestStep(description="Verify navigation from site detail to conveyor details screen of {ConveyorName}")
+    public void verifyConveyorDetailsNavigation(String conveyorName){
+        corpPage.goToConveyorDetails(conveyorName);
     }
 }

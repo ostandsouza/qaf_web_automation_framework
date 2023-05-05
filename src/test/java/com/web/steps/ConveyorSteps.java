@@ -86,6 +86,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description="Edit Conveyor {ConveyorName2} from conveyor list screen to {EditCustCorpName}")
     public void editAConveyorC2GermanyAtMiningCorpGermany(String ConveyorNameGer1, String ConveyorNameGer1Edit){
+        conveyorPage.goToConveyorListScreenAndWait();
         conveyorPage.editConveyor(ConveyorNameGer1, ConveyorNameGer1Edit);
     }
 

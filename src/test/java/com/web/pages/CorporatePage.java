@@ -145,7 +145,7 @@ public class CorporatePage extends BasePage{
     public CustomElement btMarket1;
 
     @FindBy(locator="xpath=(//td[6]/p-chip/div/div)[1]")
-    public CustomElement btMarket2;
+    public CustomElement btMarket;
 
     @FindBy(locator="xpath=//td[7]/div")
     public CustomElement btShopNumber;
@@ -203,6 +203,29 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=(//div[contains(@id,'titlebar')]/span)[1]")
     public CustomElement siteNameLoader;
 
+    @FindBy(locator = "xpath=//span[text()='Add Company']")
+    public CustomElement addCompany;
+
+    @FindBy(locator = "xpath=//h4[text()='New Company']")
+    public CustomElement newCompany;
+
+    @FindBy(locator = "xpath=//h4[text()='Conveyors']")
+    public CustomElement conveyorHeader;
+
+    @FindBy(locator = "xpath=//span[text()='Conveyor Trails']")
+    public CustomElement conveyorTrailsHeader;
+
+    @FindBy(locator = "xpath=//input[@id='firstname1']")
+    public CustomElement tbConveyorname;
+
+    @FindBy(locator= "xpath=//label[text()='Site']/following::span[1]")
+    public CustomElement drSitedropdown;
+
+    public void goToAddCompany() {
+        addCompany.click("Add Company");
+        newCompany.isVisible("New Company Header");
+    }
+
     public void clickCorporates() {
         waitForElementVisible(lCorporates, 10000,500);
         lCorporates.click("Corporate");
@@ -216,7 +239,6 @@ public class CorporatePage extends BasePage{
     }
 
     public void createDistributorCorporate(String companyName, String address) {
-        goToAddCorp();
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(corporateHeader);
@@ -225,7 +247,6 @@ public class CorporatePage extends BasePage{
     }
 
     public void createDistributorShop(String companyName, String address, String distCorp, String territory, String manager) {
-        goToAddCorp();
         scrollPageup();
         selectDistributorShop();
         dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,distCorp);
@@ -239,7 +260,6 @@ public class CorporatePage extends BasePage{
     }
 
     public void createCustomerCorporate(String companyName, String address) {
-        goToAddCorp();
         scrollPageup();
         selectCustomerCorp();
         addCorporateDetails(companyName, address);
@@ -250,7 +270,6 @@ public class CorporatePage extends BasePage{
     }
 
     public void createCustomerSite(String companyName, String address, String CustCorpName, String DistShopIndName, String DistCorpIndTerritory, String manager) {
-        goToAddCorp();
         scrollPageup();
         selectCustomerSite();
         dropdownSelectSearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
@@ -337,6 +356,15 @@ public class CorporatePage extends BasePage{
         waitForElementToInvisible(btSave, 30000);
     }
 
+    public void verifyMarketType(String type) {
+        btMarket.verifyText(type,"Market Type");
+    }
+
+    public void verifyCorporateNav() {
+        lCorporates.click("Corporate Menu");
+        btSearchinput.isVisible("Search");
+    }
+
     public void goToCorporate() {
         lCorporates.click("Corporate Menu");
         scrollPageDown();
@@ -385,13 +413,17 @@ public class CorporatePage extends BasePage{
         btSearchinput.type(corpName, "Corporate Search");
     }
 
+    public void verifyImageUpload(){
+        waitForElementToDisplay(imageAvatar);
+        Validator.assertFalse(imageAvatar.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
+    }
+
     public void verifyCorporateEdit(String corpName) {
         searchCorporate(corpName);
         Validator.assertFalse(btImg.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
         btName.verifyTextIgnoringNewLineChar(corpName, "Corporate name");
         btviewicon.check("Corp Details");
-        waitForElementToDisplay(imageAvatar);
-        Validator.assertFalse(imageAvatar.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
+        verifyImageUpload();
     }
 
     public void goToCorporateDetails(String corpName) {
@@ -449,5 +481,90 @@ public class CorporatePage extends BasePage{
         waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(corpName);
         return noList.isVisible();
+    }
+
+    public void goToShopSiteDetails(String siteName) {
+        btSearchinput.type(siteName, "Site/Shop name");
+        waitForElementToDisplay(btCheckbox);
+        detailsMoreButton.click("Corp Details");
+        siteNameLoader.waitForPartialText(siteName, 15000);
+        conveyorHeader.isVisible("Conveyor Header");
+    }
+
+    public void editDistributorShop(String siteName, String editSiteName, String corp) {
+        goToCorporateDetails(corp);
+        btSearchinput.type(siteName, "Site name");
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.click("Site Checkbox");
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
+        btActions.click("Actions");
+        waitForElementToDisplay(btEdit);
+        btEdit.jsClick("Edit");
+        typeOfCompanyLoader.waitForText("Distributor Shop");
+        tbCompanyName.type(editSiteName);
+        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
+        drTerritoryManagerbutton.type("Market India Automation", "Territory");
+    }
+
+    public void verifyShopSiteCardCount(String count) {
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase(count),"Site/Shop card count shown in corporate details screen is incorrect","Successfully verified Site/Shop card count shown in corporate details screen");
+    }
+
+    public void verifyAddDistCorporateDropdown(String corp){
+        scrollPageup();
+        selectDistributorShop();
+        dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,corp);
+    }
+
+    public void verifyAddCustCorporateDropdown(String corp){
+        scrollPageup();
+        selectCustomerSite();
+        dropdownSelectSearch(drCustomerCorporate, tbSitedropdown, corp);
+    }
+
+    public void goToAddConveyor() {
+        scrollPageup();
+        waitForElementToDisplay(btAddCorp);
+        btAddCorp.click("Add Corp");
+        waitForElementToDisplay(tbConveyorname);
+    }
+
+    public void createConveyor(String conveyorName,String custSiteName) {
+        tbConveyorname.type(conveyorName,"Conveyor Name");
+        dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
+        btSaveandclose.click("Save & Close");
+        waitForElementToInvisible(buttonLoader,10000);
+        btSearchinput.isVisible("Conveyor list screen");
+        Reporter.log(conveyorName +" conveyor is created", MessageTypes.Pass);
+    }
+
+    public void goToConveyorDetails(String conveyorName) {
+        btSearchinput.type(conveyorName, "Conveyor name");
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        waitForElementToDisplay(btCheckbox);
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
+        detailsName.verifyTextIgnoringNewLineChar(conveyorName, "Conveyor name");
+        detailsMoreButton.click("Conveyor Details");
+        siteNameLoader.waitForPartialText(conveyorName, 15000);
+        conveyorTrailsHeader.isVisible("Conveyor Header");
+    }
+
+    public void deleteConveyor(String conveyor) {
+        btSearchinput.type(conveyor, "Conveyor name");
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("conveyor Checkbox");
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
+        btActions.click("Actions");
+        waitForElementVisible(btDelete, 10000,500);
+        btDelete.click("Delete");
+        yesConfirmation.click("Confirm");
+    }
+
+    public void verifyDeleteConveyor(String conveyor) {
+        btSearchinput.type(conveyor, "Conveyor name");
+        Validator.assertTrue(noList.isVisible("No Site/Shop"), "Conveyor found even after delete", "Conveyor not found after delete");
     }
 }
