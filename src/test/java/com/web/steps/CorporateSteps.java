@@ -83,7 +83,6 @@ public class CorporateSteps {
     @QAFTestStep(description="Edit Customer site with {CustSiteName} and {EditCustSiteName} using corporate {EditCustCorpName}")
     public void editCustomerSiteName(String custSiteName,String editCustSiteName, String corp){
         corpPage.editCustomerSite(custSiteName, editCustSiteName, corp);
-        corpPage.updateCorp();
     }
 
     @QAFTestStep(description="Verify the Customer site details with {EditCustSiteName} and {CorpImageName} using corporate {EditCustCorpName}")
@@ -241,4 +240,5 @@ public class CorporateSteps {
     public void verifyConveyorDetailsNavigation(String conveyorName){
         corpPage.goToConveyorDetails(conveyorName);
     }
+
 }

@@ -201,6 +201,83 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//div[text()='Inspection updated.']")
 	public CustomElement inepctionUpdated;
 
+	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[3]")
+	public CustomElement crInspections;
+
+	@FindBy(locator = "xpath=//h4[text()='Inspection Event']")
+	public CustomElement inspectionEventHeader;
+
+	@FindBy(locator = "xpath=(//span[@class='clickable']/i[contains(@class,'ctp-icon-Inspection-Items-List')])[2]")
+	public CustomElement inspectionGroupView;
+
+	@FindBy(locator = "xpath=(//span[@class='clickable']/i[contains(@class,'ctp-icon-Inspection-Reports-List')])[2]")
+	public CustomElement inspectionListView;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Name of Inspection ']")
+	public CustomElement nameOfInspectionCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Inspection Date ']")
+	public CustomElement inspectionDateCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Last Updated ']")
+	public CustomElement lastUpdatedCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Corporate ']")
+	public CustomElement corporatesCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Site ']")
+	public CustomElement siteCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Conveyor ']")
+	public CustomElement conveyorCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Inspector ']")
+	public CustomElement inspectorCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Condition ']")
+	public CustomElement conditionCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Status ']")
+	public CustomElement statusCol;
+
+	@FindBy(locator = "xpath=//th[text()='More']")
+	public CustomElement moreCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Asset ']")
+	public CustomElement assetCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Photo ']")
+	public CustomElement photoCol;
+
+	@FindBy(locator = "xpath=//th/div[text()=' Observations ']")
+	public CustomElement observationCol;
+
+	@FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
+	public CustomElement btAddInspection;
+
+	@FindBy(locator="xpath=//td[contains(@class,'p-datepicker-today')]")
+	public CustomElement btTodayDate;
+
+	@FindBy(locator= "xpath=//input[contains(@class,'p-multiselect-filter')]")
+	public CustomElement tbMultipleDropdown;
+
+	@FindBy(locator= "xpath=//span[@class='total-no']")
+	public CustomElement totalEvent;
+
+	@FindBy(locator= "xpath=//div[text()=' CRITICAL ']/following-sibling::div//span")
+	public CustomElement criticalEvent;
+
+	@FindBy(locator= "xpath=//div[text()=' POOR ']/following-sibling::div//span")
+	public CustomElement poorEvent;
+
+	@FindBy(locator= "xpath=//div[text()=' FAULT ']/following-sibling::div//span")
+	public CustomElement faultEvent;
+
+	@FindBy(locator= "xpath=//div[text()=' GOOD ']/following-sibling::div//span")
+	public CustomElement goodEvent;
+
+	@FindBy(locator= "xpath=//div[contains(@class,'summary-container')]//input")
+	public CustomElement summaryField;
 
 	public void goToInspection() {
 		if(!lnkInspection.isVisible())
@@ -392,5 +469,66 @@ public class InspectionPage extends BasePage {
 		waitForElementToBeClickable(ddlSave);
 		ddlSave.jsClick("Save Inspection Event");
 		waitForElementToDisplay(inepctionUpdated);
+	}
+
+	public void goToInspectionsFromTile() {
+		waitForElementToBeClickable(crInspections);
+		crInspections.jsClick("Inspection Tile");
+		inspectionEventHeader.isVisible("Inspection Event Header");
+	}
+
+	public boolean verifyDefaultViewSelection() {
+		return inspectionGroupView.isVisible("Group View") && !inspectionListView.isVisible();
+	}
+
+	public boolean verifyDefaultViewColumns() {
+		return nameOfInspectionCol.isEnable("Name Of inspection") && inspectionDateCol.isEnable("Inspection Date") && lastUpdatedCol.isEnable("Last Updated") && corporatesCol.isEnable("Corporates") && crInspections.isEnable("Inspections") && siteCol.isEnable("Site") && conveyorCol.isEnable("Conveyor") && inspectorCol.isEnable("Inspector") && conditionCol.isEnable("Condition") && statusCol.isEnable("Status") && moreCol.isEnable("More");
+	}
+	public boolean verifySwitchView() {
+		inspectionGroupView.click("List View");
+		return inspectionListView.isVisible("List View") && !inspectionGroupView.isVisible();
+	}
+
+	public boolean verifyListViewColumns() {
+		return inspectionDateCol.isEnable("Inspection Date") && lastUpdatedCol.isEnable("Last Updated") && siteCol.isEnable("Site") && conveyorCol.isEnable("Conveyor") && inspectorCol.isEnable("Inspector") && conditionCol.isEnable("Condition") && statusCol.isEnable("Status") && moreCol.isEnable("More") && assetCol.isEnable("Asset") && photoCol.isEnable("Photo") && observationCol.isEnable("Observation");
+	}
+
+	public boolean verifyAddInspectionFromList() {
+		btAddInspection.click("Add Inspection Icon");
+		return inspectionHeader.isVisible("Inspection Header");
+	}
+
+	public boolean verifyPlaceHolderForInspectionName() {
+		return ddlInspectorName.getAttribute("placeholder").equalsIgnoreCase("Type Inspection Name");
+	}
+
+	public boolean verifyDefaultDateField() {
+		return tbInspectionDate.getAttribute("placeholder").equalsIgnoreCase("Type Inspection Name");
+	}
+
+	public boolean verifyDefaultInspectionDate() {
+		tbInspectionDate.click("Inspection Date");
+		return btTodayDate.isVisible("Today Date");
+	}
+
+	public void verifyConveyorSelection(String conveyorName) {
+		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
+	}
+
+	public void verifyCollaboratorSelection(String collaboratorName) {
+		dropdownSelectSearch(ddlCollaborators, tbMultipleDropdown, collaboratorName);
+	}
+
+	public boolean verifyDefaultTileCount(String val) {
+		return totalEvent.getText("Total Event").equalsIgnoreCase(val) && criticalEvent.getText("Critical Event").equalsIgnoreCase(val) && poorEvent.getText("Poor Event").equalsIgnoreCase(val) && faultEvent.getText("Fault Event").equalsIgnoreCase(val) && goodEvent.getText("Good Event").equalsIgnoreCase(val);
+	}
+
+	public boolean verifySummaryField(String val) {
+		summaryField.type(val);
+		return summaryField.getText("Summary Field").equalsIgnoreCase(val);
+	}
+
+	public boolean verifyInspectorName(String val) {
+		return ddlInspectorName.getText("Inspector Name").equalsIgnoreCase(val);
 	}
 }

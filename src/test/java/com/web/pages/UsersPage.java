@@ -375,7 +375,7 @@ public class UsersPage extends BasePage{
 	}
 
 	
-    public void clickonlogout() {
+    public void clickOnLogout() {
     
     	btprofile.click();
     	btlogout.click();

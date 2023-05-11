@@ -28,7 +28,7 @@ public class ConveyorSteps {
     }
 
     @QAFTestStep(description="Delete Conveyor from Conveyor list screen {ConveyorName1}")
-    public void deleteConveyor(String conveyorName){
+    public void deleteConveyorFromConveyorListScreen(String conveyorName){
         conveyorPage.deleteConveyor(conveyorName);
     }
 
@@ -94,5 +94,97 @@ public class ConveyorSteps {
     public void checkAConveyorC1GermanyAtMiningCorpGermany(String ConveyorNameGer2, String CustCorpName){
         conveyorPage.checkConveyorGermany(ConveyorNameGer2, CustCorpName);
     }
+
+    @QAFTestStep(description="Navigate to Add Conveyor screen")
+    public void verifyNavigationToAddConveyor(){
+        conveyorPage.goToAddConveyor();
+    }
+
+    @QAFTestStep(description="Navigate to Add Conveyor screen")
+    public void verifyNavigationToListConveyor(){
+        conveyorPage.goToConveyorListScreen();
+    }
+
+    @QAFTestStep(description="Navigate to conveyor details screen for conveyor {conveyorName}")
+    public void verifyConveyorDetailsNavigation(String conveyorName){
+        conveyorPage.goToConveyorDetailScreen(conveyorName);
+    }
+
+    @QAFTestStep(description="Create a conveyor with {ConveyorName1} and {DistShopAusName} and {CustSiteNZName} with {ImageName}")
+    public void createConveyorWithImage(String conveyorName, String distShop, String siteName, String imgName){
+        conveyorPage.createConveyorWithImg(conveyorName, distShop, siteName, imgName);
+    }
+
+    @QAFTestStep(description="Verify all the tiles in conveyor detail screen")
+    public void verifyConveyorTile(){
+        conveyorPage.verifyTile();
+    }
+
+    @QAFTestStep(description="Export CSV data for {ConveyorName2}")
+    public void verifyCSVExport(String conveyor){
+        conveyorPage.exportCSVConveyor(conveyor);
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("download.csv"),"CSV report was not found","CSV report was downloaded successfully");
+        conveyorPage.verifyCSVContents(conveyor);
+    }
+
+    @QAFTestStep(description="Export PDF for {ConveyorName2}")
+    public void verifyPDFExport(String conveyor){
+        conveyorPage.exportPDFConveyor(conveyor);
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("conveyor.pdf"),"PDF report was not found","PDF report was downloaded successfully");
+        conveyorPage.verifyPDFContents(conveyor);
+    }
+
+    @QAFTestStep(description="Navigate to Add Conveyor screen from list screen")
+    public void verifyAddIconFunctionality(){
+        conveyorPage.goToAddConveyorFromList();
+    }
+
+    @QAFTestStep(description="verify all fields in conveyor tab")
+    public void verifyConveyorTabFieldInAdd(){
+        conveyorPage.verifyConveyor();
+    }
+
+    @QAFTestStep(description="Verify the actions dropdown for conveyor with {ConveyorName2}")
+    public void verifyActionDropdown(String conveyorName){
+        Validator.assertTrue(conveyorPage.verifyDropDown(conveyorName),"All Items are not present in conveyor dropdown","Conveyor Dropdown was successfully verified");
+    }
+
+    @QAFTestStep(description="Navigate to conveyor list screen")
+    public void verifyConveyorListNav(){
+        conveyorPage.goToConveyorListScreen();
+    }
+
+    @QAFTestStep(description="verify user {Email} is able to add new layout for {Corporates} {BeltWidth} {Rating} {Length} with {Layout_Name}")
+    public void verifyAddLayout(String email, String corporates, String beltWidth, String rating, String length, String layoutName){
+        String userId= conveyorPage.apiBase.getUserProfileAPI(email);
+        String prefId= conveyorPage.apiBase.getPreferenceAPI(userId, layoutName);
+        conveyorPage.apiBase.deletePreferencesAPI(userId,prefId);
+        conveyorPage.goToConveyorListScreen();
+        conveyorPage.addLayout(corporates, beltWidth, rating, length, layoutName);
+        Validator.assertTrue(conveyorPage.verifyFilters(),"All filters are applied in table layout","All filters were successfully verified");
+    }
+
+    @QAFTestStep(description="verify user is able to delete layout for {Layout_Name}")
+    public void verifyDeleteLayout(String layoutName){
+        conveyorPage.goToConveyorListScreen();
+        conveyorPage.deleteLayout(layoutName);
+        Validator.assertFalse(conveyorPage.verifyFilters(),"All filters are applied in table layout","All filters were successfully verified");
+    }
+
+    @QAFTestStep(description="verify user {Email} is able to add new layout for {Corporates} {BeltWidth} {Rating} {Length} with {Layout_Name}")
+    public void verifyUserPreference(String email, String corporates, String beltWidth, String rating, String length, String layoutName){
+        String userId= conveyorPage.apiBase.getUserProfileAPI(email);
+        String prefId= conveyorPage.apiBase.getPreferenceAPI(userId, layoutName);
+        conveyorPage.apiBase.deletePreferencesAPI(userId,prefId);
+        conveyorPage.goToConveyorListScreen();
+        conveyorPage.addLayout(corporates, beltWidth, rating, length, layoutName);
+        Validator.assertTrue(conveyorPage.verifyFilters(),"All filters are applied in table layout","All filters were successfully verified");
+    }
+
+    @QAFTestStep(description="Verify user is able see saved preference")
+    public void verifySavedPreference(){
+        Validator.assertTrue(conveyorPage.verifyFilters(),"All filters are applied in table layout","All filters were successfully verified");
+    }
+
 
 }

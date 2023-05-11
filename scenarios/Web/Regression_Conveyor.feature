@@ -6,68 +6,138 @@ Launch the application through '/'
 @Regression1
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Company_Navigation
-Scenario: Verify with add company navigation
+@key:Conveyor_Navigation
+Scenario: Verify with add conveyor navigation
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    Then  Navigate to Add Company screen
+    Then  Navigate to Add Conveyor screen
 
 @Regression2
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Company_imageUpload
+@key:Conveyor_imageUpload
 Scenario: Verify image upload functionality
 
-    When  Navigate to Add Company screen
+    When  Navigate to Add Conveyor screen
     Then  Verify image upload functionality with '${ImageName}'
 
 @Regression3
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Company_DistributorCorp
-Scenario: Verify the distributor corporate creation
+@key:Conveyor_create
+Scenario: Verify the creation of new conveyor
 
-    When  Add Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
+    When  Create a conveyor with '${ConveyorName}' and '${DistShopName}' and '${CustSiteName}' with '${ImageName}'
 
 @Regression4
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Company_MarketType
-Scenario: Verify the distributor corporate Market type for newly added corporate
+@key:Conveyor_Navigation
+Scenario: Verify navigation to conveyor list
 
-    Then  Verify market type '${Type}' for Corporate with name '${DistCorpName}'
+    When  Navigate to conveyor list screen
 
 @Regression5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Company_ShopCount
-Scenario: Verify the distributor corporate Shop count in corporate details screen
+@key:Conveyor_Details
+Scenario: Verify navigation from conveyor list to conveyor details screen
 
-    When  Navigate to Corporate details screen for corporate '${DistCorpName}'
-    Then  Verify expected card count in details screen is '${Count}'
+    When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
 
 @Regression6
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Company_DistributorShop
-Scenario: Verify the distributor Shop creation
+@key:Conveyor_Details
+Scenario: Verify for the tiles in conveyor details screen
 
-    When  Add Distributor shop with '${DistShopName}' and '${DistShopAddress}' and '${DistCorpName}' and '${FullName}' and '${Territory}'
+   When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+   Then  Verify all the tiles in conveyor detail screen
 
 @Regression7
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Company_MarketTypeShop
-Scenario: Verify the distributor Shop Market type for newly added shop under corporate
+@key:Conveyor_Details
+Scenario: Verify export csv file for conveyor
 
-    Then  Verify market type '${Type}' for Corporate with name '${DistCorpName}'
+    When  Export CSV data for '${ConveyorName}'
 
 @Regression8
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Company_ShopCountAfterAdd
-Scenario: Verify the distributor Shop count in corporate details screen
+@key:Conveyor_Details
+Scenario: Verify export PDF file for conveyor
 
-    When  Navigate to Corporate details screen for corporate '${DistCorpName}'
-    Then  Verify expected card count in details screen is '${Count}'
+    When  Export PDF for '${ConveyorName}'
+
+@Regression9
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Details
+Scenario: Verify navigation to add conveyor from list screen
+
+    Then  Navigate to Add Conveyor screen from list screen
+
+@Regression10
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Details
+Scenario: Verify the actions dropdown list
+
+    Then  Verify the actions dropdown for conveyor with '${ConveyorName}'
+
+@Regression11
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Details
+Scenario: Verify the conveyor tab in add conveyor screen
+
+    When  Navigate to Add Conveyor screen
+    Then  verify all fields in conveyor tab
+
+@Regression12
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_edit
+Scenario: Verify editing the conveyor details
+
+    When  Edit Conveyor '${ConveyorName}' from conveyor list screen to '${EditConveyorName}'
+    Then  Verify Edited conveyor details with '${EditConveyorName}' for Corporate '${CustSiteName}'
+
+@Regression13
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_edit
+Scenario: Verify conveyor delete functionality from list
+
+    When  Delete Conveyor from Conveyor list screen '${EditConveyorName}'
+    Then  Verify Deleted Conveyor '${EditConveyorName}' from Conveyor list screen
+
+@Regression14
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Layout
+Scenario: Verify a user is able to add new layout
+
+    Then  verify user '${UserName}' is able to add new layout for '${Corporates}' '${BeltWidth}' '${Rating}' '${Length}' with '${Layout_Name}'
+
+@Regression15
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Layout
+Scenario: Verify a user is able to Get selected layout post re-login
+
+    When  Navigate to conveyor list screen
+    Then  Verify user is able see saved preference
+    When  Click on profile and select logout button
+    When  Login with '${UserName}' and '${Password}'
+    Then  Verify user is able see saved preference
+
+@Regression16
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Layout
+Scenario: Verify a user is able to Delete layout
+
+    Then  verify user is able to delete layout for '${Layout_Name}'

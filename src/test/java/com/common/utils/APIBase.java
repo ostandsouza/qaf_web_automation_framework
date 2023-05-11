@@ -5,10 +5,12 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.openqa.selenium.json.Json;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -449,6 +451,46 @@ public class APIBase {
         headersMap.put("user-token",accessToken);
         Map<String, String> conveyorPaths = JsonReader.getMapTestData("path", "conveyor_controller");
         Response conveyorResponse =restApiHelper.makePostRequest(conveyorPaths.get("conveyor"), new JSONObject(requestBody), headersMap);
+        tearDown();
+    }
+
+    public String getPreferenceAPI(String userId, String tableName) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("permission_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> preferencePaths = JsonReader.getMapTestData("path", "preference_controller");
+        if(userId != null)
+            restApiHelper.makeGetRequest(preferencePaths.get("preference")+"/"+userId,queryMaps ,headersMap);
+        else
+            System.out.println("user id was null");
+        Response userResponse = restApiHelper.getResponse();
+        ArrayList<HashMap<Object,Object>> stats;
+        String val = null;
+        if(userResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = userResponse.jsonPath();
+            stats = (ArrayList<HashMap<Object,Object>>) jsnPath.getJsonObject("data");
+            for(HashMap<Object,Object>statsObject:stats){
+                if(((String)((HashMap<String,Object>)(statsObject.get("preferences"))).get("tableName")).equalsIgnoreCase(tableName)){
+                    val= ((String)((HashMap<String,Object>)(statsObject.get("preferences"))).get("preferenceId"));
+                }
+            }
+        }
+        tearDown();
+        return val;
+    }
+
+    public void deletePreferencesAPI(String userID, String prefID) {
+        configureRestAssured();
+        Response preferenceResponse;
+        String baseUrl = commonPaths.get("permission_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "preference_controller");
+        if(userID != null || prefID!= null)
+            preferenceResponse =restApiHelper.makeDeleteRequest(inspectionPaths.get("preference")+"/"+userID+"/"+prefID , headersMap);
+        else
+            System.out.println("Pref id was null");
         tearDown();
     }
 }

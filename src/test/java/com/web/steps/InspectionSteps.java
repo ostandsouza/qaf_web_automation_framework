@@ -81,4 +81,79 @@ public class InspectionSteps {
 		inspectionpage.deleteInspectionItem(inspectionName);
 		inspectionpage.saveInspectionEvent();
 	}
+
+	@QAFTestStep(description="Verify navigation to inspection tile")
+	public void verifyInspectionTileNavigation(){
+		inspectionpage.goToInspectionsFromTile();
+	}
+
+	@QAFTestStep(description="Navigate to inspection list screen")
+	public void verifyInspectionListNavigation(){
+		inspectionpage.goToInspection();
+	}
+
+	@QAFTestStep(description="Verify default view type is grouped view")
+	public void verifyDefaultView(){
+		inspectionpage.verifyDefaultViewSelection();
+	}
+
+	@QAFTestStep(description="Verify columns under group view")
+	public void verifyGroupViewColumn(){
+		inspectionpage.verifyDefaultViewColumns();
+	}
+
+	@QAFTestStep(description="Verify if is able to switch from group view to list view")
+	public void verifySwitchView(){
+		inspectionpage.verifySwitchView();
+	}
+
+	@QAFTestStep(description="Verify the columns under list view")
+	public void verifyListViewColumn(){
+		inspectionpage.verifyListViewColumns();
+	}
+
+	@QAFTestStep(description="Navigate to Add Inspection screen from list screen")
+	public void verifyToAddInspectionNav(){
+		inspectionpage.verifyAddInspectionFromList();
+	}
+
+	@QAFTestStep(description="Verify placeholder for inspection name")
+	public void verifyPlaceHolder(){
+		inspectionpage.verifyAddInspectionFromList();
+	}
+
+	@QAFTestStep(description="Verify default date in inspection date field")
+	public void verifyInspectionDate(){
+		inspectionpage.verifyDefaultInspectionDate();
+	}
+
+	@QAFTestStep(description="Verify conveyor {ConveyorName} selection from dropdown")
+	public void verifyConveyorSelection(String conveyorName){
+		inspectionpage.verifyConveyorSelection(conveyorName);
+	}
+
+	@QAFTestStep(description="Verify user is able to select collaborator {ConveyorName}")
+	public void verifyCollaboratorSelection(String collaborator){
+		inspectionpage.verifyCollaboratorSelection(collaborator);
+	}
+
+	@QAFTestStep(description="Verify all the default tile value displayed as '0'")
+	public void verifyDefaultTitleCount(String val){
+		Validator.assertTrue(inspectionpage.verifyDefaultTileCount(val),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
+	}
+
+	@QAFTestStep(description="Verify user is able to enter text in summary field")
+	public void verifySummaryField(String val){
+//		Validator.assertTrue(inspectionpage.verifySummaryField(val),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
+	}
+
+	@QAFTestStep(description="Verify user is able to maximize the summary window size")
+	public void verifyMaximizeSummaryField(String val){
+//		Validator.assertTrue(inspectionpage.verifySummaryField(val),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the add new button is enabled/disabled")
+	public void verifyAddNewBtn(String val){
+//		Validator.assertTrue(inspectionpage.verifySummaryField(val),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
+	}
 }

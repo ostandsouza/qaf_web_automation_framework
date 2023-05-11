@@ -10,6 +10,7 @@ import com.qmetry.qaf.automation.util.PoiExcelUtil;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.openqa.selenium.By;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -71,6 +72,27 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
     public CustomElement buttonLoader;
+
+    @FindBy(locator = "xpath=(//div[text()='Minuteman Calc.']/..//div[contains(@class,'text-area')]/span)[2]")
+    public CustomElement crMinutemanCalc;
+
+    @FindBy(locator = "xpath=(//div[text()='Monitoring Devices']/..//div[contains(@class,'text-area')]/span)[2]")
+    public CustomElement crMonitoringDevices;
+
+    @FindBy(locator = "xpath=(//div[text()='Conveyor Inspect']/..//div[contains(@class,'text-area')]/span)[2]")
+    public CustomElement crConveyorInspect;
+
+    @FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[2]")
+    public CustomElement crInspections;
+
+    @FindBy(locator = "xpath=(//div[text()='Cover Wear']/..//div[contains(@class,'text-area')]/span)[2]")
+    public CustomElement crCoverWear;
+
+    @FindBy(locator = "xpath=(//div[text()='File Manager']/..//div[contains(@class,'text-area')]/span)[1]")
+    public CustomElement crFileManager;
+
+    @FindBy(locator = "xpath=(//div[text()='Conveyor History']/..//div[contains(@class,'text-area')]/span)[1]")
+    public CustomElement crConveyorHistory;
 
     @FindBy(locator = "xpath=(//div[text()='Technical Data']/..//div[contains(@class,'text-area')]/span)[1]")
     public CustomElement crTechnicalDataCard;
@@ -540,12 +562,103 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//div[contains(@class,'p-text-bold')]")
     public CustomElement fileUploadSummary;
 
+    @FindBy(locator="xpath=//p-inputswitch")
+    public CustomElement enableWeatherSync;
+
+    @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
+    public CustomElement btAddConveyor;
+
+    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Table-Layout')])[2]")
+    public CustomElement btTableLayout;
+
+    @FindBy(locator = "xpath=//span[text()='Table Layout Settings']")
+    public CustomElement tableLayoutHeader;
+
+    @FindBy(locator = "xpath=//div[text()=' Default Layout ']/p-radiobutton")
+    public CustomElement defaultLayout;
+
+    @FindBy(locator = "xpath=//button[text()='Save Set Preference']")
+    public CustomElement saveSetPreference;
+
+    @FindBy(locator = "xpath=//button[text()='Add New Layout']")
+    public CustomElement addNewLayout;
+
+    @FindBy(locator = "xpath=//input[@id='layoutName']")
+    public CustomElement layoutInput;
+
+    @FindBy(locator = "xpath=//button[text()='Add']")
+    public CustomElement addLayout;
+
+    @FindBy(locator = "xpath=//span[contains(@class,'p-dialog-header-close-icon')]")
+    public CustomElement closeLayout;
+
+    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')])[1]")
+    public CustomElement deleteLayout;
+
+    @FindBy(locator = "xpath=//span[text()='Delete Layout']")
+    public CustomElement deleteLayoutHeader;
+
+    @FindBy(locator = "xpath=//span[text()='Delete']")
+    public CustomElement deleteBtn;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Name ']")
+    public CustomElement nameCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Site ']")
+    public CustomElement siteCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Last Modified ']")
+    public CustomElement lastModifiedCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Installed Belt ']")
+    public CustomElement installedBeltCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Remaining Life by Time ']")
+    public CustomElement lifetimeCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Remaining Cover % ']")
+    public CustomElement remainingCoverCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Inspection Items ']")
+    public CustomElement inspectionItemsCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Corporates ']")
+    public CustomElement corporatesCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Belt Width (mm) ']")
+    public CustomElement BeltWidthCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Rating (N/mm) ']")
+    public CustomElement ratingCol;
+
+    @FindBy(locator = "xpath=//th/div[text()=' Length (m) ']")
+    public CustomElement lengthCol;
+
+    @FindBy(locator = "xpath=//span[contains(@class,'p-multiselect-trigger')]/..")
+    public CustomElement filterDropdown;
+
+    @FindBy(locator = "xpath=//div[text()='Layout created successfully']")
+    public CustomElement layoutSuccessMsg;
+
+    @FindBy(locator = "xpath=//span[text()='Conveyor']")
+    public CustomElement conveyorTab;
 
     public void goToConveyorListScreen(){
         if(!conveyorList.isVisible())
             home.click("Home");
         conveyorList.jsClick("Conveyor List");
         btSearchinput.isVisible("Conveyor List Page");
+    }
+
+    public void goToAddConveyor(){
+        addConveyors.click("Add Conveyors");
+        tbConveyorname.isVisible("Conveyor Name");
+    }
+
+    public void goToAddConveyorFromList(){
+        goToConveyorListScreen();
+        btAddConveyor.click("Add icon");
+        tbConveyorname.isVisible("Conveyor Name");
     }
 
     public void goToConveyorListScreenAndWait() {
@@ -562,14 +675,28 @@ public class ConveyorPage extends BasePage{
     }
 
     public void createConveyor(String conveyorName, String distShopName, String custSiteName) {
+        enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
+        btSaveandclose.click("Save & Close");
+        waitForElementToInvisible(buttonLoader,10000);
+        btSearchinput.isVisible("Conveyor list screen");
+    }
+
+    public void createConveyorWithImg(String conveyorName, String distShopName, String custSiteName, String img) {
+        enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
+        new CorporatePage().corporateImgUpload(img);
+        waitForElementToBeClickable(enableWeatherSync);
+        enableWeatherSync.click("Weather Sync");
+        btSaveandclose.click("Save & Close");
+        waitForElementToInvisible(buttonLoader,10000);
+        btSearchinput.isVisible("Conveyor list screen");
+    }
+
+    public void enterConveyorMandatoryDetails(String conveyorName, String distShopName, String custSiteName) {
         addConveyors.click("Add Conveyor");
         waitForElementToDisplay(tbConveyorname);
         tbConveyorname.type(conveyorName,"Conveyor Name");
         dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
         dropdownSelectSearch(drDistShopdropdown, tbSitedropdown, distShopName);
-        btSaveandclose.click("Save & Close");
-        waitForElementToInvisible(buttonLoader,10000);
-        btSearchinput.isVisible("Conveyor list screen");
     }
 
     public void checkConveyorGermany(String conveyorName, String custCorpName) {
@@ -619,6 +746,7 @@ public class ConveyorPage extends BasePage{
         crActions.click("Actions");
         crExportPDF.jsClick("Export PDF");
     }
+
 
     public void goToConveyorDetailScreen(String conveyorName) {
         searchConveyor(conveyorName);
@@ -814,5 +942,50 @@ public class ConveyorPage extends BasePage{
         tbConveyorname.type(newConveyorName);
         crUpdate.click();
         waitForElementToDisplay(crUpdateMsg);
+    }
+
+    public boolean verifyTile() {
+        return crTechnicalDataCard.isEnable("Technical Card") && crConveyorHistory.isEnable("Conveyor History") && crFileManager.isEnable("File Manager") && crCoverWear.isEnable("Cover Wear") && crInspections.isEnable("Inspections") && crConveyorInspect.isEnable("Conveyor Inspect") && crMonitoringDevices.isEnable("Monitoring Devices") && crMinutemanCalc.isEnable("Minuteman Calc");
+    }
+
+    public boolean verifyDropDown(String conveyorName){
+        searchConveyor(conveyorName);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("Conveyor Checkbox");
+        crActions.click("Actions");
+        return crExportPDF.isVisible("Export PDF") && crExportCSV.isVisible("Export CSV") && crEdit.isVisible("Edit Conveyor") && crDelete.isVisible("Delete Conveyor");
+    }
+
+    public void addLayout(String corporates, String beltWidth, String rating, String length, String layoutName){
+        addFilters(corporates,beltWidth,rating,length);
+        btTableLayout.click("Add Table Layout");
+        tableLayoutHeader.isVisible("Table Layout");
+        addNewLayout.click("Add New Layout");
+        layoutInput.type(layoutName);
+        addLayout.click("Add");
+        waitForElementToDisplay(layoutSuccessMsg);
+        closeLayout.click("Close Layout");
+    }
+
+    public boolean addFilters(String corporates, String beltWidth, String rating, String length){
+        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, corporates);
+        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, beltWidth);
+        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, rating);
+        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, length);
+        return verifyFilters();
+    }
+
+    public boolean verifyFilters(){
+        return corporatesCol.isVisible() && BeltWidthCol.isVisible() && ratingCol.isVisible() && lengthCol.isVisible();
+    }
+
+    public void deleteLayout(String layoutName){
+        btTableLayout.click("Add Table Layout");
+        tableLayoutHeader.isVisible("Table Layout");
+        defaultLayout.click("Default Radio");
+        driver.findElement(By.xpath("//div[contains(text(),'"+layoutName+"')]/following-sibling::div//span[contains(@class,'ctp-icon-Delete')]")).click();
+        deleteLayout.click("Delete Layout");
+        deleteLayoutHeader.isVisible("Delete Header");
+        deleteBtn.click("Delete");
     }
 }

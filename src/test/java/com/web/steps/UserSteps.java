@@ -1,13 +1,11 @@
 package com.web.steps;
 
-import com.common.utils.APIBase;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.BasePage;
-import com.web.pages.LoginPage;
 import com.web.pages.UsersPage;
 
 public class UserSteps extends BasePage {
@@ -131,9 +129,9 @@ public class UserSteps extends BasePage {
 	}
 	
 	@QAFTestStep(description = "Click on profile and select logout button")
-    public void Clickonlogout() {
+    public void ClickOnLogout() {
 		SyncUtil.waitFor(3000);
-		userpage.clickonlogout();
+		userpage.clickOnLogout();
 	}
 
 	@QAFTestStep(description="Create a Market manager {FullNameInd} and {Phone} and {EmailInd} and {ProfileType} and {UserPassword} and {RetypePassword}")
