@@ -65,6 +65,64 @@
     "street": " "
   },
   "isDroneInspection": true,
+  "lastWeatherSyncAt": 1684090434872,
+  "droneInspectData": {
+    "operationType": "INSERT",
+    "trendData": [
+      {
+        "lastInspected": 1684108800000,
+        "totalErrors": 1,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 1,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      }
+    ],
+    "droneDataUploadDate": 1684108800000,
+    "totalErrorCount": 1,
+    "errorDetails": [
+      {
+        "count": 0,
+        "code": 1,
+        "percentage": 0
+      },
+      {
+        "count": 0,
+        "code": 2,
+        "percentage": 0
+      },
+      {
+        "count": 0,
+        "code": 3,
+        "percentage": 0
+      },
+      {
+        "count": 1,
+        "code": 4,
+        "percentage": 100
+      }
+    ],
+    "status": 4
+  },
+  "aiModelPath": "ctp-object-detection-models-stage/models/baseline-yolo",
   "idlerReturn": {
     "diameter": "4521.1998553216035",
     "angle": "15",

@@ -322,6 +322,7 @@ public class InspectionPage extends BasePage {
 	
 	public void addInspectionItem(String conveyorName, String assetName, String assetDetail, String failureMode, String condition, String status) {
 		waitForElementToBeClickable(btnAddnew);
+		SyncUtil.waitFor(2000);
 		btnAddnew.click("Add New Inspection");
 		waitForElementToDisplay(ddlAsset);
 		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);

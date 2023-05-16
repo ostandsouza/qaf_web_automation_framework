@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+
 public class APIBase {
 
     RestAPIHelper restApiHelper = new RestAPIHelper();
@@ -28,14 +30,14 @@ public class APIBase {
     public static String refreshToken;
 
     public APIBase() {
-        commonPaths = JsonReader.getMapTestData("service_url", "dev2");
+        commonPaths = JsonReader.getMapTestData("service_url", getBundle().getString("env.setup"));
     }
 
     public void configureRestAssured() {
         System.out.println("Configuring RestAssured");
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         RestAPIHelper.configure();
-        headersMap.put("appclientid","pvr1dnvs0gntbsr95dvkdco8l");
+        headersMap.put("appclientid",getBundle().getString("env.appId"));
 //      queryMaps.put(CoreConnectionPNames.CONNECTION_TIMEOUT, 1000)
 //      queryMaps.put(CoreConnectionPNames.SO_TIMEOUT, 1000));
     }

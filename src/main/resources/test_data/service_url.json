@@ -14,7 +14,19 @@
     "user_ms": "https://user-management.service.stage.cloud1.ws.continental-industry.com",
     "file_ms": "https://file-management.service.dev2.contiplus.net"
   },
-  "prod": {
-
+  "stage": {
+    "auth_ms": "https://authentication-management.service.stage.cloud1.ws.continental-industry.com",
+    "conveyor_ms": "https://conveyor-management.service.stage.contiplus.net",
+    "company_ms": "https://company-management.service.stage.contiplus.net",
+    "devices_ms": "https://monitoring-device-management.service.stage.contiplus.net",
+    "inspection_ms": "https://inspection-management.service.stage.contiplus.net",
+    "user_preference_ms": "https://user-preference-management.service.stage.contiplus.net",
+    "ultrasonic_ms": "https://ultrasonic-management.service.stage.contiplus.net",
+    "profile_ms": "https://profile-management.service.stage.cloud1.ws.continental-industry.com",
+    "market_ms": "https://market-management.service.stage.contiplus.net",
+    "content_ms ": "https://content-management.service.stage.contiplus.net",
+    "permission_ms": "https://permission-management.service.dev2.contiplus.net",
+    "user_ms": "https://user-management.service.stage.cloud1.ws.continental-industry.com",
+    "file_ms": "https://file-management.service.stage.contiplus.net"
   }
 }

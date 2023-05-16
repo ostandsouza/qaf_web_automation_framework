@@ -401,15 +401,15 @@ public class CorporatePage extends BasePage{
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         btCheckbox.check("Site/Shop Checkbox");
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
-        btActions.click("Actions");
+        btActions.jsClick("Actions");
         waitForElementVisible(btDelete, 10000,500);
-        btDelete.click("Delete");
+        btDelete.jsClick("Delete");
         yesConfirmation.click("Confirm");
     }
 
     public void searchCorporate(String corpName) {
         goToCorporate();
-        waitForElementVisible(btSearchinput, 10000,500);
+        waitForElementToDisplay(btSearchinput);
         btSearchinput.type(corpName, "Corporate Search");
     }
 

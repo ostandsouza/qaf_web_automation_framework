@@ -13,6 +13,9 @@ public class ConveyorInspectPage extends BasePage{
     @FindBy(locator = "xpath=(//app-card//div[text()='Conveyor Inspect'])[2]")
     public CustomElement conveyorInspect;
 
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyor Inspect'])[1]")
+    public CustomElement conveyorInspect1;
+
     @FindBy(locator="xpath=//span[contains(@class,'p-carousel-prev-icon pi pi-chevron-right')]")
     public CustomElement btRightCarousel;
 
@@ -93,8 +96,11 @@ public class ConveyorInspectPage extends BasePage{
     public CustomElement modelClose;
 
     public void goToConveyorInspect(){
+        waitForElementToBeClickable(conveyorInspect);
         if(conveyorInspect.isEnable())
             conveyorInspect.jsClick("Conveyor Inspect");
+        else if(conveyorInspect1.isEnable())
+            conveyorInspect1.jsClick("Conveyor Inspect");
         else {
             btRightCarousel.jsClick("Carousel right");
             conveyorInspect.jsClick("Conveyor Inspect");
@@ -104,10 +110,10 @@ public class ConveyorInspectPage extends BasePage{
     }
 
     public void assignModel(String model){
-        btSettings.click("Settings");
-        assignModel.click("Assign Model");
+        btSettings.jsClick("Settings");
+        assignModel.jsClick("Assign Model");
         dropdownSelect(modelName, ListItem, model);
-        saveChanges.click("Save");
+        saveChanges.jsClick("Save");
         waitForElementToInvisible(spinnerModel,10000);
         modelClose.click("Close");
     }

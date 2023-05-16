@@ -226,9 +226,11 @@ public class CoverWearPage extends BasePage{
         cwTodayDate.click("Current Date");
         cwPositionSave.click("Save Position");
         cwPositionSave.waitForNotVisible(7000);
+        SyncUtil.waitFor(3000);
     }
 
     public void editPosition(String segment, String editSegment){
+        waitForElementToDisplay(cwCheckbox);
         searchPosition(segment);
         cwCheckbox.check("Position Checkbox");
         cwActions.click("Actions");
@@ -237,6 +239,7 @@ public class CoverWearPage extends BasePage{
         cwPositionSegment.type(editSegment);
         cwPositionSave.click("Save");
         cwPositionSave.waitForNotVisible(7000);
+        SyncUtil.waitFor(5000);
     }
 
     public void verifyPosition(String segment, String durameter){

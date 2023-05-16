@@ -822,7 +822,7 @@ public class ConveyorPage extends BasePage{
         return crCarryIdlerDiameter.isVisible("Carry Idler Diameter") && crCarryAngle.isVisible("Carry Angle") && crCarryTotalIdlers.isVisible("Carry Total Number of Idlers") &&
                 crCarryTopRunSpacing.isVisible("Carry Top Run Spacing") && crReturnIdlerDiameter.isVisible("Return Idler Diameter") && crReturnAngle.isVisible("Return Angle") &&
                 crReturnTotalIdlers.isVisible("Return Total Number of Idlers") && crReturnTopRunSpacing.isVisible("Return Top Run Spacing") && crImpactIdlerDiameter.isVisible("Impact Idler Diameter") && crImpactAngle.isVisible("Impact Angle") &&
-                crImpactTotalIdlers.isVisible("Impact Total Number of Idlers") && crIdlerOffset.isVisible("Idler Offset") && crNoOfTransitionIdlers.isVisible("Number of Transition Idlers") && crMisalignmentSensorsYes.isEnable("Misalignment Sensors Available") &&
+                crImpactTotalIdlers.isVisible("Impact Total Number of Idlers") && crIdlerOffset.isEnable("Idler Offset") && crNoOfTransitionIdlers.isVisible("Number of Transition Idlers") && crMisalignmentSensorsYes.isEnable("Misalignment Sensors Available") &&
                 crMisalignmentSensorsNo.isEnable("Misalignment Sensors Not Available");
     }
 
