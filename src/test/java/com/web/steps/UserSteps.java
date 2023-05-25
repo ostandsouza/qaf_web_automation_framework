@@ -1,5 +1,6 @@
 package com.web.steps;
 
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
@@ -7,6 +8,8 @@ import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.BasePage;
 import com.web.pages.UsersPage;
+
+import java.util.Map;
 
 public class UserSteps extends BasePage {
 	UsersPage userpage = new UsersPage();
@@ -34,7 +37,7 @@ public class UserSteps extends BasePage {
 	@QAFTestStep(description = "Click on Add button")
     public void clickonaddbutton() {
 		SyncUtil.waitFor(5000);
-		userpage.Addclick();
+		userpage.addClick();
 	}
 	
 	@QAFTestStep(description = "User can view add user page")
@@ -51,7 +54,7 @@ public class UserSteps extends BasePage {
 		userpage.setPhone("+91",Phone);
 		String Email = "Demotm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email);
-		userpage.setprofiletype(Profiletype);
+		userpage.setProfileType(Profiletype);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -64,7 +67,7 @@ public class UserSteps extends BasePage {
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demosc"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletypetu);
+		userpage.setProfileType(Profiletypetu);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -78,7 +81,7 @@ public class UserSteps extends BasePage {
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletypeta1);
+		userpage.setProfileType(Profiletypeta1);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -91,7 +94,7 @@ public class UserSteps extends BasePage {
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletypeta1);
+		userpage.setProfileType(Profiletypeta1);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -105,7 +108,7 @@ public class UserSteps extends BasePage {
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletypeta);
+		userpage.setProfileType(Profiletypeta);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -140,11 +143,11 @@ public class UserSteps extends BasePage {
 		userpage.apiBase.deleteProfileAPI(userid);
 		userpage.apiBase.deleteUserAPI(userid);
 		userpage.usersclick();
-		userpage.Addclick();
+		userpage.addClick();
 		userpage.setfullname(FullNameInd);
 		userpage.setPhone("+91",Phone);
 		userpage.setemail(EmailInd);
-		userpage.setprofiletype(ProfileType);
+		userpage.setProfileType(ProfileType);
 		userpage.setpassword(UserPassword);
 		userpage.setretypepassword(RetypePassword);
 		userpage.Nextclick();
@@ -156,11 +159,11 @@ public class UserSteps extends BasePage {
 		userpage.apiBase.deleteProfileAPI(userid);
 		userpage.apiBase.deleteUserAPI(userid);
 		userpage.usersclick();
-		userpage.Addclick();
+		userpage.addClick();
 		userpage.setfullname(FullName);
 		userpage.setPhone("+91",Phone);
 		userpage.setemail(EmailDist);
-		userpage.setprofiletype(ProfileTypeDist);
+		userpage.setProfileType(ProfileTypeDist);
 		userpage.setpassword(UserPassword);
 		userpage.setretypepassword(RetypePassword);
 		userpage.distributorInformation(DistCorpName,CoporateRole);
@@ -180,7 +183,7 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description = "Verify {FullName} user with market manager for market as {Region} and permission rights as {Add} {Edit} {Delete} {View} {Download}")
 	public void verifyMarketAndPermissionForUser(String fullName, String region, String add, String edit, String delete, String view, String download) {
-		userpage.goToUsers();
+		userpage.goToUsersAndWait();
 		userpage.searchUser(fullName);
 		userpage.goToEditUserPage(fullName);
 		userpage.Nextclick();
@@ -191,7 +194,7 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description = "Verify {FullName} user with distributor user for market as {Region} and permission rights as {Add} {Edit} {Delete} {View} {Download}")
 	public void verifyMarketAndPermissionForDistUser(String fullName, String region, String add, String edit, String delete, String view, String download) {
-		userpage.goToUsers();
+		userpage.goToUsersAndWait();
 		userpage.searchUser(fullName);
 		userpage.goToEditUserPage(fullName);
 		userpage.Nextclick();
@@ -207,5 +210,76 @@ public class UserSteps extends BasePage {
 	@QAFTestStep(description="Verify user {0} is deleted")
 	public void verifyUserIsDelete(String str0){
 		Validator.assertTrue(userpage.verifyUser(str0),"User did not delete properly","User deleted successfully");
+	}
+
+	@QAFTestStep(description="Navigate to User Bulk Upload")
+	public void verifyUserBulkImportNavigation(){
+		Validator.assertTrue(userpage.goToUserBulkUpload(),"User bulk import navigation failed","User bulk import navigation was successful");
+	}
+
+	@QAFTestStep(description="Verify the sections is bulk import")
+	public void verifyBulkImportSections(){
+		Validator.assertTrue(userpage.verifyUploadSections(),"User bulk import header verification failed","User bulk import header verification was successful");
+	}
+
+	@QAFTestStep(description="Select {UserType} and verify the UI")
+	public void verifyBulkImportUI(String userType){
+		Validator.assertTrue(userpage.verifyImportSection(userType),"User bulk import template verification failed","User bulk import template verification was successful");
+	}
+
+	@QAFTestStep(description="Download bulk upload template for {0} and {1}")
+	public void downloadBulkUploadTemplate(String userType, String corp){
+		userpage.checkDownloadTemplate(userType,corp);
+		SyncUtil.waitFor(10000);
+		Validator.assertTrue(MiscUtils.checkDownloadedFiles("BulkUserTemplate.xlsx"),"User bulk upload template was not found","User bulk upload template was downloaded successfully");
+		userpage.verifyTemplateSheet(userType,"BulkUserTemplate.xlsx");
+		MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");	}
+
+	@QAFTestStep(description="Verify bulk upload template Columns for {UserType} and file {File}")
+	public void verifyTemplateContents(String userType, String fileName){
+		userpage.checkDownloadTemplate(userType, fileName);
+		SyncUtil.waitFor(10000);
+		userpage.verifyTemplateFields(userType,"BulkUserTemplate.xlsx");
+		MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");
+	}
+
+	@QAFTestStep(description="Upload file with name {file}")
+	public void verifyFileUpload(String fileName){
+		userpage.userFileImport(fileName);
+	}
+
+	@QAFTestStep(description="Verify the success message after uploading file with name {file}")
+	public void verifySuccessMsgFileUpload(String fileName){
+		Validator.assertTrue(userpage.userFileUpload(fileName),"User bulk import file upload failed","User bulk import file upload was successful");
+	}
+
+	@QAFTestStep(description="Verify bulk upload analysis result after uploading file with name {file} having count {count}")
+	public void verifyBulkImportAnalysis(String fileName, int count){
+		userpage.userFileImport(fileName);
+		userpage.acknowledgeImport(count);
+	}
+
+	@QAFTestStep(description="Verify bulk upload analysis toast message after uploading file with name {0}")
+	public void verifyBulkUploadAnalysisToastMessage(String fileName){
+		userpage.userFileImport(fileName);
+		userpage.verifyMsg();
+	}
+
+	@QAFTestStep(description="Verify bulk user import functionality after uploading file with name {File} and user type {UserType}")
+	public void verifyBulkImportFunctionality(String fileName, String userType){
+		Object[][] obj = MiscUtils.getExcelData(fileName,userType);
+		for( int i = obj.length;i>0;i--){
+			String userid = userpage.apiBase.getUserProfileAPI(((Map<String,String>)obj[i-1][0]).get("EmailId"));
+			userpage.apiBase.deleteProfileAPI(userid);
+			userpage.apiBase.deleteUserAPI(userid);
+		}
+		userpage.userFileImport(fileName);
+		Validator.assertTrue(userpage.importUsers(),"Bulk user creation failed","User user creation was successful");
+	}
+
+	@QAFTestStep(description="Validate User {FileName} should display in list with same data as filled in excel sheet {UserType}")
+	public void verifyBulkImportedUsers(String fileName, String userType){
+		userpage.goToUsersAndWait();
+		userpage.verifyUploadedUsers(userType, fileName);
 	}
 }

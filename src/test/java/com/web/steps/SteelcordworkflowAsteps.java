@@ -26,12 +26,12 @@ public class SteelcordworkflowAsteps extends BasePage{
 	  @QAFTestStep( description="Create territorymanager TestDesigner.SC {Fullname} and {Phone} and {Profiletype} and {Userpassword} and {Retypepassword}") 
 	  public void createTerritorymanagerTestDesignerSC(String Fullname,String Phone,String Profiletype,String Userpassword,String Retypepassword) throws InterruptedException{ 
 	  userpage.usersclick();
-	  userpage.Addclick();
+	  userpage.addClick();
 	  userpage.setfullname(Fullname);
 	  userpage.setPhone("+91",Phone); 
 	  String Email ="Demotm"+randomestring()+"@mailinator.com"; 
 	  userpage.setemail(Email);
-	  userpage.setprofiletype(Profiletype); 
+	  userpage.setProfileType(Profiletype);
 	  userpage.setpassword(Userpassword);
 	  userpage.setretypepassword(Retypepassword); 
 	  userpage.Nextclick();
@@ -43,12 +43,12 @@ public class SteelcordworkflowAsteps extends BasePage{
 	@QAFTestStep(description="Create Standard Continental User TestUser.SC {Fullnametu} and {Phone} and {Profiletypetu} and {Userpassword} and {Retypepassword}")
 	public void createStandardContinentalUserTestUserSC(String Fullnametu,String Phone,String Profiletypetu,String Userpassword,String Retypepassword) throws InterruptedException{
 		//userpage.usersclick();
-		userpage.Addclick();
+		userpage.addClick();
 		userpage.setfullname(Fullnametu);
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demosc"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletypetu);
+		userpage.setProfileType(Profiletypetu);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -60,12 +60,12 @@ public class SteelcordworkflowAsteps extends BasePage{
 	@QAFTestStep(description="Create MarketManager Test Approver {Fullnameta1} and {Phone} and {Profiletypeta1} and {Userpassword} and {Retypepassword}")
 	public void createMarketManagerTestApprover(String Fullnameta1,String Phone,String Profiletypeta1,String Userpassword,String Retypepassword) throws InterruptedException{
 		userpage.usersclick();
-		userpage.Addclick();
+		userpage.addClick();
 		userpage.setfullname(Fullnameta1);
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletypeta1);
+		userpage.setProfileType(Profiletypeta1);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -76,12 +76,12 @@ public class SteelcordworkflowAsteps extends BasePage{
 	@QAFTestStep(description="Create MarketManager Test Approver {Fullnameta2} and {Phone} and {Profiletypeta1} and {Userpassword} and {Retypepassword}")
 	public void createMarketManagerTestApproversc2(String Fullnameta2,String Phone,String Profiletypeta1,String Userpassword,String Retypepassword) throws InterruptedException{
 		userpage.usersclick();
-		userpage.Addclick();
+		userpage.addClick();
 		userpage.setfullname(Fullnameta2);
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletypeta1);
+		userpage.setProfileType(Profiletypeta1);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();
@@ -94,12 +94,12 @@ public class SteelcordworkflowAsteps extends BasePage{
 	@QAFTestStep(description="Create MarketUser Test admin.SC  {Fullnameta} and {Phone} and {Profiletypeta} and {Userpassword} and {Retypepassword}")
 	public void createMarketUserTestAdminSCAndAndAndAnd(String Fullnameta,String Phone,String Profiletypeta,String Userpassword,String Retypepassword) throws InterruptedException{
 		userpage.usersclick();
-		userpage.Addclick();
+		userpage.addClick();
 		userpage.setfullname(Fullnameta);
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
 		userpage.setemail(Email1);
-		userpage.setprofiletype(Profiletypeta);
+		userpage.setProfileType(Profiletypeta);
 		userpage.setpassword(Userpassword);
 		userpage.setretypepassword(Retypepassword);
 		userpage.Nextclick();

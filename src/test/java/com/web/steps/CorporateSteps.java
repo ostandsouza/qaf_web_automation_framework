@@ -1,5 +1,6 @@
 package com.web.steps;
 
+import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
@@ -182,6 +183,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Verify navigation to {DistShopName} detail screen")
     public void verifyShopDetailsNavigation(String site){
+        SyncUtil.waitFor(20000);
         corpPage.goToShopSiteDetails(site);
     }
 
@@ -236,8 +238,9 @@ public class CorporateSteps {
         conveyorPage.editConveyor(conveyorName, conveyorNameEdit);
     }
 
-    @QAFTestStep(description="Verify navigation from site detail to conveyor details screen of {ConveyorName}")
-    public void verifyConveyorDetailsNavigation(String conveyorName){
+    @QAFTestStep(description="Verify navigation from site detail to conveyor details screen of {0}")
+    public void verifyNavigationFromSiteDetailToConveyorDetailsScreenOf(String conveyorName){
+        SyncUtil.waitFor(20000);
         corpPage.goToConveyorDetails(conveyorName);
     }
 

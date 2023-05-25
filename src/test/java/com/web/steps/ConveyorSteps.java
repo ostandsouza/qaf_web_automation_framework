@@ -70,7 +70,7 @@ public class ConveyorSteps {
     @QAFTestStep(description="Add two conveyor via bulk upload in site {CustSiteName} with file {FileName}")
     public void conveyorBulkUpload(String custSiteName, String fileName){
 //        Validator.assertTrue(conveyorPage.conveyorFileImport(fileName).contains("2"),"Not all conveyors were imported successfully","All conveyors imported successfully");
-        Object[][] obj = conveyorPage.getExcelData(fileName,custSiteName);
+        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
         for( int i = obj.length;i>0;i--){
             String conveyorId = conveyorPage.apiBase.getConveyorsAPI(((Map<String,String>)obj[i-1][0]).get("Name"));
             conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
@@ -84,10 +84,11 @@ public class ConveyorSteps {
         conveyorPage.verifyUploadedConveyor(siteName,fileName);
     }
 
-    @QAFTestStep(description="Edit Conveyor {ConveyorName2} from conveyor list screen to {EditCustCorpName}")
-    public void editAConveyorC2GermanyAtMiningCorpGermany(String ConveyorNameGer1, String ConveyorNameGer1Edit){
+    @QAFTestStep(description="Edit Conveyor {0} from conveyor list screen to {1}")
+    public void editConveyorFromConveyorListScreenTo(String ConveyorName,String ConveyorNameEdit){
         conveyorPage.goToConveyorListScreenAndWait();
-        conveyorPage.editConveyor(ConveyorNameGer1, ConveyorNameGer1Edit);
+        conveyorPage.editConveyor(ConveyorName, ConveyorNameEdit);
+        SyncUtil.waitFor(5000);
     }
 
     @QAFTestStep(description="Verify Edited conveyor details with {EditCustCorpName} for Corporate {EditCustCorpName}")
@@ -183,7 +184,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description="Verify user is able see saved preference")
     public void verifySavedPreference(){
-        Validator.assertTrue(conveyorPage.verifyFilters(),"All filters are applied in table layout","All filters were successfully verified");
+        Validator.assertTrue(conveyorPage.verifyFilters(),"All saved filters are not available in layout","All filters were successfully verified");
     }
 
 

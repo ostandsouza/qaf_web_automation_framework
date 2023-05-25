@@ -2,6 +2,7 @@ package com.web.pages;
 
 import com.common.component.CustomElement;
 import com.common.utils.ClasspathResourceHelper;
+import com.common.utils.MiscUtils;
 import com.common.utils.PDFHelper;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
@@ -622,16 +623,16 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//th/div[text()=' Inspection Items ']")
     public CustomElement inspectionItemsCol;
 
-    @FindBy(locator = "xpath=//th/div[text()=' Corporates ']")
+    @FindBy(locator = "xpath=//th/div[contains(text(),'Corporates')]")
     public CustomElement corporatesCol;
 
-    @FindBy(locator = "xpath=//th/div[text()=' Belt Width (mm) ']")
+    @FindBy(locator = "xpath=//th/div[contains(text(),'Belt Width (mm)')]")
     public CustomElement BeltWidthCol;
 
-    @FindBy(locator = "xpath=//th/div[text()=' Rating (N/mm) ']")
+    @FindBy(locator = "xpath=//th/div[contains(text(),'Rating (N/mm)')]")
     public CustomElement ratingCol;
 
-    @FindBy(locator = "xpath=//th/div[text()=' Length (m) ']")
+    @FindBy(locator = "xpath=//th/div[contains(text(),'Length (m)')]")
     public CustomElement lengthCol;
 
     @FindBy(locator = "xpath=//span[contains(@class,'p-multiselect-trigger')]/..")
@@ -918,14 +919,9 @@ public class ConveyorPage extends BasePage{
         waitForElementToDisplay(crImportSuccessful);
         waitForElementToDisplay(btSearchinput);
     }
-    public Object[][] getExcelData(String fileName, String sheetName) {
-        String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
-        Object[][] obj = PoiExcelUtil.getExcelDataAsMap(file_path,sheetName);
-        return obj;
-    }
 
     public void verifyUploadedConveyor(String siteName, String fileName) {
-        Object[][] obj = getExcelData(fileName,siteName);
+        Object[][] obj = MiscUtils.getExcelData(fileName,siteName);
         for( int i = obj.length-1;i>0;i--)
             Validator.assertTrue(searchConveyor(((Map<String,String>)obj[i][0]).get("Name")),"Imported Conveyor was not created successfully","Imported conveyor created successfully");
     }
@@ -953,7 +949,7 @@ public class ConveyorPage extends BasePage{
         waitForElementToDisplay(crCheckbox);
         crCheckbox.check("Conveyor Checkbox");
         crActions.click("Actions");
-        return crExportPDF.isVisible("Export PDF") && crExportCSV.isVisible("Export CSV") && crEdit.isVisible("Edit Conveyor") && crDelete.isVisible("Delete Conveyor");
+        return crExportPDF.isEnable("Export PDF") && crExportCSV.isEnable("Export CSV") && crEdit.isEnable("Edit Conveyor") && crDelete.isEnable("Delete Conveyor");
     }
 
     public void addLayout(String corporates, String beltWidth, String rating, String length, String layoutName){
@@ -963,20 +959,37 @@ public class ConveyorPage extends BasePage{
         addNewLayout.click("Add New Layout");
         layoutInput.type(layoutName);
         addLayout.click("Add");
+        waitForElementToInvisible(buttonLoader,20000);
         waitForElementToDisplay(layoutSuccessMsg);
         closeLayout.click("Close Layout");
     }
 
     public boolean addFilters(String corporates, String beltWidth, String rating, String length){
-        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, corporates);
-        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, beltWidth);
-        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, rating);
-        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, length);
+        setImplicitWait(70000,TimeUnit.MILLISECONDS);
+        filterDropdown.click();
+        SyncUtil.waitFor(1000);
+        tbMultipleSiteDropdown.type(corporates);
+        waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'"+corporates+"')]"));
+        driver.findElement("//li/div[contains(text(),'"+corporates+"')]").click();
+        tbMultipleSiteDropdown.type(beltWidth);
+        waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'"+beltWidth+"')]"));
+        driver.findElement("//li/div[contains(text(),'"+beltWidth+"')]").click();
+        tbMultipleSiteDropdown.type(rating);
+        waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'"+rating+"')]"));
+        driver.findElement("//li/div[contains(text(),'"+rating+"')]").click();
+        tbMultipleSiteDropdown.type(length);
+        waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'"+length+"')]"));
+        driver.findElement("//li/div[contains(text(),'"+length+"')]").click();
+        setImplicitWait(1000,TimeUnit.MILLISECONDS);
+//        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, corporates);
+//        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, beltWidth);
+//        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, rating);
+//        dropdownSelectSearch(filterDropdown, tbMultipleSiteDropdown, length);
         return verifyFilters();
     }
 
     public boolean verifyFilters(){
-        return corporatesCol.isVisible() && BeltWidthCol.isVisible() && ratingCol.isVisible() && lengthCol.isVisible();
+        return corporatesCol.isEnable() && BeltWidthCol.isEnable() && ratingCol.isEnable() && lengthCol.isEnable();
     }
 
     public void deleteLayout(String layoutName){
@@ -984,7 +997,6 @@ public class ConveyorPage extends BasePage{
         tableLayoutHeader.isVisible("Table Layout");
         defaultLayout.click("Default Radio");
         driver.findElement(By.xpath("//div[contains(text(),'"+layoutName+"')]/following-sibling::div//span[contains(@class,'ctp-icon-Delete')]")).click();
-        deleteLayout.click("Delete Layout");
         deleteLayoutHeader.isVisible("Delete Header");
         deleteBtn.click("Delete");
     }

@@ -1,17 +1,12 @@
 package com.web.steps;
 
-import com.common.utils.APIBase;
-import com.common.utils.MaildropHelper;
 import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
-import com.qmetry.qaf.automation.ui.selenium.AssertionService;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
-
-import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 public class DemoFlowSteps {
 
@@ -51,12 +46,12 @@ public class DemoFlowSteps {
         demopage.apiBase.deleteUserAPI(userid);
 //        getBundle().setProperty("email.ind", EmailInd);
         userpage.usersclick();
-    	userpage.Addclick();
+    	userpage.addClick();
     	userpage.setfullname(FullNameInd);
 		userpage.setPhone("+91",Phone);
         emailInd = EmailInd;
 		userpage.setemail(EmailInd);
-		userpage.setprofiletype(ProfileType);
+		userpage.setProfileType(ProfileType);
 		userpage.setpassword(UserPassword);
 		userpage.setretypepassword(RetypePassword);
 		userpage.Nextclick();
@@ -73,12 +68,12 @@ public class DemoFlowSteps {
 //        getBundle().setProperty("email.ger", EmailGer);
         SyncUtil.waitFor(2000);
         userpage.usersclick();
-        userpage.Addclick();
+        userpage.addClick();
     	userpage.setfullname1(FullNameGer);
 		userpage.setPhone("+91",Phone);
         emailGer = EmailGer;
 		userpage.setemail(EmailGer);
-		userpage.setprofiletype(ProfileType);
+		userpage.setProfileType(ProfileType);
 		userpage.setpassword(UserPassword);
 		userpage.setretypepassword(RetypePassword);
 		userpage.Nextclick();
@@ -215,11 +210,11 @@ public class DemoFlowSteps {
         demopage.apiBase.deleteProfileAPI(userid);
         demopage.apiBase.deleteUserAPI(userid);
         userpage.usersclick();
-        userpage.Addclick();
+        userpage.addClick();
         userpage.setfullname(FullNameInd);
         userpage.setPhone("+91",Phone);
         userpage.setemail(EmailInd);
-        userpage.setprofiletype(ProfileType);
+        userpage.setProfileType(ProfileType);
         userpage.setpassword(UserPassword);
         userpage.setretypepassword(RetypePassword);
         userpage.distributorInformation(DistCorpName,CoporateRole);
@@ -231,7 +226,7 @@ public class DemoFlowSteps {
 
     @QAFTestStep(description="Change permission for {0} to see {1}")
     public void changePermissionForToSee(String FullNameInd,String region) {
-        userpage.goToUsers();
+        userpage.goToUsersAndWait();
         userpage.searchUser(FullNameInd);
         userpage.goToEditUserPage(FullNameInd);
         userpage.clickOnNextBtn();

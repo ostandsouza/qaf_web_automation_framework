@@ -16,21 +16,29 @@ Scenario: Verify with add conveyor navigation
 @Regression2
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Conveyor_imageUpload
-Scenario: Verify image upload functionality
-
-    When  Navigate to Add Conveyor screen
-    Then  Verify image upload functionality with '${ImageName}'
-
-@Regression3
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
 @key:Conveyor_create
 Scenario: Verify the creation of new conveyor
 
     When  Create a conveyor with '${ConveyorName}' and '${DistShopName}' and '${CustSiteName}' with '${ImageName}'
 
+@Regression3
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Details
+Scenario: Verify the conveyor tab in add conveyor screen
+
+    When  Navigate to Add Conveyor screen
+    Then  verify all fields in conveyor tab
+
 @Regression4
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Details
+Scenario: Verify the actions dropdown list
+
+    Then  Verify the actions dropdown for conveyor with '${ConveyorName}'
+
+@Regression5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Navigation
@@ -38,7 +46,15 @@ Scenario: Verify navigation to conveyor list
 
     When  Navigate to conveyor list screen
 
-@Regression5
+@Regression6
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Details
+Scenario: Verify navigation to add conveyor from list screen
+
+    Then  Navigate to Add Conveyor screen from list screen
+
+@Regression7
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Details
@@ -46,7 +62,16 @@ Scenario: Verify navigation from conveyor list to conveyor details screen
 
     When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
 
-@Regression6
+@Regression8
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_imageUpload
+Scenario: Verify image upload functionality
+
+    When  Navigate to Add Conveyor screen
+    Then  Verify image upload functionality with '${ImageName}'
+
+@Regression9
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Details
@@ -55,7 +80,7 @@ Scenario: Verify for the tiles in conveyor details screen
    When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
    Then  Verify all the tiles in conveyor detail screen
 
-@Regression7
+@Regression10
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Details
@@ -63,38 +88,13 @@ Scenario: Verify export csv file for conveyor
 
     When  Export CSV data for '${ConveyorName}'
 
-@Regression8
+@Regression11
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Details
 Scenario: Verify export PDF file for conveyor
 
     When  Export PDF for '${ConveyorName}'
-
-@Regression9
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:Conveyor_Details
-Scenario: Verify navigation to add conveyor from list screen
-
-    Then  Navigate to Add Conveyor screen from list screen
-
-@Regression10
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:Conveyor_Details
-Scenario: Verify the actions dropdown list
-
-    Then  Verify the actions dropdown for conveyor with '${ConveyorName}'
-
-@Regression11
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:Conveyor_Details
-Scenario: Verify the conveyor tab in add conveyor screen
-
-    When  Navigate to Add Conveyor screen
-    Then  verify all fields in conveyor tab
 
 @Regression12
 @dataFile:resources/data/TestData.xls

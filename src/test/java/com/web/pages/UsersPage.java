@@ -3,6 +3,8 @@ package com.web.pages;
 
 
 
+import com.common.utils.ClasspathResourceHelper;
+import com.common.utils.MiscUtils;
 import com.qmetry.qaf.automation.util.Validator;
 import org.openqa.selenium.WebElement;
 
@@ -13,6 +15,7 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.util.Reporter;
 
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class UsersPage extends BasePage{
@@ -211,19 +214,107 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
 	public CustomElement noList;
-	
-	
+
+	@FindBy(locator = "xpath=//span[text()='Bulk Import']")
+	public CustomElement bulkImport;
+
+	@FindBy(locator = "xpath=//h6[text()='Steps:']")
+	public CustomElement importStepsHeader;
+
+	@FindBy(locator = "xpath=//h6[text()='Import Form']")
+	public CustomElement importFormHeader;
+
+	@FindBy(locator = "xpath=//h6[text()='File Drop or Select']")
+	public CustomElement fileDropHeader;
+
+	@FindBy(locator = "xpath=//span[text()='Save']")
+	public CustomElement saveBtn;
+
+	@FindBy(locator = "xpath=//div[contains(@class,'loader-container')]")
+	public CustomElement loaderUpload;
+
+	@FindBy(locator = "xpath=//label[text()='Profile']/..//div[@role='button']")
+	public CustomElement profileDropdown;
+
+	@FindBy(locator = "xpath=//label[contains(text(),'Corporate')]/..//div[@role='button']")
+	public CustomElement corporateDropdown;
+
+	@FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+	public CustomElement tbSearchDropdown;
+
+	@FindBy(locator = "xpath=//div[text()=' Master ']")
+	public CustomElement master;
+
+	@FindBy(locator = "xpath=//div[text()=' Market manager ']")
+	public CustomElement marketManager;
+
+	@FindBy(locator = "xpath=//div[text()=' Territory manager ']")
+	public CustomElement territoryManager;
+
+	@FindBy(locator = "xpath=//div[text()=' Standard continental user ']")
+	public CustomElement standardContinentalUser;
+
+	@FindBy(locator = "xpath=//div[text()=' Distributor user ']")
+	public CustomElement distributorUser;
+
+	@FindBy(locator = "xpath=//div[text()=' Customer user ']")
+	public CustomElement customerUser;
+
+	@FindBy(locator = "xpath=//span[text()='Download Template']")
+	public CustomElement downloadTemplate;
+
+	@FindBy(locator = "xpath=//input[@type='file']")
+	public CustomElement fileUpload;
+
+	@FindBy(locator = "xpath=//div[text()='Upload successful. Click Save to proceed.']")
+	public CustomElement uploadProceed;
+
+	@FindBy(locator = "xpath=//i[contains(@class,'ctp-icon-Delete')]")
+	public CustomElement deleteFile;
+
+	@FindBy(locator = "xpath=//i[contains(@class,'ctp-icon-Delete')]/../../div[1]")
+	public CustomElement uploadFileName;
+
+	@FindBy(locator = "xpath=//label[text()='Analyzing Users']")
+	public CustomElement analysingUsers;
+
+	@FindBy(locator = "xpath=//span[text()='Back']")
+	public CustomElement backBtn;
+
+	@FindBy(locator = "xpath=//span[text()='Continue']")
+	public CustomElement continueBtn;
+
+	@FindBy(locator="xpath=//div[contains(@class,'p-text-bold')]/div[1]")
+	public CustomElement totalUsers;
+
+	@FindBy(locator="xpath=//div[contains(@class,'p-text-bold')]/div[2]")
+	public CustomElement usersCreated;
+
+	@FindBy(locator="xpath=//div[contains(@class,'p-text-bold')]/div[6]")
+	public CustomElement usersError;
+
+	@FindBy(locator = "xpath=//span[text()='Import']")
+	public CustomElement importBtn;
+
+	@FindBy(locator="xpath=//div[text()='Users has been imported successfully.']")
+	public CustomElement userImportSuccessful;
+
+	@FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
+	public CustomElement buttonLoader;
+
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
 		lnkUsers.click();
 	}
 
-	public void searchUser(String searchtext) {
+	public boolean searchUser(String searchtext) {
 		waitForElementVisible(btSearchinput, 10000, 500);
 		btSearchinput.type(searchtext);
+		waitForElementToDisplay(btCheckbox);
+		return btCheckbox.isVisible("User Found");
 	}
 
-	public void Addclick() {
+	public void addClick() {
 		waitForElementToDisplay(btAdd);
 		btAdd.click();
 	}
@@ -249,33 +340,33 @@ public class UsersPage extends BasePage{
 	
 	
 
-	public void setprofiletype(String profiletype) {
+	public void setProfileType(String profileType) {
 
 		ddlSelectprofiletype.click();
 
 		WebElement listitem;
 
-		if(profiletype.equalsIgnoreCase("Master"))
+		if(profileType.equalsIgnoreCase("Master"))
 		{
 			listitem=rdbSelectprofiletypeMaster;
 		}
-		else if(profiletype.equalsIgnoreCase("Market manager"))
+		else if(profileType.equalsIgnoreCase("Market manager"))
 		{
 			listitem=rdbSelectprofiletypemarketmanager;
 		}
-		else if(profiletype.equalsIgnoreCase("Territory Manager"))
+		else if(profileType.equalsIgnoreCase("Territory Manager"))
 		{
 			listitem=rdbSelectprofiletypeterritorymanager;
 		}
-		else if(profiletype.equalsIgnoreCase("Standard Continental User"))
+		else if(profileType.equalsIgnoreCase("Standard Continental User"))
 		{
 			listitem=rdbSelectprofiletypeStandardContinentalUser;
 		}
-		else if(profiletype.equalsIgnoreCase("Distributor user"))
+		else if(profileType.equalsIgnoreCase("Distributor user"))
 		{
 			listitem=rdbSelectprofiletypeDistributorUser;
 		}
-		else if(profiletype.equalsIgnoreCase("Customer user"))
+		else if(profileType.equalsIgnoreCase("Customer user"))
 		{
 			listitem=rdbSelectprofiletypeCustomerUser;
 		}
@@ -476,6 +567,12 @@ public class UsersPage extends BasePage{
 		waitForElementVisible(lnkUsers, 10000,500);
 		lnkUsers.click();
 		SyncUtil.waitFor(5000);
+	}
+
+	public void goToUsersAndWait() {
+		waitForElementVisible(lnkUsers, 10000,500);
+		lnkUsers.click();
+		SyncUtil.waitFor(5000);
 		scrollPageDown();
 		String val="";
 		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
@@ -536,7 +633,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void deleteUser(String user) {
-		goToUsers();
+		goToUsersAndWait();
 		waitForElementToDisplay(btSearchinput);
 		btSearchinput.type(user);
 		waitForElementToDisplay(btCheckbox);
@@ -548,10 +645,92 @@ public class UsersPage extends BasePage{
 	}
 
 	public boolean verifyUser(String user) {
-		goToUsers();
+		goToUsersAndWait();
 		waitForElementToDisplay(btSearchinput);
 		btSearchinput.type(user);
 		return noList.isVisible();
 	}
 
+	public boolean goToUserBulkUpload() {
+		goToUsers();
+		addClick();
+		waitForElementToDisplay(bulkImport);
+		bulkImport.click("Bulk Import");
+		return fileDropHeader.isVisible("File Upload");
+	}
+
+	public boolean verifyUploadSections() {
+		return fileDropHeader.isVisible() && importStepsHeader.isVisible() && importFormHeader.isVisible() && saveBtn.isVisible();
+	}
+
+	public boolean verifyImportSection(String userType) {
+		setProfileType(userType);
+		if(userType.equalsIgnoreCase("Master") || userType.equalsIgnoreCase("Market manager") || userType.equalsIgnoreCase("Territory manager") && userType.equalsIgnoreCase("standard continental user"))
+			return profileDropdown.isVisible() && downloadTemplate.isVisible();
+		else if (userType.equalsIgnoreCase("Distributor user") || userType.equalsIgnoreCase("Customer user"))
+			return profileDropdown.isVisible() && corporateDropdown.isVisible() && downloadTemplate.isVisible();
+		else return false;
+	}
+
+	public void checkDownloadTemplate(String userType, String corp) {
+		setProfileType(userType);
+		if (userType.equalsIgnoreCase("Distributor user") || userType.equalsIgnoreCase("Customer user"))
+			dropdownSelectSearch(corporateDropdown, tbSearchDropdown, corp);
+		downloadTemplate.click("Download Template");
+	}
+
+	public boolean userFileUpload(String fileName) {
+		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
+		fileUpload.sendKeys(file_path, "File Path");
+		deleteFile.assertVisible("Delete File upload");
+		return uploadProceed.isVisible();
+	}
+
+	public void userFileImport(String fileName) {
+		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
+		fileUpload.sendKeys(file_path, "File Path");
+		deleteFile.assertVisible("Delete File upload");
+		uploadFileName.assertText(fileName,"Upload file name");
+		loaderUpload.waitForNotVisible(15000);
+		saveBtn.click("Save File Upload");
+		Reporter.log("User Import file uploaded",MessageTypes.Pass);
+	}
+
+	public void acknowledgeImport(int count){
+		waitForElementToInvisible(analysingUsers,10000);
+		continueBtn.click("Continue");
+		Validator.assertTrue(totalUsers.getText().contains(String.valueOf(count)),"Total users count incorrect","All users are verified successfully");
+		Validator.assertTrue(usersCreated.getText().contains(String.valueOf(count)),"Total Imported users count incorrect","All user imported successfully");
+		Validator.assertTrue(usersError.getText().contains(String.valueOf(0)),"Total error users incorrect","All error user count is verfied successfully");
+	}
+
+	public void verifyMsg(){
+		waitForElementToInvisible(analysingUsers,10000);
+		continueBtn.click("Continue");
+	}
+	public boolean importUsers(){
+		waitForElementToInvisible(analysingUsers,10000);
+		continueBtn.click("Continue");
+		importBtn.click("Import");
+		waitForElementToInvisible(buttonLoader,15000);
+		return btSearchinput.isVisible();
+	}
+
+	public void verifyTemplateFields(String fileName, String sheetName){
+		Object[][] obj = MiscUtils.getDownloadedExcelData(fileName,sheetName);
+		Set<String> expected = new HashSet<>(Arrays.asList(new String[]{"Fullname", "EmailId", "Phone Number", "Assignment Template", "Permission Template"}));
+		for( int i = obj.length-1;i>0;i--)
+			Validator.assertTrue(expected.contains((((Map<String,String>)obj[0][i]).keySet())),"Template column mismatch","Template column verified successfully");
+	}
+
+	public void verifyUploadedUsers(String sheetName, String fileName) {
+		Object[][] obj = MiscUtils.getExcelData(fileName,sheetName);
+		for( int i = obj.length-1;i>0;i--)
+			Validator.assertTrue(searchUser(((Map<String,String>)obj[i][0]).get("Fullname")),"Imported User was not created successfully","Imported User created successfully");
+	}
+
+	public void verifyTemplateSheet(String siteName, String fileName) {
+		List<String> obj = MiscUtils.getDownloadedExcelSheet(fileName);
+		Validator.assertTrue(obj.contains(siteName),"Template was downloaded for incorrect user type","Template was downloaded for right user type successfully");
+	}
 }

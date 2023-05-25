@@ -29,20 +29,20 @@ Scenario: Verify the view type in inspection list
 @Regression3
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Inspection_Navigation
+@key:Inspection_AddEvent
 Scenario: Verify the add button functionality
 
     When  Navigate to inspection list screen
     And   Navigate to Add Inspection screen from list screen
     Then  Verify placeholder for inspection name
     And   Verify default date in inspection date field
-    And   Verify conveyor '${ConveyorName}' selection from dropdown
-    And   Verify auto-population of inspection name '${ConveyorName}'
-    And   Verify user is able to select collaborator '${ConveyorName}'
-    And   Verify all the default tile value displayed as '0'
-    And   Verify user is able to enter text in summary field
+    And   Verify Site '${CustSiteName}' selection from dropdown
+    And   Verify auto-population of inspector name '${Inspector}'
+    And   Verify user is able to select collaborator '${Collaborator}'
+    And   Verify all the default tile value displayed as '${DefaultVal}'
+    And   Verify user is able to enter text '${Text}' in summary field
     And   Verify user is able to maximize the summary window size
-    And   Verify the add new button is enabled/disabled
+    And   Verify the add new button is disabled
 
 @Regression4
 @dataFile:resources/data/TestData.xls
@@ -51,28 +51,76 @@ Scenario: Verify the add button functionality
 Scenario: Verify the add button functionality with save
 
     When  Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status2}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName3}' '${AssetDetail3}' '${FailureMode3}' '${Condition3}' '${Status2}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName4}' '${AssetDetail4}' '${FailureMode4}' '${Condition4}' '${Status2}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
 @Regression5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Inspection_Create
-Scenario: Verify the count functionality at tiles
+@key:Inspection_Count
+Scenario: Verify count functionality at tiles
 
     When  Navigate to the inspection details screen for '${InspectionName}'
-    Then  Verify tile count for critical poor fault good and completed
+    Then  Verify tile count '${TotalCount}' for critical poor fault good and completed '${Val}'
 
 @Regression6
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Inspection_Edit
-Scenario: Verify the count functionality at tiles
+@key:Inspection_Download
+Scenario: Verify download report from grouped inspection view
 
-    When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
-    And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}'
+    When  Download inspection '${InspectionName}' from inspection list
+    Then  Verify data displayed in report for '${FullName}' '${CustSiteName}' '${ConveyorName}' '${InspectionName}'
+
+@Regression7
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Create
+Scenario: Verify image upload functionality
+
+    When  Verify the uploaded image in inspection grouped view for '${InspectionName}'
+    Then  Verify the uploaded image in inspection list view for '${ConveyorName}'
+
+@Regression8
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Edit
+Scenario: Verify Inspection Event edit functionality
+
+    When  Verify the actions button is disabled
+    Then  Verify after select inspection '${InspectionName}' action button is enabled
+    And   Verify the contents of action dropdown
+    And   Navigate to edit inspection Event and verify the breadcrumb
+    When  Edit Inspection event to '${EditInspectionName}' and inspector name to '${EditInspectorName}'
+    Then  Verify the changes '${EditInspectorName}' for Inspection event '${EditInspectionName}'
+
+@Regression9
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:InspectionItem_Edit
+Scenario: Verify Inspection Item edit functionality
+
+    And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}' from list view
+    Then  Verify the status changes '${EditStatus}' for '${ConveyorName}'
+
+@Regression10
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Edit
+Scenario: Verify Delete inspection item
+
+   When  Delete inspection item '${ConveyorName}' from inspection list
+   Then  Verify inspection item '${ConveyorName}' is deleted from inspection list
+
+@Regression11
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Edit
+Scenario: Verify Delete inspection event
+
+   When  Delete inspection '${EditInspectionName}' from inspection list
+   Then  Verify inspection '${EditInspectionName}' is deleted from inspection list
+

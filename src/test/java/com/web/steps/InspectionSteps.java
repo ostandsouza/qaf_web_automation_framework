@@ -4,7 +4,6 @@ import com.common.utils.MiscUtils;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.InspectionPage;
-import com.web.pages.LoginPage;
 
 public class InspectionSteps {
 
@@ -31,8 +30,16 @@ public class InspectionSteps {
 	}
 	
 	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
-	public void createAddInspectionItem(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
-		inspectionpage.addInspectionItem(conveyorName,assetName, assetDetail, failureMode, condition, status);
+	public void createAddInspectionItemMandatoryFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
+		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
+		inspectionpage.saveInspectionItem();
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {FailureMode1} {Condition1} {Status} {lat} {long} {observation} {recommendation} {address} {img}")
+	public void createAddInspectionItemOptionalFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status, String lat, String longitude, String observation, String recommendation, String address, String img){
+		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
+		inspectionpage.addItemOptionalField(lat,longitude,observation,recommendation,address,img);
+		inspectionpage.saveInspectionItem();
 	}
 
 	@QAFTestStep(description="Verify And validate the changes for {InspectionName} with {ItemCount}")
@@ -119,7 +126,7 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Verify placeholder for inspection name")
 	public void verifyPlaceHolder(){
-		inspectionpage.verifyAddInspectionFromList();
+		inspectionpage.verifyPlaceHolderForInspectionName();
 	}
 
 	@QAFTestStep(description="Verify default date in inspection date field")
@@ -127,9 +134,9 @@ public class InspectionSteps {
 		inspectionpage.verifyDefaultInspectionDate();
 	}
 
-	@QAFTestStep(description="Verify conveyor {ConveyorName} selection from dropdown")
-	public void verifyConveyorSelection(String conveyorName){
-		inspectionpage.verifyConveyorSelection(conveyorName);
+	@QAFTestStep(description="Verify Site {CustSiteName} selection from dropdown")
+	public void verifyConveyorSelection(String siteName){
+		inspectionpage.verifyConveyorSelection(siteName);
 	}
 
 	@QAFTestStep(description="Verify user is able to select collaborator {ConveyorName}")
@@ -137,23 +144,110 @@ public class InspectionSteps {
 		inspectionpage.verifyCollaboratorSelection(collaborator);
 	}
 
-	@QAFTestStep(description="Verify all the default tile value displayed as '0'")
+	@QAFTestStep(description="Verify all the default tile value displayed as {val}")
 	public void verifyDefaultTitleCount(String val){
 		Validator.assertTrue(inspectionpage.verifyDefaultTileCount(val),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
 	}
 
-	@QAFTestStep(description="Verify user is able to enter text in summary field")
+	@QAFTestStep(description="Verify user is able to enter text {Text} in summary field")
 	public void verifySummaryField(String val){
-//		Validator.assertTrue(inspectionpage.verifySummaryField(val),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
+		Validator.assertTrue(inspectionpage.verifySummaryField(val),"Summary Field is not editable","Summary field is successfully edited");
 	}
 
 	@QAFTestStep(description="Verify user is able to maximize the summary window size")
-	public void verifyMaximizeSummaryField(String val){
-//		Validator.assertTrue(inspectionpage.verifySummaryField(val),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
+	public void verifyMaximizeSummaryField(){
+		Validator.assertTrue(inspectionpage.verifyMaximize(),"Summary field is not maximized","Summary field is maximised successfully");
+		Validator.assertTrue(inspectionpage.verifyMinimize(),"Summary field is not minimized","Summary field is minimized successfully");
+
 	}
 
-	@QAFTestStep(description="Verify the add new button is enabled/disabled")
-	public void verifyAddNewBtn(String val){
-//		Validator.assertTrue(inspectionpage.verifySummaryField(val),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
+	@QAFTestStep(description="Verify auto-population of inspector name {Inspector}")
+	public void verifyAutoPopulationInspector(String val){
+		Validator.assertTrue(inspectionpage.verifyInspectorName(val),"Inspector name is not auto-populated","IInspector name is auto-populated successfully");
+	}
+
+	@QAFTestStep(description="Verify the add new button is disabled")
+	public void verifyAddNewBtn(){
+		Validator.assertTrue(inspectionpage.verifySaveBtn(),"Inspection default tile count is incorrect","Inspection default tile count verified successfully");
+	}
+
+	@QAFTestStep(description="Navigate to the inspection details screen for {InspectionName}")
+	public void verifyInspectionsDetails(String inspection){
+		inspectionpage.goToInspectionDetailScreen(inspection);
+	}
+
+	@QAFTestStep(description="Verify tile count {TotalCount} for critical poor fault good and completed {Val}")
+	public void verifyInspectionCount(String totalCount, String val){
+		Validator.assertTrue(inspectionpage.verifyInspectionCount(totalCount, val),"Inspection tile count is incorrect","Inspection tile count verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the actions button is disabled")
+	public void verifyDefaultActionState(){
+		inspectionpage.goToInspectionScreenAndWait();
+		Validator.assertFalse(inspectionpage.verifyActionBtnState(),"Inspection action button is not disabled","Inspection action button is disabled");
+	}
+
+	@QAFTestStep(description="Verify after select inspection {InspectionName} action button is enabled")
+	public void verifyActionStateAfterSelection(String inspection){
+		inspectionpage.searchInspection(inspection);
+		inspectionpage.selectInspection();
+		Validator.assertTrue(inspectionpage.verifyActionBtnState(),"Action button is not enabled after selecting the inspection","Inspection action button is enabled");
+	}
+
+	@QAFTestStep(description="Verify the contents of action dropdown")
+	public void verifyActionsDropdown(){
+		Validator.assertTrue(inspectionpage.verifyDropDown(),"Inspection action dropdown contents missing","inspection action dropdown verified successfully");
+	}
+
+	@QAFTestStep(description="Navigate to edit inspection Event and verify the breadcrumb")
+	public void verifyInspectionsBreadcrumb(){
+		Validator.assertTrue(inspectionpage.verifyEditBreadcrumb(),"After editing Inspection unable to see edit breadcrumb","Inspection edit breadcrumb is verified successfully");
+	}
+
+	@QAFTestStep(description="Edit Inspection event to {EditInspectionName} and inspector name to {EditInspectorName}")
+	public void editInspection(String editInspection, String editInspector){
+		inspectionpage.editInspectionName(editInspection);
+		inspectionpage.editInspectorName(editInspector);
+		inspectionpage.saveInspectionEvent();
+	}
+
+	@QAFTestStep(description="Verify the changes {EditInspectorName} for Inspection event {EditInspectionName}")
+	public void verifyEditChanges(String inspectorName, String inspectionName){
+		inspectionpage.goToInspectionDetailScreen(inspectionName);
+		Validator.assertTrue(inspectionpage.verifyEditChanges(inspectionName,inspectorName),"After editing Inspection event new changes were not applied","Inspection edit changes were verified successfully");
+	}
+
+	@QAFTestStep(description="Edit inspection Item status for {ConveyorName} to {EditStatus} from list view")
+	public void editInspectionItemFromList(String conveyorName, String editStatus){
+		inspectionpage.editInspectionItemList(conveyorName);
+		inspectionpage.editInspectionIemStatus(editStatus);
+	}
+
+	@QAFTestStep(description="Verify the status changes {EditStatus} for {EditInspectionName}")
+	public void verifyEventItemChanges(String status, String inspectionName){
+		Validator.assertTrue(inspectionpage.verifyEditedItemChanges(inspectionName,status),"After editing Inspection item new changes were not applied","Inspection Item edit changes were verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the uploaded image in inspection grouped view for {EditInspectionName}")
+	public void verifyGroupedViewImage(String inspectionName){
+		Validator.assertFalse(inspectionpage.verifyInspectionGroupedView(inspectionName).equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
+		inspectionpage.verifyImageViewerGrouped();
+	}
+
+	@QAFTestStep(description="Verify the uploaded image in inspection list view for {ConveyorName}")
+	public void verifyListViewImage(String conveyor){
+		Validator.assertTrue(inspectionpage.verifyInspectionListView(conveyor), "Image view icon was disabled ", "Image view icon verified successfully");
+		inspectionpage.verifyImageViewerList();
+	}
+
+	@QAFTestStep(description="Delete inspection item {ConveyorName} from inspection list")
+	public void InspectionItemDelete(String inspectionName) {
+		inspectionpage.searchInspectionItem(inspectionName);
+		inspectionpage.inspectionDelete();
+	}
+
+	@QAFTestStep(description="Verify inspection item {ConveyorName} is deleted from inspection list")
+	public void verifyInspectionItemDelete(String inspectionName){
+		inspectionpage.verifyDeleteInspectionItem(inspectionName);
 	}
 }

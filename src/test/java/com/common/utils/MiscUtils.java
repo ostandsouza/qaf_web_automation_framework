@@ -4,6 +4,7 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
+import com.qmetry.qaf.automation.util.PoiExcelUtil;
 import com.qmetry.qaf.automation.util.Reporter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,10 +19,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,6 +93,20 @@ public class MiscUtils {
         return emailBody;
     }
 
+    public static Object[][] getDownloadedExcelData(String fileName, String sheetName) {
+        String file_path = System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+fileName;
+        Object[][] obj = PoiExcelUtil.getExcelDataAsMap(file_path,sheetName);
+        System.out.println(Arrays.deepToString(obj));
+        return obj;
+    }
+
+    public static List<String> getDownloadedExcelSheet(String fileName) {
+        String file_path = System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+fileName;
+        List<String> obj = PoiExcelUtil.getSheetNames(new File(file_path));
+        System.out.println(obj);
+        return obj;
+    }
+
     public static boolean checkDownloadedFiles(String name){
         SyncUtil.waitFor(3000);
         File folder = new File(System.getProperty("user.dir")+separator+"target"+separator+"downloads");  //List the files on that folder
@@ -133,6 +145,18 @@ public class MiscUtils {
                 }
             }
         }
+    }
+
+    public static Object[][] getExcelData(String fileName, String sheetName) {
+        String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
+        Object[][] obj = PoiExcelUtil.getExcelDataAsMap(file_path,sheetName);
+        return obj;
+    }
+
+    public static List<String> getExcelSheet(String fileName) {
+        String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
+        List<String> obj = PoiExcelUtil.getSheetNames(new File(file_path));
+        return obj;
     }
     public static JSONObject getFullUpdatedPayload(JSONObject obj, String finder, String replaceText) {
         try {

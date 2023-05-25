@@ -6,6 +6,7 @@ import static org.testng.Assert.assertEquals;
 import java.util.concurrent.TimeUnit;
 
 import com.common.component.CustomElement;
+import com.common.utils.ClasspathResourceHelper;
 import com.common.utils.PDFHelper;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
@@ -13,6 +14,7 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.openqa.selenium.By;
 
 
 public class InspectionPage extends BasePage {
@@ -47,7 +49,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//label[text()='Conveyor']/parent::div//div[@role='button']")
 	public CustomElement ddlConveyor;
 	
-	@FindBy(locator = "xpath=//input[@formcontrolname='name']")
+	@FindBy(locator = "xpath=//label[text()='Inspector Name']/..//input")
 	public CustomElement ddlInspectorName;
 	
 	@FindBy(locator = "xpath=//p-multiselect[@optionlabel='name']//span")
@@ -55,7 +57,7 @@ public class InspectionPage extends BasePage {
 	
 	public String ListItem = "//ul[@role='listbox']//li//span";
 	
-	@FindBy(locator = "xpath=//span[text()='Add new']")
+	@FindBy(locator = "xpath=//span[text()='Add new']/..")
 	public CustomElement btnAddnew;
 
 	@FindBy(locator = "xpath=//div[@class='jodit-wysiwyg']")
@@ -75,6 +77,9 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator="xpath=//label[text()='Status']/parent::div//div[@role='button']")
 	public CustomElement ddlStatus;
+
+	@FindBy(locator="xpath=//label[text()='Status']/parent::div//input")
+	public CustomElement ddlStatusView;
 	
 	@FindBy(locator="xpath=//textarea[@formcontrolname='observation']")
 	public CustomElement eleObservation;
@@ -152,27 +157,36 @@ public class InspectionPage extends BasePage {
 	public CustomElement eleHome;
 	
 	@FindBy(locator="xpath=//button[text()='Select Files']")
-	public CustomElement btnSelectfiles;
+	public CustomElement btnSelectFiles;
+
+	@FindBy(locator="id=file-input")
+	public CustomElement btnUpload;
+
+	@FindBy(locator="id=autocomplete-address")
+	public CustomElement eleAddress;
 	
 	@FindBy(locator="xpath=//input[@placeholder='Search']")
 	public CustomElement eleSearch;
 	
-	public String eleNameofInspection = "xpath=//tr[@Class='ng-star-inserted']//td[text()='Test Inspection 2']";
+	public String eleNameOfInspection = "xpath=//tr[@Class='ng-star-inserted']//td[text()='Test Inspection 2']";
 	
 	@FindBy(locator="xpath=//a[@ng-reflect-router-link='dashboard/inspections']//span")
-	public CustomElement lnkinspectionicon;
+	public CustomElement lnkInspectionIcon;
 	
-	@FindBy(locator="xpath=//input[@ng-reflect-name='lat']")
-	public CustomElement tblat;
+	@FindBy(locator="xpath=//label[text()='Latitude']/parent::div//input")
+	public CustomElement tbLat;
 	
-	@FindBy(locator="xpath=//input[@ng-reflect-name='long']")
-	public CustomElement tblong;
-
-	@FindBy(locator="xpath=//label[text()='Detail']/parent::div//div[@role='button']")
-	public CustomElement ddlDetailitems;
+	@FindBy(locator="xpath=//label[text()='Longitude']/parent::div//input")
+	public CustomElement tbLong;
 
 	@FindBy(locator="xpath=//label[text()='Detail']/parent::div//div[@role='button']")
 	public CustomElement ddlDetails;
+
+	@FindBy(locator="xpath=//label[text()='Detail']/parent::div//input")
+	public CustomElement ddlDetailInput;
+
+	@FindBy(locator="xpath=//label[text()='Type']/parent::div//div[@role='button']")
+	public CustomElement ddlTypes;
 
 	@FindBy(locator="xpath=//label[text()='Status']/parent::div//div[@role='button']")
 	public CustomElement ddlStatus1;
@@ -180,7 +194,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
 	public CustomElement pagination;
 
-	@FindBy(locator = "xpath=(//span[contains(@class,'pi-chevron-right')])[1]")
+	@FindBy(locator = "xpath=(//td//span[contains(@class,'pi-chevron-right')])[1]")
 	public CustomElement detailIcon;
 
 	@FindBy(locator="xpath=(//span[contains(@class,'ctp-icon-Arrow-Right')])[1]")
@@ -199,7 +213,7 @@ public class InspectionPage extends BasePage {
 	public CustomElement ddlSave;
 
 	@FindBy(locator = "xpath=//div[text()='Inspection updated.']")
-	public CustomElement inepctionUpdated;
+	public CustomElement inspectionUpdated;
 
 	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[3]")
 	public CustomElement crInspections;
@@ -276,8 +290,35 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator= "xpath=//div[text()=' GOOD ']/following-sibling::div//span")
 	public CustomElement goodEvent;
 
-	@FindBy(locator= "xpath=//div[contains(@class,'summary-container')]//input")
+	@FindBy(locator= "xpath=//div[contains(@class,'ql-editor')]/p")
 	public CustomElement summaryField;
+
+	@FindBy(locator= "xpath=//span[contains(@class,'pi-window-maximize')]")
+	public CustomElement summaryMaximize;
+
+	@FindBy(locator= "xpath=//span[contains(@class,'pi-window-minimize')]")
+	public CustomElement summaryMinimize;
+
+	@FindBy(locator="xpath=//div[@class='p-progress-spinner']")
+	public CustomElement btSpinner;
+
+	@FindBy(locator="xpath=//p-galleriaitemslot/app-image-viewer")
+	public CustomElement appImgViewer;
+
+	@FindBy(locator="xpath=//li/a/span[text()='Edit']")
+	public CustomElement editBreadCrumb;
+
+	@FindBy(locator="xpath=(//td//img)[1]")
+	public CustomElement imageAvatar;
+
+	@FindBy(locator="xpath=//i[@class='ctp-icon-Photos']")
+	public CustomElement photoIcon;
+
+	@FindBy(locator="xpath=//img[contains(@class,'wrapper-image-item')]")
+	public CustomElement imgPopup;
+
+	@FindBy(locator="xpath=//button[contains(@class,'p-dialog-header-icon')]")
+	public CustomElement closePopup;
 
 	public void goToInspection() {
 		if(!lnkInspection.isVisible())
@@ -305,6 +346,16 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(cbCheckbox);
 		return cbCheckbox.isVisible("Inspection Found");
 	}
+
+	public boolean searchInspectionItem(String conveyorName){
+		goToInspectionScreenAndWait();
+		scrollPageup();
+		if(inspectionGroupView.isVisible())
+			inspectionGroupView.click("List View");
+		btSearchinput.type(conveyorName, "Inspection Search");
+		waitForElementToDisplay(cbCheckbox);
+		return cbCheckbox.isVisible("Inspection Found");
+	}
 	
 	public void verifyListPage() {
 		btnItemlist.click();
@@ -320,23 +371,45 @@ public class InspectionPage extends BasePage {
 	}
 	
 	
-	public void addInspectionItem(String conveyorName, String assetName, String assetDetail, String failureMode, String condition, String status) {
+	public void saveInspectionItem() {
+		waitForElementToBeClickable(btnSave);
+		btnSave.click("Save");
+		waitForElementToDisplay(inspectionUpdateMsg);
+		Reporter.log("Inspection Item is created",MessageTypes.Pass);
+	}
+
+	public void addItemMandatoryField(String conveyorName, String assetName, String assetDetail, String failureMode, String condition, String status) {
 		waitForElementToBeClickable(btnAddnew);
 		SyncUtil.waitFor(2000);
 		btnAddnew.click("Add New Inspection");
 		waitForElementToDisplay(ddlAsset);
 		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
 		dropdownSelectSearch(ddlAsset, tbInput, assetName);
-		dropdownSelect(ddlDetails, ListItem, assetDetail);
+		if(ddlDetails.isVisible())
+			dropdownSelect(ddlDetails, ListItem, assetDetail);
+		if(ddlTypes.isVisible())
+			dropdownSelect(ddlTypes, ListItem, assetDetail);
+		if(ddlDetailInput.isVisible())
+			ddlDetailInput.type(assetDetail);
 		dropdownSelectSearch(ddlFailureMode, tbInput, failureMode);
 		dropdownSelect(ddlCondition, ListItem, condition);
 		dropdownSelect(ddlStatus, ListItem, status);
-		btnSave.click("Save");
-		waitForElementToDisplay(inspectionUpdateMsg);
-		Reporter.log("Inspection Item is created",MessageTypes.Pass);
 	}
 
-	public void goToConveyorDetailScreen(String inspectionName) {
+	public void addItemOptionalField(String lat, String longitude, String observation, String recommendation, String address, String img) {
+		tbLong.type(lat,"Latitude");
+		tbLat.type(longitude,"Longitude");
+		eleObservation.type(observation,"Observation");
+		eleRecommendation.type(recommendation,"Recommendation");
+		if(eleAddress.isVisible())
+			eleAddress.type(address,"Address");
+		String file_path = ClasspathResourceHelper.getPropertyFile(img, "test_files").getAbsolutePath();
+		btnUpload.sendKeys(file_path, "File Path");
+		waitForElementToInvisible(btSpinner,30000);
+		appImgViewer.isVisible("App Image Viewer");
+	}
+
+	public void goToInspectionDetailScreen(String inspectionName) {
 		searchInspection(inspectionName);
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
@@ -375,7 +448,7 @@ public class InspectionPage extends BasePage {
 	}
 	
 	public void inspectionDelete() {
-		cbCheckbox.check("Conveyor Checkbox");
+		cbCheckbox.check("Inspection Checkbox");
 		ddlActions.click("Actions");
 		waitForElementVisible(btnDeleteInspection, 10000,500);
 		btnDeleteInspection.click("Delete");
@@ -442,7 +515,7 @@ public class InspectionPage extends BasePage {
 	public void editInspectionName(String inspectionName, String newInspName) {
 		editInspection(inspectionName);
 		waitForElementToDisplay(tbInspectionName);
-		SyncUtil.waitFor(1000);
+		SyncUtil.waitFor(1500);
 		tbInspectionName.type(newInspName);
 	}
 
@@ -469,7 +542,9 @@ public class InspectionPage extends BasePage {
 	public void saveInspectionEvent() {
 		waitForElementToBeClickable(ddlSave);
 		ddlSave.jsClick("Save Inspection Event");
-		waitForElementToDisplay(inepctionUpdated);
+//		waitForElementToDisplay(inspectionUpdated);
+		SyncUtil.waitFor(1000);
+		inspectionUpdated.isEnable("Inspection Update Toast");
 	}
 
 	public void goToInspectionsFromTile() {
@@ -483,7 +558,7 @@ public class InspectionPage extends BasePage {
 	}
 
 	public boolean verifyDefaultViewColumns() {
-		return nameOfInspectionCol.isEnable("Name Of inspection") && inspectionDateCol.isEnable("Inspection Date") && lastUpdatedCol.isEnable("Last Updated") && corporatesCol.isEnable("Corporates") && crInspections.isEnable("Inspections") && siteCol.isEnable("Site") && conveyorCol.isEnable("Conveyor") && inspectorCol.isEnable("Inspector") && conditionCol.isEnable("Condition") && statusCol.isEnable("Status") && moreCol.isEnable("More");
+		return nameOfInspectionCol.isEnable("Name Of inspection") && inspectionDateCol.isEnable("Inspection Date") && lastUpdatedCol.isEnable("Last Updated") && corporatesCol.isEnable("Corporates") && siteCol.isEnable("Site") && conveyorCol.isEnable("Conveyor") && inspectorCol.isEnable("Inspector") && conditionCol.isEnable("Condition") && statusCol.isEnable("Status") && moreCol.isEnable("More");
 	}
 	public boolean verifySwitchView() {
 		inspectionGroupView.click("List View");
@@ -512,24 +587,135 @@ public class InspectionPage extends BasePage {
 		return btTodayDate.isVisible("Today Date");
 	}
 
-	public void verifyConveyorSelection(String conveyorName) {
-		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
+	public void verifyConveyorSelection(String siteName) {
+		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
 	}
 
 	public void verifyCollaboratorSelection(String collaboratorName) {
-		dropdownSelectSearch(ddlCollaborators, tbMultipleDropdown, collaboratorName);
+		ddlCollaborators.click();
+		setImplicitWait(70000,TimeUnit.MILLISECONDS);
+		waitForPresenceOfElement(By.xpath("//span[text()='"+collaboratorName+"']"));
+		tbMultipleDropdown.sendKeys(collaboratorName);
+		driver.findElement("//span[text()='"+collaboratorName+"']").click();
+		setImplicitWait(1000,TimeUnit.MILLISECONDS);
 	}
 
 	public boolean verifyDefaultTileCount(String val) {
 		return totalEvent.getText("Total Event").equalsIgnoreCase(val) && criticalEvent.getText("Critical Event").equalsIgnoreCase(val) && poorEvent.getText("Poor Event").equalsIgnoreCase(val) && faultEvent.getText("Fault Event").equalsIgnoreCase(val) && goodEvent.getText("Good Event").equalsIgnoreCase(val);
 	}
 
+	public boolean verifyInspectionCount(String total, String val) {
+		return totalEvent.getText("Total Event").equalsIgnoreCase(val) && criticalEvent.getText("Critical Event").equalsIgnoreCase(val) && poorEvent.getText("Poor Event").equalsIgnoreCase(val) && faultEvent.getText("Fault Event").equalsIgnoreCase(val) && goodEvent.getText("Good Event").equalsIgnoreCase(val);
+	}
+
 	public boolean verifySummaryField(String val) {
-		summaryField.type(val);
+		summaryField.sendKeys(val);
+		SyncUtil.waitFor(5000);
 		return summaryField.getText("Summary Field").equalsIgnoreCase(val);
 	}
 
 	public boolean verifyInspectorName(String val) {
-		return ddlInspectorName.getText("Inspector Name").equalsIgnoreCase(val);
+		return ddlInspectorName.getAttribute("value").equalsIgnoreCase(val);
+	}
+
+	public boolean verifyMaximize() {
+		summaryMaximize.click("Summary window Maximize");
+		return !summaryMaximize.isVisible() && summaryMinimize.isVisible("Summary window Minimize");
+	}
+
+	public boolean verifyMinimize() {
+		summaryMinimize.click("Summary window Minimize");
+		return !summaryMinimize.isVisible() && summaryMaximize.isVisible("Summary window Maximize");
+	}
+
+	public boolean verifySaveBtn() {
+		return !btnAddnew.isEnable();
+	}
+
+	public void selectInspection() {
+		cbCheckbox.check("Checkbox");
+	}
+	public boolean verifyActionBtnState() {
+		return ddlActions.isEnable();
+	}
+
+	public boolean verifyDropDown(){
+		ddlActions.click("Actions");
+		return btnEditInspection.isVisible("Edit Conveyor") && btnDeleteInspection.isVisible("Delete Conveyor");
+	}
+
+	public boolean verifyEditBreadcrumb(){
+		btnEditInspection.click("Edit Inspection");
+		return editBreadCrumb.isVisible("Edit Breadcrumb");
+	}
+
+	public void editInspectionName(String name){
+		waitForElementToDisplay(tbInspectionName);
+		tbInspectionName.type(name);
+	}
+
+	public void editInspectorName(String name){
+		waitForElementToDisplay(ddlInspectorName);
+		ddlInspectorName.type(name);
+	}
+
+	public boolean verifyEditChanges(String eventName, String inspectorName){
+		return ddlInspectorName.getAttribute("value").equalsIgnoreCase(inspectorName);
+	}
+
+	public void editInspectionItemList(String conveyorName) {
+		searchInspectionItem(conveyorName);
+		cbCheckbox.check("Select Checkbox");
+		ddlActions.click("Actions");
+		waitForElementVisible(btnEditInspection, 10000,500);
+		btnEditInspection.click("Edit");
+		btnSave.isVisible("Edit save");
+	}
+
+	public void editInspectionIemStatus(String status){
+		waitForElementToDisplay(ddlStatus);
+		dropdownSelect(ddlStatus, ListItem, status);
+		btnSave.click("Save");
+		waitForElementToDisplay(inspectionUpdateMsg);
+		Reporter.log("Inspection Item is Updated",MessageTypes.Pass);
+	}
+
+	public boolean verifyEditedItemChanges(String conveyorName, String status){
+		goToInspection();
+		verifySwitchView();
+		searchInspection(conveyorName);
+		ddViewicon.click("Inspection Detail");
+		return ddlStatusView.getAttribute("value").equalsIgnoreCase(status);
+	}
+
+	public String verifyInspectionGroupedView(String inspectionName){
+		searchInspection(inspectionName);
+		detailIcon.click("Expand Inspection");
+		return imageAvatar.getAttribute("src");
+	}
+
+	public void verifyImageViewerGrouped(){
+		imageAvatar.click("photo");
+		waitForElementToDisplay(imgPopup);
+		imgPopup.isVisible("Image");
+		closePopup.click();
+	}
+
+	public boolean verifyInspectionListView(String conveyor){
+		searchInspectionItem(conveyor);
+		return photoIcon.isVisible("Photo icon");
+	}
+
+	public void verifyImageViewerList(){
+		photoIcon.click("photo");
+		waitForElementToDisplay(imgPopup);
+		imgPopup.isVisible("Image");
+		closePopup.click();
+	}
+
+	public void verifyDeleteInspectionItem(String conveyor) {
+		goToInspectionScreenAndWait();
+		btSearchinput.type(conveyor, "Inspection Search");
+		Validator.assertTrue(pagination.getText().contains("3"),"Inspection items were not deleted","Inspection item list was not found");
 	}
 }
