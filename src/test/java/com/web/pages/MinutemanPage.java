@@ -1,0 +1,2325 @@
+package com.web.pages;
+
+import com.common.component.CustomElement;
+import com.common.utils.SyncUtil;
+import com.qmetry.qaf.automation.core.MessageTypes;
+import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.Reporter;
+import com.qmetry.qaf.automation.util.Validator;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Double.parseDouble;
+
+public class MinutemanPage extends BasePage{
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
+    public CustomElement home;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Minuteman'])[1]")
+    public CustomElement minuteman;
+
+    @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
+    public CustomElement pagination;
+
+    @FindBy(locator="xpath=//input[@placeholder='Search']")
+    public CustomElement btSearchinput;
+
+    @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
+    public CustomElement btnAdd;
+
+    @FindBy(locator = "xpath=//span[text()='Conveyor']")
+    public CustomElement btnConveyor;
+
+    @FindBy(locator = "xpath=//span[text()='Elevator']")
+    public CustomElement btnElevator;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='calculationName']")
+    public CustomElement tbCalculationName;
+
+    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+    public CustomElement dropdownInput;
+
+    @FindBy(locator = "xpath=//p-dropdown[@datakey='companyId']//div[@role='button']")
+    public CustomElement siteDropdown;
+
+    @FindBy(locator = "xpath=//p-dropdown[@datakey='conveyorId']//div[@role='button']")
+    public CustomElement conveyorDropdown;
+
+    @FindBy(locator = "xpath=//textarea[@formcontrolname='description']")
+    public CustomElement tbDescription;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='program']//span)[1]")
+    public CustomElement tbProgram;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='location']//span)[1]")
+    public CustomElement tbManufacturingLocation;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@value='imperial']")
+    public CustomElement radioImperial;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@value='metric']")
+    public CustomElement radioMetric;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@value='metric']//input")
+    public CustomElement checkedRadioMetric;
+
+    @FindBy(locator = "xpath=//span[text()='Load Data']")
+    public CustomElement btnLoadData;
+
+    @FindBy(locator = "xpath=//span[text()='Cancel']")
+    public CustomElement btnCancel;
+
+    @FindBy(locator = "xpath=//span[text()='Save & Continue']")
+    public CustomElement btnSaveAndContinue;
+
+    @FindBy(locator = "xpath=//span[text()='Save & Close']")
+    public CustomElement btnSaveAndClose;
+
+    @FindBy(locator = "xpath=//span[text()='Next']")
+    public CustomElement btnNext;
+
+    @FindBy(locator = "xpath=//span[text()='Previous']")
+    public CustomElement btnPrevious;
+
+    @FindBy(locator = "xpath=(//label[text()='Belt Width']/following-sibling::div//input)[2]")
+    public CustomElement tbBeltWidth;
+
+    @FindBy(locator = "xpath=(//label[text()='Pick Material Name']/following-sibling::app-master-data-picker//input)[2]")
+    public CustomElement tbPickMaterialName;
+
+    @FindBy(locator = "xpath=//label[text()='Drive Wrap Angle']/following-sibling::app-master-data-picker//div[@role='button']")
+    public CustomElement driveWrapAngleDropdown;
+
+    @FindBy(locator = "xpath=(//label[text()='Drive Wrap Angle']/following-sibling::app-master-data-picker//input)[2]")
+    public CustomElement tbDriveWrapAngle;
+
+    @FindBy(locator = "xpath=//label[text()='Surcharge Angle']/following-sibling::app-master-data-picker//div[@role='button']")
+    public CustomElement surchargeAngleDropdown;
+
+    @FindBy(locator = "xpath=(//label[text()='Surcharge Angle']/following-sibling::app-master-data-picker//input)[2]")
+    public CustomElement tbSurchargeAngle;
+
+    @FindBy(locator = "xpath=//label[text()='Idler Offset Type']/following-sibling::app-master-data-picker//div[@role='button']")
+    public CustomElement idlerOffsetTypeDropdown;
+
+    @FindBy(locator = "xpath=(//label[text()='Idler Offset Type']/following-sibling::app-master-data-picker//input)[2]")
+    public CustomElement tbIdlerOffsetType;
+
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='driveDetails']//span")
+    public CustomElement driveDetailsDropdown;
+
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='takeUpDetails']//span")
+    public CustomElement takeUpDetailsDropdown;
+
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='spliceInformation']//span")
+    public CustomElement spliceTypeDropdown;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='beltSpeed']")
+    public CustomElement tbBeltSpeed;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='tonsPerHourPeak']")
+    public CustomElement tbTonsPerHourPeak;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='materialDensity']")
+    public CustomElement tbMaterialDensity;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='angleOfIdlers']")
+    public CustomElement tbAngleOfIdlers;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='carryingIdlerSpacing']")
+    public CustomElement tbCarrySideIdlerSpacing;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='driveWrapAngle']")
+    public CustomElement tbDriveWrapAngle2;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='takeupTension']")
+    public CustomElement tbTakeUpTension;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@inputid='permanentConveyors']")
+    public CustomElement radioPermanentConveyor;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@inputid='permanentConveyors']//input")
+    public CustomElement checkedRadioPermanent;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@inputid='temporaryConveyors']")
+    public CustomElement radioTemporaryConveyor;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='frictionFactorValue']")
+    public CustomElement tbFrictionFactorValue;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='lengthFactorValue']")
+    public CustomElement tbLengthFactorValue;
+
+    @FindBy(locator = "xpath=//p-checkbox[@formcontrolname='station']")
+    public CustomElement checkBoxStation;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@formcontrolname='drive']")
+    public CustomElement radioDrive;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@formcontrolname='takeup']")
+    public CustomElement radioTakeUp;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='horizontalOffsets']")
+    public CustomElement tbHorzOffset;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='elevationOffsets']")
+    public CustomElement tbElevOffset;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='sectionAngles']")
+    public CustomElement tbSectionAngles;
+
+    @FindBy(locator = "xpath=//input[@class='p-inputtext p-component p-element p-filled']")
+    public CustomElement tbEstimatedCCLength;
+
+    @FindBy(locator = "xpath=//app-master-data-picker//div[@role='button']")
+    public CustomElement typeOfConfigurationDropdown;
+
+    @FindBy(locator = "xpath=(//app-master-data-picker//input)[2]")
+    public CustomElement tbTypeOfConfiguration;
+
+    @FindBy(locator = "xpath=//span[text()='Calculate']")
+    public CustomElement btnCalculate;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='beltName']//span)[1]")
+    public CustomElement tradeNameDropdown;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='beltCovergrade']//span)[1]")
+    public CustomElement coverGradeDropdown;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='beltRating']//span)[1]")
+    public CustomElement ratingDropdown;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='beltPlies']//span)[1]")
+    public CustomElement pliesDropdown;
+
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='beltCoverGaugeUnit']//span[1]")
+    public CustomElement coverGaugeUnitDropdown;
+
+    @FindBy(locator = "xpath=(//app-master-data-picker[@parentmasterformcontrolname='beltTopCoverGauge']//span)[1]")
+    public CustomElement gaugeTopCoverDropdown;
+
+    @FindBy(locator = "xpath=(//app-master-data-picker[@parentmasterformcontrolname='beltPulleyCoverGauge']//span)[1]")
+    public CustomElement gaugePulleyCoverDropdown;
+
+    @FindBy(locator = "xpath=//label[text()='Unit Tension']/following-sibling::span")
+    public CustomElement textUnitTension;
+
+    @FindBy(locator = "xpath=//label[text()='Maximum Tension']/following-sibling::span[1]")
+    public CustomElement textMaximumTension;
+
+    @FindBy(locator = "xpath=//label[text()='Effective Tension']/following-sibling::span[1]")
+    public CustomElement textEffectiveTension;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Power']/following-sibling::span")
+    public CustomElement textBeltPower;
+
+    @FindBy(locator = "xpath=//label[text()='Counterweight Weight']/following-sibling::span[1]")
+    public CustomElement textCounterweightWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Counterweight Tension']/following-sibling::span[1]")
+    public CustomElement textCounterweightTension;
+
+    @FindBy(locator = "xpath=//label[text()='Conveyor Capacity']/following-sibling::span[1]")
+    public CustomElement textConveyorCapacity;
+
+    @FindBy(locator = "xpath=//div[contains(text(),'Conveyor Capacity')]")
+    public CustomElement textCapacityPageConveyorCapacity;
+
+    @FindBy(locator = "//div[contains(text(),'Angle of Idlers')]")
+    public CustomElement textCapacityPageAngleOfIdlers;
+
+    @FindBy(locator = "xpath=(//span[text()='Reset'])[1]")
+    public CustomElement btnResetBeltSpeed;
+
+    @FindBy(locator = "xpath=(//span[text()='Reset'])[2]" )
+    public CustomElement btnResetTonsPerHourPeak;
+
+    @FindBy(locator = "xpath=(//span[text()='100%'])[1]")
+    public CustomElement btn100PercentageBeltSpeed;
+
+    @FindBy(locator = "xpath=(//span[text()='100%'])[2]")
+    public CustomElement btn100PercentageTonsPerHourPeak;
+
+    @FindBy(locator = "xpath=(//span[text()='Calculate'])[1]")
+    public CustomElement btnCalculateBeltSpeed;
+
+    @FindBy(locator = "xpath=(//span[text()='Calculate'])[2]")
+    public CustomElement btnCalculateTonsPerHourPeak;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Specification']/following-sibling::input")
+    public CustomElement tbBeltSpecification;
+
+    @FindBy(locator = "xpath=//label[text()='Carcass Material']/following-sibling::input")
+    public CustomElement tbCarcassMaterial;
+
+    @FindBy(locator = "xpath=//label[text()='Number of Plies']/following-sibling::input")
+    public CustomElement tbNumberOfPlies;
+
+    @FindBy(locator = "xpath=//label[text()='Ply Tensile Strength']/following-sibling::div/input")
+    public CustomElement tbPlyTensileStrength;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Tensile Strength ']/following-sibling::div/input")
+    public CustomElement tbBeltTensileStrength;
+
+    @FindBy(locator = "xpath=//label[text()='Elastic Modules']/following-sibling::div/input")
+    public CustomElement tbElasticModules;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Rating']/following-sibling::div/input")
+    public CustomElement tbVulcanizedRating;
+
+    @FindBy(locator = "xpath=//label[text()='Mechanical Rating']/following-sibling::div/input")
+    public CustomElement tbMechanicalRating;
+
+    @FindBy(locator = "xpath=//label[text()='Carcass Gauge']/following-sibling::div/input")
+    public CustomElement tbCarcassGauge;
+
+    @FindBy(locator = "xpath=//label[text()='Total Cover Gauge']/following-sibling::div/input")
+    public CustomElement tbTotalCoverGauge;
+
+    @FindBy(locator ="xpath=//label[text()='Total Belt Gauge']/following-sibling::div/input" )
+    public CustomElement tbTotalBeltGauge;
+
+    @FindBy(locator = "xpath=//label[text()='Carcass Weight']/following-sibling::div/input")
+    public CustomElement tbCarcassWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Total Cover Weight']/following-sibling::div/input")
+    public CustomElement tbTotalCoverWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Total Belt Weight']/following-sibling::div/input")
+    public CustomElement tbTotalBeltWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Total Belt Length']/following-sibling::div/input")
+    public CustomElement tbTotalBeltLength;
+
+    @FindBy(locator = "xpath=//label[text()='Number of Rolls']/following-sibling::input")
+    public CustomElement tbNumberOfRollsConveyorRollData;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Length (each)']/following-sibling::div/input")
+    public CustomElement tbRollLength;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Diameter']/following-sibling::div/input")
+    public CustomElement tbRollDiameter;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Weight']/following-sibling::div/input")
+    public CustomElement tbRollWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Cubage']/following-sibling::div/input")
+    public CustomElement tbCubage;
+
+    @FindBy(locator = "xpath=//span[text()='Reset']")
+    public CustomElement btnReset;
+
+    @FindBy(locator = "xpath=//label[text()='Number of Rolls']/following-sibling::div/input")
+    public CustomElement tbNumberOfRollsConveyorSpliceDimensions;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Angle']/following-sibling::div/input")
+    public CustomElement tbVulcanizedSpliceAngle;
+
+    @FindBy(locator = "xpath=//label[text()='Step Length']/following-sibling::div/input")
+    public CustomElement tbStepLength;
+
+    @FindBy(locator = "xpath=//label[text()='Bias Length']/following-sibling::div/input")
+    public CustomElement tbBiasLength;
+
+    @FindBy(locator = "xpath=//label[text()='Splice Length']/following-sibling::div/input")
+    public CustomElement tbSpliceLength;
+
+    @FindBy(locator = "xpath=//label[text()='Extra Belt Length']/following-sibling::div/input")
+    public CustomElement tbExtraBeltLength;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[1]")
+    public CustomElement tbStationNumberHead;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[2]")
+    public CustomElement tbStationNumberDrive;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[3]")
+    public CustomElement tbStationNumberTakeUp;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[4]")
+    public CustomElement tbStationNumberTail;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[5]")
+    public CustomElement tbBeltTensionHead;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[6]")
+    public CustomElement tbBeltTensionDrive;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[7]")
+    public CustomElement tbBeltTensionTakeUp;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[8]")
+    public CustomElement tbBeltTensionTail;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[9]")
+    public CustomElement tbMinPulleyDiameterHead;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[10]")
+    public CustomElement tbMinPulleyDiameterDrive;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[11]")
+    public CustomElement tbMinPulleyDiameterTakeUp;
+
+    @FindBy(locator = "xpath=(//input[@class='p-inputtext p-component p-element p-filled'])[12]")
+    public CustomElement tbMinPulleyDiameterTail;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='pulleyHeadDiameter']")
+    public CustomElement tbPulleyHeadDiameter;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='pulleyDriveDiameter']")
+    public CustomElement tbPulleyDriveDiameter;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='pulleyTakeupDiameter']")
+    public CustomElement tbPulleyTakeUpDiameter;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='pulleyTailDiameter']")
+    public CustomElement tbPulleyTailDiameter;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[1]")
+    public CustomElement tbBeltTensionHeadTransitionLengthPage;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[2]")
+    public CustomElement tbBeltTensionTailTransitionLengthPage;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[3]")
+    public CustomElement tbIdlerAngleHead;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[4]")
+    public CustomElement tbIdlerAngleTail;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[5]")
+    public CustomElement tbTroughDepthHead;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[6]")
+    public CustomElement tbTroughDepthTail;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[7]")
+    public CustomElement tbLengthHead;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[8]")
+    public CustomElement tbLengthTail;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[9]")
+    public CustomElement tbEdgeTensionHead;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[10]")
+    public CustomElement tbEdgeTensionTail;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[11]")
+    public CustomElement tbEdgeTensionHeadPercentage;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[12]")
+    public CustomElement tbEdgeTensionTailPercentage;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[13]")
+    public CustomElement tbCenterTensionHead;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[14]")
+    public CustomElement tbCenterTensionTail;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[15]")
+    public CustomElement tbCenterTensionHeadPercentage;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']/input)[16]")
+    public CustomElement tbCenterTensionTailPercentage;
+
+    @FindBy(locator = "xpath=//app-transition//p")
+    public CustomElement textMinimumAndMaximumOfBeltRatedTension;
+
+    @FindBy(locator = "xpath=(//p-radiobutton[@formcontrolname='transitionHeadTroughDepthType'])[1]")
+    public CustomElement radioTransitionHeadTroughDepthFull;
+
+    @FindBy(locator = "xpath=(//p-radiobutton[@formcontrolname='transitionHeadTroughDepthType'])[2]")
+    public CustomElement radioTransitionHeadTroughDepthHalf;
+
+    @FindBy(locator = "xpath=(//p-radiobutton[@formcontrolname='transitionTailTroughDepthType'])[1]")
+    public CustomElement radioTransitionTailTroughDepthFull;
+
+    @FindBy(locator = "xpath=(//p-radiobutton[@formcontrolname='transitionTailTroughDepthType'])[2]")
+    public CustomElement radioTransitionTailTroughDepthHalf;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[1]")
+    public CustomElement tbTakeUpTensionTakeUpLevel;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[2]")
+    public CustomElement tbCounterWeight;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[5]")
+    public CustomElement tbMaximumBeltTension;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[6]")
+    public CustomElement tbAverageBeltTension;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[7]")
+    public CustomElement tbEstimatedTakeUpMovementDueToPermanentElongation;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[8]")
+    public CustomElement tbEstimatedTakeUpMovementDueToElasticElongation;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[9]")
+    public CustomElement tbTotalEstimatedTakeUpMovementPercentage;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[10]")
+    public CustomElement tbEstimatedBeltCCLength;
+
+    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[11]")
+    public CustomElement tbTotalEstimatedTakeUpMovement;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='takeupTension']")
+    public CustomElement tbTakeUpTensionifknown;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@value='V']")
+    public CustomElement radioVulcanizedTypeOfSplice;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@value='V']//input")
+    public CustomElement checkedRadioVulcanized;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@value='M']")
+    public CustomElement radioMechanicalTypeOfSplice;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@value='M']//input")
+    public CustomElement checkedRadioMechanical;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[1]")
+    public CustomElement tbStationLocation1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[2]")
+    public CustomElement tbStationLocation2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[3]")
+    public CustomElement tbStationLocation3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[4]")
+    public CustomElement tbStationLocation4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[5]")
+    public CustomElement tbCurveDescription1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[6]")
+    public CustomElement tbCurveDescription2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[7]")
+    public CustomElement tbCurveDescription3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[8]")
+    public CustomElement tbCurveDescription4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[9]")
+    public CustomElement tbMaximumBeltTension1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[10]")
+    public CustomElement tbMaximumBeltTension2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[11]")
+    public CustomElement tbMaximumBeltTension3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[12]")
+    public CustomElement tbMaximumBeltTension4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[13]")
+    public CustomElement tbMinimumBeltTension1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[14]")
+    public CustomElement tbMinimumBeltTension2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[15]")
+    public CustomElement tbMinimumBeltTension3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[16]")
+    public CustomElement tbMinimumBeltTension4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[17]")
+    public CustomElement tbCurveRadius1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[18]")
+    public CustomElement tbCurveRadius2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[19]")
+    public CustomElement tbCurveRadius3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[20]")
+    public CustomElement tbCurveRadius4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[21]")
+    public CustomElement tbProjectedLength1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[22]")
+    public CustomElement tbProjectedLength2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[23]")
+    public CustomElement tbProjectedLength3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[24]")
+    public CustomElement tbProjectedLength4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[25]")
+    public CustomElement tbCenterTension1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[26]")
+    public CustomElement tbCenterTension2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[27]")
+    public CustomElement tbCenterTension3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[28]")
+    public CustomElement tbCenterTension4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[29]")
+    public CustomElement tbCenterTensionPercentage1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[30]")
+    public CustomElement tbCenterTensionPercentage2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[31]")
+    public CustomElement tbCenterTensionPercentage3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[32]")
+    public CustomElement tbCenterTensionPercentage4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[33]")
+    public CustomElement tbEdgeTension1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[34]")
+    public CustomElement tbEdgeTension2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[35]")
+    public CustomElement tbEdgeTension3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[36]")
+    public CustomElement tbEdgeTension4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[37]")
+    public CustomElement tbEdgeTensionPercentage1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[38]")
+    public CustomElement tbEdgeTensionPercentage2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[39]")
+    public CustomElement tbEdgeTensionPercentage3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[40]")
+    public CustomElement tbEdgeTensionPercentage4;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[41]")
+    public CustomElement tbEstimatedLiftOff1;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[42]")
+    public CustomElement tbEstimatedLiftOff2;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[43]")
+    public CustomElement tbEstimatedLiftOff3;
+
+    @FindBy(locator = "xpath=(//input[@type='text'])[44]")
+    public CustomElement tbEstimatedLiftOff4;
+
+    @FindBy(locator = "xpath=//div[contains(text(),'Estimated C-C Length')]")
+    public CustomElement txtEstimatedCCLength;
+
+    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[1]")
+    public CustomElement txtCustomer;
+
+    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[2]")
+    public CustomElement txtName;
+
+    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[3]")
+    public CustomElement txtConveyor;
+
+    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div[2]")
+    public CustomElement txtDescription;
+
+    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div")
+    public CustomElement txtMaterialData;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div")
+    public CustomElement txtInputBeltData;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div")
+    public CustomElement txtSystemData;
+
+    @FindBy(locator = "xpath=//label[text()='Calculate Data']/following-sibling::div")
+    public CustomElement txtCalculateData;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div")
+    public CustomElement txtBeltData;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div")
+    public CustomElement txtRollData;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div")
+    public CustomElement txtVulcanizedSpliceData;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div")
+    public CustomElement txtTakeUpTravel;
+
+    @FindBy(locator = "xpath=//label[text()='Vertical Curves']/following-sibling::table/tr[1]/td[2]")
+    public CustomElement txtVerticalCurves;
+
+    @FindBy(locator = "xpath=//label[text()='Transition Lengths']/following-sibling::table/tr[2]/td[2]")
+    public CustomElement txtTransitionLength;
+
+    @FindBy(locator = "xpath=//div[@class='p-progress-spinner']")
+    public CustomElement spinner;
+
+    @FindBy(locator ="tagName=canvas")
+    public CustomElement canvas;
+
+    @FindBy(locator = "xpath=//span[text()='1']")
+    public CustomElement generalInfo;
+
+    @FindBy(locator = "xpath=//span[text()='2']")
+    public CustomElement inputs;
+
+    @FindBy(locator = "xpath=//span[text()='3']")
+    public CustomElement stations;
+
+    @FindBy(locator = "xpath=//span[text()='4']")
+    public CustomElement flightInfo;
+
+    @FindBy(locator = "xpath=//span[text()='5']")
+    public CustomElement selectBelt;
+
+    @FindBy(locator = "xpath=//span[text()='6']")
+    public CustomElement capacity;
+
+    @FindBy(locator = "xpath=//span[text()='7']")
+    public CustomElement rollData;
+
+    @FindBy(locator = "xpath=//span[text()='8']")
+    public CustomElement pulleys;
+
+    @FindBy(locator = "xpath=//span[text()='9']")
+    public CustomElement transitions;
+
+    @FindBy(locator = "xpath=//span[text()='10']")
+    public CustomElement takeUp;
+
+    @FindBy(locator = "xpath=//span[text()='11']")
+    public CustomElement curves;
+
+    @FindBy(locator = "xpath=//span[text()='12']")
+    public CustomElement finalReport;
+
+    @FindBy(locator = "xpath=//label[text()='System Coordinates']/following-sibling::div[3]//div[@class='p-col-2']/div")
+    public CustomElement systemCoordinates;
+
+    @FindBy(locator = "xpath=//label[text()='Pulley Data']/following-sibling::table/tr[2]/td[2]")
+    public CustomElement pulleyData;
+
+    @FindBy(locator = "xpath=//span[text()='Save & Download']")
+    public CustomElement btnSaveAndDownload;
+
+    private static final double PERCENTAGE_THRESHOLD = 1.0;
+    String listItem="//ul[@role='listbox']//p-dropdownitem//li//span";
+
+    public void gotoMinutemanScreen(){
+        home.click("Home");
+        minuteman.click("Minuteman");
+        btSearchinput.isVisible("Minuteman Page");
+    }
+    public void gotoMinutemanScreenWait(){
+        gotoMinutemanScreen();
+        scrollPageDown();
+        String val="";
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
+            if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+                break;
+            }
+            val = pagination.getText();
+            SyncUtil.waitFor(5000);
+        }
+    }
+
+    public void gotoAddMinutemanConveyor(){
+        gotoMinutemanScreen();
+        btnAdd.click("Add");
+        btnConveyor.click("Conveyor");
+    }
+
+    public ArrayList<Float> getSystemCoordinates(){
+        ArrayList<Float> systemCoordinates=new ArrayList<>();
+        String estimatedCCLength=txtEstimatedCCLength.getText().split("\\s")[3].split("\\(")[0].trim();
+        for (int i=1;i<=7;i++){
+            for(int j=1;j<=3;j++){
+                WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[2]/div["+i+"]//div[@class='p-col-2']/div)["+j+"]"));
+                String text=element.getText();
+                if(element.getText().isEmpty()) {
+                    systemCoordinates.add(Float.valueOf(estimatedCCLength));
+                    return systemCoordinates;
+                }
+                systemCoordinates.add(Float.valueOf(text));
+            }
+        }
+        systemCoordinates.add(Float.valueOf(estimatedCCLength));
+        return systemCoordinates;
+    }
+
+    public ArrayList<String> getConveyorInformation(){
+        String[] data=txtDescription.getText().split("\\r?\\n");
+        String beltDescription = data[1].split(":")[1].trim();
+        String customer=txtCustomer.getText();
+        String name = txtName.getText();
+        String conveyor = txtConveyor.getText();
+        return new ArrayList<> (Arrays.asList(beltDescription,customer,name,conveyor));
+    }
+
+
+    public ArrayList<String> getMaterialData(){
+        String[] data=txtMaterialData.getText().split("\\r?\\n");
+        String[] tonsPerHour = data[0].split(":")[1].trim().split("\\s");
+        String[] materialDensity = data[1].split(":")[1].trim().split("\\s");
+        String[] surchargeAngle = data[2].split(":")[1].trim().split("\\s");
+        return new ArrayList<> (Arrays.asList(tonsPerHour[0], materialDensity[0], surchargeAngle[0]));
+    }
+
+    public ArrayList<String> getInputBeltData(){
+        String[] data=txtInputBeltData.getText().split("\\r?\\n");
+        String[] width = data[0].split(":")[1].trim().split("\\s");
+        String[] speed = data[1].split(":")[1].trim().split("\\s");
+        String[] weight = data[2].split(":")[1].trim().split("\\s");
+        String[] oAG = data[3].split(":")[1].trim().split("\\s");
+        return new ArrayList<> (Arrays.asList(width[0], speed[0], weight[0], oAG[0]));
+    }
+
+    public ArrayList<String> getSystemData(){
+        String[] data=txtSystemData.getText().split("\\r?\\n");
+        String[] troughAngleOfIdlers = data[0].split(":")[1].trim().split("\\s");
+        String[] carrySideIdlerSpacing = data[1].split(":")[1].trim().split("\\s");
+        String stationLocationOfDrive = data[2].split(":")[1].trim();
+        String stationLocationOfTakeUp = data[3].split(":")[1].trim();
+        String[] weightOfMovingParts = data[4].split(":")[1].trim().split("\\s");
+        String[] driveFactor = data[5].split(":")[1].trim().split("\\s");
+        String frictionFactor = data[6].split(":")[1].trim();
+        String lengthFactor = data[7].split(":")[1].trim();
+        String[] driveWrap = data[8].split(":")[1].trim().split("\\s");
+        return new ArrayList<> (Arrays.asList(troughAngleOfIdlers[0], carrySideIdlerSpacing[0], stationLocationOfDrive, stationLocationOfTakeUp,
+                weightOfMovingParts[0], driveFactor[0], frictionFactor, lengthFactor, driveWrap[0]));
+    }
+
+    public ArrayList<String> getCalculatedData(){
+        String[] data=txtCalculateData.getText().split("\\r?\\n");
+        String[] unitTension = data[0].split(":")[1].trim().split("\\s");
+        String[] maximumTension = data[1].split(":")[1].trim().split("\\s");
+        String[] effectiveTension = data[2].split(":")[1].trim().split("\\s");
+        String[] beltPower = data[3].split(":")[1].trim().split("\\s");
+        String[] counterweightWeight = data[4].split(":")[1].trim().split("\\s");
+        String[] counterweightTension = data[5].split(":")[1].trim().split("\\s");
+        String[] conveyorCapacity = data[6].split(":")[1].trim().split("\\s");
+        String[] estimatedBeltLength = data[7].split(":")[1].trim().split("\\s");
+        return new ArrayList<>(Arrays.asList(unitTension[0], maximumTension[0], effectiveTension[0], beltPower[0], counterweightWeight[0], counterweightTension[0],
+                conveyorCapacity[0], estimatedBeltLength[0]));
+    }
+
+    public ArrayList<String> getBeltData(){
+        String[] data=txtBeltData.getText().split("\\r?\\n");
+        String carcassMaterial = data[0].split(":")[1].trim();
+        String[] numberOfPlies = data[1].split(":")[1].trim().split("\\s");
+        String[] plyTensileStrength = data[2].split(":")[1].trim().split("\\s");
+        String[] beltTensileStrength = data[3].split(":")[1].trim().split("\\s");
+        String[] vulcanizedRating = data[4].split(":")[1].trim().split("\\s");
+        String[] mechanicalRating = data[5].split(":")[1].trim().split("\\s");
+        String[] elasticModulus = data[6].split(":")[1].trim().split("\\s");
+        String[] carcassGauge = data[7].split(":")[1].trim().split("\\s");
+        String[] totalCoverGauge = data[8].split(":")[1].trim().split("\\s");
+        String[] totalBeltGauge = data[9].split(":")[1].trim().split("\\s");
+        String[] carcassWeight = data[10].split(":")[1].trim().split("\\s");
+        String[] totalCoverWeight = data[11].split(":")[1].trim().split("\\s");
+        String[] totalBeltWeight = data[12].split(":")[1].trim().split("\\s");
+        return new ArrayList<>(Arrays.asList(carcassMaterial, numberOfPlies[0], plyTensileStrength[0], beltTensileStrength[0], vulcanizedRating[0],
+                mechanicalRating[0], elasticModulus[0], carcassGauge[0], totalCoverGauge[0], totalBeltGauge[0], carcassWeight[0],
+                totalCoverWeight[0], totalBeltWeight[0]));
+    }
+
+    public ArrayList<String> getRollData(){
+        String[] data=txtRollData.getText().split("\\r?\\n");
+        String[] totalBeltLength = data[0].split(":")[1].trim().split("\\s");
+        String numberOfRolls = data[1].split(":")[1].trim();
+        String[] rollLength = data[2].split(":")[1].trim().split("\\s");
+        String[] rollDiameter = data[3].split(":")[1].trim().split("\\s");
+        String[] rollWeight = data[4].split(":")[1].trim().split("\\s");
+        String[] cubage = data[5].split(":")[1].trim().split("\\s");
+        return new ArrayList<>(Arrays.asList(totalBeltLength[0], numberOfRolls, rollLength[0], rollDiameter[0], rollWeight[0], cubage[0]));
+    }
+
+    public ArrayList<String> getVulcanizedSpliceData(){
+        String[] data=txtVulcanizedSpliceData.getText().split("\\r?\\n");
+        String numberOfSplices = data[0].split(":")[1].trim();
+        String[] vulcanizerBiasAngle = data[1].split(":")[1].trim().split("\\s");
+        String[] fabricStepLength = data[2].split(":")[1].trim().split("\\s");
+        String[] biasLength = data[3].split(":")[1].trim().split("\\s");
+        String[] spliceLength = data[4].split(":")[1].trim().split("\\s");
+        String[] extraBeltLength = data[5].split(":")[1].trim().split("\\s");
+        return new ArrayList<>(Arrays.asList(numberOfSplices, vulcanizerBiasAngle[0], fabricStepLength[0], biasLength[0], spliceLength[0],
+                extraBeltLength[0]));
+    }
+
+    public ArrayList<String> getTakeUpTravel(){
+        String[] data=txtTakeUpTravel.getText().split("\\r?\\n");
+        String typeOfTakeUp = data[0].split(":")[1].trim();
+        String typeOfSplice = data[1].split(":")[1].trim();
+        String[] maximumBeltTension = data[2].split(":")[1].trim().split("\\s");
+        String[] averageBeltTension = data[3].split(":")[1].trim().split("\\s");
+        String[] estPermanentElongation = data[5].split(":")[1].trim().split("\\s");
+        String[] estElasticElongation = data[7].split(":")[1].trim().split("\\s");
+        String[] estimatedTotalTakeUpMovementPercentage = data[8].split(":")[1].trim().split("\\s");
+        String[] conveyorCCLength = data[9].split(":")[1].trim().split("\\s");
+        String[] estimatedTotalTakeUpMovement = data[10].split(":")[1].trim().split("\\s");
+        return new ArrayList<>(Arrays.asList(typeOfTakeUp, typeOfSplice, maximumBeltTension[0], averageBeltTension[0], estPermanentElongation[0],
+                estElasticElongation[0], estimatedTotalTakeUpMovementPercentage[0], conveyorCCLength[0], estimatedTotalTakeUpMovement[0]));
+    }
+
+    public ArrayList<String> getPulleyData(){
+        ArrayList<String> pulleyData=new ArrayList<>();
+        for(int i=2;i<=7;i++){
+            for(int j=2;j<=5;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Pulley Data']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+                pulleyData.add(element.getText());
+            }
+        }
+        return pulleyData;
+    }
+
+    public ArrayList<String> getVerticalCurves(){
+        ArrayList<String> verticalCurves=new ArrayList<>();
+        for (int i=1;i<=4;i++){
+            WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::table/tr[1]/td["+i+"]"));
+            verticalCurves.add(element.getText().split("\\s")[1].trim());
+        }
+        for (int i=2;i<=11;i++){
+            for (int j=2;j<=5;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+                verticalCurves.add(element.getText());
+            }
+        }
+        return verticalCurves;
+    }
+
+    public ArrayList<String> getTransitionLength(){
+        ArrayList<String> transitionLength=new ArrayList<>();
+        for(int i=2;i<=8;i++){
+            for(int j=2;j<=3;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Transition Lengths']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+                transitionLength.add(element.getText());
+            }
+        }
+        return transitionLength;
+    }
+
+
+    public void clickNext(){
+        waitForElementToDisplay(btnNext);
+        btnNext.click("Next");
+    }
+
+    public void setTbCalculationName(String calculationName){
+        tbCalculationName.type(calculationName,"Calculation Name");
+    }
+
+    public void setSiteDropdown(String site){
+        dropdownSelectSearch(siteDropdown,dropdownInput,site);
+    }
+
+    public void setConveyorDropdown(String conveyorName){
+        dropdownSelectSearch(conveyorDropdown,dropdownInput,conveyorName);
+    }
+
+    public void setTbDescription(String description){
+        tbDescription.type(description);
+    }
+
+    public void setTbProgram(String program){
+        dropdownSelect(tbProgram,listItem,program);
+    }
+
+    public void setTbManufacturingLocation(String manufacturingLocation){
+        dropdownSelect(tbManufacturingLocation,listItem,manufacturingLocation);
+    }
+
+    public void clickOnLoadData(){
+        btnLoadData.click("Load Data");
+    }
+
+    public void selectUnit(String units){
+        if(units.equalsIgnoreCase("Metric")){
+            radioMetric.click("Metric");
+        }else if (units.equalsIgnoreCase("Imperial")){
+            radioImperial.click("Imperial");
+        }
+    }
+
+    public void clickCancel(){
+        btnCancel.click("Cancel");
+    }
+
+    public void clickSaveAndContinue(){
+        btnSaveAndContinue.click("Save & Continue");
+    }
+
+    public void clickSaveAndClose(){
+        btnSaveAndClose.click("Save & Close");
+    }
+
+    public void setTbBeltWidth(String beltWidth){
+        tbBeltWidth.type(beltWidth,"Belt Width");
+    }
+
+    public void setTbBeltSpeed(String beltSpeed){
+        tbBeltSpeed.type(beltSpeed,"Belt Speed");
+    }
+
+    public void setTbTonsPerHourPeak(String tonsPerHourPeak){
+        tbTonsPerHourPeak.type(tonsPerHourPeak,"Tons Per Hour Peak");
+    }
+
+    public void setTbPickMaterialName(String pickMaterialName){
+        tbPickMaterialName.type(pickMaterialName,"Pick Material Name");
+    }
+
+    public void setTbMaterialDensity(String materialDensity){
+        tbMaterialDensity.type(materialDensity,"Material Density");
+    }
+
+    public void setTbAngleOfIdlers(String angleOfIdlers){
+        tbAngleOfIdlers.type(angleOfIdlers,"Angle of Idlers");
+    }
+
+    public void setTbCarrySideIdlerSpacing(String carrySideIdlerSpacing){
+        tbCarrySideIdlerSpacing.type(carrySideIdlerSpacing,"Carry Side Idler Spacing");
+    }
+
+    public void setDriveWrapAngleDropdown(String driveWrapAngle){
+        dropdownSelectSearch(driveWrapAngleDropdown,dropdownInput,driveWrapAngle);
+    }
+
+    public void selectFrictionFactor(String frictionFactor,String lengthFactor){
+        if(frictionFactor.equals("0.022")&&lengthFactor.equals("200")){
+            radioPermanentConveyor.click("Permanent Conveyor");
+        } else if (frictionFactor.equals("0.03")&&lengthFactor.equals("150")) {
+            radioTemporaryConveyor.click("Temporary Conveyor");
+        }else
+            Reporter.log("Invalid Friction factor and Length Factor",MessageTypes.Fail);
+    }
+
+    public void setSurchargeAngleDropdown(String surchargeAngle){
+        dropdownSelectSearch(surchargeAngleDropdown,dropdownInput,surchargeAngle);
+    }
+
+    public void setIdlerOffsetTypeDropdown(String idlerOffsetType){
+        dropdownSelectSearch(idlerOffsetTypeDropdown,dropdownInput,idlerOffsetType);
+    }
+
+    public void setDriveDetailsDropdown(String driveDetails){
+       dropdownSelect(driveDetailsDropdown,listItem,driveDetails);
+    }
+
+    public void setTakeUpDetailsDropdown(String takeUpDetails){
+        dropdownSelect(takeUpDetailsDropdown,listItem,takeUpDetails);
+    }
+
+    public void setSpliceTypeDropdown(String spliceType){
+        dropdownSelect(spliceTypeDropdown,listItem,spliceType);
+    }
+
+    public void clickPrevious(){
+        btnPrevious.click("Previous");
+    }
+
+    public void selectStation(String station){
+        driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station'])["+station+"]")).click();
+        Reporter.log("Clicked On Station "+station);
+    }
+
+    public void selectDriveStation(String driveStation){
+        driver.findElement(By.xpath("(//p-radiobutton[@formcontrolname='drive'])["+driveStation+"]")).click();
+        Reporter.log("Selected Drive station "+driveStation);
+    }
+
+    public void selectTakeUpStation(String takeUpStation){
+       driver.findElement(By.xpath("(//p-radiobutton[@formcontrolname='takeup'])["+takeUpStation+"]")).click();
+       Reporter.log("Selected Take-Up station "+takeUpStation);
+    }
+
+    public void setConveyorFlightsConfiguration(String station,String[] horzOffset,String[] elevOffset){
+        for(int i=1;i<=Integer.parseInt(station);i++){
+            driver.findElement(By.xpath("(//input[@formcontrolname='horizontalOffsets'])["+i+"]")).clear();
+            driver.findElement(By.xpath("(//input[@formcontrolname='horizontalOffsets'])["+i+"]")).sendKeys(horzOffset[i-1]);
+            Reporter.log("Entered Horz Offset value "+horzOffset[i-1],MessageTypes.Pass);
+            driver.findElement(By.xpath("(//input[@formcontrolname='elevationOffsets'])["+i+"]")).clear();
+            driver.findElement(By.xpath("(//input[@formcontrolname='elevationOffsets'])["+i+"]")).sendKeys(elevOffset[i-1]);
+            Reporter.log("Entered Elev Offset value "+elevOffset[i-1],MessageTypes.Pass);
+        }
+    }
+    
+    public void getPointsOnGraph() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String script = "var points = []; \n" +
+                "                         var ctx = arguments[0].getContext('2d'); \n" +
+                "                         var imageData = ctx.getImageData(0, 0, arguments[0].width, arguments[0].height); \n" +
+                "                         for (var y = 0; y < arguments[0].height; y++) { \n" +
+                "                             for (var x = 0; x < arguments[0].width; x++) { \n" +
+                "                                 var index = (y * arguments[0].width + x) * 4; \n" +
+                "                                 var red = imageData.data[index]; \n" +
+                "                                 var green = imageData.data[index + 1]; \n" +
+                "                                 var blue = imageData.data[index + 2]; \n" +
+                "                                 // Extract points based on your graph's color scheme \n" +
+                "                                 if (red === 0 && green === 0 && blue === 0 ) { \n" +
+                "                                     points.push({ x: x, y: y }); \n" +
+                "                                 } \n" +
+                "                             } \n" +
+                "                         } \n" +
+                "                         return points;";
+
+        String script1="var canvas = arguments[0];\n" +
+                "var context = canvas.getContext('2d');\n" +
+                "var points = [];\n" +
+                "var imageData = context.getImageData(0, 0, canvas.width, canvas.height);\n" +
+                "var tolerance = 10;\n" +
+                "for (var y = 0; y < canvas.height; y++) {\n" +
+                "  for (var x = 0; x < canvas.width; x++) {\n" +
+                "    var index = (y * canvas.width + x) * 4;\n" +
+                "    var red = imageData.data[index];\n" +
+                "    var green = imageData.data[index + 1];\n" +
+                "    var blue = imageData.data[index + 2];\n" +
+                "    var isBlack = Math.abs(red - 0) <= tolerance && Math.abs(green - 0) <= tolerance && Math.abs(blue - 0) <= tolerance;\n" +
+                "    if (isBlack) {\n" +
+                "      points.push({ x: x, y: y });\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n" +
+                "return points;";
+
+        List<Object> points = (List<Object>) js.executeScript(script1, canvas);
+
+        // Process the extracted points
+        for (Object point : points) {
+            System.out.println("Point: " + point.toString());
+        }
+    }
+    public void clickOnCalculate(){
+        btnCalculate.click("Calculate");
+    }
+
+    public void setTradeNameDropdown(String tradeName){
+        dropdownSelect(tradeNameDropdown,listItem,tradeName);
+    }
+
+    public void setCoverGradeDropdown(String coverGrade){
+        dropdownSelect(coverGradeDropdown,listItem,coverGrade);
+    }
+
+    public void setRatingDropdown(String rating){
+        dropdownSelect(ratingDropdown,listItem,rating);
+    }
+
+    public void setPliesDropdown(String plies){
+        dropdownSelect(pliesDropdown,listItem,plies);
+    }
+
+    public void setCoverGaugeUnitDropdown(String coverGaugeUnit){
+        dropdownSelect(coverGaugeUnitDropdown,listItem,coverGaugeUnit);
+    }
+
+    public void setGaugeTopCoverDropdown(String gaugeTopCover){
+        dropdownSelectSearch(gaugeTopCoverDropdown,dropdownInput,gaugeTopCover);
+    }
+
+    public void setGaugePulleyCoverDropdown(String gaugePulleyCover){
+        dropdownSelectSearch(gaugePulleyCoverDropdown,dropdownInput,gaugePulleyCover);
+    }
+
+    public ArrayList<String> getCalculatedDataInSelectBelt(){
+        String[] unitTension = textUnitTension.getText().trim().split("\\s");
+        String[] maximumTension = textMaximumTension.getText().trim().split("\\s");
+        String[] effectiveTension = textEffectiveTension.getText().trim().split("\\s");
+        String[] beltPower = textBeltPower.getText().trim().split("\\s");
+        String[] counterweightWeight = textCounterweightWeight.getText().trim().split("\\s");
+        String[] counterweightTension = textCounterweightTension.getText().trim().split("\\s");
+        String[] conveyorCapacity = textConveyorCapacity.getText().trim().split("\\s");
+        return new ArrayList<>(Arrays.asList(unitTension[0], maximumTension[0], effectiveTension[0], beltPower[0], counterweightWeight[0], counterweightTension[0],
+                conveyorCapacity[0]));
+    }
+
+    public ArrayList<String> getCapacity(){
+        String[] conveyorCapacity = textCapacityPageConveyorCapacity.getText().split("=")[1].trim().split("\\s");
+        String angleOfIdlers = textCapacityPageAngleOfIdlers.getText().split("=")[1].trim();
+        return new ArrayList<>(Arrays.asList(conveyorCapacity[0],angleOfIdlers));
+    }
+
+    public void clickOnResetOfBeltSpeed(){
+        btnResetBeltSpeed.click("Reset");
+    }
+
+    public void clickOnResetOfTonsPerHourPeak(){
+        btnResetTonsPerHourPeak.click("Reset");
+    }
+
+    public void clickOn100PercentBeltSpeed(){
+        btn100PercentageBeltSpeed.click("100%");
+    }
+
+    public void clickOn100PercentTonsPerHourPeak(){
+        btn100PercentageTonsPerHourPeak.click("100%");
+    }
+
+    public void clickOnCalculateBeltSpeed(){
+        btnCalculateBeltSpeed.click("Calculate");
+    }
+
+    public void clickOnCalculateTonsPerHourPeak(){
+        btnCalculateTonsPerHourPeak.click("Calculate");
+    }
+
+    public void clickOnGeneralInfo(){
+       generalInfo.click("General Info");
+    }
+
+    public void clickOnInputs(){
+        inputs.click("Inputs");
+    }
+
+    public void clickOnStations(){
+        stations.click("Stations");
+    }
+
+    public void clickOnFlightInfo(){
+        flightInfo.click("Flight Info");
+    }
+
+    public void clickOnSelectBelt(){
+        selectBelt.click("Select Belt");
+    }
+
+    public void clickOnCapacity(){
+        capacity.click("Capacity");
+    }
+
+    public void clickOnRollData(){
+        rollData.click("Roll Data");
+    }
+    public void clickOnPulley(){
+        pulleys.click("Pulley");
+    }
+
+    public void clickOnTransitions(){
+        transitions.click("Transitions");
+    }
+
+    public void clickOnTakeUp(){
+        takeUp.click("Take-Up");
+    }
+
+    public void clickOnCurves(){
+        curves.click("Curves");
+    }
+
+    public void clickOnFinalReport(){
+        finalReport.click("Final Report");
+    }
+
+    public void setTbTotalBeltLength(String totalBeltLength){
+        tbTotalBeltLength.type(totalBeltLength,"Total Belt Length");
+    }
+
+    public void setTbNumberOfRollsConveyorRollData(String numberOfRolls){
+        tbNumberOfRollsConveyorRollData.type(numberOfRolls,"Number Of Rolls");
+    }
+
+    public void setTbPulleyHeadDiameter(String pulleyHeadDiameter){
+        tbPulleyHeadDiameter.type(pulleyHeadDiameter,"Pulley Diameter Head");
+    }
+
+    public void setTbPulleyDriveDiameter(String pulleyDriveDiameter){
+        tbPulleyDriveDiameter.type(pulleyDriveDiameter,"Pulley Diameter Drive");
+    }
+
+    public void setTbPulleyTakeUpDiameter(String pulleyTakeUpDiameter){
+        tbPulleyTakeUpDiameter.type(pulleyTakeUpDiameter,"Pulley Diameter TakeUp");
+    }
+
+    public void setTbPulleyTailDiameter(String pulleyTailDiameter){
+        tbPulleyTailDiameter.type(pulleyTailDiameter,"Pulley Diameter Tail");
+    }
+
+    public void selectTroughDepthHead(String troughDepthHead) {
+        if (troughDepthHead.equalsIgnoreCase("Full")) {
+            radioTransitionHeadTroughDepthFull.click("Full");
+        } else if (troughDepthHead.equalsIgnoreCase("Half")) {
+            radioTransitionHeadTroughDepthHalf.click("Half");
+        }
+    }
+
+    public void selectTroughDepthTail(String troughDepthTail){
+        if (troughDepthTail.equalsIgnoreCase("Full")) {
+            radioTransitionTailTroughDepthFull.click("Full");
+        } else if (troughDepthTail.equalsIgnoreCase("Half")) {
+            radioTransitionTailTroughDepthHalf.click("Half");
+        }
+    }
+
+    public void setTbLengthHead(String lengthHead){
+        tbLengthHead.type(lengthHead,"Length Head");
+    }
+
+    public void setTbLengthTail(String lengthTail){
+        tbLengthTail.type(lengthTail,"Length Tail");
+    }
+
+    public void selectSpliceType(String spliceType){
+        if(spliceType.equalsIgnoreCase("Vulcanized")){
+            radioVulcanizedTypeOfSplice.click("Vulcanized");
+        }else if(spliceType.equalsIgnoreCase("Mechanical")){
+            radioMechanicalTypeOfSplice.click("Mechanical");
+        }
+    }
+
+    public void setTbTakeUpTensionifknown(String takeUpTension){
+        tbTakeUpTensionifknown.type(takeUpTension,"Take-Up tension (If Known");
+    }
+
+    public void setTbCurveRadius1(String curveRadius1){
+        tbCurveRadius1.type(curveRadius1,"Curve Radius 1");
+    }
+
+    public void setTbCurveRadius2(String curveRadius2){
+        tbCurveRadius2.type(curveRadius2,"Curve Radius 2");
+    }
+
+    public void setTbCurveRadius3(String curveRadius3){
+        tbCurveRadius3.type(curveRadius3,"Curve Radius 3");
+    }
+
+    public void setTbCurveRadius4(String curveRadius4){
+        tbCurveRadius4.type(curveRadius4,"Curve Radius 4");
+    }
+
+    public String getFrictionFactor(){
+        return tbFrictionFactorValue.getAttribute("value");
+    }
+
+    public String getLengthFactor(){
+//        return tbLengthFactorValue.getAttribute("Value");
+        waitForElementToBeClickable(tbLengthFactorValue);
+        return tbLengthFactorValue.getAttribute("value");
+//        return (String) js.executeScript("return arguments[0].value;",tbLengthFactorValue);
+    }
+
+    public String getDriveWrapAngle(){
+        return tbDriveWrapAngle2.getAttribute("value");
+    }
+
+    public String getSurchargeAngle(){
+        return tbSurchargeAngle.getAttribute("value");
+    }
+
+    public String getTbBeltSpecification(){
+        return tbBeltSpecification.getAttribute("value");
+    }
+
+    public String getTbCarcassMaterial(){
+        return tbCarcassMaterial.getAttribute("value");
+    }
+
+    public String getTbNumberPlies(){
+        return tbNumberOfPlies.getAttribute("value");
+    }
+
+    public String getTbPlyTensileStrength(){
+        return tbPlyTensileStrength.getAttribute("value");
+    }
+
+    public String getTbBeltTensileStrength(){
+        return tbBeltTensileStrength.getAttribute("value");
+    }
+
+    public String getTbElasticModules(){
+        return tbElasticModules.getAttribute("value");
+    }
+
+    public String getTbVulcanizedRating(){
+        return tbVulcanizedRating.getAttribute("value");
+    }
+
+    public String getTbMechanicalRating(){
+        return tbMechanicalRating.getAttribute("value");
+    }
+
+    public String getTbCarcassGauge(){
+        return tbCarcassGauge.getAttribute("value");
+    }
+
+    public String getTbTotalCoverGauge(){
+        return tbTotalCoverGauge.getAttribute("value");
+    }
+
+    public String getTbTotalBeltGauge(){
+        return tbTotalBeltGauge.getAttribute("value");
+    }
+
+    public String getTbCarcassWeight(){
+        return tbCarcassWeight.getAttribute("value");
+    }
+
+    public String getTbTotalCoverWeight(){
+        return tbTotalCoverWeight.getAttribute("value");
+    }
+
+    public String getTbTotalBeltWeight(){
+        return tbTotalBeltWeight.getAttribute("value");
+    }
+
+    public String getTotalBeltLength(){
+        return tbTotalBeltLength.getAttribute("value");
+    }
+
+    public String getNumberOfRolls(){
+        return tbNumberOfRollsConveyorRollData.getAttribute("value");
+    }
+
+    public String getTbRollLength(){
+        return tbRollLength.getAttribute("value");
+    }
+
+    public String getTbRollDiameter(){
+        return tbRollDiameter.getAttribute("value");
+    }
+
+    public String getTbRollWeight(){
+        return tbRollWeight.getAttribute("value");
+    }
+
+    public String getTbCubage(){
+        return tbCubage.getAttribute("value");
+    }
+
+    public String getTbNumberOfRollsConveyorSpliceDimension(){
+        return tbNumberOfRollsConveyorSpliceDimensions.getAttribute("value");
+    }
+
+    public String getTbVulcanizedSpliceAngle(){
+        return tbVulcanizedSpliceAngle.getAttribute("value");
+    }
+
+    public String getTbStepLength(){
+        return tbStepLength.getAttribute("value");
+    }
+
+    public String getTbBiasLength(){
+        return tbBiasLength.getAttribute("value");
+    }
+
+    public String getTbSpliceLength(){
+        return tbSpliceLength.getAttribute("value");
+    }
+
+    public String getTbExtraBeltLength(){
+        return tbExtraBeltLength.getAttribute("value");
+    }
+
+    public String getTbStationNumberHead(){
+        return tbStationNumberHead.getAttribute("value");
+    }
+
+    public String getTbStationNumberDrive(){
+        return tbStationNumberDrive.getAttribute("value");
+    }
+
+    public String getTbStationNumberTakeUp(){
+        return tbStationNumberTakeUp.getAttribute("value");
+    }
+
+    public String getTbStationNumberTail(){
+        return tbStationNumberTail.getAttribute("value");
+    }
+
+    public String getTbBeltTensionHead(){
+        return tbBeltTensionHead.getAttribute("value");
+    }
+
+    public String getTbBeltTensionDrive(){
+        return tbBeltTensionDrive.getAttribute("value");
+    }
+
+    public String getTbBeltTensionTakeUp(){
+        return tbBeltTensionTakeUp.getAttribute("value");
+    }
+
+    public String getTbBeltTensionTail(){
+        return tbBeltTensionTail.getAttribute("value");
+    }
+
+    public String getTbMinPulleyDiameterHead(){
+        return tbMinPulleyDiameterHead.getAttribute("value");
+    }
+
+    public String getTbMinPulleyDiameterDrive(){
+        return tbMinPulleyDiameterDrive.getAttribute("value");
+    }
+
+    public String getTbMinPulleyDiameterTakeUp(){
+        return tbMinPulleyDiameterTakeUp.getAttribute("value");
+    }
+
+    public String getTbMinPulleyDiameterTail(){
+        return tbMinPulleyDiameterTail.getAttribute("value");
+    }
+
+    public String getTbPulleyDiameterHead(){
+        return tbPulleyHeadDiameter.getAttribute("value");
+    }
+
+    public String getTbPulleyDiameterDrive(){
+        return tbPulleyDriveDiameter.getAttribute("value");
+    }
+
+    public String getTbPulleyDiameterTakeUp(){
+        return tbMinPulleyDiameterTakeUp.getAttribute("value");
+    }
+
+    public String getTbPulleyDiameterTail(){
+        return tbMinPulleyDiameterTail.getAttribute("value");
+    }
+
+    public String getTbBeltTensionHeadTransitionLengthPage(){
+        return tbBeltTensionHeadTransitionLengthPage.getAttribute("value");
+    }
+
+    public String getTbBeltTensionTailTransitionLengthPage(){
+        return tbBeltTensionTailTransitionLengthPage.getAttribute("value");
+    }
+
+    public String getTbIdlerAngleHead(){
+        return tbIdlerAngleHead.getAttribute("value");
+    }
+
+    public String getTbIdlerAngleTail(){
+        return tbIdlerAngleTail.getAttribute("value");
+    }
+
+    public String getTbTroughDepthHead(){
+        return tbTroughDepthHead.getAttribute("value");
+    }
+
+    public String getTbTroughDepthTail(){
+        return tbTroughDepthTail.getAttribute("value");
+    }
+
+    public String getLengthHead(){
+        return tbLengthHead.getAttribute("value");
+    }
+
+    public String getLengthTail(){
+        return tbLengthTail.getAttribute("value");
+    }
+
+    public String getTbEdgeTensionHead(){
+        return tbEdgeTensionHead.getAttribute("value");
+    }
+
+    public String getTbEdgeTensionTail(){
+        return tbEdgeTensionTail.getAttribute("value");
+    }
+
+    public String getTbEdgeTensionHeadPercentage(){
+        return tbEdgeTensionHeadPercentage.getAttribute("value");
+    }
+
+    public String getTbEdgeTensionTailPercentage(){
+        return tbEdgeTensionTailPercentage.getAttribute("value");
+    }
+
+    public String getTbCenterTensionHead(){
+        return tbCenterTensionHead.getAttribute("value");
+    }
+
+    public String getTbCenterTensionTail(){
+        return tbCenterTensionTail.getAttribute("value");
+    }
+
+    public String getTbCenterTensionHeadPercentage(){
+        return tbCenterTensionHeadPercentage.getAttribute("value");
+    }
+
+    public String getTbCenterTensionTailPercentage(){
+        return tbCenterTensionTailPercentage.getAttribute("value");
+    }
+
+    public String getTbTakeUpTensionTakeUpLevel(){
+        return tbTakeUpTensionTakeUpLevel.getAttribute("value");
+    }
+
+    public String getTbCounterweightWeightTakeUpLevel(){
+        return tbCounterWeight.getAttribute("value");
+    }
+
+    public String getTbMaximumBeltTension(){
+        return tbMaximumBeltTension.getAttribute("value");
+    }
+
+    public String getTbAverageBeltTension(){
+        return tbAverageBeltTension.getAttribute("value");
+    }
+
+    public String getTbEstimatedTakeUpMovementDueToPermanentElongation(){
+        return tbEstimatedTakeUpMovementDueToPermanentElongation.getAttribute("value");
+    }
+
+    public String getTbEstimatedTakeUpMovementDueToElasticElongation(){
+        return tbEstimatedTakeUpMovementDueToElasticElongation.getAttribute("value");
+    }
+
+    public String getTbTotalEstimatedTakeUpMovementPercentage(){
+        return tbTotalEstimatedTakeUpMovementPercentage.getAttribute("value");
+    }
+
+    public String getTbEstimatedBeltLength(){
+        return tbEstimatedBeltCCLength.getAttribute("value");
+    }
+
+    public String getTbTotalEstimatedTakeUpMovement(){
+        return tbTotalEstimatedTakeUpMovement.getAttribute("value");
+    }
+
+    public String getTbTakeUPTensionIfKnown(){
+        return tbTakeUpTensionifknown.getAttribute("value");
+    }
+
+    public String getTbStationLocation1(){
+        return tbStationLocation1.getAttribute("value");
+    }
+
+    public String getTbStationLocation2(){
+        return tbStationLocation2.getAttribute("value");
+    }
+
+    public String getTbStationLocation3(){
+        return tbStationLocation3.getAttribute("value");
+    }
+
+    public String getTbStationLocation4(){
+        return tbStationLocation4.getAttribute("value");
+    }
+
+    public String getTbCurveDescription1(){
+        return tbCurveDescription1.getAttribute("value");
+    }
+
+    public String getTbCurveDescription2(){
+        return tbCurveDescription2.getAttribute("value");
+    }
+
+    public String getTbCurveDescription3(){
+        return tbCurveDescription3.getAttribute("value");
+    }
+
+    public String getTbCurveDescription4(){
+        return tbCurveDescription4.getAttribute("value");
+    }
+
+    public String getTbMaximumBeltTension1(){
+        return tbMaximumBeltTension1.getAttribute("value");
+    }
+
+    public String getTbMaximumBeltTension2(){
+        return tbMaximumBeltTension2.getAttribute("value");
+    }
+
+    public String getTbMaximumBeltTension3(){
+        return tbMaximumBeltTension3.getAttribute("value");
+    }
+
+    public String getTbMaximumBeltTension4(){
+        return tbMaximumBeltTension4.getAttribute("value");
+    }
+
+    public String getTbMinimumBeltTension1(){
+        return tbMinimumBeltTension1.getAttribute("value");
+    }
+
+    public String getTbMinimumBeltTension2(){
+        return tbMinimumBeltTension2.getAttribute("value");
+    }
+
+    public String getTbMinimumBeltTension3(){
+        return tbMinimumBeltTension3.getAttribute("value");
+    }
+
+    public String getTbMinimumBeltTension4(){
+        return tbMinimumBeltTension4.getAttribute("value");
+    }
+
+    public String getTbCurveRadius1(){
+        String value = tbCurveRadius1.getAttribute("value");
+//        if(value.isEmpty())
+//            Reporter.log("Curve Radius value is null",MessageTypes.Fail);
+        if(value.equals("0.00"))
+            return "0";
+        else
+            return value;
+    }
+
+    public String getTbCurveRadius2(){
+        String value = tbCurveRadius2.getAttribute("value");
+//        if(value.isEmpty())
+//            Reporter.log("Curve Radius value is null",MessageTypes.Fail);
+        if(value.equals("0.00"))
+            return "0";
+        else
+            return value;
+    }
+
+    public String getTbCurveRadius3(){
+        String value = tbCurveRadius3.getAttribute("value");
+//        if(value.isEmpty())
+//            Reporter.log("Curve Radius value is null",MessageTypes.Fail);
+        if(value.equals("0.00"))
+            return "0";
+        else
+            return value;
+    }
+
+    public String getTbCurveRadius4(){
+        String value = tbCurveRadius4.getAttribute("value");
+//        if(value.isEmpty())
+//            Reporter.log("Curve Radius value is null",MessageTypes.Fail);
+        if(value.equals("0.00"))
+            return "0";
+        else
+            return value;
+    }
+
+
+    public String getTbProjectedLength1(){
+        return tbProjectedLength1.getAttribute("value");
+    }
+
+    public String getTbProjectedLength2(){
+        return tbProjectedLength2.getAttribute("value");
+    }
+
+    public String getTbProjectedLength3(){
+        return tbProjectedLength3.getAttribute("value");
+    }
+
+    public String getTbProjectedLength4(){
+        return tbProjectedLength4.getAttribute("value");
+    }
+
+    public String getTbCenterTension1(){
+        String value= tbCenterTension1.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Center Tension value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbCenterTension2(){
+        String value= tbCenterTension2.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Center Tension value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbCenterTension3(){
+        String value= tbCenterTension3.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Center Tension value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbCenterTension4(){
+        String value= tbCenterTension4.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Center Tension value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbCenterTensionPercentage1(){
+        return tbCenterTensionPercentage1.getAttribute("value");
+    }
+
+    public String getTbCenterTensionPercentage2(){
+        return tbCenterTensionPercentage2.getAttribute("value");
+    }
+
+    public String getTbCenterTensionPercentage3(){
+        return tbCenterTensionPercentage3.getAttribute("value");
+    }
+
+    public String getTbCenterTensionPercentage4(){
+        return tbCenterTensionPercentage4.getAttribute("value");
+    }
+
+    public String getTbEdgeTension1(){
+        String value= tbEdgeTension1.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Edge Tension value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbEdgeTension2(){
+        String value= tbEdgeTension2.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Edge Tension value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbEdgeTension3(){
+        String value= tbEdgeTension3.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Edge Tension value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbEdgeTension4(){
+        String value= tbEdgeTension4.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Edge Tension value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbEdgeTensionPercentage1(){
+        return tbEdgeTensionPercentage1.getAttribute("value");
+    }
+
+    public String getTbEdgeTensionPercentage2(){
+        return tbEdgeTensionPercentage2.getAttribute("value");
+    }
+
+    public String getTbEdgeTensionPercentage3(){
+        return tbEdgeTensionPercentage3.getAttribute("value");
+    }
+
+    public String getTbEdgeTensionPercentage4(){
+        return tbEdgeTensionPercentage4.getAttribute("value");
+    }
+
+    public String getTbEstimatedLiftOff1(){
+        String value= tbEstimatedLiftOff1.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Estimated Lift off value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbEstimatedLiftOff2(){
+        String value= tbEstimatedLiftOff2.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Estimated Lift off value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbEstimatedLiftOff3(){
+        String value= tbEstimatedLiftOff3.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Estimated Lift off value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getTbEstimatedLiftOff4(){
+        String value= tbEstimatedLiftOff4.getAttribute("value");
+        if(value.isEmpty())
+            Reporter.log("Estimated Lift off value is null",MessageTypes.Fail);
+        return value;
+    }
+
+    public String getStationCheckBox(){
+        String ele="";
+        for(int i=1;i<=6;i++){
+            WebElement element=driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)["+i+"]"));
+             if(element.isSelected()){
+                ele=element.getAttribute("value");
+             }else
+                 break;
+        }
+        return ele;
+    }
+
+    public String getDriveStation(){
+        String ele="";
+        for (int i=1;i<=6;i++){
+            WebElement element=driver.findElement(By.xpath("(//p-radiobutton[@formcontrolname='drive']//input)["+i+"]"));
+            if(element.isSelected()){
+                ele=element.getAttribute("value");
+                break;
+            }
+
+        }return ele;
+    }
+
+    public String getTakeUpStation(){
+        String ele="";
+        for (int i=1;i<=6;i++){
+            WebElement element=driver.findElement(By.xpath("(//p-radiobutton[@formcontrolname='takeup']//input)["+i+"]"));
+            if(element.isSelected()){
+                ele=element.getAttribute("value");
+                break;
+            }
+
+        }return ele;
+    }
+
+    public ArrayList<String> getHorzOffsets(String stations){
+        ArrayList<String> array=new ArrayList<>();
+        for (int i=1;i<=Integer.parseInt(stations);i++){
+            WebElement element=driver.findElement(By.xpath("(//input[@formcontrolname='horizontalOffsets'])["+i+"]"));
+            array.add(element.getAttribute("value").replaceAll(",",""));
+        }
+        return array;
+    }
+
+    public ArrayList<Float> getHorzOffset(String stations){
+        ArrayList<Float> array=new ArrayList<>();
+        for (int i=1;i<=Integer.parseInt(stations);i++){
+            WebElement element=driver.findElement(By.xpath("(//input[@formcontrolname='horizontalOffsets'])["+i+"]"));
+            array.add(Float.parseFloat(element.getAttribute("value").replaceAll(",","")));
+        }
+        return array;
+    }
+
+    public ArrayList<Float> getElevOffset(String stations){
+        ArrayList<Float> array=new ArrayList<>();
+        for (int i=1;i<=Integer.parseInt(stations);i++){
+            WebElement element=driver.findElement(By.xpath("(//input[@formcontrolname='elevationOffsets'])["+i+"]"));
+            array.add(Float.parseFloat(element.getAttribute("value").replaceAll(",","")));
+        }
+        return array;
+    }
+
+    public ArrayList<String> getElevOffsets(String stations){
+        ArrayList<String> array=new ArrayList<>();
+        for (int i=1;i<=Integer.parseInt(stations);i++){
+            WebElement element=driver.findElement(By.xpath("(//input[@formcontrolname='elevationOffsets'])["+i+"]"));
+            array.add(element.getAttribute("value").replaceAll(",",""));
+        }
+        return array;
+    }
+
+    public ArrayList<Float> getSectionAngle(String stations){
+        ArrayList<Float> array=new ArrayList<>();
+        for (int i=1;i<Integer.parseInt(stations);i++){
+            WebElement element=driver.findElement(By.xpath("(//input[@formcontrolname='sectionAngles'])["+i+"]"));
+            array.add(Float.valueOf(element.getAttribute("value")));
+        }
+        return array;
+    }
+
+    public ArrayList<String> getSectionAngles(String stations){
+        ArrayList<String> array=new ArrayList<>();
+        for (int i=1;i<Integer.parseInt(stations);i++){
+            WebElement element=driver.findElement(By.xpath("(//input[@formcontrolname='sectionAngles'])["+i+"]"));
+            array.add(element.getAttribute("value"));
+        }
+        return array;
+    }
+
+
+
+    public void verifyPerPopulatedDataInGeneralInfoPage(String program,String manufacturingLocation){
+        Validator.assertTrue(tbProgram.getText().equalsIgnoreCase(program),"The initial value provided for the Program field does not match the expected value.","The initial value provided for the Program field matches the expected value.");
+        Validator.assertTrue(tbManufacturingLocation.getText().equalsIgnoreCase(manufacturingLocation),"The initial value provided for the Manufacturing Location field does not match the expected value.","The initial value provided for the Manufacturing Location field matches the expected value.");
+        Validator.assertTrue(checkedRadioMetric.isSelected(),"Metric radio button is should be selected","Metric radio button is selected as expected");
+    }
+
+    public void verifyPrePopulatedDataInInputsPage(String beltWidth,String beltSpeed,String tonsPerHourPeak,String pickMaterialName,String materialDensity, String angleOfIdlers, String carrySideIdler, String driveWrapAngle,String driveWrapAngleDegree,String takeUpTension,String frictionFactor,String lengthFactor,String surchargeAngle,String idlerOffsetType,String driveDetails,String takeUpDetails, String spliceType){
+        Validator.assertTrue(tbBeltWidth.getAttribute("value").equalsIgnoreCase(beltWidth),"The initial value provided for the Belt Width field does not match the expected value.","The initial value provided for the Belt Width field matches the expected value.");
+        Validator.assertTrue(tbBeltSpeed.getAttribute("value").equalsIgnoreCase(beltSpeed),"The initial value provided for the Belt Speed field does not match the expected value.","The initial value provided for the Belt Speed field matches the expected value.");
+        Validator.assertTrue(tbTonsPerHourPeak.getAttribute("value").equalsIgnoreCase(tonsPerHourPeak),"The initial value provided for the Tons Per Hour Peak field does not match the expected value.","The initial value provided for the Tons Per Hour Peak field matches the expected value.");
+//        Validator.assertTrue(tbPickMaterialName.getAttribute("value").equalsIgnoreCase(pickMaterialName),"The initial value provided for the Pick Material Name field does not match the expected value.","The initial value provided for the Pick Material Name field matches the expected value.");
+        Validator.assertTrue(tbMaterialDensity.getAttribute("value").equalsIgnoreCase(materialDensity),"The initial value provided for the Material Density field does not match the expected value.","The initial value provided for the Material Density field matches the expected value.");
+        Validator.assertTrue(tbAngleOfIdlers.getAttribute("value").equalsIgnoreCase(angleOfIdlers),"The initial value provided for the Angle Of Idlers field does not match the expected value.","The initial value provided for the Angle Of Idlers field matches the expected value.");
+        Validator.assertTrue(tbCarrySideIdlerSpacing.getAttribute("value").equalsIgnoreCase(carrySideIdler),"The initial value provided for the Carry Side Idler Spacing field does not match the expected value.","The initial value provided for the Carry Side Idler Spacing field matches the expected value.");
+        //Validator.assertTrue(tbDriveWrapAngle.getAttribute("value").equalsIgnoreCase(driveWrapAngle),"The initial value provided for the Drive Wrap Angle field does not match the expected value.","The initial value provided for the Drive Wrap Angle field matches the expected value.");
+        Validator.assertTrue(tbDriveWrapAngle2.getAttribute("value").equalsIgnoreCase(driveWrapAngleDegree),"The initial value provided for the Drive Wrap Angle field does not match the expected value.","The initial value provided for the Drive Wrap Angle field matches the expected value.");
+        Validator.assertTrue(tbTakeUpTension.getAttribute("value").equalsIgnoreCase(takeUpTension),"The initial value provided for the Take-Up Tension field does not match the expected value.","The initial value provided for the Take-Up Tension field matches the expected value.");
+        Validator.assertTrue(checkedRadioPermanent.isSelected(),"Conveyors with permanent or other well aligned structures with normal maintenance radio button is should be selected.","Conveyors with permanent or other well aligned structures with normal maintenance radio button is selected as expected.");
+        Validator.assertTrue(tbFrictionFactorValue.getAttribute("value").equalsIgnoreCase(frictionFactor),"The initial value provided for the Friction Factor field does not match the expected value.","The initial value provided for the Friction Factor field matches the expected value.");
+        Validator.assertTrue(tbLengthFactorValue.getAttribute("value").equalsIgnoreCase(lengthFactor),"The initial value provided for the Length Factor field does not match the expected value.","The initial value provided for the Length Factor field matches the expected value.");
+        Validator.assertTrue(tbSurchargeAngle.getAttribute("value").equalsIgnoreCase(surchargeAngle),"The initial value provided for the Surcharge Angle field does not match the expected value.","The initial value provided for the Surcharge Angle field matches the expected value.");
+        Validator.assertTrue(tbIdlerOffsetType.getAttribute("value").equalsIgnoreCase(idlerOffsetType),"The initial value provided for the Idler Offset Type field does not match the expected value.","The initial value provided for the Idler Offset Type field matches the expected value.");
+        Validator.assertTrue(driveDetailsDropdown.getText().equalsIgnoreCase(driveDetails),"The initial value provided for the Drive Details field does not match the expected value.","The initial value provided for the Drive Details field matches the expected value.");
+        Validator.assertTrue(takeUpDetailsDropdown.getText().equalsIgnoreCase(takeUpDetails),"The initial value provided for the Take-Up Details field does not match the expected value.","The initial value provided for the Take-Up Details field matches the expected value.");
+        Validator.assertTrue(spliceTypeDropdown.getText().equalsIgnoreCase(spliceType),"The initial value provided for the Splice Type field does not match the expected value.","The initial value provided for the Spice Type field matches the expected value.");
+    }
+
+    public void verifyPrePopulatedDetailsInStationsPage(String stations,String driveLocation,String takeUpLocation){
+        Validator.assertTrue(getStationCheckBox().equals(stations),"Number of Station selected is not matching with the expected value","Number of Stations selected is matching with the expected value");
+        System.out.println("ABCD: = "+getDriveStation());
+        System.out.println("ABCD: = "+driveLocation);
+        Validator.assertTrue(getDriveStation().equals(driveLocation),"Drive station selected is not matching with the expected value","Drive station selected is matching with the expected value");
+        Validator.assertTrue(getTakeUpStation().equals(takeUpLocation),"Take-Up station selected is not matching with the expected value","Take-Up station selected is matching with the expected value");
+    }
+
+    public void verifyPrePopulatedDetailsInFlightInfo(String typeOfConfiguration,String stations, String[] horzOffset,String[] elevOffset,String[] sectionAngle,String estimatedCCLength){
+        Validator.assertTrue(tbTypeOfConfiguration.getAttribute("value").equalsIgnoreCase(typeOfConfiguration),"The initial value provided for the Type of Configuration field does not match the expected value.","The initial value provided for the Type of Configuration field matches the expected value.");
+        System.out.println("ABCD: = "+getHorzOffsets(stations));
+        System.out.println("ABCD: = "+Arrays.asList(horzOffset));
+        Validator.assertTrue(getHorzOffsets(stations).equals(Arrays.asList(horzOffset)),"The initial value provided for the Horz Offset field does not match the expected value.","The initial value provided for the Horz Offset field matches the expected value.");
+        Validator.assertTrue(getElevOffsets(stations).equals(Arrays.asList(elevOffset)),"The initial value provided for the Elev Offset field does not match the expected value.","The initial value provided for the Elev Offset field matches the expected value.");
+        Validator.assertTrue(getSectionAngles(stations).equals(Arrays.asList(sectionAngle)),"The initial value provided for the Section Angle field does not match the expected value.","The initial value provided for the Section Angle field matches the expected value.");
+        Validator.assertTrue(tbEstimatedCCLength.getAttribute("value").equals(estimatedCCLength),"The initial value provided for the Estimated C-C Length field does not match the expected value.","The initial value provided for the Estimated C-C Length field matches the expected value.");
+    }
+
+    public void verifyPrePopulatedDetailsInSelectBeltPage(String tradeName,String coverGrade,String rating,String plies,String coverGaugeUnits, String gaugeTopCover, String gaugePulleyCover){
+        Validator.assertTrue(tradeNameDropdown.getText().equalsIgnoreCase(tradeName),"The initial value provided for the Trade Name field does not match the expected value.","The initial value provided for the Trade Name field matches the expected value.");
+        Validator.assertTrue(coverGradeDropdown.getText().equalsIgnoreCase(coverGrade),"The initial value provided for the Cover Grade field does not match the expected value.","The initial value provided for the Cover Grade field matches the expected value.");
+        Validator.assertTrue(ratingDropdown.getText().equalsIgnoreCase(rating),"The initial value provided for the Rating field does not match the expected value.","The initial value provided for the Rating field matches the expected value.");
+        Validator.assertTrue(pliesDropdown.getText().equalsIgnoreCase(plies),"The initial value provided for the Plies field does not match the expected value.","The initial value provided for the Plies field matches the expected value.");
+        Validator.assertTrue(coverGaugeUnitDropdown.getText().equalsIgnoreCase(coverGaugeUnits),"The initial value provided for the Cover Gauge Units field does not match the expected value.","The initial value provided for the Cover Gauge Units field matches the expected value.");
+        Validator.assertTrue(gaugeTopCoverDropdown.getText().equalsIgnoreCase(gaugeTopCover),"The initial value provided for the Gauge Top Cover field does not match the expected value.","The initial value provided for the Gauge Top Cover field matches the expected value.");
+        Validator.assertTrue(gaugePulleyCoverDropdown.getText().equalsIgnoreCase(gaugePulleyCover),"The initial value provided for the Gauge Pulley Cover field does not match the expected value.","The initial value provided for the Gauge Pulley Cover field matches the expected value.");
+    }
+
+    public void verifyPrePopulatedDetailsInCapacityPage(String beltSpeed,String tonsPerHourPeak){
+        Validator.assertTrue(tbBeltSpeed.getAttribute("value").equalsIgnoreCase(beltSpeed),"The initial value provided for the Belt Speed field does not match the expected value.","The initial value provided for the Belt Speed field matches the expected value.");
+        Validator.assertTrue(tbTonsPerHourPeak.getAttribute("value").equalsIgnoreCase(tonsPerHourPeak),"The initial value provided for the Tons Per Hour Peak field does not match the expected value.","The initial value provided for the Tons Per Hour Peak field matches the expected value.");
+
+    }
+
+    public void verifyPrePopulatedDetailsInRollDataPage(String totalBeltLength,String numberOfRolls){
+        Validator.assertTrue(tbTotalBeltLength.getAttribute("value").equalsIgnoreCase(totalBeltLength),"The initial value provided for the Total Belt Length field does not match the expected value.","The initial value provided for the Total Belt Length field matches the expected value.");
+        Validator.assertTrue(tbNumberOfRollsConveyorRollData.getAttribute("value").equalsIgnoreCase(numberOfRolls),"The initial value provided for the Number Of Rolls field does not match the expected value.","The initial value provided for the Number Of Rolls field matches the expected value.");
+    }
+
+    public void verifyPrePopulatedDetailsInPulleyPage(String pulleyHeadDiameter,String pulleyDriveDiameter,String pulleyTakeUpDiameter,String pulleyTailDiameter){
+        Validator.assertTrue(tbPulleyHeadDiameter.getAttribute("value").equalsIgnoreCase(pulleyHeadDiameter),"The initial value provided for the Pulley Head Diameter field does not match the expected value.","The initial value provided for the Pulley Head Diameter field matches the expected value.");
+        Validator.assertTrue(tbPulleyDriveDiameter.getAttribute("value").equalsIgnoreCase(pulleyDriveDiameter),"The initial value provided for the Pulley Drive Diameter field does not match the expected value.","The initial value provided for the Pulley Drive Diameter field matches the expected value.");
+        Validator.assertTrue(tbPulleyTakeUpDiameter.getAttribute("value").equalsIgnoreCase(pulleyTakeUpDiameter),"The initial value provided for the Pulley Take-Up Diameter field does not match the expected value.","The initial value provided for the Pulley Take-Up Diameter field matches the expected value.");
+        Validator.assertTrue(tbPulleyTailDiameter.getAttribute("value").equalsIgnoreCase(pulleyTailDiameter),"The initial value provided for the Pulley Tail Diameter field does not match the expected value.","The initial value provided for the Pulley Tail Diameter field matches the expected value.");
+    }
+
+    public void verifyPrePopulatedDetailsInTransitionsPage(String transitionLengthHead,String transitionLengthTail){
+        Validator.assertTrue(tbLengthHead.getAttribute("value").equalsIgnoreCase(transitionLengthHead),"The initial value provided for the Transition Length Head field does not match the expected value.","The initial value provided for the Transition Length Head field matches the expected value.");
+        Validator.assertTrue(tbLengthTail.getAttribute("value").equalsIgnoreCase(transitionLengthTail),"The initial value provided for the Transition Length Tail field does not match the expected value.","The initial value provided for the Transition Length Tail field matches the expected value.");
+    }
+
+    public void verifyPrePopulatedDetailsInTakeUpPage(String takeUpTensionIfKnown){
+        System.out.println("ABCD: ="+tbTakeUpTensionifknown.getAttribute("value"));
+        System.out.println("ABCD: ="+takeUpTensionIfKnown);
+        Validator.assertTrue(tbTakeUpTensionifknown.getAttribute("value").equalsIgnoreCase(takeUpTensionIfKnown),"The initial value provided for the Take-Up tension (if known) field does not match the expected value.","The initial value provided for the Take-Up tension (if known) field matches the expected value.");
+    }
+
+    public void verifyPrePopulatedDetailsInCurvesPage(String curveRadius1,String curveRadius2,String curveRadius3,String curveRadius4){
+        Validator.assertTrue(tbCurveRadius1.getAttribute("value").equalsIgnoreCase(curveRadius1),"The initial value provided for the Curve Radius 1 field does not match the expected value.","The initial value provided for the Curve Radius 1 field matches the expected value.");
+        Validator.assertTrue(tbCurveRadius2.getAttribute("value").equalsIgnoreCase(curveRadius2),"The initial value provided for the Curve Radius 2 field does not match the expected value.","The initial value provided for the Curve Radius 2 field matches the expected value.");
+        Validator.assertTrue(tbCurveRadius3.getAttribute("value").equalsIgnoreCase(curveRadius3),"The initial value provided for the Curve Radius 3 field does not match the expected value.","The initial value provided for the Curve Radius 3 field matches the expected value.");
+        Validator.assertTrue(tbCurveRadius4.getAttribute("value").equalsIgnoreCase(curveRadius4),"The initial value provided for the Curve Radius 4 field does not match the expected value.","The initial value provided for the Curve Radius 4 field matches the expected value.");
+    }
+
+    public ArrayList<String> getInputPageData(){
+        String frictionFactor=getFrictionFactor();
+        String lengthFactor=getLengthFactor();
+        String driveWrapAngle=getDriveWrapAngle();
+        String surchargeAngle=getSurchargeAngle().split("\\(")[1].split("\\s")[0];
+        return new ArrayList<>(Arrays.asList(frictionFactor,lengthFactor,driveWrapAngle,surchargeAngle));
+    }
+
+    public ArrayList<Float> getFlightConfiguration(String station){
+        ArrayList<Float> horzOffset=getHorzOffset(station);
+        ArrayList<Float> elevOffset=getElevOffset(station);
+        ArrayList<Float> sectionAngle=getSectionAngle(station);
+        ArrayList<Float> flightConfiguration=new ArrayList<>();
+        for (int i=0;i<Integer.parseInt(station)-1;i++){
+            flightConfiguration.add(horzOffset.get(i));
+            flightConfiguration.add(elevOffset.get(i));
+            flightConfiguration.add(sectionAngle.get(i));
+        }
+        for (int i=Integer.parseInt(station)-1;i<=Integer.parseInt(station)-1;i++){
+            flightConfiguration.add(horzOffset.get(i));
+            flightConfiguration.add(elevOffset.get(i));
+        }
+        flightConfiguration.add(Float.valueOf(tbEstimatedCCLength.getAttribute("value")));
+        return flightConfiguration;
+    }
+
+    public ArrayList<String> getConveyorBeltDataInRollDataPage(){
+        String beltSpecification=getTbBeltSpecification();
+        String carcassMaterial=getTbCarcassMaterial();
+        String numberOfPlies=getTbNumberPlies();
+        String plyTensionStrength=getTbPlyTensileStrength();
+        String beltTensileStrength=getTbBeltTensileStrength();
+        String elasticModules=getTbElasticModules();
+        String vulcanizedRating=getTbVulcanizedRating();
+        String mechanicalRating=getTbMechanicalRating();
+        String carcassGauge=getTbCarcassGauge();
+        String totalCoverGauge=getTbTotalCoverGauge();
+        String totalBeltGauge=getTbTotalBeltGauge();
+        String carcassWeight=getTbCarcassWeight();
+        String totalCoverWeight=getTbTotalCoverWeight();
+        String totalBeltWeight=getTbTotalBeltWeight();
+        return new ArrayList<>(Arrays.asList(beltSpecification,carcassMaterial,numberOfPlies,plyTensionStrength,beltTensileStrength,
+                elasticModules,vulcanizedRating,mechanicalRating,carcassGauge,totalCoverGauge,totalBeltGauge,
+                carcassWeight,totalCoverWeight,totalBeltWeight));
+    }
+
+    public ArrayList<String> getConveyorROllDataInRollDataPage(){
+        String totalBeltLength=getTotalBeltLength();
+        String numberOfRolls=getNumberOfRolls();
+        String rollLength=getTbRollLength();
+        String rollDiameter=getTbRollDiameter();
+        String rollWeight=getTbRollWeight();
+        String cubage=getTbCubage();
+        return new ArrayList<>(Arrays.asList(totalBeltLength,numberOfRolls,rollLength,rollDiameter,rollWeight,cubage));
+    }
+
+    public ArrayList<String> getConveyorSpliceDimensionsDataInRollDataPage(){
+        String numberOfRolls=getTbNumberOfRollsConveyorSpliceDimension();
+        String vulcanizedSpliceAngle=getTbVulcanizedSpliceAngle();
+        String stepLength=getTbStepLength();
+        String biasLength=getTbBiasLength();
+        String spliceLength=getTbSpliceLength();
+        String extraBeltLength=getTbExtraBeltLength();
+        return new ArrayList<>(Arrays.asList(numberOfRolls,vulcanizedSpliceAngle,stepLength,biasLength,spliceLength,extraBeltLength));
+    }
+
+   public ArrayList<String> getPulleysPageData(){
+        String stationNumberHead=getTbStationNumberHead();
+        String stationNumberDrive=getTbStationNumberDrive();
+        String stationNumberTakeUp=getTbStationNumberTakeUp();
+        String stationNumberTail=getTbStationNumberTail();
+        String beltTensionHead=getTbBeltTensionHead();
+        String beltTensionDrive=getTbBeltTensionDrive();
+        String beltTensionTakeUp=getTbBeltTensionTakeUp();
+        String beltTensionTail=getTbBeltTensionTail();
+        String minPulleyDiameterHead=getTbMinPulleyDiameterHead();
+        String minPulleyDiameterDrive=getTbMinPulleyDiameterDrive();
+        String minPulleyDiameterTakeUp=getTbMinPulleyDiameterTakeUp();
+        String minPulleyDiameterTail=getTbMinPulleyDiameterTail();
+        String pulleyDiameterHead=getTbPulleyDiameterHead();
+        String pulleyDiameterDrive=getTbPulleyDiameterDrive();
+        String pulleyDiameterTakeUp=getTbPulleyDiameterTakeUp();
+        String pulleyDiameterTail=getTbPulleyDiameterTail();
+        return new ArrayList<>(Arrays.asList(stationNumberHead,stationNumberDrive,stationNumberTakeUp,stationNumberTail,
+                beltTensionHead,beltTensionDrive,beltTensionTakeUp,beltTensionTail,minPulleyDiameterHead,minPulleyDiameterDrive,
+                minPulleyDiameterTakeUp,minPulleyDiameterTail,pulleyDiameterHead,pulleyDiameterDrive,pulleyDiameterTakeUp,pulleyDiameterTail));
+   }
+
+   public ArrayList<String> getTransitionsPageData(){
+        String beltTensionHead=getTbBeltTensionHeadTransitionLengthPage();
+        String beltTensionTail=getTbBeltTensionTailTransitionLengthPage();
+        String idlerAngleHead=getTbIdlerAngleHead();
+        String idlerAngleTail=getTbIdlerAngleTail();
+        String troughDepthHead=getTbTroughDepthHead();
+        String troughDepthTail=getTbTroughDepthTail();
+        String lengthHead=getLengthHead();
+        String lengthTail=getLengthTail();
+        String edgeTensionHead=getTbEdgeTensionHead();
+        String edgeTensionTail=getTbEdgeTensionTail();
+        String edgeTensionPercentageHead=getTbEdgeTensionHeadPercentage();
+        String edgeTensionPercentageTail=getTbEdgeTensionTailPercentage();
+        String centerTensionHead=getTbCenterTensionHead();
+        String centerTensionTail=getTbCenterTensionTail();
+        String centerTensionPercentageHead=getTbCenterTensionHeadPercentage();
+        String centerTensionPercentageTail=getTbCenterTensionTailPercentage();
+        return new ArrayList<>(Arrays.asList(beltTensionHead,beltTensionTail,idlerAngleHead,idlerAngleTail,troughDepthHead,troughDepthTail,
+                lengthHead,lengthTail,edgeTensionHead,edgeTensionTail,edgeTensionPercentageHead,edgeTensionPercentageTail,centerTensionHead,
+                centerTensionTail,centerTensionPercentageHead,centerTensionPercentageTail));
+   }
+
+   public ArrayList<String> getReviewCalculatedTakeUpTravelDataTakeUpPage(){
+        String takeUpTension=getTbTakeUpTensionTakeUpLevel();
+        String counterweightWeight=getTbCounterweightWeightTakeUpLevel();
+        String typeOfSplice="";
+        if (checkedRadioVulcanized.isSelected()){
+            typeOfSplice="Vulcanized";
+        }else if(checkedRadioMechanical.isSelected()){
+            typeOfSplice="Mechanical";
+        }
+        return new ArrayList<>(Arrays.asList(takeUpTension,counterweightWeight,typeOfSplice));
+   }
+
+   public ArrayList<String> getCalculatedTakeUpDataInTakeUpPage(){
+        String maximumBeltTension=getTbMaximumBeltTension();
+        String averageBeltTension=getTbAverageBeltTension();
+        String permanentElongation=getTbEstimatedTakeUpMovementDueToPermanentElongation();
+        String elasticElongation=getTbEstimatedTakeUpMovementDueToElasticElongation();
+        String totalEstimatedTakeUpMovementPercentage=getTbTotalEstimatedTakeUpMovementPercentage();
+        String estimatedBeltCCLength=getTbEstimatedBeltLength();
+        String totalEstimatedTakeUpMovement=getTbTotalEstimatedTakeUpMovement();
+        String takeUpTensionIfKnown=getTbTakeUPTensionIfKnown();
+        return new ArrayList<>(Arrays.asList(maximumBeltTension,averageBeltTension,permanentElongation,elasticElongation,
+                totalEstimatedTakeUpMovementPercentage,estimatedBeltCCLength,totalEstimatedTakeUpMovement,takeUpTensionIfKnown));
+   }
+
+   public ArrayList<String> getCalculatedVerticalCurvesDataInCurvesPage(){
+        String stationLocation1=getTbStationLocation1();
+        String stationLocation2=getTbStationLocation2();
+        String stationLocation3=getTbStationLocation3();
+        String stationLocation4=getTbStationLocation4();
+        String curveDescription1=getTbCurveDescription1();
+        String curveDescription2=getTbCurveDescription2();
+        String curveDescription3=getTbCurveDescription3();
+        String curveDescription4=getTbCurveDescription4();
+        String maximumBeltTension1=getTbMaximumBeltTension1();
+        String maximumBeltTension2=getTbMaximumBeltTension2();
+        String maximumBeltTension3=getTbMaximumBeltTension3();
+        String maximumBeltTension4=getTbMaximumBeltTension4();
+        String minimumBeltTension1=getTbMinimumBeltTension1();
+        String minimumBeltTension2=getTbMinimumBeltTension2();
+        String minimumBeltTension3=getTbMinimumBeltTension3();
+        String minimumBeltTension4=getTbMinimumBeltTension4();
+        String curveRadius1=getTbCurveRadius1();
+        String curveRadius2=getTbCurveRadius2();
+        String curveRadius3=getTbCurveRadius3();
+        String curveRadius4=getTbCurveRadius4();
+        String projectedLength1=getTbProjectedLength1();
+        String projectedLength2=getTbProjectedLength2();
+        String projectedLength3=getTbProjectedLength3();
+        String projectedLength4=getTbProjectedLength4();
+        String centerTension1=getTbCenterTension1();
+        String centerTension2=getTbCenterTension2();
+        String centerTension3=getTbCenterTension3();
+        String centerTension4=getTbCenterTension4();
+        String centerTensionPercentage1=getTbCenterTensionPercentage1();
+        String centerTensionPercentage2=getTbCenterTensionPercentage2();
+        String centerTensionPercentage3=getTbCenterTensionPercentage3();
+        String centerTensionPercentage4=getTbCenterTensionPercentage4();
+        String edgeTension1=getTbEdgeTension1();
+        String edgeTension2=getTbEdgeTension2();
+        String edgeTension3=getTbEdgeTension3();
+        String edgeTension4=getTbEdgeTension4();
+        String edgeTensionPercentage1=getTbEdgeTensionPercentage1();
+        String edgeTensionPercentage2=getTbEdgeTensionPercentage2();
+        String edgeTensionPercentage3=getTbEdgeTensionPercentage3();
+        String edgeTensionPercentage4=getTbEdgeTensionPercentage4();
+        String estimatedLiftOff1=getTbEstimatedLiftOff1();
+        String estimatedLiftOff2=getTbEstimatedLiftOff2();
+        String estimatedLiftOff3=getTbEstimatedLiftOff3();
+        String estimatedLiftOff4=getTbEstimatedLiftOff4();
+        return new ArrayList<>(Arrays.asList(stationLocation1,stationLocation2,stationLocation3,stationLocation4,
+                curveDescription1,curveDescription2,curveDescription3,curveDescription4,maximumBeltTension1,maximumBeltTension2,
+                maximumBeltTension3,maximumBeltTension4,minimumBeltTension1,minimumBeltTension2,minimumBeltTension3,
+                minimumBeltTension4,curveRadius1,curveRadius2,curveRadius3,curveRadius4,projectedLength1,projectedLength2,
+                projectedLength3,projectedLength4,centerTension1,centerTension2,centerTension3,centerTension4,centerTensionPercentage1,
+                centerTensionPercentage2,centerTensionPercentage3,centerTensionPercentage4,edgeTension1,edgeTension2,
+                edgeTension3,edgeTension4,edgeTensionPercentage1,edgeTensionPercentage2,edgeTensionPercentage3,edgeTensionPercentage4,
+                estimatedLiftOff1,estimatedLiftOff2,estimatedLiftOff3,estimatedLiftOff4));
+   }
+
+    public static boolean compareWithPercentageDifference(double value1, double value2) {
+        double difference = Math.abs(value1 - value2);
+        double average = (value1 + value2) / 2.0;
+        double percentageDifference = (difference / average) * 100.0;
+        return percentageDifference <= PERCENTAGE_THRESHOLD;
+    }
+
+   public void verifyConveyorInformation(ArrayList<String> beltData,String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
+       Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
+      // Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
+       Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+      // Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(3).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+   }
+
+   public void verifySystemCoordinates(ArrayList<Float> flightInformation,ArrayList<Float> systemCoordinatesReport){
+       System.out.println("ABCD: = "+flightInformation);
+       System.out.println("ABCD: = "+systemCoordinatesReport);
+        Validator.assertTrue(flightInformation.equals(systemCoordinatesReport),"System coordinates in reports is not matching with entered value","System coordinates in reports is matching with entered value");
+   }
+
+   public void verifyMaterialData(String tonsPerHourPeak,String materialDensity,ArrayList<String> inputData,ArrayList<String> materialDataReport){
+       Validator.assertTrue(tonsPerHourPeak.equals(materialDataReport.get(0).trim()),"Tons per hour peak in reports is not matching with the calculated value","Tons per hour in reports is not matching with the calculated value");
+       System.out.println("ABCD:= "+materialDensity);
+       System.out.println("ABCD:= "+materialDataReport.get(1).trim());
+       Validator.assertTrue(materialDensity.equals(materialDataReport.get(1).trim()),"Material Density in reports is not matching with the calculated value","Material Density in reports is not matching with the calculated value");
+       Validator.assertTrue(inputData.get(3).equals(materialDataReport.get(2).trim()),"Surcharge Angle in reports is not matching with the calculated value","Surcharge Angle in reports is not matching with the calculated value");
+   }
+
+   public void verifyInputBeltData(String beltWidth,String beltSpeed, ArrayList<String> inputBeltDataReport){
+       Validator.assertTrue(beltWidth.equals(inputBeltDataReport.get(0).trim()),"Width in reports is not matching with the calculated value","Width in reports is not matching with the calculated value");
+       Validator.assertTrue(beltSpeed.equals(inputBeltDataReport.get(1).trim()),"Speed in reports is not matching with the calculated value","Speed in reports is not matching with the calculated value");
+//       Validator.assertTrue( " ".equals(inputBeltDataReport.get(2)),"Weight in reports is not matching with the calculated value","Weight in reports is not matching with the calculated value");
+//       Validator.assertTrue( " ".equals(inputBeltDataReport.get(2)),"OAG in reports is not matching with the calculated value","OAG in reports is not matching with the calculated value");
+   }
+
+   public void verifySystemData(ArrayList<String> capacity,String carrySideIdlerSpacing,String driveLocation,String takeUpLocation,ArrayList<String> inputData,ArrayList<String> systemDataReport){
+       Validator.assertTrue(capacity.get(1).equals(systemDataReport.get(0)),"Trough Angle of Idlers in reports is not matching with the calculated value","Trough Angle of Idlers in reports is not matching with the calculated value");
+       Validator.assertTrue(carrySideIdlerSpacing.equals(systemDataReport.get(1)),"Carry Side Idler Spacing in reports is not matching with the calculated value","Carry Side Idler Spacing in reports is not matching with the calculated value");
+       Validator.assertTrue(driveLocation.equals(systemDataReport.get(2).trim()),"Station Location of Drive in reports is not matching with the calculated value","Station Location of Drive in reports is not matching with the calculated value");
+       Validator.assertTrue(takeUpLocation.equals(systemDataReport.get(3).trim()),"Station Location of Take-up in reports is not matching with the calculated value","Station Location of Take-up in reports is not matching with the calculated value");
+//       Validator.assertTrue(" ".equals(systemDataReport.get(4)),"Weight of Moving Parts in reports is not matching with the calculated value","Weight of Moving Parts in reports is not matching with the calculated value");
+//       Validator.assertTrue(" ".equals(systemDataReport.get(5)),"Drive Factor in reports is not matching with the calculated value","Drive Factor reports is not matching with the calculated value");
+       Validator.assertTrue(inputData.get(0).equals(systemDataReport.get(6)),"Friction factor in reports is not matching with the calculated value","Friction factor in reports is not matching with the calculated value");
+       Validator.assertTrue(inputData.get(1).equals(systemDataReport.get(7)),"Length factor in reports is not matching with the calculated value","Length factor in reports is not matching with the calculated value");
+       Validator.assertTrue(inputData.get(2).equals(systemDataReport.get(8)),"Drive wrap in reports is not matching with the calculated value","Drive wrap in reports is not matching with the calculated value");
+   }
+
+   public void verifyCalculateData(ArrayList<String> calculatedData,ArrayList<String> rollData,ArrayList<String> calculatedDataReport){
+        System.out.println("This is the unit"+calculatedData.get(0)+" "+calculatedDataReport.get(0));
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(0)),parseDouble(calculatedDataReport.get(0))),"Unit tension in reports is not matching with the calculated value","Unit tension in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(1)),parseDouble(calculatedDataReport.get(1))),"Maximum tension in reports is not matching with the calculated value","Maximum tension in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(2)),parseDouble(calculatedDataReport.get(2))),"Effective tension in reports is not matching with the calculated value","Effective tension in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(3)),parseDouble(calculatedDataReport.get(3))),"Belt power in reports is not matching with the calculated value","Belt power in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(4)),parseDouble(calculatedDataReport.get(4))),"Counterweight Weight in reports is not matching with the calculated value","Counterweight Weight in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(5)),parseDouble(calculatedDataReport.get(5))),"Counterweight tension in reports is not matching with the calculated value","Counterweight tension in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(6)),parseDouble(calculatedDataReport.get(6))),"Conveyor capacity in reports is not matching with the calculated value","Conveyor capacity in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(rollData.get(0)),parseDouble(calculatedDataReport.get(7))),"Estimated belt length in reports is not matching with the calculated value","Estimated belt length in reports is not matching with the calculated value");
+   }
+
+   public void verifyBeltData(ArrayList<String> beltData,ArrayList<String> beltDataReport){
+        Validator.assertTrue(beltData.get(1).equals(beltDataReport.get(0)),"Carcass material in reports is not matching with the calculated value","Carcass material in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(2).equals(beltDataReport.get(1)),"Number of Plies in reports is not matching with the calculated value","Number of Plies in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(3).equals(beltDataReport.get(2)),"Ply tension in reports is not matching with the calculated value","Ply tension in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(4).equals(beltDataReport.get(3)),"Belt tensile strength in reports is not matching with the calculated value","Belt tensile strength in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(6).equals(beltDataReport.get(4)),"Vulcanized rating in reports is not matching with the calculated value","Vulcanized rating in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(7).equals(beltDataReport.get(5)),"Mechanical rating in reports is not matching with the calculated value","Mechanical rating reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(5).equals(beltDataReport.get(6)),"Elastic modulus in reports is not matching with the calculated value","Elastic modulus in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(8).equals(beltDataReport.get(7)),"Carcass gauge in reports is not matching with the calculated value","Carcass gauge in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(9).equals(beltDataReport.get(8)),"Total cover gauge in reports is not matching with the calculated value","Total cover gauge in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(10).equals(beltDataReport.get(9)),"Total belt gauge in reports is not matching with the calculated value","Total belt gauge in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(11).equals(beltDataReport.get(10)),"Carcass weight in reports is not matching with the calculated value","Carcass weight in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(12).equals(beltDataReport.get(11)),"Total cover weight in reports is not matching with the calculated value","Total cover weight in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(13).equals(beltDataReport.get(12)),"Total belt weight in reports is not matching with the calculated value","Total belt weight in reports is not matching with the calculated value");
+   }
+
+   public void verifyRollData(ArrayList<String> rollData,ArrayList<String> rollDataReport){
+       System.out.println("ABCD:= "+rollData.get(0));
+       System.out.println("ABCD:= "+rollDataReport.get(0));
+        Validator.assertTrue(rollData.get(0).equals(rollDataReport.get(0)),"Total belt length in reports is not matching with the calculated value","Total belt length in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(1).equals(rollDataReport.get(1)),"Number of rolls in reports is not matching with the calculated value","Number of rolls in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(2).equals(rollDataReport.get(2)),"Roll length in reports is not matching with the calculated value","Roll length in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(3).equals(rollDataReport.get(3)),"Roll diameter in reports is not matching with the calculated value","Roll diameter in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(4).equals(rollDataReport.get(4)),"Roll weight in reports is not matching with the calculated value","Roll weight in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(5).equals(rollDataReport.get(5)),"Cubage in reports is not matching with the calculated value","Cubage in reports is not matching with the calculated value");
+   }
+
+   public void verifyVulcanizedSpliceData(ArrayList<String> vulcanizedSpliceData,ArrayList<String> vulcanizedSpliceDataReport){
+       Validator.assertTrue(vulcanizedSpliceData.get(0).equals(vulcanizedSpliceDataReport.get(0)),"Number of splice in reports is not matching with the calculated value","Number of splice in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(1).equals(vulcanizedSpliceDataReport.get(1)),"Vulcanizer bias angle in reports is not matching with the calculated value","Vulcanizer bias angle in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(2).equals(vulcanizedSpliceDataReport.get(2)),"Fabric step length in reports is not matching with the calculated value","Fabric step length in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(3).equals(vulcanizedSpliceDataReport.get(3)),"Bias length in reports is not matching with the calculated value","Bias length in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(4).equals(vulcanizedSpliceDataReport.get(4)),"Splice length in reports is not matching with the calculated value","Splice length in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(5).equals(vulcanizedSpliceDataReport.get(5)),"Extra belt length in reports is not matching with the calculated value","Vulcanizer bias angle in reports is not matching with the calculated value");
+   }
+
+   public void verifyTakeUpTravel(ArrayList<String> reviewCalculatedTakeUpTravelData,ArrayList<String> calculatedTakeUpData,String typeOfTakeUp,ArrayList<String> takeUpTravelReport){
+       System.out.println("This is im printing: "+takeUpTravelReport.get(0)+" "+typeOfTakeUp);
+//        Validator.assertTrue(takeUpTravelReport.get(0).contains(typeOfTakeUp),"Type of take-up reports is not matching with the calculated value","Type of take-up in reports is not matching with the calculated value");
+       Validator.assertTrue(reviewCalculatedTakeUpTravelData.get(2).equals(takeUpTravelReport.get(1)),"Type of splice in reports is not matching with the calculated value","Type of splice in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(0).equals(takeUpTravelReport.get(2)),"Maximum belt tension in reports is not matching with the calculated value","Maximum belt tension in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(1).equals(takeUpTravelReport.get(3)),"Average belt tension in reports is not matching with the calculated value","Average belt tension in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(2).equals(takeUpTravelReport.get(4)),"Est. Take-up Movement due to Permanent Elongation in reports is not matching with the calculated value","Est. Take-up Movement due to Permanent Elongation in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(3).equals(takeUpTravelReport.get(5)),"Est. Take-up Movement due to Elastic Elongation in reports is not matching with the calculated value","Est. Take-up Movement due to Elastic Elongation in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(4).equals(takeUpTravelReport.get(6)),"Estimated Total Take-up Movement percentage in reports is not matching with the calculated value","Estimated Total Take-up Movement percentage in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(5).equals(takeUpTravelReport.get(7)),"Conveyor C-C length in reports is not matching with the calculated value","Conveyor C-C length in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(6).equals(takeUpTravelReport.get(8)),"Estimated Total Take-up Movement in reports is not matching with the calculated value","Estimated Total Take-up Movement in reports is not matching with the calculated value");
+   }
+
+   public void verifyVerticalCurve(ArrayList<String> verticalCurve,ArrayList<String> verticalCurveReport){
+        Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
+   }
+
+    public void verifyTransitionLength(ArrayList<String> transitionLength,ArrayList<String> transitionLengthReport){
+        System.out.println("ABCD:= "+transitionLength);
+        System.out.println("ABCD:= "+transitionLengthReport);
+//        Validator.assertTrue(transitionLength.equals(transitionLengthReport),"Transition Length data shown in reports is not matching with entered value","Transition Length data shown in reports is matching with entered value");
+    }
+
+    public void clickOnSaveAndDownload(){
+        btnSaveAndDownload.click("Save & Download");
+    }
+
+}

@@ -4,20 +4,23 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
+import com.web.pages.DashboardPage;
 import com.web.pages.LoginPage;
 
 public class LoginSteps {
 
     LoginPage loginPage = new LoginPage();
+    DashboardPage dashboardPage = new DashboardPage();
 
     @QAFTestStep(description = "User is at Login page")
     public void verifyUserIsAtLoginPage() {
-       // loginPage.verifyTitle("Conti+");
+        loginPage.verifyTitle("Conti+");
     }
 
     @QAFTestStep(description = "Login with {UserName} and {Password}")   
      public void loginWithAnd(String UserName, String Password) {
         loginPage.loginToApp(UserName, Password);
+        dashboardPage.handleCookiePopup();
     }
     
     @QAFTestStep(description="Verify Home page is displayed")

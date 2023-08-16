@@ -134,7 +134,8 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.CORPORATE_ROLE_SERVICE_ENGINEER']")
 	public CustomElement rdbEngineer;
 	
-	@FindBy(locator="xpath=//p-multiselect[@formcontrolname='subscriptionType']/div/div/span")
+	@FindBy(locator="xpath=//p-multiselect[@formcontrolname='subscriptionType']//chevrondownicon")
+//	@FindBy(locator="xpath=//p-multiselect//span[contains(@class,'pi-chevron-down')]")
 	public CustomElement ddlSubscriptionType;
 
 	@FindBy(locator="xpath=//div[@role='checkbox']")
@@ -194,7 +195,8 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//input[@placeholder='Search']")
 	public CustomElement btSearchinput;
 
-	@FindBy(locator="xpath=(//button[@icon='pi pi-chevron-down'])[2]")
+	@FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+//	@FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
 	public CustomElement btActions;
 
 	@FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
@@ -405,7 +407,7 @@ public class UsersPage extends BasePage{
 		waitForElementVisible(btNext, 5000,500);
 		btNext.click();
 		SyncUtil.waitFor(1000);
-		waitForElementToInvisible(cbSpinner,10000);
+		waitForElementToInvisible(cbSpinner,20000);
 		if(add.equalsIgnoreCase("true"))
 			cbAllcheckboxAdd.click();
 		if(edit.equalsIgnoreCase("true"))
@@ -551,6 +553,8 @@ public class UsersPage extends BasePage{
 		Reporter.log("Territory :="+btTerritory.getText());
 		btviewicon.click();
 		waitForElementToDisplay(editBtn);
+		waitForElementToBeClickable(editBtn);
+		SyncUtil.waitFor(20000);
 		waitForElementToBeClickable(editBtn);
 		editBtn.click();
 	}

@@ -48,5 +48,8 @@
   "file_controller": {
     "count": "/files-count",
     "files": "/files"
+  },
+  "minuteman_controller": {
+    "minuteman": "/minuteman"
   }
 }

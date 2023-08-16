@@ -48,7 +48,7 @@ import com.qmetry.qaf.automation.util.Reporter;
 	@FindBy(locator = "xpath=//span[@class='p-button-label']")
 	public CustomElement btSaveandcloseCorp;
 
-	@FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span[text()='Distributor Corporate']")
+	@FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
 	public CustomElement drCompanyDropdownLoader;
 
 	@FindBy(locator = "xpath=(//div[@role='button'])[1]")
@@ -293,6 +293,9 @@ import com.qmetry.qaf.automation.util.Reporter;
 	@FindBy(locator = "xpath=//span[text()='Yes']")
 	public CustomElement yesConfirmation;
 
+	@FindBy(locator = "xpath=//div[text()=' Distributor Corporate ']")
+	public CustomElement radioDistributorCorp;
+
 
 	public void clickcorporates() {
 		waitForPageLoad(4000);
@@ -315,7 +318,9 @@ import com.qmetry.qaf.automation.util.Reporter;
 		waitForElementToDisplay(btAddCorp);
 		btAddCorp.click();
 		waitForElementToDisplay(drCompanyDropdownLoader);
-		tbCompanyName.type(companyname);
+		drTypeofcompany.click("Corporate Type");
+		waitForElementToDisplay(radioDistributorCorp);
+		radioDistributorCorp.click("Customer Corp");		tbCompanyName.type(companyname);
 		tbAddress.type(Address);
 		waitForElementToDisplay(tbMapFirstSearchOption);
 		tbAddress.click();

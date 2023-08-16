@@ -34,7 +34,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Save and Close']")
     public CustomElement btSaveandclose;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span[text()='Distributor Corporate']")
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
     public CustomElement drCompanyDropdownLoader;
 
     @FindBy(locator = "xpath=(//div[@role='button'])[1]")
@@ -48,6 +48,9 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator = "xpath=//div[text()=' Customer Site ']")
     public CustomElement radioCustomeSite;
+
+    @FindBy(locator = "xpath=//div[text()=' Distributor Corporate ']")
+    public CustomElement radioDistributorCorp;
 
     @FindBy(locator = "xpath=(//div[@role='button'])[3]")
     public CustomElement drDistributorcorporate;
@@ -93,7 +96,9 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
-    @FindBy(locator="xpath=(//button[@icon='pi pi-chevron-down'])[2]")
+
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+//    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
 
     @FindBy(locator="xpath=//li//span[text()='Edit']")
@@ -239,6 +244,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void createDistributorCorporate(String companyName, String address) {
+        selectDistributorCorp();
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(corporateHeader);
@@ -279,6 +285,7 @@ public class CorporatePage extends BasePage{
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(btSiteShopCardNo);
+        waitForElementToDisplay(btSiteShopCardNo);
         btSiteShopCardNo.isVisible("Site Details");
         Reporter.log(companyName +" customer site is created", MessageTypes.Pass);
 
@@ -315,6 +322,12 @@ public class CorporatePage extends BasePage{
         drTypeofcompany.click("Corporate Type");
         waitForElementToDisplay(radioDistribtorshop);
         radioDistribtorshop.click("Distributor shop");
+    }
+
+    public void selectDistributorCorp() {
+        drTypeofcompany.click("Corporate Type");
+        waitForElementToDisplay(radioDistributorCorp);
+        radioDistributorCorp.click("Customer Corp");
     }
 
     public void selectCustomerCorp() {
@@ -357,7 +370,9 @@ public class CorporatePage extends BasePage{
     }
 
     public void verifyMarketType(String type) {
-        btMarket.verifyText(type,"Market Type");
+        if(btMarket.isVisible())
+            btMarket.verifyText(type,"Market Type");
+        else btMarket1.verifyText(type,"Market Type");
     }
 
     public void verifyCorporateNav() {
@@ -391,8 +406,10 @@ public class CorporatePage extends BasePage{
         btEdit.jsClick("Edit");
         typeOfCompanyLoader.waitForText("Customer Site");
         tbCompanyName.type(editSiteName);
+        scrollPageup();
         dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
-        drTerritoryManagerbutton.type("Market India Automation", "Territory");
+        drTerritoryManagerbutton.type("Territory India Automation", "Territory");
+        scrollPageDown();
     }
 
     public void deleteSiteOrShop(String custCorp, String custSite) {

@@ -29,8 +29,8 @@ public class FileManagerSteps {
         fileManagerPage.uploadFile(folderName,imgName);
     }
 
-    @QAFTestStep(description="Verify folder {FolderName} and file {ImgName}")
-    public void verifyFileUpload(String folderName, String imgName){
+    @QAFTestStep(description="Verify folder {0} and file {1}")
+    public void verifyFolderAndFile(String folderName,String imgName){
         fileManagerPage.verifyFolderAndFile(folderName,imgName);
     }
 

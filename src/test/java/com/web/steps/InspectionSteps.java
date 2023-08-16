@@ -134,9 +134,9 @@ public class InspectionSteps {
 		inspectionpage.verifyDefaultInspectionDate();
 	}
 
-	@QAFTestStep(description="Verify Site {CustSiteName} selection from dropdown")
-	public void verifyConveyorSelection(String siteName){
-		inspectionpage.verifyConveyorSelection(siteName);
+	@QAFTestStep(description="Verify Site {0} selection from dropdown")
+	public void verifySiteSelectionFromDropdown(String siteName){
+		inspectionpage.verifySiteSelection(siteName);
 	}
 
 	@QAFTestStep(description="Verify user is able to select collaborator {ConveyorName}")
@@ -211,8 +211,8 @@ public class InspectionSteps {
 		inspectionpage.saveInspectionEvent();
 	}
 
-	@QAFTestStep(description="Verify the changes {EditInspectorName} for Inspection event {EditInspectionName}")
-	public void verifyEditChanges(String inspectorName, String inspectionName){
+	@QAFTestStep(description="Verify the changes {0} for Inspection event {1}")
+	public void verifyTheChangesForInspectionEvent(String inspectorName, String inspectionName){
 		inspectionpage.goToInspectionDetailScreen(inspectionName);
 		Validator.assertTrue(inspectionpage.verifyEditChanges(inspectionName,inspectorName),"After editing Inspection event new changes were not applied","Inspection edit changes were verified successfully");
 	}

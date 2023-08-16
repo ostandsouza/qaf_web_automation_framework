@@ -185,6 +185,7 @@ public class FileManagerPage extends BasePage{
         waitForElementToInvisible(fileManagerLoader,40000);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//span[text()='"+folder+"']")));
         verifyFilePresent(fileName);
+        waitForElementToBeClickable(btCheckbox);
         btCheckbox.check(fileName);
         btDelete.click("Delete");
         btDeleteDialog.isEnable("Delete Confirmation Dialog");

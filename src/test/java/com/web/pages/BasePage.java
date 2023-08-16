@@ -106,6 +106,17 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     /**
      * @param locator
      */
+    public void waitForElementToBeClickable(By locator) {
+        try{
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (Exception e) {
+            logger.error("exception occured: "+e);
+        }
+    }
+
+    /**
+     * @param locator
+     */
     public void waitForPresenceOfElements(By locator) {
         try{
         webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));

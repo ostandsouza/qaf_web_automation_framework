@@ -21,7 +21,8 @@ public class SitePage  extends BasePage{
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
 
-    @FindBy(locator="xpath=(//button[@icon='pi pi-chevron-down'])[2]")
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+//    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
 
     @FindBy(locator="xpath=//span[text()='Edit']")

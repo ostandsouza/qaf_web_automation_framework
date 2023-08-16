@@ -15,6 +15,7 @@ public class CorporateSteps {
     public void createADistributorCorporateBeltAssociatesCorp(String DistCorpName, String DistCorpAddress){
         String companyId = corpPage.apiBase.getCompanyAPI(DistCorpName);
         corpPage.apiBase.deleteCompanyAPI(companyId);
+        SyncUtil.waitFor(5000);
         corpPage.clickCorporates();
         corpPage.goToAddCorp();
         corpPage.createDistributorCorporate(DistCorpName, DistCorpAddress);

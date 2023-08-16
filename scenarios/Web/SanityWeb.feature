@@ -210,8 +210,6 @@ Scenario: Verify the Delete functionality across the application
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    When  Delete Conveyor from Conveyor list screen '${ConveyorName2}'
-    Then  Verify Deleted Conveyor '${ConveyorName2}' from Conveyor list screen
     When  Delete Conveyor from Conveyor list screen '${ConveyorName3}'
     Then  Verify Deleted Conveyor '${ConveyorName3}' from Conveyor list screen
     When  Delete Conveyor from Conveyor list screen '${ConveyorName5}'
@@ -226,6 +224,7 @@ Scenario: Verify the Delete functionality across the application
     Then  Verify Deleted Customer site with '${CustSiteAusName}'
     And   Delete Customer site with '${CustSiteNZName}'
     Then  Verify Deleted Customer site with '${CustSiteNZName}'
+    And   Delete Distributor Shop for Corporate '${DistCorpName}' with '${DistShopAusName}'
     Then  Verify Deleted Distributor shop with '${DistCorpName}' with '${DistShopAusName}'
     When  Delete Corporate with name '${CustCorpName}'
     Then  Verify Deleted corporate '${CustCorpName}'

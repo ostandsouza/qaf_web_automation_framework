@@ -92,7 +92,8 @@ public class ConveyorInspectPage extends BasePage{
     @FindBy(locator="xpath=//span[contains(@class,'pi-spinner')]")
     public CustomElement spinnerModel;
 
-    @FindBy(locator="xpath=//span[contains(@class,'p-dialog-header-close-icon')]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-link')]/timesicon")
+//    @FindBy(locator="xpath=//div[contains(@class,'p-dialog-header-icons')]")
     public CustomElement modelClose;
 
     public void goToConveyorInspect(){
@@ -133,9 +134,11 @@ public class ConveyorInspectPage extends BasePage{
         waitForElementToBeClickable(btUpload);
         btUpload.jsClick("Upload Files");
         waitForElementToInvisible(btSpinner,40000);
+        SyncUtil.waitFor(1000);
         waitForElementToInvisible(uploadingProgress,20000);
-        waitForElementToDisplay(btSpinner);
-        Validator.assertTrue(btUpload.isNotVisible(5),"Img upload failed","Image upload was successful");
+        waitForElementToInvisible(btSpinner,10000);
+        SyncUtil.waitFor(2000);
+        Validator.assertTrue(btUpload.isNotVisible(20000),"Img upload failed","Image upload was successful");
     }
 
 

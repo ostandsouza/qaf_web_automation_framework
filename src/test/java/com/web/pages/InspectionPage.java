@@ -120,7 +120,8 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
 	public CustomElement cbCheckbox;
 
-	@FindBy(locator="xpath=(//button[@icon='pi pi-chevron-down'])[2]")
+	@FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+//	@FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
 	public CustomElement ddlActions;
 
 	@FindBy(locator="xpath=//li//span[text()='Edit']")
@@ -380,7 +381,7 @@ public class InspectionPage extends BasePage {
 
 	public void addItemMandatoryField(String conveyorName, String assetName, String assetDetail, String failureMode, String condition, String status) {
 		waitForElementToBeClickable(btnAddnew);
-		SyncUtil.waitFor(2000);
+		SyncUtil.waitFor(4000);
 		btnAddnew.click("Add New Inspection");
 		waitForElementToDisplay(ddlAsset);
 		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
@@ -517,6 +518,7 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(tbInspectionName);
 		SyncUtil.waitFor(1500);
 		tbInspectionName.type(newInspName);
+		saveInspectionEvent();
 	}
 
 	public void editInspectionItem(String inspectionItem, String newStatus) {
@@ -531,8 +533,13 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void deleteInspectionItem(String inspectionItem) {
+		waitForElementToDisplay(btSearchinput);
 		btSearchinput.type(inspectionItem, "Inspection Search");
 		waitForElementToDisplay(cbCheckbox);
+		SyncUtil.waitFor(3000);
+		cbCheckbox.click("Checkbox");
+		ddlActions.click("Action");
+		waitForElementToBeClickable(btnDelete);
 		btnDelete.click("Delete Inspection Item");
 		btnYes.click("Confirm delete");
 		waitForElementToDisplay(noList);
@@ -587,7 +594,7 @@ public class InspectionPage extends BasePage {
 		return btTodayDate.isVisible("Today Date");
 	}
 
-	public void verifyConveyorSelection(String siteName) {
+	public void verifySiteSelection(String siteName) {
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
 	}
 
@@ -605,7 +612,7 @@ public class InspectionPage extends BasePage {
 	}
 
 	public boolean verifyInspectionCount(String total, String val) {
-		return totalEvent.getText("Total Event").equalsIgnoreCase(val) && criticalEvent.getText("Critical Event").equalsIgnoreCase(val) && poorEvent.getText("Poor Event").equalsIgnoreCase(val) && faultEvent.getText("Fault Event").equalsIgnoreCase(val) && goodEvent.getText("Good Event").equalsIgnoreCase(val);
+		return totalEvent.getText("Total Event").equalsIgnoreCase(total) && criticalEvent.getText("Critical Event").equalsIgnoreCase(val) && poorEvent.getText("Poor Event").equalsIgnoreCase(val) && faultEvent.getText("Fault Event").equalsIgnoreCase(val) && goodEvent.getText("Good Event").equalsIgnoreCase(val);
 	}
 
 	public boolean verifySummaryField(String val) {

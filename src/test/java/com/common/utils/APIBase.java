@@ -1,5 +1,8 @@
 package com.common.utils;
 
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.Option;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -7,13 +10,14 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.json.Json;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.DecimalFormat;
+import java.util.*;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 public class APIBase {
@@ -375,7 +379,7 @@ public class APIBase {
         tearDown();
     }
 
-    public String getUltrasonicAPI(String conveyorId) {
+    public Response getUltrasonicAPI(String conveyorId) {
         configureRestAssured();
         if(conveyorId != null)
             queryMaps.put("conveyor.conveyorId", conveyorId);
@@ -385,13 +389,65 @@ public class APIBase {
         Map<String, String> ultrasonicsPaths = JsonReader.getMapTestData("path", "ultrasonic_controller");
         restApiHelper.makeGetRequest(ultrasonicsPaths.get("ultrasonics"),queryMaps, headersMap);
         Response ultrasonicResponse = restApiHelper.getResponse();
+        tearDown();
+        return ultrasonicResponse;
+    }
+
+    public String getUltrasonicId(Response res){
+        JsonPath jsnPath = res.jsonPath();
         String val = null;
-        JsonPath jsnPath = ultrasonicResponse.jsonPath();
         if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
             val = (String) jsnPath.getMap("data[0]").get("ultrasonicId");
         }
-        tearDown();
         return val;
+    }
+
+    public long getMinCalculatedDurometer(Response res) throws ParseException {
+        JsonPath jsnPath = res.jsonPath();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(res.getBody().asString());
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+
+            List<Long> durometerList = com.jayway.jsonpath.JsonPath
+                    .using(Configuration.defaultConfiguration())
+                    .parse(json)
+                    .read("$..positions..calculatedDurometer", List.class);
+            long min = durometerList.stream().mapToLong(v -> Long.parseLong(String.valueOf(v))).min().getAsLong();
+            return min;
+        }
+        return 0;
+    }
+
+    public double getMinPercentage(Response res) throws ParseException {
+        JsonPath jsnPath = res.jsonPath();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(res.getBody().asString());
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+
+            List<Double> PercentageList = com.jayway.jsonpath.JsonPath
+                    .using(Configuration.defaultConfiguration())
+                    .parse(json)
+                    .read("$..positions..percentage", List.class);
+            double min = PercentageList.stream().mapToDouble(v -> (int)Double.parseDouble(String.valueOf(v))).min().orElse(0D);
+            return min;
+        }
+        return 0;
+    }
+
+    public double getMinEstimatedTime(Response res) throws ParseException {
+        JsonPath jsnPath = res.jsonPath();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(res.getBody().asString());
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+
+            List<Double> EstimatedTimeList = com.jayway.jsonpath.JsonPath
+                    .using(Configuration.defaultConfiguration())
+                    .parse(json)
+                    .read("$..positions..estimatedTime", List.class);
+            double min = EstimatedTimeList.stream().mapToDouble(v -> Double.parseDouble(String.valueOf(v))).min().orElse(0D);
+            return Double.parseDouble(new DecimalFormat("##.#").format(min/12));
+        }
+        return 0;
     }
 
     public void deleteUltrasonicAPI(String ultrasonicId) {
@@ -494,5 +550,22 @@ public class APIBase {
         else
             System.out.println("Pref id was null");
         tearDown();
+    }
+
+    public String getMinutemanAPI(String minutemanName) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("minuteman_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        queryMaps.put("name",minutemanName);
+        Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "minuteman_controller");
+        Response inspectionResponse =restApiHelper.makeGetRequest(inspectionPaths.get("minuteman"),queryMaps , headersMap);
+        String val = null;
+        JsonPath jsnPath = inspectionResponse.jsonPath();
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+            val = (String) jsnPath.getMap("data[0]").get("minutemanId");
+        }
+        tearDown();
+        return val;
     }
 }

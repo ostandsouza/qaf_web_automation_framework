@@ -15,6 +15,7 @@ import java.util.*;
 
 import static com.common.utils.MiscUtils.convertTimeToString;
 import static com.common.utils.MiscUtils.getCurrentDateTime;
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 
 public class EmailableTestNGReport implements IReporter {
@@ -979,7 +980,7 @@ public class EmailableTestNGReport implements IReporter {
         writer.print("<tr");
         writer.print(">");
         String paltform= System.getenv("platform") == null ? "Web": System.getenv("platform");
-        String env= System.getenv("ENV")== null ? "dev 2": System.getenv("ENV");
+        String env= System.getenv("ENV")== null ? getBundle().getString("env.setup"): System.getenv("ENV");
         String type= System.getenv("type")== null ? "Sanity flow": System.getenv("type");
         String automatableUrl= System.getenv("AutomatableUrl")== null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("AutomatableUrl");
         writeColumnValue("Conti Plus", "num");
@@ -1000,7 +1001,7 @@ public class EmailableTestNGReport implements IReporter {
         writeTableContents("Project", "Conti Plus");
         String paltform= System.getenv("platform") == null ? "Web": System.getenv("platform");
         writeTableContents("Platform", paltform);
-        String env= System.getenv("ENV")== null ? "dev 2": System.getenv("ENV");
+        String env= System.getenv("ENV")== null ? getBundle().getString("env.setup"): System.getenv("ENV");
         writeTableContents("Env", env);
         String type= System.getenv("type")== null ? "Business flow": System.getenv("type");
         writeTableContents("Type", type);
