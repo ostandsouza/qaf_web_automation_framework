@@ -34,7 +34,7 @@ public class DriverListener implements QAFWebDriverCommandListener {
         options.addArguments("--remote-allow-origins=*");
         Map<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("download.default_directory", System.getProperty("user.dir")+separator+"target"+separator+"downloads");
-        prefs.put("profile.default_content_settings.popups", 0);
+//        prefs.put("profile.default_content_settings.popups", 0);
         options.setExperimentalOption("prefs", prefs);
         capabilities.merge(options);
 

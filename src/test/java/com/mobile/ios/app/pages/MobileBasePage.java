@@ -48,7 +48,7 @@ public class MobileBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
 
     public void hideKeyBoard() {
-        this.getAppiumDriver().hideKeyboard();
+        (this.getAppiumDriver() instanceof AndroidDriver? (AndroidDriver)this.getAppiumDriver() : (IOSDriver)this.getAppiumDriver()).hideKeyboard();
     }
 
     @SuppressWarnings("rawtypes")
@@ -59,7 +59,7 @@ public class MobileBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         int midX = (deviceWidth / 2);
         int midY = (deviceHeight / 2);
         int bottomEdge = (int) (deviceHeight * 0.85f);
-        new TouchAction(this.getAppiumDriver()).press(PointOption.point(midX, midY)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(midX, bottomEdge))
+        new TouchAction((this.getAppiumDriver() instanceof AndroidDriver? (AndroidDriver)this.getAppiumDriver() : (IOSDriver)this.getAppiumDriver())).press(PointOption.point(midX, midY)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(midX, bottomEdge))
                 .release().perform();
         Reporter.log("Refreshed screen", MessageTypes.Info);
     }
@@ -100,7 +100,7 @@ public class MobileBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
                 endY = (int) (deviceHeight * .75f);
 
         }
-        new TouchAction(this.getAppiumDriver()).press(PointOption.point(startX, startY)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(200))).moveTo(PointOption.point(endX, endY))
+        new TouchAction((this.getAppiumDriver() instanceof AndroidDriver? (AndroidDriver)this.getAppiumDriver() : (IOSDriver)this.getAppiumDriver())).press(PointOption.point(startX, startY)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(200))).moveTo(PointOption.point(endX, endY))
                 .release().perform();
         SyncUtil.waitFor(1000);
         Reporter.log("Swiped " + direction + " on screen", MessageTypes.Info);
@@ -109,7 +109,7 @@ public class MobileBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
     @SuppressWarnings("rawtypes")
     public void Swipe(int startX, int startY, int endX, int endY) {
-        new TouchAction(this.getAppiumDriver()).press(PointOption.point(startX, startY)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(endX, endY))
+        new TouchAction((this.getAppiumDriver() instanceof AndroidDriver? (AndroidDriver)this.getAppiumDriver() : (IOSDriver)this.getAppiumDriver())).press(PointOption.point(startX, startY)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(endX, endY))
                 .release().perform();
         Reporter.log("Swiped from (" + startX + "," + startY + ") to (" + endX + "," + endY + ") on screen", MessageTypes.Info);
 
@@ -126,11 +126,11 @@ public class MobileBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
     public void activateAppUnderTest() {
         String appName = ConfigurationManager.getBundle().getString("android.apk.appName");
-        ApplicationState currState = getAppiumDriver().queryAppState(appName);
+        ApplicationState currState = (this.getAppiumDriver() instanceof AndroidDriver? (AndroidDriver)this.getAppiumDriver() : (IOSDriver)this.getAppiumDriver()).queryAppState(appName);
         if (currState == ApplicationState.RUNNING_IN_FOREGROUND)
             Reporter.log(appName + " is active", MessageTypes.Pass);
         else if (currState == ApplicationState.RUNNING_IN_BACKGROUND) {
-            getAppiumDriver().activateApp(appName);
+            (this.getAppiumDriver() instanceof AndroidDriver? (AndroidDriver)this.getAppiumDriver() : (IOSDriver)this.getAppiumDriver()).activateApp(appName);
             Reporter.log(appName + " is activated", MessageTypes.Pass);
         } else
             Reporter.log(appName + "App is not running", MessageTypes.Fail);

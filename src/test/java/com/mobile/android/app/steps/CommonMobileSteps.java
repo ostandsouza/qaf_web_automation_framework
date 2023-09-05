@@ -7,6 +7,8 @@ import com.qmetry.qaf.automation.core.ConfigurationManager;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -32,20 +34,20 @@ public class CommonMobileSteps {
 
         }
 
-        if (updateAppFlag && app.getAppiumDriver().isAppInstalled(appName))
-            app.getAppiumDriver().removeApp(appName);
+        if (updateAppFlag && (app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).isAppInstalled(appName))
+            (app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).removeApp(appName);
 
-        if (!app.getAppiumDriver().isAppInstalled(appName)) {
+        if (!(app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).isAppInstalled(appName)) {
             if (isUsingPerfecto) {
                 Map<String, Object> params = new HashMap<>();
                 params.put("file", artifactLocator);
                 params.put("instrument", "instrument");
                 app.getAppiumDriver().executeScript("mobile:application:install", params);
             } else
-                app.getAppiumDriver().installApp(MiscUtils.getAbsolutePath(ConfigurationManager.getBundle().getString("aut.path")));
+                (app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).installApp(MiscUtils.getAbsolutePath(ConfigurationManager.getBundle().getString("aut.path")));
         }
 
-        if (app.getAppiumDriver().isAppInstalled(appName)) {
+        if ((app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).isAppInstalled(appName)) {
             ConfigurationManager.getBundle().setProperty("android.apk.updateApp", false);
             Reporter.log("Application is Installed : " + appName, MessageTypes.Info);
         }
@@ -54,10 +56,10 @@ public class CommonMobileSteps {
     @QAFTestStep(description = "Application is launched")
     public void launchMobileApplication() {
         try {
-            app.getAppiumDriver().terminateApp(appName);
+            (app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).terminateApp(appName);
             if (ConfigurationManager.getBundle().getBoolean("aut.clearCache"))
                 app.clearCache(appName);
-            app.getAppiumDriver().activateApp(appName);
+            (app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).activateApp(appName);
             app.getAndroidDriver().configuratorSetKeyInjectionDelay(Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.keyInjectionDelay")));
             app.getAndroidDriver().configuratorSetWaitForIdleTimeout(Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.waitForIdleTimeout")));
             app.getAndroidDriver().configuratorSetWaitForSelectorTimeout(Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.waitForSelectorTimeout")));
@@ -73,8 +75,8 @@ public class CommonMobileSteps {
     @QAFTestStep(description = "Launch application without reset")
     public void launchAppWithoutReset() {
         try {
-            app.getAppiumDriver().terminateApp(appName);
-            app.getAppiumDriver().activateApp(appName);
+            (app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).terminateApp(appName);
+            (app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).activateApp(appName);
             app.getAndroidDriver().configuratorSetKeyInjectionDelay(Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.keyInjectionDelay")));
             app.getAndroidDriver().configuratorSetWaitForIdleTimeout(Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.waitForIdleTimeout")));
             app.getAndroidDriver().configuratorSetWaitForSelectorTimeout(Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.waitForSelectorTimeout")));
@@ -91,7 +93,7 @@ public class CommonMobileSteps {
     @QAFTestStep(description = "Close application")
     public void closeMobileApplication() {
         try {
-            app.getAppiumDriver().terminateApp(appName);
+            (app.getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)app.getAppiumDriver() : (IOSDriver)app.getAppiumDriver()).terminateApp(appName);
             Reporter.log("Application Closed : " + appName, MessageTypes.Info);
         } catch (Exception ex) {
             Reporter.log("Failed to close Application " + appName + " with underlying exception : " + ex.getLocalizedMessage(), MessageTypes.Fail);

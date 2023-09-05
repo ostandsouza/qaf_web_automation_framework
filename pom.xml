@@ -15,9 +15,9 @@
 		<testSuiteFile>config/sanity_config.xml</testSuiteFile>
 		<sourceVersion>1.8</sourceVersion>
 		<targetVersion>1.8</targetVersion>
-		<qaf.version>3.2.0b</qaf.version>
+		<qaf.version>4.0.0-RC2</qaf.version>
 		<restassured.version>4.5.1</restassured.version>
-		<selenium.version>4.2.0</selenium.version>
+		<selenium.version>4.11.0</selenium.version>
 		<test.results.dir>test-results</test.results.dir>
 		<run.time>${maven.build.timestamp}</run.time>
 		<lib.dir>${project.basedir}/lib</lib.dir>
@@ -53,7 +53,7 @@
 		<dependency>
 			<groupId>io.appium</groupId>
 			<artifactId>java-client</artifactId>
-			<version>7.5.1</version>
+			<version>8.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.qmetry</groupId>

@@ -155,6 +155,8 @@ Scenario: Verify Inspection Delete
 @key:CoverWear_Management
 Scenario: Verify Cover Wear Management
 
+    Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
     Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
     When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'

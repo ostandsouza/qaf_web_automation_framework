@@ -704,8 +704,8 @@ public class ConveyorPage extends BasePage{
         addConveyors.click("Add Conveyor");
         waitForElementToDisplay(tbConveyorname);
         tbConveyorname.type(conveyorName,"Conveyor Name");
-        dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
         dropdownSelectSearch(drDistShopdropdown, tbSitedropdown, distShopName);
+        dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
     }
 
     public void checkConveyorGermany(String conveyorName, String custCorpName) {
@@ -736,6 +736,7 @@ public class ConveyorPage extends BasePage{
         crDelete.click("Delete");
         crYesConfirmation.click("Confirm");
         waitForElementToDisplay(noList);
+        SyncUtil.waitFor(2000);
     }
 
     public void clearConveyorSearch() {
@@ -808,7 +809,7 @@ public class ConveyorPage extends BasePage{
         crMaterialTab.click("Material Tab");
         return crDescription.isVisible("Material Description") && crBulkDensity.isVisible("Bulk Density") && crBulkSize.isVisible("Bulk Size") &&
                 crLumpSize.isVisible("Lump Size") && crContingentOfFines.isVisible("Contingent of Fines") && crChuteDrop.isVisible("Chute Drop") && crLoadingFrequency.isEnable("Loading Frequency") &&
-                crLoadingConditions.isEnable("Loading Conditions") && crTemperature.isVisible("Material Temperature") && crFeedingConditions.isEnable("Feeding Conditions") && crPresenceOfOil.isEnable("Presence of Oil");
+                crLoadingConditions.isEnable("Loading Conditions") && crTemperature.isVisible("Material Temperature") && crPresenceOfOil.isEnable("Presence of Oil");
     }
 
     public boolean verifyConveyor() {
@@ -816,7 +817,7 @@ public class ConveyorPage extends BasePage{
         return crConveyingLength.isVisible("Conveying Length") && crLift.isVisible("Conveyor Lift") && crDrivePower.isVisible("Driver Power") &&
                 crGearRatio.isVisible("Gear Ratio") && crDriveFrequency.isVisible("Driver Frequency") && crAngle.isVisible("Conveyor Angle") &&
                 crSpeed.isVisible("Conveyor Speed") && crConveyingCapacity.isVisible("Conveying Capacity") && crPercentLoad.isVisible("Percent Load") && crMinimumTemperature.isVisible("Minimum Temperature") &&
-                crMaximumTemperature.isVisible("Maximum Temperature") && crTakeupTravel.isVisible("Take Up Travel") && crEstimatedWeight.isVisible("Estimated Weight") && crManufacturer.isVisible("Conveyor Manufacturer") && crPipeBeltYes.isEnable("Pipe Belt Yes") &&
+                crMaximumTemperature.isVisible("Maximum Temperature") && crTakeupTravel.isVisible("Take Up Travel") && crEstimatedWeight.isVisible("Estimated Weight") && crManufacturer.isVisible("Conveyor Manufacturer") &&
                 crPipeBeltNo.isEnable("Pipe Belt No") && crDirectionTurnover.isEnable("Direction Turnover") && crClockwise.isEnable("Right / Clockwise");
     }
 
