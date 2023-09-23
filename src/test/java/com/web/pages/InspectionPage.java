@@ -52,7 +52,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//label[text()='Inspector Name']/..//input")
 	public CustomElement ddlInspectorName;
 	
-	@FindBy(locator = "xpath=//p-multiselect[@optionlabel='name']//span")
+	@FindBy(locator = "xpath=//p-multiselect[@optionlabel='name']//chevrondownicon")
 	public CustomElement ddlCollaborators;
 	
 	public String ListItem = "//ul[@role='listbox']//li//span";
@@ -600,7 +600,7 @@ public class InspectionPage extends BasePage {
 
 	public void verifyCollaboratorSelection(String collaboratorName) {
 		ddlCollaborators.click();
-		setImplicitWait(70000,TimeUnit.MILLISECONDS);
+		setImplicitWait(40000,TimeUnit.MILLISECONDS);
 		waitForPresenceOfElement(By.xpath("//span[text()='"+collaboratorName+"']"));
 		tbMultipleDropdown.sendKeys(collaboratorName);
 		driver.findElement("//span[text()='"+collaboratorName+"']").click();

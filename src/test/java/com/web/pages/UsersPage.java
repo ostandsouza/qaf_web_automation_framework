@@ -113,7 +113,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//span[text()='Save and Close']")
 	public CustomElement btSaveandClose;
 
-	@FindBy(locator = "xpath=//span[text()='Admin']")
+	@FindBy(locator = "xpath=//li[contains(@class,'user-profile')]")
 	public CustomElement btprofile;
 
 	@FindBy(locator = "xpath=//h6[text()='Logout']")
@@ -286,13 +286,13 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//span[text()='Continue']")
 	public CustomElement continueBtn;
 
-	@FindBy(locator="xpath=//div[contains(@class,'p-text-bold')]/div[1]")
+	@FindBy(locator="xpath=//div[contains(@class,'font-bold')]/div[1]")
 	public CustomElement totalUsers;
 
-	@FindBy(locator="xpath=//div[contains(@class,'p-text-bold')]/div[2]")
+	@FindBy(locator="xpath=//div[contains(@class,'font-bold')]/div[2]")
 	public CustomElement usersCreated;
 
-	@FindBy(locator="xpath=//div[contains(@class,'p-text-bold')]/div[6]")
+	@FindBy(locator="xpath=//div[contains(@class,'font-bold')]/div[6]")
 	public CustomElement usersError;
 
 	@FindBy(locator = "xpath=//span[text()='Import']")
@@ -554,7 +554,7 @@ public class UsersPage extends BasePage{
 		btviewicon.click();
 		waitForElementToDisplay(editBtn);
 		waitForElementToBeClickable(editBtn);
-		SyncUtil.waitFor(20000);
+		SyncUtil.waitFor(25000);
 		waitForElementToBeClickable(editBtn);
 		editBtn.click();
 	}

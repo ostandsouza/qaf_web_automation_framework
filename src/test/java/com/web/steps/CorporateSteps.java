@@ -160,7 +160,7 @@ public class CorporateSteps {
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.goToAddCompany();
         corpPage.createCustomerCorporate(CustCorpName, CustCorpAddress);
-
+        SyncUtil.waitFor(10000);
     }
 
     @QAFTestStep(description="Add Customer site {CustShopName} and {CustShopAddress} and {CustCorpName} and {DistShopIndName} and {FullNameInd} and {territory}")
@@ -169,6 +169,7 @@ public class CorporateSteps {
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.goToAddCompany();
         corpPage.createCustomerSite(CustShopIndName, CustShopIndAddress,CustCorpName,DistShopIndName,territory,FullNameInd);
+        SyncUtil.waitFor(10000);
     }
 
     @QAFTestStep(description="Navigation of corporate list screen")
@@ -234,6 +235,11 @@ public class CorporateSteps {
         corpPage.verifyDeleteConveyor(conveyor);
     }
 
+    @QAFTestStep(description="Edit Conveyor {ConveyorName} to {EditCustCorpName}")
+    public void editAConveyorC2Germany(String conveyorName, String conveyorNameEdit){
+        conveyorPage.editConveyorDetails(conveyorNameEdit);
+    }
+
     @QAFTestStep(description="Edit Conveyor {ConveyorName} from site list screen to {EditCustCorpName}")
     public void editAConveyorC2GermanyAtMiningCorpGermany(String conveyorName, String conveyorNameEdit){
         conveyorPage.editConveyor(conveyorName, conveyorNameEdit);
@@ -243,6 +249,11 @@ public class CorporateSteps {
     public void verifyNavigationFromSiteDetailToConveyorDetailsScreenOf(String conveyorName){
         SyncUtil.waitFor(20000);
         corpPage.goToConveyorDetails(conveyorName);
+    }
+
+    @QAFTestStep(description="Save edited Corporate changes")
+    public void editCorporateChanges(){
+        corpPage.updateCorp();
     }
 
 }

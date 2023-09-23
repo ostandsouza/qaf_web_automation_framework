@@ -1,6 +1,7 @@
 package com.web.steps;
 
 import com.common.utils.MiscUtils;
+import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
@@ -245,6 +246,7 @@ public class CoverWearSteps {
     @QAFTestStep(description="Verify the download functionality in list screen for {FullName}")
     public void verifyDownloadAllRecords(String fullName) {
         coverWearPage.verifyDownloadFunctionality();
+        SyncUtil.waitFor(7000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles("Cover_wear_summary_report.pdf"),"Cover wear summary report was not found","Cover wear summary report was downloaded successfully");
         coverWearPage.verifyPDFContents("Cover Wear - Conveyor Summary Report", fullName);
         MiscUtils.deleteDownloadedFiles("Cover_wear_summary_report.pdf");

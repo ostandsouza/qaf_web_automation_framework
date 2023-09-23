@@ -31,7 +31,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//input[@name='company_name']")
     public CustomElement tbCompanyName;
 
-    @FindBy(locator = "xpath=//span[text()='Save and Close']")
+    @FindBy(locator = "xpath=//span[text()='Save and Close']/..")
     public CustomElement btSaveandclose;
 
     @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
@@ -308,6 +308,7 @@ public class CorporatePage extends BasePage{
 
     public void saveCorp() {
         scrollPageDown();
+        waitForElementToBeClickable(btSaveandclose);
         btSaveandclose.click("Save And Close");
     }
 
@@ -525,7 +526,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void verifyShopSiteCardCount(String count) {
-        SyncUtil.waitFor(10000);
+        SyncUtil.waitFor(15000);
         Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase(count),"Site/Shop card count shown in corporate details screen is incorrect","Successfully verified Site/Shop card count shown in corporate details screen");
     }
 

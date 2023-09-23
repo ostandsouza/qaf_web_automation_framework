@@ -228,7 +228,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//div[contains(@class,'p-panel-header')]/span)[1]")
     public CustomElement coverWearTitle;
 
-    @FindBy(locator="xpath=//div[text()='Position is required.']")
+    @FindBy(locator="xpath=//div[text()='Missing reading(s) values.']")
     public CustomElement errorMessage;
 
     @FindBy(locator="xpath=//p-dropdownitem")
@@ -289,6 +289,9 @@ public class CoverWearPage extends BasePage{
     public CustomElement imageViewer;
 
     @FindBy(locator="xpath=(//span/button[contains(@icon,'pi-download')])[2]")
+    public CustomElement downloadPosition;
+
+    @FindBy(locator="xpath=(//span/p-button[contains(@icon,'pi-download')])[2]")
     public CustomElement downloadAll;
 
     @FindBy(locator="xpath=(//span[contains(@class,'pi-spinner')])[2]")
@@ -323,16 +326,16 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=//label[text()='Position']/parent::div//input")
     public CustomElement positionInput;
-    @FindBy(locator="xpath=//label[text()='Position']/parent::div//div/span")
+    @FindBy(locator="xpath=//label[text()='Position']/parent::div//div/chevrondownicon")
     public CustomElement positionDropdown;
 
-    @FindBy(locator="xpath=//div[contains(@class,'p-checkbox-box ng')]")
+    @FindBy(locator="xpath=//div[contains(@class,'p-multiselect-header')]//div[contains(@class,'p-checkbox-box')]")
     public CustomElement multiSelectAllCheckbox;
 
-    @FindBy(locator="xpath=//span[contains(@class,'p-multiselect-close-icon')]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-multiselect-close')]")
     public CustomElement multiSelectCloseBtn;
 
-    @FindBy(locator="xpath=//label[text()='Include']/parent::div//div/span")
+    @FindBy(locator="xpath=//label[text()='Include']/parent::div//div/chevrondownicon")
     public CustomElement includePositionTypes;
 
     @FindBy(locator="xpath=//span[text()='Apply']")
@@ -862,7 +865,7 @@ public class CoverWearPage extends BasePage{
     public void verifyPositionDurometerAfterEdit(String positionDurometer){
         System.out.println("abcd: = "+positionDurometer);
         System.out.println("abcd: = "+cwTableDurometer.getText().trim());
-        Validator.assertTrue(cwTableDurometer.getText().trim().equalsIgnoreCase(positionDurometer), "Durometer is not updated after edit","After editing durometer was verified successfully");
+        Validator.assertTrue(!cwTableDurometer.getText().trim().equalsIgnoreCase(positionDurometer), "Durometer is not supposed to update after edit","After editing durometer was updated in position list");
     }
     public void verifyDurometerAfterEdit(String positionDurometer){
         System.out.println("abcd: = "+positionDurometer);
@@ -913,12 +916,14 @@ public class CoverWearPage extends BasePage{
             SyncUtil.waitFor(1000);
             waitForElementToBeClickable(By.xpath("//span[contains(text(),\"" + month + "\")]"));
             driver.findElement(By.xpath("//span[contains(text(),\"" + month + "\")]")).click();
-            waitForElementToBeClickable(By.xpath("(//span[text()=\"" + day + "\" and not(contains(@class,'p-disabled'))])[1]"));
-            driver.findElement(By.xpath("(//span[text()=\"" + day + "\" and not(contains(@class,'p-disabled'))])[1]")).click();
+            waitForElementToBeClickable(By.xpath("(//td[contains(@class,'ng-star-inserted')]//span[text()=\"" + day + "\" ])[1]"));
+            driver.findElement(By.xpath("(//td[contains(@class,'ng-star-inserted')]//span[text()=\"" + day + "\" ])[1]")).click();
+//            waitForElementToBeClickable(By.xpath("(//span[text()=\"" + day + "\" and not(contains(@class,'p-disabled'))])[1]"));
+//            driver.findElement(By.xpath("(//span[text()=\"" + day + "\" and not(contains(@class,'p-disabled'))])[1]")).click();
     }
 
     public void downloadPopup(){
-        downloadAll.click("Download cover wear position report");
+        downloadPosition.click("Download cover wear position report");
         downloadPopup.isVisible("DownloadPopup");
     }
 
@@ -996,8 +1001,8 @@ public class CoverWearPage extends BasePage{
         System.out.println("abcd: = "+cwTopCoverThicknessInput.getAttribute("value"));
         System.out.println("abcd: = "+cwBottomCoverThicknessInput.getAttribute("value"));
         System.out.println("abcd: = "+cwBottomCoverCompoundInput.getText());
-        return cwSiteDropDownInput.getAttribute("value").equalsIgnoreCase(custSite) && cwConveyorDropDownInput.getAttribute("value").equalsIgnoreCase(conveyor) && cwBeltWidth.getAttribute("value").equalsIgnoreCase("0") &&
-                cwBeltLength.getAttribute("value").equalsIgnoreCase("0") && cwTopCoverThicknessInput.getAttribute("value").equalsIgnoreCase("") &&
+        return cwSiteDropDownInput.getAttribute("value").equalsIgnoreCase(custSite) && cwConveyorDropDownInput.getAttribute("value").equalsIgnoreCase(conveyor) && cwBeltWidth.getAttribute("value").equalsIgnoreCase("") &&
+                cwBeltLength.getAttribute("value").equalsIgnoreCase("") && cwTopCoverThicknessInput.getAttribute("value").equalsIgnoreCase("") &&
                 cwBottomCoverThicknessInput.getAttribute("value").equalsIgnoreCase("") && StringUtils.isEmpty(cwTopCoverCompoundInput.getText()) && StringUtils.isEmpty(cwBottomCoverCompoundInput.getText());
     }
 

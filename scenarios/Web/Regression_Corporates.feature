@@ -189,6 +189,7 @@ Scenario: Verify Edit site details
 
     When  Navigate to Corporate details screen for corporate '${CustCorpName}'
     Then  Edit Customer site with '${CustSiteName}' and '${EditCustSiteName}' using corporate '${CustCorpName}'
+    Then  Save edited Corporate changes
 
 @Regression22
 @dataFile:resources/data/TestData.xls
@@ -208,7 +209,7 @@ Scenario: Verify Edit conveyor details
     When  Navigate to Corporate details screen for corporate '${CustCorpName}'
     And   Verify navigation to '${CustSiteName}' detail screen
     Then  Verify navigation from site detail to conveyor details screen of '${ConveyorName}'
-    When  Edit Conveyor '${ConveyorName}' from site list screen to '${EditConveyorName}'
+    When  Edit Conveyor '${ConveyorName}' to '${EditConveyorName}'
     Then  Verify Edited conveyor details with '${EditConveyorName}' for Corporate '${CustSiteName}'
 
 @Regression24

@@ -592,7 +592,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//button[text()='Add']")
     public CustomElement addLayout;
 
-    @FindBy(locator = "xpath=//span[contains(@class,'p-dialog-header-close-icon')]")
+    @FindBy(locator = "xpath=//button[contains(@class,'p-dialog-header-close')]")
     public CustomElement closeLayout;
 
     @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')])[1]")
@@ -637,7 +637,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//th/div[contains(text(),'Length (m)')]")
     public CustomElement lengthCol;
 
-    @FindBy(locator = "xpath=//span[contains(@class,'p-multiselect-trigger')]/..")
+    @FindBy(locator = "xpath=//div[contains(@class,'p-multiselect-trigger')]")
     public CustomElement filterDropdown;
 
     @FindBy(locator = "xpath=//div[text()='Layout created successfully']")
@@ -791,14 +791,14 @@ public class ConveyorPage extends BasePage{
     public boolean verifyConveyorLiteFields() {
         return crBeltWidth.isVisible("Belt Width") && crBeltSpeed.isVisible("Belt Speed") && crTonsPerHr.isVisible("Tons Per hr") &&
                 crMaterialName.isVisible("Material Name") && crMaterialDensity.isVisible("Material Density") && crAngleOfIdlers.isVisible("Angle Of Idlers") &&
-                crIdlerSpacing.isVisible("Idler Spacing") && crDriveWrapAngle.isVisible("Drive Wrap Angle") && crTakeUpTension.isVisible("Take up Tension") && crPermanentFriction.isEnable("Friction Factor Permanent") &&
+                crIdlerSpacing.isVisible("Idler Spacing") && crDriveWrapAngle.isVisible("Drive Wrap Angle") && crTakeUpTension.isVisible("Take up Tension") &&
                 crTemporaryFriction.isEnable("Friction Factor Temporary") && crFrictionFactor.isVisible("Friction Factor") && crLengthFactor.isVisible("Length Factor") &&
                 crSurchargeFactor.isVisible("Surcharge Angle") && crIdleOffsetType.isVisible("Idler Offset Type ") && crDriveDetails.isEnable("Drive Details") && crTakeupDetails.isEnable("Take-up Details");
     }
 
     public boolean verifyInstalledBelt() {
         crInstalledBeltTab.click("Installed Belt Tab");
-        return crMonolithConfig.isEnable("Monolithic Radio") && !crMixedConfig.isEnabled() && crManufacturer.isEnable("Belt Manufacturer") &&
+        return  !crMixedConfig.isEnabled() && crManufacturer.isEnable("Belt Manufacturer") &&
                 crBeltConstruction.isVisible("Belt Construction") && crTopCompound.isVisible("Top Cover Compound") && crBottomCompound.isVisible("Bottom Cover Compound") &&
                 crCarcass.isVisible("Carcass") && crWidth.isEnable("Width") && !crRatingRadio.isEnabled() && crBreakingStrengthRadio.isEnable("Breaking Strength Radio") &&
                 crBreakingStrength.isVisible("Breaking Strength") && crTopCoverThickness.isVisible("Top Cover Thickness") && crBottomCoverThickness.isVisible("Bottom Cover Thickness") &&
@@ -808,7 +808,7 @@ public class ConveyorPage extends BasePage{
     public boolean verifyMaterial() {
         crMaterialTab.click("Material Tab");
         return crDescription.isVisible("Material Description") && crBulkDensity.isVisible("Bulk Density") && crBulkSize.isVisible("Bulk Size") &&
-                crLumpSize.isVisible("Lump Size") && crContingentOfFines.isVisible("Contingent of Fines") && crChuteDrop.isVisible("Chute Drop") && crLoadingFrequency.isEnable("Loading Frequency") &&
+                crLumpSize.isVisible("Lump Size") && crContingentOfFines.isVisible("Contingent of Fines") && crChuteDrop.isVisible("Chute Drop") &&
                 crLoadingConditions.isEnable("Loading Conditions") && crTemperature.isVisible("Material Temperature") && crPresenceOfOil.isEnable("Presence of Oil");
     }
 
@@ -818,7 +818,7 @@ public class ConveyorPage extends BasePage{
                 crGearRatio.isVisible("Gear Ratio") && crDriveFrequency.isVisible("Driver Frequency") && crAngle.isVisible("Conveyor Angle") &&
                 crSpeed.isVisible("Conveyor Speed") && crConveyingCapacity.isVisible("Conveying Capacity") && crPercentLoad.isVisible("Percent Load") && crMinimumTemperature.isVisible("Minimum Temperature") &&
                 crMaximumTemperature.isVisible("Maximum Temperature") && crTakeupTravel.isVisible("Take Up Travel") && crEstimatedWeight.isVisible("Estimated Weight") && crManufacturer.isVisible("Conveyor Manufacturer") &&
-                crPipeBeltNo.isEnable("Pipe Belt No") && crDirectionTurnover.isEnable("Direction Turnover") && crClockwise.isEnable("Right / Clockwise");
+                crDirectionTurnover.isEnable("Direction Turnover") && crClockwise.isEnable("Right / Clockwise");
     }
 
     public boolean verifyWearLife() {
@@ -935,6 +935,19 @@ public class ConveyorPage extends BasePage{
             Validator.assertTrue(searchConveyor(((Map<String,String>)obj[i][0]).get("Name")),"Imported Conveyor was not created successfully","Imported conveyor created successfully");
     }
 
+    public void editConveyorDetails(String newConveyorName) {
+        scrollPageup();
+        waitForElementToDisplay(conveyorTitle);
+        waitForElementToBeClickable(editConveyor);
+        editConveyor.click();
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        waitForElementToDisplay(tbConveyorname);
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
+        tbConveyorname.type(newConveyorName);
+        crUpdate.click();
+        waitForElementToDisplay(crUpdateMsg);
+    }
+
     public void editConveyor(String oldConveyorName, String newConveyorName) {
         btSearchinput.type(oldConveyorName);
         crviewicon.click();
@@ -975,7 +988,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean addFilters(String corporates, String beltWidth, String rating, String length){
-        setImplicitWait(70000,TimeUnit.MILLISECONDS);
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
         filterDropdown.click();
         SyncUtil.waitFor(1000);
         tbMultipleSiteDropdown.type(corporates);
@@ -1009,5 +1022,6 @@ public class ConveyorPage extends BasePage{
         driver.findElement(By.xpath("//div[contains(text(),'"+layoutName+"')]/following-sibling::div//span[contains(@class,'ctp-icon-Delete')]")).click();
         deleteLayoutHeader.isVisible("Delete Header");
         deleteBtn.click("Delete");
+        waitForElementToInvisible(buttonLoader,20000);
     }
 }

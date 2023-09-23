@@ -514,7 +514,7 @@ public class APIBase {
 
     public String getPreferenceAPI(String userId, String tableName) {
         configureRestAssured();
-        String baseUrl = commonPaths.get("permission_ms");
+        String baseUrl = commonPaths.get("user_preference_ms");
         restApiHelper.setBaseURI(baseUrl);
         headersMap.put("user-token",accessToken);
         Map<String, String> preferencePaths = JsonReader.getMapTestData("path", "preference_controller");
@@ -541,11 +541,11 @@ public class APIBase {
     public void deletePreferencesAPI(String userID, String prefID) {
         configureRestAssured();
         Response preferenceResponse;
-        String baseUrl = commonPaths.get("permission_ms");
+        String baseUrl = commonPaths.get("user_preference_ms");
         restApiHelper.setBaseURI(baseUrl);
         headersMap.put("user-token",accessToken);
         Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "preference_controller");
-        if(userID != null || prefID!= null)
+        if(userID != null && prefID!= null)
             preferenceResponse =restApiHelper.makeDeleteRequest(inspectionPaths.get("preference")+"/"+userID+"/"+prefID , headersMap);
         else
             System.out.println("Pref id was null");
