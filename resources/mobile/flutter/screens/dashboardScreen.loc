@@ -1,0 +1,22 @@
+dashboard.home.title = flutter-text=Home
+dashboard.add.icon = flutter-valuekey=Add
+dashboard.add.conveyor = flutter-text=ADD CONVEYOR
+dashboard.add.corporate = flutter-text=ADD CORPORATE
+dashboard.company.type = flutter-valuekey=Type of Company
+dashboard.distributor.corporate = flutter-text=Distributor Corporate
+dashboard.customer.corporate = flutter-text=Customer Corporate
+dashboard.company.field = flutter-type=TextFormField
+dashboard.address.field = flutter-valuekey=Address
+dashboard.save.btn = flutter-text=Save
+dashboard.coverWear.txt = flutter-text=Cover Wear
+dashboard.search.field = flutter-type=TextField
+dashboard.beltWidth.field = flutter-valuekey=Belt Width
+dashboard.beltLength.field = flutter-valuekey=Belt Length
+dashboard.search.filter = flutter-valuekey=Search
+dashboard.search.results = flutter-type=ListTile
+dashboard.topCoverThickness.field = flutter-valuekey=Top Cover Thickness Nominal
+dashboard.bottomCoverThickness.field = flutter-valuekey=Bottom Cover Thickness Nominal
+dashboard.durometer.field = flutter-valuekey=Durometer (New Belt)
+dashboard.topCoverCompound.field = flutter-valuekey=Top Cover Compound
+dashboard.bottomCoverCompound.field = flutter-valuekey=Bottom Cover Compound
+dashboard.datePicker.field = flutter-type=ContiplusDatePicker

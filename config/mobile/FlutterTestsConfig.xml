@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Mobile App-Android" verbose="0">
+    <test name="Mobile App" enabled="true">
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/ios/screens"/>
+        <parameter name="selenium.singletone" value="Tests"/>
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <groups>
+            <run>
+                <include name="Testthis"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+</suite>

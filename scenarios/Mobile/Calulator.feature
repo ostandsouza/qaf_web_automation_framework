@@ -1,13 +1,11 @@
-Feature: Addition
+Feature: ContiPlus scenario
 
   @Testthis
-  Scenario: Calculate addition of two numbers
+  @dataFile:resources/data/TestData.xls
+  @key:Create_Flow
+  Scenario: Verify new corporate creation
 
-    Given Application is installed
-    When  Application is launched
-    Then  Enter number '555'
-    And   Enter operation '+'
-    And   Enter number '666'
-    When  Calculate
-    Then  verify '1221' in result
-    And   Close application
+    Given   Login to the application with '${UserName}' and '${Password}'
+    When    User navigates to add corporate screen
+    When    Add Distributor corporate with '${CorpName}' '${Address}'
+    Then    Navigate to corporate list and verify '${CorpName}' is present

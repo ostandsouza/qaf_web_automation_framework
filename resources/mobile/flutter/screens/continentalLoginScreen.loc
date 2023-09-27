@@ -1,0 +1,5 @@
+continental.email.field = flutter-valuekey=email
+continental.pwd.field = flutter-valuekey=pwd
+continental.login.btn = flutter-text=Login
+continental.forgot.btn = flutter-text=Forgot password
+continental.activate.btn = flutter-text=Activate Account
