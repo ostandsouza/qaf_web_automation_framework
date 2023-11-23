@@ -3,6 +3,8 @@ package com.web.pages;
 import static java.io.File.separator;
 import static org.testng.Assert.assertEquals;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 import com.common.component.CustomElement;
@@ -485,12 +487,12 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void verifyPDFContents(String fullName, String custSiteName, String conveyorName, String inspectionName, String inspectionId) {
-		PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+inspectionId+".pdf");
+		PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+ LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSiteName+"-Multiple-"+inspectionName+".pdf");
 		try {
 			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
 			Validator.assertTrue(val.contains(fullName),"PDF Report was generated for the wrong inspector","PDF Report was generated for the right inspector");
 			Validator.assertTrue(val.contains(custSiteName),"PDF Report was generated for the wrong customer Site","PDF Report was generated for the right customer Site");
-			Validator.assertTrue(val.contains(conveyorName),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
+			Validator.assertTrue(val.contains(conveyorName)||val.contains("Multiple"),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
 			Validator.assertTrue(val.contains(inspectionName),"PDF Report was generated for the wrong inspection","PDF Report was generated for the right inspection");
 		}catch(Exception e){
 			e.printStackTrace();

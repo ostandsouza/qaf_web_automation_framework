@@ -1,5 +1,6 @@
 package com.mobile.flutter.app.pages;
 
+import com.common.utils.APIBase;
 import com.qmetry.qaf.automation.support.flutter.ByFlutter;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
@@ -12,9 +13,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Map;
 import java.util.Set;
 
 public class FlutterBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
+
+    public APIBase apiBase = new APIBase();
 
     @Override
     protected void openPage(PageLocator locator, Object... args) {
@@ -61,6 +65,15 @@ public class FlutterBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      */
     public void waitUntilAppLoads(){
         driver.executeScript("flutter:waitForFirstFrame");
+    }
+
+    /**
+     * This method is used to get render tree of the current page
+     * @return Null
+     * @author Ostan Dsouza
+     */
+    public String getRenderTree(){
+        return (String)driver.executeScript("flutter:getRenderTree");
     }
 
     /**

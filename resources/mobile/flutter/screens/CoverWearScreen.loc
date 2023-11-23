@@ -1,0 +1,13 @@
+coverWear.coverWear.txt = flutter-text=Cover Wear
+coverWear.search.field = flutter-valuekey=search_box
+coverWear.beltWidth.field = flutter-valuekey=Belt Width
+coverWear.beltLength.field = flutter-valuekey=Belt Length
+coverWear.search.filter = flutter-valuekey=Search
+coverWear.search.results = flutter-type=ListTile
+coverWear.topCoverThickness.field = flutter-valuekey=Top Cover Thickness Nominal
+coverWear.bottomCoverThickness.field = flutter-valuekey=Bottom Cover Thickness Nominal
+coverWear.durometer.field = flutter-valuekey=Durometer (New Belt)
+coverWear.topCoverCompound.field = flutter-valuekey=Top Cover Compound
+coverWear.bottomCoverCompound.field = flutter-valuekey=Bottom Cover Compound
+coverWear.datePicker.field = flutter-type=ContiplusDatePicker
+coverWear.success.msg = flutter-text=Specifications saved correctly

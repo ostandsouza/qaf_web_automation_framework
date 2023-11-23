@@ -1,17 +1,25 @@
 package com.mobile.flutter.app.steps;
 
 import com.common.utils.MiscUtils;
+import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.flutter.app.pages.FlutterBasePage;
 import com.mobile.utils.PerfectoLabUtils;
 import com.qmetry.qaf.automation.core.ConfigurationManager;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
+import io.restassured.response.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 public class CommonSteps {
     FlutterBasePage app = new FlutterBasePage();
@@ -65,4 +73,24 @@ public class CommonSteps {
 
     }
 
+    @QAFTestStep(description = "Create as customer user account from via with {UserName} {Email} {Password} {Phone} {SiteName} and {UserType}")
+    public void createCustomerUserViaAPI(String userName, String email, String pwd, String phone, String siteName, String userType) {
+        app.apiBase.getLoginAPI(getBundle().getString("env.adminUsername"),getBundle().getString("env.adminPassword"));
+        String userid = app.apiBase.getUserProfileAPI(email);
+        app.apiBase.deleteProfileAPI(userid);
+        app.apiBase.deleteUserAPI(userid);
+        ArrayList<HashMap<String, Object>> companyRes = ((ArrayList<HashMap<String, Object>>)(app.apiBase.getCompanyAPI(siteName).jsonPath().get("data")));
+        String userId= app.apiBase.createUserAPI(email, pwd, phone, userName);
+        app.apiBase.createProfileAPI(userType, userId, new JSONObject(companyRes.get(0)).toString());
+    }
+
+    @QAFTestStep(description = "Create as territory user account from via with {UserName} {Email} {Password} {Phone} and {UserType}")
+    public void createTerritoryUserViaAPI(String userName, String email, String pwd, String phone, String userType) {
+        app.apiBase.getLoginAPI(getBundle().getString("env.adminUsername"),getBundle().getString("env.adminPassword"));
+        String userid = app.apiBase.getUserProfileAPI(email);
+        app.apiBase.deleteProfileAPI(userid);
+        app.apiBase.deleteUserAPI(userid);
+        String userId= app.apiBase.createUserAPI(email, pwd, phone, userName);
+        app.apiBase.createProfileAPI(userType, userId);
+    }
 }

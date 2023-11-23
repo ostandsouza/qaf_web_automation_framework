@@ -6,10 +6,12 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
 import com.qmetry.qaf.automation.util.PoiExcelUtil;
 import com.qmetry.qaf.automation.util.Reporter;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import io.restassured.response.Response;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -51,6 +53,18 @@ public class MiscUtils {
         int min = (int) TimeUnit.MILLISECONDS.toMinutes(miliSeconds) % 60;
         int sec = (int) TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % 60;
         return String.format("%02d:%02d:%02d", hrs, min, sec);
+    }
+
+    public static String regexExtractor(String text, String regex) {
+        String val = null;
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            val = matcher.group(1);
+            System.out.println("match text: =" + matcher.groupCount());
+        }
+        System.out.println("After regex text:" + val.trim());
+        return val.trim();
     }
 
     public static String getOtpfromMail(String body) {
@@ -192,4 +206,29 @@ public class MiscUtils {
             .build();
 
 
+    public static JSONObject parse(Response dataResponse) {
+        JSONParser parser = new JSONParser();
+        JSONObject data = null;
+        try {
+            String jsonData = dataResponse.body().asString();
+            data = (JSONObject) parser.parse(jsonData);
+        } catch (ParseException e) {
+            Reporter.log(e.getMessage());
+        }
+
+        return data;
+    }
+
+    public static JSONArray parseArray(Response dataResponse) {
+        JSONParser parser = new JSONParser();
+        JSONArray data = null;
+        try {
+            String jsonData = dataResponse.body().asString();
+            data = (JSONArray) parser.parse(jsonData);
+        } catch (ParseException e) {
+            Reporter.log(e.getMessage());
+        }
+
+        return data;
+    }
 }

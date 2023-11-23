@@ -1,18 +1,14 @@
 package com.common.utils;
 
 import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.Option;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.openqa.selenium.json.Json;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -158,9 +154,10 @@ public class APIBase {
         requestBody.put("email", email);
         requestBody.put("locale", "en-US");
         requestBody.put("password", password);
-        requestBody.put("phone", phone);
-        requestBody.put("username", username);
+        requestBody.put("phone", "+91"+phone);
+        requestBody.put("username", "CTP"+(Math.floor(Math.random() * 9000000000000L) + 1000000000000L));
         headersMap.put("usertoken",accessToken);
+        headersMap.put("appclientid",getBundle().getString("env.appId"));
         Map<String, String> authPaths = JsonReader.getMapTestData("path", "user_controller");
         Response userResponse =restApiHelper.makePostRequest(authPaths.get("user"), new JSONObject(requestBody), headersMap);
         String val = null;
@@ -172,18 +169,21 @@ public class APIBase {
         return val;
     }
 
-    public void createProfileAPI(String userType, String userid) {
+    public void createProfileAPI(String userType, String userid, String... corpType) {
         String baseUrl = commonPaths.get("profile_ms");
         restApiHelper.setBaseURI(baseUrl);
-        JSONObject obj = JsonReader.getJsonObject(userType, null);
-        requestBody.putAll(MiscUtils.getFullUpdatedPayload(obj,"userid",userid));
+        JSONObject obj = JsonReader.getJsonTestData(userType);
+        if(corpType.length != 0)
+            obj = MiscUtils.getFullUpdatedPayload(obj,"corporateType",corpType[0]);
+        requestBody.putAll(MiscUtils.getFullUpdatedPayload(obj,"userId",userid));
         headersMap.put("usertoken",accessToken);
+        headersMap.put("appclientid",getBundle().getString("env.appId"));
         Map<String, String> authPaths = JsonReader.getMapTestData("path", "profile_controller");
-        Response userResponse =restApiHelper.makePostRequest(authPaths.get("profiles"), new JSONObject(requestBody), headersMap);
+        Response userResponse =restApiHelper.makePostRequest(authPaths.get("profile"), new JSONObject(requestBody), headersMap);
         tearDown();
     }
 
-    public String getCompanyAPI(String companyName) {
+    public Response getCompanyAPI(String companyName) {
         configureRestAssured();
         if(companyName != null)
             queryMaps.put("name", companyName);
@@ -193,14 +193,24 @@ public class APIBase {
         Map<String, String> companyPaths = JsonReader.getMapTestData("path", "company_controller");
         restApiHelper.makeGetRequest(companyPaths.get("companies"),queryMaps, headersMap);
         Response companyResponse = restApiHelper.getResponse();
+//        String val = null;
+//        JsonPath jsnPath = companyResponse.jsonPath();
+//        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+//            val = (String) jsnPath.getMap("data[0]").get("companyId");
+//        }
+//        tearDown();
+//        return val;
+        return companyResponse;
+    }
+    public String getCompanyID(Response res){
         String val = null;
-        JsonPath jsnPath = companyResponse.jsonPath();
+        JsonPath jsnPath = res.jsonPath();
         if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
             val = (String) jsnPath.getMap("data[0]").get("companyId");
         }
-        tearDown();
         return val;
     }
+
 
     public void deleteCompanyAPI(String companyId) {
         configureRestAssured();
@@ -500,12 +510,14 @@ public class APIBase {
         return val;
     }
 
-    public void createConveyorAPI(String companyId, String siteCompanyId) {
+    public void createConveyorAPI(String companyId, String siteCompanyId, String... conveyorName) {
         String baseUrl = commonPaths.get("conveyor_ms");
         restApiHelper.setBaseURI(baseUrl);
         JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale("conveyor", ClasspathResourceHelper.FileType.JSON, "test_data"));
         requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"customer.customerCorporate.companyId",companyId));
         requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"customer.companyId",siteCompanyId));
+        if(conveyorName.length != 0)
+            requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"name", conveyorName[0]));
         headersMap.put("user-token",accessToken);
         Map<String, String> conveyorPaths = JsonReader.getMapTestData("path", "conveyor_controller");
         Response conveyorResponse =restApiHelper.makePostRequest(conveyorPaths.get("conveyor"), new JSONObject(requestBody), headersMap);

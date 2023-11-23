@@ -5,6 +5,9 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.InspectionPage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class InspectionSteps {
 
 	InspectionPage inspectionpage = new InspectionPage();
@@ -47,19 +50,20 @@ public class InspectionSteps {
 		inspectionpage.verifyInspection(inspectionName,itemCount);
 	}
 	
-	@QAFTestStep(description="Download inspection {InspectionName} from inspection list")
-	public void downloadPDF(String inspectionName) {
+	@QAFTestStep(description="Download inspection {InspectionName} from inspection list with {CustSiteName} {ConveyorName}")
+	public void downloadPDF(String inspectionName, String custSIteName, String conveyorName) {
 		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
 		inspectionpage.searchInspection(inspectionName);
 		inspectionpage.downloadPDF();
-		Validator.assertTrue(MiscUtils.checkDownloadedFiles(inspectionId+".pdf"),"PDF report was not found","PDF report was downloaded successfully");
+		System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+conveyorName+".pdf");
+		Validator.assertTrue(MiscUtils.checkDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+inspectionName+".pdf"),"PDF report was not found","PDF report was downloaded successfully");
 	}
 
 	@QAFTestStep(description="Verify data displayed in report for {FullName} {CustSiteName} {ConveyorName} {InspectionName}")
 	public void verifyDownloadPDF(String fullName, String custSIteName, String conveyorName, String inspectionName) {
 		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
 		inspectionpage.verifyPDFContents(fullName, custSIteName, conveyorName,inspectionName,inspectionId);
-		MiscUtils.deleteDownloadedFiles(inspectionId+".pdf");
+		MiscUtils.deleteDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+inspectionName+".pdf");
 	}
 
 	@QAFTestStep(description="Delete inspection {InspectionName} from inspection list")

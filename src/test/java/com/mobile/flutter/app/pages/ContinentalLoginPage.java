@@ -1,13 +1,23 @@
 package com.mobile.flutter.app.pages;
 
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
+import com.qmetry.qaf.automation.util.Validator;
+import com.web.pages.LoginPage;
+
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 public class ContinentalLoginPage extends FlutterBasePage {
 
-    DashboardPage dashboardPage = new DashboardPage();
+    private static ContinentalLoginPage obj;
+    public static ContinentalLoginPage getInstance(){
+        if(obj==null)
+            obj = new ContinentalLoginPage();
+        return obj;
+    }
 
     @Override
     protected void openPage(PageLocator locator, Object... args) {
@@ -29,6 +39,29 @@ public class ContinentalLoginPage extends FlutterBasePage {
     @FindBy(locator = "continental.activate.btn")
     public CustomFlutterElement activateAcctBtn;
 
+    @FindBy(locator = "activate.email.field")
+    public CustomFlutterElement activateEmailField;
+
+    @FindBy(locator = "activate.code.field")
+    public CustomFlutterElement activateCodeField;
+
+    @FindBy(locator = "activate.verify.btn")
+    public CustomFlutterElement activateVerifyBtn;
+
+    @FindBy(locator = "activate.success.message")
+    public CustomFlutterElement activateSuccessMsg;
+
+    @FindBy(locator = "forgot.email.field")
+    public CustomFlutterElement forgotEmailField;
+
+    @FindBy(locator = "forgot.submit.btn")
+    public CustomFlutterElement forgotSubmitBtn;
+
+    @FindBy(locator = "continental.back.btn")
+    public CustomFlutterElement backBtn;
+
+    @FindBy(locator = "continental.error.message")
+    public CustomFlutterElement continentalErrorMsg;
 
     public boolean isContinentalPage() {
         return emailField.isPresent();
@@ -43,11 +76,27 @@ public class ContinentalLoginPage extends FlutterBasePage {
     }
 
     public boolean login(String email, String pwd) {
-        SyncUtil.waitFor(5000);
+        apiBase.getLoginAPI(getBundle().getString("env.adminUsername"),getBundle().getString("env.adminPassword"));
         enterEmail(email);
         enterPassword(pwd);
         loginBtn.click();
-        return dashboardPage.isHomePage();
+        return DashboardPage.getInstance().isHomePage();
+    }
+
+    public boolean verifyUser(String email) {
+        String otp;
+        otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(email));
+        System.out.println(otp);
+        activateAcctBtn.click("Activate Button");
+        activateEmailField.sendKeys(email,"Activate Email Field");
+        activateCodeField.sendKeys(otp,"Activate Code Field");
+        activateVerifyBtn.click("Verify User Button");
+        Validator.assertTrue(activateSuccessMsg.waitForTheElementToBeVisible(10,"Activate Success Message"),"Activate success message was not displayed","Activate success message verified successfully");
+        return loginBtn.isVisible("Login Email Field");
+    }
+
+    public void goBackToContinentalLoginPage() {
+        backBtn.click();
     }
 
 }

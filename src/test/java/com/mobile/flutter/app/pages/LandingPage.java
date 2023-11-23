@@ -9,6 +9,13 @@ public class LandingPage extends FlutterBasePage {
     GuestLoginPage guestLoginPage = new GuestLoginPage();
     ContinentalLoginPage continentalLoginPage = new ContinentalLoginPage();
 
+    private static LandingPage obj;
+    public static LandingPage getInstance(){
+        if(obj==null)
+            obj = new LandingPage();
+        return obj;
+    }
+
     @Override
     protected void openPage(PageLocator locator, Object... args) {
         // TODO Auto-generated method stub

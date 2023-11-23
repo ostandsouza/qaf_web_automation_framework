@@ -136,7 +136,7 @@ Scenario: Verify Inspection management
 @key:Inspection_Report
 Scenario: Verify Inspection Report
 
-    When  Download inspection '${InspectionName}' from inspection list
+    When  Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
     Then  Verify data displayed in report for '${FullName}' '${CustSiteName}' '${ConveyorName}' '${InspectionName}'
 
 @Sanity12
@@ -173,6 +173,8 @@ Scenario: Verify Cover Wear Management
 @key:File_Manager
 Scenario: Verify File manager
 
+    Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     When  Add Folder by the name '${FolderName}' under site '${CustSiteName}'
     And   Upload file '${ImgName}' into the folder '${FolderName}'
     Then  Verify folder '${FolderName}' and file '${ImgName}'

@@ -9,7 +9,13 @@ import org.testng.Assert;
 
 public class DashboardPage extends FlutterBasePage {
 
-    DashboardNativePage dashboardNativePage = new DashboardNativePage();
+    private static DashboardPage obj;
+
+    public static DashboardPage getInstance(){
+        if(obj==null)
+            obj = new DashboardPage();
+        return obj;
+    }
 
     @Override
     protected void openPage(PageLocator locator, Object... args) {
@@ -19,8 +25,14 @@ public class DashboardPage extends FlutterBasePage {
     @FindBy(locator = "dashboard.home.title")
     public CustomFlutterElement homeTitle;
 
+    @FindBy(locator = "dashboard.loading.animation")
+    public CustomFlutterElement loadingDashboard;
+
     @FindBy(locator = "dashboard.add.icon")
     public CustomFlutterElement addIcon;
+
+    @FindBy(locator = "dashboard.profiles.icon")
+    public CustomFlutterElement profileIcon;
 
     @FindBy(locator = "dashboard.add.conveyor")
     public CustomFlutterElement addConveyor;
@@ -28,136 +40,58 @@ public class DashboardPage extends FlutterBasePage {
     @FindBy(locator = "dashboard.add.corporate")
     public CustomFlutterElement addCorporate;
 
-    @FindBy(locator = "dashboard.company.type")
-    public CustomFlutterElement companyType;
+    @FindBy(locator = "dashboard.add.site")
+    public CustomFlutterElement addSiteShop;
 
-    @FindBy(locator = "dashboard.distributor.corporate")
-    public CustomFlutterElement distCorporate;
+    @FindBy(locator = "dashboard.add.inspection")
+    public CustomFlutterElement addInspection;
 
-    @FindBy(locator = "dashboard.customer.corporate")
-    public CustomFlutterElement custCorporate;
-
-    @FindBy(locator = "dashboard.company.field")
-    public CustomFlutterElement companyName;
-
-    @FindBy(locator = "dashboard.address.field")
-    public CustomFlutterElement addressBar;
-
-    @FindBy(locator = "dashboard.save.btn")
-    public CustomFlutterElement saveBtn;
-
-    @FindBy(locator = "dashboard.coverWear.txt")
-    public CustomFlutterElement coverWear;
-
-    @FindBy(locator = "dashboard.search.field")
-    public CustomFlutterElement searchField;
-
-    @FindBy(locator = "dashboard.beltWidth.field")
-    public CustomFlutterElement beltWidth;
-
-    @FindBy(locator = "dashboard.beltLength.field")
-    public CustomFlutterElement beltLength;
-
-    @FindBy(locator = "dashboard.search.filter")
-    public CustomFlutterElement search;
-
-    @FindBy(locator = "dashboard.search.results")
-    public CustomFlutterElement result;
-
-    @FindBy(locator = "dashboard.topCoverThickness.field")
-    public CustomFlutterElement topCoverThickness;
-
-    @FindBy(locator = "dashboard.bottomCoverThickness.field")
-    public CustomFlutterElement bottomCoverThickness;
-
-    @FindBy(locator = "dashboard.durometer.field")
-    public CustomFlutterElement durometer;
-
-    @FindBy(locator = "dashboard.topCoverCompound.field")
-    public CustomFlutterElement topCoverCompound;
-
-    @FindBy(locator = "dashboard.bottomCoverCompound.field")
-    public CustomFlutterElement bottomCoverCompound;
-
-    @FindBy(locator = "dashboard.datePicker.field")
-    public CustomFlutterElement dateOfInstallation;
 
     public boolean isHomePage() {
-        addIcon.waitForTheElementToBeVisible(60);
-        return addIcon.isPresent();
+        return homeTitle.isPresent();
     }
+
+    public boolean goToProfilePage() {
+        profileIcon.click();
+        return ProfilePage.getInstance().isMyProfile();
+    }
+
+//    public boolean goToConveyorTile() {
+//        profileIcon.click();
+//        return ConveyorPage.getInstance().isMyProfile();
+//    }
 
     public boolean goToAddCorp() {
-        addIcon.waitForTheElementToBeVisible(60);
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        addIcon.waitForTheElementToBeVisible(30);
         addIcon.click();
         addCorporate.click();
-        return companyType.isPresent();
+        return CorporatePage.getInstance().isCompanyPage();
     }
 
-    public void selectDistributorCorp() {
-        companyType.waitForTheElementToBeVisible(30);
-        companyType.click();
-        distCorporate.click();
+    public boolean goToSiteShop() {
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        addIcon.waitForTheElementToBeVisible(30);
+        addIcon.click();
+        addSiteShop.click();
+        return CorporatePage.getInstance().isCompanyPage();
     }
 
-    public void selectCustomerCorp() {
-        companyType.click();
-        custCorporate.click();
+    public boolean goToConveyor() {
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        addIcon.waitForTheElementToBeVisible(30);
+        addIcon.click();
+        addConveyor.click();
+        return ConveyorPage.getInstance().isConveyorPage();
     }
 
-    public boolean addCorpDetails(String company, String address) {
-        selectDistributorCorp();
-        dashboardNativePage.imageUpload();
-        companyName.sendKeys(company);
-        addressBar.sendKeys(address);
-        addressBar.click();
-        dashboardNativePage.gMapSelection();
-        SyncUtil.waitFor(3000);
-        saveBtn.click();
-        return isHomePage();
+    public boolean goToInspection() {
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        addIcon.waitForTheElementToBeVisible(30);
+        addIcon.click();
+        addInspection.click();
+        return InspectionPage.getInstance().isInspectionPage();
     }
 
-    public void enterSearchQuery(String query){
-        searchField.sendKeys(query);
-        SyncUtil.waitFor(2000);
-    }
-
-    public void verifyCorpCreation(String company) {
-        dashboardNativePage.goToCorporateSearch();
-        enterSearchQuery(company);
-        Assert.assertTrue(dashboardNativePage.getSearchCount().contains("1"),"Search Result Count");
-        Assert.assertTrue(dashboardNativePage.getSearchResult().equalsIgnoreCase(company),"Search Result");
-    }
-
-    public void goToCoverWearViaConveyor(String conveyor) {
-        Assert.assertEquals(dashboardNativePage.goToConveyor(conveyor),conveyor,"Conveyor Navigation");
-        dashboardNativePage.goToCoverWear();
-    }
-
-    public void fillCoverWearSpecs(){
-        beltWidth.sendKeys("8");
-        beltLength.sendKeys("5");
-        topCoverThickness.scrollIntoView();
-        topCoverThickness.click();
-        search.sendKeys("1");
-        dashboardNativePage.selectFirstSearch();
-        bottomCoverThickness.scrollIntoView();
-        bottomCoverThickness.click();
-        search.sendKeys("3");
-        dashboardNativePage.selectFirstSearch();
-        durometer.scrollIntoView();
-        durometer.sendKeys("50");
-        topCoverCompound.scrollIntoView();
-        topCoverCompound.click();
-        search.sendKeys("ALUMINA HOT");
-        dashboardNativePage.selectFirstSearch();
-        bottomCoverCompound.scrollIntoView();
-        bottomCoverCompound.click();
-        search.sendKeys("ALUMINA HOT");
-        dashboardNativePage.selectFirstSearch();
-        dateOfInstallation.click();
-        dashboardNativePage.selectCalenderDate();
-        saveBtn.click();
-    }
 
 }

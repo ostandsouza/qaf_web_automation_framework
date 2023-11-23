@@ -11,7 +11,7 @@ dashboard.sites.card = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]
 dashboard.conveyors.card = xpath=//XCUIElementTypeImage[contains(@name,"Conveyors")]
 dashboard.coverWear.card = xpath=//XCUIElementTypeImage[contains(@name,"Cover Wear")]
 dashboard.inspections.card = xpath=//XCUIElementTypeImage[contains(@name,"Inspections")]
-dashboard.camera.icon = -ios class chain=**/XCUIElementTypeStaticText[`label == "Camera"`]
+dashboard.camera.icon = -ios class chain=Camera
 dashboard.gallery.btn = -ios class chain=**/XCUIElementTypeStaticText[`label == "Gallery"`]
 dashboard.alert.popup = -ios class chain=**/XCUIElementTypeStaticText[`label == "“Conti+ 2.0” Would Like to Access the Camera"`]
 dashboard.permission.dismiss = accessibility id=Don’t Allow

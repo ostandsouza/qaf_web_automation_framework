@@ -67,7 +67,10 @@ public class NativeBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         int midX = (deviceWidth / 2);
         int midY = (deviceHeight / 2);
         int bottomEdge = (int) (deviceHeight * 0.85f);
-        new TouchAction(this.getAndroidDriver()).press(PointOption.point(midX, midY)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(midX, bottomEdge))
+        new TouchAction(getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)getAppiumDriver()  :(IOSDriver)getAppiumDriver())
+                .press(PointOption.point(midX, midY))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+                .moveTo(PointOption.point(midX, bottomEdge))
                 .release().perform();
         Reporter.log("Refreshed screen", MessageTypes.Info);
     }

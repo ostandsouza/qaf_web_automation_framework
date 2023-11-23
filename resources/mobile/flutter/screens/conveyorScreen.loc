@@ -1,0 +1,17 @@
+conveyor.name.field = flutter-valuekey=Conveyor Name
+conveyor.distributor.field = flutter-valuekey=Distributor Shop
+conveyor.customer.field = flutter-valuekey=Customer Site
+conveyor.search.dropdown = flutter-valuekey=Search
+conveyor.save.btn = flutter-text=Save & Close
+conveyor.frame.screen= flutter-type=DetailsStep
+conveyor.details.back = flutter-valuekey=conveyor_back_btn
+conveyor.list.firstResult = flutter-text=File Manager
+conveyor.details.technicalData = flutter-text=Technical Data
+conveyor.details.coverWear = flutter-text=Cover Wear
+conveyor.details.inspection = flutter-text=Inspection
+conveyor.details.fileManager = flutter-text=File Manager
+conveyor.list.download = flutter-valuekey=conveyor_download
+conveyor.list.upload = flutter-valuekey=conveyor_upload
+conveyor.list.more = flutter-valuekey=conveyor_more
+conveyor.more.edit = flutter-text=Edit
+conveyor.more.delete = flutter-text=Delete

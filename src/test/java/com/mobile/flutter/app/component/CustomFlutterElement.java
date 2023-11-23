@@ -66,10 +66,30 @@ public class CustomFlutterElement extends FlutterElement {
      */
     public void click(String... objName) {
         try{
-            this.click();
-            Reporter.log("Clicked on " + objName, MessageTypes.Info);
+            if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
+                this.click();
+                Reporter.log("Clicked on " + objName, MessageTypes.Info);
+            }
+            else throw new RuntimeException(this+" element for click not found");
         } catch (Exception e) {
             Reporter.log("Failed to click on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
+        }
+    }
+
+    /**
+     *This method is used to get text from Flutter element if only present
+     * @param objName : Name of object for reporting purpose
+     *@return Null
+     *@author Ostan dsouza
+     */
+    public String getText(String objName) {
+        try {
+            if (waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
+                return this.getText();
+            } else throw new RuntimeException(this + " element for sendkeys not found ");
+        } catch (Exception e) {
+            Reporter.log("Failed to get text from "+ objName + "due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -116,7 +136,7 @@ public class CustomFlutterElement extends FlutterElement {
     public void singleTap(String... objName) {
         try {
             int val = getAppiumDriver() instanceof AndroidDriver ? 1: 1;
-            getAppiumDriver().executeScript("flutter: longTap", this, new HashMap<String, Object>() {{
+            getAppiumDriver().executeScript("flutter: longTap", this.getId(), new HashMap<String, Object>() {{
                 put("durationMilliseconds", val);
                 put("frequency", 1000);
             }});
@@ -139,7 +159,7 @@ public class CustomFlutterElement extends FlutterElement {
                 int val = getAppiumDriver() instanceof AndroidDriver ? 1 : 10;
                 int count = 2;
                 while (count > 0) {
-                    getAppiumDriver().executeAsyncScript("flutter: longTap", this, new HashMap<String, Object>() {{
+                    getAppiumDriver().executeAsyncScript("flutter: longTap", this.getId(), new HashMap<String, Object>() {{
                         put("durationMilliseconds", val);
                         put("frequency", 1000);
                     }});
@@ -166,9 +186,9 @@ public class CustomFlutterElement extends FlutterElement {
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 int val = getAppiumDriver() instanceof AndroidDriver ? 10 : 100;
-                Map center = (Map) getAppiumDriver().executeScript("flutter:getBottomRight", this);
+                Map center = (Map) getAppiumDriver().executeScript("flutter:getBottomRight", this.getId());
 
-                getAppiumDriver().executeScript("flutter: scroll", this, new HashMap<String, Object>() {{
+                getAppiumDriver().executeScript("flutter: scroll", this.getId(), new HashMap<String, Object>() {{
                     put("dx", -((center.get("dx") instanceof Long ? (long) center.get("dx") : (double) center.get("dx")) * percentage / 100));
                     put("dy", 0);
                     put("durationMilliseconds", val);
@@ -194,7 +214,7 @@ public class CustomFlutterElement extends FlutterElement {
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 int val = getAppiumDriver() instanceof AndroidDriver ? 500 : 5000;
-                getAppiumDriver().executeScript("flutter: longTap", this, new HashMap<String, Object>() {{
+                getAppiumDriver().executeScript("flutter: longTap", this.getId(), new HashMap<String, Object>() {{
                     put("durationMilliseconds", val);
                     put("frequency", 1000);
                 }});
@@ -220,9 +240,10 @@ public class CustomFlutterElement extends FlutterElement {
         try {
             if(element.waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 boolean flag = this.isVisible();
-                Map center = (Map) getAppiumDriver().executeScript("flutter:getCenter", element);
+                Map center = (Map) getAppiumDriver().executeScript("flutter:getCenter", element.getId());
 
-                while (!flag) {
+                long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(5);
+                while (!flag ? stop>System.nanoTime() : !flag) {
 
                     element.scroll(dir, center);
 
@@ -251,7 +272,7 @@ public class CustomFlutterElement extends FlutterElement {
     public void slideToElement(DIRECTION dir, String... objName) {
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
-                Map center = (Map) getAppiumDriver().executeScript("flutter:getCenter", this);
+                Map center = (Map) getAppiumDriver().executeScript("flutter:getCenter", this.getId());
 
                 scroll(dir, center);
                 Reporter.log("Slide gesture on " + objName, MessageTypes.Info);
@@ -323,7 +344,7 @@ public class CustomFlutterElement extends FlutterElement {
     public void scrollIntoView(String... objName) {
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
-                getAppiumDriver().executeScript("flutter: scrollIntoView", this, new HashMap<String, Object>() {{
+                getAppiumDriver().executeScript("flutter: scrollIntoView", this.getId(), new HashMap<String, Object>() {{
                     put("alignment", 0.1);
                 }});
                 Reporter.log("Scroll gesture on " + objName, MessageTypes.Info);
@@ -347,17 +368,17 @@ public class CustomFlutterElement extends FlutterElement {
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout")) && elementTo.waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 int val = getAppiumDriver() instanceof AndroidDriver ? 10 : 100;
-                Map point = (Map) getAppiumDriver().executeScript("flutter:getCenter", this);
-                Map point1 = (Map) getAppiumDriver().executeScript("flutter:getCenter", elementTo);
+                Map point = (Map) getAppiumDriver().executeScript("flutter:getCenter", this.getId());
+                Map point1 = (Map) getAppiumDriver().executeScript("flutter:getCenter", elementTo.getId());
                 if (Double.compare((double) point.get("dy"), (double) point1.get("dy")) < 0) {
-                    getAppiumDriver().executeScript("flutter: scroll", this, new HashMap<String, Object>() {{
+                    getAppiumDriver().executeScript("flutter: scroll", this.getId(), new HashMap<String, Object>() {{
                         put("dx", point1.get("dx") instanceof Long ? (long) point1.get("dx") : (double) point1.get("dx"));
                         put("dy", point1.get("dy") instanceof Long ? ((long) point1.get("dy") - (point.get("dy") instanceof Long ? (long) point.get("dy") : (double) point.get("dy"))) : (double) point1.get("dy") - (point.get("dy") instanceof Long ? (long) point.get("dy") : (double) point.get("dy")));
                         put("durationMilliseconds", val);
                         put("frequency", 1000);
                     }});
                 } else {
-                    getAppiumDriver().executeScript("flutter: scroll", this, new HashMap<String, Object>() {{
+                    getAppiumDriver().executeScript("flutter: scroll", this.getId(), new HashMap<String, Object>() {{
                         put("dx", point1.get("dx") instanceof Long ? (long) point1.get("dx") : (double) point1.get("dx"));
                         put("dy", point1.get("dy") instanceof Long ? -((long) point1.get("dy") - (point.get("dy") instanceof Long ? (long) point.get("dy") : (double) point.get("dy"))) : -((point.get("dy") instanceof Long ? (long) point.get("dy") : (double) point.get("dy")) - (double) point1.get("dy")));
                         put("durationMilliseconds", val);
@@ -382,7 +403,7 @@ public class CustomFlutterElement extends FlutterElement {
     public boolean isVisible() {
         try {
             int val = getAppiumDriver() instanceof AndroidDriver? 3000: 3000;
-            getAppiumDriver().executeScript("flutter:waitFor", this, val);
+            getAppiumDriver().executeScript("flutter:waitFor", this.getId(), val);
             return true;
         } catch (Exception ignored) {
             return false;
@@ -399,12 +420,40 @@ public class CustomFlutterElement extends FlutterElement {
     public boolean isVisible(String... objName) {
         try {
             int val = getAppiumDriver() instanceof AndroidDriver? 3000: 3000;
-            getAppiumDriver().executeScript("flutter:waitFor", this, val);
+            getAppiumDriver().executeScript("flutter:waitFor", this.getId(), val);
             Reporter.log("'" + objName[0] + "'" + " is visible", MessageTypes.Info);
             return true;
         } catch (Exception ignored) {
             Reporter.log("'" + objName[0] + "'" + " is not visible", MessageTypes.Fail);
             return false;
+        }
+    }
+
+    /**
+     * This method is used to get the size of the element
+     * @param objName: Name of object for reporting purpose
+     * @return Height and width of the element
+     * @author Ostan dsouza
+     */
+    public Map<Object, Object> getElementProperties(String... objName){
+        try {
+            Map<Object, Object> list;
+            if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
+                list = ((Map<Object, Object>) getAppiumDriver().executeScript(
+                        "flutter:getRenderObjectDiagnostics",
+                        this.getId(),
+                        new HashMap<String, Object>() {{
+                            put("includeProperties", true);
+                            put("subtreeDepth", 1);
+                        }}));
+            }
+            else throw new RuntimeException(this+" element for render props not found");
+
+            return list;
+
+        } catch (Exception e) {
+            Reporter.log("Failed to get element size for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
         }
     }
 
@@ -425,19 +474,19 @@ public class CustomFlutterElement extends FlutterElement {
                             put("includeProperties", true);
                             put("subtreeDepth", 0);
                         }})).get("properties")).stream().filter(x -> ((String) x.get("name")).equalsIgnoreCase("size")).collect(Collectors.toList()).get(0).get("description");
-                }
-                else throw new RuntimeException(this+" element for render props not found");
+            }
+            else throw new RuntimeException(this+" element for render props not found");
 
-                Pattern p = Pattern.compile("([0-9]+)[.]");
-                Matcher m = p.matcher(str.split(",")[0]);
-                HashMap<String, Integer> map = new HashMap<>();
-                if (m.find())
-                    map.put("height", parseInt(m.group(1).replace(".", "")));
-                m = p.matcher(str.split(",")[1]);
-                if (m.find())
-                    map.put("width", parseInt(m.group(1).replace(".", "")));
-                Reporter.log("Element size for " + objName, MessageTypes.Info);
-                return map;
+            Pattern p = Pattern.compile("([0-9]+)[.]");
+            Matcher m = p.matcher(str.split(",")[0]);
+            HashMap<String, Integer> map = new HashMap<>();
+            if (m.find())
+                map.put("height", parseInt(m.group(1).replace(".", "")));
+            m = p.matcher(str.split(",")[1]);
+            if (m.find())
+                map.put("width", parseInt(m.group(1).replace(".", "")));
+            Reporter.log("Element size for " + objName, MessageTypes.Info);
+            return map;
 
         } catch (Exception e) {
             Reporter.log("Failed to get element size for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -455,7 +504,7 @@ public class CustomFlutterElement extends FlutterElement {
         try {
             Map point;
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
-                point = (Map) getAppiumDriver().executeScript("flutter:getTopLeft", this);
+                point = (Map) getAppiumDriver().executeScript("flutter:getTopLeft", this.getId());
             }
             else throw new RuntimeException(this+" element for coordinates not found");
 
@@ -479,7 +528,7 @@ public class CustomFlutterElement extends FlutterElement {
     public  boolean waitSecsForElement(int secs, String... objName){
         try {
             int timeout = secs * 1000;
-            getAppiumDriver().executeScript("flutter:waitFor", this, timeout);
+            getAppiumDriver().executeScript("flutter:waitFor", this.getId(), timeout);
             Reporter.log("'" + objName + "'" + " is visible", MessageTypes.Info);
             return true;
         } catch (Exception ignored) {
@@ -489,7 +538,7 @@ public class CustomFlutterElement extends FlutterElement {
     }
 
     /**
-     * This method is used to check element is visible or nor
+     * This method is used to check element is visible or not
      * @param objName: Name of object for reporting purpose
      * @return True if found
      * @author Ostan dsouza
@@ -498,22 +547,52 @@ public class CustomFlutterElement extends FlutterElement {
         try {
             boolean isVisible = false;
             for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(timeout); stop > System.nanoTime(); ) {
-                while (!isVisible) {
+                if (!isVisible) {
                     int val = getAppiumDriver() instanceof AndroidDriver ? 3000 : 3000;
                     try {
-                        getAppiumDriver().executeScript("flutter:waitFor", this, val);
+                        getAppiumDriver().executeScript("flutter:waitFor", this.getId(), val);
                         isVisible = true;
+                        break;
                     } catch (Exception ignored) {
                         isVisible = false;
                     }
                 }
-                break;
             }
-            Reporter.log("'" + objName + "'" + " is visible", MessageTypes.Info);
+            Reporter.log("'" + objName + "'" + " is visible", MessageTypes.Pass);
             return isVisible;
 
         } catch (Exception e) {
-            Reporter.log("'" + objName + "'" + " is not visible", MessageTypes.Info);
+            Reporter.log("'" + objName + "'" + " is not visible", MessageTypes.Fail);
+            throw e;
+        }
+    }
+
+    /**
+     * This method is used to check element is invisible or not
+     * @param objName: Name of object for reporting purpose
+     * @return True if found
+     * @author Ostan dsouza
+     */
+    public boolean waitForTheElementToBeInvisible(int timeout, String... objName) {
+        try {
+            boolean isInvisible = false;
+            for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(timeout); stop > System.nanoTime(); ) {
+                while (!isInvisible) {
+                    int val = getAppiumDriver() instanceof AndroidDriver ? 3000 : 3000;
+                    try {
+                        getAppiumDriver().executeScript("flutter:waitFor", this.getId(), val);
+                        isInvisible = false;
+                    } catch (Exception ignored) {
+                        isInvisible = true;
+                    }
+                }
+                break;
+            }
+            Reporter.log("'" + objName + "'" + " is invisible", MessageTypes.Info);
+            return isInvisible;
+
+        } catch (Exception e) {
+            Reporter.log("'" + objName + "'" + " is not invisible", MessageTypes.Info);
             throw e;
         }
     }

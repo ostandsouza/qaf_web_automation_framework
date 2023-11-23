@@ -1,0 +1,6 @@
+inspection.name.field = flutter-valuekey=Inspection Name
+inspection.site.field = flutter-valuekey=Site Name
+inspection.conveyor.field = flutter-valuekey=Conveyor
+inspection.next.btn = flutter-text=Next
+inspection.save.btn = flutter-text=Save Draft
+inspection.search.dropdown = flutter-valuekey=Search

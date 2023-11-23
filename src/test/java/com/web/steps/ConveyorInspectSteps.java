@@ -12,9 +12,9 @@ public class ConveyorInspectSteps {
 
     @QAFTestStep(description="Assign Object detection model {DetectionModel} for Corporate {CustCorpName} with site {CustSiteName} and conveyor {ConveyorName}")
     public void assigningModel(String model, String custCorp, String custSite, String conveyorName){
-        String companyId = conveyorInspectPage.apiBase.getCompanyAPI(custCorp);
+        String companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custCorp));
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
-        companyId = conveyorInspectPage.apiBase.getCompanyAPI(custSite);
+        companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custSite));
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
         String conveyorId = conveyorInspectPage.apiBase.getConveyorsAPI(conveyorName);
         conveyorInspectPage.apiBase.deleteConveyorAPI(conveyorId);

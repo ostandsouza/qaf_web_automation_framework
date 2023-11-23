@@ -13,7 +13,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Create a Distributor Corporate with {DistCorpName} and {DistCorpAddress}")
     public void createADistributorCorporateBeltAssociatesCorp(String DistCorpName, String DistCorpAddress){
-        String companyId = corpPage.apiBase.getCompanyAPI(DistCorpName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(DistCorpName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         SyncUtil.waitFor(5000);
         corpPage.clickCorporates();
@@ -23,7 +23,7 @@ public class CorporateSteps {
     }
     @QAFTestStep(description="Create a Distributor shop with {DistShopIndName} and {DistShopIndAddress} and {DistCorpName} and {FullName} and {TerritoryInd}")
     public void createADistributorShopInIndiaBeltAssociatesIndiaWithTMJohnDoe(String DistShopIndName,String DistShopIndAddress, String DistCorpName,String FullNameInd, String territory){
-        String companyId = corpPage.apiBase.getCompanyAPI(DistShopIndName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(DistShopIndName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
         corpPage.goToAddCorp();
@@ -32,7 +32,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Create a Distributor shop in Germany with {DistShopGerName} and {DistShopGerAddress} and {DistCorpName} and {FullNameGer}")
     public void CreateaDistributorshopinGermanyBeltAssociatesGermanywithTMMaxMustermann(String DistShopGerName,String DistShopGerAddress,String DistCorpName, String FullNameGer) {
-        String companyId = corpPage.apiBase.getCompanyAPI(DistShopGerName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(DistShopGerName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
         corpPage.createDistributorShop(DistShopGerName, DistShopGerAddress,DistCorpName,"Germany",FullNameGer);
@@ -40,7 +40,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Create a Customer Corporate with {CustCorpName} and {CustCorpAddress}")
     public void createACustomerCorporateMiningCorp(String CustCorpName, String CustCorpAddress){
-        String companyId = corpPage.apiBase.getCompanyAPI(CustCorpName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustCorpName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
         corpPage.goToAddCorp();
@@ -50,7 +50,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Create a Customer site in India {CustShopIndName} and {CustShopIndAddress} and {CustCorpName} and {DistShopIndName} and {FullNameInd} and '${territory}")
     public void createACustomerSiteInIndiaMiningCorpIndiaWithDistribBeltAssociatesIndia(String CustShopIndName, String CustShopIndAddress,String CustCorpName, String DistShopIndName, String FullNameInd, String territory){
-        String companyId = corpPage.apiBase.getCompanyAPI(CustShopIndName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustShopIndName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
         corpPage.goToAddCorp();
@@ -59,7 +59,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Create a Customer site {0} and {1} and {2} and {3} and {4} and {5}")
     public void createACustomerSiteAndAndAndAndAnd(String CustShopGerName,String CustShopGerAddress,String CustCorpName,String DistShopGerName,String FullNameGer, String territory){
-        String companyId = corpPage.apiBase.getCompanyAPI(CustShopGerName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustShopGerName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
         corpPage.goToAddCorp();
@@ -140,7 +140,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Add Distributor Corporate with {DistCorpName} and {DistCorpAddress}")
     public void createDistributorCorporate(String DistCorpName, String DistCorpAddress){
-        String companyId = corpPage.apiBase.getCompanyAPI(DistCorpName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(DistCorpName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.goToAddCompany();
         corpPage.createDistributorCorporate(DistCorpName, DistCorpAddress);
@@ -148,7 +148,7 @@ public class CorporateSteps {
     }
     @QAFTestStep(description="Add Distributor shop with {DistShopIndName} and {DistShopIndAddress} and {DistCorpName} and {FullName} and {TerritoryInd}")
     public void createDistributorShop(String DistShopIndName,String DistShopIndAddress, String DistCorpName,String FullNameInd, String territory){
-        String companyId = corpPage.apiBase.getCompanyAPI(DistShopIndName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(DistShopIndName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.goToAddCompany();
         corpPage.createDistributorShop(DistShopIndName, DistShopIndAddress, DistCorpName, territory, FullNameInd);
@@ -156,7 +156,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Add Customer Corporate with {CustCorpName} and {CustCorpAddress}")
     public void createACustomerCorporate(String CustCorpName, String CustCorpAddress){
-        String companyId = corpPage.apiBase.getCompanyAPI(CustCorpName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustCorpName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.goToAddCompany();
         corpPage.createCustomerCorporate(CustCorpName, CustCorpAddress);
@@ -165,7 +165,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Add Customer site {CustShopName} and {CustShopAddress} and {CustCorpName} and {DistShopIndName} and {FullNameInd} and {territory}")
     public void addCustomerSite(String CustShopIndName, String CustShopIndAddress,String CustCorpName, String DistShopIndName, String FullNameInd, String territory){
-        String companyId = corpPage.apiBase.getCompanyAPI(CustShopIndName);
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustShopIndName));
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.goToAddCompany();
         corpPage.createCustomerSite(CustShopIndName, CustShopIndAddress,CustCorpName,DistShopIndName,territory,FullNameInd);

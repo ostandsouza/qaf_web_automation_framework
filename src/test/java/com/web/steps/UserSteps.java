@@ -181,6 +181,18 @@ public class UserSteps extends BasePage {
 		userpage.Clicksaveandclose();
 	}
 
+	@QAFTestStep(description="Add permission rights with {Module} {SubModule} {Add} {Edit} {Delete} {View} {Download} and create user")
+	public void addSubModuleWisePermissionForUser(String module, String subModule,String add, String edit, String delete, String view, String download) {
+		userpage.setPermission(module, subModule, add, edit, delete, view, download);
+		userpage.Clicksaveandclose();
+	}
+
+	@QAFTestStep(description="Add permission rights with {Module} {Add} {Edit} {Delete} {View} {Download} and create user")
+	public void addModuleWisePermissionForUser(String module, String add, String edit, String delete, String view, String download) {
+		userpage.setPermission(module, add, edit, delete, view, download);
+		userpage.Clicksaveandclose();
+	}
+
 	@QAFTestStep(description = "Verify {FullName} user with market manager for market as {Region} and permission rights as {Add} {Edit} {Delete} {View} {Download}")
 	public void verifyMarketAndPermissionForUser(String fullName, String region, String add, String edit, String delete, String view, String download) {
 		userpage.goToUsersAndWait();

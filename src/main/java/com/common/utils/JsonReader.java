@@ -92,6 +92,22 @@ public class JsonReader {
 	 * system property must be set to use this function
 	 *
 	 * @param fileName
+	 * @param dirs     parent directories
+	 * @return Object for env.key in JSON object. This can be string, JSONArray,
+	 *         int, bool, etc.
+	 */
+	@SuppressWarnings("unchecked")
+	public static Object getWholeJson(String fileName, String... dirs) {
+		File propFile = ClasspathResourceHelper.getPropertyFileByLocale(fileName, ClasspathResourceHelper.FileType.JSON, dirs);
+		JSONObject jsonContent = loadJsonFile(propFile);
+		return jsonContent;
+	}
+
+	/**
+	 * This method loads JSON file and returns env.header key from JSON content. ENV
+	 * system property must be set to use this function
+	 *
+	 * @param fileName
 	 * @param header
 	 * @param dirs     parent directories
 	 * @return Object for env.key in JSON object. This can be string, JSONArray,
@@ -139,6 +155,33 @@ public class JsonReader {
 	}
 
 	/**
+	 * This method loads JSON file and returns env.header key as a JSONObject from
+	 * JSON content. ENV system property must be set to use this function. If value
+	 * is not JSONObject, it will return null.
+	 *
+	 * @param fileName
+	 * @param dirs     parent directories
+	 * @return JSONObject
+	 */
+	@SuppressWarnings("unchecked")
+	public static JSONObject getJson(String fileName, String... dirs) {
+
+		Object valObj = getWholeJson(fileName, dirs);
+		JSONObject retVal = null;
+
+		if (valObj instanceof Map) {
+			retVal = new JSONObject((Map<String, ?>) valObj);
+		} else if (valObj instanceof JSONObject) {
+			retVal = (JSONObject) valObj;
+		}
+
+		if (retVal != null) {
+			System.out.println("value retrieved");
+		}
+		return retVal;
+	}
+
+	/**
 	 * This method loads specified JSON file under test_data folder in class path
 	 * and returns env+header key as a JSONObject from JSON content. ENV system
 	 * property must be set to use this function. If value is not JSONObject, it
@@ -150,6 +193,19 @@ public class JsonReader {
 	 */
 	public static JSONObject getJsonObjectTestData(String fileName, String header) {
 		return getJsonObject(fileName, header, "test_data");
+	}
+
+	/**
+	 * This method loads specified JSON file under test_data folder in class path
+	 * and returns env+header key as a JSONObject from JSON content. ENV system
+	 * property must be set to use this function. If value is not JSONObject, it
+	 * will return null.
+	 *
+	 * @param fileName
+	 * @return JSONObject
+	 */
+	public static JSONObject getJsonTestData(String fileName) {
+		return getJson(fileName,"test_data");
 	}
 
 	/**

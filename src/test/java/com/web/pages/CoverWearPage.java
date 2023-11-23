@@ -34,7 +34,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
     public CustomElement home;
 
-    @FindBy(locator = "xpath=(//li//span[text()='Cover wear'])[1]")
+    @FindBy(locator = "xpath=(//li//span[text()='Cover Wear'])[1]")
     public CustomElement coverWearList;
 
     @FindBy(locator="xpath=(//td[2])[1]")

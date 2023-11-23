@@ -6,6 +6,13 @@ import com.qmetry.qaf.automation.ui.api.PageLocator;
 
 public class GuestLoginPage extends FlutterBasePage {
 
+    private static GuestLoginPage obj;
+    public static GuestLoginPage getInstance(){
+        if(obj==null)
+            obj = new GuestLoginPage();
+        return obj;
+    }
+
     @Override
     protected void openPage(PageLocator locator, Object... args) {
         // TODO Auto-generated method stub
