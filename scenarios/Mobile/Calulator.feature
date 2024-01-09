@@ -5,7 +5,8 @@ Feature: ContiPlus scenario
   @key:Create_Flow
   Scenario: Verify new corporate creation
 
-    Given   Login to the application with '${UserName}' and '${Password}'
-    When    User navigates to add corporate screen
-    When    Add Distributor corporate with '${CorpName}' '${Address}'
-    Then    Navigate to corporate list and verify '${CorpName}' is present
+    Given   Verify user is on continental login page
+    When    Login to the application with "isolated@maildrop.cc" and "Abc@123456"
+    And     User navigates to add corporate screen with "Test Mobile Corp" and "Test Mobile Corp"
+    And     Add Distributor corporate with "Test Mobile Corp" "Manque Global - Luggage Storage In Mumbai Airport, Chhatrapati Shivaji Maharaj International Airport Road, Navpada, Vile Parle East, Vile Parle, Mumbai, Maharashtra, India"
+    Then    Navigate to corporate list and verify "Test Mobile Corp" is present

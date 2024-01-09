@@ -366,4 +366,90 @@ public class CoverWearSteps {
     public void verifyPositionEditDurometer(String durometer){
         coverWearPage.editPositionDurometer(durometer);
     }
+
+    @QAFTestStep(description="Open add new measurement window from position details screen")
+    public void openPositionMeasurement(){
+        coverWearPage.openMeasurement();
+    }
+
+    @QAFTestStep(description="Verify the selected customer site is {CustSiteName}")
+    public void verifyCustomerSiteName(String site){
+        coverWearPage.verifySite(site);
+    }
+
+    @QAFTestStep(description="Verify selected conveyor is {ConveyorName}")
+    public void verifyConveyorName(String conveyor){
+        coverWearPage.verifyConveyor(conveyor);
+    }
+
+    @QAFTestStep(description="Verify selected position is {0}")
+    public void verifySelectedPositionIs(String position){
+        coverWearPage.verifyPosition(position);
+    }
+
+    @QAFTestStep(description="Verify wear measurement table column headers")
+    public void verifyWearMeasurementHeader(){
+        coverWearPage.verifyWearTableHeader();
+    }
+
+    @QAFTestStep(description="Verify the data for last measurement {Inspector} {MeasurementDate} {NewThickness} {NewDurometer}")
+    public void verifyPositionName(String inspector, String measurement, String thickness, String durometer){
+        coverWearPage.verifyWearMeasurementData(inspector, measurement, thickness, durometer);
+    }
+
+    @QAFTestStep(description="Verify attached image functionality")
+    public void verifyWearMeasurementAttachments(){
+        boolean isEnabled = coverWearPage.verifyAttachmentBtn();
+        if(isEnabled) {
+            coverWearPage.verifyAttachmentFunctionality();
+            coverWearPage.closeAttachment();
+        }
+    }
+
+    @QAFTestStep(description="Edit the measurement with durometer {0} and thickness {1}")
+    public void verifyWearMeasurementAttachments(String thickness, String durometer){
+        coverWearPage.editMeasurement();
+        coverWearPage.editFunctionality(thickness, durometer);
+    }
+
+    @QAFTestStep(description="Delete the last measurement from wear table")
+    public void deleteWearMeasurement(){
+        coverWearPage.deleteMeasurement();
+    }
+
+    @QAFTestStep(description="Verify the deleted last measurement from the table")
+    public void verifyDeleteWearMeasurement(){
+        coverWearPage.verifyDeleteMeasurement();
+    }
+
+    @QAFTestStep(description="Verify measurement table datapoint count as {Count}")
+    public void verifyDeleteWearMeasurement(String count){
+        coverWearPage.verifyDataPointMeasurement(Integer.parseInt(count));
+    }
+
+    @QAFTestStep(description="Download report for date range {FromDate} to {ToDate}")
+    public void verifyReportForSingleConveyor(String fromDate, String toDate){
+        coverWearPage.verifySingleConveyorReport(fromDate, toDate);
+    }
+
+    @QAFTestStep(description="Verify the PDF report for single conveyor")
+    public void verifyPDFReportSingleConveyor(){
+        coverWearPage.verifyPDFSingleConveyor();
+    }
+
+    @QAFTestStep(description="Verify the PDF report for all conveyors")
+    public void verifyPDFReportAllConveyor(){
+        coverWearPage.verifyPDFAllConveyor();
+    }
+
+    @QAFTestStep(description="Verify measurement table datapoint count as {0}")
+    public void verifyMeasurementTableDatapointCountAs(String count){
+        coverWearPage.verifyDataPoints();
+    }
+
+    @QAFTestStep(description="Enter data point count as {0}")
+    public void verifyDatapointCount(String count){
+        coverWearPage.enterDataPoints(count);
+    }
+
 }

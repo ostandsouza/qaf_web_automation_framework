@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Mobile App-Android" verbose="0" parallel="tests" thread-count="2">
+
+    <listeners>
+        <listener class-name="com.common.utils.TestListener" />
+        <listener class-name="com.common.utils.EmailableTestNGReport" />
+    </listeners>
+
+    <test name="IOS Mobile Sanity" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/ios/screens;resources/env_dev"/>
+        <groups>
+            <run>
+                <include name="Testthis"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+</suite>

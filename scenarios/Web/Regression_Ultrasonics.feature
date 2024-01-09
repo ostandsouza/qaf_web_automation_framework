@@ -237,7 +237,7 @@ Scenario: Verify an edit option operation for individual measurement
 
     When  Navigate to conveyor cover wear screen for '${ConveyorName}'
     When  Navigate to position details screen for '${Position}'
-    Then  Edit the measurement with durometer '${NewDurometer}' and thickness ${NewThickness}'
+    Then  Edit the measurement with durometer '${NewDurometer}' and thickness '${NewThickness}'
     Then  Verify the data for last measurement '${Inspector}' '${MeasurementDate}' '${NewThickness}' '${NewDurometer}'
 
 @Regression24
@@ -257,6 +257,8 @@ Scenario: Verify an delete option operation for individual measurement
 @key:CoverWear_AddMeasurementStandard
 Scenario: Verify an add new measurement functionality from position details screen using standard
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor cover wear screen for '${ConveyorName}'
     When  Navigate to position details screen for '${Position}'
     When  Open add new measurement window from position details screen
@@ -302,7 +304,7 @@ Scenario: Verify an add new measurement functionality from position details scre
 @Regression27
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:CoverWear_Specs
+@key:CoverWear_AddMeasurementCustom
 Scenario: Verify an add new measurement functionality from position details screen using custom
 
     When  Navigate to conveyor cover wear screen for '${ConveyorName}'
@@ -324,10 +326,11 @@ Scenario: Verify an add new measurement functionality from position details scre
 @Regression28
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:CoverWear_Specs
-Scenario: Verify summary report download functionality for single conveyor
+@key:CoverWear_PositionDownload
+Scenario: Verify a summary report download functionality for single conveyor
 
     When  Navigate to cover wear listing screen
+    Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
     Then  Download report for date range '${FromDate}' to '${ToDate}'
     Then  Verify the download functionality with '${ConveyorName}' and '${CustSiteName}' for '${FullName}'
     Then  Verify the PDF report for single conveyor
@@ -335,8 +338,8 @@ Scenario: Verify summary report download functionality for single conveyor
 @Regression29
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:CoverWear_Specs
-Scenario: Verify download button functionality for all conveyors
+@key:CoverWear_PositionDownload
+Scenario: Verify a download button functionality for all conveyors
 
      When  Navigate to cover wear listing screen
      Then  Verify the download functionality in list screen for '${FullName}'

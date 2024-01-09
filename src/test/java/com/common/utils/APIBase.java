@@ -198,7 +198,7 @@ public class APIBase {
 //        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
 //            val = (String) jsnPath.getMap("data[0]").get("companyId");
 //        }
-//        tearDown();
+        tearDown();
 //        return val;
         return companyResponse;
     }

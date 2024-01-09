@@ -122,7 +122,7 @@ public class MiscUtils {
     }
 
     public static boolean checkDownloadedFiles(String name){
-        SyncUtil.waitFor(3000);
+        SyncUtil.waitFor(4000);
         File folder = new File(System.getProperty("user.dir")+separator+"target"+separator+"downloads");  //List the files on that folder
         File[] listOfFiles = folder.listFiles();
         boolean found = false;

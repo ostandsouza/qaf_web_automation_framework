@@ -293,13 +293,13 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator= "xpath=//div[text()=' GOOD ']/following-sibling::div//span")
 	public CustomElement goodEvent;
 
-	@FindBy(locator= "xpath=//div[contains(@class,'ql-editor')]/p")
+	@FindBy(locator= "xpath=//div[contains(@class,'NgxEditor__Content')]/p")
 	public CustomElement summaryField;
 
 	@FindBy(locator= "xpath=//span[contains(@class,'pi-window-maximize')]")
 	public CustomElement summaryMaximize;
 
-	@FindBy(locator= "xpath=//span[contains(@class,'pi-window-minimize')]")
+	@FindBy(locator= "xpath=//span[contains(@class,'pi-window-minimize')]/..")
 	public CustomElement summaryMinimize;
 
 	@FindBy(locator="xpath=//div[@class='p-progress-spinner']")

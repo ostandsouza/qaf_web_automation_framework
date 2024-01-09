@@ -7,14 +7,15 @@
 		<listener class-name="com.common.utils.EmailableTestNGReport" />
 	</listeners>
 
-	<test name="Create Flow Test" enabled="true">
+	<test name="Cover Wear Flow Test" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
-		<parameter name="scenario.file.loc" value="scenarios/Web/Demoflow.feature" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Ultrasonics.feature" />
 		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env2" />
+		<parameter name="env.resources" value="resources/env_dev" />
 		<groups>
 			<run>
-				<include name="Regression" />
+				<include name="Regression1" />
+				<include name="Regression25" />
 			</run>
 		</groups>
 		<classes>

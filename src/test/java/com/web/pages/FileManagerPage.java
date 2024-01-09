@@ -43,7 +43,7 @@ public class FileManagerPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Refresh']")
     public CustomElement refresh;
 
-    @FindBy(locator="xpath=//span[contains(@class,'ctp-icon-breadcrumb-home')]")
+    @FindBy(locator="xpath=(//homeicon)[2]/following-sibling::span")
     public CustomElement homeIcon;
 
     @FindBy(locator="xpath=//input[@placeholder='Search']")
@@ -109,6 +109,12 @@ public class FileManagerPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='File Uploading']")
     public CustomElement btFileUploadingDialog;
 
+    @FindBy(locator="xpath=//span[text()='File Uploading']/following-sibling::div/button")
+    public CustomElement btFileUploadingCloseBtn;
+
+    @FindBy(locator="xpath=//p-progressspinner/div")
+    public CustomElement btFileUploadingProgress;
+
     @FindBy(locator = "xpath=//td[contains(text(),'No')]")
     public CustomElement noList;
 
@@ -166,7 +172,8 @@ public class FileManagerPage extends BasePage{
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         upload.sendKeys(file_path, "img_upload");
         SyncUtil.waitFor(5000);
-        waitForElementToInvisible(btFileUploadingDialog, 45000);
+        waitForElementToInvisible(btFileUploadingProgress, 45000);
+        btFileUploadingCloseBtn.click("Upload Close Btn");
     }
 
     public void verifyFolderAndFile(String folderName, String fileName){

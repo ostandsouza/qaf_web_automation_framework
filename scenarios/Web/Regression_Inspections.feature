@@ -72,7 +72,7 @@ Scenario: Verify count functionality at tiles
 @key:Inspection_Download
 Scenario: Verify download report from grouped inspection view
 
-    When  Download inspection '${InspectionName}' from inspection list
+    When  Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
     Then  Verify data displayed in report for '${FullName}' '${CustSiteName}' '${ConveyorName}' '${InspectionName}'
 
 @Regression7

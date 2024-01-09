@@ -495,6 +495,11 @@ public class UsersPage extends BasePage{
 		}
 		else eleCheckboxMT.click();
 	}
+
+	public void waitForTerritory() {
+		waitForPageLoad(5000);
+		waitForElementToDisplay(eleArrowMT);
+	}
 	
 	public void setPermissions() {
 		waitForPageLoad(5000);

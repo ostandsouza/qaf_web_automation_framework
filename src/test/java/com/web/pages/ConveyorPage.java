@@ -1024,4 +1024,12 @@ public class ConveyorPage extends BasePage{
         deleteBtn.click("Delete");
         waitForElementToInvisible(buttonLoader,20000);
     }
+
+    public boolean verifyViewRights(String conveyorName){
+        searchConveyor(conveyorName);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("Conveyor Checkbox");
+        crActions.click("Actions");
+        return btAddConveyor.isNotVisible(1000) && crEdit.isNotVisible(1000) && crDelete.isNotVisible(1000);
+    }
 }
