@@ -92,6 +92,8 @@ public class MiscUtils {
             return GmailHelper.getUnreadMails(GmailHelper.getGmailService(username),"is:unread").isEmpty();
         else if (email.contains("maildrop"))
             return MaildropHelper.getMaildropInbox(username).isEmpty();
+        else if (email.contains("mailsac"))
+            return MailsacHelper.getMailsacInbox(email).isEmpty();
         return false;
     }
 
@@ -104,6 +106,8 @@ public class MiscUtils {
             emailBody = GmailHelper.getMailBody(GmailHelper.getGmailService(username),"is:unread");
         else if (email.contains("maildrop"))
             emailBody = MaildropHelper.getInboxMsg(username, MaildropHelper.getLatestMailId(MaildropHelper.getMaildropInbox(username)));
+        else if (email.contains("mailsac"))
+            emailBody = MailsacHelper.getInboxMsg(email, MailsacHelper.getLatestMailId(MailsacHelper.getMailsacInbox(email)));
         return emailBody;
     }
 

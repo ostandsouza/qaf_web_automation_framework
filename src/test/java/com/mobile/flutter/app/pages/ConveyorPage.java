@@ -5,8 +5,6 @@ import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.mobile.utils.DIRECTION;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
-import com.qmetry.qaf.automation.util.Reporter;
-import com.sun.corba.se.impl.orbutil.concurrent.Sync;
 import org.testng.Assert;
 
 public class ConveyorPage extends FlutterBasePage {

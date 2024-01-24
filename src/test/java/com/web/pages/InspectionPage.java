@@ -727,4 +727,8 @@ public class InspectionPage extends BasePage {
 		btSearchinput.type(conveyor, "Inspection Search");
 		Validator.assertTrue(pagination.getText().contains("3"),"Inspection items were not deleted","Inspection item list was not found");
 	}
+
+	public void enterInspectionName(String inspectionName) {
+		tbInspectionName.type(inspectionName);
+	}
 }

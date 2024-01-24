@@ -71,4 +71,9 @@ public class FileManagerSteps {
     public void verifyDeleteFolder(String folder){
         fileManagerPage.verifyDeleteFolder(folder);
     }
+
+    @QAFTestStep(description="Navigate to site details for site {siteName}")
+    public void navigateToSiteDetails(String siteName){
+        sitePage.goToSiteDetails(siteName);
+    }
 }

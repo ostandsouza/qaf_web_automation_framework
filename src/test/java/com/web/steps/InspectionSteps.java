@@ -254,4 +254,9 @@ public class InspectionSteps {
 	public void verifyInspectionItemDelete(String inspectionName){
 		inspectionpage.verifyDeleteInspectionItem(inspectionName);
 	}
+
+	@QAFTestStep(description="Enter inspection name as {InspectionName}")
+	public void enterInspectionName(String inspectionName){
+		inspectionpage.enterInspectionName(inspectionName);
+	}
 }
