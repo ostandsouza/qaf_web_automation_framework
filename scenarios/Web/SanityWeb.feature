@@ -173,8 +173,6 @@ Scenario: Verify Cover Wear Management
 @key:File_Manager
 Scenario: Verify File manager
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
     When  Add Folder by the name '${FolderName}' under site '${CustSiteName}'
     And   Upload file '${ImgName}' into the folder '${FolderName}'
     Then  Verify folder '${FolderName}' and file '${ImgName}'

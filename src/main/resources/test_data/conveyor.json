@@ -70,8 +70,34 @@
     "operationType": "INSERT",
     "trendData": [
       {
-        "lastInspected": 1684108800000,
-        "totalErrors": 1,
+        "lastInspected": 1661817600000,
+        "totalErrors": 148,
+        "errorDetails": [
+          {
+            "count": 1,
+            "code": 1,
+            "percentage": 1
+          },
+          {
+            "count": 6,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 8,
+            "code": 3,
+            "percentage": 1
+          },
+          {
+            "count": 133,
+            "code": 4,
+            "percentage": 97
+          }
+        ]
+      },
+      {
+        "lastInspected": 1664236800000,
+        "totalErrors": 201,
         "errorDetails": [
           {
             "count": 0,
@@ -79,19 +105,97 @@
             "percentage": 0
           },
           {
-            "count": 0,
+            "count": 2,
             "code": 2,
-            "percentage": 0
+            "percentage": 1
           },
+          {
+            "count": 53,
+            "code": 3,
+            "percentage": 2
+          },
+          {
+            "count": 146,
+            "code": 4,
+            "percentage": 97
+          }
+        ]
+      },
+      {
+        "lastInspected": 1679356800000,
+        "totalErrors": 555,
+        "errorDetails": [
           {
             "count": 0,
-            "code": 3,
+            "code": 1,
             "percentage": 0
           },
           {
-            "count": 1,
+            "count": 8,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 59,
+            "code": 3,
+            "percentage": 2
+          },
+          {
+            "count": 488,
             "code": 4,
-            "percentage": 100
+            "percentage": 97
+          }
+        ]
+      },
+      {
+        "lastInspected": 1680048000000,
+        "totalErrors": 402,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 4,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 102,
+            "code": 3,
+            "percentage": 2
+          },
+          {
+            "count": 296,
+            "code": 4,
+            "percentage": 97
+          }
+        ]
+      },
+      {
+        "lastInspected": 1692316800000,
+        "totalErrors": 305,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 5,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 56,
+            "code": 3,
+            "percentage": 2
+          },
+          {
+            "count": 244,
+            "code": 4,
+            "percentage": 97
           }
         ]
       }
@@ -105,19 +209,19 @@
         "percentage": 0
       },
       {
-        "count": 0,
+        "count": 4,
         "code": 2,
-        "percentage": 0
+        "percentage": 1
       },
       {
-        "count": 0,
+        "count": 55,
         "code": 3,
-        "percentage": 0
+        "percentage": 2
       },
       {
-        "count": 1,
+        "count": 246,
         "code": 4,
-        "percentage": 100
+        "percentage": 97
       }
     ],
     "status": 4
