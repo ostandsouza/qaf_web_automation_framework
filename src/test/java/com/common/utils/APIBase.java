@@ -474,10 +474,10 @@ public class APIBase {
         tearDown();
     }
 
-    public String createCustomerCorpAPI() {
+    public String createCustomerCorpAPI(String fileName) {
         String baseUrl = commonPaths.get("company_ms");
         restApiHelper.setBaseURI(baseUrl);
-        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale("customer_corp", ClasspathResourceHelper.FileType.JSON, "test_data"));
+        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale(fileName, ClasspathResourceHelper.FileType.JSON, "test_data"));
         System.out.println(obj);
         requestBody.putAll(obj);
         headersMap.put("user-token",accessToken);
@@ -492,10 +492,10 @@ public class APIBase {
         return val;
     }
 
-    public String createCustomerSiteAPI(String companyId) {
+    public String createCustomerSiteAPI(String fileName, String companyId) {
         String baseUrl = commonPaths.get("company_ms");
         restApiHelper.setBaseURI(baseUrl);
-        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale("customer_site", ClasspathResourceHelper.FileType.JSON, "test_data"));
+        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale(fileName, ClasspathResourceHelper.FileType.JSON, "test_data"));
         System.out.println(obj.toJSONString());
         requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"customerCorporate.companyId",companyId));
         headersMap.put("user-token",accessToken);
@@ -510,10 +510,10 @@ public class APIBase {
         return val;
     }
 
-    public void createConveyorAPI(String companyId, String siteCompanyId, String... conveyorName) {
+    public void createConveyorAPI(String fileName, String companyId, String siteCompanyId, String... conveyorName) {
         String baseUrl = commonPaths.get("conveyor_ms");
         restApiHelper.setBaseURI(baseUrl);
-        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale("conveyor", ClasspathResourceHelper.FileType.JSON, "test_data"));
+        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale(fileName, ClasspathResourceHelper.FileType.JSON, "test_data"));
         requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"customer.customerCorporate.companyId",companyId));
         requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"customer.companyId",siteCompanyId));
         if(conveyorName.length != 0)
@@ -541,7 +541,9 @@ public class APIBase {
             JsonPath jsnPath = userResponse.jsonPath();
             stats = (ArrayList<HashMap<Object,Object>>) jsnPath.getJsonObject("data");
             for(HashMap<Object,Object>statsObject:stats){
-                if(((String)((HashMap<String,Object>)(statsObject.get("preferences"))).get("tableName")).equalsIgnoreCase(tableName)){
+                System.out.println(((HashMap<String,Object>)(statsObject.get("preferences"))).get("tableName"));
+                System.out.println(tableName);
+                if(((HashMap<String,Object>)(statsObject.get("preferences"))).containsKey("tableName") && ((String)((HashMap<String,Object>)(statsObject.get("preferences"))).get("tableName")).equalsIgnoreCase(tableName)){
                     val= ((String)((HashMap<String,Object>)(statsObject.get("preferences"))).get("preferenceId"));
                 }
             }
@@ -562,6 +564,39 @@ public class APIBase {
         else
             System.out.println("Pref id was null");
         tearDown();
+    }
+
+    public HashMap<String, Object> getFindingsAPI(String conveyorID) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("inspection_findings_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        queryMaps.put("conveyorId",conveyorID);
+        queryMaps.put("limit","1000");
+        Map<String, String> inspectionFindingPaths = JsonReader.getMapTestData("path", "findings_controller");
+        Response inspectionResponse =restApiHelper.makeGetRequest(inspectionFindingPaths.get("finding"),queryMaps , headersMap);
+        HashMap<String, Object> val = new HashMap<>();
+        JsonPath jsnPath = inspectionResponse.jsonPath();
+        int count = (Integer) jsnPath.getMap("pagination").get("count")-1;
+        System.out.println("count= "+count);
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+            for (int i = count; i>0 ; i--) {
+                if (((ArrayList<HashMap<String, String>>) jsnPath.getMap("data[" + i + "]").get("findings")).size() != 0) {
+                    System.out.println(jsnPath.getMap("data["+i+"]").get("findings"));
+                    val.put("status", ((HashMap<String, String>) ((ArrayList<HashMap<String, String>>) jsnPath.getMap("data[" + i + "]").get("findings")).get(0)).get("status"));
+                    val.put("distance", ((HashMap<String, String>) ((ArrayList<HashMap<String, String>>) jsnPath.getMap("data[" + i + "]").get("findings")).get(0)).get("distanceFromBeginning"));
+                    val.put("inspectionDate", ((HashMap<String, String>) ((ArrayList<HashMap<String, String>>) jsnPath.getMap("data[" + i + "]").get("findings")).get(0)).get("inspectionDate"));
+                    val.put("name", ((HashMap<String, String>) ((ArrayList<HashMap<String, String>>) jsnPath.getMap("data[" + i + "]").get("findings")).get(0)).get("name"));
+                    val.put("idler_temp", ((HashMap<String, HashMap<String, String>>) ((ArrayList<HashMap<String, HashMap<String, String>>>) jsnPath.getMap("data[" + i + "]").get("findings")).get(0)).get("observation").get("idlerTemperature"));
+                    val.put("env_temp", ((HashMap<String, HashMap<String, String>>) ((ArrayList<HashMap<String, HashMap<String, String>>>) jsnPath.getMap("data[" + i + "]").get("findings")).get(0)).get("observation").get("environmentalTemperature"));
+                    val.put("long", ((HashMap<String, HashMap<String, String>>) ((ArrayList<HashMap<String, HashMap<String, String>>>) jsnPath.getMap("data[" + i + "]").get("findings")).get(0)).get("geoLocation").get("longitude"));
+                    val.put("lat", ((HashMap<String, HashMap<String, String>>) ((ArrayList<HashMap<String, HashMap<String, String>>>) jsnPath.getMap("data[" + i + "]").get("findings")).get(0)).get("geoLocation").get("latitude"));
+                    break;
+                }
+            }
+        }
+        tearDown();
+        return val;
     }
 
     public String getMinutemanAPI(String minutemanName) {

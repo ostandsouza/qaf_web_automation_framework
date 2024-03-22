@@ -81,7 +81,7 @@ public class ConveyorPage extends FlutterBasePage {
 
         distributorField.click("Distributor dropdown");
         searchDropdown.sendKeys(distShopName, "Distributor");
-        DashboardNativePage.getInstance().selectFirstSearchTerritorySiteScreen();
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
 
 //        saveBtn.scrollIntoView("Save Btn");
         saveBtn.scrollToElement(conveyorFrame, DIRECTION.DOWN, "Save Btn");

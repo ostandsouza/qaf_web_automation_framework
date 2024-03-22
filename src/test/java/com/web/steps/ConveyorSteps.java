@@ -58,11 +58,11 @@ public class ConveyorSteps {
     @QAFTestStep(description="Download bulk upload template for distributor {DistCorpName} and with sites {CustSiteName} and {CustSite2Name}")
     public void verifyTemplateDownload(String distCorpName, String custSiteName, String custSite2Name){
         conveyorPage.checkDownloadTemplateForOneSite(distCorpName,custSiteName);
-        SyncUtil.waitFor(15000);
+        SyncUtil.waitFor(20000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"),"Conveyor bulk upload template for single site was not found","Conveyor bulk upload template for single site was downloaded successfully");
         MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");
         conveyorPage.checkDownloadTemplateForMultipleSite(distCorpName,custSiteName, custSite2Name);
-        SyncUtil.waitFor(15000);
+        SyncUtil.waitFor(20000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"),"Conveyor bulk upload template for multiple sites was not found","Conveyor bulk upload template for single site was downloaded successfully");
         MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");
     }

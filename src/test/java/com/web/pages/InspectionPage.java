@@ -41,6 +41,9 @@ public class InspectionPage extends BasePage {
 	
 	@FindBy(locator = "xpath=//label[text()='Site/Customer Name']/parent::div//div[@role='button']")
 	public CustomElement ddlSiteCustomername;
+
+	@FindBy(locator = "xpath=//label[text()='Site/Customer Name']/..//input")
+	public CustomElement ddlSiteCustomerInput;
 	
 	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
 	public CustomElement tbInput;
@@ -221,7 +224,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[3]")
 	public CustomElement crInspections;
 
-	@FindBy(locator = "xpath=//h4[text()='Inspection Event']")
+	@FindBy(locator = "xpath=//span[text()='Inspection Event']")
 	public CustomElement inspectionEventHeader;
 
 	@FindBy(locator = "xpath=(//span[@class='clickable']/i[contains(@class,'ctp-icon-Inspection-Items-List')])[2]")
@@ -326,7 +329,8 @@ public class InspectionPage extends BasePage {
 	public void goToInspection() {
 		if(!lnkInspection.isVisible())
 			lnkHome.click("Home");
-		lnkInspection.jsClick("Inspection List");
+		SyncUtil.waitFor(2000);
+		lnkInspection.click("Inspection List");
 		btSearchinput.isVisible("Inspection List Page");
 	}
 
@@ -372,7 +376,12 @@ public class InspectionPage extends BasePage {
 //		ddlInspectorName.verifyText(fullName,"Inspector Name");
 		Reporter.log("Inspection is created",MessageTypes.Pass);
 	}
-	
+
+	public void addInspection(String inspectionName) {
+		btnAddInspection.click("Add Inspection btn");
+		tbInspectionName.type(inspectionName);
+		Reporter.log("Inspection is created",MessageTypes.Pass);
+	}
 	
 	public void saveInspectionItem() {
 		waitForElementToBeClickable(btnSave);
@@ -559,6 +568,7 @@ public class InspectionPage extends BasePage {
 	public void goToInspectionsFromTile() {
 		waitForElementToBeClickable(crInspections);
 		crInspections.jsClick("Inspection Tile");
+		SyncUtil.waitFor(5000);
 		inspectionEventHeader.isVisible("Inspection Event Header");
 	}
 
@@ -598,6 +608,10 @@ public class InspectionPage extends BasePage {
 
 	public void verifySiteSelection(String siteName) {
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
+	}
+
+	public void verifyDefaultSite(String siteName) {
+		ddlSiteCustomerInput.getAttribute("value").equalsIgnoreCase(siteName);
 	}
 
 	public void verifyCollaboratorSelection(String collaboratorName) {

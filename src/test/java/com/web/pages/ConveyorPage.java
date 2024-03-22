@@ -561,7 +561,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//div[text()='The file has been analysed. Please review the results below before performing the import.']")
     public CustomElement fileAnalysedMsg;
 
-    @FindBy(locator="xpath=//div[contains(@class,'font-bold')]")
+    @FindBy(locator="xpath=//div[@class='records-bulk']/div[contains(@class,'font-bold')]")
 //    @FindBy(locator="xpath=//div[contains(@class,'p-text-bol')]")
     public CustomElement fileUploadSummary;
 
@@ -959,6 +959,7 @@ public class ConveyorPage extends BasePage{
         waitForElementToDisplay(tbConveyorname);
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
         tbConveyorname.type(newConveyorName);
+        SyncUtil.waitFor(1500);
         crUpdate.click();
         waitForElementToDisplay(crUpdateMsg);
     }

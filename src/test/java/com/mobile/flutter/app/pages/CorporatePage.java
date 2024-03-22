@@ -53,7 +53,7 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "dashboard.coverWear.txt")
     public CustomFlutterElement coverWear;
 
-    @FindBy(locator = "dashboard.search.field")
+    @FindBy(locator = "corporate.filter.search")
     public CustomFlutterElement searchField;
 
     @FindBy(locator = "dashboard.beltWidth.field")
@@ -214,8 +214,9 @@ public class CorporatePage extends FlutterBasePage {
 
     public void enterSearchQuery(String query){
         driver.executeScript("flutter:setFrameSync",true, 5000);
-        SyncUtil.waitFor(2000);
-//        SyncUtil.waitFor(3000);
+//        SyncUtil.waitFor(2000);
+        SyncUtil.waitFor(1000);
+        System.out.println(query);
         searchField.sendKeys(query);
         driver.executeScript("flutter:setFrameSync",false, 5000);
     }
@@ -281,12 +282,12 @@ public class CorporatePage extends FlutterBasePage {
 
         territoryDropdown.click("Territory dropdown");
         dropdownSearch.sendKeys(territory, "Territory");
-        DashboardNativePage.getInstance().selectFirstSearchTerritorySiteScreen();
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
 
         if(shop.length != 0){
             shopDistributorDropdown.click("Distributor Shop dropdown");
             dropdownSearch.sendKeys(shop[0], "Distibutor Shop");
-            DashboardNativePage.getInstance().selectFirstSearchTerritorySiteScreen();
+            DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
         }
 
         SyncUtil.waitFor(2000);
@@ -305,7 +306,7 @@ public class CorporatePage extends FlutterBasePage {
 
 
     public boolean addShop(String shopName, String address, String distCorp, String territory, String manager){
-        selectDistributorShop();
+//        selectDistributorShop();
         shopNameField.sendKeys(shopName,"Shop Name");
 
         distributorCorpDropdown.click("Distributor Corporate dropdown");
@@ -314,7 +315,7 @@ public class CorporatePage extends FlutterBasePage {
 
         territoryDropdown.click("Territory dropdown");
         dropdownSearch.sendKeys(territory, "Territory");
-        DashboardNativePage.getInstance().selectFirstSearchTerritorySiteScreen();
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
 
         SyncUtil.waitFor(2000);
         territoryManagerDropdown.click("Manager dropdown");

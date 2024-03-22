@@ -244,7 +244,7 @@ Scenario: Verify an edit option operation for individual measurement
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:CoverWear_WearTable
-Scenario: Verify an delete option operation for individual measurement
+Scenario: Verify a delete option operation for individual measurement
 
     When  Navigate to conveyor cover wear screen for '${ConveyorName}'
     When  Navigate to position details screen for '${Position}'
@@ -257,8 +257,6 @@ Scenario: Verify an delete option operation for individual measurement
 @key:CoverWear_AddMeasurementStandard
 Scenario: Verify an add new measurement functionality from position details screen using standard
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor cover wear screen for '${ConveyorName}'
     When  Navigate to position details screen for '${Position}'
     When  Open add new measurement window from position details screen
@@ -349,7 +347,7 @@ Scenario: Verify a download button functionality for all conveyors
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:CoverWear_Specs
-Scenario: Verify delete button functionality
+Scenario: Verify a delete button functionality
 
     When  Navigate to cover wear listing screen
     When  Delete Cover wear measurement for conveyor '${ConveyorName}'

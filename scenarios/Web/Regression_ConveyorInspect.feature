@@ -37,7 +37,7 @@ Launch the application through '/'
  @key:Conveyor_Inspect
  Scenario: Verify conveyor inspect user default radio upload option
 
-     When  Go to conveyor inspect for conveyor '${ConveyorName}' for Corporate '${CustCorpName}' with site '${CustSiteName}'
+     When  Go to conveyor inspect for conveyor '${ConveyorName}' for Corporate '${CustCorpName}' with site '${CustSiteName}' with fileNames '${CorpFileName}' '${SiteFileName}' '${ConvFileName}'
      Then  verify default upload option in upload files
 
  @Regression5
@@ -55,17 +55,17 @@ Launch the application through '/'
      And   Select date of flight as current date
      And   Select time of flight as current time
      And   Select side dropdown as '${Side}'
-     And   Select colormap dropdown as '${colormap}'
+     And   Select colormap dropdown as '${colorMap}'
      And   Upload file with '${irName}'
      Then  Verify upload button is enabled after image upload
 
  @Regression6
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
- @key:Conveyor_Inspect
+ @key:Conveyor_Inspect_video
  Scenario: Verify conveyor inspect upload video functionality
 
-     When  Go to conveyor inspect for conveyor '${ConveyorName}'
+     When  Go to conveyor inspect for conveyor '${ConveyorName}' for Corporate '${CustCorpName}' with site '${CustSiteName}' with fileNames '${CorpFileName}' '${SiteFileName}' '${ConvFileName}'
      And   Open upload files dialog window
      Then  Verify upload button is disabled by default
      And   Select video upload radio button
@@ -74,9 +74,31 @@ Launch the application through '/'
      And   Select date of flight as current date
      And   Select time of flight as current time
      And   Select side dropdown as '${Side}'
-     And   Select colormap dropdown as '${colormap}'
-     And   Upload file with '${irName}'
-     Then  Verify upload button is enabled after image upload
+     And   Select colormap dropdown as '${colorMap}'
+     And   Upload file with '${movName}'
+     Then  Verify upload video file
+     And   Open upload files dialog window
+     Then  Verify upload button is disabled by default
+     And   Select video upload radio button
+     Then  Verify company site dropdown is disabled with '${CustSiteName}'
+     Then  Verify conveyor dropdown is disabled with '${ConveyorName}'
+     And   Select date of flight as current date
+     And   Select time of flight as current time
+     And   Select side dropdown as '${Side}'
+     And   Select colormap dropdown as '${colorMap}'
+     And   Upload file with '${seqName}'
+     Then  Verify upload video file
+     And   Open upload files dialog window
+     Then  Verify upload button is disabled by default
+     And   Select video upload radio button
+     Then  Verify company site dropdown is disabled with '${CustSiteName}'
+     Then  Verify conveyor dropdown is disabled with '${ConveyorName}'
+     And   Select date of flight as current date
+     And   Select time of flight as current time
+     And   Select side dropdown as '${Side}'
+     And   Select colormap dropdown as '${colorMap}'
+     And   Upload file with '${srtName}'
+     Then  Verify upload button functionality
 
  @Regression7
  @dataFile:resources/data/TestData.xls
@@ -153,23 +175,171 @@ Launch the application through '/'
      Then  Go to maintenance action tab
      And   Verify maintenance action table
 
- @Regression14
- @dataFile:resources/data/TestData.xls
- @sheetName:Regression
- @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect go fixed that
+  @Regression14
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Conveyor_Inspect_CI
+  Scenario: Verify conveyor inspect finding maintenance table
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
-     And   Verify maintenance action table
-
+     And   Verify maintenance action findings '${ConveyorName}'
 
  @Regression15
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect
+ Scenario: Verify conveyor inspect finding go fixed that
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
-     And   Verify maintenance action table
+     And   Verify go fix that button
+
+
+ @Regression16
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:Conveyor_Inspect_CI
+ Scenario: Verify conveyor inspect finding save as PDF
+
+     When  Go to conveyor inspect for conveyor '${ConveyorName}'
+     Then  Go to maintenance action tab
+     And   Verify findings save as PDF
+
+ @Regression17
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:Conveyor_Inspect_CI
+ Scenario: Verify conveyor inspect findings range
+
+     When  Go to conveyor inspect for conveyor '${ConveyorName}'
+     Then  Go to maintenance action tab
+     And   Verify findings range
+
+ @Regression18
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:Conveyor_Inspect_CI
+ Scenario: Verify conveyor inspect findings observation
+
+     When  Go to conveyor inspect for conveyor '${ConveyorName}'
+     Then  Go to maintenance action tab
+     And   Verify findings observations
+
+ @Regression19
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:Conveyor_Inspect_CI
+ Scenario: Verify conveyor inspect finding image functionality
+
+     When  Go to conveyor inspect for conveyor '${ConveyorName}'
+     Then  Go to maintenance action tab
+     And   Verify image functionality
+
+ @Regression20
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:Conveyor_Inspect_CI
+ Scenario: Verify conveyor inspect button got that fixed finding
+
+      When  Go to conveyor inspect for conveyor '${ConveyorName}'
+      Then  Go to maintenance action tab
+      And   Verify got that fixed findings message box
+
+
+ @Regression21
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:Conveyor_Inspect_flir
+ Scenario: Verify conveyor inspect for flir images
+
+     When  Go to conveyor inspect for conveyor '${ConveyorName}' for Corporate '${CustCorpName}' with site '${CustSiteName}' with fileNames '${CorpFileName}' '${SiteFileName}' '${ConvFileName}'
+     And   Open upload files dialog window
+     Then  Verify upload button is disabled by default
+     And   Select image upload radio button
+     Then  Verify company site dropdown is disabled with '${CustSiteName}'
+     Then  Verify conveyor dropdown is disabled with '${ConveyorName}'
+     And   Select date of flight as current date
+     And   Select time of flight as current time
+     And   Select side dropdown as '${Side}'
+     And   Select colormap dropdown as '${colorMap}'
+     And   Upload file with '${flirName}'
+     Then  Verify upload button functionality
+
+  @Regression22
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Conveyor_Inspect
+  Scenario: Verify conveyor inspect for RGB single image
+
+      When  Go to conveyor inspect for conveyor '${ConveyorName}'
+      And   Open upload files dialog window
+      Then  Verify upload button is disabled by default
+      And   Select image upload radio button
+      Then  Verify company site dropdown is disabled with '${CustSiteName}'
+      Then  Verify conveyor dropdown is disabled with '${ConveyorName}'
+      And   Select date of flight as current date
+      And   Select time of flight as current time
+      And   Select side dropdown as '${Side}'
+      And   Select colormap dropdown as '${colorMap}'
+      And   Upload file with '${rgbName}'
+      Then  Verify upload button negative scenario
+
+  @Regression23
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Conveyor_Inspect
+  Scenario: Verify conveyor inspect for RGB double images
+
+      When  Go to conveyor inspect for conveyor '${ConveyorName}'
+      And   Open upload files dialog window
+      Then  Verify upload button is disabled by default
+      And   Select image upload radio button
+      Then  Verify company site dropdown is disabled with '${CustSiteName}'
+      Then  Verify conveyor dropdown is disabled with '${ConveyorName}'
+      And   Select date of flight as current date
+      And   Select time of flight as current time
+      And   Select side dropdown as '${Side}'
+      And   Select colormap dropdown as '${colorMap}'
+      And   Upload file with '${rgbName}'
+      And   Upload file with '${rgbName}'
+      Then  Verify upload button negative scenario
+
+  @Regression24
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Conveyor_Inspect
+  Scenario: Verify conveyor inspect for IR single image
+
+      When  Go to conveyor inspect for conveyor '${ConveyorName}'
+      And   Open upload files dialog window
+      Then  Verify upload button is disabled by default
+      And   Select image upload radio button
+      Then  Verify company site dropdown is disabled with '${CustSiteName}'
+      Then  Verify conveyor dropdown is disabled with '${ConveyorName}'
+      And   Select date of flight as current date
+      And   Select time of flight as current time
+      And   Select side dropdown as '${Side}'
+      And   Select colormap dropdown as '${colorMap}'
+      And   Upload file with '${irName}'
+      Then  Verify upload button negative scenario
+
+  @Regression25
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Conveyor_Inspect
+  Scenario: Verify conveyor inspect for IR double images
+
+      When  Go to conveyor inspect for conveyor '${ConveyorName}'
+      And   Open upload files dialog window
+      Then  Verify upload button is disabled by default
+      And   Select image upload radio button
+      Then  Verify company site dropdown is disabled with '${CustSiteName}'
+      Then  Verify conveyor dropdown is disabled with '${ConveyorName}'
+      And   Select date of flight as current date
+      And   Select time of flight as current time
+      And   Select side dropdown as '${Side}'
+      And   Select colormap dropdown as '${colorMap}'
+      And   Upload file with '${irName}'
+      And   Upload file with '${irName}'
+      Then  Verify upload button negative scenario

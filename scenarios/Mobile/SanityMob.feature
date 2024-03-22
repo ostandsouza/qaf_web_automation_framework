@@ -28,7 +28,7 @@ Scenario: Verify the permission flow
     When  Verify user is on continental login page
     Then  Now verify the '${Email}' user from mobile via Activate account flow
     When  Login to the application with '${Email}' and '${Password}'
-    And   User navigates to add corporate screen with '${DistCorpName}'
+    And   User navigates to add corporate screen with '${DistCorpName}' and '${DistCorpName}'
     And   Add Distributor corporate with '${DistCorpName}' '${DistCorpAddress}'
     Then  Navigate to corporate list and verify '${DistCorpName}' is present
     And   Verify user is able to edit corporate with '${DistCorpName}'

@@ -21,7 +21,7 @@ public class UserSteps extends BasePage {
 	
 	@QAFTestStep(description = "Click on users link")
     public void clickonuserslink() throws Throwable {
-		
+		SyncUtil.waitFor(1000);
 		userpage.usersclick();
 		SyncUtil.waitFor(5000);
 	}

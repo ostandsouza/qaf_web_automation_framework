@@ -300,7 +300,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//app-card//div[text()='Cover Wear'])[2]")
     public CustomElement coverWearCard;
 
-    @FindBy(locator="xpath=//h4[text()='Cover Wear Summary']")
+    @FindBy(locator="xpath=//span[text()='Cover Wear Summary']")
     public CustomElement coverWearHeader;
 
     @FindBy(locator="xpath=//span[text()='Specification']")
@@ -621,6 +621,8 @@ public class CoverWearPage extends BasePage{
         SyncUtil.waitFor(300);
         waitForPresenceOfElements(By.xpath(ListItem));
         List<WebElement> Options = driver.findElements(By.xpath(ListItem));
+        System.out.println("actual positions ="+Options.size());
+        System.out.println("expected positions ="+count);
         Validator.assertTrue(Options.size() == Integer.parseInt(count),"Position dropdown is showing incorrect positions","Position dropdown verified successfully");
         for(WebElement ele:Options) {
             waitForElementToBeClickable(ele);
@@ -889,7 +891,7 @@ public class CoverWearPage extends BasePage{
     public void verifyDurometerAfterEdit(String positionDurometer){
         System.out.println("abcd: = "+positionDurometer);
         System.out.println("abcd: = "+cwSpecDurometer.getAttribute("value"));
-        Validator.assertFalse(cwSpecDurometer.getAttribute("value").equalsIgnoreCase(positionDurometer), "Durometer is not updated after edit","After editing durometer was verified successfully");
+        Validator.assertTrue(cwSpecDurometer.getAttribute("value").equalsIgnoreCase(positionDurometer), "Durometer is not updated after edit","After editing durometer was verified successfully");
     }
 
     public void verifyCoverWearViaConveyor(){
@@ -932,7 +934,7 @@ public class CoverWearPage extends BasePage{
         else if (val < 0)
             for (int i = 0; i < abs(val); i++)
                 calendarNext.click("Calendar Increment");
-            SyncUtil.waitFor(1000);
+            SyncUtil.waitFor(500);
             waitForElementToBeClickable(By.xpath("//span[contains(text(),\"" + month + "\")]"));
             driver.findElement(By.xpath("//span[contains(text(),\"" + month + "\")]")).click();
             waitForElementToBeClickable(By.xpath("(//td[contains(@class,'ng-star-inserted')]//span[text()=\"" + day + "\" ])[1]"));

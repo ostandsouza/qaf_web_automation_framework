@@ -22,7 +22,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Corporates']")
     public CustomElement lCorporates;
 
-    @FindBy(locator="xpath=//h4[text()='Corporates']")
+    @FindBy(locator="xpath=//div/span[text()='Corporates']")
     public CustomElement corporateHeader;
 
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
@@ -214,7 +214,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//h4[text()='New Company']")
     public CustomElement newCompany;
 
-    @FindBy(locator = "xpath=//h4[text()='Conveyors']")
+    @FindBy(locator = "xpath=//div/span[text()='Conveyors']")
     public CustomElement conveyorHeader;
 
     @FindBy(locator = "xpath=//span[text()='Conveyor Trails']")
@@ -248,7 +248,8 @@ public class CorporatePage extends BasePage{
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(corporateHeader);
-        corporateHeader.isVisible("Corporate List");
+        SyncUtil.waitFor(2000);
+        corporateHeader.isEnable("Corporate List");
         Reporter.log(companyName +"corporate is created" , MessageTypes.Pass);
     }
 
@@ -271,7 +272,8 @@ public class CorporatePage extends BasePage{
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(corporateHeader);
-        corporateHeader.isVisible("Corporate List");
+        SyncUtil.waitFor(2000);
+        corporateHeader.isEnable("Corporate List");
         Reporter.log(companyName +" customer corporate is created", MessageTypes.Pass);
     }
 
@@ -506,7 +508,8 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btCheckbox);
         detailsMoreButton.click("Corp Details");
         siteNameLoader.waitForPartialText(siteName, 15000);
-        conveyorHeader.isVisible("Conveyor Header");
+        SyncUtil.waitFor(2000);
+        conveyorHeader.isEnable("Conveyor Header");
     }
 
     public void editDistributorShop(String siteName, String editSiteName, String corp) {

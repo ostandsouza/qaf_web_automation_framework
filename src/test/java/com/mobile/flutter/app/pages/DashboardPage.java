@@ -52,6 +52,7 @@ public class DashboardPage extends FlutterBasePage {
     }
 
     public boolean goToProfilePage() {
+        SyncUtil.waitFor(000);
         profileIcon.click();
         return ProfilePage.getInstance().isMyProfile();
     }

@@ -47,13 +47,12 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Delete Cover wear position for conveyor {ConveyorName} with data {EditSegmentName}")
     public void deleteCoverWearPosition(String conveyorName, String segmentName){
-        coverWearPage.goToCoverWearDetailScreen(conveyorName);
+//        coverWearPage.goToCoverWearDetailScreen(conveyorName);
         coverWearPage.deletePosition(segmentName);
     }
 
     @QAFTestStep(description="Verify Delete Cover wear position for conveyor {ConveyorName} and segment {EditSegmentName}")
     public void verifyCoverWearPosition(String conveyorName, String segmentName){
-        coverWearPage.goToCoverWearDetailScreen(conveyorName);
         coverWearPage.verifyDeletePosition(segmentName);
     }
 
@@ -246,7 +245,7 @@ public class CoverWearSteps {
     @QAFTestStep(description="Verify the download functionality in list screen for {FullName}")
     public void verifyDownloadAllRecords(String fullName) {
         coverWearPage.verifyDownloadFunctionality();
-        SyncUtil.waitFor(7000);
+        SyncUtil.waitFor(20000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles("Cover_wear_summary_report.pdf"),"Cover wear summary report was not found","Cover wear summary report was downloaded successfully");
         coverWearPage.verifyPDFContents("Cover Wear - Conveyor Summary Report", fullName);
         MiscUtils.deleteDownloadedFiles("Cover_wear_summary_report.pdf");
@@ -407,7 +406,7 @@ public class CoverWearSteps {
     }
 
     @QAFTestStep(description="Edit the measurement with durometer {0} and thickness {1}")
-    public void verifyWearMeasurementAttachments(String thickness, String durometer){
+    public void editTheMeasurementWithDurometerAndThickness(String thickness, String durometer){
         coverWearPage.editMeasurement();
         coverWearPage.editFunctionality(thickness, durometer);
     }

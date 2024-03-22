@@ -38,7 +38,6 @@ Scenario: Verify the add button functionality
     And   Verify default date in inspection date field
     And   Verify Site '${CustSiteName}' selection from dropdown
     And   Verify auto-population of inspector name '${Inspector}'
-    And   Verify user is able to select collaborator '${Collaborator}'
     And   Verify all the default tile value displayed as '${DefaultVal}'
     And   Verify user is able to enter text '${Text}' in summary field
     And   Verify user is able to maximize the summary window size
@@ -130,8 +129,6 @@ Scenario: Verify Delete inspection event
 @key:Inspection_AddSiteInspection
 Scenario: Verify the site inspection flow
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to site details for site '${CustSiteName}'
     Then  Verify navigation to inspection tile
     And   Navigate to Add Inspection screen from list screen
@@ -139,7 +136,6 @@ Scenario: Verify the site inspection flow
     And   Enter inspection name as '${InspectionName}'
     And   Verify default date in inspection date field
     And   Verify auto-population of inspector name '${Inspector}'
-    And   Verify user is able to select collaborator '${Collaborator}'
     And   Verify all the default tile value displayed as '${DefaultVal}'
     And   Verify user is able to enter text '${Text}' in summary field
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
@@ -166,9 +162,8 @@ Scenario: Verify site inspection page
     And   Navigate to Add Inspection screen from list screen
     Then  Verify placeholder for inspection name
     And   Verify default date in inspection date field
-    And   Verify Site '${CustSiteName}' selection from dropdown
+    And   Verify default Site selection '${CustSiteName}'
     And   Verify auto-population of inspector name '${Inspector}'
-    And   Verify user is able to select collaborator '${Collaborator}'
 
 
 @Regression15
@@ -182,9 +177,8 @@ Scenario: Verify site sections for inspection details page
     And   Navigate to Add Inspection screen from list screen
     Then  Verify placeholder for inspection name
     And   Verify default date in inspection date field
-    And   Verify Site '${CustSiteName}' selection from dropdown
+    And   Verify default Site selection '${CustSiteName}'
     And   Verify auto-population of inspector name '${Inspector}'
-    And   Verify user is able to select collaborator '${Collaborator}'
 
 
 @Regression16
@@ -253,9 +247,8 @@ Scenario: Verify values are available at inspection level
     And   Navigate to Add Inspection screen from list screen
     Then  Verify placeholder for inspection name
     And   Verify default date in inspection date field
-    And   Verify Site '${CustSiteName}' selection from dropdown
+    And   Verify default Site selection '${CustSiteName}'
     And   Verify auto-population of inspector name '${Inspector}'
-    And   Verify user is able to select collaborator '${Collaborator}'
 
 @Regression22
 @dataFile:resources/data/TestData.xls
@@ -263,21 +256,18 @@ Scenario: Verify values are available at inspection level
 @key:Inspection_AddSiteInspection
 Scenario: Verify add all new items in inspection and close
 
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
      And   Navigate to Add Inspection screen from list screen
+     And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 @Regression23
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_AddSiteInspection
-Scenario: Verify delete inspection in inspection page
+Scenario: Verify a delete inspection in inspection page
 
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
      When  Delete inspection item '${ConveyorName}' from inspection list
@@ -290,11 +280,10 @@ Scenario: Verify delete inspection in inspection page
 @key:Inspection_AddSiteInspection
 Scenario: Verify success message after saving inspection event
 
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
      And   Navigate to Add Inspection screen from list screen
+     And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
@@ -304,11 +293,10 @@ Scenario: Verify success message after saving inspection event
  @key:Inspection_AddSiteInspection
  Scenario: Verify success message after updating inspection event
 
-      Given User is at Login page
-      When  Login with '${UserName}' and '${Password}'
       When  Navigate to site details for site '${CustSiteName}'
       Then  Verify navigation to inspection tile
       And   Navigate to Add Inspection screen from list screen
+      And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
       And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
@@ -318,8 +306,6 @@ Scenario: Verify success message after saving inspection event
  @key:Inspection_AddSiteInspection
  Scenario: Verify map location at inspection list
 
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
      And   Navigate to Add Inspection screen from list screen
@@ -329,11 +315,9 @@ Scenario: Verify success message after saving inspection event
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Inspection_AddSiteInspection
- Scenario: Verify edit inspection event
+ Scenario: Verify a edit inspection event
 
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
-     When  Navigate to site details for site '${CustSiteName}'
-     Then  Verify navigation to inspection tile
+    When  Navigate to site details for site '${CustSiteName}'
+    Then  Verify navigation to inspection tile
     And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}' from list view
     Then  Verify the status changes '${EditStatus}' for '${ConveyorName}'

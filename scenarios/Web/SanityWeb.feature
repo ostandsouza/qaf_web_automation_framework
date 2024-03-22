@@ -182,7 +182,7 @@ Scenario: Verify File manager
     When  Upload file '${videoFile}' into the folder '${FolderName}'
     Then  Verify folder '${FolderName}' and file '${videoFile}'
     When  Open image with name '${ImgName}' inside folder '${FolderName}'
-    And   Open file with name '${pdfFile}' inside folder '${FolderName}'
+    And   Open pdf with name '${pdfFile}' inside folder '${FolderName}'
     And   Open file with name '${videoFile}' inside folder '${FolderName}'
     And   Delete file with name '${ImgName}' inside folder '${FolderName}'
     And   Delete file with name '${pdfFile}' inside folder '${FolderName}'

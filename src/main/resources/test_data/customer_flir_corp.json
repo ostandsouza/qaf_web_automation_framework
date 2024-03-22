@@ -1,0 +1,24 @@
+{
+  "name": "Conveyor Inspect Flir Corp",
+  "companyType": {
+    "category": "Customer",
+    "sortKey": "CUSTOMER",
+    "name": "Customer Corporate",
+    "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX"
+  },
+  "location": {
+    "zipcode": "38889",
+    "country": "Germany",
+    "state": "Sachsen-Anhalt",
+    "city": "Oberharz am Brocken",
+    "latitude": 51.7557889,
+    "longitude": 10.8355848
+  },
+  "street": " ",
+  "territory": "",
+  "territoryManager": "",
+  "customerCorporate": null,
+  "distributorCorporate": null,
+  "associatedDistributor": null,
+  "image": ""
+}

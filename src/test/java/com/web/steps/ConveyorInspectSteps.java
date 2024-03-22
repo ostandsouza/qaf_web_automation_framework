@@ -1,11 +1,14 @@
 package com.web.steps;
 
 import com.common.utils.SyncUtil;
+import com.mobile.flutter.app.pages.DashboardPage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorInspectPage;
 import com.web.pages.ConveyorPage;
 import com.web.pages.SitePage;
+
+import java.util.HashMap;
 
 public class ConveyorInspectSteps {
 
@@ -21,17 +24,17 @@ public class ConveyorInspectSteps {
         conveyorInspectPage.goToConveyorInspect();
     }
 
-    @QAFTestStep(description="Go to conveyor inspect for conveyor {0} for Corporate {1} with site {2}")
-    public void goToConveyorInspectForConveyorForCorporateWithSite(String conveyorName, String custCorp, String custSite) {
+    @QAFTestStep(description="Go to conveyor inspect for conveyor {0} for Corporate {1} with site {2} with fileNames {3} {4} {5}")
+    public void goToConveyorInspectForConveyorForCorporateWithSite(String conveyorName, String custCorp, String custSite, String corpFileName, String siteFileName, String convFileName) {
         String companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custCorp));
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
         companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custSite));
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
         String conveyorId = conveyorInspectPage.apiBase.getConveyorsAPI(conveyorName);
         conveyorInspectPage.apiBase.deleteConveyorAPI(conveyorId);
-        companyId = conveyorInspectPage.apiBase.createCustomerCorpAPI();
-        String siteCompanyId = conveyorInspectPage.apiBase.createCustomerSiteAPI(companyId);
-        conveyorInspectPage.apiBase.createConveyorAPI(companyId, siteCompanyId);
+        companyId = conveyorInspectPage.apiBase.createCustomerCorpAPI(corpFileName);
+        String siteCompanyId = conveyorInspectPage.apiBase.createCustomerSiteAPI(siteFileName, companyId);
+        conveyorInspectPage.apiBase.createConveyorAPI(convFileName, companyId, siteCompanyId);
         conveyorInspectPage.browserRefresh();
         conveyorPage.goToConveyorDetailScreen(conveyorName);
         conveyorInspectPage.goToConveyorInspect();
@@ -150,7 +153,35 @@ public class ConveyorInspectSteps {
 
     @QAFTestStep(description="Verify upload button is enabled after image upload")
     public void verifyUploadBtnStatusAfterUpload(){
+        SyncUtil.waitFor(1000);
         Validator.assertTrue(conveyorInspectPage.uploadBtnStatus(),"File uploaded is enabled after img upload","File uploaded is disabled after img upload");
+        conveyorInspectPage.closeDialog();
+    }
+
+    @QAFTestStep(description="Verify upload button functionality")
+    public void verifyUploadBtnFunctionality(){
+        SyncUtil.waitFor(1000);
+        conveyorInspectPage.clickOnUpload();
+    }
+
+    @QAFTestStep(description="Verify upload video file")
+    public void verifyUploadVideoFile(){
+        SyncUtil.waitFor(1000);
+        conveyorInspectPage.uploadVideoFile();
+        conveyorInspectPage.closeDialog();
+    }
+
+    @QAFTestStep(description="Verify upload button negative scenario")
+    public void verifyUploadBtnNegative(){
+        conveyorInspectPage.uploadInvalidImg();
+        SyncUtil.waitFor(3000);
+        conveyorInspectPage.closeDialog();
+    }
+
+
+    @QAFTestStep(description="Verify upload button is not enabled after image upload")
+    public void verifyUploadBtnStatusNegative(){
+        Validator.assertFalse(conveyorInspectPage.uploadBtnStatus(),"File uploaded is enabled after img upload","File uploaded is disabled after img upload");
         conveyorInspectPage.closeDialog();
     }
 
@@ -219,6 +250,43 @@ public class ConveyorInspectSteps {
         conveyorInspectPage.maintenanceTable();
     }
 
+    @QAFTestStep(description="Verify maintenance action findings {ConveyorName}")
+    public void verifyMaintenanceFindings(String conveyorName){
+        String conveyorId = DashboardPage.getInstance().apiBase.getConveyorsAPI(conveyorName);
+        HashMap<String, Object> finding = DashboardPage.getInstance().apiBase.getFindingsAPI(conveyorId);
+        conveyorInspectPage.maintenanceFindings(finding);
+    }
+
+    @QAFTestStep(description="Verify go fix that button")
+    public void verifyFixThatBtn(){
+        Validator.assertTrue(conveyorInspectPage.gotThatFixedBtn(),"Got that fixed button not found","Got that fixed button verified successfully");
+    }
+
+    @QAFTestStep(description="Verify findings save as PDF")
+    public void verifySaveAsPDF(){
+        Validator.assertTrue(conveyorInspectPage.savePDF(),"Save PDF button not found","Save PDF button verified successfully");
+    }
+
+    @QAFTestStep(description="Verify findings range")
+    public void verifyFindingsRange(){
+        Validator.assertTrue(conveyorInspectPage.findingsRange(),"Findings range verification failed","Findings range verified successfully");
+    }
+
+    @QAFTestStep(description="Verify findings observations")
+    public void verifyFindingsObservations(){
+        conveyorInspectPage.findingsObservations();
+    }
+
+    @QAFTestStep(description="Verify image functionality")
+    public void verifyImageFunctionality(){
+        conveyorInspectPage.imageFunctionality();
+    }
+
+    @QAFTestStep(description="Verify got that fixed findings message box")
+    public void verifyGotItFixedFindings(){
+        Validator.assertTrue(conveyorInspectPage.gotItFixedFindings(),"Got it fixed button verification failed","Got it fixed button verified successfully");
+    }
+
     @QAFTestStep(description="verify default upload option in upload files")
     public void verifyDefaultUploadOptionInUploadFiles(){
         conveyorInspectPage.goToUploadFiles();
@@ -233,9 +301,9 @@ public class ConveyorInspectSteps {
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
         String conveyorId = conveyorInspectPage.apiBase.getConveyorsAPI(conveyorName);
         conveyorInspectPage.apiBase.deleteConveyorAPI(conveyorId);
-        companyId= conveyorInspectPage.apiBase.createCustomerCorpAPI();
-        String siteCompanyId= conveyorInspectPage.apiBase.createCustomerSiteAPI(companyId);
-        conveyorInspectPage.apiBase.createConveyorAPI(companyId, siteCompanyId);
+        companyId= conveyorInspectPage.apiBase.createCustomerCorpAPI("customer_corp");
+        String siteCompanyId= conveyorInspectPage.apiBase.createCustomerSiteAPI("customer_site", companyId);
+        conveyorInspectPage.apiBase.createConveyorAPI("conveyor", companyId, siteCompanyId);
         conveyorInspectPage.browserRefresh();
         conveyorPage.goToConveyorDetailScreen(conveyorName);
         conveyorInspectPage.goToConveyorInspect();

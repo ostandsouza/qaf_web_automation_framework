@@ -23,7 +23,7 @@
 <!--        <parameter name="flutter.capabilities.platformVersion" value="11.0" />-->
 <!--        <parameter name="flutter.capabilities.automationName" value="Flutter" />-->
 <!--        <parameter name="flutter.capabilities.deviceName" value="RZ8M30TG9DL" />-->
-<!--        <parameter name="flutter.capabilities.app" value="/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk" />-->
+<!--        <parameter name="flutter.capabilities.app" value="/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug1.apk" />-->
         <groups>
             <run>
                 <include name="Testthis"/>

@@ -140,6 +140,8 @@ public class CorporateSteps {
     @QAFTestStep(description = "Navigate to corporate details screen and verify {DistShopName} is present and associated count {count}")
     public void verifyCorporateDetailsScreen(String distShopName, String count) {
         DashboardNativePage.getInstance().navigateInsideCorp();
+        System.out.println(count);
+        System.out.println(CorporatePage.getInstance().getCorporateCount());
         Validator.assertTrue(CorporatePage.getInstance().getCorporateCount().equals(count),"Shop/Site count is not matching","Shop/Site count is verified successfully");
     }
 
@@ -158,8 +160,8 @@ public class CorporateSteps {
     }
 
 
-    @QAFTestStep(description = "Verify the site filter result for {DistShopName}")
-    public void verifyFilterResult(String distShopName) {
+    @QAFTestStep(description="Verify the site filter result for {0}")
+    public void verifyTheSiteFilterResultFor(String distShopName){
         Validator.assertTrue(DashboardNativePage.getInstance().getFirstSearchSiteShop().contains(distShopName),"Shop/Site name is not matching after applying filter","Shop/Site name is verified successfully after applying filter");
     }
 

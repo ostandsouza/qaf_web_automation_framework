@@ -51,5 +51,8 @@
   },
   "minuteman_controller": {
     "minuteman": "/minuteman"
+  },
+  "findings_controller": {
+    "finding": "/finding"
   }
 }

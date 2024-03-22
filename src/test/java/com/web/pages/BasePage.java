@@ -180,6 +180,16 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         };
     }
 
+    public boolean isLocatorVisible(final By element) {
+        boolean notDisplayed = false;
+        try {
+            notDisplayed = !driver.findElement(element).isDisplayed();
+        } catch (Exception e) {
+            System.out.println("invisible");
+        }
+        return notDisplayed;
+    }
+
     /**
      * @param timeOutInMiliSec
      */

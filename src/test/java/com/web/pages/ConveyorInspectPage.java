@@ -2,13 +2,23 @@ package com.web.pages;
 
 import com.common.component.CustomElement;
 import com.common.utils.ClasspathResourceHelper;
+import com.common.utils.JsonReader;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Validator;
+import org.json.simple.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class ConveyorInspectPage extends BasePage{
@@ -195,6 +205,69 @@ public class ConveyorInspectPage extends BasePage{
     @FindBy(locator="xpath=//div[@class='action-list']/p-table")
     public CustomElement actionList;
 
+    @FindBy(locator="xpath=//span[text()='Lat']/following-sibling::input")
+    public CustomElement latVal;
+
+    @FindBy(locator="xpath=//span[text()='Lon']/following-sibling::input")
+    public CustomElement lonVal;
+
+    @FindBy(locator="xpath=//button[text()='Got that fixed!']")
+    public CustomElement gotThatFixed;
+
+    @FindBy(locator="xpath=//span[text()='Save as PDF']")
+    public CustomElement savePDF;
+
+    @FindBy(locator="xpath=//p[contains(text(),'The PDF Report was successfully generated')]")
+    public CustomElement successPDF;
+
+    @FindBy(locator="xpath=//span[text()='Got it!']/..")
+    public CustomElement gotItBtn;
+
+    @FindBy(locator="xpath=//span[text()='Conveyor Inspection Details']")
+    public CustomElement conveyorInspectionDetailsHeader;
+
+    @FindBy(locator="xpath=//div[contains(@class,'p-panel-header')]/div/div[contains(@class, 'mr-5 di-section-title active')]")
+    public CustomElement activeRange;
+
+    @FindBy(locator="xpath=//div[text()='km']")
+    public CustomElement kmRange;
+
+    @FindBy(locator="xpath=//div[text()='100m']")
+    public CustomElement m100Range;
+
+    @FindBy(locator="xpath=//div[text()='10m']")
+    public CustomElement m10Range;
+
+    @FindBy(locator="xpath=//div[contains(@class,'finding-tab')]/div[@class='p-tabview-panels']/p-tabpanel/div[@role ='tabpanel' and not(@hidden)]//span[text()='Got That Fixed!']/..")
+    public CustomElement gotThatFixedFindings;
+
+    @FindBy(locator="xpath=//div[contains(@class,'finding-tab')]/div[@class='p-tabview-panels']/p-tabpanel/div[@role ='tabpanel' and not(@hidden)]//span[text()='Date of Detection: ']/following-sibling::span")
+    public CustomElement dateOfDetection;
+
+    @FindBy(locator="xpath=//div[contains(@class,'finding-tab')]/div[@class='p-tabview-panels']/p-tabpanel/div[@role ='tabpanel' and not(@hidden)]//span[text()='Time: ']/following-sibling::span")
+    public CustomElement time;
+
+    @FindBy(locator="xpath=//div[contains(@class,'finding-tab')]/div[@class='p-tabview-panels']/p-tabpanel/div[@role ='tabpanel' and not(@hidden)]//span[text()='Critical Idler Temperature: ']/following-sibling::span")
+    public CustomElement idlerTemp;
+
+    @FindBy(locator="xpath=//div[contains(@class,'finding-tab')]/div[@class='p-tabview-panels']/p-tabpanel/div[@role ='tabpanel' and not(@hidden)]//span[text()='Environmental Temperature: ']/following-sibling::span")
+    public CustomElement envTemp;
+
+    @FindBy(locator="xpath=//div[contains(@class,'finding-tab')]/div[@class='p-tabview-panels']/p-tabpanel/div[@role ='tabpanel' and not(@hidden)]//span[text()='Number of Idlers: ']/following-sibling::span")
+    public CustomElement noOfIdlers;
+
+    @FindBy(locator="xpath=//img[@alt='preview image']")
+    public CustomElement previewImage;
+
+    @FindBy(locator="xpath=//span[text()='Yes, Go Ahead']")
+    public CustomElement yesGoAheadBtn;
+
+    @FindBy(locator="xpath=//span[text()='No']")
+    public CustomElement noBtn;
+
+    @FindBy(locator="xpath=//div[text()='Selected images does not have proper combination']/..")
+    public CustomElement invalidImgError;
+
     public void goToConveyorInspect(){
         waitForElementToBeClickable(conveyorInspect);
         if(conveyorInspect.isEnable())
@@ -266,12 +339,14 @@ public class ConveyorInspectPage extends BasePage{
     }
 
     public void colorMapDropdown(String colorMap){
+        System.out.println("colorMap= "+colorMap);
         dropdownSelect(ciColourMap, ListColorMap, colorMap);
     }
 
     public void imageUpload(String fileName){
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         fileUpload.sendKeys(file_path, "img_upload");
+        SyncUtil.waitFor(1000);
     }
 
     public boolean deleteImg(String fileName){
@@ -406,6 +481,150 @@ public class ConveyorInspectPage extends BasePage{
         return actionList.isVisible("Action List");
     }
 
+    public void maintenanceFindings(HashMap<String, Object> finding){
+        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale("testData", ClasspathResourceHelper.FileType.JSON, "test_data"));
+        Validator.assertTrue(driver.findElement(By.xpath("//table/tbody/tr[1]/td/span")).getAttribute("class").contains(((HashMap<String, String>)obj.get("finding_colour")).get(finding.get("status").toString())),"Findings colour doesnt match","Findings colour verified successfully");
+        Validator.assertTrue(driver.findElement(By.xpath("//table/tbody/tr[1]/td[3]")).getText().equalsIgnoreCase((String) finding.get("name").toString()),"Findings name doesnt match","Findings name verified successfully");
+        Validator.assertTrue(driver.findElement(By.xpath("//table/tbody/tr[1]/td[4]")).getText().contains((String)finding.get("distance").toString()),"Findings distance doesnt match","Findings distance verified successfully");
+        driver.findElement(By.xpath("//table/tbody/tr[1]/td[5]/span")).click();
+        Validator.assertTrue(new BigDecimal(latVal.getAttribute("value")).setScale(3, RoundingMode.HALF_EVEN).toString().contains(new BigDecimal(finding.get("lat").toString()).setScale(3, RoundingMode.HALF_EVEN).toString()),"Findings lat doesnt match","Findings lat verified successfully");
+        Validator.assertTrue(new BigDecimal(lonVal.getAttribute("value")).setScale(3, RoundingMode.HALF_EVEN).toString().contains(new BigDecimal(finding.get("long").toString()).setScale(3, RoundingMode.HALF_EVEN).toString()),"Findings lon doesnt match","Findings lon verified successfully");
+        closeDialog();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Validator.assertTrue(driver.findElement(By.xpath("//table/tbody/tr[1]/td[6]")).getText().contains(LocalDateTime.parse((String)finding.get("inspectionDate").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)).format(formatter)),"Findings inspection date doesnt match","Findings inspection date verified successfully");
+        driver.findElement(By.xpath("//table/tbody/tr[1]/td[2]/button")).click();
+        Validator.assertTrue(driver.findElement(By.xpath("//table/tbody/tr[2]/td//div[contains(text(),'Idler Temperature is:')]")).getText().contains((String)finding.get("idler_temp").toString()),"Findings idler temp doesnt match","Findings idler temp verified successfully");
+        Validator.assertTrue(driver.findElement(By.xpath("//table/tbody/tr[2]/td//div[contains(text(),'Environmental Temperature is:')]")).getText().contains((String)finding.get("env_temp").toString()),"Findings env temp doesnt match","Findings env temp verified successfully");
+    }
+
+    public boolean gotThatFixedBtn(){
+        boolean flag = false;
+        try {
+            driver.findElement(By.xpath("//table/tbody/tr/td[1]/span[not(contains(@class, 'green'))]/../following-sibling::td/button")).click();
+            flag = gotThatFixed.isVisible("Got that Fixed");
+            return flag;
+        }
+        catch(Exception e){
+            return flag;
+        }
+    }
+
+    public boolean savePDF(){
+        boolean flag = false;
+        try {
+            if(driver.findElements(By.xpath("//table/tbody/tr/td[1]/span[not(contains(@class, 'green'))]")).size() > 0) {
+                SyncUtil.waitFor(3000);
+                savePDF.isVisible("Save PDF");
+                savePDF.click("Save PDF");
+                successPDF.isEnable("PDF success Text");
+                gotItBtn.click("Got it btn");
+                return flag = true;
+            }
+            else return flag;
+        }
+        catch(Exception e){
+            return flag;
+        }
+    }
+
+    public boolean findingsRange(){
+        boolean flag = false;
+//        scrollPageDown();
+//        scrollIntoView(conveyorInspectionDetailsHeader);
+        scrollIntoView(m10Range);
+        List<WebElement> defectedDots = driver.findElements(By.xpath("//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))]"));
+        if(defectedDots.size() > 0){
+            Validator.assertTrue(activeRange.getText().equalsIgnoreCase("km"),"Km range was not selected by default","Km range was selected by default");
+            defectedDots.get(0).click();
+            SyncUtil.waitFor(3000);
+            Validator.assertTrue(activeRange.getText().equalsIgnoreCase("100m"),"100m range was not selected","Km range was selected");
+            if(isLocatorVisible(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")))
+                driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+            else{
+                driver.findElement(By.xpath("//div[contains(@class,'right-arrow-wrapper')]"));
+                driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+            }
+            SyncUtil.waitFor(3000);
+            Validator.assertTrue(activeRange.getText().equalsIgnoreCase("10m"),"10m range was not selected","10m range was selected");
+            if(isLocatorVisible(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")))
+                driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+            else{
+                driver.findElement(By.xpath("//div[contains(@class,'right-arrow-wrapper')]/span"));
+                driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+            }
+            gotThatFixedFindings.isVisible("Got that fixed");
+            flag = true;
+            return flag;
+        }
+        return flag;
+    }
+
+    public void findingsObservations(){
+//        scrollPageDown();
+//        scrollIntoView(conveyorInspectionDetailsHeader);
+        scrollIntoView(m10Range);
+        m10Range.jsClick("10m range");
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(activeRange.getText().equalsIgnoreCase("10m"),"10m range was not selected after click","10m range was selected after clicking");
+        if(isLocatorVisible(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")))
+            driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+        else{
+            driver.findElement(By.xpath("//div[contains(@class,'right-arrow-wrapper')]/span")).click();
+            driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+        }
+        driver.findElement(By.xpath("(//div[contains(@class,'finding-tab')]//ul/li//span[not(contains(@class,'green'))])[1]")).click();
+        Validator.assertTrue(gotThatFixedFindings.isEnable("got that fixed btn"),"Got that fixed button is not enabled","Got that fixed button was verified successfully");
+        dateOfDetection.isVisible("Date of detection");
+        time.isVisible("Time");
+        idlerTemp.isVisible("Idler Temp");
+        envTemp.isVisible("envTemp");
+        noOfIdlers.isVisible("noOfIdlers");
+    }
+
+    public void imageFunctionality(){
+        scrollIntoView(m10Range);
+//        scrollPageDown();
+//        scrollIntoView(conveyorInspectionDetailsHeader);
+        m10Range.jsClick("10m range");
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(activeRange.getText().equalsIgnoreCase("10m"),"10m range was not selected after click","10m range was selected after clicking");
+        if(isLocatorVisible(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")))
+            driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+        else{
+            driver.findElement(By.xpath("//div[contains(@class,'right-arrow-wrapper')]/span")).click();
+            driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+        }
+        driver.findElement(By.xpath("(//div[contains(@class,'finding-tab')]//ul/li//span[not(contains(@class,'green'))])[1]")).click();
+        List<WebElement> images = driver.findElements(By.xpath("//div[@role ='tabpanel' and not(@hidden)]//div[text()=' Related images ']/../div//app-image-viewer"));
+        Validator.assertTrue(images.size()>0,"images are not present","images were verified successfully");
+        images.get(0).click();
+        SyncUtil.waitFor(2000);
+        previewImage.isVisible("preview image");
+        closeDialog();
+    }
+
+    public boolean gotItFixedFindings(){
+//        scrollPageDown();
+//        scrollIntoView(conveyorInspectionDetailsHeader);
+        scrollIntoView(m10Range);
+        m10Range.jsClick("10m range");
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(activeRange.getText().equalsIgnoreCase("10m"),"10m range was not selected after click","10m range was selected after clicking");
+        if(isLocatorVisible(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")))
+            driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+        else{
+            driver.findElement(By.xpath("//div[contains(@class,'right-arrow-wrapper')]")).click();
+            driver.findElement(By.xpath("(//div[@id='meter']/div[2]//div[@class='visual-dot']/span[not(contains(@class,'green')) and not(contains(@class,'grey'))])[1]")).click();
+        }
+        driver.findElement(By.xpath("(//div[contains(@class,'finding-tab')]//ul/li//span[not(contains(@class,'green'))])[1]")).click();
+        Validator.assertTrue(gotThatFixedFindings.isEnable("got that fixed btn"),"Got that fixed button is not enabled","Got that fixed button was verified successfully");
+        gotThatFixedFindings.click("got it fixed");
+        yesGoAheadBtn.isVisible("Go Ahead Btn");
+        noBtn.click();
+        SyncUtil.waitFor(1000);
+        return !yesGoAheadBtn.isVisible();
+    }
+
     public void modelSelection(String model){
         dropdownSelect(modelName, ListItem, model);
         saveChanges.jsClick("Save");
@@ -444,5 +663,33 @@ public class ConveyorInspectPage extends BasePage{
         Validator.assertTrue(btUpload.isNotVisible(20000),"Img upload failed","Image upload was successful");
     }
 
+    public void clickOnUpload(){
+        waitForElementToBeClickable(btUpload);
+        btUpload.jsClick("Upload Files");
+        waitForElementToInvisible(btSpinner,40000);
+        SyncUtil.waitFor(1000);
+        waitForElementToInvisible(uploadingProgress,20000);
+        waitForElementToInvisible(btSpinner,10000);
+        SyncUtil.waitFor(2000);
+        Validator.assertTrue(btUpload.isNotVisible(20000),"Img upload failed","Image upload was successful");
+    }
+
+    public void uploadVideoFile(){
+        waitForElementToBeClickable(btUpload);
+        btUpload.jsClick("Upload Files");
+        waitForElementToInvisible(btSpinner,60000);
+        SyncUtil.waitFor(1000);
+        waitForElementToInvisible(uploadingProgress,500000);
+        waitForElementToInvisible(btSpinner,60000);
+        SyncUtil.waitFor(2000);
+//        Validator.assertTrue(btUpload.isNotVisible(20000),"Img upload failed","Image upload was successful");
+    }
+
+    public void uploadInvalidImg(){
+        waitForElementToBeClickable(btUpload);
+        btUpload.jsClick("Upload Files");
+        SyncUtil.waitFor(500);
+        Validator.assertTrue(invalidImgError.isVisible("Img Error"),"Invalid Img error failed","Invalid Image was verified successfully");
+    }
 
 }

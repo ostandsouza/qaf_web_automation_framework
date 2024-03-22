@@ -53,7 +53,7 @@ public class InspectionPage extends FlutterBasePage {
 
         saveBtn.scrollIntoView("Save Btn");
         saveBtn.click();
-
+        SyncUtil.waitFor(5000);
         return !saveBtn.isVisible();
     }
 }

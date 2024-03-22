@@ -82,7 +82,7 @@ public class ProfilePage extends FlutterBasePage {
     public CustomFlutterElement metricBtn;
 
     public boolean isMyProfile() {
-        return profileName.isVisible("Profile page");
+        return profileName.isVisible();
     }
 
     public boolean goToProfileDetails() {

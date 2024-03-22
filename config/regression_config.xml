@@ -83,31 +83,6 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
-<!--		<groups>-->
-<!--			<run>-->
-<!--				<include name="Regression1" />-->
-<!--				<include name="Regression2" />-->
-<!--				<include name="Regression3" />-->
-<!--				<include name="Regression4" />-->
-<!--				<include name="Regression5" />-->
-<!--				<include name="Regression6" />-->
-<!--				<include name="Regression7" />-->
-<!--				<include name="Regression8" />-->
-<!--				<include name="Regression9" />-->
-<!--				<include name="Regression10" />-->
-<!--				<include name="Regression11" />-->
-<!--			</run>-->
-<!--		</groups>-->
-<!--		<classes>-->
-<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
-<!--		</classes>-->
-<!--	</test>-->
-
-<!--	<test name="User - Bulk Import testcases" enabled="true">-->
-<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_UserBulkUpload.feature" />-->
-<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
 <!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
@@ -122,6 +97,62 @@
 <!--				<include name="Regression9" />-->
 <!--				<include name="Regression10" />-->
 <!--				<include name="Regression11" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+
+
+	<test name="Site Inspection testcases" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<parameter name="env.resources" value="resources/env_stg" />
+		<groups>
+			<run>
+				<include name="Regression1" />
+				<include name="Regression12" />
+				<include name="Regression13" />
+				<include name="Regression14" />
+				<include name="Regression15" />
+				<include name="Regression16" />
+				<include name="Regression17" />
+				<include name="Regression18" />
+				<include name="Regression19" />
+				<include name="Regression20" />
+				<include name="Regression21" />
+				<include name="Regression22" />
+				<include name="Regression23" />
+				<include name="Regression24" />
+				<include name="Regression25" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+
+
+<!--	<test name="User - Bulk Import testcases" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_UserBulkUpload.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression1" />-->
+<!--				<include name="Regression2" />-->
+<!--				<include name="Regression3" />-->
+<!--				<include name="Regression4" />-->
+<!--				<include name="Regression5" />-->
+<!--				<include name="Regression6" />-->
+<!--				<include name="Regression7" />-->
+<!--				<include name="Regression8" />-->
+<!--				<include name="Regression9" />-->
+<!--				<include name="Regression10" />-->
+<!--				<include name="Regression11" />-->
 <!--				<include name="Regression12" />-->
 <!--			</run>-->
 <!--		</groups>-->
@@ -131,20 +162,67 @@
 <!--	</test>-->
 
 
-	<test name="Cover Wear testcases" enabled="true">
-		<parameter name="step.provider.pkg" value="com.web.steps" />
-		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Ultrasonics.feature" />
-		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_dev" />
-		<groups>
-			<run>
+<!--	<test name="Cover Wear testcases" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Ultrasonics.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<groups>-->
+<!--			<run>-->
 <!--				<include name="Regression1" />-->
 <!--				<include name="Regression2" />-->
 <!--				<include name="Regression3" />-->
 <!--				<include name="Regression4" />-->
 <!--				<include name="Regression5" />-->
 <!--				<include name="Regression6" />-->
-<!--&lt;!&ndash;				<include name="Regression7" />&ndash;&gt;-->
+<!--				<include name="Regression7" />-->
+<!--				<include name="Regression8" />-->
+<!--				<include name="Regression9" />-->
+<!--				<include name="Regression10" />-->
+<!--				<include name="Regression11" />-->
+<!--				<include name="Regression12" />-->
+<!--				<include name="Regression13" />-->
+<!--&lt;!&ndash;				<include name="Regression14" />&ndash;&gt;-->
+<!--				<include name="Regression15" />-->
+<!--				<include name="Regression16" />-->
+<!--				<include name="Regression17" />-->
+<!--				<include name="Regression18" />-->
+<!--				<include name="Regression19" />-->
+<!--				<include name="Regression20" />-->
+<!--&lt;!&ndash;				<include name="Regression21" />&ndash;&gt;-->
+<!--				<include name="Regression22" />-->
+<!--				<include name="Regression23" />-->
+<!--				<include name="Regression24" />-->
+<!--&lt;!&ndash;				<include name="Regression25" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression26" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression27" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression28" />&ndash;&gt;-->
+<!--				<include name="Regression29" />-->
+<!--				<include name="Regression30" />-->
+<!--				<include name="Regression31" />-->
+<!--				<include name="Regression32" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+
+
+<!--	<test name="Conveyor Inspect testcases" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_ConveyorInspect.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression1" />-->
+<!--				<include name="Regression2" />-->
+<!--				<include name="Regression3" />-->
+<!--				<include name="Regression4" />-->
+<!--				<include name="Regression5" />-->
+<!--				<include name="Regression6" />-->
+<!--				<include name="Regression7" />-->
 <!--				<include name="Regression8" />-->
 <!--				<include name="Regression9" />-->
 <!--				<include name="Regression10" />-->
@@ -153,7 +231,7 @@
 <!--				<include name="Regression13" />-->
 <!--				<include name="Regression14" />-->
 <!--				<include name="Regression15" />-->
-<!--&lt;!&ndash;				<include name="Regression16" />&ndash;&gt;-->
+<!--				<include name="Regression16" />-->
 <!--				<include name="Regression17" />-->
 <!--				<include name="Regression18" />-->
 <!--				<include name="Regression19" />-->
@@ -162,19 +240,12 @@
 <!--				<include name="Regression22" />-->
 <!--				<include name="Regression23" />-->
 <!--				<include name="Regression24" />-->
-				<include name="Regression25" />
-				<include name="Regression26" />
-				<include name="Regression27" />
-<!--				<include name="Regression28" />-->
-<!--				<include name="Regression29" />-->
-<!--				<include name="Regression30" />-->
-<!--				<include name="Regression31" />-->
-<!--				<include name="Regression32" />-->
-			</run>
-		</groups>
-		<classes>
-			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
-		</classes>
-	</test>
+<!--				<include name="Regression25" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
 
 </suite>

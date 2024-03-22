@@ -305,9 +305,14 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
 	public CustomElement buttonLoader;
 
+	@FindBy(locator="xpath=//div[contains(@class,'p-datatable-header')]//h4[text()='Users']")
+	public CustomElement usersHeader;
+
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
-		lnkUsers.click();
+		lnkUsers.jsClick();
+		waitForPageLoad(10000);
+		waitForElementVisible(usersHeader,5000,500);
 	}
 
 	public boolean searchUser(String searchtext) {
@@ -318,6 +323,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void addClick() {
+		lnkUsers.jsClick();
 		waitForElementToDisplay(btAdd);
 		btAdd.click();
 	}
@@ -407,8 +413,8 @@ public class UsersPage extends BasePage{
 	public void setPermission(String add, String edit, String delete, String view, String download) {
 		waitForElementVisible(btNext, 5000,500);
 		btNext.click();
-		SyncUtil.waitFor(1000);
-		waitForElementToInvisible(cbSpinner,20000);
+		SyncUtil.waitFor(2000);
+		waitForElementToInvisible(cbSpinner,25000);
 		if(add.equalsIgnoreCase("true"))
 			cbAllcheckboxAdd.click();
 		if(edit.equalsIgnoreCase("true"))
@@ -769,6 +775,8 @@ public class UsersPage extends BasePage{
 		waitForElementToInvisible(analysingUsers,10000);
 		continueBtn.click("Continue");
 		Validator.assertTrue(totalUsers.getText().contains(String.valueOf(count)),"Total users count incorrect","All users are verified successfully");
+		System.out.println(usersCreated.getText());
+		System.out.println(count);
 		Validator.assertTrue(usersCreated.getText().contains(String.valueOf(count)),"Total Imported users count incorrect","All user imported successfully");
 		Validator.assertTrue(usersError.getText().contains(String.valueOf(0)),"Total error users incorrect","All error user count is verfied successfully");
 	}
