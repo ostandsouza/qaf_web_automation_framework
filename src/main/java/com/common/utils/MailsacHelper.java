@@ -1,5 +1,4 @@
 package com.common.utils;
-
 import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
