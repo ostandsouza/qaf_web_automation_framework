@@ -451,4 +451,112 @@ public class CoverWearSteps {
         coverWearPage.enterDataPoints(count);
     }
 
+
+    @QAFTestStep(description="Verify user is on the home page of the application")
+    public void verifyHomePageNavigation(){
+        coverWearPage.verifyHomePage();
+    }
+
+    @QAFTestStep(description="Click on coverWear card and verify it navigates to coverWear list page")
+    public void clickOnCoverWear(){
+        coverWearPage.clickCoverWearCard();
+        coverWearPage.verifyCoverWearNavigation();
+    }
+
+    @QAFTestStep(description="Verify the breadCrumb of coverWear page")
+    public void verifyBreadCrumbOfPage(){
+        coverWearPage.verifyCoverWearBreadCrumb();
+    }
+
+    @QAFTestStep(description="Click on home link in breadCrumb and verify it navigates to home page")
+    public void ClickOnHomeLinkAndVerify(){
+        coverWearPage.homeLinkClick();
+        coverWearPage.verifyHomePage();
+    }
+
+    @QAFTestStep(description="Look for the searchBar in the table and verify search icon and search placeholder is visible")
+    public void VerifySearchBarVisible(){
+        coverWearPage.verifySearchBar();
+    }
+
+    @QAFTestStep(description="Enter the text {searchItem} to search")
+    public void searchForItemInSearchBar(String searchItem){
+        coverWearPage.searchForItem(searchItem);
+    }
+
+    @QAFTestStep(description="Verify the matching result is displayed or No record found message should display")
+    public void verifySearchItemInSearchBar(){
+        coverWearPage.verifySearchItem();
+    }
+
+    @QAFTestStep(description="Apply sorting or filter on column name")
+    public void applyFilterOrSorting(){
+        coverWearPage.applyColumnFilterClick();
+    }
+
+    @QAFTestStep(description="Verify that the filter is applied")
+    public void verifyFilterOrSorting(){
+        SyncUtil.waitFor(40000);
+        int noOfCoverWears = Integer.parseInt(MiscUtils.regexExtractor(coverWearPage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        System.out.println("calling before verifyColumnFilterClick "+noOfCoverWears);
+        coverWearPage.verifyColumnFilterClick(noOfCoverWears);
+    }
+
+    @QAFTestStep(description="Click on clear filter and verify filter is removed")
+    public void clearFilterAndVerify(){
+        coverWearPage.clearFilterClick();
+        coverWearPage.verifyFilterIsRemoved();
+    }
+
+    @QAFTestStep(description="Click on the column name and verify the column names")
+    public void clickOnColumnNamesAndVerify(){
+        coverWearPage.columNamesClick();
+        coverWearPage.verifyColumnNames();
+    }
+
+    @QAFTestStep(description="Select any column name to be displayed and verify the column is displayed")
+    public void selectColumnAndVerify(){
+        coverWearPage.selectColumnName();
+        coverWearPage.verifyColumnIsVisible();
+    }
+
+    @QAFTestStep(description="Click on column header and verify sorting should be in increasing order")
+    public void clickOnColumnAndVerifySorting(){
+        coverWearPage.clickOnColumn();
+        coverWearPage.verifyIncreasingOrderSorting();
+    }
+
+    @QAFTestStep(description="Click on column header again and verify sorting should be in decreasing order")
+    public void clickOnColumnAndVerifyDecreasingOrder(){
+        coverWearPage.clickOnColumn();
+        coverWearPage.verifyDecreasingOrderSorting();
+    }
+
+    @QAFTestStep(description="Look for the count displayed in yellow of durometer and verify the count")
+    public void lookForYellowCountAndVerify(){
+//        coverWearPage.getCountFromDurometer();
+        coverWearPage.verifyYellowCount();
+    }
+
+    @QAFTestStep(description="Look for the count displayed in red of durometer and verify the count")
+    public void lookForRedCountAndVerify(){
+        coverWearPage.verifyRedCount();
+    }
+
+    @QAFTestStep(description="Look for the count displayed in green of durometer and verify the count")
+    public void lookForGreenCountAndVerify(){
+        coverWearPage.verifyGreenCount();
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
+

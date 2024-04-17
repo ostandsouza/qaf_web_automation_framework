@@ -314,6 +314,150 @@ Scenario: Verify the user is able to update the password
   Then Verify Home page is displayed
 
 
+@UserRegression28 @CTCP-1284
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master
+
+Scenario: Verify the breadCrumb of add user page
+
+ Given User is at Login page
+ When Login with '${UserName}' and '${Password}'
+ And User navigates to Add user page
+ Then Verify the user bread crumb
+ And Click on User Link to redirect to user page
+ And Click on Add user icon
+ And Click on Home Link to redirect to home page
+
+@UserRegression29 @CTCP-1286
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_ImageUpload
+Scenario: Verify closing of Image viewer panel
+
+         Given User is at Login page
+         When Login with '${UserName}' and '${Password}'
+         And User navigates to Add user page
+         Then Verify the default image is displayed and on hover camera icon is displayed
+         And  Verify that Image Viewer panel is displayed on clicking the camera icon
+         When User clicks on Upload Image
+         Then Verify that the user is able to upload the image '${imgName}' from the system
+         And Verify that the selected image is displayed in the image viewer panel
+         When User clicks on cancel button
+         Then Verify that the image viewer panel is closed and image is not uploaded
+
+
+
+ @UserRegression30 @CTCP-1296
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:UserManagement_Master_Template
+ Scenario: Verify delete template functionality via no or close image button
+
+              Given User is at Login page
+              When Login with '${UserName}' and '${Password}'
+              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And  Add territory as '${Region}' for the user
+              And Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create template '${templateName}'
+              And Verify template is created
+              And Apply custom permission template '${templateName}'
+              And Click on delete button and verify that delete popup is displayed
+              And Click on no or close image button and verify that delete popup is closed
+              And Look for the created template '${templateName}' in the dropdown and verify it is visible
+
+
+@UserRegression31 @CTCP-1297
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_TerritoryManager
+Scenario: Verify the user login with profile type [Any]
+
+              Given User is at Login page
+              When Login with '${UserName}' and '${Password}'
+              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And  Add territory as '${Region}' for the user
+              Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
+              And Logout from the current user
+              And Login with normal user '${Email}' and '${UserPassword}'
+              And Verify the profile type '${ProfileTypeVerify}' of the user
+              When Click on corporate link in navigation bar
+              And Verify the assignments '${Region}' for the current user
+
+
+@UserRegression32 @CTCP-1305
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_masterAssignment
+Scenario: Verify search assignment for master
+
+              Given User is at Login page
+              When Login with '${UserName}' and '${Password}'
+              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And  Add territory as '${Region}' for the user
+              Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
+              And Logout from the current user
+              And Login with normal user '${Email}' and '${UserPassword}'
+              And Verify the profile type '${ProfileTypeVerify}' of the user
+              When Click on corporate link in navigation bar
+              And Verify the assignments '${Region}' for the current user
+
+
+
+@UserRegression33 @CTCP-1306
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_marketManager
+Scenario: Verify search assignment for marketManager
+
+              Given User is at Login page
+              When Login with '${UserName}' and '${Password}'
+              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And  Add territory as '${Region}' for the user
+              Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
+              And Logout from the current user
+              And Login with normal user '${Email}' and '${UserPassword}'
+              And Verify the profile type '${ProfileTypeVerify}' of the user
+              When Click on corporate link in navigation bar
+              And Verify the assignments '${Region}' for the current user
+
+
+@UserRegression34 @CTCP-1312
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_marketManager
+Scenario: Verify the permissions of admin module [User management]
+
+               Given User is at Login page
+               When Login with '${UserName}' and '${Password}'
+               When  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+               And Verify that it redirects to assignment page
+               When  Add territory as '${Region}' for the user
+               Then Verify that user is able to select '${Region}' checkbox
+               And Add permission rights with '${Module}' '${SubModule}' '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
+               And Logout from the current user
+               And Login with normal user '${Email}' and '${UserPassword}'
+               And Verify the profile type '${ProfileTypeVerify}' of the user
+               And Verify the fullName '${FullName}' of the user
+
+
+@UserRegression35 @CTCP-1314
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_New_User
+Scenario: Verify master user can create another master user
+
+              Given User is at Login page
+              When Login with '${UserName}' and '${Password}'
+              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And   Add territory as '${Region}' for the user
+              And   Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
+              Then Verify that new master user '${FullName}' is created and redirected to userList page
+              Then Logout from the current user
+              Then Login with normal user '${Email}' and '${UserPassword}'
+
+
+
+
 
 
 

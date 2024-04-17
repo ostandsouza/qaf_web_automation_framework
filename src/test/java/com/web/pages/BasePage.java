@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -296,5 +297,15 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     public void browserRefresh() {
         driver.navigate().refresh();
         SyncUtil.waitFor(2000);
+    }
+
+    public void hoverOverElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
+
+    public void clickAtPosition(WebElement imageElement, int xCoordinate, int yCoordinate) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(imageElement, xCoordinate, yCoordinate).click().build().perform();;
     }
 }

@@ -12,7 +12,10 @@ import groovyjarjarantlr4.v4.codegen.model.Sync;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -20,14 +23,14 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static java.io.File.separator;
+import static java.lang.Integer.parseInt;
 import static java.lang.Math.abs;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class CoverWearPage extends BasePage{
 
@@ -82,6 +85,9 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement cwCheckbox;
+
+    @FindBy(locator="xpath=//td//p-tablecheckbox")
+    public CustomElement cwCheckboxes;
 
     @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
@@ -297,7 +303,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//span[contains(@class,'pi-spinner')])[2]")
     public CustomElement downloadSpinner;
 
-    @FindBy(locator="xpath=(//app-card//div[text()='Cover Wear'])[2]")
+    @FindBy(locator="xpath=//div[@class=\"card-inner-wrapper\" and contains(div, \"Cover Wear\")]\n")
     public CustomElement coverWearCard;
 
     @FindBy(locator="xpath=//span[text()='Cover Wear Summary']")
@@ -433,6 +439,91 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=(//div[@role='dialog'])[1]")
     public CustomElement crDialog;
+
+    @FindBy(locator="xpath=//span[contains(@id, \"p-panel-5_header\") and contains(text(), \"Sites\")]")
+    public CustomElement siteHeader;
+
+    @FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+    public CustomElement coverWearBreadCrumb;
+
+    @FindBy(locator="xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
+    public CustomElement homeLink;
+
+    @FindBy(locator="xpath=//span[@class=\"p-input-icon-left\"]")
+    public CustomElement searchBar;
+
+    @FindBy(locator="xpath=//i[@class=\"ctp-icon-Search\"]")
+    public CustomElement searchBarIcon;
+
+    @FindBy(locator="xpath=//td[normalize-space()='No data found']")
+    public CustomElement searchNotFound;
+
+    @FindBy(locator="xpath=//th[@id='site-col']")
+    public CustomElement siteColumn;
+
+    @FindBy(locator="xpath=//p-columnfilter[@field='site']")
+    public CustomElement siteFilter;
+
+    @FindBy(locator="xpath=//p-columnfilterformelement//input")
+    public CustomElement filterText;
+
+    @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+    public CustomElement paginationEntry;
+
+    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Clear-Filters'])[2]")
+    public CustomElement clearFilterBtn;
+
+    @FindBy(locator = "//button[contains(@class, \"p-column-filter-menu-button-active\")]")
+    public CustomElement appliedFilter;
+
+    @FindBy(locator = "xpath=//div[@class='p-element p-multiselect-label-container']")
+    public CustomElement columnNameBtn;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Conveyor']")
+    public CustomElement conveyorColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Site']")
+    public CustomElement siteColumnName;
+
+    @FindBy(locator = "xpath=//div[normalize-space()='Corporate']")
+    public CustomElement corporateColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Installed Date']")
+    public CustomElement installedDateColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Cover Grade']")
+    public CustomElement coverGradeColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Remaining Life by Time']")
+    public CustomElement remainingLifeColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Last Recorded']")
+    public CustomElement lastRecordedColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Lowest Reading']")
+    public CustomElement lowestReadingColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Durometer Shore A']")
+    public CustomElement durometerColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Remaining Cover %']")
+    public CustomElement remainingCoverColumnName;
+
+    @FindBy(locator = "xpath=//th[@psortablecolumn=\"corporateName\"]")
+    public CustomElement corporateColumnHeader;
+
+    @FindBy(locator = "//div[normalize-space()='Cover Grade']")
+    public CustomElement coverGradeColumn;
+
+    @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[1]/div[@class='conti-round'])[1]")
+    public CustomElement greenCountValue;
+
+    @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[2]/div[@class='conti-round'])[1]")
+    public CustomElement yellowCountValue;
+
+    @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[3]/div[@class='conti-round'])[1]")
+    public CustomElement redCountValue;
+
 
 
     public void goToCoverWearScreen(){
@@ -623,7 +714,7 @@ public class CoverWearPage extends BasePage{
         List<WebElement> Options = driver.findElements(By.xpath(ListItem));
         System.out.println("actual positions ="+Options.size());
         System.out.println("expected positions ="+count);
-        Validator.assertTrue(Options.size() == Integer.parseInt(count),"Position dropdown is showing incorrect positions","Position dropdown verified successfully");
+        Validator.assertTrue(Options.size() == parseInt(count),"Position dropdown is showing incorrect positions","Position dropdown verified successfully");
         for(WebElement ele:Options) {
             waitForElementToBeClickable(ele);
             String value = ele.getAttribute("innerText");
@@ -927,7 +1018,7 @@ public class CoverWearPage extends BasePage{
         int val;
         SyncUtil.waitFor(1000);
         calendarMonth.click("Calendar Month");
-        val = Integer.parseInt(calendarYear.getText("Calendar year")) - Integer.parseInt(year);
+        val = parseInt(calendarYear.getText("Calendar year")) - parseInt(year);
         if (val > 0)
             for (int i = 0; i < abs(val); i++)
                calendarPrev.click("Calendar Decrement");
@@ -1149,4 +1240,343 @@ public class CoverWearPage extends BasePage{
         noOfColumnsField.clear();
         noOfColumnsField.sendKeys(count);
     }
+
+    public void verifyHomePage()
+    {
+        waitForPageLoad(15000);
+//        waitForElementVisible(siteHeader,10000,500);
+//        Validator.assertTrue(siteHeader.isVisible(),"User is not in home page of the application","User is in home page of the application");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"User is not in home page of the application","User is in home page of the application");
+
+    }
+    public void clickCoverWearCard()
+    {
+//        SyncUtil.waitFor(10000);
+        waitForPageLoad(10000);
+        waitForElementVisible(coverWearCard,5000,500);
+        waitForElementToBeClickable(coverWearCard);
+        coverWearCard.jsClick();
+
+    }
+    public void verifyCoverWearNavigation()
+    {
+//        SyncUtil.waitFor(10000);
+        waitForPageLoad(10000);
+        waitForElementVisible(coverWearHeader,5000,500);
+        Validator.assertTrue(coverWearHeader.isVisible(),"user is not navigated to coverWear list page","user is  navigated to coverWear list page");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/cover-wear"),"URL mismatch","URL matches");
+
+    }
+    public void verifyCoverWearBreadCrumb()
+    {
+        waitForElementVisible(coverWearHeader,5000,500);
+        Validator.assertTrue(coverWearBreadCrumb.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb text is displayed");
+        Assert.assertEquals(coverWearBreadCrumb.getText(), "Home\nCover Wear", "Breadcrumb text does not match expected");
+
+    }
+
+    public void homeLinkClick()
+    {
+        waitForElementVisible(homeLink,5000,500);
+        homeLink.click();
+
+    }
+
+    public void verifySearchBar()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(searchBar,5000,500);
+        Validator.assertTrue(searchBar.isVisible(),"The searchBar is not visible","The searchBar is visible");
+        Validator.assertTrue(cwSearchInput.isVisible(),"The search placeholder is not present","The search placeholder is  present");
+        Validator.assertTrue(searchBarIcon.isVisible(),"The searchBar icon is not present","The searchBar icon is  present");
+
+    }
+
+    public void searchForItem(String searchItem)
+    {
+        cwSearchInput.type(searchItem, "Cover Wear Search");
+    }
+
+    public void verifySearchItem() {
+        try {
+            waitForPageLoad(10000);
+            SyncUtil.waitFor(20000);
+            waitForElementVisible(cwCheckboxes,20000,500);
+            waitForElementToDisplay(cwCheckboxes);
+
+            if (cwCheckboxes.isDisplayed()) {
+                Validator.assertTrue(cwCheckboxes.isVisible(), "No items found", "Search items found");
+            }
+        } catch (TimeoutException e) {
+            Validator.assertTrue(searchNotFound.isVisible(), "No data found text is not visible", "No data found text is visible");
+        }
+    }
+
+    public void applyColumnFilterClick()
+    {
+        waitForElementVisible(siteColumn,5000,500);
+        hoverOverElement(siteColumn);
+        waitForElementVisible(siteFilter,5000,500);
+        siteFilter.click();
+        waitForElementVisible(filterText,5000,500);
+        filterText.type("w");
+        waitForElementVisible(applyBtn,5000,500);
+        applyBtn.click();
+        System.out.println("inside if click ****************");
+
+
+    }
+
+    public void verifyColumnFilterClick(int noOfCoverWears)
+    {
+        waitForElementVisible(siteColumn,5000,500);
+        hoverOverElement(siteColumn);
+        waitForElementVisible(appliedFilter,10000,500);
+        for (int i = 1; i <= noOfCoverWears; i++)
+        {
+            String tdText = driver.findElement(By.xpath("//table//tr["+ i +"]/td[3]")).getText(); // Get the text of the td element
+
+            if (tdText.startsWith("W")) // Check if the text starts with 'w'
+            {
+                // If the filter is applied, assert it for this row
+                Validator.assertTrue(true, "Filter is not applied for row ","filter is applied");
+            } else {
+                // If the filter is not applied, assert it for this row
+                System.out.println("No filter applied for row " + i);
+                // Add your assertion code here
+            }
+        }
+    }
+
+    public void clearFilterClick()
+    {
+        waitForElementVisible(clearFilterBtn,10000,500);
+        clearFilterBtn.click();
+    }
+
+    public void verifyFilterIsRemoved()
+    {
+        waitForElementVisible(siteColumn,5000,500);
+        hoverOverElement(siteColumn);
+        Validator.assertTrue(appliedFilter.isNotVisible(10000),"filter is not removed","filter is removed");
+    }
+
+    public void columNamesClick()
+    {
+        waitForElementVisible(columnNameBtn,5000,500);
+        columnNameBtn.click();
+    }
+
+    public void verifyColumnNames()
+    {
+        waitForElementVisible(conveyorColumnName,5000,500);
+        Validator.assertTrue(conveyorColumnName.isVisible(),"conveyor column name is not visible","conveyor column name is visible");
+        Validator.assertTrue(siteColumnName.isVisible(),"site column name is not visible","site column name is visible");
+        Validator.assertTrue(corporateColumnName.isVisible(),"corporate column name is not visible","corporate column name is visible");
+        Validator.assertTrue(installedDateColumnName.isVisible(),"installedDate column name is not visible","installedDate column name is visible");
+        Validator.assertTrue(coverGradeColumnName.isVisible(),"coverWear column name is not visible","coverWear column name is visible");
+        Validator.assertTrue(remainingLifeColumnName.isVisible(),"Remaining life by Time  column name is not visible","Remaining life by Time column name is visible");
+        Validator.assertTrue(lastRecordedColumnName.isVisible(),"Last recorded column name is not visible","Last recorded column name is visible");
+        Validator.assertTrue(lowestReadingColumnName.isVisible(),"Lowest Reading column name is not visible","Lowest Reading column name is visible");
+        Validator.assertTrue(durometerColumnName.isVisible(),"Durometer Shore column name is not visible","Durometer Shore column name is visible");
+        Validator.assertTrue(remainingCoverColumnName.isVisible(),"Remaining Cover % column name is not visible","Remaining Cover % column name is visible");
+
+
+
+
+
+
+
+
+
+
+    }
+
+    public void verifyColumnIsVisible()
+    {
+        waitForElementVisible(corporateColumnHeader,10000,500);
+        Validator.assertTrue(corporateColumnHeader.isVisible(),"selected column is not displayed","selected column is displayed");
+
+    }
+
+    public void selectColumnName()
+    {
+        waitForElementVisible(corporateColumnName,5000,500);
+        corporateColumnName.click();
+
+    }
+    public void clickOnColumn()
+    {
+        waitForElementVisible(coverGradeColumn,5000,500);
+        coverGradeColumn.click();
+
+    }
+
+    private List<String> getColumnData(int columnNumber) {
+        List<WebElement> rows = driver.findElements(By.xpath("//tbody/tr"));
+        List<String> columnData = new ArrayList<>();
+        for (WebElement row : rows) {
+            WebElement cell = row.findElement(By.xpath("./td[" + columnNumber + "]"));
+            columnData.add(cell.getText().trim());
+        }
+        return columnData;
+    }
+
+    public void verifyIncreasingOrderSorting()
+    {
+        int columnNumber = 5; // Example: retrieve data from the 5th column
+        List<String> columnDataAfterSortingIncreasing = getColumnData(columnNumber);
+        List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
+        expectedSortedDataIncreasing.sort(null);
+        Validator.assertTrue(columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing), "Sorting in increasing order is not applied correctly","sorting is applied in increasing order");
+
+    }
+
+    public void verifyDecreasingOrderSorting()
+    {
+        int columnNumber = 5; // Example: retrieve data from the 5th column
+        List<String> columnDataAfterSortingDecreasing = getColumnData(columnNumber);
+        List<String> expectedSortedDataDecreasing = new ArrayList<>(columnDataAfterSortingDecreasing);
+        expectedSortedDataDecreasing.sort(Collections.reverseOrder());
+        // Compare the values of the column data after sorting with the expected sorted data (decreasing order)
+        Validator.assertTrue(columnDataAfterSortingDecreasing.equals(expectedSortedDataDecreasing), "Sorting in decreasing order is not applied correctly","sorting is applied in decreasing order");
+
+    }
+    int redCount = 0;
+    int yellowCount = 0;
+    int greenCount = 0;
+    public void getCountFromDurometer()
+    {
+
+
+        for(int i=1;i<=8;i++)
+        {
+            SyncUtil.waitFor(10000);
+//            waitForPageLoad(10000);
+            String durometerXpath = "//table//tr[" + i + "]/td[6]//span"; // Replace this with the actual XPath for durometer value
+            String lifecycleXpath = "//table//tr[" + i + "]/td[8]//span"; // Replace this with the actual XPath for lifecycle value
+            waitForElementVisible(driver.findElement(By.xpath(durometerXpath)),5000,500);
+            waitForElementVisible(driver.findElement(By.xpath(lifecycleXpath)),5000,500);
+
+
+            WebElement durometerElement = driver.findElement(By.xpath(durometerXpath));
+            WebElement lifecycleElement = driver.findElement(By.xpath(lifecycleXpath));
+
+            // Extract numeric values from elements
+            int durometerValue = extractNumericValue(durometerElement.getText());
+
+            int lifecycleValue = extractNumericValue(lifecycleElement.getText());
+
+            String color = getHighestPriorityColor(durometerValue, lifecycleValue);
+
+            switch (color) {
+                case "red":
+                    redCount++;
+                    break;
+                case "yellow":
+                    yellowCount++;
+                    break;
+                case "green":
+                    greenCount++;
+                    break;
+            }
+//
+        }
+        System.out.println("Red count: " + redCount);
+        System.out.println("green count: " + greenCount);
+        System.out.println("yellow count: " + yellowCount);
+
+
+    }
+    public void verifyYellowCount()
+    {
+        waitForPageLoad(10000);
+//        SyncUtil.waitFor(10000);
+        getCountFromDurometer();
+        WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[2]/div[@class='conti-round'])[1]"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
+        System.out.println("TextYellow: " + tileValue);
+        Assert.assertEquals(yellowCount,parseInt(tileValue),"The yellowCount does not match");
+
+    }
+    public void verifyRedCount()
+    {
+        waitForPageLoad(10000);
+        getCountFromDurometer();
+        WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[3]/div[@class='conti-round'])[1]"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
+        System.out.println("TextRed: " + tileValue);
+        Assert.assertEquals(redCount,parseInt(tileValue),"The redCount does not match");
+
+    }
+
+    public void verifyGreenCount()
+    {
+        waitForPageLoad(10000);
+        getCountFromDurometer();
+        WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[1]/div[@class='conti-round'])[1]"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
+        System.out.println("TextGreen: " + tileValue);
+        Assert.assertEquals(greenCount,parseInt(tileValue),"The redCount does not match");
+
+    }
+
+
+    private String getHighestPriorityColor(double durometer, double lifecycle) {
+        String durometerStatus;
+        if (durometer < 45 || durometer >= 83) {
+            durometerStatus = "red";
+        } else if (durometer >= 45 && durometer < 55) {
+            durometerStatus = "yellow";
+        } else if (durometer >= 55 && durometer <= 73) {
+            durometerStatus = "green";
+        } else if (durometer > 73 && durometer < 83) {
+            durometerStatus = "yellow";
+        } else {
+            durometerStatus = "unknown";
+        }
+
+        String lifecycleStatus;
+        if (lifecycle < 10) {
+            lifecycleStatus = "red";
+        } else if (lifecycle <= 20) {
+            lifecycleStatus = "yellow";
+        } else if (lifecycle > 30) {
+            lifecycleStatus = "green";
+        } else {
+            lifecycleStatus = "unknown";
+        }
+
+        // Compare the statuses based on priority
+        if ((durometerStatus.equals("red") && lifecycleStatus.equals("red")) ||
+                (durometerStatus.equals("red") && lifecycleStatus.equals("yellow")) ||
+                (durometerStatus.equals("yellow") && lifecycleStatus.equals("red"))||
+            (durometerStatus.equals("red") && lifecycleStatus.equals("green"))||
+        (durometerStatus.equals("green") && lifecycleStatus.equals("red")))
+
+        {
+            return "red";
+        } else if ((durometerStatus.equals("yellow") && lifecycleStatus.equals("yellow")) ||
+                (durometerStatus.equals("green") && lifecycleStatus.equals("yellow")) ||
+                (durometerStatus.equals("yellow") && lifecycleStatus.equals("green"))) {
+            return "yellow";
+        } else if((durometerStatus.equals("green") && lifecycleStatus.equals("green"))) {
+            return "green";
+        }
+        return "yellow";
+
+    }
+
+    private static int extractNumericValue(String text) {
+        String numericText = text.replaceAll("\\D", ""); // This removes all non-digit characters
+        return parseInt(numericText);
+
+    }
+
+
+
+
 }

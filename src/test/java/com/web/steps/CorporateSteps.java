@@ -5,11 +5,14 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
 import com.web.pages.CorporatePage;
+import com.web.pages.UsersPage;
 
 public class CorporateSteps {
 
     CorporatePage corpPage = new CorporatePage();
     ConveyorPage conveyorPage = new ConveyorPage();
+
+
 
     @QAFTestStep(description="Create a Distributor Corporate with {DistCorpName} and {DistCorpAddress}")
     public void createADistributorCorporateBeltAssociatesCorp(String DistCorpName, String DistCorpAddress){
@@ -255,5 +258,127 @@ public class CorporateSteps {
     public void editCorporateChanges(){
         corpPage.updateCorp();
     }
+
+
+
+    @QAFTestStep(description = "User navigates to Add Company page")
+    public void navigateToAddCompany() {
+        corpPage.goToAddCompany();
+    }
+
+    @QAFTestStep(description = "Verify the Company bread crumb")
+    public void verifyUserBreadCrumb() {
+        corpPage.verifyUserBreadCrumb();
+    }
+
+    @QAFTestStep(description = "Click on Corporates Link to redirect to corporate list page")
+    public void verifyAddCompanyPageClick () {
+        corpPage.corporateLinkClick();
+
+    }
+
+    @QAFTestStep(description = "Click on Home Link to redirect to home page")
+    public void verifyHomePageClick () {
+        corpPage.homeLinkClick();
+
+    }
+
+    @QAFTestStep(description = "Click on Add company icon")
+    public void addUser() {
+        corpPage.addClick();
+    }
+
+    @QAFTestStep(description = "Verify user is on home page of the application")
+    public void verifyHomePage () {
+        corpPage.homePageVerify();
+
+    }
+
+    @QAFTestStep(description = "Verify add company Link should be visible in the left navigation bar")
+    public void verifyAddCompanyLinkVisibility () {
+        corpPage.verifyAddUserLink();
+
+    }
+
+    @QAFTestStep(description = "Verify user navigates to Add Company page on clicking the Add Company link in navigation bar")
+    public void verifyNavigationToAddCompanyPage () {
+        corpPage.goToAddCompany();
+        corpPage.verifyAddCompanyPage();
+
+    }
+
+    @QAFTestStep(description = "Verify that on clicking the maximize icon user is able to maximize the image")
+    public void verifyMapMaximization () {
+        corpPage.maximizeIconClick();
+        corpPage.verifyMapMaximization();
+
+    }
+
+    @QAFTestStep(description = "User writes a new location {Address} in the address field")
+    public void typeNewLocation (String Address) {
+        corpPage.setNewLocation(Address);
+
+
+    }
+
+    @QAFTestStep(description = "Verify the auto suggest is populated based on the address {Address} provided in the search box")
+    public void verifyAutoSuggest (String address) {
+        corpPage.verifyAutoSuggestion(address);
+
+
+    }
+
+    @QAFTestStep(description = "Select on Distributor corporate radio button and verify that distributor corporate is selected as default option")
+    public void selectAndVerifyDistributorCorporate () {
+//        corpPage.clickDistributorCorporate();
+        corpPage.verifyAddDistCorporate();
+
+
+    }
+
+    @QAFTestStep(description = "Enter a new company name {CompanyName} and address {Address} which is not in auto suggest")
+    public void setCompanyNameAndAddress (String companyName,String address ) {
+        corpPage.setCompanyAndAddress(companyName,address);
+
+
+    }
+
+    @QAFTestStep(description = "Verify user should be able to enter the companyName {CompanyName} and user should not get auto suggest")
+    public void verifyCompanyNameAndAddress (String companyName ) {
+        corpPage.verifyCompanyAndAutoSuggest(companyName);
+
+
+    }
+
+    @QAFTestStep(description = "Click on the map where user wants to add address")
+    public void clickOnMapToAddLocation () {
+        corpPage.clickOnMap();
+
+    }
+
+
+
+
+    @QAFTestStep(description = "Verify user should be able to add  Street city zipcode state country cancel link and apply link")
+    public void verifyAddressFieldNamesAndSave () {
+        corpPage.verifyMapAddressFieldNames();
+    }
+
+    @QAFTestStep(description = "Add the address fields {Street} {City} {ZipCode} {State} {Country} {CompanyName} and verify the address is saved")
+    public void setAddressFields (String street,String city,String zipCode,String state,String country,String CompanyName ) {
+        corpPage.setMapAddress(street,city,zipCode,state,country);
+        corpPage.clickSaveBtnAndVerify();
+        corpPage.deleteCorporate(CompanyName);
+
+    }
+
+
+
+
+
+
+
+
+
 
 }

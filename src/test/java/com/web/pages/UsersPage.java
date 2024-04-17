@@ -7,6 +7,7 @@ import com.common.utils.ClasspathResourceHelper;
 import com.common.utils.MiscUtils;
 import com.qmetry.qaf.automation.util.Validator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import com.common.component.CustomElement;
@@ -15,9 +16,15 @@ import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.util.Reporter;
+import org.testng.Assert;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
+import org.openqa.selenium.NoSuchElementException;
+
 
 public class UsersPage extends BasePage{
 
@@ -308,6 +315,102 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//div[contains(@class,'p-datatable-header')]//h4[text()='Users']")
 	public CustomElement usersHeader;
 
+	@FindBy(locator="xpath=(//span[text()='Users'])[1]")
+	public CustomElement bcUserLink;
+
+	@FindBy(locator="xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
+	public CustomElement bcHomeLink;
+
+	@FindBy(locator="xpath=(//h4[text()='Users']")
+	public CustomElement txtUser;
+
+	@FindBy(locator="//div[@class='p-breadcrumb p-component']")
+	public CustomElement bcAddUserLink;
+
+	@FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
+	public CustomElement userDefaultImage;
+
+	@FindBy(locator="//img[@src=\"/assets/img/upload_default.png\"]")
+	public CustomElement addDefaultImgSrc;
+
+	@FindBy(locator="//div[@class='icon']//img")
+	public CustomElement cameraIcon;
+
+	@FindBy(locator="//div[@role='dialog']")
+	public CustomElement imageViewerPanel;
+
+	@FindBy(locator="//label[normalize-space()='Upload Image']")
+	public CustomElement btUploadImg;
+
+	@FindBy(locator="//div[contains(@class,'p-dropdown-panel')]']")
+	public CustomElement templatePopup;
+
+
+
+
+	@FindBy(locator="xpath=//img[@class='cropped-image']")
+	public CustomElement imgUploaded;
+
+	@FindBy(locator="xpath=//button[@class='p-element p-button p-component ng-star-inserted']//span[normalize-space()='Cancel']")
+	public CustomElement btnCancel;
+
+	@FindBy(locator="//img[@src='assets/img/upload_default.png']")
+	public CustomElement imgUserProfile;
+
+	@FindBy(locator="//h6[normalize-space()='Logout']")
+	public CustomElement txtLogout;
+
+	@FindBy(locator="//p-splitbutton[@icon='ctp-icon-Save']")
+	public CustomElement btnTempSave;
+
+	@FindBy(locator="//input[@id='templateName']")
+	public CustomElement tbTempName;
+
+	@FindBy(locator="//div[@aria-label='dropdown trigger']")
+	public CustomElement ddlTempDropdown;
+
+	@FindBy(locator="xpath=//div[@role='dialog']")
+	public CustomElement dialogBox;
+
+	@FindBy(locator="xpath=//span[@class='p-button-icon ctp-icon-Delete']")
+	public CustomElement btnDelete;
+
+	@FindBy(locator="xpath=//span[text()='Confirmation']")
+	public CustomElement dialogBoxDelete;
+
+	@FindBy(locator="xpath=(//timesicon)[1]")
+	public CustomElement closeIcon;
+
+	@FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+	public CustomElement paginationEntry;
+
+	@FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
+	public CustomElement home;
+
+	@FindBy(locator = "//h6[contains(text(),'Profile')]")
+	public CustomElement txtProfile;
+
+	@FindBy(locator = "//div[contains(@class, 'img-container')]")
+	public CustomElement imgProfile;
+
+	@FindBy(locator ="//div[text()='Template Created']")
+	public CustomElement altCreatedTemp;
+
+	@FindBy(locator = "//span[text()='Corporates']")
+	public CustomElement lnkCorporates;
+
+
+
+//	@FindBy(locator="//tr[@class='ng-star-inserted'][i]//p-chip//div[contains(text(), 'APAC')]")
+//	public CustomElement txtApac;
+
+
+
+
+	@FindBy(locator="xpath=//span[@id='p-panel-3_header']")
+	public CustomElement txtHomeHeader;
+
+
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
 		lnkUsers.jsClick();
@@ -315,10 +418,11 @@ public class UsersPage extends BasePage{
 		waitForElementVisible(usersHeader,5000,500);
 	}
 
-	public boolean searchUser(String searchtext) {
+	public boolean searchUser(String searchText) {
 		waitForElementVisible(btSearchinput, 10000, 500);
-		btSearchinput.type(searchtext);
+		btSearchinput.type(searchText);
 		waitForElementToDisplay(btCheckbox);
+		Assert.assertTrue(btCheckbox.isDisplayed(),"The created user is not visible");
 		return btCheckbox.isVisible("User Found");
 	}
 
@@ -328,12 +432,12 @@ public class UsersPage extends BasePage{
 		btAdd.click();
 	}
 
-	public void setfullname(String Fullname) {
+	public void setFullName(String FullName) {
 		waitForElementVisible(tbFullName, 5000,500);
-		tbFullName.type(Fullname, "Fullname");
+		tbFullName.type(FullName, "Fullname");
 	}
 	
-	public void setfullname1(String Fullname1) {
+	public void setFullName1(String Fullname1) {
 		tbFullName.type(Fullname1, "Fullname1");
 	}
 
@@ -342,7 +446,7 @@ public class UsersPage extends BasePage{
 		tbPhone.type(code+Phone, "Phone");
 	}
 
-	public void setemail(String email) {
+	public void setEmail(String email) {
 		tbEmail.type(email,"email");
 //		tbEmail.verifyText(email, "email");
 	}
@@ -350,14 +454,19 @@ public class UsersPage extends BasePage{
 	
 
 	public void setProfileType(String profileType) {
+		waitForElementVisible(ddlSelectprofiletype,5000,500);
+		waitForElementToBeClickable(ddlSelectprofiletype);
 
 		ddlSelectprofiletype.click();
+		System.out.println("clicked"+profileType);
 
 		WebElement listitem;
 
 		if(profileType.equalsIgnoreCase("Master"))
 		{
+
 			listitem=rdbSelectprofiletypeMaster;
+			System.out.println("clicked master"+listitem);
 		}
 		else if(profileType.equalsIgnoreCase("Market manager"))
 		{
@@ -379,22 +488,26 @@ public class UsersPage extends BasePage{
 		{
 			listitem=rdbSelectprofiletypeCustomerUser;
 		}
-		else
-			listitem=ddlSelectprofiletype;
+		else {
+			listitem = ddlSelectprofiletype;
+			System.out.println("clicked else"+listitem);
+		}
 
 		listitem.click();
 
 	}
 
-	public void setpassword(String userpassword) {
-		tbuserPassword.type(userpassword,"Userpassword");		
+
+
+	public void setPassword(String userPassword) {
+		tbuserPassword.type(userPassword,"Userpassword");
 	}
 
-	public void setretypepassword(String retypepassword) {
-		tbRetypePassword.type(retypepassword,"Retypepassword");		
+	public void setRetypePassword(String retypePassword) {
+		tbRetypePassword.type(retypePassword,"Retypepassword");
 	}
 
-	public void Nextclick() {
+	public void NextClick() {
 		btNext.click();
 	}
 
@@ -530,12 +643,17 @@ public class UsersPage extends BasePage{
 	}
 
 	public void Clicksaveandclose() {
+		System.out.println("In save and close");
 		waitForPageLoad(3000);
 		waitForElementVisible(btSaveandClose, 10000,500);
 		btSaveandClose.click();
 		SyncUtil.waitFor(15000);
-		waitForElementToDisplay(btSearchinput);
+		waitForPageLoad(10000);
+		waitForElementVisible(btSearchinput,5000,500);
+		System.out.println("wait done ");
+		Validator.assertTrue(driver.getCurrentUrl().contains("secure/users/list"),"URL missMatch","URL validation passed");
 		Reporter.log("User is created",MessageTypes.Pass);
+		System.out.println("wait done after assertion");
 	}
 
 	
@@ -810,4 +928,247 @@ public class UsersPage extends BasePage{
 		List<String> obj = MiscUtils.getDownloadedExcelSheet(fileName);
 		Validator.assertTrue(obj.contains(siteName),"Template was downloaded for incorrect user type","Template was downloaded for right user type successfully");
 	}
+
+	public void verifyUserBreadCrumb()
+	{
+		waitForPageLoad(15000);
+		waitForElementVisible(userDefaultImage,5000,500);
+		waitForElementVisible(bcAddUserLink,10000,500);
+		Assert.assertTrue(bcAddUserLink.isDisplayed(), "Breadcrumb element is not displayed");
+		assertEquals(bcAddUserLink.getText(), "Home\nUsers\nAdd", "Breadcrumb text does not match expected");
+
+	}
+	public void usersClick() {
+		waitForElementVisible(lnkUsers, 5000,1000);
+		waitForElementToBeClickable(lnkUsers);
+		lnkUsers.click();
+		waitForPageLoad(10000);
+		waitForElementVisible(usersHeader,5000,500);
+	}
+
+	public void userLinkClick()
+	{
+		bcUserLink.click();
+		waitForPageLoad(5000);
+	}
+
+	public void homeLinkClick()
+	{
+		waitForElementVisible(bcHomeLink,10000,500);
+		bcHomeLink.click();
+		waitForPageLoad(20000);
+		waitForElementVisible(bcAddUserLink,10000,500);
+		Assert.assertTrue(bcAddUserLink.isDisplayed(), "Breadcrumb element is not displayed");
+		assertEquals(bcAddUserLink.getText(), "Home\nSites", "Breadcrumb text does not match expected");
+		Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"URL missMatch","URL validation passed");
+
+	}
+
+	public void verifyDefaultImage()
+	{
+		waitForElementVisible(userDefaultImage,5000,500);
+		Validator.assertTrue(userDefaultImage.isDisplayed(), "Default image is not displayed","Default Image is Displayed");
+
+	}
+
+	public void verifyCameraIcon()
+	{
+		hoverOverElement(userDefaultImage);
+		waitForElementVisible(cameraIcon,5000,500);
+		Validator.assertTrue(cameraIcon.isDisplayed(), "cameraIcon is not visible on the page","cameraIcon is  visible on the page");
+	}
+	public void cameraIconClick()
+	{
+		cameraIcon.click();
+		waitForElementVisible(imageViewerPanel,5000,500);
+		Validator.assertTrue(imageViewerPanel.isDisplayed(), "Image viewer panel  is not visible on the page","Image viewer panel is visible");
+
+	}
+
+	public void uploadBtnClick()
+	{
+		waitForElementVisible(btUploadImg,5000,500);
+		waitForElementToBeClickable(btUploadImg);
+		btUploadImg.click();
+
+	}
+	public void imageUpload(String fileName){
+		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
+		fileUpload.sendKeys(file_path, "img_upload");
+	}
+
+	public void verifyImageUpload(){
+		waitForElementVisible(imgUploaded,5000,500);
+		Validator.assertTrue(imgUploaded.isVisible(),"Uploaded Image is not visible in the panel","Uploaded image is visible in the panel");
+
+
+	}
+	public void cancelBtnClick()
+	{
+
+		btnCancel.click();
+	}
+	public void verifyImageViewPanelClosed()
+	{
+		waitForElementVisible(addDefaultImgSrc,5000,500);
+		Validator.assertTrue(addDefaultImgSrc.isVisible(),"The selected image is uploaded","The selected image is not uploaded");
+		Validator.assertTrue(imageViewerPanel.verifyNotPresent(),"Image view panel is still visible","Image viewer panel is not visible");
+	}
+
+	public void verifyNavigationToUserListPage()
+	{
+		waitForPageLoad(5000);
+		Validator.assertTrue(driver.getCurrentUrl().contains("secure/users/list"),"URL missMatch","URL validation passed");
+
+
+	}
+
+	public void currentUserLogout()
+	{
+		waitForElementVisible(imgUserProfile,5000,500);
+		waitForElementToBeClickable(imgUserProfile);
+		waitForElementVisible(txtLogout,2000,500);
+		txtLogout.click();
+
+
+	}
+
+	public void createPermissionTemplate(String templateName){
+		btnTempSave.click();
+		waitForElementVisible(dialogBox, 10000,500);
+		Assert.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible");
+		tbTempName.type(templateName,"templateName");
+		saveBtn.click();
+	}
+
+	public void verifyCreateTemplate(){
+		waitForPageLoad(5000);
+     SyncUtil.waitFor(5000);
+		waitForElementVisible(altCreatedTemp,20000,1000);
+		waitForElementToDisplay(altCreatedTemp);
+		Validator.assertTrue(altCreatedTemp.isDisplayed(),"Create alert is not displayed","Create alert is displayed");
+	}
+
+
+
+	public void selectPermissionTemplate(String templateName){
+		ddlTempDropdown.click();
+		waitForPageLoad(10000);
+		waitForElementToDisplay(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"']")));
+//		waitForElementVisible(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"']")),10000,1000);
+		driver.findElement(By.xpath("//li[@aria-label='"+templateName+"']")).click();
+		ddlTempDropdown.click();
+		waitForElementVisible(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")), 5000, 500);
+		Assert.assertTrue(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")).isDisplayed(),"Template is not selected");
+	}
+	public void deleteBtnClick()
+	{
+		waitForElementVisible(btnDelete,2000,500);
+		btnDelete.click();
+
+	}
+
+	public void verifyDeletePopup()
+	{
+
+		waitForElementVisible(dialogBoxDelete,15000,1000);
+		Assert.assertTrue(dialogBoxDelete.isDisplayed(),"Dialog box is not visible");
+
+	}
+	public void verifyAssignmentNavigation()
+	{
+		waitForPageLoad(15000);
+		Validator.assertTrue(driver.getCurrentUrl().contains("secure/users/add/assign"),"URL missMatch","URL validation passed");
+	}
+
+	public void verifyPermissionPageNavigation()
+	{
+		waitForPageLoad(10000);
+		Validator.assertTrue(driver.getCurrentUrl().contains("secure/users/add/permission"),"URL missMatch","URL validation passed");
+
+
+	}
+
+	public void closeDialogBox()
+	{
+		waitForElementVisible(closeIcon,2000,500);
+		closeIcon.click();
+		Assert.assertTrue(dialogBoxDelete.isNotVisible(500),"Dialog box is not visible");
+
+	}
+	public void verifyTemplate(String templateName)
+	{
+		ddlTempDropdown.click();
+		waitForElementVisible(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")), 5000, 500);
+		Assert.assertTrue(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")).isDisplayed(),"Template is not selected");
+	}
+
+	public void verifyProfileType(String profileType)
+	{
+		waitForElementVisible(driver.findElement(By.xpath("//span[contains(text(),'" + profileType + "')]")), 5000, 500);
+		Validator.assertTrue(driver.findElement(By.xpath("//span[contains(text(),'"+profileType+"')]")).isDisplayed(),"profile type does not match","profile type matches");
+
+	}
+
+	public void verifyUserListPage()
+	{
+		waitForElementVisible(usersHeader,5000,500);
+		Validator.assertTrue(usersHeader.isVisible(),"Page is not redirected to users-list page","Redirected to user-list page");
+		Validator.assertTrue(driver.getCurrentUrl().contains("secure/users/list"),"URL missMatch","URL validation passed");
+
+	}
+
+
+	public void verifyAssignments(String region, int noOfCorporates) {
+		boolean regionFound = false;
+
+		for (int i = 1; i <= noOfCorporates; i++) {
+			try {
+				// Find the chip element in the row
+				driver.findElement(By.xpath("(//tr["+i+"]//div[contains(@class,'p-chip') and contains(text(),'None')])"));
+				// If chip element is found, skip this iteration
+				System.out.println("Skipping row with chip element as 'None'");
+				continue;
+			} catch (NoSuchElementException e) {
+				// If chip element is not found, proceed to check for the region element
+				System.out.println("Chip element not found in row " + i);
+			}
+
+			// Check for the presence of the region in the row
+			try {
+				WebElement regionElement = driver.findElement(By.xpath("(//tr["+i+"]//*//div[contains(@class,'p-chip-text') and contains(text(),'"+region+"')])"));
+				// If region element found, continue searching
+				regionFound = true;
+//				System.out.println("Region '" + region + "' found in the row.");
+			} catch (NoSuchElementException ex) {
+				// If no region element found, fail the test
+//				System.out.println("Region '" + region + "' not found in the row. Test failed.");
+				// Fail the test here according to your test framework
+				// For example, you can throw an exception or use an assertion to fail the test
+				// Example using assertion:
+				Assert.fail("Region '" + region + "' not found in the row."+i);
+			}
+		}
+	}
+
+	public void verifyCheckboxChecked(String region)
+	{
+		waitForElementVisible(driver.findElement(By.xpath("//div[@aria-label='"+region+"' and contains(@aria-selected,'true')]")),5000,500);
+		Validator.assertTrue(driver.findElement(By.xpath("//div[@aria-label='" + region + "' and contains(@aria-selected,'true')]")) != null, region + "Region is not checked", region + "Region is checked");
+
+	}
+	public void verifyFullName(String fullName)
+	{
+		waitForElementVisible(imgProfile,5000,500);
+		imgProfile.click();
+		waitForElementVisible(txtProfile,5000,500);
+		txtProfile.click();
+		waitForPageLoad(5000);
+		waitForElementVisible(tbFullName,5000,500);
+		Validator.assertTrue(tbFullName.getAttribute("value").equalsIgnoreCase(fullName),"fullName doesn't match ", "fullName matches");
+
+	}
+
+
+
 }

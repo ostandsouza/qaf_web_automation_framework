@@ -1,9 +1,12 @@
 package com.web.steps;
 
 import com.common.utils.MiscUtils;
+import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
+import com.web.pages.ConveyorPage;
 import com.web.pages.InspectionPage;
+import com.web.pages.UsersPage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +14,9 @@ import java.time.format.DateTimeFormatter;
 public class InspectionSteps {
 
 	InspectionPage inspectionpage = new InspectionPage();
-	
+	UsersPage userPage=new UsersPage();
+
+
 	@QAFTestStep(description="Select Inspection on the Navigation Pane")
 	public void selectInspectionOnTheNavigationPane(){
 		inspectionpage.goToInspection();
@@ -273,4 +278,126 @@ public class InspectionSteps {
 	public void enterInspectionName(String inspectionName){
 		inspectionpage.enterInspectionName(inspectionName);
 	}
+
+
+	@QAFTestStep(description="Navigate to inspection list page and wait")
+	public void navigateToInspectionScreen()
+	{
+		inspectionpage.goToInspectionScreenAndWait();
+	}
+
+
+	@QAFTestStep(description="Verify the breadcrumb of the page")
+	public void verifyInspectionBreadCrumb(){
+		inspectionpage.verifyUserBreadCrumb();
+	}
+
+	@QAFTestStep(description="Click on add new button and verify that add files to upload section is visible")
+	public void verifyAddFilesIsVisible(){
+		inspectionpage.addNewBtnClick();
+		inspectionpage.verifyAddFilesToUploadBtn();
+	}
+
+	@QAFTestStep(description="Click on select files to upload image")
+	public void ClickOnSelectFiles(){
+		inspectionpage.selectFilesBtnClick();
+	}
+
+	@QAFTestStep(description="Select the image {imgName} to upload and verify user is able to upload the image")
+	public void UploadImageFromSystem(String imgName){
+		userPage.imageUpload(imgName);
+	}
+
+	@QAFTestStep(description="Verify that the loader is visible and selected image is displayed in the section")
+	public void VerifyTheUploadedImage(){
+		inspectionpage.verifyLoader();
+		inspectionpage.verifyUploadedImage();
+	}
+
+	@QAFTestStep(description="Verify delete button is visible and click on delete button")
+	public void ClickAndVerifyDeleteBtn(){
+		inspectionpage.verifyDeleteBtn();
+		inspectionpage.deleteBtnClick();
+	}
+
+	@QAFTestStep(description="Verify that selected image is deleted")
+	public void verifyImageDeletion(){
+		inspectionpage.verifyImageDeletion();
+	}
+
+	@QAFTestStep(description="Navigate to Inspection detail page of the InspectionEvent {InspectionName}")
+	public void navigateToInspectionDetailPage(String inspectionEvent){
+		inspectionpage.goToInspectionDetailScreen(inspectionEvent);
+	}
+
+	@QAFTestStep(description="Search for the InspectionItem {ConveyorName}")
+	public void searchInspectionItemAndClick(String conveyorName){
+		inspectionpage.searchForInspectionItem(conveyorName);
+	}
+
+	@QAFTestStep(description="Click on Export Button of InspectionItem and verify user is able to download pdf")
+	public void clickOnExportBtnAndVerifyDownload(){
+//		inspectionpage.exportPDFConveyor(conveyorName);
+		inspectionpage.selectInspection();
+		inspectionpage.exportBtnClick();
+		Validator.assertTrue(MiscUtils.checkDownloadedFiles("conveyor.pdf"),"PDF report was not found","PDF report was downloaded successfully");
+
+	}
+
+	@QAFTestStep(description="Click on view icon and verify the uploaded image is visible")
+	public void verifyUploadedImage(){
+		inspectionpage.viewInspectionItem();
+		inspectionpage.verifyUploadedImage();
+	}
+
+	@QAFTestStep(description="Click on conveyor name in breadcrumb anf verify it navigates to conveyor technical data screen")
+	public void clickOnConveyorBreadCrumbAndVerify(){
+		inspectionpage.conveyorNameClick();
+		inspectionpage.verifyConveyorPageNavigation();
+	}
+
+	@QAFTestStep(description="Click on Inspection tile and verify it displays only corresponding conveyor {ConveyorName} inspections")
+	public void clickOnInspectionTileAndVerify(String conveyorName){
+		inspectionpage.goToInspectionsFromTile();
+		SyncUtil.waitFor(10000);
+		int noOfInspections = Integer.parseInt(MiscUtils.regexExtractor(inspectionpage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		inspectionpage.verifyInspections(noOfInspections,conveyorName,8);
+	}
+
+	@QAFTestStep(description="Click on site name in breadcrumb anf verify it navigates to site page")
+	public void clickOnSiteBreadCrumbAndVerify(){
+		inspectionpage.siteNameClick();
+		inspectionpage.verifySitePageNavigation();
+	}
+
+	@QAFTestStep(description="Click on Inspection tile and verify it displays only corresponding site {CustSiteName} inspections")
+	public void clickOnInspectionTileAndVerifySiteInspection(String custSiteName){
+		inspectionpage.goToInspectionsFromTile();
+		SyncUtil.waitFor(10000);
+		int noOfInspections = Integer.parseInt(MiscUtils.regexExtractor(inspectionpage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		inspectionpage.verifyInspections(noOfInspections,custSiteName,7);
+	}
+
+	@QAFTestStep(description="Click on corporate name in inspection breadcrumb anf verify it navigates to corporate page")
+	public void clickOnCorporateBreadCrumbAndVerify(){
+		inspectionpage.corporateNameClick();
+		inspectionpage.verifyCorporatePageNavigation();
+	}
+
+	@QAFTestStep(description="Click on Inspection tile and verify it displays only corresponding corporate {CustCorp} inspections")
+	public void clickOnInspectionTileAndVerifyCorporateInspection(String custCorp){
+		inspectionpage.goToInspectionsFromTile();
+		SyncUtil.waitFor(10000);
+		int noOfInspections = Integer.parseInt(MiscUtils.regexExtractor(inspectionpage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		inspectionpage.verifyInspections(noOfInspections,custCorp,6);
+	}
+
+	@QAFTestStep(description="Click on corporates breadcrumb and verify it navigates to corporate page")
+	public void clickOnCorpAndVerify(){
+		inspectionpage.corpBreadCrumbClick();
+		inspectionpage.verifyCorporateListPageNavigation();
+	}
+
 }
+
+

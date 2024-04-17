@@ -321,3 +321,85 @@ Scenario: Verify success message after saving inspection event
     Then  Verify navigation to inspection tile
     And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}' from list view
     Then  Verify the status changes '${EditStatus}' for '${ConveyorName}'
+
+@Regression26 @CTCP-724
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Navigation
+Scenario: Verify the breadcrumb of the page
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Navigate to inspection list page and wait
+    Then Verify the breadcrumb of the page
+
+
+@Regression27 @CTCP-747
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_AddConveyor
+Scenario: Verify delete button functionality in add files section
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And Click on add new button and verify that add files to upload section is visible
+    When Click on select files to upload image
+    Then Select the image '${imgName}' to upload and verify user is able to upload the image
+    And Verify that the loader is visible and selected image is displayed in the section
+    And Verify delete button is visible and click on delete button
+    And Verify that selected image is deleted
+
+@Regression28 @CTCP-788
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_VerifyImg
+Scenario: Verify Export functionality under Inspection details screen.
+
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Navigate to Inspection detail page of the InspectionEvent '${InspectionName}'
+    And Search for the InspectionItem '${ConveyorName}'
+    Then Click on Export Button of InspectionItem and verify user is able to download pdf
+
+@Regression29 @CTCP-791
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_VerifyImg
+Scenario: Verify uploaded image under inspection item
+
+
+       Given User is at Login page
+       When  Login with '${UserName}' and '${Password}'
+       And Navigate to Inspection detail page of the InspectionEvent '${InspectionName}'
+       And Search for the InspectionItem '${ConveyorName}'
+       Then Click on view icon and verify the uploaded image is visible
+
+
+@Regression30 @CTCP-748
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ExportFunction
+Scenario: Verify breadcrumb of inspection
+
+       Given User is at Login page
+       When  Login with '${UserName}' and '${Password}'
+       And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
+       Then Click on conveyor name in breadcrumb anf verify it navigates to conveyor technical data screen
+       And Click on Inspection tile and verify it displays only corresponding conveyor '${ConveyorName}' inspections
+       And Click on site name in breadcrumb anf verify it navigates to site page
+       And Click on Inspection tile and verify it displays only corresponding site '${CustSiteName}' inspections
+       And Click on corporate name in inspection breadcrumb anf verify it navigates to corporate page
+       And Click on Inspection tile and verify it displays only corresponding corporate '${CustCorp}' inspections
+       And Click on corporates breadcrumb and verify it navigates to corporate page
+
+
+
+
+
+
+
+
+
+
