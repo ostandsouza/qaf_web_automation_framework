@@ -7,12 +7,18 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.BasePage;
+import com.web.pages.SitePage;
 import com.web.pages.UsersPage;
 
 import java.util.Map;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+
 public class UserSteps extends BasePage {
 	UsersPage userpage = new UsersPage();
+
+	SitePage sitepage = new SitePage();
+	String noOfMasterSites;
 	
 	@QAFTestStep(description = "User is at home page")
     public void verifyUserIsAtHomePage() {
@@ -175,6 +181,14 @@ public class UserSteps extends BasePage {
 		userpage.setTerritory(region);
 	}
 
+	@QAFTestStep(description="Add territory as {Region1} {Region2} {Region3} {Region4} for the user")
+	public void addTerritoryAllForUser(String region1,String region2,String region3,String region4) {
+		userpage.setTerritory(region1);
+		userpage.setTerritory(region2);
+		userpage.setTerritory(region3);
+		userpage.setTerritory(region4);
+	}
+
 	@QAFTestStep(description="Add permission rights with {Add} {Edit} {Delete} {View} {Download} and create user")
 	public void addPermissionForUser(String add, String edit, String delete, String view, String download) {
 		userpage.setPermission(add, edit, delete, view, download);
@@ -294,4 +308,154 @@ public class UserSteps extends BasePage {
 		userpage.goToUsersAndWait();
 		userpage.verifyUploadedUsers(userType, fileName);
 	}
+
+	@QAFTestStep(description = "User navigates to Add user page")
+	public void navigateToAddUser() {
+		userpage.usersClick();
+		userpage.addIconClick();
+	}
+
+
+	@QAFTestStep(description = "Verify the default image is displayed and on hover camera icon is displayed")
+	public void verifyImagePanel(){
+		userpage.verifyDefaultImage();
+	}
+	@QAFTestStep(description = "Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button")
+	public void verifyImagePanelWithOptions() {
+		userpage.verifyOptionInImagePanel();
+	}
+
+	@QAFTestStep(description = "User clicks on Upload Image")
+	public void clickOnImage () {
+		userpage.uploadImageClick();
+
+	}
+	@QAFTestStep(description = "Verify that the user is able to upload the image {imgName} from the system")
+	public void uploadImage (String imgName) {
+		userpage.imageUpload(imgName);
+	}
+
+	@QAFTestStep(description = "Crop the Image using the dots")
+	public void cropImageToResize() {
+		userpage.cropOrMoveImage();
+	}
+
+	@QAFTestStep(description = "Click on Save and Verify the image is displayed")
+	public void saveAndVerifyImage(){
+		userpage.clickSave();
+	}
+
+	@QAFTestStep(description = "Verify Cancel button in the footer and click")
+	public void verifyCancelBtnInFooter(){
+		userpage.verifyCancel();
+	}
+
+	@QAFTestStep(description = "Verify it redirects to user table page")
+	public void verifyRedirectToUserTablePage(){
+		userpage.verifyUserTablePage();
+	}
+
+	@QAFTestStep(description="Create a User with {FullName} and {Phone} and {Email} and {ProfileType} and {UserPassword} and {RetypePassword}")
+	public void createUser(String FullName,String Phone,String Email,String ProfileType,String UserPassword,String RetypePassword) {
+		String userid = userpage.apiBase.getUserProfileAPI(Email);
+		userpage.apiBase.deleteProfileAPI(userid);
+		userpage.apiBase.deleteUserAPI(userid);
+		userpage.usersClick();
+		userpage.addClick();
+		userpage.setfullname(FullName);
+		userpage.setPhone("+91",Phone);
+		userpage.setemail(Email);
+		userpage.setProfileType(ProfileType);
+		userpage.setpassword(UserPassword);
+		userpage.setretypepassword(RetypePassword);
+		userpage.nextClick();
+	}
+
+	@QAFTestStep(description="Add permission rights with {Add} {Edit} {Delete} {View} {Download} and create template {templateName}")
+	public void addPermission(String add, String edit, String delete, String view, String download, String templateName) {
+		userpage.setPermission(add, edit, delete, view, download);
+		userpage.createTemplate(templateName);
+	}
+
+	@QAFTestStep(description="Add territory as {Region} and create template {templateName}")
+	public void addTerritory(String region, String templateName) {
+		userpage.setTerritory(region);
+		userpage.createTemplate(templateName);
+	}
+
+	@QAFTestStep(description="Apply custom permission template {templateName}")
+	public void applyTemplatePermission(String templateName) {
+		userpage.selectCustomTemplate(templateName);
+		userpage.verifyCustomTemplate(templateName);
+	}
+
+	@QAFTestStep(description="Edit template {templateName} for permission rights with {EditAdd} {EditEdit} {EditDelete} {EditView} {EditDownload} and verify")
+	public void editTemplatePermission(String templateName, String add, String edit, String delete, String view, String download) {
+		userpage.editTemplate();
+		userpage.editPermission(add, edit, delete, view, download);
+		userpage.editTemplate();
+		userpage.verifyUpdateTemplate();
+		userpage.selectCustomTemplate(templateName);
+		userpage.verifyPermission(add, edit, delete, view, download);
+	}
+
+	@QAFTestStep(description="Verify template is created")
+	public void verifyTemplateCreation() {
+		userpage.verifyCreateTemplate();
+	}
+
+	@QAFTestStep(description="Delete template {templateName}")
+	public void deletionOfTemplate(String templateName) {
+		userpage.selectCustomTemplate(templateName);
+		userpage.deleteTemplate();
+	}
+
+	@QAFTestStep(description="Verify template is deleted")
+	public void verifyTemplateDeletion() {
+		userpage.verifyDeleteTemplate();
+	}
+
+	@QAFTestStep(description="Verify territorys are in ascending order for {FullName}")
+	public void verifyTerritoryAscOrder(String fullName) {
+		userpage.goToUsersAndWait();
+		userpage.searchUserEdit(fullName);
+		userpage.verifyAscOrder();
+	}
+
+	@QAFTestStep(description = "Edit assignments {Region1} {Region2} {Region3} and Markets for user {FullName}")
+	public void editTerritoryForUser(String region1, String region2, String region3, String fullName) {
+		userpage.goToUsersAndWait();
+		userpage.searchUser(fullName);
+		userpage.goToEditUserPageWithActions(fullName);
+		userpage.Nextclick();
+		userpage.setTerritory(region1);
+		userpage.setTerritory(region2);
+		userpage.setTerritory(region3);
+		userpage.clickOnUpdateBtn();
+	}
+
+	@QAFTestStep(description = "Extract the number of sites and store")
+	public void extractnumberOfSites() {
+		sitepage.goToSiteListScreenAndWait();
+		noOfMasterSites = MiscUtils.regexExtractor(userpage.paginationEntry.getText(),"(\\d+)(?!.*\\d)");
+		getBundle().setProperty("noOfMasterSite", noOfMasterSites);
+	}
+	@QAFTestStep(description = "Verify the number of sites for user")
+	public void verifyExtractedNumberOfSites() {
+		sitepage.goToSiteListScreenAndWait();
+		userpage.verifyNumberOfSites((String) getBundle().getProperty("noOfMasterSite"));
+	}
+
+	@QAFTestStep(description = "Click on previous button in the assignment page")
+	public void clickOnPreviousButton() {
+		userpage.clickOnPreviousBtn();
+		userpage.validateInfoPage();
+	}
+
+	@QAFTestStep(description = "Verify user is navigated to info page and edit the corporate value to {CorpName} and {CoporateRole}")
+	public void changeTheCorporateValue(String corpName,String corporateRole) {
+		userpage.distributorInformation(corpName,corporateRole);
+		userpage.validateEditCorpInfo(corpName);
+	}
+
 }

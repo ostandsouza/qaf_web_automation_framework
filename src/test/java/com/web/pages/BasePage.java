@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -254,7 +255,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     	
     	dropDownButton.click();
         setImplicitWait(15000,TimeUnit.MILLISECONDS);
-        SyncUtil.waitFor(300);
+        SyncUtil.waitFor(5000);
         waitForPresenceOfElements(By.xpath(dropDownItems));
         List<WebElement> Options = driver.findElements(By.xpath(dropDownItems));
         for(WebElement ele:Options) {
@@ -297,4 +298,22 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         driver.navigate().refresh();
         SyncUtil.waitFor(2000);
     }
+
+
+    public void hoverOverElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
+
+    public void cropImage(WebElement element) {
+        Actions crop = new Actions(driver);
+        crop.dragAndDropBy(element, -50,-100).perform();
+    }
+
+    public void clickAtPosition(WebElement imageElement, int xCoordinate, int yCoordinate) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(imageElement, xCoordinate, yCoordinate).click().build().perform();
+    }
+
+
 }

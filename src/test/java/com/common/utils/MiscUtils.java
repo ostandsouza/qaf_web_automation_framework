@@ -235,4 +235,17 @@ public class MiscUtils {
 
         return data;
     }
+
+    public static List<String> findMatches(String regex,  List<String>  input) {
+        List<String> matches = new ArrayList<>();
+        Pattern pattern = Pattern.compile(regex);
+
+        for (String str : input) {
+            Matcher matcher = pattern.matcher(str);
+            while (matcher.find()) {
+                matches.add(matcher.group());
+            }
+        }
+        return matches;
+    }
 }

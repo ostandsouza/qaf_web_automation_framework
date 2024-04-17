@@ -179,29 +179,29 @@ public class DemoFlowSteps {
 //        demopage.checkConveyorGermany(ConveyorNameGer2, CustCorpName);
 //    }
 
-    @QAFTestStep(description = "Login with normal user {UserName} and {Password}")
-    public void loginWith(String UserName, String Password) {
-        String otp;
-        String userid = demopage.apiBase.getUserProfileAPI(UserName);
-        if(!demopage.apiBase.getUserAPI(userid)) {
-            if (!MiscUtils.isNewEmailTriggered(UserName)) {
-                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
-                if (demopage.apiBase.secretVerifyAPI(UserName, otp) != 200) {
-                    demopage.apiBase.resendVerifyAPI(UserName);
-                    if (!MiscUtils.isNewEmailTriggered(UserName)) {
-                        otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
-                        demopage.apiBase.secretVerifyAPI(UserName, otp);
-                    }
-                }
-            } else {
-                demopage.apiBase.resendVerifyAPI(UserName);
-                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
-                demopage.apiBase.secretVerifyAPI(UserName, otp);
-            }
-        }
-        loginPage.loginToApp(UserName, Password);
-        dashboardpage.handleCookiePopup();
-    }
+//    @QAFTestStep(description = "Login with normal user {UserName} and {Password}")
+//    public void loginWith(String UserName, String Password) {
+//        String otp;
+//        String userid = demopage.apiBase.getUserProfileAPI(UserName);
+//        if(!demopage.apiBase.getUserAPI(userid)) {
+//            if (!MiscUtils.isNewEmailTriggered(UserName)) {
+//                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+//                if (demopage.apiBase.secretVerifyAPI(UserName, otp) != 200) {
+//                    demopage.apiBase.resendVerifyAPI(UserName);
+//                    if (!MiscUtils.isNewEmailTriggered(UserName)) {
+//                        otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+//                        demopage.apiBase.secretVerifyAPI(UserName, otp);
+//                    }
+//                }
+//            } else {
+//                demopage.apiBase.resendVerifyAPI(UserName);
+//                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+//                demopage.apiBase.secretVerifyAPI(UserName, otp);
+//            }
+//        }
+//        loginPage.loginToApp(UserName, Password);
+//        dashboardpage.handleCookiePopup();
+//    }
 
     @QAFTestStep(description="Create a Distributor User for Germany {FullNameDistGer} and {Phone} and {EmailDistGer} and {ProfileTypeDist} and {UserPassword} and {RetypePassword} and {CoporateRole} and {DistCorpName} and {DistShopGerName} and {CustSiteGerName}")
     public void createDistributorUserForIndiaJohnDoe(String FullNameInd,String Phone,String EmailInd, String ProfileType,String UserPassword,String RetypePassword, String CoporateRole, String DistCorpName, String DistShopGerName, String CustSiteGerName) {

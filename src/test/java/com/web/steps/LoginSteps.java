@@ -1,5 +1,6 @@
 package com.web.steps;
 
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
@@ -22,7 +23,7 @@ public class LoginSteps {
         loginPage.loginToApp(UserName, Password);
         dashboardPage.handleCookiePopup();
     }
-    
+
     @QAFTestStep(description="Verify Home page is displayed")
     public void verifyHomePageIsDisplayed(){
     	
@@ -33,5 +34,28 @@ public class LoginSteps {
     	SyncUtil.waitFor(3000);
     }
 
+    @QAFTestStep(description = "Login with normal user {UserName} and {Password}")
+    public void loginWith(String UserName, String Password) {
+        String otp;
+        String userid = loginPage.apiBase.getUserProfileAPI(UserName);
+        if(!loginPage.apiBase.getUserAPI(userid)) {
+            if (!MiscUtils.isNewEmailTriggered(UserName)) {
+                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+                if (loginPage.apiBase.secretVerifyAPI(UserName, otp) != 200) {
+                    loginPage.apiBase.resendVerifyAPI(UserName);
+                    if (!MiscUtils.isNewEmailTriggered(UserName)) {
+                        otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+                        loginPage.apiBase.secretVerifyAPI(UserName, otp);
+                    }
+                }
+            } else {
+                loginPage.apiBase.resendVerifyAPI(UserName);
+                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+                loginPage.apiBase.secretVerifyAPI(UserName, otp);
+            }
+        }
+        loginPage.loginToApp(UserName, Password);
+        dashboardPage.handleCookiePopup();
+    }
 
 }

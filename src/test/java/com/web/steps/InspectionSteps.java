@@ -1,6 +1,7 @@
 package com.web.steps;
 
 import com.common.utils.MiscUtils;
+import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.InspectionPage;
@@ -272,5 +273,59 @@ public class InspectionSteps {
 	@QAFTestStep(description="Enter inspection name as {InspectionName}")
 	public void enterInspectionName(String inspectionName){
 		inspectionpage.enterInspectionName(inspectionName);
+	}
+
+	@QAFTestStep(description="Navigate to inspection list screen and wait for data load")
+	public void navigateToInspectionPage(){
+		inspectionpage.goToInspectionScreenAndWait();
+	}
+	@QAFTestStep(description="Verify inspection total count is displayed")
+	public void verifyInspecTotalCount(){
+		inspectionpage.verifyInspectionCount();
+	}
+	@QAFTestStep(description="Verify number of the to be completed inspection is displayed")
+	public void verifyInspecToBeCompleteCount(){
+		inspectionpage.verifyInspectionCompleteCount();
+	}
+
+	@QAFTestStep(description="Extract inspection item status value for {Inspection}")
+	public void extractInspStatusValue(String inspection){
+		inspectionpage.waitForPageLoad(10000);
+		inspectionpage.searchInspectionItem(inspection);
+//		inspectionpage.clickOnViewBtn();
+		inspectionpage.extractStatusValue();
+	}
+
+	@QAFTestStep(description="Click on view button")
+	public void clickOnViewButton(){
+		inspectionpage.clickOnViewBtn();
+	}
+
+	@QAFTestStep(description="Verify the inspection item status value")
+	public void verifyInspectionStatusValue(){
+		inspectionpage.verifyStatusValue();
+	}
+
+	@QAFTestStep(description="Extract inspection item condition value for {Inspection}")
+	public void extractInspConditionValue(String inspection){
+		inspectionpage.waitForPageLoad(10000);
+		inspectionpage.searchInspectionItem(inspection);
+		inspectionpage.extractConditionValue();
+	}
+
+	@QAFTestStep(description="Verify the inspection item condition value")
+	public void verifyInspectionConditionValue(){
+		inspectionpage.verifyConditionValue();
+	}
+
+	@QAFTestStep(description="Verify duplicate inspection event for {InspectionName}")
+	public void verifyTheDulpicateInspection(String inspectionName){
+		inspectionpage.verifyDulpicateInspection(inspectionName);
+	}
+
+	@QAFTestStep(description="Add the inspection Event for conveyor {ConveyorName} with {InspectionName} {CustSiteName} {FullName}")
+	public void addInspectionEventForConveyor(String conveyorName, String inspectionName, String custSiteName, String fullName){
+		inspectionpage.goToInspection();
+		inspectionpage.addInspection(inspectionName,custSiteName,fullName);
 	}
 }

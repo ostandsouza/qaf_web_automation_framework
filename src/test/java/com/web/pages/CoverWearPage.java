@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -26,6 +27,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.io.File.separator;
 import static java.lang.Math.abs;
 
@@ -434,6 +436,107 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//div[@role='dialog'])[1]")
     public CustomElement crDialog;
 
+    @FindBy(locator="xpath=//th[@id='name-col']")
+    public CustomElement hdConveyor;
+
+    @FindBy(locator="xpath=//th[@id='site-col']")
+    public CustomElement hdSite;
+
+    @FindBy(locator="xpath=//th[@id='lastmodified-col']")
+    public CustomElement hdInstalledDate;
+
+    @FindBy(locator="xpath=//th[@id='install-col']")
+    public CustomElement hdCoverGrade;
+
+    @FindBy(locator="xpath=//th[@id='process-col']")
+    public CustomElement hdDurometer;
+
+    @FindBy(locator="xpath=//th[@id='belt-col']")
+    public CustomElement hdRemainingLife;
+
+    @FindBy(locator="xpath=//th[@id='inspec-col']")
+    public CustomElement hdRemainingCover;
+
+    @FindBy(locator="xpath=//th[@id='more-col']")
+    public CustomElement hdMore;
+
+    @FindBy(locator="xpath=//div[@aria-label='dropdown trigger']")
+    public CustomElement btPgDropDown;
+
+    @FindBy(locator="xpath=(//li[@role='option'])[1]")
+    public CustomElement ddlPaginationFirstValue;
+
+    @FindBy(locator="xpath=(//li[@role='option'])[2]")
+    public CustomElement ddlPaginationSecondValue;
+
+    @FindBy(locator="xpath=(//li[@role='option'])[3]")
+    public CustomElement ddlPaginationThirdValue;
+
+    @FindBy(locator="xpath=//anglerighticon")
+    public CustomElement btPgNext;
+
+    @FindBy(locator="xpath=//button[@class='p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted p-highlight']")
+    public CustomElement btPgHighlightedValue;
+
+    @FindBy(locator="//div[@role='dialog']")
+    public CustomElement dialogBox;
+
+    @FindBy(locator="//input[@formcontrolname='tonsConveyedCurrent']/../label")
+    public CustomElement tbTonsConveyedCurrentlabel;
+
+    @FindBy(locator="//input[@formcontrolname='temperature']/../label")
+    public CustomElement tbTemperaturelabel;
+
+    @FindBy(locator="//td[@id='durometer']//input")
+    public CustomElement inpdurometerValue;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='deviceType']")
+    public CustomElement deviceInstrumentField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='velocity']")
+    public CustomElement velocityField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='calibrationThickness']")
+    public CustomElement calibrationThicknessField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='surfaceTemperature']")
+    public CustomElement surfaceTemperatureField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='testPosition']")
+    public CustomElement testPositionField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='conveyor']")
+    public CustomElement conveyorField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='customer']")
+    public CustomElement siteField;
+
+    @FindBy(locator="xpath=//li[@class='topbar-item scale']")
+    public CustomElement unitIcon;
+
+    @FindBy(locator="xpath=//h6[text()='Metric']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
+    public CustomElement cbMetricUnit;
+
+    @FindBy(locator="xpath=//h6[text()='Imperial']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
+    public CustomElement cbImperialUnit;
+
+    @FindBy(locator="xpath=//h6[text()='Metric']")
+    public CustomElement btMetricUnit;
+
+    @FindBy(locator="xpath=//h6[text()='Imperial']")
+    public CustomElement btImperialUnit;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='beltWidth']/../../label")
+    public CustomElement beltWidthFieldLabel;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='beltWidth']")
+    public CustomElement beltWidthField;
+
+    //li[@class='topbar-item scale']
+
+    //h6[text()='Imperial']/../..//div[@class="p-radiobutton p-component p-radiobutton-checked"]
+
+    //h6[text()='Metric']/../..//div[@class="p-radiobutton p-component p-radiobutton-checked"]
 
     public void goToCoverWearScreen(){
         if(!coverWearList.isVisible())
@@ -1149,4 +1252,203 @@ public class CoverWearPage extends BasePage{
         noOfColumnsField.clear();
         noOfColumnsField.sendKeys(count);
     }
+
+    public void extractCoverGradeValue(){
+        String cwValue= cwGrade.getText();
+        getBundle().setProperty("coverWearValue", cwValue);
+    }
+
+    public String calculateCoverGradeValue(String topCoverValue, String bottomCoverValue) {
+        if (topCoverValue.equals(bottomCoverValue)) {
+            return topCoverValue;
+        } else {
+            return topCoverValue + "/" + bottomCoverValue;
+        }
+    }
+    public void verifyCoverGradeValue(){
+    waitForElementVisible(cwTopCoverCompoundInput,10000,1000);
+    waitForElementVisible(cwBottomCoverCompoundInput,10000,1000);
+    String topCoverValue= cwTopCoverCompoundInput.getText();
+    String bottomCoverValue=cwBottomCoverCompoundInput.getText();
+    String extCoverWearValue= calculateCoverGradeValue(topCoverValue,bottomCoverValue);
+    String expectedValue = getBundle().getProperty("coverWearValue").toString();
+    Assert.assertEquals(expectedValue, extCoverWearValue, "CoverWear value matched");
+    }
+
+    public void verifyCoverWearHeader(){
+        waitForElementVisible(coverWearHeader,5000,1000);
+        Validator.assertTrue(coverWearHeader.getText().contains("Cover Wear Summary"),"Cover Wear Summary is not visible","Cover Wear Summary is visible");
+    }
+
+    public void verifyCoverWearCoulmnName(){
+        waitForElementVisible(hdConveyor,5000,1000);
+        Validator.assertTrue(hdConveyor.getText().contains("Conveyor"),"Conveyor is not visible","Conveyor is visible");
+        Validator.assertTrue(hdSite.getText().contains("Site"),"Site is not visible","Site is visible");
+        Validator.assertTrue(hdInstalledDate.getText().contains("Installed Date"),"Installed Date is not visible","Installed Date is visible");
+        Validator.assertTrue(hdCoverGrade.getText().contains("Cover Grade"),"Cover Grade is not visible","Cover Grade is visible");
+        Validator.assertTrue(hdDurometer.getText().contains("Durometer Shore A"),"Durometer Shore A is not visible","Durometer Shore A is visible");
+        Validator.assertTrue(hdRemainingLife.getText().contains("Remaining Life by Time"),"Remaining Life by Time is not visible","Remaining Life by Time is visible");
+        Validator.assertTrue(hdRemainingCover.getText().contains("Remaining Cover %"),"Remaining Cover % is not visible","Remaining Cover % is visible");
+        Validator.assertTrue(hdMore.getText().contains("More"),"More is not visible","More is visible");
+    }
+
+    public void verifyPaginationDropDown(){
+        waitForPageLoad(10000);
+        waitForElementVisible(cwConveyorName,10000,1000);
+        waitForElementVisible(btPgDropDown,10000,1000);
+        waitForElementToBeClickable(btPgDropDown);
+        btPgDropDown.click();
+        waitForElementVisible(ddlPaginationFirstValue,5000,1000);
+        Validator.assertTrue(ddlPaginationFirstValue.getText().contains("10"),"Pagination value 10 is not displayed","Pagination value 10 is displayed");
+        Validator.assertTrue(ddlPaginationSecondValue.getText().contains("25"),"Pagination value 25 is not displayed","Pagination value 25 is displayed");
+        Validator.assertTrue(ddlPaginationThirdValue.getText().contains("50"),"Pagination value 50 is not displayed","Pagination value 50 is displayed");
+    }
+
+    public void verifyPaginationArrowButton(){
+        waitForElementVisible(btPgNext,5000,1000);
+        waitForElementToBeClickable(btPgNext);
+        btPgNext.click();
+        Validator.assertTrue(btPgHighlightedValue.getText().contains("2"),"Pagination is not present at 2","Pagination is present at 2");
+    }
+
+    public void clickAdd(){
+        waitForElementVisible(cwAddNew,5000,1000);
+        waitForElementToBeClickable(cwAddNew);
+        cwAddNew.click();
+        waitForElementVisible(dialogBox,5000,1000);
+        Validator.assertTrue(dialogBox.isDisplayed(),"Dialogbox is not displayed","Dialogbox is displayed");
+    }
+
+    public void verifyNonMandatoryFields(){
+        waitForElementVisible(tbTonsConveyedCurrentlabel,5000,1000);
+        Validator.assertFalse(tbTonsConveyedCurrentlabel.getText().contains("*"),"TonsConveyedCurrent Mandatory field","TonsConveyedCurrent Not Mandatory field");
+        waitForElementVisible(tbTemperaturelabel,5000,1000);
+        Validator.assertFalse(tbTemperaturelabel.getText().contains("*"),"Temperature Mandatory field","Temperature Not Mandatory field");
+    }
+
+    public void addMeasurmentPopUpFields(String CustSiteName,String ConveyorName,String Position){
+        waitForPageLoad(5000);
+        dropdownSelectSearch(cwSiteDropDown, cwInput, CustSiteName);
+        dropdownSelectSearch(cwConveyorDropDown, cwInput, ConveyorName);
+        waitForElementVisible(cwPositionDropDown,5000,500);
+        dropdownSelect(cwPositionDropDown, ListItem, Position); }
+
+    public void typeReadingValues(String value){
+        for(int i=1;i<8;i++)
+        {
+            WebElement reading=  driver.findElement(By.xpath("(//td[@id='datapointmeasurement']//input)["+i+"]"));
+            reading.clear();
+            reading.sendKeys(value);
+        }
+    }
+    public void addMeasurementReadingsValue(String durometerValue,String value){
+        waitForElementVisible(inpdurometerValue,5000,1000);
+        inpdurometerValue.type(durometerValue);
+        typeReadingValues(value);
+    }
+    public void addTempAndTonsValueAsZero(String zero){
+        waitForElementVisible(tonsConveyedCurrent,5000,1000);
+        tonsConveyedCurrent.type(zero);
+        temperatureField.type(zero);
+    }
+
+    public void addDeviceInformation(String device ,String velocity,String thickness,String surfaceTemp,String testPos){
+        waitForElementVisible(deviceInstrumentField,5000,1000);
+        deviceInstrumentField.type(device);
+        velocityField.type(velocity);
+        calibrationThicknessField.type(thickness);
+        surfaceTemperatureField.type(surfaceTemp);
+        testPositionField.type(testPos);
+    }
+
+    public void verifyUserSavedMeasurementDetails(String CustSiteName ,String ConveyorName){
+        waitForPageLoad(5000);
+        waitForElementToBeClickable(cwEditSpec);
+        cwEditSpec.click();
+        waitForElementVisible(conveyorField,5000,1000);
+        waitForElementVisible(siteField,5000,1000);
+        SyncUtil.waitFor(2000);
+        Validator.assertTrue(siteField.getAttribute("value").contains(CustSiteName),"Site value misMatch","Site value matched");
+        Validator.assertTrue(conveyorField.getAttribute("value").contains(ConveyorName),"Conveyor value misMatch","Conveyor value matched");
+    }
+
+    public void verifyDataHeaderUnitAsMetric(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,5000,1000);
+        waitForElementToBeClickable(unitIcon);
+        unitIcon.click();
+        waitForElementVisible(cbMetricUnit,5000,1000);
+        Validator.assertTrue(cbMetricUnit.isDisplayed(),"Metric unit is not selected","Metric unit is selected");
+//        unitIcon.click();
+    }
+        public void verifyDataHeaderUnitAsImperial(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,5000,1000);
+        waitForElementToBeClickable(unitIcon);
+        SyncUtil.waitFor(5000);
+        unitIcon.click();
+        SyncUtil.waitFor(10000);
+        waitForElementVisible(cbImperialUnit,5000,1000);
+        Validator.assertTrue(cbImperialUnit.isDisplayed(),"Imperial unit is not selected","Imperial unit is selected");
+    }
+
+
+    public void verifyDataInMetric(String metricValue){
+        waitForElementVisible(beltWidthFieldLabel,5000,1000);
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(beltWidthFieldLabel.getText().contains("mm"),"Metric unit is not selected","Metric unit is selected");
+        waitForElementVisible(beltWidthFieldLabel,5000,1000);
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(beltWidthField.getAttribute("value").contains(metricValue),"Metric value is not matching","Metric value is matching");
+    }
+
+    public void verifyDataInImperial(String imperialValue){
+        waitForElementVisible(beltWidthFieldLabel,5000,1000);
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(beltWidthFieldLabel.getText().contains("in"),"Imperial unit is not selected","Imperial unit is selected");
+        waitForElementVisible(beltWidthField,5000,1000);
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(beltWidthField.getAttribute("value").contains(imperialValue),"Imperial value is not matching","Imperial value is matching");
+    }
+
+    public void addDataAsMetric(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,5000,1000);
+        waitForElementToBeClickable(unitIcon);
+        unitIcon.click();
+        waitForElementVisible(btMetricUnit,5000,1000);
+        waitForElementToBeClickable(btMetricUnit);
+        btMetricUnit.click();
+    }
+
+    public void addDataAsImperial(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,5000,1000);
+        waitForElementToBeClickable(unitIcon);
+        unitIcon.click();
+        waitForElementVisible(btImperialUnit,5000,1000);
+        waitForElementToBeClickable(btImperialUnit);
+        btImperialUnit.click();
+    }
+
+    public void addNewMeasurementWithWidth(String conveyorName, String siteName, String position, String beltWidth) {
+        cwAddNew.click("Add New Measurement");
+        waitForElementToDisplay(cwSiteDropDown);
+        dropdownSelectSearch(cwSiteDropDown, cwInput, siteName);
+        dropdownSelectSearch(cwConveyorDropDown, cwInput, conveyorName);
+        dropdownSelect(cwPositionDropDown, ListItem, position);
+        waitForPageLoad(5000);
+        SyncUtil.waitFor(5000);
+        waitForElementToBeClickable(cwEditSpec);
+        cwEditSpec.click("Edit");
+        waitForElementVisible(cwBeltWidth,10000,1000);
+        waitForElementToBeClickable(cwBeltWidth);
+        SyncUtil.waitFor(5000);
+        cwBeltWidth.clear();
+        cwBeltWidth.sendKeys(beltWidth);
+        cwSave.click();
+        waitForElementToInvisible(cwSpecsLoader,15000);
+    }
+
+
 }

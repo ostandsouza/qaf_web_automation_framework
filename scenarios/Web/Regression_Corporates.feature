@@ -256,3 +256,89 @@ Scenario: Verify Company Customer deletion from corporate list screen
 
     When  Delete Corporate with name '${CustCorpName}'
     Then  Verify Deleted corporate '${CustCorpName}'
+
+@Regression29 @CTCP-567
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master_Upload
+Scenario: Verify the image upload functionality
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    And User navigates to Add coporates page
+    Then Verify the default image is displayed and on hover camera icon is displayed
+    And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
+    When User clicks on Upload Image
+    Then Verify that the user is able to upload the image '${imgName}' from the system
+    When Crop the Image using the dots
+    Then Click on Save and Verify the image is displayed
+
+@Regression30 @CTCP-573
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Company_Mandatory_Field
+Scenario: Verify mandantory field
+
+        Given User is at Login page
+        When Login with '${UserName}' and '${Password}'
+        And User navigates to Add coporates page
+        Then Verify '${mandatoryCount}' mandatory fields
+        And Add Corporate fields '${companyName}' '${address}'
+        Then Verify mandatory fields is filled
+
+@Regression31 @CTCP-575
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Company_Mandatory_Field
+Scenario: Verify BreadCrumb for coporates
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    And User navigates to Add coporates page
+    Then Verify the corporate bread crumb
+    When Navigate to Add Company screen
+    Then Verify the corporate bread crumb
+
+@Regression32 @CTCP-576
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Company_Blank_Field
+Scenario:Verify Company name as blank
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    Then User navigates to Add coporates page
+    And Add Corporate fields '${companyName}' '${address}'
+    Then Verify company name as blank
+
+@Regression33 @CTCP-2851
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Usermanagement_User_Creation
+Scenario: Verify the Territory and markets in ascending order
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+    And  Add territory as '${Region1}' '${Region2}' '${Region3}' '${Region4}' for the user
+    And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
+    And Logout from the current user
+    And Login with normal user '${Email}' and '${UserPassword}'
+    Then Verify territorys are in ascending order for '${FullName}'
+
+
+@Regression34 @CTCP-2852
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Usermanagement_User_Creation
+Scenario: Verify the Territory and markets in ascending order after Edit
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+    And  Add territory as '${Region}' for the user
+    And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
+    Then  Edit assignments '${Region1}' '${Region2}' '${Region3}' and Markets for user '${FullName}'
+    And  Logout from the current user
+    And  Login with normal user '${Email}' and '${UserPassword}'
+    Then Verify territorys are in ascending order for '${FullName}'

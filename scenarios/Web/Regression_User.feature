@@ -314,6 +314,92 @@ Scenario: Verify the user is able to update the password
   Then Verify Home page is displayed
 
 
+@UserRegression29 @Regression @CTCP-1285
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master_Upload
+Scenario: Verify the image upload functionality
+
+  Given User is at Login page
+  When Login with '${UserName}' and '${Password}'
+  And User navigates to Add user page
+  Then Verify the default image is displayed and on hover camera icon is displayed
+  And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
+  When User clicks on Upload Image
+  Then Verify that the user is able to upload the image '${imgName}' from the system
+  When Crop the Image using the dots
+  Then Click on Save and Verify the image is displayed
 
 
+@UserRegression30 @Regression @CTCP-1294
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master_Edit_Template
+Scenario: Verify create template edit functionality
 
+  Given User is at Login page
+  When Login with '${UserName}' and '${Password}'
+  And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+  And  c '${Region}' for the user
+  And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create template '${templateName}'
+  Then Verify template is created
+  Then Apply custom permission template '${templateName}'
+  And  Edit template '${templateName}' for permission rights with '${EditAdd}' '${EditEdit}' '${EditDelete}' '${EditView}' '${EditDownload}' and verify
+
+@UserRegression31 @Regression @CTCP-1311
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master_Upload
+Scenario:Verify cancel button functionality
+
+  Given User is at Login page
+  When Login with '${UserName}' and '${Password}'
+  And User navigates to Add user page
+  Then Verify Cancel button in the footer and click
+  And Verify it redirects to user table page
+
+@UserRegression32 @Regression @CTCP-1318
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Usermanagement_Distributor_User_Creation
+Scenario: Verify user can select corporate name
+
+  Given User is at Login page
+  When  Login with '${UserName}' and '${Password}'
+  When  Create a Distributor User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}' and '${CoporateRole}' and '${DistCorpName}' and '${DistShopName}' and '${CustSiteName}'
+  When Click on previous button in the assignment page
+  Then Verify user is navigated to info page and edit the corporate value to '${CorpName}' and '${CoporateRole}'
+
+@UserRegression33 @Regression @CTCP-1321
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Usermanagement_User_Creation
+Scenario: Verify the Number of sites is equal to master
+
+  Given User is at Login page
+  When  Login with '${UserName}' and '${Password}'
+  And  Extract the number of sites and store
+  Then  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+  And  Add territory as '${Region1}' '${Region2}' '${Region3}' '${Region4}' for the user
+  And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
+  Then Logout from the current user
+  And  Login with normal user '${Email}' and '${UserPassword}'
+  Then  Verify the number of sites for user
+
+@UserRegression34 @Regression @CTCP-1324
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master_Edit_Template
+Scenario: Verify popup while create and delete template functionality
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+    And  Add territory as '${Region}' and create template '${templateName}'
+    Then Verify template is created
+    When Delete template '${templateName}'
+    And  Verify template is deleted
+    And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create template '${templateName}'
+    Then Verify template is created
+    When Delete template '${templateName}'
+    And  Verify template is deleted

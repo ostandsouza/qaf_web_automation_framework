@@ -1,5 +1,6 @@
 package com.web.pages;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.io.File.separator;
 import static org.testng.Assert.assertEquals;
 
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.common.component.CustomElement;
 import com.common.utils.ClasspathResourceHelper;
+import com.common.utils.MiscUtils;
 import com.common.utils.PDFHelper;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
@@ -17,6 +19,7 @@ import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 
 public class InspectionPage extends BasePage {
@@ -26,175 +29,175 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator = "xpath=//span[text()='Inspections']")
 	public CustomElement lnkInspection;
-	
+
 	@FindBy(locator = "xpath=//h4[text()='Inspection Event']/parent::div//i[contains(@class,'ctp-icon-Inspection-Items-List p-fs-2 items-list')]")
-	public CustomElement btnItemlist; 
-	
+	public CustomElement btnItemlist;
+
 	@FindBy(locator = "xpath=/html/body/app-root/app-layout/div/div[2]/div/app-edit-conveyors/div[1]/div/app-card-sllider/div/div/div[3]/app-card/div/div/div[3]")
 	public CustomElement eleInspectiontile;
-	
+
 	@FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
 	public CustomElement btnAddInspection;
-	
-	@FindBy(locator="xpath=//input[@formcontrolname='inspectionName']")
+
+	@FindBy(locator = "xpath=//input[@formcontrolname='inspectionName']")
 	public CustomElement tbInspectionName;
-	
+
 	@FindBy(locator = "xpath=//label[text()='Site/Customer Name']/parent::div//div[@role='button']")
 	public CustomElement ddlSiteCustomername;
 
 	@FindBy(locator = "xpath=//label[text()='Site/Customer Name']/..//input")
 	public CustomElement ddlSiteCustomerInput;
-	
+
 	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
 	public CustomElement tbInput;
 
 	@FindBy(locator = "xpath=//input[@placeholder='mm/dd/yyyy']")
 	public CustomElement tbInspectionDate;
-	
+
 	@FindBy(locator = "xpath=//label[text()='Conveyor']/parent::div//div[@role='button']")
 	public CustomElement ddlConveyor;
-	
+
 	@FindBy(locator = "xpath=//label[text()='Inspector Name']/..//input")
 	public CustomElement ddlInspectorName;
-	
+
 	@FindBy(locator = "xpath=//p-multiselect[@optionlabel='name']//chevrondownicon")
 	public CustomElement ddlCollaborators;
-	
+
 	public String ListItem = "//ul[@role='listbox']//li//span";
-	
+
 	@FindBy(locator = "xpath=//span[text()='Add new']/..")
 	public CustomElement btnAddnew;
 
 	@FindBy(locator = "xpath=//div[@class='jodit-wysiwyg']")
 	public CustomElement eleSummary;
-	
-	@FindBy(locator="xpath=//label[text()='Asset']/parent::div//div[@role='button']")
+
+	@FindBy(locator = "xpath=//label[text()='Asset']/parent::div//div[@role='button']")
 	public CustomElement ddlAsset;
 
-	@FindBy(locator="xpath=//label[text()='Detail']/parent::div//div[@role='button']")
+	@FindBy(locator = "xpath=//label[text()='Detail']/parent::div//div[@role='button']")
 	public CustomElement ddlAssetDetail;
-	
-	@FindBy(locator="xpath=//label[text()='Failure Mode']/parent::div//div[@role='button']")
+
+	@FindBy(locator = "xpath=//label[text()='Failure Mode']/parent::div//div[@role='button']")
 	public CustomElement ddlFailureMode;
 
-	@FindBy(locator="xpath=//label[text()='Condition']/parent::div//div[@role='button']")
+	@FindBy(locator = "xpath=//label[text()='Condition']/parent::div//div[@role='button']")
 	public CustomElement ddlCondition;
 
-	@FindBy(locator="xpath=//label[text()='Status']/parent::div//div[@role='button']")
+	@FindBy(locator = "xpath=//label[text()='Status']/parent::div//div[@role='button']")
 	public CustomElement ddlStatus;
 
-	@FindBy(locator="xpath=//label[text()='Status']/parent::div//input")
+	@FindBy(locator = "xpath=//label[text()='Status']/parent::div//input")
 	public CustomElement ddlStatusView;
-	
-	@FindBy(locator="xpath=//textarea[@formcontrolname='observation']")
+
+	@FindBy(locator = "xpath=//textarea[@formcontrolname='observation']")
 	public CustomElement eleObservation;
-	
-	@FindBy(locator="xpath=//textarea[@formcontrolname='recommendation']")
+
+	@FindBy(locator = "xpath=//textarea[@formcontrolname='recommendation']")
 	public CustomElement eleRecommendation;
-	
-	@FindBy(locator="xpath=//span[text()='Save']")
+
+	@FindBy(locator = "xpath=//span[text()='Save']")
 	public CustomElement btnSave;
-	
-	@FindBy(locator="xpath=//button[@icon='ctp-icon-Edit']")
+
+	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Edit']")
 	public CustomElement btnEdit;
-	
-	@FindBy(locator="xpath=//button[@icon='ctp-icon-Delete']")
+
+	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Delete']")
 	public CustomElement btnDelete;
-	
-	@FindBy(locator="xpath=//span[text()='Yes']")
+
+	@FindBy(locator = "xpath=//span[text()='Yes']")
 	public CustomElement btnYes;
-	
-	@FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/inspections/')]")
+
+	@FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/inspections/')]")
 	public CustomElement eleInspections;
-	
-	@FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/conveyor/')]")
+
+	@FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/conveyor/')]")
 	public CustomElement eleConveyordetails;
-	
-	@FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/sites/details/')]")
+
+	@FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/sites/details/')]")
 	public CustomElement eleSitedetails;
-	
-	@FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/companies/detail/')]")
+
+	@FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/companies/detail/')]")
 	public CustomElement eleCompaniesDetails;
-	
-	@FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/companies/list')]")
+
+	@FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component']//li//a[contains(@ng-reflect-router-link,'/secure/companies/list')]")
 	public CustomElement eleCompaniesList;
 
-	@FindBy(locator="xpath=//input[@placeholder='Search']")
+	@FindBy(locator = "xpath=//input[@placeholder='Search']")
 	public CustomElement btSearchinput;
 
-	@FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
+	@FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
 	public CustomElement cbCheckbox;
 
-	@FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+	@FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
 //	@FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
 	public CustomElement ddlActions;
 
-	@FindBy(locator="xpath=//li//span[text()='Edit']")
+	@FindBy(locator = "xpath=//li//span[text()='Edit']")
 	public CustomElement btnEditInspection;
 
-	@FindBy(locator="xpath=//span[text()='Delete']")
+	@FindBy(locator = "xpath=//span[text()='Delete']")
 	public CustomElement btnDeleteInspection;
-	
-	@FindBy(locator="xpath=(//button[contains(@class,'in p-button p-component p-button-icon-only')])[1]")
+
+	@FindBy(locator = "xpath=(//button[contains(@class,'in p-button p-component p-button-icon-only')])[1]")
 	public CustomElement eleArrow;
-	
-	@FindBy(locator="xpath=//td[@class='ng-star-inserted']//following::td//span//i[contains(@class,'marker')]")
+
+	@FindBy(locator = "xpath=//td[@class='ng-star-inserted']//following::td//span//i[contains(@class,'marker')]")
 	public CustomElement eleLocation;
-	
-	@FindBy(locator="xpath=/html/body/app-root/app-layout/div/div[2]/div/app-inspection-add/p-dialog/div/div/div[2]/div/div[1]/div/div/div/input")
+
+	@FindBy(locator = "xpath=/html/body/app-root/app-layout/div/div[2]/div/app-inspection-add/p-dialog/div/div/div[2]/div/div[1]/div/div/div/input")
 	public CustomElement tbLabel;
-	
-	@FindBy(locator="xpath=//button[contains(@class,'p-dialog-header-close p-link ng-star-inserted')]")
+
+	@FindBy(locator = "xpath=//button[contains(@class,'p-dialog-header-close p-link ng-star-inserted')]")
 	public CustomElement btnClose;
 
-	@FindBy(locator="xpath=(//span[contains(@class,'ctp-icon-Download')])[1]")
+	@FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Download')])[1]")
 	public CustomElement btnDownload;
-	
-	@FindBy(locator="xpath=(//span[@class='pi pi-search p-button-icon ng-star-inserted'])[1]")
+
+	@FindBy(locator = "xpath=(//span[@class='pi pi-search p-button-icon ng-star-inserted'])[1]")
 	public CustomElement btnview;
-	
-	@FindBy(locator="xpath=/html/body/app-root/app-layout/div/div[2]/div/app-site-detail/div[1]/div/app-card-sllider/div/div/div[5]/app-card/div/div/div[3]/span")
+
+	@FindBy(locator = "xpath=/html/body/app-root/app-layout/div/div[2]/div/app-site-detail/div[1]/div/app-card-sllider/div/div/div[5]/app-card/div/div/div[3]/span")
 	public CustomElement eleInspectionsite;
-	
-	@FindBy(locator="xpath=/html/body/app-root/app-layout/div/div[2]/div/app-company-detail/div[1]/div[5]/div/app-card/div/div/div[1]")
+
+	@FindBy(locator = "xpath=/html/body/app-root/app-layout/div/div[2]/div/app-company-detail/div[1]/div[5]/div/app-card/div/div/div[1]")
 	public CustomElement eleInspectioncompany;
-	
-	@FindBy(locator="xpath=//a[@ng-reflect-router-link='/secure/dashboard']//span")
+
+	@FindBy(locator = "xpath=//a[@ng-reflect-router-link='/secure/dashboard']//span")
 	public CustomElement eleHome;
-	
-	@FindBy(locator="xpath=//button[text()='Select Files']")
+
+	@FindBy(locator = "xpath=//button[text()='Select Files']")
 	public CustomElement btnSelectFiles;
 
-	@FindBy(locator="id=file-input")
+	@FindBy(locator = "id=file-input")
 	public CustomElement btnUpload;
 
-	@FindBy(locator="id=autocomplete-address")
+	@FindBy(locator = "id=autocomplete-address")
 	public CustomElement eleAddress;
-	
-	@FindBy(locator="xpath=//input[@placeholder='Search']")
+
+	@FindBy(locator = "xpath=//input[@placeholder='Search']")
 	public CustomElement eleSearch;
-	
+
 	public String eleNameOfInspection = "xpath=//tr[@Class='ng-star-inserted']//td[text()='Test Inspection 2']";
-	
-	@FindBy(locator="xpath=//a[@ng-reflect-router-link='dashboard/inspections']//span")
+
+	@FindBy(locator = "xpath=//a[@ng-reflect-router-link='dashboard/inspections']//span")
 	public CustomElement lnkInspectionIcon;
-	
-	@FindBy(locator="xpath=//label[text()='Latitude']/parent::div//input")
+
+	@FindBy(locator = "xpath=//label[text()='Latitude']/parent::div//input")
 	public CustomElement tbLat;
-	
-	@FindBy(locator="xpath=//label[text()='Longitude']/parent::div//input")
+
+	@FindBy(locator = "xpath=//label[text()='Longitude']/parent::div//input")
 	public CustomElement tbLong;
 
-	@FindBy(locator="xpath=//label[text()='Detail']/parent::div//div[@role='button']")
+	@FindBy(locator = "xpath=//label[text()='Detail']/parent::div//div[@role='button']")
 	public CustomElement ddlDetails;
 
-	@FindBy(locator="xpath=//label[text()='Detail']/parent::div//input")
+	@FindBy(locator = "xpath=//label[text()='Detail']/parent::div//input")
 	public CustomElement ddlDetailInput;
 
-	@FindBy(locator="xpath=//label[text()='Type']/parent::div//div[@role='button']")
+	@FindBy(locator = "xpath=//label[text()='Type']/parent::div//div[@role='button']")
 	public CustomElement ddlTypes;
 
-	@FindBy(locator="xpath=//label[text()='Status']/parent::div//div[@role='button']")
+	@FindBy(locator = "xpath=//label[text()='Status']/parent::div//div[@role='button']")
 	public CustomElement ddlStatus1;
 
 	@FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
@@ -203,13 +206,13 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=(//td//span[contains(@class,'pi-chevron-right')])[1]")
 	public CustomElement detailIcon;
 
-	@FindBy(locator="xpath=(//span[contains(@class,'ctp-icon-Arrow-Right')])[1]")
+	@FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Arrow-Right')])[1]")
 	public CustomElement ddViewicon;
 
-	@FindBy(locator="xpath=(//span[contains(@class,'p-panel-title')])[1]")
+	@FindBy(locator = "xpath=(//span[contains(@class,'p-panel-title')])[1]")
 	public CustomElement inspectionHeader;
 
-	@FindBy(locator="xpath=//div[text()='Inspection updated.' or text()='Inspection created.']")
+	@FindBy(locator = "xpath=//div[text()='Inspection updated.' or text()='Inspection created.']")
 	public CustomElement inspectionUpdateMsg;
 
 	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
@@ -275,61 +278,82 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
 	public CustomElement btAddInspection;
 
-	@FindBy(locator="xpath=//td[contains(@class,'p-datepicker-today')]")
+	@FindBy(locator = "xpath=//td[contains(@class,'p-datepicker-today')]")
 	public CustomElement btTodayDate;
 
-	@FindBy(locator= "xpath=//input[contains(@class,'p-multiselect-filter')]")
+	@FindBy(locator = "xpath=//input[contains(@class,'p-multiselect-filter')]")
 	public CustomElement tbMultipleDropdown;
 
-	@FindBy(locator= "xpath=//span[@class='total-no']")
+	@FindBy(locator = "xpath=//span[@class='total-no']")
 	public CustomElement totalEvent;
 
-	@FindBy(locator= "xpath=//div[text()=' CRITICAL ']/following-sibling::div//span")
+	@FindBy(locator = "xpath=//div[text()=' CRITICAL ']/following-sibling::div//span")
 	public CustomElement criticalEvent;
 
-	@FindBy(locator= "xpath=//div[text()=' POOR ']/following-sibling::div//span")
+	@FindBy(locator = "xpath=//div[text()=' POOR ']/following-sibling::div//span")
 	public CustomElement poorEvent;
 
-	@FindBy(locator= "xpath=//div[text()=' FAULT ']/following-sibling::div//span")
+	@FindBy(locator = "xpath=//div[text()=' FAULT ']/following-sibling::div//span")
 	public CustomElement faultEvent;
 
-	@FindBy(locator= "xpath=//div[text()=' GOOD ']/following-sibling::div//span")
+	@FindBy(locator = "xpath=//div[text()=' GOOD ']/following-sibling::div//span")
 	public CustomElement goodEvent;
 
-	@FindBy(locator= "xpath=//div[contains(@class,'NgxEditor__Content')]/p")
+	@FindBy(locator = "xpath=//div[contains(@class,'NgxEditor__Content')]/p")
 	public CustomElement summaryField;
 
-	@FindBy(locator= "xpath=//span[contains(@class,'pi-window-maximize')]")
+	@FindBy(locator = "xpath=//span[contains(@class,'pi-window-maximize')]")
 	public CustomElement summaryMaximize;
 
-	@FindBy(locator= "xpath=//span[contains(@class,'pi-window-minimize')]/..")
+	@FindBy(locator = "xpath=//span[contains(@class,'pi-window-minimize')]/..")
 	public CustomElement summaryMinimize;
 
-	@FindBy(locator="xpath=//div[@class='p-progress-spinner']")
+	@FindBy(locator = "xpath=//div[@class='p-progress-spinner']")
 	public CustomElement btSpinner;
 
-	@FindBy(locator="xpath=//p-galleriaitemslot/app-image-viewer")
+	@FindBy(locator = "xpath=//p-galleriaitemslot/app-image-viewer")
 	public CustomElement appImgViewer;
 
-	@FindBy(locator="xpath=//li/a/span[text()='Edit']")
+	@FindBy(locator = "xpath=//li/a/span[text()='Edit']")
 	public CustomElement editBreadCrumb;
 
-	@FindBy(locator="xpath=(//td//img)[1]")
+	@FindBy(locator = "xpath=(//td//img)[1]")
 	public CustomElement imageAvatar;
 
-	@FindBy(locator="xpath=//i[@class='ctp-icon-Photos']")
+	@FindBy(locator = "xpath=//i[@class='ctp-icon-Photos']")
 	public CustomElement photoIcon;
 
-	@FindBy(locator="xpath=//img[contains(@class,'wrapper-image-item')]")
+	@FindBy(locator = "xpath=//img[contains(@class,'wrapper-image-item')]")
 	public CustomElement imgPopup;
 
-	@FindBy(locator="xpath=//button[contains(@class,'p-dialog-header-icon')]")
+	@FindBy(locator = "xpath=//button[contains(@class,'p-dialog-header-icon')]")
 	public CustomElement closePopup;
 
+	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[3]")
+	public CustomElement txtInspTotalCount;
+
+	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[4]")
+	public CustomElement txtInspCompleteCount;
+
+	@FindBy(locator = "xpath=//span[@class='sub-table-status ng-star-inserted']")
+	public CustomElement txtStatusValue;
+
+	@FindBy(locator = "xpath=//span[@class='condition-status']")
+	public CustomElement txtConditionValue;
+
+	@FindBy(locator = "xpath=//label[text()='Status']//..//div//input")
+	public CustomElement txtStatusTotalValue;
+
+	@FindBy(locator = "xpath=//label[text()='Condition']//..//div//input")
+	public CustomElement txtConditionTotalValue;
+
+	@FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+	public CustomElement paginationEntry;
+
 	public void goToInspection() {
-		if(!lnkInspection.isVisible())
+		if (!lnkInspection.isVisible())
 			lnkHome.click("Home");
-		SyncUtil.waitFor(2000);
+		SyncUtil.waitFor(10000);
 		lnkInspection.click("Inspection List");
 		btSearchinput.isVisible("Inspection List Page");
 	}
@@ -337,8 +361,8 @@ public class InspectionPage extends BasePage {
 	public void goToInspectionScreenAndWait() {
 		goToInspection();
 		scrollPageDown();
-		String val="";
-		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
+		String val = "";
+		for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime(); ) {
 			if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
 				break;
 			}
@@ -347,47 +371,51 @@ public class InspectionPage extends BasePage {
 		}
 	}
 
-	public boolean searchInspection(String inspectionName){
+	public boolean searchInspection(String inspectionName) {
 		goToInspectionScreenAndWait();
 		btSearchinput.type(inspectionName, "Inspection Search");
 		waitForElementToDisplay(cbCheckbox);
 		return cbCheckbox.isVisible("Inspection Found");
 	}
 
-	public boolean searchInspectionItem(String conveyorName){
+	public boolean searchInspectionItem(String conveyorName) {
 		goToInspectionScreenAndWait();
 		scrollPageup();
-		if(inspectionGroupView.isVisible())
+		if (inspectionGroupView.isVisible())
 			inspectionGroupView.click("List View");
 		btSearchinput.type(conveyorName, "Inspection Search");
 		waitForElementToDisplay(cbCheckbox);
 		return cbCheckbox.isVisible("Inspection Found");
 	}
-	
+
 	public void verifyListPage() {
 		btnItemlist.click();
 	}
 
 	public void addInspection(String inspectionName, String siteName, String fullName) {
+		waitForPageLoad(5000);
+		waitForElementVisible(btnAddInspection,5000,1000);
+		waitForElementToBeClickable(btnAddInspection);
+		SyncUtil.waitFor(4000);
 		btnAddInspection.click("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
+		waitForElementToBeClickable(ddlSiteCustomername);
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
-//		dropdownselectsearch(ddlConveyor, tbInput, conveyorName);
-//		ddlInspectorName.verifyText(fullName,"Inspector Name");
-		Reporter.log("Inspection is created",MessageTypes.Pass);
+		ddlInspectorName.verifyText(fullName,"Inspector Name");
+		Reporter.log("Inspection is created", MessageTypes.Pass);
 	}
 
 	public void addInspection(String inspectionName) {
 		btnAddInspection.click("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
-		Reporter.log("Inspection is created",MessageTypes.Pass);
+		Reporter.log("Inspection is created", MessageTypes.Pass);
 	}
-	
+
 	public void saveInspectionItem() {
 		waitForElementToBeClickable(btnSave);
 		btnSave.click("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
-		Reporter.log("Inspection Item is created",MessageTypes.Pass);
+		Reporter.log("Inspection Item is created", MessageTypes.Pass);
 	}
 
 	public void addItemMandatoryField(String conveyorName, String assetName, String assetDetail, String failureMode, String condition, String status) {
@@ -397,11 +425,11 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(ddlAsset);
 		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
 		dropdownSelectSearch(ddlAsset, tbInput, assetName);
-		if(ddlDetails.isVisible())
+		if (ddlDetails.isVisible())
 			dropdownSelect(ddlDetails, ListItem, assetDetail);
-		if(ddlTypes.isVisible())
+		if (ddlTypes.isVisible())
 			dropdownSelect(ddlTypes, ListItem, assetDetail);
-		if(ddlDetailInput.isVisible())
+		if (ddlDetailInput.isVisible())
 			ddlDetailInput.type(assetDetail);
 		dropdownSelectSearch(ddlFailureMode, tbInput, failureMode);
 		dropdownSelect(ddlCondition, ListItem, condition);
@@ -409,15 +437,15 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void addItemOptionalField(String lat, String longitude, String observation, String recommendation, String address, String img) {
-		tbLong.type(lat,"Latitude");
-		tbLat.type(longitude,"Longitude");
-		eleObservation.type(observation,"Observation");
-		eleRecommendation.type(recommendation,"Recommendation");
-		if(eleAddress.isVisible())
-			eleAddress.type(address,"Address");
+		tbLong.type(lat, "Latitude");
+		tbLat.type(longitude, "Longitude");
+		eleObservation.type(observation, "Observation");
+		eleRecommendation.type(recommendation, "Recommendation");
+		if (eleAddress.isVisible())
+			eleAddress.type(address, "Address");
 		String file_path = ClasspathResourceHelper.getPropertyFile(img, "test_files").getAbsolutePath();
 		btnUpload.sendKeys(file_path, "File Path");
-		waitForElementToInvisible(btSpinner,30000);
+		waitForElementToInvisible(btSpinner, 30000);
 		appImgViewer.isVisible("App Image Viewer");
 	}
 
@@ -425,29 +453,29 @@ public class InspectionPage extends BasePage {
 		searchInspection(inspectionName);
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
-		inspectionHeader.verifyText(inspectionName,"Inspection Header");
+		inspectionHeader.verifyText(inspectionName, "Inspection Header");
 	}
-	
+
 	public void edit() {
 		btnEdit.click();
 		dropdownSelectSearch(ddlFailureMode, tbInput, "Broken");
 		btnSave.click();
-		Reporter.log("Inspection Item is updated",MessageTypes.Pass);
+		Reporter.log("Inspection Item is updated", MessageTypes.Pass);
 	}
-	
+
 	public void delete() {
 		waitForPageLoad(3000);
 		btnDelete.click();
 		btnYes.click();
-		Reporter.log("Inspection Item is deleted",MessageTypes.Pass);
+		Reporter.log("Inspection Item is deleted", MessageTypes.Pass);
 	}
-	
+
 	public void BreadCrumb() throws Throwable {
 		//lnkInspection.click();
-	//	btnview.click();
+		//	btnview.click();
 		//waitForPageLoad(3000);
-	//eleInspections.click();
-	    scrollPageup();
+		//eleInspections.click();
+		scrollPageup();
 		eleConveyordetails.click();
 		eleInspectiontile.click();
 		eleSitedetails.click();
@@ -456,19 +484,19 @@ public class InspectionPage extends BasePage {
 		eleInspectioncompany.click();
 		eleCompaniesList.click();
 		eleHome.click();
-		Reporter.log("Bread Crumb is passed",MessageTypes.Pass);
+		Reporter.log("Bread Crumb is passed", MessageTypes.Pass);
 	}
-	
+
 	public void inspectionDelete() {
 		cbCheckbox.check("Inspection Checkbox");
 		ddlActions.click("Actions");
-		waitForElementVisible(btnDeleteInspection, 10000,500);
+		waitForElementVisible(btnDeleteInspection, 10000, 500);
 		btnDeleteInspection.click("Delete");
 		btnYes.click("Confirm");
 		waitForElementToDisplay(noList);
-		Reporter.log("Inspection Item is deleted",MessageTypes.Pass);
+		Reporter.log("Inspection Item is deleted", MessageTypes.Pass);
 	}
-	
+
 	public void Location() {
 		//eleArrow.click();
 		cbCheckbox.click();
@@ -477,33 +505,33 @@ public class InspectionPage extends BasePage {
 		eleLocation.click();
 		tbLabel.type("Added label");
 		btnClose.click();
-		Reporter.log("Verified location",MessageTypes.Pass);
+		Reporter.log("Verified location", MessageTypes.Pass);
 	}
-	
+
 	public void downloadPDF() {
-		
+
 		btnDownload.click();
 		SyncUtil.waitFor(10000);
-		Reporter.log("PDF is downloaded",MessageTypes.Pass);
+		Reporter.log("PDF is downloaded", MessageTypes.Pass);
 	}
-	
+
 	public void verifyInspection(String inspectionName, String itemCount) {
-		Validator.assertTrue(searchInspection(inspectionName),"Inspection event is not found","Inspection event is found");
+		Validator.assertTrue(searchInspection(inspectionName), "Inspection event is not found", "Inspection event is found");
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
-		inspectionHeader.verifyText(inspectionName,"Inspection Header");
-		Validator.assertTrue(pagination.getText("Inspection Item").contains(itemCount),"All Inspections Items are not listed","All Inspections Items are listed");
+		inspectionHeader.verifyText(inspectionName, "Inspection Header");
+		Validator.assertTrue(pagination.getText("Inspection Item").contains(itemCount), "All Inspections Items are not listed", "All Inspections Items are listed");
 	}
 
 	public void verifyPDFContents(String fullName, String custSiteName, String conveyorName, String inspectionName, String inspectionId) {
-		PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+ LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSiteName+"-Multiple-"+inspectionName+".pdf");
+		PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "-" + custSiteName + "-Multiple-" + inspectionName + ".pdf");
 		try {
 			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
-			Validator.assertTrue(val.contains(fullName),"PDF Report was generated for the wrong inspector","PDF Report was generated for the right inspector");
-			Validator.assertTrue(val.contains(custSiteName),"PDF Report was generated for the wrong customer Site","PDF Report was generated for the right customer Site");
-			Validator.assertTrue(val.contains(conveyorName)||val.contains("Multiple"),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
-			Validator.assertTrue(val.contains(inspectionName),"PDF Report was generated for the wrong inspection","PDF Report was generated for the right inspection");
-		}catch(Exception e){
+			Validator.assertTrue(val.contains(fullName), "PDF Report was generated for the wrong inspector", "PDF Report was generated for the right inspector");
+			Validator.assertTrue(val.contains(custSiteName), "PDF Report was generated for the wrong customer Site", "PDF Report was generated for the right customer Site");
+			Validator.assertTrue(val.contains(conveyorName) || val.contains("Multiple"), "PDF Report was generated for the wrong conveyor", "PDF Report was generated for the right conveyor");
+			Validator.assertTrue(val.contains(inspectionName), "PDF Report was generated for the wrong inspection", "PDF Report was generated for the right inspection");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -511,7 +539,7 @@ public class InspectionPage extends BasePage {
 	public void verifyDeleteInspection(String inspectionName) {
 		goToInspectionScreenAndWait();
 		btSearchinput.type(inspectionName, "Inspection Search");
-		Validator.assertTrue(noList.isVisible("No Inspection"),"Inspection list was found","Inspection list was not found");
+		Validator.assertTrue(noList.isVisible("No Inspection"), "Inspection list was found", "Inspection list was not found");
 		noList.isVisible("No Inspection List");
 	}
 
@@ -519,7 +547,7 @@ public class InspectionPage extends BasePage {
 		searchInspection(inspectionName);
 		cbCheckbox.check("Select Checkbox");
 		ddlActions.click("Actions");
-		waitForElementVisible(btnEditInspection, 10000,500);
+		waitForElementVisible(btnEditInspection, 10000, 500);
 		btnEditInspection.click("Edit");
 		ddlSave.isVisible("Edit save");
 	}
@@ -540,7 +568,7 @@ public class InspectionPage extends BasePage {
 		dropdownSelect(ddlStatus, ListItem, newStatus);
 		btnSave.click("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
-		Reporter.log("Inspection Item is Updated",MessageTypes.Pass);
+		Reporter.log("Inspection Item is Updated", MessageTypes.Pass);
 	}
 
 	public void deleteInspectionItem(String inspectionItem) {
@@ -579,6 +607,7 @@ public class InspectionPage extends BasePage {
 	public boolean verifyDefaultViewColumns() {
 		return nameOfInspectionCol.isEnable("Name Of inspection") && inspectionDateCol.isEnable("Inspection Date") && lastUpdatedCol.isEnable("Last Updated") && corporatesCol.isEnable("Corporates") && siteCol.isEnable("Site") && conveyorCol.isEnable("Conveyor") && inspectorCol.isEnable("Inspector") && conditionCol.isEnable("Condition") && statusCol.isEnable("Status") && moreCol.isEnable("More");
 	}
+
 	public boolean verifySwitchView() {
 		inspectionGroupView.click("List View");
 		return inspectionListView.isVisible("List View") && !inspectionGroupView.isVisible();
@@ -616,11 +645,11 @@ public class InspectionPage extends BasePage {
 
 	public void verifyCollaboratorSelection(String collaboratorName) {
 		ddlCollaborators.click();
-		setImplicitWait(40000,TimeUnit.MILLISECONDS);
-		waitForPresenceOfElement(By.xpath("//span[text()='"+collaboratorName+"']"));
+		setImplicitWait(40000, TimeUnit.MILLISECONDS);
+		waitForPresenceOfElement(By.xpath("//span[text()='" + collaboratorName + "']"));
 		tbMultipleDropdown.sendKeys(collaboratorName);
-		driver.findElement("//span[text()='"+collaboratorName+"']").click();
-		setImplicitWait(1000,TimeUnit.MILLISECONDS);
+		driver.findElement("//span[text()='" + collaboratorName + "']").click();
+		setImplicitWait(1000, TimeUnit.MILLISECONDS);
 	}
 
 	public boolean verifyDefaultTileCount(String val) {
@@ -658,31 +687,32 @@ public class InspectionPage extends BasePage {
 	public void selectInspection() {
 		cbCheckbox.check("Checkbox");
 	}
+
 	public boolean verifyActionBtnState() {
 		return ddlActions.isEnable();
 	}
 
-	public boolean verifyDropDown(){
+	public boolean verifyDropDown() {
 		ddlActions.click("Actions");
 		return btnEditInspection.isVisible("Edit Conveyor") && btnDeleteInspection.isVisible("Delete Conveyor");
 	}
 
-	public boolean verifyEditBreadcrumb(){
+	public boolean verifyEditBreadcrumb() {
 		btnEditInspection.click("Edit Inspection");
 		return editBreadCrumb.isVisible("Edit Breadcrumb");
 	}
 
-	public void editInspectionName(String name){
+	public void editInspectionName(String name) {
 		waitForElementToDisplay(tbInspectionName);
 		tbInspectionName.type(name);
 	}
 
-	public void editInspectorName(String name){
+	public void editInspectorName(String name) {
 		waitForElementToDisplay(ddlInspectorName);
 		ddlInspectorName.type(name);
 	}
 
-	public boolean verifyEditChanges(String eventName, String inspectorName){
+	public boolean verifyEditChanges(String eventName, String inspectorName) {
 		return ddlInspectorName.getAttribute("value").equalsIgnoreCase(inspectorName);
 	}
 
@@ -690,20 +720,20 @@ public class InspectionPage extends BasePage {
 		searchInspectionItem(conveyorName);
 		cbCheckbox.check("Select Checkbox");
 		ddlActions.click("Actions");
-		waitForElementVisible(btnEditInspection, 10000,500);
+		waitForElementVisible(btnEditInspection, 10000, 500);
 		btnEditInspection.click("Edit");
 		btnSave.isVisible("Edit save");
 	}
 
-	public void editInspectionIemStatus(String status){
+	public void editInspectionIemStatus(String status) {
 		waitForElementToDisplay(ddlStatus);
 		dropdownSelect(ddlStatus, ListItem, status);
 		btnSave.click("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
-		Reporter.log("Inspection Item is Updated",MessageTypes.Pass);
+		Reporter.log("Inspection Item is Updated", MessageTypes.Pass);
 	}
 
-	public boolean verifyEditedItemChanges(String conveyorName, String status){
+	public boolean verifyEditedItemChanges(String conveyorName, String status) {
 		goToInspection();
 		verifySwitchView();
 		searchInspection(conveyorName);
@@ -711,25 +741,25 @@ public class InspectionPage extends BasePage {
 		return ddlStatusView.getAttribute("value").equalsIgnoreCase(status);
 	}
 
-	public String verifyInspectionGroupedView(String inspectionName){
+	public String verifyInspectionGroupedView(String inspectionName) {
 		searchInspection(inspectionName);
 		detailIcon.click("Expand Inspection");
 		return imageAvatar.getAttribute("src");
 	}
 
-	public void verifyImageViewerGrouped(){
+	public void verifyImageViewerGrouped() {
 		imageAvatar.click("photo");
 		waitForElementToDisplay(imgPopup);
 		imgPopup.isVisible("Image");
 		closePopup.click();
 	}
 
-	public boolean verifyInspectionListView(String conveyor){
+	public boolean verifyInspectionListView(String conveyor) {
 		searchInspectionItem(conveyor);
 		return photoIcon.isVisible("Photo icon");
 	}
 
-	public void verifyImageViewerList(){
+	public void verifyImageViewerList() {
 		photoIcon.click("photo");
 		waitForElementToDisplay(imgPopup);
 		imgPopup.isVisible("Image");
@@ -739,10 +769,71 @@ public class InspectionPage extends BasePage {
 	public void verifyDeleteInspectionItem(String conveyor) {
 		goToInspectionScreenAndWait();
 		btSearchinput.type(conveyor, "Inspection Search");
-		Validator.assertTrue(pagination.getText().contains("3"),"Inspection items were not deleted","Inspection item list was not found");
+		Validator.assertTrue(pagination.getText().contains("3"), "Inspection items were not deleted", "Inspection item list was not found");
 	}
 
 	public void enterInspectionName(String inspectionName) {
 		tbInspectionName.type(inspectionName);
 	}
+
+	public void verifyInspectionCount() {
+		waitForPageLoad(5000);
+		waitForElementToDisplay(txtInspTotalCount);
+		System.out.println("displayed");
+		SyncUtil.waitFor(5000);
+		waitForElementVisible(txtInspTotalCount,20000,1000);
+		Validator.assertTrue(txtInspTotalCount.isDisplayed(), "Inspection Tile Count is not visible", "Inspection Tile Count is visible");
+	}
+
+	public void verifyInspectionCompleteCount() {
+		waitForPageLoad(5000);
+		waitForElementToDisplay(txtInspCompleteCount);
+//		waitForElementVisible(txtInspCompleteCount,5000,1000);
+		Validator.assertTrue(txtInspCompleteCount.isDisplayed(), "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
+	}
+
+	public void extractStatusValue(){
+	waitForElementVisible(txtStatusValue,5000,1000);
+	String statValue = txtStatusValue.getText();
+	System.out.println(statValue);
+	getBundle().setProperty("statusValue", statValue);
+	}
+
+	public void extractConditionValue(){
+		waitForElementVisible(txtConditionValue,5000,1000);
+		String  conValue = txtConditionValue.getText();
+		System.out.println(conValue);
+		getBundle().setProperty("conditionValue", conValue);
+	}
+
+	public void clickOnViewBtn(){
+		waitForElementVisible(ddViewicon,10000,1000);
+		ddViewicon.click();
+	}
+
+	public void verifyStatusValue() {
+		String expectedValue = getBundle().getProperty("statusValue").toString().toLowerCase();
+		String actualValue = txtStatusTotalValue.getAttribute("value").toLowerCase();
+		Assert.assertEquals(expectedValue, actualValue, "Status value matched");
+	}
+
+
+	public void verifyConditionValue() {
+		System.out.println(txtConditionTotalValue.getAttribute("value") +"text");
+		String expectedValue = getBundle().getProperty("conditionValue").toString().toLowerCase();
+		String actualValue = txtConditionTotalValue.getAttribute("value").toLowerCase();
+		Assert.assertEquals(expectedValue, actualValue, "Condition value matched");
+	}
+
+	public void verifyDulpicateInspection(String inspectionName) {
+		btSearchinput.type(inspectionName, "Inspection Search");
+		waitForElementToDisplay(cbCheckbox);
+		int noOfCorporates = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		System.out.println(noOfCorporates);
+		waitForPageLoad(5000);
+		Assert.assertEquals(noOfCorporates, 1, "Number of corporates is not 1");
+
+
+	}
+
 }

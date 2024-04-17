@@ -451,4 +451,117 @@ public class CoverWearSteps {
         coverWearPage.enterDataPoints(count);
     }
 
+    @QAFTestStep(description="Navigate to coverWear list screen and wait for data load")
+    public void navigateToCoverWearPage(){
+        coverWearPage.goToCoverWearScreenAndWait();
+    }
+
+    @QAFTestStep(description="Search {ConveyorName} coverWear")
+    public void searchTheCoverWear(String conveyorName){
+        coverWearPage.searchCoverWear(conveyorName);
+    }
+
+    @QAFTestStep(description="Extract CoverGrade value")
+    public void extractTheCoverGradeValue(){
+        coverWearPage.extractCoverGradeValue();
+    }
+
+    @QAFTestStep(description="Verify the CoverGrade value")
+    public void verifyTheCoverGradeValue(){
+        coverWearPage.verifyCoverGradeValue();
+    }
+
+    @QAFTestStep(description="Verify CoverWear header as Cover Wear Summary")
+    public void verifyTheCoverWearHeader(){
+        coverWearPage.verifyCoverWearHeader();
+    }
+
+    @QAFTestStep(description="Verify CoverWear column name")
+    public void verifyTheCoverWearCoulmnName(){
+        coverWearPage.verifyCoverWearCoulmnName();
+    }
+
+    @QAFTestStep(description="Verify pagination dropdown")
+    public void verifyThePaginationDropDown(){
+        coverWearPage.verifyPaginationDropDown();
+    }
+
+    @QAFTestStep(description="Verify pagination arrow button")
+    public void verifyThePaginationArrowButton(){
+        coverWearPage.verifyPaginationArrowButton();
+    }
+
+    @QAFTestStep(description="Click on Add and verify Add new measurement pop up")
+    public void clickOnAddAndVerifyPopUp(){
+        coverWearPage.clickAdd();
+    }
+
+    @QAFTestStep(description="Verify Temperature and Tons Conveyed are not mandatory")
+    public void verifyTempAndConveyedNonMandatory(){
+        coverWearPage.verifyNonMandatoryFields();
+    }
+
+    @QAFTestStep(description="Add details {CustSiteName} {ConveyorName} {Position} for measurement pop up")
+    public void addTheMeasurmentPopUpFields(String CustSiteName,String ConveyorName,String Position){
+        coverWearPage.addMeasurmentPopUpFields(CustSiteName,ConveyorName,Position);
+    }
+
+    @QAFTestStep(description="Add readings durometer values {DurometerValue} and {Value}")
+    public void addTheMeasurementReadingsValue(String durometerValue,String value){
+        coverWearPage.addMeasurementReadingsValue(durometerValue,value);
+    }
+
+    @QAFTestStep(description="Add temperature and tons Conveyed value as {Zero}")
+    public void addTheTempAndTonsValueAsZero(String zero){
+        coverWearPage.addTempAndTonsValueAsZero(zero);
+    }
+
+    @QAFTestStep(description="Add details {Device} {Velocity} {CalThickness} {SurfaceTemp} {TestPosition} for measurement pop up")
+    public void addTheDeviceInformatiom(String device ,String velocity,String thickness,String surfaceTemp,String testPos){
+        System.out.println(device+velocity+thickness+surfaceTemp+testPos);
+        coverWearPage.addDeviceInformation(device,velocity,thickness,surfaceTemp,testPos);
+    }
+
+    @QAFTestStep(description="Verify the measurement details {CustSiteName} {ConveyorName}")
+    public void verifyTheUserSavedMeasurmentDetails(String CustSiteName ,String ConveyorName){
+        coverWearPage.verifyUserSavedMeasurementDetails(CustSiteName,ConveyorName);
+    }
+
+    @QAFTestStep(description="Verify data value in header as metric")
+    public void verifyTheDataInHeaderUnitAsMetric(){
+        coverWearPage.verifyDataHeaderUnitAsMetric();
+    }
+
+    @QAFTestStep(description="Verify data value in header as imperial")
+    public void verifyTheDataInHeaderUnitAsImperial(){
+        coverWearPage.verifyDataHeaderUnitAsImperial();
+    }
+
+    @QAFTestStep(description="Verify data value are in metric with value {MetricValue}")
+    public void verifyTheDataAreInMetric(String metricValue){
+        coverWearPage.verifyDataInMetric(metricValue);
+    }
+
+    @QAFTestStep(description="Verify data value are in imperial with value {ImperialValue}")
+    public void verifyTheDataAreInImperial(String imperialValue){
+        coverWearPage.verifyDataInImperial(imperialValue);
+    }
+
+    @QAFTestStep(description="Add data value in header as imperial")
+    public void AddTheDataAsImperial(){
+        coverWearPage.addDataAsImperial();
+    }
+
+    @QAFTestStep(description="Add data value in header as metric")
+    public void AddTheDataAsMetric(){
+        coverWearPage.addDataAsMetric();
+    }
+
+    @QAFTestStep(description="Add Cover Wear for conveyor {ConveyorName} and site {CustSiteName} with data {PositionName} {BeltWidth}")
+    public void createCoverWearMeasurementWithWidth(String conveyorName, String custSiteName, String positionName, String beltWidth){
+        coverWearPage.goToCoverWearScreen();
+        coverWearPage.addNewMeasurementWithWidth(conveyorName, custSiteName,positionName,beltWidth);
+    }
+
+
 }

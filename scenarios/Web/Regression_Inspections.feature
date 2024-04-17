@@ -321,3 +321,59 @@ Scenario: Verify success message after saving inspection event
     Then  Verify navigation to inspection tile
     And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}' from list view
     Then  Verify the status changes '${EditStatus}' for '${ConveyorName}'
+
+  @Regression26 @CTCP-773
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_Navigation
+  Scenario: Verify Inspection tile on home screen
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to inspection list screen and wait for data load
+    Then Verify inspection total count is displayed
+    Then Verify number of the to be completed inspection is displayed
+
+  @Regression26 @CTCP-789
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_Navigation_Status
+  Scenario: Verify inspection item status value after view button is clicked
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to inspection list screen and wait for data load
+    Then Extract inspection item status value for '${Inspection}'
+    And Click on view button
+    Then Verify the inspection item status value
+
+  @Regression26 @CTCP-790
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_Navigation_Status
+  Scenario: Verify inspection item condition value after view button is clicked
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to inspection list screen and wait for data load
+    Then Extract inspection item condition value for '${Inspection}'
+    And Click on view button
+    Then Verify the inspection item condition value
+
+  @Regression26 @CTCP-792
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_AddEvent_SiteInspection
+  Scenario: Verify Duplicate inspections under inspection list
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to inspection list screen and wait for data load
+    And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    Then  Navigate to inspection list screen and wait for data load
+    And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    Then  Navigate to inspection list screen and wait for data load
+    Then Verify duplicate inspection event for '${InspectionName}'
+
