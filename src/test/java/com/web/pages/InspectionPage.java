@@ -329,12 +329,12 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//button[contains(@class,'p-dialog-header-icon')]")
 	public CustomElement closePopup;
 
-	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[3]")
-	public CustomElement txtInspTotalCount;
 
-	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[4]")
+	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[1]")
+	public CustomElement txtInspCount;
+
+	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[2]")
 	public CustomElement txtInspCompleteCount;
-
 	@FindBy(locator = "xpath=//span[@class='sub-table-status ng-star-inserted']")
 	public CustomElement txtStatusValue;
 
@@ -349,6 +349,9 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
 	public CustomElement paginationEntry;
+
+	@FindBy(locator="xpath=//span[contains(@class,'p-carousel-prev-icon pi pi-chevron-right')]")
+	public CustomElement btRightCarousel;
 
 	public void goToInspection() {
 		if (!lnkInspection.isVisible())
@@ -778,17 +781,15 @@ public class InspectionPage extends BasePage {
 
 	public void verifyInspectionCount() {
 		waitForPageLoad(5000);
-		waitForElementToDisplay(txtInspTotalCount);
-		System.out.println("displayed");
-		SyncUtil.waitFor(5000);
-		waitForElementVisible(txtInspTotalCount,20000,1000);
-		Validator.assertTrue(txtInspTotalCount.isDisplayed(), "Inspection Tile Count is not visible", "Inspection Tile Count is visible");
+		waitForElementToDisplay(txtInspCount);
+		waitForElementVisible(txtInspCount,10000,1000);
+		Validator.assertTrue(txtInspCount.isDisplayed(), "Inspection Tile Count is not visible", "Inspection Tile Count is visible");
 	}
 
 	public void verifyInspectionCompleteCount() {
 		waitForPageLoad(5000);
 		waitForElementToDisplay(txtInspCompleteCount);
-//		waitForElementVisible(txtInspCompleteCount,5000,1000);
+		waitForElementVisible(txtInspCompleteCount,5000,1000);
 		Validator.assertTrue(txtInspCompleteCount.isDisplayed(), "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
 	}
 

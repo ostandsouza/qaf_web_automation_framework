@@ -296,9 +296,9 @@
 		<parameter name="env.resources" value="resources/env_dev" />
 		<groups>
 			<run>
-				<include name="CTCP-773" />
 				<include name="CTCP-789" />
 				<include name="CTCP-790" />
+				<include name="CTCP-773" />
 				<include name="CTCP-792" />
 
 			</run>

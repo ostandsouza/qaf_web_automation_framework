@@ -1342,12 +1342,12 @@ public class CoverWearPage extends BasePage{
         }
     }
     public void addMeasurementReadingsValue(String durometerValue,String value){
-        waitForElementVisible(inpdurometerValue,5000,1000);
+        waitForElementVisible(inpdurometerValue,20000,1000);
         inpdurometerValue.type(durometerValue);
         typeReadingValues(value);
     }
     public void addTempAndTonsValueAsZero(String zero){
-        waitForElementVisible(tonsConveyedCurrent,5000,1000);
+        waitForElementVisible(tonsConveyedCurrent,20000,1000);
         tonsConveyedCurrent.type(zero);
         temperatureField.type(zero);
     }
