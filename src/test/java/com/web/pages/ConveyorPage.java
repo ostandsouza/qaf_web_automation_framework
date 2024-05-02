@@ -16,6 +16,7 @@ import org.openqa.selenium.By;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.io.File.separator;
 
 public class ConveyorPage extends BasePage{
@@ -652,6 +653,30 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Analyzing Conveyors']")
     public CustomElement analysingConveyors;
 
+    @FindBy(locator = "xpath=//span[text()='Details']")
+    public CustomElement crDetailsTab;
+
+    @FindBy(locator = "xpath=//span[text()='Transitions']")
+    public CustomElement crTransitionTab;
+
+    @FindBy(locator = "xpath=//span[text()='Cancel']")
+    public CustomElement btnCancel;
+
+    @FindBy(locator="//img[@src='/assets/img/upload_default.png']")
+    public CustomElement addDefaultImgSrc;
+
+    @FindBy(locator="//div[@role='dialog']")
+    public CustomElement imageViewerPanel;
+
+    @FindBy(locator="//label[@for='firstname2']/../div//app-master-data-picker/../span")
+    public CustomElement unitIconConveyor;
+
+    @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+    public CustomElement paginationEntry;
+
+    @FindBy(locator="xpath=//span[text()='Update']")
+    public CustomElement btUpdate;
+
     public void goToConveyorListScreen(){
         if(!conveyorList.isVisible())
             home.click("Home");
@@ -734,6 +759,7 @@ public class ConveyorPage extends BasePage{
         crActions.click("Actions");
         waitForElementVisible(crDelete, 10000,500);
         crDelete.click("Delete");
+        SyncUtil.waitFor(5000);
         crYesConfirmation.click("Confirm");
         waitForElementToDisplay(noList);
         SyncUtil.waitFor(2000);
@@ -844,7 +870,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyTransitionZone() {
-        crTransitionZoneTab.click("Transition Zone Tab");
+        crTransitionTab.click("Transition Zone Tab");
         return crHeadTransitionLength.isVisible("Flat-to-trough Transition Length") && crHeadPulleyLift.isVisible("Pulley Lift") && crTailTransitionLength.isVisible("Trough-to-flat Transition Length") && crTailPulleyLift.isVisible("Tail Pulley Lift") &&
                 !crHeadTransitionTypeFull.isEnable() && !crHeadTransitionTypeHalf.isEnable() && !crTailTransitionTypeFull.isEnable() && !crTailTransitionTypeHalf.isEnable() &&
                 !crMaterialGuidanceNo.isEnable() && !crMaterialGuidanceYes.isEnable() && !crConditionYes.isEnable() && !crConditionNo.isEnable();
@@ -1033,4 +1059,148 @@ public class ConveyorPage extends BasePage{
         crActions.click("Actions");
         return btAddConveyor.isNotVisible(1000) && crEdit.isNotVisible(1000) && crDelete.isNotVisible(1000);
     }
+
+    public void verifyConveyorHorizontalNavBar(){
+        waitForElementVisible(crDetailsTab,5000,1000);
+        Validator.assertTrue(crDetailsTab.getText().contains("Details"),"Details Bar is not visible","Details Bar is visible");
+        Validator.assertTrue(crConveyorLiteTab.getText().contains("Conveyor-Lite"),"Conveyor-Lite Bar is not visible","Conveyor-Lite Bar is visible");
+        Validator.assertTrue(crInstalledBeltTab.getText().contains("Installed Belt"),"Installed Belt Bar is not visible","Installed Belt Bar is visible");
+        Validator.assertTrue(crMaterialTab.getText().contains("Material"),"Material Bar is not visible","Material Bar is visible");
+        Validator.assertTrue(crConveyorTab.getText().contains("Conveyor"),"Conveyor Bar is not visible","Conveyor Bar is visible");
+        Validator.assertTrue(crWearLifeTab.getText().contains("Wear Life"),"Wear Life Bar is not visible","Wear Life Bar is visible");
+        Validator.assertTrue(crIdlersTab.getText().contains("Idlers"),"Idlers Bar is not visible","Idlers Bar is visible");
+        Validator.assertTrue(crPulleysTab.getText().contains("Pulleys"),"Pulleys Bar is not visible","Pulleys Bar is visible");
+        Validator.assertTrue(crTransitionTab.getText().contains("Transitions"),"Transitions Bar is not visible","Transitions Bar is visible");
+        Validator.assertTrue(crRemarksTab.getText().contains("Remarks"),"Remarks Bar is not visible","Remarks Bar is visible");
+    }
+
+    public boolean verifyDetailsPage() {
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/details"),"URL missMatch","URL validation passed");
+        return tbConveyorname.isVisible("Material Description") && drDistShopdropdown.isVisible("Bulk Density") && drSitedropdown.isVisible("Bulk Size");
+    }
+
+    public boolean verifyConveyorLitePage() {
+        crConveyorLiteTab.click("Conveyor Lite Tab");
+        waitForElementVisible(crBeltWidth,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/conveyor-lite"),"URL missMatch","URL validation passed");
+        return crBeltWidth.isVisible("Belt Width") && crBeltSpeed.isVisible("Belt Speed");
+    }
+
+    public boolean verifyInstalledBeltPage() {
+        crInstalledBeltTab.click("Installed Belt Tab");
+        waitForElementVisible(crBeltConstruction,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/installed-belt"),"URL missMatch","URL validation passed");
+        return crBeltConstruction.isVisible("Belt Construction") && crTopCompound.isVisible("Top Cover Compound");
+    }
+
+    public boolean verifyMaterialPage() {
+        crMaterialTab.click("Material Tab");
+        waitForElementVisible(crDescription,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/material"),"URL missMatch","URL validation passed");
+        return crDescription.isVisible("Material Description") && crBulkDensity.isVisible("Bulk Density");
+    }
+
+    public boolean verifyConveyorPage() {
+        crConveyorTab.click("Conveyor Tab");
+        waitForElementVisible(crLift,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/conveyor"),"URL missMatch","URL validation passed");
+        return crLift.isVisible("Conveyor Lift") && crDrivePower.isVisible("Driver Power");
+    }
+    public boolean verifyWearLifePage() {
+        crWearLifeTab.click("Wear Life Tab");
+        waitForElementVisible(crTonsPerYear,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/wear-life"),"URL missMatch","URL validation passed");
+        return crTonsPerYear.isVisible("Tons Per year") && crFeedAngle.isVisible("Feed Angle") && crChuteAngle.isVisible("Chute Angle") && crBeltInclineAngle.isVisible("Belt Incline angle in Load Zone");
+    }
+
+    public boolean verifyIdlersPage() {
+        crIdlersTab.click("Idlers Tab");
+        waitForElementVisible(crCarryIdlerDiameter,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/idlers"),"URL missMatch","URL validation passed");
+        return crCarryIdlerDiameter.isVisible("Carry Idler Diameter") && crCarryAngle.isVisible("Carry Angle");
+    }
+
+    public boolean verifyPulleysPage() {
+        crPulleysTab.click("Pulleys Tab");
+        waitForElementVisible(crHeadPulleyDiameter,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/pulleys"),"URL missMatch","URL validation passed");
+        return crHeadPulleyDiameter.isVisible("Head Pulley Diameter") &&  crHeadPulleyWidth.isVisible("Head Pulley Width");
+    }
+    public boolean verifyTransitionPage() {
+        crTransitionTab.click("Transition Zone Tab");
+        waitForElementVisible(crHeadTransitionLength,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/transitions"),"URL missMatch","URL validation passed");
+        return crHeadTransitionLength.isVisible("Flat-to-trough Transition Length") && crHeadPulleyLift.isVisible("Pulley Lift");
+    }
+    public boolean verifyRemarksPage() {
+        crRemarksTab.click("Remarks Tab");
+        waitForElementVisible(crAdditionalRemarks,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/remarks"),"URL missMatch","URL validation passed");
+        return crAdditionalRemarks.isVisible("Additional Remarks");
+    }
+
+
+    public void verifyConveyorNavigationOnClick() {
+        Validator.assertTrue(verifyDetailsPage(),"Detail Page is not displayed","Detail Page is displayed");
+        Validator.assertTrue(verifyConveyorLitePage(),"Conveyor Lite Page is not displayed","Conveyor Lite Page is displayed");
+        Validator.assertTrue(verifyInstalledBeltPage(),"Installed Belt Page is not displayed","Installed Belt Page is displayed");
+        Validator.assertTrue(verifyMaterialPage(),"Material Page is not displayed","Material Page is displayed");
+        Validator.assertTrue(verifyConveyorPage(),"Conveyor Page is not displayed","Conveyor Page is displayed");
+        Validator.assertTrue(verifyWearLifePage(),"Wear Life Page is not displayed","Wear Life Page is displayed");
+        Validator.assertTrue(verifyIdlersPage(),"Idlers Page is not displayed","Idlers Page is displayed");
+        Validator.assertTrue(verifyPulleysPage(),"Pulleys Page is not displayed","Pulleys Page is displayed");
+        Validator.assertTrue(verifyTransitionPage(),"Transition Page is not displayed","Transition Page is displayed");
+        Validator.assertTrue(verifyRemarksPage(),"Remarks Page is not displayed","Remarks Page is displayed");
+    }
+
+    public void cancelBtnClick()
+    {
+        btnCancel.click();
+    }
+
+    public void verifyImageViewPanelClosed()
+    {
+        waitForElementVisible(addDefaultImgSrc,5000,500);
+        Validator.assertTrue(addDefaultImgSrc.isVisible(),"The selected image is uploaded","The selected image is not uploaded");
+        Validator.assertTrue(imageViewerPanel.verifyNotPresent(),"Image view panel is still visible","Image viewer panel is not visible");
+        Validator.assertTrue(addDefaultImgSrc.getAttribute("src").contains("/assets/img/upload_default.png"), "Image was uploaded", "Image was not uploaded");
+
+    }
+
+    public void createConveyorWithMan(String conveyorName, String distShopName, String custSiteName) {
+        enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
+    }
+
+    public void clickRemarkAndSave()
+    {
+        crRemarksTab.click("Remarxks Tab");
+        waitForElementVisible(crAdditionalRemarks,5000,1000);
+        crSave.click("Save Click");
+        waitForElementToInvisible(buttonLoader,40000);
+        waitForElementVisible(btUpdate,5000,1000);
+        Validator.assertTrue(btUpdate.isDisplayed(),"Save button is displayed","Save is displayed");
+    }
+
+    public void verifyDataHeaderUnitInAddConveyor(String unit)
+    {
+        crConveyorLiteTab.click("Conveyor Lite Tab");
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIconConveyor,5000,1000);
+        Validator.assertTrue(unitIconConveyor.getText("Unit Value").contains(unit),"Metric unit is not selected","Metric unit is selected");
+
+    }
+
+    public void extractConveyorCount()
+    {
+        int conveyorCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        getBundle().setProperty("conveyorListCount", conveyorCount);
+
+    }
+    public void verifyConveyorCount()
+    {
+        Integer extractedValue = Integer.parseInt(getBundle().getProperty("conveyorListCount").toString());
+        Integer expectedValue= extractedValue - 1;
+    }
+
+
 }

@@ -248,4 +248,10 @@ public class MiscUtils {
         }
         return matches;
     }
+
+    public static String convertDateFormat(String dateString) {
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d, yyyy"));
+        return formattedDate;
+    }
 }

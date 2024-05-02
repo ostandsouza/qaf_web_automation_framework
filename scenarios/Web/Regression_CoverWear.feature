@@ -3,7 +3,7 @@ Feature: Regression of P2 Inspection module
   Background:
   Launch the application through '/'
 
-  @Regression4 @CTCP-1365
+  @Regression1 @CTCP-1365
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Value
@@ -16,7 +16,7 @@ Feature: Regression of P2 Inspection module
     And Verify CoverWear column name
 
 
-  @Regression4 @CTCP-1366
+  @Regression2 @CTCP-1366
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Value
@@ -31,7 +31,7 @@ Feature: Regression of P2 Inspection module
     Then  Verify the CoverGrade value
 
 
-  @Regression4 @CTCP-1377
+  @Regression3 @CTCP-1377
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Value
@@ -60,12 +60,7 @@ Feature: Regression of P2 Inspection module
     And Add readings durometer values '${DurometerValue}' and '${Value}'
     And   Verify save functionality for new measurement
 
-
-#    And Add details '${Site}' '${Conveyor}' '${Position}' for measurement pop up
-#    And Add details '${Temperature}' '${TonsConveyedCurrent}' for measurement pop up
-
-
-  @Regression4 @CTCP-1383
+  @Regression5 @CTCP-1383
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Management
@@ -80,7 +75,7 @@ Feature: Regression of P2 Inspection module
     And Add readings durometer values '${DurometerValue}' and '${Value}'
     And   Verify save functionality for new measurement
 
-  @Regression4 @CTCP-1384
+  @Regression6 @CTCP-1384
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Management
@@ -98,7 +93,7 @@ Feature: Regression of P2 Inspection module
     And Verify the measurement details '${CustSiteName}' '${ConveyorName}'
 
 
-  @Regression4 @CTCP-1380
+  @Regression7 @CTCP-1380
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CovereWear_Management_Position_Metric
@@ -115,7 +110,7 @@ Feature: Regression of P2 Inspection module
     Then Add data value in header as imperial
     And Verify data value are in imperial with value '${ImperialValue}'
 
-  @Regression4 @CTCP-1381
+  @Regression8 @CTCP-1381
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CovereWear_Management_Position_Imperial
@@ -132,3 +127,110 @@ Feature: Regression of P2 Inspection module
     And Edit Cover wear measurement for conveyor '${ConveyorName}'
     Then Add data value in header as metric
     And Verify data value are in metric with value '${MetricValue}'
+
+@Regression9 @CTCP-1443
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Add_Position
+Scenario: Verify temperature and Tons  conveyed are not mandatory values in position
+
+   Given User is at Login page
+   When Login with '${UserName}' and '${Password}'
+   And Navigate to coverWear list screen and wait for data load
+   And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+   And Navigation to Position Details Screen for position '${Position}'
+   And Click on Add in Position Detail screen and verify Add new measurement pop up
+   Then Verify Temperature and Tons Conveyed are not mandatory
+   And Add readings durometer values '${DurometerValue}' and '${Value}'
+   And Verify save functionality for new measurement
+
+
+@Regression10 @CTCP-1444
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Add_Position
+Scenario: Verify user is able to save temperature value and tons conveyed value is zero
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Navigation to Position Details Screen for position '${Position}'
+    And  Click on Add in Position Detail screen and verify Add new measurement pop up
+    Then Add temperature and tons conveyed value as '${Zero}'
+    And Add readings durometer values '${DurometerValue}' and '${Value}'
+    And  Verify save functionality for new measurement
+
+
+@Regression11 @CTCP-1429
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Guaze_Data
+Scenario: Verify data displayed in Gauge meter in case measurment already exist
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Navigation to Position Details Screen for position '${Position}'
+    Then Verify Guaze image is displayed in specification field
+   And Verify no data is displayed in guaze
+
+
+@Regression12 @CTCP-1442
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Add_Position
+Scenario: Observe life displayed in projection table should be displayed in years
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Navigation to Position Details Screen for position '${Position}'
+    Then Verify Wear Rate Statistics and Projection table
+    And Verify Wear Rate Statistics table values are in years
+
+@Regression13 @CTCP-1439
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Add_Position
+Scenario: Verify Wear Rate Statistics & Projections table
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Navigation to Position Details Screen for position '${Position}'
+    Then Verify Wear Rate Statistics and Projection table
+    And Verify fields in the Wear Rate Statistics and Projection table
+
+@Regression14 @CTCP-1426
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Add_Position
+Scenario: Verify Specification details for position
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Navigation to Position Details Screen for position '${Position}'
+    Then Verify the Position headings as '${Position}'
+    And Verify the Specification format as '${BeltConstruction}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}'
+    And Verify the date of installation format as '${Date}'
+    And Verify the durometer value format as '${NewDurometerValue}'
+    And Verify date of installation '${Date}' and specification '${BeltConstruction}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' is same in technical data
+
+@Regression15 @CTCP-1437
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Add_Position
+Scenario: Verify wear profile graph
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Navigation to Position Details Screen for position '${Position}'
+    And Verify Wear Profile Graph is displayed

@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static com.common.utils.MiscUtils.convertDateFormat;
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.io.File.separator;
 import static java.lang.Math.abs;
@@ -106,6 +107,9 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
     public CustomElement cwAddNew;
+
+    @FindBy(locator = "xpath=//span[@class='p-button-icon ctp-icon-Add-circle']")
+    public CustomElement btAdd;
 
     @FindBy(locator="xpath=//label[text()='Site']/parent::div//div[@role='button']")
     public CustomElement cwSiteDropDown;
@@ -532,11 +536,87 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//input[@formcontrolname='beltWidth']")
     public CustomElement beltWidthField;
 
-    //li[@class='topbar-item scale']
+    @FindBy(locator="xpath=//div[@class='gauge-container']//app-durometer")
+    public CustomElement imgGuazeMeter;
 
-    //h6[text()='Imperial']/../..//div[@class="p-radiobutton p-component p-radiobutton-checked"]
+    @FindBy(locator="xpath=//div[@class='center-label']//span")
+    public CustomElement getCwRemainingCoverPercent;
 
-    //h6[text()='Metric']/../..//div[@class="p-radiobutton p-component p-radiobutton-checked"]
+    @FindBy(locator="xpath=//span[text()='Wear Rate Statistics & Projections']")
+    public CustomElement hdWearRateStatTable;
+
+    @FindBy(locator="xpath=//th[@id='site-col']//p[2]")
+    public CustomElement thYearsUnit;
+
+    @FindBy(locator="xpath=(//p[text()='Estimate Total Life']/../p[2])[2]")
+    public CustomElement thEstTotalLifeUnit;
+
+    @FindBy(locator="xpath=//p[text()='Est. Total Cost per Year']/../p[2]")
+    public CustomElement thEstTotalCostPerLifeUnit;
+
+    @FindBy(locator="xpath=//th[@id='name-col']")
+    public CustomElement thTonsConveyed;
+    @FindBy(locator="xpath=//th[@id='site-col']")
+    public CustomElement thYears;
+
+    @FindBy(locator="xpath=//p[text()='Wear rate']")
+    public CustomElement thWearRate;
+    @FindBy(locator="xpath=//p[text()='Projected Future Tons']")
+    public CustomElement thProjectedFutureTons;
+    @FindBy(locator="xpath=//p[text()='Projected Future Life']")
+    public CustomElement thProjectedFutureLife;
+    @FindBy(locator="xpath=(//p[text()='Estimate Total Life'])[1]")
+    public CustomElement thEstTotalLifeTons;
+
+    @FindBy(locator="xpath=(//p[text()='Estimate Total Life'])[2]")
+    public CustomElement thEstTotalLifeYears;
+
+    @FindBy(locator="xpath=//p[text()='Est. Total Cost per Ton']")
+    public CustomElement thEstTotalCostPerTonLife;
+
+    @FindBy(locator="xpath=//p[text()='Est. Total Cost per Year']")
+    public CustomElement thEstTotalCostPerYearLife;
+
+    @FindBy(locator="xpath=//div[@class='col']")
+    public CustomElement hdPositionName;
+    @FindBy(locator="xpath=//div[@class='col-12 subtitle']")
+    public CustomElement hdSpecificationValue;
+
+    @FindBy(locator="xpath=//div[@class='col-6 date']")
+    public CustomElement hdDateOfInstallation;
+
+    @FindBy(locator="xpath=//div[@class='col-6 durometer']")
+    public CustomElement hdNewDurometerValue;
+
+    @FindBy(locator="xpath=//span[text()='CV Common Regression']")
+    public CustomElement hdCoverWearBreadCrumb;
+
+    @FindBy(locator="xpath=//span[text()='Installed Belt']")
+    public CustomElement hdInstalledBelt;
+
+    @FindBy(locator="xpath=//label[text()='Installation Date']/..//p-calendar//input")
+    public CustomElement  ddInstallationDateValue;
+
+    @FindBy(locator="xpath=(//label[text()='Belt Construction']/../app-master-data-picker//div//input)[2]")
+    public CustomElement  ddBeltConstructionValue;
+
+    @FindBy(locator="xpath=(//label[text()='Width']/..//div//input)[2]")
+    public CustomElement  ddBeltWidthValue;
+
+    @FindBy(locator="xpath=(//label[text()='Top Cover Compound']/../app-master-data-picker//div//input)[2]")
+    public CustomElement  ddTopCoverCompoundValue;
+
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Compound']/../app-master-data-picker//div//input)[2]")
+    public CustomElement  ddBottomCoverCompoundValue;
+
+    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness']/..//div//input)[2]")
+    public CustomElement  ddTopCoverThicknessValue;
+
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness']/..//div//input)[2]")
+    public CustomElement  ddBottomCoverThicknessValue;
+
+    @FindBy(locator="xpath=//span[text()='Wear Profile']")
+    public CustomElement hdWearProfile;
 
     public void goToCoverWearScreen(){
         if(!coverWearList.isVisible())
@@ -652,6 +732,12 @@ public class CoverWearPage extends BasePage{
         waitForElementToDisplay(cwViewIcon);
         cwViewIcon.click("Position Detail");
         crCoverWearCard.isEnable("Cover Wear Data");
+    }
+
+    public void goToThePositionDetailScreen(String positionName) {
+        searchPosition(positionName);
+        waitForElementToDisplay(cwViewIcon);
+        cwViewIcon.click("Position Detail");
     }
 
     public void verifyDeletePosition(String segmentName) {
@@ -826,7 +912,7 @@ public class CoverWearPage extends BasePage{
     public void verifySaveFunctionality(){
         cwSave.click("Save");
         waitForElementToInvisible(cwSpecsLoader,40000);
-        Validator.assertTrue(!tonsConveyedCurrent.isVisible(),"Add Measurement window was not closed after save","Add measurement window was closed successfully");
+        Validator.assertTrue(!(tonsConveyedCurrent.isVisible()),"Add Measurement window was not closed after save","Add measurement window was closed successfully");
     }
 
     public void verifyPreviousMeasurementTable(String installationDate, String previousMeasurementDate, String previousThickness){
@@ -1266,7 +1352,8 @@ public class CoverWearPage extends BasePage{
         }
     }
     public void verifyCoverGradeValue(){
-    waitForElementVisible(cwTopCoverCompoundInput,10000,1000);
+        waitForPageLoad(5000);
+    waitForElementVisible(cwTopCoverCompoundInput,20000,1000);
     waitForElementVisible(cwBottomCoverCompoundInput,10000,1000);
     String topCoverValue= cwTopCoverCompoundInput.getText();
     String bottomCoverValue=cwBottomCoverCompoundInput.getText();
@@ -1320,6 +1407,7 @@ public class CoverWearPage extends BasePage{
     }
 
     public void verifyNonMandatoryFields(){
+        waitForPageLoad(4000);
         waitForElementVisible(tbTonsConveyedCurrentlabel,5000,1000);
         Validator.assertFalse(tbTonsConveyedCurrentlabel.getText().contains("*"),"TonsConveyedCurrent Mandatory field","TonsConveyedCurrent Not Mandatory field");
         waitForElementVisible(tbTemperaturelabel,5000,1000);
@@ -1342,7 +1430,8 @@ public class CoverWearPage extends BasePage{
         }
     }
     public void addMeasurementReadingsValue(String durometerValue,String value){
-        waitForElementVisible(inpdurometerValue,20000,1000);
+        waitForPageLoad(5000);
+        waitForElementVisible(inpdurometerValue,10000,1000);
         inpdurometerValue.type(durometerValue);
         typeReadingValues(value);
     }
@@ -1450,5 +1539,90 @@ public class CoverWearPage extends BasePage{
         waitForElementToInvisible(cwSpecsLoader,15000);
     }
 
+    public void clickAddMeasurment(){
+        waitForElementVisible(btAdd,5000,1000);
+        waitForElementToBeClickable(btAdd);
+        waitForPageLoad(5000);
+        btAdd.jsClick();
+        waitForElementVisible(dialogBox,20000,1000);
+        Validator.assertTrue(dialogBox.isDisplayed(),"Dialogbox is not displayed","Dialogbox is displayed");
+    }
+
+    public void verifyGuazeImageInSpec(){
+        waitForPageLoad(5000);
+        waitForElementVisible(imgGuazeMeter,10000,1000);
+        Validator.assertTrue(imgGuazeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
+        }
+
+    public void verifyGuazeEmptyData(){
+        waitForElementVisible(getCwRemainingCoverPercent,10000,1000);
+        Validator.assertTrue(getCwRemainingCoverPercent.getText().equals("--"),"Guaze data is not empty","Guaze data meter is empty");
+    }
+
+    public void verifyWearRateStatTable(){
+        waitForElementVisible(hdWearRateStatTable,10000,1000);
+        Validator.assertTrue(hdWearRateStatTable.isDisplayed(),"Wear Rate Statistics & Projections Table is not displayed","Wear Rate Statistics & Projections Table is displayed");
+    }
+
+    public void verifyWearRateTableValueAreYear(){
+        waitForElementVisible(thYearsUnit,10000,1000);
+        Validator.assertTrue(thYearsUnit.getText().contains("Year"),"Year Value is not in Year","Year Value is in Year");
+        Validator.assertTrue(thEstTotalLifeUnit.getText().contains("Year"),"Estimate Total Life Value is not in Year","Estimate Total Life Value is in Year");
+        Validator.assertTrue(thEstTotalCostPerLifeUnit.getText().contains("Year"),"Total Cost per Year Value is not in Year","Total Cost per Year Value is in Year");
+    }
+    public void verifyWearRateStatAndProjectionFields(){
+      waitForElementVisible(thTonsConveyed,10000,1000);
+      Validator.assertTrue(thTonsConveyed.isDisplayed(),"Tons Conveyed is not displayed","Tons Conveyed is displayed");
+      Validator.assertTrue(thYears.isDisplayed(),"Year is not displayed","Year is displayed");
+      Validator.assertTrue(thWearRate.isDisplayed(),"Wear rate is not displayed","Wear rate is displayed");
+      Validator.assertTrue(thProjectedFutureTons.isDisplayed(),"Projected Future Tons is not displayed","Projected Future Tons is displayed");
+      Validator.assertTrue(thProjectedFutureLife.isDisplayed(),"Projected Future Life is not displayed","Projected Future Life is displayed");
+      Validator.assertTrue(thEstTotalLifeTons.isDisplayed(),"Estimate Total Life Tons is not displayed","Estimate Total Life Tons is displayed");
+      Validator.assertTrue(thEstTotalLifeYears.isDisplayed(),"Estimate Total Life Years is not displayed","Estimate Total Life Years is displayed");
+      Validator.assertTrue(thEstTotalCostPerTonLife.isDisplayed(),"Est. Total Cost per Ton is not displayed","Est. Total Cost per Ton is displayed");
+      Validator.assertTrue(thEstTotalCostPerYearLife.isDisplayed(),"Est. Total Cost per Year is not displayed","Est. Total Cost per Year is displayed");
+    }
+
+    public void verifyPositionHeader(String positionName){
+        waitForPageLoad(3000);
+        waitForElementVisible(hdPositionName,10000,1000);
+        Validator.assertTrue(hdPositionName.getText().contains(positionName),"Position Name doesn't match","Position Name matches");
+    }
+
+    public void verifySpecificationFormat(String beltConstruction, String beltWidth, String topCoverCompound, String bottomCoverCompound, String topCoverThickness, String bottomCoverThickness){
+        waitForElementVisible(hdSpecificationValue,10000,1000);
+        Validator.assertTrue(hdSpecificationValue.getText().contains("Specification: "+beltConstruction+" "+beltWidth+" - "+topCoverThickness+" / "+bottomCoverThickness+" "+topCoverCompound+"/"+bottomCoverCompound),"Specification Value doesn't match","Specification Value matches");
+    }
+
+    public void verifyDateOfInsFormat(String date){
+        waitForElementVisible(hdDateOfInstallation,10000,1000);
+        Validator.assertTrue(hdDateOfInstallation.getText().contains("Date of Installation: "+date),"Date of installation doesn't match","Date of installation matches");
+    }
+
+    public void verifyNewDurometerFormat(String durometer){
+        waitForElementVisible(hdNewDurometerValue,10000,1000);
+        Validator.assertTrue(hdNewDurometerValue.getText().contains("Durometer (New Belt): "+durometer),"Durometer Value doesn't match","Durometer Value matches");
+    }
+
+    public void verifyDateAndSpecificationValue(String date,String beltConstruction, String beltWidth, String topCoverCompound, String bottomCoverCompound, String topCoverThickness, String bottomCoverThickness){
+        hdCoverWearBreadCrumb.jsClick();
+        waitForPageLoad(5000);
+        waitForElementVisible(hdInstalledBelt,5000,1000);
+        waitForElementToBeClickable(hdInstalledBelt);
+        hdInstalledBelt.click();
+        waitForElementVisible(ddBeltConstructionValue,5000,1000);
+        Validator.assertTrue(convertDateFormat(ddInstallationDateValue.getAttribute("value")).equalsIgnoreCase(date),"Date Value doesn't match","Date Value matches");
+        Validator.assertTrue(ddBeltConstructionValue.getAttribute("value").equalsIgnoreCase(beltConstruction),"Belt Construction Value doesn't match","Belt Construction Value matches");
+        Validator.assertTrue(ddBeltWidthValue.getAttribute("value").equalsIgnoreCase(beltWidth),"Date Value doesn't match","Date Value matches");
+        Validator.assertTrue(ddTopCoverThicknessValue.getAttribute("value").equalsIgnoreCase(topCoverThickness),"Top Cover Thickness Value doesn't match","Top Cover Thickness Value matches");
+        Validator.assertTrue(ddBottomCoverThicknessValue.getAttribute("value").equalsIgnoreCase(bottomCoverThickness),"Bottom Cover Thickness Value doesn't match","Bottom Cover Thickness Value matches");
+        Validator.assertTrue(ddTopCoverCompoundValue.getAttribute("value").equalsIgnoreCase(topCoverCompound),"Top Cover Compound Value doesn't match","Top Cover Compound Value matches");
+        Validator.assertTrue(ddBottomCoverCompoundValue.getAttribute("value").equalsIgnoreCase(bottomCoverCompound),"Bottom Cover Compound Value doesn't match","Bottom Cover Compound Value matches");
+    }
+
+    public void verifyProfileGraphIsDisplayed(){
+        waitForElementVisible(hdWearProfile,10000,1000);
+        Validator.assertTrue(hdWearProfile.getText().contains("Wear Profile"),"Wear Profile Graph is not displayed","Wear Profile Graph is displayed");
+    }
 
 }

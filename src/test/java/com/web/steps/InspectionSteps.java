@@ -328,4 +328,11 @@ public class InspectionSteps {
 		inspectionpage.goToInspection();
 		inspectionpage.addInspection(inspectionName,custSiteName,fullName);
 	}
+
+	@QAFTestStep(description="Add duplicate inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void createDulpicateInspectionItemMandatoryFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
+		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
+		inspectionpage.saveDulpicateInspectionItem();
+	}
+
 }

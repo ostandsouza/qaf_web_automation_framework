@@ -187,5 +187,50 @@ public class ConveyorSteps {
         Validator.assertTrue(conveyorPage.verifyFilters(),"All saved filters are not available in layout","All filters were successfully verified");
     }
 
+    @QAFTestStep(description="Verify Conveyor horizontal navigation bar")
+    public void verifyTheConveyorHorizontalNavBar(){
+        conveyorPage.verifyConveyorHorizontalNavBar();
+    }
+
+    @QAFTestStep(description="Verify on click of conveyor nagivation bar nagivates to respective pages")
+    public void verifyTheConveyorNavigationOnClick(){
+        conveyorPage.verifyConveyorNavigationOnClick();
+    }
+    @QAFTestStep(description = "Verify that the image viewer panel is closed and image is not uploaded")
+    public void verifyImageViewPanel () {
+        conveyorPage.verifyImageViewPanelClosed();
+    }
+    @QAFTestStep(description = "User clicks on cancel button")
+    public void clickOnCancelBtn () {
+        conveyorPage.cancelBtnClick();
+    }
+
+    @QAFTestStep(description="Create a conveyor with {ConveyorName} and {DistShopName} and {CustShopName} with mandatory field")
+    public void createTheConveyorWithMan(String conveyorName, String distShopName, String custSiteName){
+        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+        conveyorPage.createConveyorWithMan(conveyorName, distShopName, custSiteName);
+    }
+
+    @QAFTestStep(description="Go to remarks and click on save as button")
+    public void clickTheRemarkAndSave(){
+        conveyorPage.clickRemarkAndSave();
+    }
+
+    @QAFTestStep(description="Verify data value in header as {Unit} in Add Conveyor")
+    public void verifyTheDataInHeaderUnitInAddConveyor(String unit){
+        conveyorPage.verifyDataHeaderUnitInAddConveyor(unit);
+    }
+
+    @QAFTestStep(description="Extract the conveyor count from conveyor list page")
+    public void extractConveyorCountInConveyorListPage(){
+        conveyorPage.goToConveyorListScreenAndWait();
+        conveyorPage.extractConveyorCount();
+    }
+
+    @QAFTestStep(description="Verify the conveyor count from conveyor list page")
+    public void VerifyConveyorCountInConveyorListPage(){
+        conveyorPage.verifyConveyorCount();
+    }
 
 }

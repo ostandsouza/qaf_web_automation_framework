@@ -141,3 +141,73 @@ Scenario: Verify a user is able to Get selected layout post re-login
 Scenario: Verify a user is able to Delete layout
 
     Then  verify user is able to delete layout for '${Layout_Name}'
+
+@Regression17 @CTCP-1866
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Navigation_Add
+Scenario: Verify with add conveyor navigation
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to Add Conveyor screen
+    Then Verify Conveyor horizontal navigation bar
+    And Verify on click of conveyor nagivation bar nagivates to respective pages
+
+@Regression18 @CTCP-1870
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Navigation_Add
+Scenario: Verify closing of image viewer panel
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to Add Conveyor screen
+    Then Verify the default image is displayed and on hover camera icon is displayed
+    And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
+    When User clicks on Upload Image
+    Then Verify that the user is able to upload the image '${imgName}' from the system
+    And User clicks on cancel button
+    And Verify that the image viewer panel is closed and image is not uploaded
+
+@Regression19 @CTCP-1919
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Navigation_Add
+Scenario: Verify the save as draft button on remarks tab
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to Add Conveyor screen
+    And Create a conveyor with '${ConveyorName}' and '${DistShopName}' and '${CustShopName}' with mandatory field
+    Then Go to remarks and click on save as button
+
+
+@Regression20 @CTCP-1921
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Navigation_Count
+Scenario: Verify user is able to get the count after deleting the conveyor
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to Add Conveyor screen
+    And Create a conveyor with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustShopGerName}'
+    And Extract the conveyor count from conveyor list page
+    Then  Delete Conveyor from Conveyor list screen '${ConveyorName1}'
+    And  Verify Deleted Conveyor '${ConveyorName1}' from Conveyor list screen
+    And Verify the conveyor count from conveyor list page
+
+
+@Regression21 @CTCP-1923
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Navigation_Add
+Scenario: Verify user is able to see the metric data when metric radio button is selected
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to Add Conveyor screen
+    And Create a conveyor with '${ConveyorName}' and '${DistShopName}' and '${CustShopName}' with mandatory field
+    Then Add data value in header as metric
+    And Verify data value in header as '${Unit}' in Add Conveyor

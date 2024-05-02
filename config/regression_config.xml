@@ -271,7 +271,7 @@
 	<test name="Company testcases" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Corporates.feature" />
-		<parameter name="step.provider.sharedinstance" value="true" />
+		<parameter name="step.provider.sharedinstance" value="false" />
 		<parameter name="env.resources" value="resources/env_dev" />
 		<groups>
 			<run>
@@ -292,7 +292,7 @@
 	<test name="Inspection testcases" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />
-		<parameter name="step.provider.sharedinstance" value="true" />
+		<parameter name="step.provider.sharedinstance" value="false" />
 		<parameter name="env.resources" value="resources/env_dev" />
 		<groups>
 			<run>
@@ -311,7 +311,7 @@
 	<test name="Home CoverWear testcases" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />
-		<parameter name="step.provider.sharedinstance" value="true" />
+		<parameter name="step.provider.sharedinstance" value="false" />
 		<parameter name="env.resources" value="resources/env_dev" />
 		<groups>
 			<run>
@@ -323,6 +323,32 @@
 				<include name="CTCP-1384" />
 				<include name="CTCP-1380" />
 				<include name="CTCP-1381" />
+				<include name="CTCP-1443" />
+				<include name="CTCP-1426"/>
+				<include name="CTCP-1444" />
+				<include name="CTCP-1429"/>
+				<include name="CTCP-1442"/>
+				<include name="CTCP-1439"/>
+				<include name="CTCP-1437"/>
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+
+	<test name="Add Conveyor testcases" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<parameter name="env.resources" value="resources/env_dev" />
+		<groups>
+			<run>
+				<include name="CTCP-1866" />
+				<include name="CTCP-1870" />
+				<include name="CTCP-1919" />
+				<include name="CTCP-1921" />
+				<include name="CTCP-1923" />
 
 			</run>
 		</groups>

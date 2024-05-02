@@ -563,5 +563,67 @@ public class CoverWearSteps {
         coverWearPage.addNewMeasurementWithWidth(conveyorName, custSiteName,positionName,beltWidth);
     }
 
+    @QAFTestStep(description="Navigation to Position Details Screen for position {Position}")
+    public void goToThePositionDetailPage(String positionName){
+        coverWearPage.goToThePositionDetailScreen(positionName);
+    }
+
+    @QAFTestStep(description="Click on Add in Position Detail screen and verify Add new measurement pop up")
+    public void clickOnAddInPositionAndVerifyPopUp(){
+        coverWearPage.clickAddMeasurment();
+    }
+
+    @QAFTestStep(description="Verify Guaze image is displayed in specification field")
+    public void verifyTheGuazeImageInSpecification(){
+        coverWearPage.verifyGuazeImageInSpec();
+    }
+
+    @QAFTestStep(description="Verify no data is displayed in guaze")
+    public void verifyTheGuazeEmptyData(){
+        coverWearPage.verifyGuazeEmptyData();
+    }
+
+    @QAFTestStep(description="Verify Wear Rate Statistics and Projection table")
+    public void verifyTheWearRateStatTable(){
+        coverWearPage.verifyWearRateStatTable();
+    }
+
+    @QAFTestStep(description="Verify Wear Rate Statistics table values are in years")
+    public void verifyTheWearRateTableValueAreYear(){
+        coverWearPage.verifyWearRateTableValueAreYear();
+    }
+
+    @QAFTestStep(description="Verify fields in the Wear Rate Statistics and Projection table")
+    public void verifyTheWearRateStatAndProjectionTableFields(){
+        coverWearPage.verifyWearRateStatAndProjectionFields();
+    }
+
+    @QAFTestStep(description="Verify the Position headings as {Position}")
+    public void verifyThePositionHeader(String positionName){
+        coverWearPage.verifyPositionHeader(positionName);
+    }
+
+    @QAFTestStep(description="Verify the Specification format as {BeltConstruction} {BeltWidth} {TopCoverCompound} {BottomCoverCompound} {TopCoverThickness} {BottomCoverThickness}")
+    public void verifyTheSpecificationFormat(String beltConstruction, String beltWidth, String topCoverCompound, String bottomCoverCompound, String topCoverThickness, String bottomCoverThickness){
+        coverWearPage.verifySpecificationFormat(beltConstruction,beltWidth,topCoverCompound,bottomCoverCompound,topCoverThickness,bottomCoverThickness);
+    }
+
+    @QAFTestStep(description="Verify the date of installation format as {Date}")
+    public void verifyTheDateOfInsFormat(String date){
+        coverWearPage.verifyDateOfInsFormat(date);
+    }
+
+    @QAFTestStep(description="Verify the durometer value format as {NewDurometerValue}")
+    public void verifyTheNewDurometerFormat(String durometerValue){
+        coverWearPage.verifyNewDurometerFormat(durometerValue);
+    }
+    @QAFTestStep(description="Verify date of installation {Date} and specification {BeltConstruction} {BeltWidth} {TopCoverCompound} {BottomCoverCompound} {TopCoverThickness} {BottomCoverThickness} is same in technical data")
+    public void verifyTheDateAndSpecificationValue(String date, String beltConstruction, String beltWidth, String topCoverCompound, String bottomCoverCompound, String topCoverThickness, String bottomCoverThickness){
+        coverWearPage.verifyDateAndSpecificationValue(date,beltConstruction,beltWidth,topCoverCompound,bottomCoverCompound,topCoverThickness,bottomCoverThickness);
+    }
+    @QAFTestStep(description="Verify Wear Profile Graph is displayed")
+    public void verifyTheProfileGraphIsDisplayed(){
+        coverWearPage.verifyProfileGraphIsDisplayed();
+    }
 
 }

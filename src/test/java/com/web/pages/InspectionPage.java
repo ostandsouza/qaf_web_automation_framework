@@ -353,6 +353,10 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//span[contains(@class,'p-carousel-prev-icon pi pi-chevron-right')]")
 	public CustomElement btRightCarousel;
 
+	@FindBy(locator = "xpath=//div[text()='Error'")
+	public CustomElement inspectionErrorMsg;
+
+
 	public void goToInspection() {
 		if (!lnkInspection.isVisible())
 			lnkHome.click("Home");
@@ -397,10 +401,12 @@ public class InspectionPage extends BasePage {
 
 	public void addInspection(String inspectionName, String siteName, String fullName) {
 		waitForPageLoad(5000);
-		waitForElementVisible(btnAddInspection,5000,1000);
+		waitForElementToDisplay(btnAddInspection);
+		waitForElementVisible(btnAddInspection,20000,1000);
 		waitForElementToBeClickable(btnAddInspection);
-		SyncUtil.waitFor(4000);
-		btnAddInspection.click("Add Inspection btn");
+		System.out.println("waiting click");
+//		SyncUtil.waitFor(5000);
+		btnAddInspection.jsClick("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
 		waitForElementToBeClickable(ddlSiteCustomername);
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
@@ -796,14 +802,12 @@ public class InspectionPage extends BasePage {
 	public void extractStatusValue(){
 	waitForElementVisible(txtStatusValue,5000,1000);
 	String statValue = txtStatusValue.getText();
-	System.out.println(statValue);
 	getBundle().setProperty("statusValue", statValue);
 	}
 
 	public void extractConditionValue(){
 		waitForElementVisible(txtConditionValue,5000,1000);
 		String  conValue = txtConditionValue.getText();
-		System.out.println(conValue);
 		getBundle().setProperty("conditionValue", conValue);
 	}
 
@@ -820,7 +824,6 @@ public class InspectionPage extends BasePage {
 
 
 	public void verifyConditionValue() {
-		System.out.println(txtConditionTotalValue.getAttribute("value") +"text");
 		String expectedValue = getBundle().getProperty("conditionValue").toString().toLowerCase();
 		String actualValue = txtConditionTotalValue.getAttribute("value").toLowerCase();
 		Assert.assertEquals(expectedValue, actualValue, "Condition value matched");
@@ -830,11 +833,15 @@ public class InspectionPage extends BasePage {
 		btSearchinput.type(inspectionName, "Inspection Search");
 		waitForElementToDisplay(cbCheckbox);
 		int noOfCorporates = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-		System.out.println(noOfCorporates);
 		waitForPageLoad(5000);
 		Assert.assertEquals(noOfCorporates, 1, "Number of corporates is not 1");
+	}
 
-
+	public void saveDulpicateInspectionItem() {
+		waitForElementToBeClickable(btnSave);
+		btnSave.click("Save");
+		waitForElementToDisplay(inspectionErrorMsg);
+		Validator.assertTrue(inspectionErrorMsg.isDisplayed(),"Error message is not displayed","Error message is displayed");
 	}
 
 }
