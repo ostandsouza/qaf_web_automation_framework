@@ -22,6 +22,29 @@ public class ConveyorSteps {
         conveyorPage.createConveyor(conveyorName, distShopName, custSiteName);
     }
 
+    @QAFTestStep(description="Create a conveyor with {ConveyorName1} and {DistShopAusName} and {CustSiteNZName} with mandatory field")
+    public void createTheConveyorWithMan(String conveyorName, String distShopName, String custSiteName){
+        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+        conveyorPage.createConveyorWithRequiredField(conveyorName, distShopName, custSiteName);
+    }
+
+    @QAFTestStep(description="Create a new conveyor with {ConveyorName1} and {DistShopAusName} and {CustSiteNZName}")
+    public void createAnewConveyorWithRequiredFields(String conveyorName, String distShopName, String custSiteName){
+        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+        conveyorPage.createConveyorWithRequiredField(conveyorName, distShopName, custSiteName);
+        conveyorPage.clickSaveBtn();
+    }
+
+
+
+    @QAFTestStep(description="Create a duplicate conveyor with {ConveyorName1} and {DistShopAusName} and {CustSiteNZName}")
+    public void createADuplicateConveyor(String conveyorName, String distShopName, String custSiteName){
+        conveyorPage.waitForPageLoad(10000);
+        conveyorPage.createDuplicateConveyor(conveyorName,distShopName,custSiteName);
+    }
+
     @QAFTestStep(description="Verify conveyor technical data with {ConveyorName1}")
     public void verifyTechnicalData(String conveyorName){
         conveyorPage.verifyTechnicalData(conveyorName);
@@ -155,6 +178,14 @@ public class ConveyorSteps {
         conveyorPage.goToConveyorListScreen();
     }
 
+
+    @QAFTestStep(description="Navigate to conveyor list screen and search for the created conveyor {ConveyorName1}")
+    public void navigateToConveyorListScreenAndSearch(String conveyor){
+        conveyorPage.goToConveyorListScreenAndWait();
+        conveyorPage.searchConveyor(conveyor);
+        conveyorPage.navigateToAddConveyorPage();
+    }
+
     @QAFTestStep(description="verify user {Email} is able to add new layout for {Corporates} {BeltWidth} {Rating} {Length} with {Layout_Name}")
     public void verifyAddLayout(String email, String corporates, String beltWidth, String rating, String length, String layoutName){
         String userId= conveyorPage.apiBase.getUserProfileAPI(email);
@@ -186,6 +217,108 @@ public class ConveyorSteps {
     public void verifySavedPreference(){
         Validator.assertTrue(conveyorPage.verifyFilters(),"All saved filters are not available in layout","All filters were successfully verified");
     }
+
+    @QAFTestStep(description="Verify the bread crumb of add conveyor page")
+    public void verifyBreadCrumbOfConveyor(){
+       conveyorPage.verifyConveyorBreadCrumb();
+    }
+
+    @QAFTestStep(description="Verify that  GPS Coordinates Head and GPS Coordinates Tail with lat and long is visible")
+    public void verifyHeadAndTailCoordinatesVisible(){
+        conveyorPage.verifyGPSCoordinatesVisibility();
+    }
+
+    @QAFTestStep(description="User selects a site {SiteName} from the dropdown")
+    public void selectSiteNameFromDropDown(String siteName){
+        conveyorPage.clickSiteDropDown();
+        conveyorPage.selectSiteName(siteName);
+    }
+
+    @QAFTestStep(description="Verify that map should display the location of site {SiteName}")
+    public void verifyMapLocation(String siteName){
+        conveyorPage.verifyMapDisplaysSiteLocation(siteName);
+    }
+
+    @QAFTestStep(description="Zoom in and out to reach conveyor location")
+    public void clickOnZoomInAndOut(){
+        conveyorPage.clickOnZoomIn();
+        conveyorPage.clickOnZoomOut();
+    }
+    @QAFTestStep(description="Click on map to set position of head and verify prefilled value for lat and long is displayed")
+    public void clickOnMapAndVerifyPrefilledHeadValues(){
+        conveyorPage.clickOnMap();
+        conveyorPage.verifyPrefilledValuesDisplayed();
+    }
+
+    @QAFTestStep(description="Click on location type and select head value from the dropdown")
+    public void clickAndSelectLocationHead(){
+        conveyorPage.clickOnLocationType();
+        conveyorPage.selectLocationTypeHead();
+    }
+
+    @QAFTestStep(description="Click on add marker button and verify GPS Coordinates Head is updated with lat long value")
+    public void addMarkerClickAndVerifyHeadCoordinates(){
+        conveyorPage.addMarkerBtnClick();
+        conveyorPage.verifyUpdatedGPSHead();
+    }
+
+    @QAFTestStep(description="Click on map to set position of tail and verify prefilled value for lat and long is displayed")
+    public void clickOnMapAndVerifyPrefilledTailValues(){
+        conveyorPage.clickOnMap();
+        conveyorPage.verifyPrefilledValuesDisplayed();
+    }
+
+    @QAFTestStep(description="Click on location type and select tail value from the dropdown")
+    public void clickAndSelectLocationTail(){
+        conveyorPage.clickOnLocationTwoType();
+        conveyorPage.selectLocationTypeTail();
+    }
+
+    @QAFTestStep(description="Click on add marker button and verify GPS Coordinates Tail is updated with lat long value")
+    public void addMarkerClickAndVerifyTailCoordinates(){
+        conveyorPage.addMarkerBtnClick();
+        conveyorPage.verifyUpdatedGPSTail();
+    }
+
+
+    @QAFTestStep(description="Verify that user should get an error message while creating duplicate conveyor")
+    public void verifyDuplicateConveyorCreation(){
+        conveyorPage.verifyErrorMessageIsDisplayed();
+    }
+
+    @QAFTestStep(description="Click on remarks radio button and click on save and close")
+    public void clickRemarksBtnAndClickSaveAndClose(){
+        conveyorPage.remarksBtnClick();
+        conveyorPage.clickOnSaveAndCloseBtn();
+    }
+
+    @QAFTestStep(description="Verify that user should get conveyor site card")
+    public void verifyConveyorSiteNavigation(){
+        conveyorPage.verifyNavigationToConveyorSiteCard();
+    }
+
+    @QAFTestStep(description="Click on remarks radio button and click on previous button")
+    public void clickRemarksBtnAndClickPreviousBtn(){
+        conveyorPage.remarksBtnClick();
+        conveyorPage.previousBtnClick();
+    }
+
+    @QAFTestStep(description="Verify user is navigated to transitions add page")
+    public void verifyTransitionPageNavigation(){
+        conveyorPage.verifyTransitionPage();
+    }
+
+    @QAFTestStep(description="Add data value in header as imperial")
+    public void AddTheDataAsImperial(){
+        conveyorPage.addDataAsImperial();
+    }
+
+    @QAFTestStep(description="Verify data value in header as {Unit} in Add Conveyor")
+    public void verifyTheDataInHeaderUnitInAddConveyor(String unit){
+        conveyorPage.verifyDataHeaderUnitInAddConveyor(unit);
+    }
+
+
 
 
 }

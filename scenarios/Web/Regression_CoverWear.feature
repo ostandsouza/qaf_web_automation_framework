@@ -82,4 +82,106 @@ Scenario: Verify the count displayed in cover wear card
     Look for the count displayed in green of durometer and verify the count
 
 
+@Regression7 @CTCP-1425
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Position
+Scenario: Verify bread crumb
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
+    Then Click on conveyor position '${Position}' and navigate to position screen
+    And Verify the bread crumb of cover wear position page with position '${Position}' conveyor '${ConveyorName}' site '${CustSiteName}' corporate '${CustCorp}'
+    And Verify user navigates to respective page on bread crumb click
+
+
+@Regression8 @CTCP-1428
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Position
+Scenario: Verify data displayed in Gauge meter in case measurement already exist
+
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
+    Then Extract the data from the position '${Position}' and navigate to position detail page
+    Then Verify Gauge image is displayed in specification field
+    And Verify that all the data is displayed in the gauge meter
+    And Verify the data in gauge meter matches with data in the position detail page
+
+@Regression9 @CTCP-1445
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_AddMeasurementDetails
+Scenario: Verify user is able to add device details while adding measurement
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
+    Then Click on conveyor position '${Position}' and navigate to position screen
+    And Click on add new measurement and verify the pop-up to add measurement is visible
+    And Verify fields to add device details is displayed
+    When User adds the value for instrument '${Instrument}' velocity '${Velocity}' Calibration thickness '${CalibrationThickness}' surfaceTemperature '${SurfaceTemperature}' test Position '${TestPosition}'
+    And Add readings durometer values '${DurometerValue}' and '${Value}'
+    And Click on save button and verify measurement is saved
+    Then Click on edit button and verify measurement popup is opened with user saved data '${SurfaceTemperature}' '${TestPosition}'
+    And Click on delete button to delete the added measurement value
+
+
+@Regression10 @CTCP-1431
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_AddMeasurementDetails
+Scenario: Verify enter in table for installed data
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
+    And Extract the installed date data from the position '${Position}' and navigate to position detail page
+    Then Verify the installed date in the table is same as installed date in the position detail screen
+    And Verify edit and attachment link should be displayed for installed date entry row
+    And Click on edit link user should be able to edit the measurement details '${Thickness}' '${DurometerVal}'
+    And Click on attachment link user should be able to upload image
+
+@Regression11 @CTCP-1440
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_AddMeasurementImage
+Scenario: Verify attachment functionality
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
+    Then Click on conveyor position '${Position}' and navigate to position screen
+    And Look for measurement table and verify data is available in measurement table
+    And Look for attachment link and verify the background is highlighted when image is not attached
+    And Click link to upload image '${imgName}' and Click save button and verify image is uploaded
+    And Verify the background color is removed after the image is uploaded
+    When Click on add icon button and verify user is able to add more attachment '${imgNameTwo}'
+    Then Look for more attachment file in corosal additional image should be displayed
+    And Click on image below in the corrosal respective image should get maximized
+    And Click on delete button at the top and verify respective image should be deleted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

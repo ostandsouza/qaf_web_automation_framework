@@ -386,7 +386,7 @@ Scenario: Verify breadcrumb of inspection
        Given User is at Login page
        When  Login with '${UserName}' and '${Password}'
        And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
-       Then Click on conveyor name in breadcrumb anf verify it navigates to conveyor technical data screen
+       Then Click on conveyor '${ConveyorName}' name in breadcrumb anf verify it navigates to conveyor technical data screen
        And Click on Inspection tile and verify it displays only corresponding conveyor '${ConveyorName}' inspections
        And Click on site name in breadcrumb anf verify it navigates to site page
        And Click on Inspection tile and verify it displays only corresponding site '${CustSiteName}' inspections

@@ -350,8 +350,8 @@ public class InspectionSteps {
 		inspectionpage.verifyUploadedImage();
 	}
 
-	@QAFTestStep(description="Click on conveyor name in breadcrumb anf verify it navigates to conveyor technical data screen")
-	public void clickOnConveyorBreadCrumbAndVerify(){
+	@QAFTestStep(description="Click on conveyor {ConveyorName} name in breadcrumb anf verify it navigates to conveyor technical data screen")
+	public void clickOnConveyorBreadCrumbAndVerify(String conveyorName){
 		inspectionpage.conveyorNameClick();
 		inspectionpage.verifyConveyorPageNavigation();
 	}

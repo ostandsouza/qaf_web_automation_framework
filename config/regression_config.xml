@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding ="UTF-8"?> 
+<?xml version="1.0" encoding ="UTF-8"?>
 
 
 <suite name="Regression Flow Test" verbose="0">
@@ -166,11 +166,44 @@
 			<run>
 
 				<include name="CTCP-1363" />
-				<include name="CTCP-1364" />
 				<include name="CTCP-1373" />
 				<include name="CTCP-1374" />
 				<include name="CTCP-1375" />
 				<include name="CTCP-1376" />
+				<include name="CTCP-1364" />
+				<include name="CTCP-1425" />
+				    <include name="CTCP-1428" />
+				<include name="CTCP-1445" />
+				<include name="CTCP-1431" />
+				<include name="CTCP-1440" />
+
+
+
+
+
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+
+
+	<test name="Add Conveyor testcases" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<parameter name="env.resources" value="resources/env_dev" />
+		<groups>
+			<run>
+
+				<include name="CTCP-1865" />
+				<include name="CTCP-1920" />
+				<include name="CTCP-1868" />
+				<include name="CTCP-1924" />
+				<include name="CTCP-1918" />
+				<include name="CTCP-1922" />
+
 
 			</run>
 		</groups>

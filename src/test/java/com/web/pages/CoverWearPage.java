@@ -4,6 +4,7 @@ import com.common.component.CustomElement;
 import com.common.utils.ClasspathResourceHelper;
 import com.common.utils.PDFHelper;
 import com.common.utils.SyncUtil;
+import com.qmetry.qaf.automation.core.ConfigurationManager;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
@@ -27,6 +28,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.io.File.separator;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.abs;
@@ -524,6 +526,132 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[3]/div[@class='conti-round'])[1]")
     public CustomElement redCountValue;
 
+    @FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+    public CustomElement positionBreadcrumb;
+
+    @FindBy(locator="xpath=//span[text()='CS Common Regression']")
+    public CustomElement conveyorBreadCrumb;
+
+    @FindBy(locator="xpath=//div[@class='gauge-container']//app-durometer")
+    public CustomElement imgGaugeMeter;
+
+    @FindBy(locator="xpath=//td[8]//span[@class=\"durometer\"]")
+    public CustomElement txtValDurometer;
+    @FindBy(locator="xpath=//td[9]/span")
+    public CustomElement txtValRemainingLife;
+
+    @FindBy(locator="xpath=//td[10]//app-durometer//*//div//span\n")
+    public CustomElement txtValRemainingCover;
+
+    @FindBy(locator="xpath=//div[@class=\"gauge-container\"]//*//div//span")
+    public CustomElement gaugeValRemainingCover;
+
+    @FindBy(locator="xpath=//div[@class=\"gauge-container\"]//*//div[@class=\"bottom-label\"]//span")
+    public CustomElement gaugeValRemainingLife;
+
+    @FindBy(locator="xpath=//span[normalize-space()='45 Durometer']")
+    public CustomElement gaugeValDurometer;
+
+    @FindBy(locator="xpath=//div[@class=\"gauge-container\"]//div[@class=\"rating\"]")
+    public CustomElement gaugePercentageRange;
+
+    @FindBy(locator="xpath=//div[@role=\"tablist\"]//button[@icon=\"ctp-icon-Add-circle\"]")
+    public CustomElement btAddMeasurement;
+
+    @FindBy(locator="xpath=//div[@role=\"dialog\" and contains(@class,\"p-dialog\")]")
+    public CustomElement measurementPopup;
+
+    @FindBy(locator="xpath=//input[@formcontrolname=\"deviceType\"]")
+    public CustomElement tbDeviceType;
+    @FindBy(locator="xpath=//input[@formcontrolname=\"velocity\"]")
+    public CustomElement tbVelocity;
+    @FindBy(locator="xpath=//input[@formcontrolname=\"calibrationThickness\"]")
+    public CustomElement tbCalibrationThickness;
+
+    @FindBy(locator="xpath=//input[@formcontrolname=\"surfaceTemperature\"]")
+    public CustomElement tbSurfaceTemperature;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='testPosition']")
+    public CustomElement tbTestPosition;
+
+    @FindBy(locator="//td[@id='durometer']//input")
+    public CustomElement inpdurometerValue;
+
+    @FindBy(locator="//button//span[text()=\"Save\"]")
+    public CustomElement btnSave;
+
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[4]//*//button[@icon=\"ctp-icon-Edit\"]")
+    public CustomElement btnEdit;
+
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[2]//*//button[@icon=\"ctp-icon-Attachments\"]")
+    public CustomElement btnAttachmentLink;
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[2]//*//button[@icon=\"ctp-icon-Edit\"]")
+    public CustomElement btnEditLink;
+
+    @FindBy(locator="(//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[4])[1]")
+    public CustomElement trAddedMeasurement;
+
+    @FindBy(locator="//table[@role=\"table\"]//tbody//tr//td[3]")
+    public CustomElement tdInstalledDateTableValue;
+
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[2]//td[2]")
+    public CustomElement tdInstalledDateDetailValue;
+
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[4]//*//button[@icon=\"ctp-icon-Delete\"]")
+    public CustomElement btnDelete;
+
+    @FindBy(locator="//button[contains(@class,\"p-dialog-header-close\")]")
+    public CustomElement btnClose;
+
+    @FindBy(locator="//p-confirmdialog[@header=\"Confirmation\"]")
+    public CustomElement dialogConfirm;
+
+    @FindBy(locator = "//button[contains(@class,\"p-confirm-dialog-accept\")]")
+    public CustomElement dialogConfirmAccept;
+
+    @FindBy(locator ="//app-wear-measurements//p-panel[@styleclass=\"wear-measurements-header\"]")
+    public CustomElement wearMeasurementTable;
+
+    @FindBy(locator = "(//app-wear-measurements//p-panel[@styleclass=\"wear-measurements-header\"]//*//table//td[2])[1]")
+    public CustomElement wearMeasurementTableData;
+
+    @FindBy(locator = "//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[3]//*//button[@icon=\"ctp-icon-Attachments\" and @disabled]")
+    public CustomElement lnkAttachmentDisabled;
+
+    @FindBy(locator = "//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[3]//*//button[@icon=\"ctp-icon-Attachments\"]")
+    public CustomElement lnkAttachmentEnabled;
+
+    @FindBy(locator = "//app-image-viewer[@cssclassname=\"wrapper-image\"]")
+    public CustomElement uploadedImage;
+
+    @FindBy(locator = "//app-measurement-attachments//button[@icon=\"ctp-icon-Add-circle\"]")
+    public CustomElement btnAddMoreAttachments;
+
+//    @FindBy(locator = "(//div[contains(@class,'image-list-container-outer')]//div[@class='image-list-container']//img[contains(@class,'thumbnail')])[2]")
+//    public CustomElement corrosalImage;
+
+    @FindBy(locator = "//div[@class='image-list-container']//img[2]")
+    public CustomElement corrosalImage;
+
+    @FindBy(locator = "//div[@class='view-image-container']//img")
+    public CustomElement corrosalViewImage;
+
+    @FindBy(locator = "//app-measurement-attachments//button[@icon='ctp-icon-Delete']")
+    public CustomElement btnCorrosalDeleteImg;
+
+    @FindBy(locator = "//button[@icon=\"pi pi-trash\"]")
+    public CustomElement btnMeasurementImageDelete;
+
+    @FindBy(locator = "//button[contains(@class,\"p-dialog-header-close\")]")
+    public CustomElement btnDialogClose;
+
+
+
+
+
+
+
+
 
 
     public void goToCoverWearScreen(){
@@ -996,6 +1124,13 @@ public class CoverWearPage extends BasePage{
         cwTableView.click("View Icon");
         positionHeader.isVisible("Position Header");
     }
+    public void positionDetailsClick()
+    {
+        cwTableView.click("View Icon");
+        positionHeader.isVisible("Position Header");
+        waitForPageLoad(10000);
+
+    }
 
     public void selectGivenDate(String date) {
         String day = null;
@@ -1185,7 +1320,7 @@ public class CoverWearPage extends BasePage{
     }
 
     public boolean verifyAttachmentFunctionality() {
-        attachmentBtn.click("Attachment Btn");
+        attachmentBtn.jsClick("Attachment Btn");
         return imgDialog.isVisible("Image dialog");
     }
 
@@ -1196,12 +1331,14 @@ public class CoverWearPage extends BasePage{
 
     public boolean editMeasurement() {
         scrollPageup();
-        editBtn.click("Edit Measurement");
+        editBtn.jsClick("Edit Measurement");
         return cwConveyorInput.isVisible("Conveyor Inout");
     }
 
     public boolean editFunctionality(String thickness, String durometer) {
+        durometerMeasurement.stream().forEach(x->x.clear());
         durometerMeasurement.stream().forEach(x -> x.sendKeys(durometer));
+        dataPoints.stream().forEach(x->x.clear());
         dataPoints.stream().forEach(x -> x.sendKeys(thickness));
         cwSave.click("Save");
         return !cwConveyorInput.isNotVisible(1000);
@@ -1300,7 +1437,7 @@ public class CoverWearPage extends BasePage{
     public void verifySearchItem() {
         try {
             waitForPageLoad(10000);
-            SyncUtil.waitFor(20000);
+            SyncUtil.waitFor(25000);
             waitForElementVisible(cwCheckboxes,20000,500);
             waitForElementToDisplay(cwCheckboxes);
 
@@ -1574,6 +1711,305 @@ public class CoverWearPage extends BasePage{
         String numericText = text.replaceAll("\\D", ""); // This removes all non-digit characters
         return parseInt(numericText);
 
+    }
+    public void verifyPositionBreadCrumb(String position,String conveyor,String site,String corporate)
+    {
+        waitForElementVisible(positionBreadcrumb,10000,500);
+        Validator.assertTrue(positionBreadcrumb.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb text is displayed");
+        Assert.assertEquals(positionBreadcrumb.getText(), "Home\nCorporates\n"+corporate+"\n"+site+"\n"+conveyor+"\n"+position, "Breadcrumb text does not match expected");
+
+
+    }
+
+    public void conveyorNameClick()
+    {
+        waitForElementVisible(conveyorBreadCrumb,5000,500);
+        conveyorBreadCrumb.jsClick("Conveyor name");
+
+    }
+
+    public void verifyGaugeImageInSpec(){
+        waitForPageLoad(5000);
+        waitForElementVisible(imgGaugeMeter,10000,1000);
+        Validator.assertTrue(imgGaugeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
+    }
+
+
+
+    public void extractPositionData()
+    {
+        waitForElementVisible(txtValDurometer,5000,500);
+         String duro_meterValue=txtValDurometer.getText();
+         getBundle().setProperty("durometerTxtValue",duro_meterValue);
+        System.out.println(duro_meterValue+"durometer value variable");
+        System.out.println(txtValDurometer.getText()+"durometer value");
+
+        waitForElementVisible(txtValRemainingLife,5000,500);
+        String remainingLifeValue=  txtValRemainingLife.getText();
+        getBundle().setProperty("remainingLifeTxtValue",remainingLifeValue);
+        System.out.println(remainingLifeValue+"txtValRemainingLife value variable");
+        System.out.println(txtValRemainingLife.getText()+"txtValRemainingLife value");
+
+        waitForElementVisible(txtValRemainingCover,5000,500);
+         String remainingCoverValue=txtValRemainingCover.getText();
+         getBundle().setProperty("remainingCoverTxtValue",remainingCoverValue);
+        System.out.println(remainingCoverValue+"txtValRemainingCover value variable");
+        System.out.println(txtValRemainingCover.getText()+"txtValRemainingCover value");
+
+    }
+    public void verifyDataInGaugeMeter()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(gaugeValRemainingCover,10000,500);
+        Validator.assertTrue(gaugeValRemainingCover.isVisible(),"The remaining cover % value is not displayed in gauge image","The remaining cover % value is  displayed in gauge image");
+        Validator.assertTrue(gaugeValRemainingLife.isVisible(),"The remaining life value is not displayed in gauge image","The remaining life value is  displayed in gauge image");
+        Validator.assertTrue(gaugeValDurometer.isVisible(),"The duro meter value is not displayed in gauge image","The duro meter value is  displayed in gauge image");
+        Validator.assertTrue(gaugePercentageRange.isVisible(),"The duro meter range value is not displayed in gauge image","The duro meter range value is displayed in gauge image");
+    }
+
+    public void verifyGaugeDataAndTableData()
+    {
+        String actualDurometerText = gaugeValDurometer.getText().toString();
+        String actualNumericDurometerValue = actualDurometerText.split("\\s+")[0];
+        Assert.assertEquals(getBundle().getProperty("durometerTxtValue"),actualNumericDurometerValue,"the duro meter values are not same");
+        Assert.assertEquals(getBundle().getProperty("remainingCoverTxtValue"),gaugeValRemainingCover.getText(),"the remaining cover  values are not same");
+        Assert.assertEquals(getBundle().getProperty("remainingLifeTxtValue"),gaugeValRemainingLife.getText(),"the remaining life values are not same");
+
+    }
+
+    public void btnAddMeasurementClick()
+    {
+        waitForElementVisible(btAddMeasurement,10000,500);
+        btAddMeasurement.jsClick();
+
+    }
+
+    public void verifyAddMeasurementPopupVisible()
+    {
+        waitForElementVisible(measurementPopup,10000,500);
+        Validator.assertTrue(measurementPopup.isVisible(),"the add measurement popup is not visible","the add measurement popup is visible");
+
+    }
+
+    public void verifyAddDetailsFields()
+    {
+        waitForElementVisible(tbDeviceType,10000,500);
+        Validator.assertTrue(tbDeviceType.isVisible(),"The deviceType field is not visible","The deviceType field is  visible");
+        Validator.assertTrue(tbVelocity.isVisible(),"The velocity field is not visible","The velocity field is  visible");
+        Validator.assertTrue(tbCalibrationThickness.isVisible(),"The CalibrationThickness field is not visible","The CalibrationThickness field is  visible");
+        Validator.assertTrue(tbSurfaceTemperature.isVisible(),"The SurfaceTemperature field is not visible","The SurfaceTemperature field is  visible");
+        Validator.assertTrue(tbTestPosition.isVisible(),"The TestPosition field is not visible","The TestPosition field is  visible");
+
+    }
+    public void addDeviceMeasurementValues(String instrument,String velocity,String calibrationThickness,String surfaceTemperature,String testPosition)
+    {
+        waitForElementVisible(tbDeviceType,10000,500);
+        tbDeviceType.type(instrument,"device type");
+        tbVelocity.type(velocity,"velocity");
+        tbCalibrationThickness.type(calibrationThickness,"calibrationThickness");
+        tbSurfaceTemperature.type(surfaceTemperature,"surfaceTemperature");
+        tbTestPosition.type(testPosition,"testPosition");
+
+    }
+    public void typeReadingValues(String value){
+        for(int i=1;i<8;i++)
+        {
+            WebElement reading=  driver.findElement(By.xpath("(//td[@id='datapointmeasurement']//input)["+i+"]"));
+//            reading.clear();
+            reading.sendKeys(value);
+        }
+    }
+    public void addMeasurementReadingsValue(String durometerValue,String value){
+        waitForPageLoad(5000);
+        waitForElementVisible(inpdurometerValue,10000,1000);
+        inpdurometerValue.type(durometerValue);
+        typeReadingValues(value);
+    }
+
+    public void btnSaveClick()
+    {
+        SyncUtil.waitFor(5000);
+        waitForElementVisible(btnSave,10000,500);
+        btnSave.jsClick();
+        waitForPageLoad(10000);
+
+    }
+    public void btnEditClick()
+    {
+        waitForPageLoad(10000);
+        SyncUtil.waitFor(5000);
+//        waitForElementVisible(trAddedMeasurement,10000,500);
+        waitForElementVisible(btnEdit,10000,500);
+        waitForElementToBeClickable(btnEdit);
+        btnEdit.jsClick();
+    }
+
+    public void verifyUserEnteredData(String surfaceTemperature,String position)
+    {
+        waitForPageLoad(10000);
+        SyncUtil.waitFor(10000);
+        waitForElementVisible(tbSurfaceTemperature,10000,500);
+        System.out.println(tbSurfaceTemperature.getAttribute("value")+"TESTPOSITIONVALUE");
+        //SHOWING EMPTY
+        Assert.assertEquals(surfaceTemperature,tbSurfaceTemperature.getAttribute("value"),"the user entered data is not present");
+
+    }
+
+    public void extractDateValue() {
+        waitForElementVisible(tdInstalledDateTableValue, 10000, 500);
+        String installedDate = tdInstalledDateTableValue.getText();
+
+        // Parse the date from the original format "24 Apr 2024"
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM, dd, yyyy");
+        try {
+            Date date = inputFormat.parse(installedDate);
+            String formattedDate = outputFormat.format(date);
+
+            // Store the formatted date in properties or wherever needed
+            getBundle().setProperty("installedDateTb", formattedDate);
+            System.out.println(getBundle().getProperty("installedDateTb")+"value of installed date");
+        } catch (ParseException e) {
+            // Handle parsing exception
+            e.printStackTrace();
+        }
+    }
+
+    public void verifyInstalledDates()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(tdInstalledDateDetailValue,10000,500);
+        String actualText = tdInstalledDateDetailValue.getText();
+        String actualDate = actualText.replace("(Installed date)", "").trim(); // Remove prefix and trim whitespace
+        Assert.assertEquals(getBundle().getProperty("installedDateTb"), actualDate, "The installed dates don't match");
+
+    }
+
+    public void  verifyAttachmentLinkVisible()
+    {
+        waitForElementVisible(btnAttachmentLink,10000,500);
+        Validator.assertTrue(btnAttachmentLink.isVisible(),"The attachment link is not visible for installed data","The attachment link is visible for installed data");
+
+    }
+
+    public void  verifyEditLinkVisible()
+    {
+        waitForElementVisible(btnEditLink,10000,500);
+        Validator.assertTrue(btnEditLink.isVisible(),"The edit link is not visible for installed data","The edit link is visible for installed data");
+
+    }
+
+    public void btnCloseClick()
+    {
+        waitForElementVisible(btnClose,1000,500);
+        waitForElementToBeClickable(btnClose);
+        btnClose.jsClick();
+        waitForPageLoad(10000);
+    }
+
+    public void btnDeleteClick()
+    {
+        waitForElementVisible(btnDelete,10000,500);
+        waitForElementToBeClickable(btnDelete);
+        btnDelete.jsClick();
+        waitForElementVisible(dialogConfirm,10000,500);
+        Validator.assertTrue(dialogConfirm.isVisible(),"The dialog to delete measurement is not visible","The dialog to delete measurement is visible");
+        waitForElementVisible(dialogConfirmAccept,10000,500);
+        dialogConfirmAccept.jsClick();
+        Validator.assertTrue(btnEdit.verifyNotPresent(),"The measurement is not deleted","The measurement is deleted");
+    }
+
+    public void editBtnClick()
+    {
+        waitForElementVisible(btnEditLink,10000,500);
+        btnEditLink.jsClick();
+
+    }
+
+    public void verifyMeasurementTableData()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(wearMeasurementTable,10000,500);
+        Validator.assertTrue(wearMeasurementTable.isVisible(),"The wear measurement table is not visible","The wear measurement table is  visible");
+        SyncUtil.waitFor(5000);
+        waitForElementVisible(tdInstalledDateDetailValue,10000,500);
+        Validator.assertTrue(tdInstalledDateDetailValue.isVisible(),"The wear measurement table data is visible","The wear measurement table data is  visible");
+    }
+    public void verifyAttachmentHighlight()
+    {
+        waitForElementVisible(lnkAttachmentDisabled,10000,500);
+        Validator.assertTrue(lnkAttachmentDisabled.isVisible(),"The background is not highlighted","The background is highlighted");
+
+    }
+
+    public void verifyUploadedImage()
+    {
+        waitForPageLoad(20000);
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(lnkAttachmentDisabled.verifyNotPresent(),"The image upload is not successfull","The image upload is successfull");
+    }
+
+    public void verifyAttachBackgroundRemoved()
+    {
+        waitForPageLoad(20000);
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(lnkAttachmentDisabled.verifyNotPresent(),"The image upload is not successfull","The image upload is successfull");
+    }
+
+    public void addMoreAttachmentsClick()
+    {
+        waitForElementVisible(btnAddMoreAttachments,10000,500);
+        btnAddMoreAttachments.jsClick("add more attachments");
+        waitForPageLoad(10000);
+
+    }
+
+    public void verifyAttachmentImageUploaded()
+    {
+        waitForElementToInvisible(progressLoader,20000);
+        waitForElementVisible(corrosalImage,20000,1000);
+        Validator.assertTrue(corrosalImage.isVisible(),"Additional images is not displayed","Additional images is displayed");
+
+    }
+
+    public void clickImageInCorrosal()
+    {
+        waitForElementVisible(corrosalImage,20000,1000);
+        corrosalImage.click();
+    }
+
+    public void verifyCorrosalImageMaximazed()
+    {
+        waitForElementVisible(corrosalImage,20000,1000);
+        waitForElementVisible(corrosalViewImage,20000,1000);
+        corrosalImage.click();
+        Validator.assertTrue(corrosalImage.getAttribute("src").equalsIgnoreCase(corrosalViewImage.getAttribute("src")),"Image is not maximized","Image is maximized");
+    }
+
+    public void clickOnDeleteAndVerify()
+    {
+        waitForElementVisible(btnCorrosalDeleteImg,20000,1000);
+        waitForElementToBeClickable(btnCorrosalDeleteImg);
+        btnCorrosalDeleteImg.click();
+        waitForElementVisible(dialogConfirmAccept,10000,500);
+        dialogConfirmAccept.jsClick();
+        waitForElementToInvisible(progressLoader,20000);
+        System.out.println(corrosalImage.verifyNotPresent()+"aaaa");
+        Validator.assertTrue(corrosalImage.verifyNotPresent(),"Images is not deleted","Images is deleted");
+        waitForElementVisible(btnDialogClose,10000,500);
+        btnDialogClose.jsClick();
+        waitForPageLoad(10000);
+
+    }
+
+    public void deleteMeasurementImage()
+    {
+        waitForElementVisible(btnMeasurementImageDelete,10000,500);
+        btnMeasurementImageDelete.jsClick();
+        SyncUtil.waitFor(10000);
+        btnSaveClick();
+        waitForPageLoad(20000);
+        verifyAttachmentHighlight();
     }
 
 

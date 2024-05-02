@@ -12,11 +12,14 @@ import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static java.io.File.separator;
+import static org.testng.Assert.assertEquals;
 
 public class ConveyorPage extends BasePage{
 
@@ -652,6 +655,107 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Analyzing Conveyors']")
     public CustomElement analysingConveyors;
 
+    @FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component' and contains(., \"Conveyors\")]")
+    public CustomElement conveyorBreadCrumb;
+
+    @FindBy(locator = "xpath=(//label[@for='firstname2 '])[1]")
+    public CustomElement txtGPSHead;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']//input[@formcontrolname='longitude'])[1]")
+    public CustomElement tbHeadLong ;
+
+    @FindBy(locator = "xpath=(//div[@class=\"p-inputgroup\"]//input[@formcontrolname=\"latitude\"]\n)[1]")
+    public CustomElement tbHeadLat;
+
+    @FindBy(locator = "xpath=(//div[@class='p-inputgroup']//input[@formcontrolname='longitude'])[2]")
+    public CustomElement tbTailLong ;
+
+    @FindBy(locator = "xpath=(//div[@class=\"p-inputgroup\"]//input[@formcontrolname=\"latitude\"]\n)[2]")
+    public CustomElement tbTailLat;
+
+    @FindBy(locator = "xpath=//label[@for='firstname2' and contains(text(), 'GPS Coordinates Tail')]")
+    public CustomElement txtGPSTail;
+
+    @FindBy(locator = "xpath=//input[contains(@class, 'p-dropdown-filter') and contains(@class, 'p-inputtext') and contains(@class, 'p-component')]\n")
+    public CustomElement btSiteSearchInput;
+    @FindBy(locator = "//button[@title='Zoom in']")
+    public CustomElement btnZoomIn;
+
+    @FindBy(locator = "//button[@title='Zoom out']")
+    public CustomElement btnZoomOut;
+
+//    @FindBy(locator = "//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
+//    public CustomElement mapArea;
+
+    @FindBy(locator ="//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
+    public CustomElement mapLocation;
+
+    @FindBy(locator = "//div[@role='dialog']")
+    public CustomElement positionDialog;
+
+    @FindBy(locator = "//input[@id='lat' and contains(@class, 'p-filled')]")
+    public CustomElement tbLatValue;
+
+    @FindBy(locator = "//input[@id='lng' and contains(@class, 'p-filled')]")
+    public CustomElement tbLongValue;
+
+    @FindBy(locator = "//p-dropdown[@class='p-element p-inputwrapper']//div[@aria-label='dropdown trigger']")
+    public CustomElement ddlLocationType;
+
+    @FindBy(locator = "//p-dropdown[@class='p-element p-inputwrapper p-inputwrapper-filled']//div[@class='p-dropdown p-component']")
+    public CustomElement ddlLocationTwoType;
+
+    @FindBy(locator = "//li[@aria-label=\"Head\"]")
+    public CustomElement optionsHead;
+
+    @FindBy(locator = "//li[@aria-label=\"Tail\"]")
+    public CustomElement optionsTail;
+
+    @FindBy(locator = "//button[@label=\"Add Marker\"]")
+    public CustomElement btnAddMarker;
+
+    @FindBy(locator = "//input[@formcontrolname=\"latitude\" and contains(@class,'p-filled')]")
+    public CustomElement tbFilledHeadLat;
+
+    @FindBy(locator = "//div[@formgroupname='tail']/descendant::span[@class='p-inputgroup-addon'][normalize-space()='Lat']/following-sibling::input[contains(@class,\"p-filled\")]\n")
+    public CustomElement tbFilledTailLat;
+
+    @FindBy(locator = "//input[@formcontrolname=\"longitude\" and contains(@class,'p-filled')]")
+    public CustomElement tbFilledHeadLong;//div[@formgroupname='tail']/descendant::span[@class='p-inputgroup-addon'][normalize-space()='Lon']/following-sibling::input[contains(@class,"p-filled")]
+    @FindBy(locator = "//div[@formgroupname='tail']/descendant::span[@class='p-inputgroup-addon'][normalize-space()='Lon']/following-sibling::input[contains(@class,\"p-filled\")]")
+    public CustomElement tbFilledTailLong;
+
+    @FindBy(locator = "//div[contains(@class, \"p-toast-detail\") and contains(text(), \"Failed to create conveyor: Conveyor already exists\")]")
+    public CustomElement conveyorErrorMsg;
+
+    @FindBy(locator="xpath=//div[contains(@class,'p-panel-header') and .//span[contains(text(),'Cust Automation Common India')]]")
+    public CustomElement siteHeader;
+
+    @FindBy(locator = "//button[@icon=\"pi pi-angle-left\"]")
+    public CustomElement btnPrevious;
+
+    @FindBy(locator="xpath=//li[@class='topbar-item scale']")
+    public CustomElement unitIcon;
+
+    @FindBy(locator="xpath=//h6[text()='Metric']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
+    public CustomElement cbMetricUnit;
+
+    @FindBy(locator="xpath=//h6[text()='Imperial']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
+    public CustomElement cbImperialUnit;
+
+    @FindBy(locator="xpath=//h6[text()='Imperial']")
+    public CustomElement btImperialUnit;
+
+    @FindBy(locator="//label[@for='firstname2']/../div//app-master-data-picker/../span")
+    public CustomElement unitIconConveyor;
+
+
+
+
+
+
+
+
     public void goToConveyorListScreen(){
         if(!conveyorList.isVisible())
             home.click("Home");
@@ -661,6 +765,7 @@ public class ConveyorPage extends BasePage{
 
     public void goToAddConveyor(){
         addConveyors.click("Add Conveyors");
+        waitForPageLoad(10000);
         tbConveyorname.isVisible("Conveyor Name");
     }
 
@@ -688,6 +793,19 @@ public class ConveyorPage extends BasePage{
         btSaveandclose.click("Save & Close");
         waitForElementToInvisible(buttonLoader,40000);
         btSearchinput.isVisible("Conveyor list screen");
+    }
+
+    public void createDuplicateConveyor(String conveyorName, String distShopName, String custSiteName) {
+        enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
+        btSaveandclose.click("Save & Close");
+    }
+
+    public void clickSaveBtn()
+    {
+        waitForElementVisible(btSaveandclose,10000,500);
+        btSaveandclose.click("Save & Close");
+        waitForPageLoad(20000);
+
     }
 
     public void createConveyorWithImg(String conveyorName, String distShopName, String custSiteName, String img) {
@@ -723,8 +841,17 @@ public class ConveyorPage extends BasePage{
     public boolean searchConveyor(String conveyorName){
         goToConveyorListScreenAndWait();
         btSearchinput.type(conveyorName, "Conveyor Search");
+        SyncUtil.waitFor(10000);
+        waitForElementVisible(crCheckbox,20000,500);
         waitForElementToDisplay(crCheckbox);
         return crCheckbox.isVisible("Conveyor Found");
+    }
+    public void searchSite(String siteName)
+    {
+        btSiteSearchInput.type(siteName,"Site Search");
+        WebElement searchedSite=driver.findElement(By.xpath("//p-dropdownitem//li[@role='option' and contains(@aria-label, '"+siteName+"')]"));
+        waitForElementToDisplay(searchedSite);
+        searchedSite.click();
     }
 
     public void deleteConveyor(String conveyorName) {
@@ -1033,4 +1160,200 @@ public class ConveyorPage extends BasePage{
         crActions.click("Actions");
         return btAddConveyor.isNotVisible(1000) && crEdit.isNotVisible(1000) && crDelete.isNotVisible(1000);
     }
+
+    public void verifyConveyorBreadCrumb()
+    {
+        waitForPageLoad(15000);
+        waitForElementVisible(conveyorBreadCrumb,10000,500);
+        Assert.assertTrue(conveyorBreadCrumb.isDisplayed(), "Breadcrumb element is not displayed");
+        assertEquals(conveyorBreadCrumb.getText(), "Home\nConveyors\nAdd", "Breadcrumb text does not match expected");
+
+    }
+
+    public void verifyGPSCoordinatesVisibility()
+    {
+        waitForElementVisible(txtGPSHead,10000,500);
+        waitForElementVisible(tbHeadLong,5000,500);
+        waitForElementVisible(tbHeadLat,5000,500);
+        Validator.assertTrue(txtGPSHead.isVisible() && tbHeadLat.isVisible() && tbHeadLong.isVisible(),"The GPS Coordinate Head with lat and long textBox is not visible","The GPS Coordinate Head with lat and long textBox is visible");
+        waitForElementVisible(txtGPSTail,10000,500);
+        waitForElementVisible(tbTailLat,5000,500);
+        waitForElementVisible(tbTailLat,5000,500);
+        Validator.assertTrue(txtGPSTail.isVisible() && tbTailLat.isVisible() &&tbTailLong.isVisible(),"The GPS Coordinate Head with lat and long textBox is not visible","The GPS Coordinate Head with lat and long textBox is visible");
+
+    }
+    public void clickSiteDropDown()
+    {
+        waitForElementVisible(crSiteDropdown,5000,500);
+        crSiteDropdown.click();
+
+    }
+    public void selectSiteName(String siteName)
+    {
+        searchSite(siteName);
+
+    }
+    public void verifyMapDisplaysSiteLocation(String siteName)
+    {
+        waitForElementVisible(driver.findElement(By.xpath("//div[@title='"+siteName+"']")),10000,500);
+        Validator.assertTrue(driver.findElement(By.xpath("//div[@title='"+siteName+"']")).isDisplayed(),"Map is not displaying location","Map displays location of the site");
+
+    }
+    public void clickOnZoomIn()
+    {
+        waitForElementVisible(btnZoomIn,5000,500);
+        btnZoomIn.jsClick();
+
+    }
+    public void clickOnZoomOut()
+    {
+        waitForElementVisible(btnZoomOut,5000,500);
+        btnZoomOut.jsClick();
+    }
+    public void clickOnMap()
+    {
+
+            waitForElementVisible(mapLocation,10000,500);
+            waitForElementToBeClickable(mapLocation);
+            mapLocation.jsClick();
+    }
+    public void verifyPrefilledValuesDisplayed()
+    {
+        SyncUtil.waitFor(10000);
+        waitForElementVisible(positionDialog,10000,500);
+        waitForElementVisible(tbLatValue,10000,500);
+        waitForElementVisible(tbLongValue,10000,500);
+        Validator.assertTrue(tbLatValue.isVisible() && tbLongValue.isVisible(),"The prefilled values for lat and long is not visible","The prefilled values for lat and long is visible");
+    }
+
+    public void clickOnLocationType()
+    {
+        waitForElementVisible(ddlLocationType,10000,500);
+        waitForElementToBeClickable(ddlLocationType);
+        ddlLocationType.jsClick();
+
+    }
+
+    public void clickOnLocationTwoType()
+    {
+        waitForElementVisible(ddlLocationTwoType,10000,500);
+        waitForElementToBeClickable(ddlLocationTwoType);
+        ddlLocationTwoType.jsClick();
+
+    }
+    public void selectLocationTypeHead()
+    {
+        waitForElementVisible(optionsHead,10000,500);
+        waitForElementToBeClickable(optionsHead);
+        optionsHead.jsClick();
+
+    }
+    public void addMarkerBtnClick()
+    {
+        waitForElementVisible(btnAddMarker,5000,500);
+        waitForElementToBeClickable(btnAddMarker);
+        btnAddMarker.click();
+        waitForPageLoad(10000);
+
+    }
+    public void verifyUpdatedGPSHead()
+    {
+        SyncUtil.waitFor(5000);
+        waitForElementVisible(tbFilledHeadLat,10000,500);
+        waitForElementVisible(tbFilledHeadLong,10000,500);
+        Validator.assertTrue(tbFilledHeadLat.isVisible() && tbFilledHeadLong.isVisible(),"GPS Coordinates Head is not updated with lat long value","GPS Coordinates Head is updated with lat long value");
+
+    }
+
+    public void selectLocationTypeTail()
+    {
+        waitForElementVisible(optionsTail,10000,500);
+        waitForElementToBeClickable(optionsTail);
+        optionsTail.jsClick();
+
+    }
+
+    public void verifyUpdatedGPSTail()
+    {
+        SyncUtil.waitFor(10000);
+        waitForElementVisible(tbFilledTailLat,10000,500);
+        waitForElementVisible(tbFilledTailLong,10000,500);
+        Validator.assertTrue(tbFilledTailLat.isVisible() && tbFilledTailLong.isVisible(),"GPS Coordinates Tail is not updated with lat long value","GPS Coordinates Tail is updated with lat long value");
+
+    }
+    public void verifyErrorMessageIsDisplayed()
+    {
+        waitForPageLoad(20000);
+        waitForElementVisible(conveyorErrorMsg,10000,500);
+        Validator.assertTrue(conveyorErrorMsg.isVisible(),"Error message is not displayed creating duplicate conveyor","Error message is displayed creating duplicate conveyor");
+
+    }
+    public void remarksBtnClick()
+    {
+        waitForElementVisible(crRemarksTab,5000,500);
+        crRemarksTab.click("Remarks Tab");
+        waitForPageLoad(10000);
+
+    }
+
+    public void clickOnSaveAndCloseBtn()
+    {
+        waitForElementVisible(btSaveandclose,10000,500);
+        btSaveandclose.click("Save & Close");
+        waitForPageLoad(10000);
+
+    }
+
+    public void verifyNavigationToConveyorSiteCard()
+    {
+
+		SyncUtil.waitFor(50000);
+            waitForPageLoad(10000);
+            waitForElementVisible(siteHeader,10000,500);
+            Validator.assertTrue(siteHeader.isVisible(),"User is not navigated to site page on save and close","User is navigated to site detail page on save and close");
+            Validator.assertTrue(driver.getCurrentUrl().contains("/secure/sites/details"),"User is not navigated to site page on save and close","User is navigated to site  page on save and close");
+
+    }
+
+    public void createConveyorWithRequiredField(String conveyorName, String distShopName, String custSiteName) {
+        enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
+    }
+
+    public void previousBtnClick()
+    {
+        waitForElementVisible(btnPrevious,5000,500);
+        btnPrevious.click("Previous");
+        waitForPageLoad(10000);
+
+    }
+    public boolean verifyTransitionPage() {
+        waitForElementVisible(crHeadTransitionLength,5000,1000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/transitions"),"user is not navigated to transition add page","user is navigated to transition add page");
+        return crHeadTransitionLength.isVisible("Flat-to-trough Transition Length") && crHeadPulleyLift.isVisible("Pulley Lift");
+    }
+
+    public void addDataAsImperial(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,5000,1000);
+        waitForElementToBeClickable(unitIcon);
+        unitIcon.click();
+        waitForElementVisible(btImperialUnit,5000,1000);
+        waitForElementToBeClickable(btImperialUnit);
+        btImperialUnit.click();
+    }
+    public void verifyDataHeaderUnitInAddConveyor(String unit)
+    {
+        crConveyorLiteTab.click("Conveyor Lite Tab");
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIconConveyor,5000,1000);
+        Validator.assertTrue(unitIconConveyor.getText("Unit Value").contains(unit),"Metric unit is not selected","Metric unit is selected");
+
+    }
+    public void navigateToAddConveyorPage()
+    {
+        waitForElementVisible(btAddConveyor,10000,500);
+        btAddConveyor.click("Add icon");
+        tbConveyorname.isVisible("Conveyor Name");
+    }
+
 }

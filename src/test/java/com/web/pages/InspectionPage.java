@@ -349,7 +349,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//checkicon[contains(@class,\"p-icon-wrapper\")]")
 	public CustomElement confirmBtn;
 
-	@FindBy(locator="xpath=//span[text()='C1 Common Regression']")
+	@FindBy(locator="xpath=//span[text()='CV Common Regression']")
 	public CustomElement conveyorBreadCrumb;
 
 	@FindBy(locator="xpath=//span[text()=\"Cust Automation Common India\"]")
@@ -391,7 +391,6 @@ public class InspectionPage extends BasePage {
 		SyncUtil.waitFor(10000);
 		waitForElementVisible(lnkInspection,5000,500);
 		lnkInspection.click("Inspection List");
-		waitForPageLoad(15000);
 		btSearchinput.isVisible("Inspection List Page");
 	}
 
@@ -493,6 +492,7 @@ public class InspectionPage extends BasePage {
 		ddViewicon.click("Inspection Detail");
 		inspectionHeader.verifyText(inspectionName,"Inspection Header");
 	}
+
 	
 	public void edit() {
 		btnEdit.click();
@@ -633,7 +633,7 @@ public class InspectionPage extends BasePage {
 
 	public void goToInspectionsFromTile() {
 		waitForPageLoad(10000);
-		SyncUtil.waitFor(5000);
+		SyncUtil.waitFor(10000);
 		waitForElementVisible(crInspections,10000,500);
 		waitForElementToBeClickable(crInspections);
 		crInspections.jsClick("Inspection Tile");
@@ -845,8 +845,9 @@ public class InspectionPage extends BasePage {
 
 	public void selectFilesBtnClick()
 	{
+		waitForPageLoad(5000);
 		waitForElementVisible(btnSelectFiles,5000,500);
-		btnSelectFiles.click();
+		btnSelectFiles.jsClick();
 
 	}
 	public void verifyLoader()
@@ -890,7 +891,7 @@ public class InspectionPage extends BasePage {
 		waitForElementVisible(ddlActions,5000,500);
 		ddlActions.click("Actions");
 		waitForElementVisible(btnExportInspection, 10000,500);
-		btnExportInspection.click("Export pdf");
+		btnExportInspection.jsClick("Export pdf");
 
 
 	}
@@ -909,6 +910,7 @@ public class InspectionPage extends BasePage {
 	{
 		waitForElementVisible(btSearchinput,5000,500);
 		btSearchinput.type(conveyorName, "Inspection Search");
+		waitForElementVisible(cbCheckbox,10000,500);
 		waitForElementToDisplay(cbCheckbox);
 	}
 
@@ -921,7 +923,7 @@ public class InspectionPage extends BasePage {
 	public void conveyorNameClick()
 	{
 		waitForElementVisible(conveyorBreadCrumb,5000,500);
-		conveyorBreadCrumb.jsClick();
+		conveyorBreadCrumb.jsClick("Conveyor name");
 
 	}
 

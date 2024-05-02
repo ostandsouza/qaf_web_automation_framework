@@ -6,12 +6,16 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
 import com.web.pages.CoverWearPage;
+import com.web.pages.InspectionPage;
+import com.web.pages.UsersPage;
 import org.json.simple.parser.ParseException;
 
 public class CoverWearSteps {
 
     CoverWearPage coverWearPage = new CoverWearPage();
     ConveyorPage conveyorPage = new ConveyorPage();
+    InspectionPage inspectionPage=new InspectionPage();
+    UsersPage userPage=new UsersPage();
 
     @QAFTestStep(description="Add Cover Wear for conveyor {ConveyorName} and site {CustSiteName} with data {FullName} {PositionName} {TopCoverThickness} {BottomCoverThickness} {Durometer} {TopCoverCompound} {BottomCoverCompound}")
     public void createCoverWearMeasurement(String conveyorName, String custSiteName, String fullName, String positionName, String topCoverThickness, String bottomCoverThickness, String durometer, String topCoverCompound, String bottomCoverCompound){
@@ -547,6 +551,199 @@ public class CoverWearSteps {
     public void lookForGreenCountAndVerify(){
         coverWearPage.verifyGreenCount();
     }
+
+
+
+    @QAFTestStep(description="Search for the conveyor {ConveyorName} in cover wear listing screen and navigate")
+    public void searchForConveyor(String conveyorName){
+        coverWearPage.goToCoverWearDetailScreen(conveyorName);
+    }
+
+    @QAFTestStep(description="Click on conveyor position {Position} and navigate to position screen")
+    public void navigationToPositionDetailScreen(String position){
+        coverWearPage.verifyPositionNav(position);
+    }
+
+    @QAFTestStep(description="Verify the bread crumb of cover wear position page with position {Position} conveyor {ConveyorName} site {CustSiteName} corporate {CustCorp}")
+    public void verifyBreadCrumbOfPosition(String position,String conveyor,String site,String corporate){
+        coverWearPage.verifyPositionBreadCrumb(position,conveyor,site,corporate);
+    }
+
+    @QAFTestStep(description="Verify user navigates to respective page on bread crumb click")
+    public void verifyBreadCrumbNavigation(){
+        coverWearPage.conveyorNameClick();
+        inspectionPage.verifyConveyorPageNavigation();
+        inspectionPage.siteNameClick();
+        inspectionPage.verifySitePageNavigation();
+        inspectionPage.corporateNameClick();
+        inspectionPage.verifyCorporatePageNavigation();
+
+    }
+    @QAFTestStep(description="Verify Gauge image is displayed in specification field")
+    public void verifyTheGaugeImageInSpecification(){
+        coverWearPage.verifyGaugeImageInSpec();
+    }
+
+    @QAFTestStep(description="Extract the data from the position {Position} and navigate to position detail page")
+    public void extractTheDataFromPosition(String position){
+        coverWearPage.searchPosition(position);
+        coverWearPage.extractPositionData();
+        coverWearPage.positionDetailsClick();
+    }
+
+    @QAFTestStep(description="Verify that all the data is displayed in the gauge meter")
+    public void verifyGaugeMeterData(){
+        coverWearPage.verifyDataInGaugeMeter();
+    }
+
+    @QAFTestStep(description="Verify the data in gauge meter matches with data in the position detail page")
+    public void verifyGaugeMeterAndTableData(){
+        coverWearPage.verifyGaugeDataAndTableData();
+    }
+
+    @QAFTestStep(description="Click on add new measurement and verify the pop-up to add measurement is visible")
+    public void addMeasurementClickAndVerify(){
+        coverWearPage.btnAddMeasurementClick();
+        coverWearPage.verifyAddMeasurementPopupVisible();
+    }
+
+    @QAFTestStep(description="Verify fields to add device details is displayed")
+    public void verifyFieldsOfAddDevice(){
+        coverWearPage.verifyAddDetailsFields();
+    }
+
+    @QAFTestStep(description="User adds the value for instrument {Instrument} velocity {Velocity} Calibration thickness {CalibrationThickness} surfaceTemperature {surfaceTemperature} test Position {testPosition}")
+    public void addDeviceMeasurement(String instrument,String velocity,String calibrationThickness,String surfaceTemperature,String testPosition){
+        coverWearPage.addDeviceMeasurementValues(instrument,velocity,calibrationThickness,surfaceTemperature,testPosition);
+    }
+
+    @QAFTestStep(description="Add readings durometer values {DurometerValue} and {Value}")
+    public void addTheMeasurementReadingsValue(String durometerValue,String value){
+        coverWearPage.addMeasurementReadingsValue(durometerValue,value);
+    }
+
+    @QAFTestStep(description="Click on save button and verify measurement is saved")
+    public void clickSaveAndVerify(){
+        coverWearPage.btnSaveClick();
+
+
+    }
+    @QAFTestStep(description="Click on edit button and verify measurement popup is opened with user saved data {SurfaceTemperature} {TestPosition}")
+    public void clickEditBtnAndVerifyData(String surfaceTemperature,String testPosition ){
+        coverWearPage.btnEditClick();
+        coverWearPage.verifyAddMeasurementPopupVisible();
+        coverWearPage.verifyUserEnteredData(surfaceTemperature,testPosition);
+
+    }
+
+    @QAFTestStep(description="Click on delete button to delete the added measurement value")
+    public void clickOnDeleteBtn(){
+        coverWearPage.btnCloseClick();
+        coverWearPage.btnDeleteClick();
+
+    }
+    @QAFTestStep(description="Extract the installed date data from the position {Position} and navigate to position detail page")
+    public void extractTheInstalledDateFromPosition(String position){
+        coverWearPage.searchPosition(position);
+        coverWearPage.extractDateValue();
+        coverWearPage.positionDetailsClick();
+
+    }
+
+    @QAFTestStep(description="Verify the installed date in the table is same as installed date in the position detail screen")
+    public void verifyInstalledDateEntry(){
+        coverWearPage.verifyInstalledDates();
+
+    }
+
+    @QAFTestStep(description="Verify edit and attachment link should be displayed for installed date entry row")
+    public void verifyEditAndAttachmentLinkVisible(){
+        coverWearPage.verifyAttachmentLinkVisible();
+        coverWearPage.verifyEditLinkVisible();
+
+    }
+
+    @QAFTestStep(description="Click on edit link user should be able to edit the measurement details {Thickness} {DurometerVal}")
+    public void clickOnEditLinkAndVerifyEditFunction(String thickness,String durometerValue){
+        coverWearPage.editBtnClick();
+        coverWearPage.editFunctionality(thickness,durometerValue);
+
+    }
+    @QAFTestStep(description="Click on attachment link user should be able to upload image")
+    public void clickOnAttachmentLinkAndVerify(){
+        coverWearPage.verifyAttachmentFunctionality();
+        coverWearPage.closeAttachment();
+    }
+
+    @QAFTestStep(description="Look for measurement table and verify data is available in measurement table")
+    public void verifyDataVisibleInMeasurementTable(){
+        coverWearPage.verifyMeasurementTableData();
+    }
+    @QAFTestStep(description="Look for attachment link and verify the background is highlighted when image is not attached")
+    public void verifyAttachmentIsHighlighted(){
+        coverWearPage.verifyAttachmentHighlight();
+    }
+
+    @QAFTestStep(description="Click link to upload image {imgName} and Click save button and verify image is uploaded")
+    public void clickOnEditAndVerifyImageUpload(String imgName){
+        coverWearPage.editMeasurement();
+        inspectionPage.selectFilesBtnClick();
+        userPage.imageUpload(imgName);
+        SyncUtil.waitFor(10000);
+        coverWearPage.btnSaveClick();
+        coverWearPage.verifyUploadedImage();
+    }
+    @QAFTestStep(description = "Verify the background color is removed after the image is uploaded")
+    public void verifyAttachmentIsNotHighlighted()
+    {
+        coverWearPage.verifyAttachBackgroundRemoved();
+    }
+
+    @QAFTestStep(description = "Click on add icon button and verify user is able to add more attachment {imgNameTwo}")
+    public void addMoreBtnClickAndVerifyMoreAttachment(String imageTwo)
+    {
+        coverWearPage.verifyAttachmentFunctionality();
+        coverWearPage.addMoreAttachmentsClick();
+        userPage.imageUpload(imageTwo);
+        coverWearPage.verifyAttachmentImageUploaded();
+    }
+
+    @QAFTestStep(description = "Look for more attachment file in corosal additional image should be displayed")
+    public void verifyMoreFilesInCorrosal()
+    {
+        coverWearPage.verifyAttachmentImageUploaded();
+    }
+
+    @QAFTestStep(description = "Click on image below in the corrosal respective image should get maximized")
+    public void clickTheImageInCorrosalAndVerify()
+    {
+        coverWearPage.clickImageInCorrosal();
+        coverWearPage.verifyCorrosalImageMaximazed();
+    }
+
+    @QAFTestStep(description = "Click on delete button at the top and verify respective image should be deleted")
+    public void clickOnTheDeleteAndVerify()
+    {
+        coverWearPage.clickImageInCorrosal();
+        coverWearPage.verifyCorrosalImageMaximazed();
+        coverWearPage.clickOnDeleteAndVerify();
+    }
+
+    @QAFTestStep(description = "Delete the uploaded image from the measurement")
+    public void deleteTheImageFromMeasurement()
+    {
+        coverWearPage.waitForPageLoad(10000);
+        coverWearPage.editMeasurement();
+        coverWearPage.deleteMeasurementImage();
+    }
+
+
+
+
+
+
+
+
 
 
 

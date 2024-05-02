@@ -141,3 +141,92 @@ Scenario: Verify a user is able to Get selected layout post re-login
 Scenario: Verify a user is able to Delete layout
 
     Then  verify user is able to delete layout for '${Layout_Name}'
+
+@Regression17 @CTCP-1865
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master
+Scenario: Verify Bread Crumb of the page
+
+     Given User is at Login page
+     When Login with '${UserName}' and '${Password}'
+     And  Navigate to Add Conveyor screen
+     Then Verify the bread crumb of add conveyor page
+
+@Regression18 @CTCP-1868
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_coordinates
+Scenario: Selection of head and tail coordinates
+
+     Given User is at Login page
+     When Login with '${UserName}' and '${Password}'
+     And  Navigate to Add Conveyor screen
+     Then Verify that  GPS Coordinates Head and GPS Coordinates Tail with lat and long is visible
+     When User selects a site '${SiteName}' from the dropdown
+     Then Verify that map should display the location of site '${SiteName}'
+     And Zoom in and out to reach conveyor location
+     And Click on map to set position of head and verify prefilled value for lat and long is displayed
+     When Click on location type and select head value from the dropdown
+     Then Click on add marker button and verify GPS Coordinates Head is updated with lat long value
+     And Click on map to set position of tail and verify prefilled value for lat and long is displayed
+     When Click on location type and select tail value from the dropdown
+     Then Click on add marker button and verify GPS Coordinates Tail is updated with lat long value
+
+@Regression19 @CTCP-1924
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Duplicate
+Scenario: Validation duplicate on Conveyor Name
+
+
+          Given User is at Login page
+          When Login with '${UserName}' and '${Password}'
+          And  Navigate to Add Conveyor screen
+          When Create a new conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
+          And Navigate to conveyor list screen and search for the created conveyor '${ConveyorName1}'
+          When Create a duplicate conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
+          Then Verify that user should get an error message while creating duplicate conveyor
+
+@Regression20 @CTCP-1918
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_createDetails
+Scenario: verify the save and close button on remarks tab
+
+          Given User is at Login page
+          When Login with '${UserName}' and '${Password}'
+          And  Navigate to Add Conveyor screen
+          When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
+          And Click on remarks radio button and click on save and close
+          Then Verify that user should get conveyor site card
+
+
+@Regression21 @CTCP-1920
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_createDetails
+Scenario: verify user is able to click the previous button
+
+          Given User is at Login page
+          When Login with '${UserName}' and '${Password}'
+          And  Navigate to Add Conveyor screen
+          When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
+          And Click on remarks radio button and click on previous button
+          Then Verify user is navigated to transitions add page
+
+@Regression22 @CTCP-1922
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_createDetails
+Scenario: Verify user is able to see the imperial data when imperial radio button is selected
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And  Navigate to Add Conveyor screen
+    And Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
+    Then Add data value in header as imperial
+    And Verify data value in header as '${Unit}' in Add Conveyor
+
+
+
