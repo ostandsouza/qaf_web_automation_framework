@@ -357,6 +357,39 @@ public class InspectionPage extends BasePage {
 	public CustomElement inspectionErrorMsg;
 
 
+	@FindBy(locator="xpath=(//div[@class='card-inner-wrapper' and contains(div, 'Inspections')])[2]")
+	public CustomElement btInspectionCard;
+	@FindBy(locator="xpath=//span[text()='Inspection Event']")
+	public CustomElement txtInspectionEvent;
+
+	@FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+	public CustomElement btviewicon;
+
+	@FindBy(locator="xpath=(//app-card//div[text()='Sites' or text()='Shops'] /..//span)[1]")
+	public CustomElement btSiteShopCardNo;
+
+	@FindBy(locator= "xpath=(//span//i[contains(@class,'ctp-icon-Bar-Chart')])[2]")
+	public CustomElement iconBarChart;
+
+	@FindBy(locator= "xpath=//p-card//div[text()=' GOOD ']/../div/span")
+	public CustomElement statusCardGoodCount;
+	@FindBy(locator= "xpath=//p-card//div[text()=' TOTAL ']/../div/span")
+	public CustomElement statusCardTotalCount;
+	@FindBy(locator= "xpath=//p-card//div[text()=' POOR ']/../div/span")
+	public CustomElement statusCardPoorCount;
+	@FindBy(locator= "xpath=//p-card//div[text()=' FAULT ']/../div/span")
+	public CustomElement statusCardFaultCount;
+	@FindBy(locator= "xpath=//p-card//div[text()=' CRITICAL ']/../div/span")
+	public CustomElement statusCardCriticalCount;
+
+	@FindBy(locator= "xpath= //div//label[text()='Select Site']/..//p-multiselect[@optionvalue='companyId']")
+	public CustomElement ddlSiteDropdown;
+	@FindBy(locator= "xpath=//div[contains(@class,'p-multiselect-panel')]//div[contains(@class,'p-multiselect-filter-container')]//input[contains(@class,'p-multiselect-filter')]")
+	public CustomElement tbMultipleSiteDropdwn;
+
+	@FindBy(locator="xpath=//button[contains(@class,'p-multiselect-close')]")
+	public CustomElement multiSelectCloseBtn;
+
 	public void goToInspection() {
 		if (!lnkInspection.isVisible())
 			lnkHome.click("Home");
@@ -404,7 +437,6 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(btnAddInspection);
 		waitForElementVisible(btnAddInspection,20000,1000);
 		waitForElementToBeClickable(btnAddInspection);
-		System.out.println("waiting click");
 //		SyncUtil.waitFor(5000);
 		btnAddInspection.jsClick("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
@@ -843,5 +875,72 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(inspectionErrorMsg);
 		Validator.assertTrue(inspectionErrorMsg.isDisplayed(),"Error message is not displayed","Error message is displayed");
 	}
+
+	public void viewAndVerifyCorporatePage(){
+		waitForElementVisible(btviewicon,5000,1000);
+		btviewicon.click();
+		waitForPageLoad(5000);
+		Validator.assertTrue(btSiteShopCardNo.isDisplayed(),"Corporate Page is not loaded","Corporate Page is loaded");
+	}
+
+	public void verifyInspectionCardClick(){
+		waitForPageLoad(5000);
+		waitForElementVisible(btInspectionCard,5000,1000);
+		waitForElementToBeClickable(btInspectionCard);
+		Validator.assertTrue(btInspectionCard.isEnable(),"Inspection Card is not clickable","Inspection Card is clickable");
+		btInspectionCard.click();
+		waitForPageLoad(5000);
+		Validator.assertTrue(txtInspectionEvent.isDisplayed(),"Inspection Page is not loaded","Inspection Page is loaded");
+	}
+
+	public void inspectionDashboardBtnClick()
+	{
+		waitForElementVisible(iconBarChart,5000,500);
+		waitForElementToBeClickable(iconBarChart);
+		iconBarChart.jsClick("inspection dashboard");
+		Validator.assertTrue(iconBarChart.isEnabled(),"Inspection dashboard is clickable","Inspection dashboard is  clickable");
+	}
+	public void verifyInspectionItemsCounts(String total,String critical,String poor,String fault,String good )
+	{
+		waitForPageLoad(5000);
+		waitForElementVisible(statusCardCriticalCount,5000,500);
+		SyncUtil.waitFor(5000);
+		Validator.assertTrue(statusCardTotalCount.getText().contains(total),"Total Count doesn't match","Critical Count match");
+		Validator.assertTrue(statusCardCriticalCount.getText().contains(critical),"Critical Count doesn't match","Critical Count match");
+		Validator.assertTrue(statusCardPoorCount.getText().contains(poor),"Poor Count doesn't match","Poor Count match");
+		Validator.assertTrue(statusCardFaultCount.getText().contains(fault),"Fault Count doesn't match","Fault Count match");
+		Validator.assertTrue(statusCardGoodCount.getText().contains(good),"Good Count doesn't match","Good Count match");
+	}
+
+	public void siteDropDownClick()
+	{
+		waitForElementVisible(ddlSiteDropdown,10000,500);
+		waitForElementToBeClickable(ddlSiteDropdown);
+		ddlSiteDropdown.click();
+		SyncUtil.waitFor(10000);
+	}
+
+	public void verifyMultiSelInSiteDropDown(String siteName,String siteName2)
+	{
+		waitForElementVisible(multiSelectCloseBtn,10000,500);
+		multiSelectCloseBtn.click();
+		waitForElementVisible(ddlSiteDropdown,10000,500);
+		ddlSiteDropdown.click();
+		setImplicitWait(30000,TimeUnit.MILLISECONDS);
+		String site="//p-multiselectitem//li[@aria-label='"+siteName+"']";
+		waitForElementVisible(driver.findElement(By.xpath(site)),10000,500);
+		driver.findElement(By.xpath(site)).click();
+		String site2="//p-multiselectitem//li[@aria-label='"+siteName2+"']";
+		waitForElementVisible(driver.findElement(By.xpath(site2)),10000,500);
+		driver.findElement(By.xpath(site2)).click();
+		waitForElementToDisplay(tbMultipleSiteDropdwn);
+		waitForElementVisible(tbMultipleSiteDropdwn,20000,500);
+		String siteSelected="//p-multiselectitem//li[@aria-label='"+siteName+"' and contains(@class, 'p-highlight')]";
+		String siteSelected2="//p-multiselectitem//li[@aria-label='"+siteName2+"' and contains(@class, 'p-highlight')]";
+		waitForElementVisible(driver.findElement(By.xpath(siteSelected)),10000,500);
+		Validator.assertTrue(driver.findElement(By.xpath(siteSelected)).isDisplayed(),"The user is not able to select site","The user is  able to select site");
+		Validator.assertTrue(driver.findElement(By.xpath(siteSelected2)).isDisplayed(),"The user is not able to select site2","The user is  able to select site2");
+	}
+
 
 }

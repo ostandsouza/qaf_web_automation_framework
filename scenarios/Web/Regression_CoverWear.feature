@@ -7,7 +7,7 @@ Feature: Regression of P2 Inspection module
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Value
-  Scenario: Look for data display in cover wear summary listing screen
+  Scenario: ZzLook for data display in cover wear summary listing screen
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -20,10 +20,8 @@ Feature: Regression of P2 Inspection module
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Value
-  Scenario: Verify the logic of displaying cover grade
+  Scenario: ZyVerify the logic of displaying cover grade
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And Search '${ConveyorName}' coverWear
     Then Extract CoverGrade value
@@ -35,24 +33,22 @@ Feature: Regression of P2 Inspection module
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Value
-  Scenario: Verify the pagination functionality
+  Scenario: ZxVerify the pagination functionality
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     Then Verify pagination dropdown
-    And Verify pagination arrow button
+    And Verify pagination forward arrow button
 
 
   @Regression4 @CTCP-1382
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Management
-  Scenario: Verify temperature and Tons  conveyed are not mandatory values
+  Scenario: XzVerify temperature and Tons  conveyed are not mandatory values
 
+#    Then Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-#    Then Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
     And   Navigate to coverWear list screen and wait for data load
     And  Click on Add and verify Add new measurement pop up
     Then  Verify Temperature and Tons Conveyed are not mandatory
@@ -64,7 +60,7 @@ Feature: Regression of P2 Inspection module
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Management
-  Scenario: Verify user able to save temperature value and tons conveyed value as zero
+  Scenario: XyVerify user able to save temperature value and tons conveyed value as zero
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -79,7 +75,7 @@ Feature: Regression of P2 Inspection module
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:CoverWear_Management
-  Scenario: Verify user is able to add device while adding measurement
+  Scenario: XxVerify user is able to add device while adding measurement
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -99,8 +95,6 @@ Feature: Regression of P2 Inspection module
   @key:CovereWear_Management_Position_Metric
   Scenario: Verify metric to imperial conversion
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And   Verify data value in header as metric
     And  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${PositionName}' '${BeltWidth}'
@@ -116,8 +110,6 @@ Feature: Regression of P2 Inspection module
   @key:CovereWear_Management_Position_Imperial
   Scenario: Verify imperial to metric conversion
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And Add data value in header as imperial
     And   Verify data value in header as imperial
@@ -132,7 +124,7 @@ Feature: Regression of P2 Inspection module
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:CoverWear_Management_Add_Position
-Scenario: Verify temperature and Tons  conveyed are not mandatory values in position
+Scenario: ZVerify temperature and Tons conveyed are not mandatory values in position
 
    Given User is at Login page
    When Login with '${UserName}' and '${Password}'
@@ -151,8 +143,6 @@ Scenario: Verify temperature and Tons  conveyed are not mandatory values in posi
 @key:CoverWear_Management_Add_Position
 Scenario: Verify user is able to save temperature value and tons conveyed value is zero
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
     And Navigation to Position Details Screen for position '${Position}'
@@ -168,13 +158,11 @@ Scenario: Verify user is able to save temperature value and tons conveyed value 
 @key:CoverWear_Management_Guaze_Data
 Scenario: Verify data displayed in Gauge meter in case measurment already exist
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
     And Navigation to Position Details Screen for position '${Position}'
     Then Verify Guaze image is displayed in specification field
-   And Verify no data is displayed in guaze
+    And Verify no data is displayed in guaze
 
 
 @Regression12 @CTCP-1442
@@ -183,8 +171,6 @@ Scenario: Verify data displayed in Gauge meter in case measurment already exist
 @key:CoverWear_Management_Add_Position
 Scenario: Observe life displayed in projection table should be displayed in years
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
     And Navigation to Position Details Screen for position '${Position}'
@@ -197,8 +183,6 @@ Scenario: Observe life displayed in projection table should be displayed in year
 @key:CoverWear_Management_Add_Position
 Scenario: Verify Wear Rate Statistics & Projections table
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
     And Navigation to Position Details Screen for position '${Position}'
@@ -211,8 +195,6 @@ Scenario: Verify Wear Rate Statistics & Projections table
 @key:CoverWear_Management_Add_Position
 Scenario: Verify Specification details for position
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
     And Navigation to Position Details Screen for position '${Position}'
@@ -222,15 +204,68 @@ Scenario: Verify Specification details for position
     And Verify the durometer value format as '${NewDurometerValue}'
     And Verify date of installation '${Date}' and specification '${BeltConstruction}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' is same in technical data
 
-@Regression15 @CTCP-1437
+
+@Regression14 @CTCP-1388
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:CoverWear_Management_Add_Position
-Scenario: Verify wear profile graph
+Scenario: ZzLook for data display in cover wear summary listing screen
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
-    And Navigation to Position Details Screen for position '${Position}'
-    And Verify Wear Profile Graph is displayed
+    Then Verify CoverWear Position table header as Positions
+    And Verify CoverWear Position Table column name
+
+@Regression14 @CTCP-1402
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_CoverWear_Management
+Scenario: Verify user is able to add Tons conveyed with values as '0'
+
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Click on Add New Position
+    Then Verify customer as '${CustSiteName}' conveyor as '${ConveyorName}' width as '${BeltWidth}' for add position popUp
+    And Add segment as '${Segment}' tons conveyed as '${Zero}' durometer as '${DurometerValue}'
+    And Click Top/Bottom radio button and verify selection
+    And Click save and verify segment '${PositionName}' creation
+
+@Regression14 @CTCP-1404
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Add_Position
+Scenario: ZyVerify fields displayed Specification Section
+
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    Then Verify Specification header
+    And Verify Specification table Fields
+
+@Regression14 @CTCP-1395
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Management_Add_Position
+Scenario: ZxVerify download functionality via Action button
+
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Verify after selecting cover wear position '${Position}' action button is enabled
+    Then Verify the contents of action dropdown for position
+    And Click on export and verify export popup
+
+
+@CTCP-1453
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Report_Download
+Scenario: Verify data displayed in UI and downloaded report is same
+
+   Given User is at Login page
+   When  Login with '${UserName}' and '${Password}'
+   And Navigate to coverWear list screen and wait for data load
+   And Extract the CoverWear Data for '${CoverWearName}'
+   And Click on coverWear report download button
+   And Select all fields '${FromDate}' '${ToDate}' in the pop and verify user is able to fill respective fields
+  Then Verify the coverWear pdf report for '${CoverWearName}' with '${SiteName}'

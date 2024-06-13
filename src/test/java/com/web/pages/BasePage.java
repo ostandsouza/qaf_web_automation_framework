@@ -287,7 +287,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 		dropDownButton.click();
         waitForElementToBeClickable(dropDownButton);
 		Search.type(itemstosearch);
-        setImplicitWait(70000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(10000);
+        setImplicitWait(150000,TimeUnit.MILLISECONDS);
 		waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
 		driver.findElement("//span[text()='"+itemstosearch+"']").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);

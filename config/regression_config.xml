@@ -251,8 +251,8 @@
 		<test name="UserManagement testcases" enabled="true">
 			<parameter name="step.provider.pkg" value="com.web.steps" />
 			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_User.feature" />
-			<parameter name="step.provider.sharedinstance" value="true" />
-			<parameter name="env.resources" value="resources/env_dev" />
+			<parameter name="step.provider.sharedinstance" value="false" />
+			<parameter name="env.resources" value="resources/env_stg" />
 			<groups>
 				<run>
 					<include name="CTCP-1285" />
@@ -272,7 +272,7 @@
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Corporates.feature" />
 		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_dev" />
+		<parameter name="env.resources" value="resources/env_stg" />
 		<groups>
 			<run>
 						<include name="CTCP-567" />
@@ -293,7 +293,7 @@
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />
 		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_dev" />
+		<parameter name="env.resources" value="resources/env_stg" />
 		<groups>
 			<run>
 				<include name="CTCP-789" />
@@ -312,7 +312,7 @@
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />
 		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_dev" />
+		<parameter name="env.resources" value="resources/env_stg" />
 		<groups>
 			<run>
 				<include name="CTCP-1365" />
@@ -323,13 +323,6 @@
 				<include name="CTCP-1384" />
 				<include name="CTCP-1380" />
 				<include name="CTCP-1381" />
-				<include name="CTCP-1443" />
-				<include name="CTCP-1426"/>
-				<include name="CTCP-1444" />
-				<include name="CTCP-1429"/>
-				<include name="CTCP-1442"/>
-				<include name="CTCP-1439"/>
-				<include name="CTCP-1437"/>
 			</run>
 		</groups>
 		<classes>
@@ -337,11 +330,57 @@
 		</classes>
 	</test>
 
+		<test name="Position CoverWear testcases" enabled="true">
+			<parameter name="step.provider.pkg" value="com.web.steps" />
+			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />
+			<parameter name="step.provider.sharedinstance" value="false" />
+			<parameter name="env.resources" value="resources/env_stg" />
+			<groups>
+				<run>
+
+					<include name="CTCP-1443" />
+					<include name="CTCP-1426"/>
+					<include name="CTCP-1444" />
+					<include name="CTCP-1429"/>
+					<include name="CTCP-1442"/>
+					<include name="CTCP-1439"/>
+
+
+				</run>
+			</groups>
+			<classes>
+				<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+			</classes>
+		</test>
+
+		<test name="Conveyor CoverWear testcases" enabled="true">
+			<parameter name="step.provider.pkg" value="com.web.steps" />
+			<parameter name="step.provider.pkg" value="com.web.steps" />
+			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />
+			<parameter name="step.provider.sharedinstance" value="false" />
+			<parameter name="env.resources" value="resources/env_stg" />
+			<groups>
+				<run>
+
+					<include name="CTCP-1388"/>
+					<include name="CTCP-1404"/>
+					<include name="CTCP-1395"/>
+					<include name="CTCP-1402"/>
+
+				</run>
+			</groups>
+			<classes>
+				<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+			</classes>
+		</test>
+
+
+
 	<test name="Add Conveyor testcases" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />
 		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_dev" />
+		<parameter name="env.resources" value="resources/env_stg" />
 		<groups>
 			<run>
 				<include name="CTCP-1866" />
@@ -356,5 +395,118 @@
 			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
 		</classes>
 	</test>
+
+	<test name="Conveyor Details" enabled="true">
+			<parameter name="step.provider.pkg" value="com.web.steps" />
+			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />
+			<parameter name="step.provider.sharedinstance" value="false" />
+			<parameter name="env.resources" value="resources/env_stg" />
+			<groups>
+				<run>
+					<include name="CTCP-1997" />
+					<include name="CTCP-1998" />
+
+					<include name="CTCP-1987"/>
+					<include name="CTCP-1970"/>
+
+					<include name="CTCP-2007" />
+					<include name="CTCP-2009" />
+					<include name="CTCP-2011"/>
+					<include name="CTCP-2015"/>
+
+					<include name="CTCP-1986"/>
+					<include name="CTCP-1989"/>
+					<include name="CTCP-1990"/>
+					<include name="CTCP-1957"/>
+
+				</run>
+			</groups>
+			<classes>
+				<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+			</classes>
+		</test>
+
+				<test name="CoverWear Reports testcases" enabled="true">
+				<parameter name="step.provider.pkg" value="com.web.steps" />
+				<parameter name="step.provider.pkg" value="com.web.steps" />
+				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />
+				<parameter name="step.provider.sharedinstance" value="false" />
+				<parameter name="env.resources" value="resources/env_stg" />
+				<groups>
+					<run>
+						<include name="CTCP-1453"/>
+					</run>
+				</groups>
+				<classes>
+					<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+				</classes>
+			</test>
+
+	<test name="User Bulk Import testcases" enabled="true">
+				<parameter name="step.provider.pkg" value="com.web.steps" />
+				<parameter name="step.provider.pkg" value="com.web.steps" />
+				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_UserBulkUpload.feature" />
+				<parameter name="step.provider.sharedinstance" value="false" />
+				<parameter name="env.resources" value="resources/env_stg" />
+				<groups>
+					<run>
+						<include name="CTCP-108"/>
+						<include name="CTCP-115"/>
+						<include name="CTCP-117"/>
+						<include name="CTCP-119"/>
+						<include name="CTCP-121"/>
+						<include name="CTCP-122"/>
+						<include name="CTCP-125"/>
+						<include name="CTCP-128"/>
+						<include name="CTCP-129"/>
+					</run>
+				</groups>
+				<classes>
+					<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+				</classes>
+			</test>
+
+		<test name="Conveyor Bulk Import testcases" enabled="true">
+				<parameter name="step.provider.pkg" value="com.web.steps" />
+				<parameter name="step.provider.pkg" value="com.web.steps" />
+				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_ConveyorBulkUpload.feature" />
+				<parameter name="step.provider.sharedinstance" value="false" />
+				<parameter name="env.resources" value="resources/env_stg" />
+				<groups>
+					<run>
+						<include name="CTCP-155"/>
+						<include name="CTCP-156"/>
+						<include name="CTCP-169"/>
+						<include name="CTCP-162"/>
+						<include name="CTCP-163"/>
+						<include name="CTCP-164"/>
+						<include name="CTCP-159"/>
+						<include name="CTCP-153"/>
+					</run>
+				</groups>
+				<classes>
+					<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+				</classes>
+			</test>
+
+		<test name="Inspection Dashboard testcases" enabled="true">
+				<parameter name="step.provider.pkg" value="com.web.steps" />
+				<parameter name="step.provider.pkg" value="com.web.steps" />
+				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />
+				<parameter name="step.provider.sharedinstance" value="false" />
+				<parameter name="env.resources" value="resources/env_stg" />
+					<groups>
+						<run>
+							<include name="CTCP-2654"/>
+							<include name="CTCP-2657"/>
+							<include name="CTCP-2670"/>
+						</run>
+					</groups>
+					<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+
+
 
 </suite>

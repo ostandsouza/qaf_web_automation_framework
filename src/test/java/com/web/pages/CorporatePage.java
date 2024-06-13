@@ -242,6 +242,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
     public CustomElement addDefaultImgSrc;
 
+
     public void goToAddCompany() {
         addCompany.click("Add Company");
         newCompany.isVisible("New Company Header");
@@ -641,7 +642,7 @@ public class CorporatePage extends BasePage{
 
     public void verifyManFields(int mandatoryCount){
        Assert.assertEquals(driver.findElements(By.xpath("//div[not(@hidden)]/label/em[text()='*']/..")).size(), mandatoryCount, "Expected count does not match actual count");
-
     }
+
 
 }

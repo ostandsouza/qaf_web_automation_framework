@@ -305,6 +305,7 @@ Scenario:  verify user is able to generate the password on users screen
 @sheetName:Regression
 @key:Usermanagement_ChangePassword
 Scenario: Verify the user is able to update the password
+
   Given Login with '${UserName}' and '${Password}'
   And User clicks on Profile
   When User enters New Password '${Password}' and Confirm '${UserPassword}' and click on Update
@@ -318,7 +319,7 @@ Scenario: Verify the user is able to update the password
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:UserManagement_Master_Upload
-Scenario: Verify the image upload functionality
+Scenario: ZzVerify the image upload functionality
 
   Given User is at Login page
   When Login with '${UserName}' and '${Password}'
@@ -335,12 +336,10 @@ Scenario: Verify the image upload functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:UserManagement_Master_Edit_Template
-Scenario: Verify create template edit functionality
+Scenario: ZuVerify create template edit functionality
 
-  Given User is at Login page
-  When Login with '${UserName}' and '${Password}'
   And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
-  And  c '${Region}' for the user
+  And  Add territory as '${Region}' for the user
   And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create template '${templateName}'
   Then Verify template is created
   Then Apply custom permission template '${templateName}'
@@ -350,10 +349,8 @@ Scenario: Verify create template edit functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:UserManagement_Master_Upload
-Scenario:Verify cancel button functionality
+Scenario: ZvVerify cancel button functionality
 
-  Given User is at Login page
-  When Login with '${UserName}' and '${Password}'
   And User navigates to Add user page
   Then Verify Cancel button in the footer and click
   And Verify it redirects to user table page
@@ -364,8 +361,6 @@ Scenario:Verify cancel button functionality
 @key:Usermanagement_Distributor_User_Creation
 Scenario: Verify user can select corporate name
 
-  Given User is at Login page
-  When  Login with '${UserName}' and '${Password}'
   When  Create a Distributor User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}' and '${CoporateRole}' and '${DistCorpName}' and '${DistShopName}' and '${CustSiteName}'
   When Click on previous button in the assignment page
   Then Verify user is navigated to info page and edit the corporate value to '${CorpName}' and '${CoporateRole}'
@@ -374,10 +369,8 @@ Scenario: Verify user can select corporate name
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Usermanagement_User_Creation
-Scenario: Verify the Number of sites is equal to master
+Scenario: AVerify the Number of sites is equal to master
 
-  Given User is at Login page
-  When  Login with '${UserName}' and '${Password}'
   And  Extract the number of sites and store
   Then  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
   And  Add territory as '${Region1}' '${Region2}' '${Region3}' '${Region4}' for the user
@@ -389,11 +382,9 @@ Scenario: Verify the Number of sites is equal to master
 @UserRegression34 @Regression @CTCP-1324
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:UserManagement_Master_Edit_Template
-Scenario: Verify popup while create and delete template functionality
+@key:UserManagement_Master_CreateDelete_Template
+Scenario: ZxVerify popup while create and delete template functionality
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
     And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
     And  Add territory as '${Region}' and create template '${templateName}'
     Then Verify template is created

@@ -260,7 +260,6 @@ public class CorporateSteps {
     public void navigateToAddCorporate() {
         corpPage.clickCorporates();
         corpPage.goToAddCorporate();
-
     }
 
     @QAFTestStep(description = "Add Corporate fields {companyName} {address}")
@@ -289,5 +288,6 @@ public class CorporateSteps {
     public void verifyMandatoryFilled() {
     	corpPage.verifyMandatoryFields();
     }
+
 
 }

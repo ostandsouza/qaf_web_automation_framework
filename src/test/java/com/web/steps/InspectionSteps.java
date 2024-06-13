@@ -4,6 +4,7 @@ import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
+import com.web.pages.CorporatePage;
 import com.web.pages.InspectionPage;
 
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 public class InspectionSteps {
 
 	InspectionPage inspectionpage = new InspectionPage();
+
+	CorporatePage corpPage = new CorporatePage();
 	
 	@QAFTestStep(description="Select Inspection on the Navigation Pane")
 	public void selectInspectionOnTheNavigationPane(){
@@ -333,6 +336,33 @@ public class InspectionSteps {
 	public void createDulpicateInspectionItemMandatoryFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
 		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
 		inspectionpage.saveDulpicateInspectionItem();
+	}
+
+	@QAFTestStep(description = "Click on corporates and open corperate {Corporate}")
+	public void navigateToCorporate(String corp) {
+		corpPage.clickCorporates();
+		corpPage.searchCorporate(corp);
+		inspectionpage.viewAndVerifyCorporatePage();
+	}
+
+	@QAFTestStep(description = "Verify Inspection Tile is clickable")
+	public void verifyTheInspectionCardClick() {
+		inspectionpage.verifyInspectionCardClick();
+	}
+
+	@QAFTestStep(description = "Click on inspection dashboard symbol and verify user is able to click on dashboard")
+	public void clickAndVerifyInspectionDashboard() {
+		inspectionpage.inspectionDashboardBtnClick();
+	}
+	@QAFTestStep(description = "Verify number of inpection items for {Total} {Critical} {Poor} {Fault} {Good}")
+	public void verifyTheInspectionItemsCounts(String total, String critical,String poor,String fault,String good) {
+		inspectionpage.verifyInspectionItemsCounts(total,critical,poor,fault,good);
+	}
+
+	@QAFTestStep(description = "Click on site dropdown and verify user is able to select multiple site {SiteName} {SiteName2}")
+	public void clickAndVerifyMultipleSelectionInSiteDropDown(String siteName,String siteName2) {
+		inspectionpage.siteDropDownClick();
+		inspectionpage.verifyMultiSelInSiteDropDown(siteName,siteName2);
 	}
 
 }

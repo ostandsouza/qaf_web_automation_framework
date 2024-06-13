@@ -146,7 +146,7 @@ Scenario: Verify a user is able to Delete layout
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Navigation_Add
-Scenario: Verify with add conveyor navigation
+Scenario: ZeVerify with add conveyor navigation
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -158,10 +158,8 @@ Scenario: Verify with add conveyor navigation
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Navigation_Add
-Scenario: Verify closing of image viewer panel
+Scenario: ZdVerify closing of image viewer panel
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to Add Conveyor screen
     Then Verify the default image is displayed and on hover camera icon is displayed
     And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
@@ -174,10 +172,8 @@ Scenario: Verify closing of image viewer panel
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Navigation_Add
-Scenario: Verify the save as draft button on remarks tab
+Scenario: ZbVerify the save as draft button on remarks tab
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorName}' and '${DistShopName}' and '${CustShopName}' with mandatory field
     Then Go to remarks and click on save as button
@@ -187,15 +183,15 @@ Scenario: Verify the save as draft button on remarks tab
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Navigation_Count
-Scenario: Verify user is able to get the count after deleting the conveyor
+Scenario: ZcVerify user is able to get the count after deleting the conveyor
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustShopGerName}'
     And Extract the conveyor count from conveyor list page
     Then  Delete Conveyor from Conveyor list screen '${ConveyorName1}'
     And  Verify Deleted Conveyor '${ConveyorName1}' from Conveyor list screen
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigate to conveyor list screen
     And Verify the conveyor count from conveyor list page
 
 
@@ -203,11 +199,191 @@ Scenario: Verify user is able to get the count after deleting the conveyor
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Navigation_Add
-Scenario: Verify user is able to see the metric data when metric radio button is selected
+Scenario: ZaVerify user is able to see the metric data when metric radio button is selected
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorName}' and '${DistShopName}' and '${CustShopName}' with mandatory field
     Then Add data value in header as metric
     And Verify data value in header as '${Unit}' in Add Conveyor
+
+@Regression21 @CTCP-1997
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Belt_Metric
+Scenario: Verify user is able to edit the belt width for the metric unit Conversions
+
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Verify site and coporate fields are prefilled
+    Then Verify data value in header as metric
+    And Edit Conveyor belt width value '${BeltWidth}'
+    And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
+    Then Add data value in header as imperial
+    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for beltwidth
+
+@Regression21 @CTCP-1998
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Belt_Imperial
+Scenario: ZVerify user is able to edit the belt width for the Imperial unit Conversions
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Add data value in header as imperial
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Verify site and coporate fields are prefilled
+    Then Verify data value in header as imperial
+    And Edit Conveyor belt width value '${BeltWidth}'
+#    And Edit Conveyor for page '${PageName}' for field '${FieldName}' '${FieldInput}' with value '${FieldValue}' and '${Index}'
+    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for beltwidth
+    Then Add data value in header as metric
+    And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
+
+#@Regression21 @CTCP-1999
+#@dataFile:resources/data/TestData.xls
+#@sheetName:Regression
+#@key:Conveyor_Belt_Metric
+#Scenario: Verify user is able to edit the tons per hour peak for the metric unit Conversions
+#
+#    Given User is at Login page
+#    When  Login with '${UserName}' and '${Password}'
+#    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+#    And Verify site and coporate fields are prefilled
+#    Then Verify data value in header as metric
+#    And Edit Conveyor tons per hour value '${TonsPerHour}'
+#    And Edit Conveyor for page {PageName} for field {FieldName} with value {FieldValue} and {Index}
+#    And Verify data value unit as '${TonsMetricUnit}' in Add Conveyor for TonsPerHour
+#    Then Add data value in header as imperial
+#    And Verify data value unit as '${TonsImperialUnit}' in Add Conveyor for TonsPerHour
+
+@Regression25 @CTCP-2007
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Layout_Create
+Scenario: ZVerify user is able to add the layout name
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    When  Navigate to conveyor list screen
+    Then Click on layout picker
+    And Click on text box and verify user is able to enter the layout name '${LayoutName}'
+
+@Regression25 @CTCP-2009
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Layout_Create
+Scenario: Verify user is able to click the back button
+
+    When  Navigate to conveyor list screen
+    Then Click on layout picker
+    And Click on text box and verify user is able to enter the layout name '${LayoutName}'
+    And Click on back button and verify user lands on table layout settings
+
+@Regression25 @CTCP-2011
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Layout_Create
+Scenario: AVerify user is able to click the save set preferrence
+
+    When  Navigate to conveyor list screen
+    Then Click on layout picker
+    And Click on layout and verify safe set preference button
+
+@Regression25 @CTCP-2015
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Layout_Create
+Scenario: Verify user is able to click the back button
+
+    When  Navigate to conveyor list screen
+    Then Click on layout picker
+    And Click on cross button in layout setting popUp
+
+@Regression25 @CTCP-1986
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Belt_Imperial
+Scenario: ZzVerify the unit conversions for top cover thickness on conveyor Listing screen for imperial
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Add data value in header as imperial
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Edit Conveyor top cover thickness value '${TopCoverThickness}'
+    Then Navigate to conveyor list screen
+    And Add filter for header with '${TopFilterName}'
+    And Verify header field '${TopHeader}' is present in unit '${ImperialUnit}'
+    And Add data value in header as metric
+    And Verify header field '${TopHeader}' is present in unit '${MetricUnit}'
+
+@Regression25 @CTCP-1987
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Belt_Imperial
+Scenario: ZyVerify the unit conversions for bottom cover thickness on conveyor Listing screen for metric
+
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Edit Conveyor bottom cover thickness value '${BottomCoverThickness}'
+    Then Navigate to conveyor list screen
+    And Add filter for header with '${BottomFilterName}'
+    And Verify header field '${BottomHeader}' is present in unit '${MetricUnit}'
+    And Add data value in header as imperial
+    And Verify header field '${BottomHeader}' is present in unit '${ImperialUnit}'
+
+@Regression25 @CTCP-1989
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Belt_Imperial
+Scenario: ZvVerify the unit conversions for speed on conveyor Listing screen for metric
+
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Edit Conveyor speed value '${SpeedMt}'
+    Then Navigate to conveyor list screen
+    And Add filter for header with '${SpeedFilterName}'
+    And Verify header field '${SpeedHeader}' is present in unit '${SpeedMetricUnit}'
+    And Add data value in header as imperial
+    And Verify header field '${SpeedHeader}' is present in unit '${SpeedImperialUnit}'
+
+@Regression25 @CTCP-1990
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Belt_Imperial
+Scenario: ZxVerify the unit conversions for speed on conveyor Listing screen for imperial
+
+    And Add data value in header as imperial
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Edit Conveyor speed value '${SpeedImp}'
+    Then Navigate to conveyor list screen
+    And Add filter for header with '${SpeedFilterName}'
+    And Verify header field '${SpeedHeader}' is present in unit '${SpeedImperialUnit}'
+    And Add data value in header as metric
+    And Verify header field '${SpeedHeader}' is present in unit '${SpeedMetricUnit}'
+
+@Regression25 @CTCP-1957
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_List_Page
+Scenario: Verify heading and column displayed in conveyor list table
+
+    And Navigate to conveyor list screen
+    And Verify Conveyor list page header as Conveyor
+    Then Verify Conveyor column name
+    Then  Verify Conveyor column data '${Name}' '${Site}' '${LastModified}' '${InstallBelt}' '${RemainingTime}' '${RemainingPer}'
+
+@Regression25 @CTCP-1970
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Navigation_Count
+Scenario: Verify pagination functionality
+
+    And Navigate to conveyor list screen
+    And Verify pagination format
+    And Create a conveyor with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustShopGerName}'
+    And Extract the conveyor count from conveyor list page
+    Then Delete Conveyor from Conveyor list screen '${ConveyorNameGer}'
+    And  Navigate to coverWear list screen and wait for data load
+    And Navigate to conveyor list screen
+    And Verify the conveyor count from conveyor list page
+    Then Verify pagination forward arrow button
+    And Verify pagination backward arrow button
+
+

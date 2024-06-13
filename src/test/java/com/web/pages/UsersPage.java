@@ -315,11 +315,10 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//div[contains(@class,'p-datatable-header')]//h4[text()='Users']")
 	public CustomElement usersHeader;
 
-	/////////////////////////////////////////////////
+
 
 	@FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
 	public CustomElement userDefaultImage;
-
 
 	@FindBy(locator="//div[@class='icon']//img")
 	public CustomElement cameraIcon;
@@ -335,7 +334,6 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator="//div[contains(@class,'cropped-frame')]")
 	public CustomElement imgPreview;
-
 
 	@FindBy(locator="//span[@class='ngx-ic-resize ngx-ic-topright ng-star-inserted']")
 	public CustomElement eleResize;
@@ -366,7 +364,6 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator ="//div[text()='Template Updated']")
 	public CustomElement altUpdatedTemp;
-
 
 	@FindBy(locator ="//span[text()='Yes']")
 	public CustomElement btnYes;
@@ -405,6 +402,43 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=(//button[@icon='pi pi-refresh'])[2]")
 	public CustomElement userRefresh;
 
+	@FindBy(locator = "xpath=//span[text()='Assign']")
+	public CustomElement btAssign;
+
+	@FindBy(locator = "xpath=//label[text()='Profile']/..//p-dropdown")
+	public CustomElement btDropDown;
+
+	@FindBy(locator = "xpath=//label[text()='Profile']/..//p-dropdown//span//div")
+	public CustomElement btDropDownInput;
+
+	@FindBy(locator = "xpath=//p-radiobutton[@value='update']")
+	public CustomElement rdbtnUpdate;
+	@FindBy(locator = "xpath=//h6[text()='Analysis Results and Message']")
+	public CustomElement txtAnalysisResult;
+	@FindBy(locator = "xpath=//div[contains(text(),'Total Users: ')]")
+	public CustomElement txtTotalUsers;
+	@FindBy(locator = "xpath=//div[contains(text(),'Users to Create: ')]")
+	public CustomElement txtUsersToCreate;
+	@FindBy(locator = "xpath=//div[contains(text(),'Users to Update: ')]")
+	public CustomElement txtUsersToUpdate;
+	@FindBy(locator = "xpath=//div[contains(text(),'Users to Skip: ')]")
+	public CustomElement txtUsersToSkip;
+	@FindBy(locator = "xpath=//div[contains(text(),'Warnings: ')]")
+	public CustomElement txtWarnings;
+	@FindBy(locator = "xpath=//div[contains(text(),'Errors: ')]")
+	public CustomElement txtErrors;
+
+	@FindBy(locator = "xpath=//h6[text()='Import Report']")
+	public CustomElement importReportHeader;
+
+	@FindBy(locator = "xpath=//p[text()='Drop File to Import(format:xlsx)']")
+	public CustomElement txtDropFile;
+
+	@FindBy(locator ="//div[text()='Users has been imported successfully.']")
+	public CustomElement altSuccessUserCreation;
+
+	@FindBy(locator = "xpath=//div[text()='Please check the excel file or record count and try to upload again.']")
+	public CustomElement uploadFailure;
 
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
@@ -429,8 +463,8 @@ public class UsersPage extends BasePage{
 //		SyncUtil.waitFor(10000);
 		waitForElementVisible(btSearchinput, 10000, 500);
 		btSearchinput.type(searchtext);
-//		SyncUtil.waitFor(10000);
-		waitForPageLoad(10000);
+		SyncUtil.waitFor(10000);
+//		waitForPageLoad(20000);
 		waitForElementVisible(driver.findElement(By.xpath("//td[contains(text(),' "+searchtext+" ')]")),20000,1000);
 		waitForElementVisible(btCheckbox,20000,500);
 		waitForElementToDisplay(btCheckbox);
@@ -441,10 +475,11 @@ public class UsersPage extends BasePage{
 		lnkUsers.jsClick();
 		waitForElementToDisplay(btAdd);
 		waitForElementToBeClickable(btAdd);
-		btAdd.click();
+		btAdd.jsClick();
 	}
 
 	public void setfullname(String Fullname) {
+		waitForPageLoad(5000);
 		waitForElementVisible(tbFullName, 5000,500);
 		tbFullName.type(Fullname, "Fullname");
 	}
@@ -657,7 +692,9 @@ public class UsersPage extends BasePage{
 	public void Clicksaveandclose() {
 		waitForPageLoad(3000);
 		waitForElementVisible(btSaveandClose, 10000,500);
+		waitForElementToBeClickable(btSaveandClose);
 		btSaveandClose.click();
+		waitForElementToBeClickable(btSaveandClose);
 		SyncUtil.waitFor(15000);
 		waitForElementToDisplay(btSearchinput);
 		Reporter.log("User is created",MessageTypes.Pass);
@@ -783,7 +820,7 @@ public class UsersPage extends BasePage{
 				break;
 			}
 			val = pagination.getText();
-			SyncUtil.waitFor(5000);
+			SyncUtil.waitFor(10000);
 		}
 	}
 
@@ -950,7 +987,8 @@ public class UsersPage extends BasePage{
 		waitForElementToDisplay(btAdd);
 		waitForElementVisible(btAdd,20000,1000);
 		waitForElementToBeClickable(btAdd);
-		btAdd.click();
+		waitForPageLoad(5000);
+		btAdd.jsClick();
 	}
 
 	public void verifyDefaultImage()
@@ -1067,16 +1105,16 @@ public class UsersPage extends BasePage{
 		btnYes.click();
 	}
 	public void verifyCreateTemplate(){
-		waitForPageLoad(5000);
-//		SyncUtil.waitFor(3000);
-		waitForElementVisible(altCreatedTemp,20000,1000);
+		waitForPageLoad(3000);
+		SyncUtil.waitFor(3000);
+		waitForElementVisible(altCreatedTemp,30000,1000);
 		waitForElementToDisplay(altCreatedTemp);
 		Validator.assertTrue(altCreatedTemp.isDisplayed(),"Create alert is not displayed","Create alert is displayed");
 	}
 
 	public void verifyDeleteTemplate(){
 		waitForPageLoad(5000);
-//		SyncUtil.waitFor(3000);
+		SyncUtil.waitFor(3000);
 		waitForElementVisible(altDeletedTemp,30000,1000);
 		waitForElementToDisplay(altDeletedTemp);
 		Validator.assertTrue(altDeletedTemp.isDisplayed(),"Delete alert is not displayed","Delete alert is displayed");
@@ -1138,5 +1176,92 @@ public class UsersPage extends BasePage{
 		waitForPageLoad(5000);
 	}
 
+	public void assignPageclick() {
+		waitForElementToBeClickable(btAssign);
+		btAssign.click();
+	}
+	public void verifyProfileDropDownInBulkUpload() {
+	waitForElementVisible(btDropDown,5000,1000);
+    Validator.assertTrue(btDropDown.isVisible(),"DropDown is not visible","DropDown is visible");
+	}
 
+	public void clickContinentalUserAndVerifyLabel() {
+		waitForElementToBeClickable(btDropDown);
+		btDropDown.click();
+		waitForElementVisible(rdbSelectprofiletypeStandardContinentalUser,5000,1000);
+		Validator.assertTrue(rdbSelectprofiletypeStandardContinentalUser.isVisible(),"Standard Continental User is not visible","Standard Continental User is visible");
+		rdbSelectprofiletypeStandardContinentalUser.click();
+		waitForElementVisible(btDropDown,5000,1000);
+		Validator.assertTrue(btDropDownInput.getText().contains("Standard continental user"),"Standard Continental User is not present as dropdown label","Standard Continental User is present as dropdown label");
+	}
+
+	public void verifyAnalysisBar(){
+		waitForPageLoad(5000);
+		waitForElementVisible(analysingUsers,15000,1000);
+		Validator.assertTrue(analysingUsers.isDisplayed(),"Analysis Bar is not displayed","Analysis Bar is displayed");
+	}
+	public void verifyUserUploadBackBtnFunctionality(){
+		waitForPageLoad(5000);
+		waitForElementVisible(backBtn,10000,1000);
+		Validator.assertTrue(backBtn.isDisplayed(),"Back Button is not displayed","Back Button is displayed");
+		backBtn.click();
+		waitForPageLoad(5000);
+		waitForElementVisible(importFormHeader,5000,1000);
+		Validator.assertTrue(importFormHeader.isDisplayed(),"Import Form is not displayed","Import Form is displayed");
+
+	}
+	public void selectUpdateBtnInImportReportPage(){
+		waitForPageLoad(5000);
+		waitForElementVisible(rdbtnUpdate,5000,1000);
+		rdbtnUpdate.click();
+		Validator.assertTrue(rdbtnUpdate.isDisplayed(),"Update is not selected","Update is selected");
+	}
+	public void verifyContinueBtnInImportPage(){
+		waitForElementVisible(continueBtn,5000,1000);
+		continueBtn.click();
+		waitForPageLoad(5000);
+		waitForElementVisible(txtAnalysisResult,5000,1000);
+		Validator.assertTrue(txtAnalysisResult.isDisplayed(),"Analysis Result is not selected","Analysis Result is selected");
+	}
+	public void verifyImportAnalysisPageData(){
+		Validator.assertTrue(txtTotalUsers.isDisplayed(),"Total Users is not selected","Total Users is selected");
+		Validator.assertTrue(txtUsersToCreate.isDisplayed(),"Users To Create is not selected","Users To Create is selected");
+		Validator.assertTrue(txtUsersToUpdate.isDisplayed(),"Users to Update is not selected","Users to Update is selected");
+		Validator.assertTrue(txtUsersToSkip.isDisplayed(),"Users to Skip is not selected","Users to Skip is selected");
+		Validator.assertTrue(txtWarnings.isDisplayed(),"Warnings is not selected","Warnings is selected");
+		Validator.assertTrue(txtErrors.isDisplayed(),"Errors is not selected","Errors is selected");
+	}
+
+	public void verifyUserUploadBackBtnInAnalysisPage(){
+		waitForPageLoad(5000);
+		waitForElementVisible(backBtn,10000,1000);
+		Validator.assertTrue(backBtn.isDisplayed(),"Back Button is not displayed","Back Button is displayed");
+		backBtn.click();
+		waitForPageLoad(5000);
+		waitForElementVisible(importReportHeader,5000,1000);
+		Validator.assertTrue(importReportHeader.isDisplayed(),"Bulk Import is not displayed","Bulk Import is displayed");
+	}
+	public void clickDeleteAndVerifyRemoval(){
+		waitForElementVisible(deleteFile,5000,1000);
+		deleteFile.click();
+		Validator.assertTrue(txtDropFile.isDisplayed(),"File is not deleted","File is deleted");
+	}
+	public void clickImportAndVerifyToastMsg(){
+		waitForElementVisible(importBtn,5000,1000);
+		importBtn.click();
+		waitForElementVisible(altSuccessUserCreation,5000,1000);
+		Validator.assertTrue(altSuccessUserCreation.isDisplayed(),"Unable to Import ","Import successful");
+	}
+	public void verifyUserCreationInListPage(String user){
+		waitForPageLoad(5000);
+		waitForElementVisible(usersHeader,5000,1000);
+		Validator.assertTrue(searchUser(user),"User is not found","User was import Succesfully");
+	}
+
+	public boolean userWrongFileUpload(String fileName) {
+		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
+		fileUpload.sendKeys(file_path, "File Path");
+		deleteFile.assertVisible("Delete File upload");
+		return uploadFailure.isVisible();
+	}
 }

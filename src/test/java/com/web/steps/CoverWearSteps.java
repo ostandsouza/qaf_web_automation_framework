@@ -6,12 +6,14 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
 import com.web.pages.CoverWearPage;
+import com.web.pages.UsersPage;
 import org.json.simple.parser.ParseException;
 
 public class CoverWearSteps {
 
     CoverWearPage coverWearPage = new CoverWearPage();
     ConveyorPage conveyorPage = new ConveyorPage();
+    UsersPage userpage = new UsersPage();
 
     @QAFTestStep(description="Add Cover Wear for conveyor {ConveyorName} and site {CustSiteName} with data {FullName} {PositionName} {TopCoverThickness} {BottomCoverThickness} {Durometer} {TopCoverCompound} {BottomCoverCompound}")
     public void createCoverWearMeasurement(String conveyorName, String custSiteName, String fullName, String positionName, String topCoverThickness, String bottomCoverThickness, String durometer, String topCoverCompound, String bottomCoverCompound){
@@ -486,9 +488,9 @@ public class CoverWearSteps {
         coverWearPage.verifyPaginationDropDown();
     }
 
-    @QAFTestStep(description="Verify pagination arrow button")
-    public void verifyThePaginationArrowButton(){
-        coverWearPage.verifyPaginationArrowButton();
+    @QAFTestStep(description="Verify pagination forward arrow button")
+    public void verifyThePaginationForwardArrowButton(){
+        coverWearPage.verifyPaginationForwardArrowButton();
     }
 
     @QAFTestStep(description="Click on Add and verify Add new measurement pop up")
@@ -518,7 +520,6 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Add details {Device} {Velocity} {CalThickness} {SurfaceTemp} {TestPosition} for measurement pop up")
     public void addTheDeviceInformatiom(String device ,String velocity,String thickness,String surfaceTemp,String testPos){
-        System.out.println(device+velocity+thickness+surfaceTemp+testPos);
         coverWearPage.addDeviceInformation(device,velocity,thickness,surfaceTemp,testPos);
     }
 
@@ -625,5 +626,82 @@ public class CoverWearSteps {
     public void verifyTheProfileGraphIsDisplayed(){
         coverWearPage.verifyProfileGraphIsDisplayed();
     }
+
+    @QAFTestStep(description="Verify CoverWear Position table header as Positions")
+    public void verifyTheCoverWearPositionTableHeader(){
+        coverWearPage.verifyCoverWearPositionTableHeader();
+    }
+
+    @QAFTestStep(description="Verify CoverWear Position Table column name")
+    public void verifyTheCoverWearPositionTableCoulmnName(){
+        coverWearPage.verifyCoverWearPositionTableCoulmnName();
+    }
+
+    @QAFTestStep(description="Click on Add New Position")
+    public void clickOnTheAddNewPosition(){
+     userpage.addIconClick();
+     coverWearPage.verifyAddNewPositionPopUp();
+    }
+
+    @QAFTestStep(description="Verify customer as {CustSiteName} conveyor as {ConveyorName} width as {BeltWidth} for add position popUp")
+    public void verifyAddCustomerPositionPopUpFields(String site,String conveyor,String width){
+    coverWearPage.verifyCustomerField(site);
+    coverWearPage.verifyConveyorField(conveyor);
+    coverWearPage.verifyWidthField(width);
+    }
+
+    @QAFTestStep(description="Add segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
+    public void verifyAddSegmentPositionPopUpFields(String segment,String zero,String durometer){
+    coverWearPage.addSegmentField(segment);
+    coverWearPage.addTonsConveyedField(zero);
+    coverWearPage.addDurometerField(durometer);
+    }
+    @QAFTestStep(description="Click Top/Bottom radio button and verify selection")
+    public void addTheTopBottomValue(){
+    coverWearPage.addTopBottomValue();
+    }
+
+     @QAFTestStep(description="Click save and verify segment {PositionName} creation")
+    public void clickTheOnSaveSegment(String position){
+    coverWearPage.clickOnSave();
+    coverWearPage.verifySegmentCreation(position);
+
+    }
+    @QAFTestStep(description="Verify Specification header")
+    public void verifyTheSpecificationHeader(){
+    coverWearPage.verifySpecificationHeader();
+    }
+     @QAFTestStep(description="Verify Specification table Fields")
+    public void verifyTheSpecificationTableFields(){
+    coverWearPage.verifySpecificationTableFields();
+    }
+    @QAFTestStep(description="Click on export and verify export popup")
+    public void clickTheExportAndVerifyPopUp(){
+    coverWearPage.clickOnExportPDF();
+    coverWearPage.verifyExportPopUp();
+    coverWearPage.verifySaveBtn();
+    }
+    @QAFTestStep(description="Extract the CoverWear Data for {CoverWearName}")
+    public void extractTheCoverWearData(String coverWear){
+        coverWearPage.searchCoverWear(coverWear);
+        coverWearPage.extractCoverWearData();
+
+    }
+
+    @QAFTestStep(description="Click on coverWear report download button")
+    public void clickTheReportDownloadBtn(){
+        coverWearPage.clickReportDownloadButton();
+    }
+
+
+    @QAFTestStep(description="Select all fields {FromDate} {ToDate} in the pop and verify user is able to fill respective fields")
+    public void selectAllFieldsInDownloadPopUp(String fromDate, String toDate){
+        coverWearPage.downloadPositionReport(fromDate,toDate);
+    }
+    @QAFTestStep(description="Verify the coverWear pdf report for {Conveyor} with {Site}")
+    public void verifyTheCoverWearPDFContents(String conveyorName, String siteName){
+        coverWearPage.verifyCoverWearPDFContents(conveyorName,siteName);
+    }
+
 
 }

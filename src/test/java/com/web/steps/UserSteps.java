@@ -161,9 +161,9 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description="Create a Distributor User {FullName} and {Phone} and {EmailDist} and {ProfileTypeDist} and {UserPassword} and {RetypePassword} and {CoporateRole} and {DistCorpName} and {DistShopName} and {CustSiteName}")
 	public void createDistributorUserForIndiaJohnDoe(String FullName,String Phone,String EmailDist, String ProfileTypeDist,String UserPassword,String RetypePassword, String CoporateRole, String DistCorpName, String DistShopName, String CustSiteName) {
-		String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
-		userpage.apiBase.deleteProfileAPI(userid);
-		userpage.apiBase.deleteUserAPI(userid);
+//		String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
+//		userpage.apiBase.deleteProfileAPI(userid);
+//		userpage.apiBase.deleteUserAPI(userid);
 		userpage.usersclick();
 		userpage.addClick();
 		userpage.setfullname(FullName);
@@ -276,7 +276,8 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description="Verify the success message after uploading file with name {file}")
 	public void verifySuccessMsgFileUpload(String fileName){
-		Validator.assertTrue(userpage.userFileUpload(fileName),"User bulk import file upload failed","User bulk import file upload was successful");
+		SyncUtil.waitFor(10000);
+		Validator.assertTrue(userpage.userFileUpload(fileName),"Bulk import file upload failed","Bulk import file upload was successful");
 	}
 
 	@QAFTestStep(description="Verify bulk upload analysis result after uploading file with name {file} having count {count}")
@@ -357,9 +358,9 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description="Create a User with {FullName} and {Phone} and {Email} and {ProfileType} and {UserPassword} and {RetypePassword}")
 	public void createUser(String FullName,String Phone,String Email,String ProfileType,String UserPassword,String RetypePassword) {
-		String userid = userpage.apiBase.getUserProfileAPI(Email);
-		userpage.apiBase.deleteProfileAPI(userid);
-		userpage.apiBase.deleteUserAPI(userid);
+//		String userid = userpage.apiBase.getUserProfileAPI(Email);
+//		userpage.apiBase.deleteProfileAPI(userid);
+//		userpage.apiBase.deleteUserAPI(userid);
 		userpage.usersClick();
 		userpage.addClick();
 		userpage.setfullname(FullName);
@@ -427,7 +428,7 @@ public class UserSteps extends BasePage {
 		userpage.goToUsersAndWait();
 		userpage.searchUser(fullName);
 		userpage.goToEditUserPageWithActions(fullName);
-		userpage.Nextclick();
+		userpage.assignPageclick();
 		userpage.setTerritory(region1);
 		userpage.setTerritory(region2);
 		userpage.setTerritory(region3);
@@ -456,6 +457,54 @@ public class UserSteps extends BasePage {
 	public void changeTheCorporateValue(String corpName,String corporateRole) {
 		userpage.distributorInformation(corpName,corporateRole);
 		userpage.validateEditCorpInfo(corpName);
+	}
+	@QAFTestStep(description = "Verify Profile DropDown in  User Bulk Upload")
+	public void verifyTheProfileDropDownInBulkUpload() {
+		userpage.verifyProfileDropDownInBulkUpload();
+	}
+	@QAFTestStep(description = "Click on Continental user and verify dropdown label")
+	public void clickTheContinentalUserAndVerifyLabel() {
+		userpage.clickContinentalUserAndVerifyLabel();
+	}
+
+	@QAFTestStep(description="Verify analysis bar is displayed uploading file with name {0}")
+	public void verifyTheAnalysisBar(String fileName){
+		userpage.userFileImport(fileName);
+		userpage.verifyAnalysisBar();
+	}
+
+	@QAFTestStep(description="Verify upload back button functionality after uploading file with name {0}")
+	public void verifyUserUploadBackBtn(String fileName){
+		userpage.userFileImport(fileName);
+		userpage.verifyUserUploadBackBtnFunctionality();
+	}
+	@QAFTestStep(description="Select the update radio button in import report page")
+	public void selectTheUpdateBtnInImportReportPage(){
+		userpage.selectUpdateBtnInImportReportPage();
+	}
+	@QAFTestStep(description="Click continue and Analysis page is displayed")
+	public void verifyTheContinueBtnInImportPage(){
+		userpage.verifyContinueBtnInImportPage();
+	}
+	@QAFTestStep(description="Verify import Analysis page data")
+	public void verifyTheImportAnalysisPageData(){
+		userpage.verifyImportAnalysisPageData();
+	}
+	@QAFTestStep(description="Verify Back button and Imports Page is displayed")
+	public void verifyTheBackBtnInAnalysisPage(){
+		userpage.verifyUserUploadBackBtnInAnalysisPage();
+	}
+	@QAFTestStep(description="Click delete icon and verify removal")
+	public void clickTheDeleteAndVerifyRemoval(){
+		userpage.clickDeleteAndVerifyRemoval();
+	}
+	@QAFTestStep(description="Click on import and verify toast message")
+	public void clickTheImportBtnAndVerifyToast(){
+		userpage.clickImportAndVerifyToastMsg();
+	}
+	@QAFTestStep(description="Verify user {User} creation in the user list page")
+	public void verifyTheUserCreationInListPage(String User){
+		userpage.verifyUserCreationInListPage(User);
 	}
 
 }
