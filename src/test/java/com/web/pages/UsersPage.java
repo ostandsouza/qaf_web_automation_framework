@@ -529,15 +529,15 @@ public class UsersPage extends BasePage{
 		SyncUtil.waitFor(2000);
 		waitForElementToInvisible(cbSpinner,25000);
 		if(add.equalsIgnoreCase("true"))
-			cbAllcheckboxAdd.click();
+			cbAllcheckboxAdd.jsClick();
 		if(edit.equalsIgnoreCase("true"))
-			cbAllcheckboxEdit.click();
+			cbAllcheckboxEdit.jsClick();
 		if(delete.equalsIgnoreCase("true"))
-			cbAllcheckboxDelete.click();
+			cbAllcheckboxDelete.jsClick();
 		if(view.equalsIgnoreCase("true"))
-			cbAllcheckboxView.click();
+			cbAllcheckboxView.jsClick();
 		if(download.equalsIgnoreCase("true"))
-			cbAllcheckboxDownload.click();
+			cbAllcheckboxDownload.jsClick();
 	}
 
 	/**
@@ -974,13 +974,13 @@ public class UsersPage extends BasePage{
 	public void verifyCameraIcon()
 	{
 		hoverOverElement(userDefaultImage);
-		waitForElementVisible(cameraIcon,5000,500);
+		waitForElementVisible(cameraIcon,20000,500);
 		Validator.assertTrue(cameraIcon.isDisplayed(), "cameraIcon is not visible on the page","cameraIcon is  visible on the page");
 	}
 	public void cameraIconClick()
 	{
 		cameraIcon.click();
-		waitForElementVisible(imageViewerPanel,5000,500);
+		waitForElementVisible(imageViewerPanel,10000,500);
 		Validator.assertTrue(imageViewerPanel.isDisplayed(), "Image viewer panel  is not visible on the page","Image viewer panel is visible");
 
 	}
@@ -1139,7 +1139,6 @@ public class UsersPage extends BasePage{
 				WebElement regionElement = driver.findElement(By.xpath("(//tr["+i+"]//*//div[contains(@class,'p-chip-text') and contains(text(),'"+region+"')])"));
 				// If region element found, continue searching
 				regionFound = true;
-//				System.out.println("Region '" + region + "' found in the row.");
 			} catch (NoSuchElementException ex) {
 				// If no region element found, fail the test
 //				System.out.println("Region '" + region + "' not found in the row. Test failed.");

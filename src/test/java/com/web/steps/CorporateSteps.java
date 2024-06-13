@@ -338,6 +338,8 @@ public class CorporateSteps {
 
     @QAFTestStep(description = "Enter a new company name {CompanyName} and address {Address} which is not in auto suggest")
     public void setCompanyNameAndAddress (String companyName,String address ) {
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(companyName));
+        corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.setCompanyAndAddress(companyName,address);
 
 
@@ -369,13 +371,7 @@ public class CorporateSteps {
         corpPage.setMapAddress(street,city,zipCode,state,country);
         corpPage.clickSaveBtnAndVerify();
         corpPage.deleteCorporate(CompanyName);
-
     }
-
-
-
-
-
 
 
 

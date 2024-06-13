@@ -7,7 +7,7 @@ Launch the application through '/'
 @dataFile:resources/data/AddCompany.xls
 @sheetName:Company
 @key:Company_Master_User
-Scenario: Look for the breadcrumb of the page
+Scenario: ZLook for the breadcrumb of the page
 
          Given User is at Login page
          When Login with '${UserName}' and '${Password}'
@@ -23,14 +23,12 @@ Scenario: Look for the breadcrumb of the page
 @key:Company_ImageUpload
 Scenario: Verify closing of Image viewer panel
 
-         Given User is at Login page
-         When Login with '${UserName}' and '${Password}'
          And User navigates to Add Company page
          Then Verify the default image is displayed and on hover camera icon is displayed
          And  Verify that Image Viewer panel is displayed on clicking the camera icon
          When User clicks on Upload Image
          Then Verify that the user is able to upload the image '${imgName}' from the system
-         And Verify that the selected image is displayed in the image viewer panel
+         And Verify that selected image is getting displayed in the image viewer panel
          When User clicks on cancel button
          Then Verify that the image viewer panel is closed and image is not uploaded
 
@@ -40,8 +38,6 @@ Scenario: Verify closing of Image viewer panel
 @key:Company_map
 Scenario: Verify Address autoSuggest functionality should working as expected after maximizing the map.
 
-         Given User is at Login page
-         When Login with '${UserName}' and '${Password}'
          Then Verify user is on home page of the application
          And Verify add company Link should be visible in the left navigation bar
          And Verify user navigates to Add Company page on clicking the Add Company link in navigation bar
@@ -55,8 +51,7 @@ Scenario: Verify Address autoSuggest functionality should working as expected af
 @key:Company_Location
 Scenario: Verify Add location when address not displayed in auto suggest.
 
-         Given User is at Login page
-         When Login with '${UserName}' and '${Password}'
+
          And User navigates to Add Company page
          And Verify image upload functionality with '${imageName}'
          And Select on Distributor corporate radio button and verify that distributor corporate is selected as default option

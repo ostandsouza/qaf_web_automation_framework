@@ -354,8 +354,8 @@ public class UserSteps extends BasePage {
 
 	}
 
-	@QAFTestStep(description = "Verify that the selected image is displayed in the image viewer panel")
-	public void verifyUploadedImage () {
+	@QAFTestStep(description = "Verify that selected image is getting displayed in the image viewer panel")
+	public void verifyUploadedImageFunctionality () {
 		userpage.verifyImageUpload();
 
 	}
@@ -441,7 +441,7 @@ public class UserSteps extends BasePage {
 		userpage.verifyProfileType(profileTypeVerify);
 	}
 
-	@QAFTestStep(description = "Verify the fullName '${FullName}' of the user")
+	@QAFTestStep(description = "Verify the fullName {FullName} of the user")
 	public void verifyFullName(String fullName)
 	{
 		userpage.verifyFullName(fullName);
@@ -455,7 +455,7 @@ public class UserSteps extends BasePage {
 	@QAFTestStep(description="Click on corporate link in navigation bar")
 	public void navigateToCorporatePage() {
 		corpPage.clickCorporates();
-		driver.findElements(By.xpath("//div[contains(@class,'p-chip-text')]")).stream().map(x->x.getText()).forEach(System.out::println);
+//		driver.findElements(By.xpath("//div[contains(@class,'p-chip-text')]")).stream().map(x->x.getText()).forEach(System.out::println);
 	}
 
 	@QAFTestStep(description="Verify the assignments {Region} for the current user")

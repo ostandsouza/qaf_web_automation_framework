@@ -256,3 +256,137 @@ Scenario: Verify Company Customer deletion from corporate list screen
 
     When  Delete Corporate with name '${CustCorpName}'
     Then  Verify Deleted corporate '${CustCorpName}'
+
+@Regression29 @CTCP-1133
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Company_Navigation
+Scenario: Verify with add company navigation
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    Then  Verify that site card is displayed in home page
+    And Click on the site card and verify it navigates to site list screen
+
+@Regression29 @CTCP-1142
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Site
+Scenario: Verify notification order after login with other user and try to update the data on multiple subscribed sites
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe the sites for the user '${Site1}' and '${Site2}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    Then Edit the subscribed sites '${Site1}' and '${ConveyorName}'
+    And Edit the subscribed sites '${Site2}' and '${ConveyorName2}'
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify user is getting notification in last in first out format
+    And Unsubscribe the sites '${Site1}' and '${Site2}'
+
+@Regression29 @CTCP-1135
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Site
+Scenario: Verify user to get the notification under bell icon after subscription of site
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Verify the notification count in bellIcon
+    And subscribe the sites for the user '${Site1}' and '${Site2}'
+    And Verify the notification count in bellIcon after subscription and verify user is not getting any notification
+    And Unsubscribe the sites '${Site1}' and '${Site2}'
+
+@Regression29 @CTCP-1143
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the functionality for login with admin and delete the site/conveyor that is subscribed
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe one site '${Site1}' for the user
+    Then Verify the notification count in bellIcon
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Delete Customer site with '${Site1}'
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify Deleted Customer site with '${Site1}'
+    And Verify the notification count in bellIcon after subscription and verify user is not getting any notification
+
+@Regression29 @CTCP-1145
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the page after click on view more from Notification bell icon
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to siteListPage and click on bellIcon
+    And Click on View more button and verify the fields in notification list page
+
+@Regression29 @CTCP-1146
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the page after click on view more from Notification bell icon
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to siteListPage and click on bellIcon
+    Then Navigate to notifications List page
+    And Verify the result after providing notification list value as conveyor/site '${NotificationFilter}'
+
+@Regression29 @CTCP-1148
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the result after providing dates under fromDate toDate
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to siteListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Verify user is unable to add toDate '${ToDate}' less than fromDate '${FromDate}'
+
+@Regression29 @CTCP-1149
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the result after click on sort button from notification List page
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to siteListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Click on sort button and verify that user is able to get notification in ascending/descending order
+
+@Regression29 @CTCP-1151
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the result after click on refresh button from notification List page
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to siteListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Click on refresh button and verify that data is getting refreshed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

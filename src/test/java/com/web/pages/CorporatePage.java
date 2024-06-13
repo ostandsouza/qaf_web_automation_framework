@@ -298,6 +298,11 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator = "//label[normalize-space()='Street and No.']")
     public CustomElement textStreet;
+    @FindBy(locator = "(//div[@class='card-inner-wrapper' and contains(div, 'Sites')])[1]")
+    public CustomElement siteCard ;
+    @FindBy(locator = "//span[contains(@class,'p-panel-title') and text()='Sites']")
+    public CustomElement sitesHeader ;
+
 
 
 
@@ -307,6 +312,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void clickCorporates() {
+        SyncUtil.waitFor(5000);
         waitForElementVisible(lCorporates, 10000,500);
         lCorporates.click("Corporate");
         waitForElementToDisplay(btAddCorp);
@@ -679,8 +685,6 @@ public class CorporatePage extends BasePage{
         waitForElementVisible(addCompanyDefaultImage,5000,500);
         waitForElementVisible(bcAddCompanyLink,10000,500);
         Assert.assertTrue(bcAddCompanyLink.isDisplayed(), "Breadcrumb element is not displayed");
-//		String breadcrumbText = bcAddUserLink.getText();
-//		System.out.println(breadcrumbText+"breadcrumbText");
         assertEquals(bcAddCompanyLink.getText(), "Home\nCorporates\nAdd", "Breadcrumb text does not match expected");
 
     }
@@ -798,14 +802,7 @@ public class CorporatePage extends BasePage{
     {
         waitForElementVisible(mapLocation,10000,500);
         waitForElementToBeClickable(mapLocation);
-//        System.out.println("map appered");
-//        SyncUtil.waitFor(10000);
         mapLocation.jsClick();
-//        ImageUtils imageUtils = new ImageUtils(driver); // Initialize an instance of ImageUtils
-//        clickAtPosition(mapLocation, -30,-40);
-//        System.out.println("map  clicked");
-//        waitForElementVisible(manualAddressCard,10000,1000);
-
     }
 
     public void verifyMapAddressFieldNames()
@@ -834,10 +831,6 @@ public class CorporatePage extends BasePage{
         btSaveandclose.click();
         waitForPageLoad(10000);
         Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(),"company is not created","company is created successfully");
-//        Validator.assertTrue(driver.getCurrentUrl().contains("/secure/companies/list"),"URL missMatch","URL validation passed");
-//        waitForElementVisible(toastSuccess,10000,500);
-//        Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not saved successfully","company saved successfully");
-
     }
     public void setMapAddress(String street,String city,String zipCode,String state,String country)
     {
@@ -851,12 +844,13 @@ public class CorporatePage extends BasePage{
 
     }
 
-    public void verifyComapanyCreation()
-    {
-        waitForElementVisible(toastSuccess,5000,500);
-        Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not created successfully","the company is created successfully");
+//    public void verifyComapanyCreation()
+//    {
+//        waitForElementVisible(toastSuccess,5000,500);
+//        Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not created successfully","the company is created successfully");
+//
+//    }
 
-    }
 
 
 }

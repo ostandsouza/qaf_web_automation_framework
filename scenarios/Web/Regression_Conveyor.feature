@@ -145,8 +145,8 @@ Scenario: Verify a user is able to Delete layout
 @Regression17 @CTCP-1865
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:UserManagement_Master
-Scenario: Verify Bread Crumb of the page
+@key:Conveyor_coordinates
+Scenario: ZVerify Bread Crumb of the page
 
      Given User is at Login page
      When Login with '${UserName}' and '${Password}'
@@ -159,8 +159,7 @@ Scenario: Verify Bread Crumb of the page
 @key:Conveyor_coordinates
 Scenario: Selection of head and tail coordinates
 
-     Given User is at Login page
-     When Login with '${UserName}' and '${Password}'
+
      And  Navigate to Add Conveyor screen
      Then Verify that  GPS Coordinates Head and GPS Coordinates Tail with lat and long is visible
      When User selects a site '${SiteName}' from the dropdown
@@ -178,13 +177,13 @@ Scenario: Selection of head and tail coordinates
 @sheetName:Regression
 @key:Conveyor_Duplicate
 Scenario: Validation duplicate on Conveyor Name
-
-
           Given User is at Login page
           When Login with '${UserName}' and '${Password}'
           And  Navigate to Add Conveyor screen
           When Create a new conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
-          And Navigate to conveyor list screen and search for the created conveyor '${ConveyorName1}'
+          And Logout from the current user
+          When Login with '${UserName}' and '${Password}'
+          And Navigate to conveyor details screen for conveyor '${ConveyorName1}'
           When Create a duplicate conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
           Then Verify that user should get an error message while creating duplicate conveyor
 
@@ -192,10 +191,8 @@ Scenario: Validation duplicate on Conveyor Name
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_createDetails
-Scenario: verify the save and close button on remarks tab
+Scenario: Verify the save and close button on remarks tab
 
-          Given User is at Login page
-          When Login with '${UserName}' and '${Password}'
           And  Navigate to Add Conveyor screen
           When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
           And Click on remarks radio button and click on save and close
@@ -206,10 +203,8 @@ Scenario: verify the save and close button on remarks tab
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_createDetails
-Scenario: verify user is able to click the previous button
+Scenario: Verify user is able to click the previous button
 
-          Given User is at Login page
-          When Login with '${UserName}' and '${Password}'
           And  Navigate to Add Conveyor screen
           When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
           And Click on remarks radio button and click on previous button
@@ -221,12 +216,229 @@ Scenario: verify user is able to click the previous button
 @key:Conveyor_createDetails
 Scenario: Verify user is able to see the imperial data when imperial radio button is selected
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
     Then Add data value in header as imperial
     And Verify data value in header as '${Unit}' in Add Conveyor
+
+@Regression22 @CTCP-1994
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Position
+Scenario: ZFields displayed under Conveyor name
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    Then Verify Conveyor Name '${ConveyorName}' is displayed as heading of the page
+    And Verify the fields displayed under the conveyor name with prefilled values
+    And Look for site Location '${CustSiteName}' in Conveyor trails map with site location should display
+    And Look for the fields displayed under technical data and verify it is non editable
+
+@Regression23 @CTCP-1996
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Position
+Scenario: Verify conveyor location displayed in map
+
+
+    When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    Verify Conveyor Name '${ConveyorName}' is displayed as heading of the page
+    Then Verify that map is displayed in the Conveyor Trail
+    And Look for site Location '${CustSiteName}' in Conveyor trails map with site location should display
+    And Verify Conveyor Head and Tail location position is displayed in the map
+    And Click on pin location of conveyor in map and verify it displays label with conveyor name and cross button
+
+@Regression21 @CTCP-1999
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Belt_Metric
+Scenario: Verify user is able to edit the tons per hour peak for the metric unit Conversions
+
+
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Verify site and coporate fields are prefilled
+    Then Verify data value in header as metric
+    And Edit Conveyor tons per hour value '${TonsPerHour}'
+    And Verify data value unit as '${MetricUnit}' in Add Conveyor for TonsPerHour
+    Then Add data value in header as imperial
+    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for TonsPerHour
+
+
+@Regression24 @CTCP-2005
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_LayoutCreate
+Scenario: Verify the table layout picker
+
+
+    When  Navigate to conveyor list screen
+    Then Click on layout picker
+    And Verify user is able to open the popup
+
+
+@Regression26 @CTCP-2008
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_LayoutCreate
+Scenario: Verify the user should get the add button enable
+
+
+    When  Navigate to conveyor list screen
+    Then Click on layout picker
+    And Click on text box and verify user is able to enter the layout name '${LayoutName}'
+    And Verify add button is enabled
+
+@Regression27 @CTCP-2010
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Layout
+Scenario: ZVerify user is able to see the newly added layout
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    Then  verify user '${UserName}' is able to add new layout for '${Corporates}' '${BeltWidth}' '${Rating}' '${Length}' with '${Layout_UserName}'
+    And Click on profile and select logout button
+    When  Login with '${UserName}' and '${Password}'
+    When  Navigate to conveyor list screen
+    Then Verify user is able to see newly added layout
+
+
+@Regression28 @CTCP-2014
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_DuplicateLayout
+Scenario: Verify duplicate name of the layout
+
+
+    Then  verify user '${UserName}' is able to add new layout for '${Corporates}' '${BeltWidth}' '${Rating}' '${Length}' with '${Layout_Name}'
+    And Create a duplicate layout '${Corporates}' '${BeltWidth}' '${Rating}' '${Length}' with '${Layout_Name}'
+    And Verify user should get an error message saying layout exists
+
+@Regression26 @CTCP-2016
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_LayoutCreate
+Scenario: User should able to drag and drop the table Layout settings popup
+
+
+    When  Navigate to conveyor list screen
+    Then Click on layout picker
+    And Verify user is able to open the popup
+    And Mouse over the popup click and drag and verify user is able to drag and drop the popup
+
+
+@Regression29 @CTCP-1958
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_ColumnFilter
+Scenario: ZSelect table column as per column selection filter
+
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    When  Navigate to conveyor list screen
+    Then Verify column selection filter is visible
+    And Click on the column name filter and verify searchBar all columnNames with checkbox and cross button is visible
+    And Enter the columnName '${ColumnName}' in searchBar and verify all columnName with search text is displayed
+    And Select the checkbox of searched column and verify only selected column is displayed in the table and column filter text box
+    And Remove the entered text from the searchBar and verify all columns are displayed in the dropdown
+    And Select the parent checkbox and verify all child column checkbox and all selected column is visible in the table
+    And Click on cross button and verify column filter is closed
+
+@Regression30 @CTCP-1959
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Position
+Scenario: Search conveyor in conveyor list
+
+
+
+    When  Navigate to conveyor list screen
+    Then Look for the searchBar in the table and verify search icon and search placeholder is visible
+    When Enter the text '${ConveyorName}' to search
+    And Verify the matching result is displayed or No record found message should display
+    When Enter the text '${ConveyorNameInvalid}' to search
+    And Verify the matching result is displayed or No record found message should display
+
+@Regression31 @CTCP-1962
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_ColumnFilter
+Scenario: Apply and remove 'Start With' filter
+
+
+    When  Navigate to conveyor list screen
+    Then Hover on a column and verify filter icon is displayed
+    And Click on the filter icon and verify all fields '${StartsWithFilterType}' are visible
+    And Select '${StartsWithFilterType}' from filter dropdown and verify it is selected
+    And Enter the text in the search text '${SearchText}' box and verify user is able to enter
+    And Click on apply button and verify all results with entered text and filter '${StartsWithFilterType}' is visible in list and filter popup is closed
+    And Hover over column name and verify filter icon is highlighted
+    Then Click on clear button in popup and verify filter is removed
+
+
+@Regression31 @CTCP-1963
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_ColumnFilter
+Scenario: Apply and remove 'Contains' filter
+
+
+    When  Navigate to conveyor list screen
+    Then Hover on a column and verify filter icon is displayed
+    And Click on the filter icon and verify all fields '${ContainsFilterType}' are visible
+    And Select '${ContainsFilterType}' from filter dropdown and verify it is selected
+    And Enter the text in the search text '${ContainsSearchText}' box and verify user is able to enter
+    And Click on apply button and verify all results with entered text and filter '${ContainsFilterType}' is visible in list and filter popup is closed
+    And Hover over column name and verify filter icon is highlighted
+    Then Click on clear button in popup and verify filter is removed
+
+@Regression32 @CTCP-1967
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_ColumnFilter
+Scenario: Apply and remove ' Equals' filter
+
+
+    When  Navigate to conveyor list screen
+    Then Hover on a column and verify filter icon is displayed
+    And Click on the filter icon and verify all fields '${ContainsFilterType}' are visible
+    And Select '${EqualsFilterType}' from filter dropdown and verify it is selected
+    And Enter the text in the search text '${EqualsSearchText}' box and verify user is able to enter
+    And Click on apply button and verify all results with entered text and filter '${EqualsFilterType}' is visible in list and filter popup is closed
+    And Hover over column name and verify filter icon is highlighted
+    Then Click on clear button in popup and verify filter is removed
+
+@Regression33 @CTCP-1974
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_update
+Scenario: Verify update functionality for Conveyor lite page
+
+
+
+    When  Navigate to conveyor list screen
+    And Search for the conveyor '${ConveyorName}' and select the checkbox to edit and verify user is able to select checkbox
+    Then Click on Action button and select edit option and verify user is navigated to conveyor detail page
+    And Click on map to set position of head and verify prefilled value for lat and long is displayed
+    When Click on location type and select head value from the dropdown
+    Then Click on add marker button and verify GPS Coordinates Head is updated with lat long value
+    And Update the fields of Conveyor-Lite page and verify user is able to update the fields
+    And Click on update button and verify all changes are saved and navigated to conveyor list page
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

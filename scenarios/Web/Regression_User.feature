@@ -317,7 +317,7 @@ Scenario: Verify the user is able to update the password
 @UserRegression28 @CTCP-1284
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:UserManagement_Master
+@key:UserManagement_ImageUpload
 
 Scenario: Verify the breadCrumb of add user page
 
@@ -342,7 +342,7 @@ Scenario: Verify closing of Image viewer panel
          And  Verify that Image Viewer panel is displayed on clicking the camera icon
          When User clicks on Upload Image
          Then Verify that the user is able to upload the image '${imgName}' from the system
-         And Verify that the selected image is displayed in the image viewer panel
+         And Verify that selected image is getting displayed in the image viewer panel
          When User clicks on cancel button
          Then Verify that the image viewer panel is closed and image is not uploaded
 
@@ -370,7 +370,7 @@ Scenario: Verify closing of Image viewer panel
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:UserManagement_TerritoryManager
-Scenario: Verify the user login with profile type [Any]
+Scenario: AVerify the user login with profile type [Any]
 
               Given User is at Login page
               When Login with '${UserName}' and '${Password}'
@@ -416,7 +416,7 @@ Scenario: Verify search assignment for marketManager
               Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
               And Logout from the current user
               And Login with normal user '${Email}' and '${UserPassword}'
-              And Verify the profile type '${ProfileTypeVerify}' of the user
+              And Verify the profile type '${ProfileType}' of the user
               When Click on corporate link in navigation bar
               And Verify the assignments '${Region}' for the current user
 
@@ -430,13 +430,12 @@ Scenario: Verify the permissions of admin module [User management]
                Given User is at Login page
                When Login with '${UserName}' and '${Password}'
                When  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
-               And Verify that it redirects to assignment page
                When  Add territory as '${Region}' for the user
                Then Verify that user is able to select '${Region}' checkbox
                And Add permission rights with '${Module}' '${SubModule}' '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
                And Logout from the current user
                And Login with normal user '${Email}' and '${UserPassword}'
-               And Verify the profile type '${ProfileTypeVerify}' of the user
+               And Verify the profile type '${ProfileType}' of the user
                And Verify the fullName '${FullName}' of the user
 
 
@@ -444,7 +443,7 @@ Scenario: Verify the permissions of admin module [User management]
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:UserManagement_New_User
-Scenario: Verify master user can create another master user
+Scenario: AVerify master user can create another master user
 
               Given User is at Login page
               When Login with '${UserName}' and '${Password}'

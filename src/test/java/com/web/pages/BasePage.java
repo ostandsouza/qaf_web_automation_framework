@@ -303,6 +303,16 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
     }
+    public void dragAndDrop(WebElement fromElement, WebElement toElement) {
+        Actions actions = new Actions(driver);
+        actions.clickAndHold(fromElement)
+                .moveToElement(toElement)
+                .release()
+                .build()
+                .perform(); // Perform the action chain
+    }
+
+
 
     public void clickAtPosition(WebElement imageElement, int xCoordinate, int yCoordinate) {
         Actions actions = new Actions(driver);
