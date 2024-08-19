@@ -930,8 +930,7 @@ public class CoverWearPage extends BasePage{
     }
 
     public void verifyPreviousTonsConveyed(String value) {
-        System.out.println(tonsConveyedPreviously.getAttribute("value"));
-        System.out.println(value);
+
         Validator.assertTrue(tonsConveyedPreviously.getAttribute("value").equalsIgnoreCase(value),"Previous tons conveyed is incorrectly prefilled","Previous tons conveyed is validated successfully");
     }
 
@@ -1068,7 +1067,6 @@ public class CoverWearPage extends BasePage{
         PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+conveyorName+"_"+siteName+".pdf");
         try {
             String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
-            System.out.println(fullName);
             Validator.assertTrue(val.contains(fullName),"PDF Report was generated for wrong user","PDF Report was generated for the right user");
             Validator.assertTrue(val.contains(conveyorName),"PDF Report has incorrect conveyor name","PDF Report conveyor verified successfully");
             Validator.assertTrue(val.contains(siteName),"PDF Report has incorrect site name","PDF Report site name verified successfully");
@@ -1596,6 +1594,8 @@ public class CoverWearPage extends BasePage{
         filterText.type("w");
         waitForElementVisible(applyBtn,5000,500);
         applyBtn.click();
+        System.out.println("inside if click ****************");
+
 
     }
 
@@ -1771,7 +1771,6 @@ public class CoverWearPage extends BasePage{
         WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[2]/div[@class='conti-round'])[1]"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
-        System.out.println("TextYellow: " + tileValue);
         Assert.assertEquals(yellowCount,parseInt(tileValue),"The yellowCount does not match");
 
     }
@@ -1782,7 +1781,6 @@ public class CoverWearPage extends BasePage{
         WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[3]/div[@class='conti-round'])[1]"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
-        System.out.println("TextRed: " + tileValue);
         Assert.assertEquals(redCount,parseInt(tileValue),"The redCount does not match");
 
     }
@@ -1794,7 +1792,6 @@ public class CoverWearPage extends BasePage{
         WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[1]/div[@class='conti-round'])[1]"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
-        System.out.println("TextGreen: " + tileValue);
         Assert.assertEquals(greenCount,parseInt(tileValue),"The redCount does not match");
 
     }
@@ -1880,20 +1877,14 @@ public class CoverWearPage extends BasePage{
         waitForElementVisible(txtValDurometer,5000,500);
          String duro_meterValue=txtValDurometer.getText();
          getBundle().setProperty("durometerTxtValue",duro_meterValue);
-        System.out.println(duro_meterValue+"durometer value variable");
-        System.out.println(txtValDurometer.getText()+"durometer value");
 
         waitForElementVisible(txtValRemainingLife,5000,500);
         String remainingLifeValue=  txtValRemainingLife.getText();
         getBundle().setProperty("remainingLifeTxtValue",remainingLifeValue);
-        System.out.println(remainingLifeValue+"txtValRemainingLife value variable");
-        System.out.println(txtValRemainingLife.getText()+"txtValRemainingLife value");
 
         waitForElementVisible(txtValRemainingCover,5000,500);
          String remainingCoverValue=txtValRemainingCover.getText();
          getBundle().setProperty("remainingCoverTxtValue",remainingCoverValue);
-        System.out.println(remainingCoverValue+"txtValRemainingCover value variable");
-        System.out.println(txtValRemainingCover.getText()+"txtValRemainingCover value");
 
     }
     public void verifyDataInGaugeMeter()
@@ -1988,7 +1979,6 @@ public class CoverWearPage extends BasePage{
         waitForPageLoad(10000);
         SyncUtil.waitFor(10000);
         waitForElementVisible(tbSurfaceTemperature,20000,500);
-        System.out.println(tbSurfaceTemperature.getAttribute("value")+"TESTPOSITIONVALUE");
         //SHOWING EMPTY
         Assert.assertEquals(surfaceTemperature,tbSurfaceTemperature.getAttribute("value"),"the user entered data is not present");
 
@@ -2007,7 +1997,6 @@ public class CoverWearPage extends BasePage{
 
             // Store the formatted date in properties or wherever needed
             getBundle().setProperty("installedDateTb", formattedDate);
-            System.out.println(getBundle().getProperty("installedDateTb")+"value of installed date");
         } catch (ParseException e) {
             // Handle parsing exception
             e.printStackTrace();
@@ -2134,7 +2123,6 @@ public class CoverWearPage extends BasePage{
         waitForElementVisible(dialogConfirmAccept,10000,500);
         dialogConfirmAccept.jsClick();
         waitForElementToInvisible(progressLoader,20000);
-        System.out.println(corrosalImage.verifyNotPresent()+"aaaa");
         Validator.assertTrue(corrosalImage.verifyNotPresent(),"Images is not deleted","Images is deleted");
         waitForElementVisible(btnDialogClose,10000,500);
         btnDialogClose.jsClick();
@@ -2154,8 +2142,6 @@ public class CoverWearPage extends BasePage{
 
     public void verifyConveyorCoverWearBreadCrumb(String site,String corporate,String conveyor)
     {
-        System.out.println(corporate+site+conveyor);
-        System.out.println("Home\nCorporates\n"+corporate+"\n"+site+"\n"+conveyor+"\nCoverWear");
         waitForElementVisible(cowerWearBreadcrumb,10000,500);
         Validator.assertTrue(cowerWearBreadcrumb.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb text is displayed");
         Assert.assertEquals(cowerWearBreadcrumb.getText(), "Home\nCorporates\n"+corporate+"\n"+site+"\n"+conveyor+"\nCover Wear", "Breadcrumb text does not match expected");
@@ -2164,13 +2150,8 @@ public class CoverWearPage extends BasePage{
     public void verifyPositionMeasurementCount()
     {
         waitForPageLoad(20000);
-        System.out.println("search");
         SyncUtil.waitFor(15000);
-        System.out.println(coverWearMeasurementCount.isPresent()+"present");
-        System.out.println(coverWearMeasurementCount.isDisplayed()+"displayed");
-        System.out.println(coverWearMeasurementCount.isVisible()+"visible");
         waitForElementToDisplay(coverWearMeasurementCount);
-//        waitForElementVisible(coverWearMeasurementCount,20000,500);
         Validator.assertTrue(coverWearMeasurementCount.getText("count").equalsIgnoreCase("3"),"The measurement count does not matches","The measurement count matches");
     }
 
@@ -2198,21 +2179,14 @@ public class CoverWearPage extends BasePage{
                 lowestCoverPercent = percentValue;
             }
         }
-        System.out.println(lowestCoverPercent + " is the lowest percentage value in the table");
         return lowestCoverPercent;
     }
 
 
     public void verifyGaugePercentageDisplay(int noOfPositions)
     {
-        System.out.println(noOfPositions+"no of positions is");
         int result=calculateLowestPercentage(noOfPositions);
-//        waitForPageLoad(30000);
         SyncUtil.waitFor(10000);
-//        System.out.println("searching for durometer");
-//        waitForElementVisible(cardRemainingCoverValue,20000,1000);
-        System.out.println(result+"result is "+cardRemainingCoverValue.getText());
-        System.out.println(parseInt(cardRemainingCoverValue.getText().replaceAll("[^0-9]",""))+"durometer card value");
         Assert.assertEquals(result,parseInt(cardRemainingCoverValue.getText().replaceAll("[^0-9]", "")),"the remaining cover values doesnt match");
 
     }

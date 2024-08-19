@@ -976,12 +976,9 @@ public class ConveyorPage extends BasePage{
 
     public void enterConveyorMandatoryDetails(String conveyorName, String distShopName, String custSiteName) {
         addConveyors.jsClick("Add Conveyor");
-        System.out.println("clickable before ++++++++++++");
 
         waitForElementToDisplay(tbConveyorname);
-//        tbConveyorname.type(conveyorName);
         waitForElementToBeClickable(tbConveyorname);
-        System.out.println("clickable ++++++++++++");
         tbConveyorname.sendKeys(conveyorName,"conveyor name");
         dropdownSelectSearch(drDistShopdropdown, tbSitedropdown, distShopName);
         dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
@@ -1296,29 +1293,22 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean addFilters(String corporates, String beltWidth, String rating, String length){
-//        waitForPageLoad(10000);
-//        SyncUtil.waitFor(10000);
+
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToBeClickable(filterDropdown);
         filterDropdown.click();
-        System.out.println("clicked");
         waitForElementVisible(filterDropdowPopup,20000,500);
-//        SyncUtil.waitFor(10000);
-//        filterDropdown.click();
         waitForElementToDisplay(tbMultipleSiteDropdown);
         tbMultipleSiteDropdown.type(corporates);
         waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'"+corporates+"')]"));
         driver.findElement("//li/div[contains(text(),'"+corporates+"')]").click();
-
         tbMultipleSiteDropdown.type(beltWidth);
         waitForElementVisible(driver.findElement(By.xpath("//li/div[contains(text(),'"+beltWidth+"')]")),10000,500);
         waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'"+beltWidth+"')]"));
         driver.findElement("//li/div[contains(text(),'"+beltWidth+"')]").click();
-
         tbMultipleSiteDropdown.type(rating);
         waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'"+rating+"')]"));
         driver.findElement("//li/div[contains(text(),'"+rating+"')]").click();
-
         tbMultipleSiteDropdown.type(length);
         waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'"+length+"')]"));
         driver.findElement("//li/div[contains(text(),'"+length+"')]").click();
@@ -1336,7 +1326,6 @@ public class ConveyorPage extends BasePage{
         setImplicitWait(30000, TimeUnit.MILLISECONDS);
         waitForElementToBeClickable(filterDropdown);
         filterDropdown.click();
-        System.out.println("clicked");
         waitForElementVisible(filterDropdowPopup, 20000, 500);
         SyncUtil.waitFor(10000);
         filterDropdown.click();
@@ -1508,8 +1497,6 @@ public class ConveyorPage extends BasePage{
     public void verifyErrorMessageIsDisplayed()
     {
         waitForPageLoad(20000);
-//        System.out.println("created duplicate conveyor");
-//        SyncUtil.waitFor(10000);
         waitForElementVisible(conveyorErrorMsg,10000,500);
         Validator.assertTrue(conveyorErrorMsg.isVisible(),"Error message is not displayed creating duplicate conveyor","Error message is displayed creating duplicate conveyor");
 
