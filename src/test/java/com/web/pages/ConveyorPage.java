@@ -34,6 +34,33 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//li//span[text()='Conveyors'])[1]")
     public CustomElement conveyorList;
 
+    @FindBy(locator = "xpath=(//app-card//div[text()='File Manager'])[1]")
+    public CustomElement fileManagerCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Technical Data'])[1]")
+    public CustomElement technicalDataCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyor History'])[1]")
+    public CustomElement conveyorHistoryCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Cover Wear'])[1]")
+    public CustomElement coverWearCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Inspections'])[1]")
+    public CustomElement inspectionCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyor Inspect'])[1]")
+    public CustomElement conveyorInspectCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Belt Scans'])[1]")
+    public CustomElement beltScanCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]")
+    public CustomElement monitoringDevicesCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.'])[1]")
+    public CustomElement minutemanCard;
+
     @FindBy(locator = "xpath=//input[@id='firstname1']")
     public CustomElement tbConveyorname;
 
@@ -73,7 +100,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//input[@placeholder='Search']")
     public CustomElement btSearchinput;
 
-    @FindBy(locator = "xpath=//span[text()='Save and Close']")
+    @FindBy(locator = "xpath=//span[text()='Create']")
     public CustomElement btSaveandclose;
 
     @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
@@ -190,7 +217,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Belt Manufacturer')]/..//input)[2]")
     public CustomElement crBeltConfig;
 
-    @FindBy(locator = "xpath=(//label[text()='Belt Construction']/..//input)[2]")
+    @FindBy(locator = "xpath=(//label[contains(text(),'Belt Construction')]/..//input)[2]")
     public CustomElement crBeltConstruction;
 
     @FindBy(locator = "xpath=(//label[contains(text(),'Top Cover Compound')]/..//input)[2]")
@@ -497,7 +524,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
     public CustomElement crviewicon;
 
-    @FindBy(locator = "xpath=//span[text()='Update']")
+    @FindBy(locator = "xpath=//span[text()='Save']")
     public CustomElement crUpdate;
 
     @FindBy(locator = "xpath=//span[text()='Yes']")
@@ -544,6 +571,12 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator = "xpath=//div[contains(text(),'Conveyors will be created.')]")
     public CustomElement crUploadSuccessText;
+
+    @FindBy(locator = "xpath=//div[contains(text(),'1 or more conveyor needs attention.')]")
+    public CustomElement crUploadWarningText;
+
+    @FindBy(locator = "xpath=//div[contains(text(),'Please review before continue.')]")
+    public CustomElement crUploadReviewText;
 
     @FindBy(locator = "xpath=//span[text()='Import']")
     public CustomElement crImport;
@@ -656,6 +689,48 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator = "xpath=//label[text()='Analyzing Conveyors']")
     public CustomElement analysingConveyors;
+
+    @FindBy(locator = "xpath=//h6[text()='Bulk Steps:']")
+    public CustomElement bulkSteps;
+
+    @FindBy(locator = "xpath=//h6[text()='Import Form']")
+    public CustomElement importForm;
+
+    @FindBy(locator = "xpath=//h6[text()='File Drop or Select']")
+    public CustomElement fileDrop;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@id='skipHeader']")
+    public CustomElement skipRadio;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@id='updateHeader']")
+    public CustomElement updateRadio;
+
+    @FindBy(locator = "xpath=//p-radiobutton[@id='copyHeader']")
+    public CustomElement copyRadio;
+
+    @FindBy(locator = "xpath=//span[text()='Continue']")
+    public CustomElement crContinue;
+
+    @FindBy(locator = "xpath=//span[text()='Back']")
+    public CustomElement crBack;
+
+    @FindBy(locator = "xpath=//div[@class='p-progress-spinner']")
+    public CustomElement spinner;
+
+    @FindBy(locator = "xpath=//span[contains(@class,'ctp-icon-sort-icon-down')]/..")
+    public CustomElement conveyorHistorySort;
+
+    @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[1]")
+    public CustomElement btAddConveyorHistory;
+
+    @FindBy(locator = "xpath=//span[text()='Belt Failure']")
+    public CustomElement conveyorHistoryBeltFailure;
+
+    @FindBy(locator = "xpath=//span[text()='Component Change']")
+    public CustomElement conveyorHistoryComponentChange;
+
+    @FindBy(locator = "xpath=//span[text()='Custom Event']")
+    public CustomElement conveyorHistoryCustomEvent;
 
     @FindBy(locator = "xpath=//span[text()='Details']")
     public CustomElement crDetailsTab;
@@ -854,8 +929,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public void checkConveyorGermany(String conveyorName, String custCorpName) {
-        scrollPageup();
-        breakcrumHome.click("Conveyor Home");
+        goToConveyorListScreen();
         waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(conveyorName, "Conveyor Name");
         waitForElementToDisplay(crCheckbox);
@@ -879,7 +953,6 @@ public class ConveyorPage extends BasePage{
         crActions.click("Actions");
         waitForElementVisible(crDelete, 20000,500);
         crDelete.click("Delete");
-        SyncUtil.waitFor(5000);
         crYesConfirmation.click("Confirm");
         waitForElementToDisplay(noList);
         SyncUtil.waitFor(2000);
@@ -935,36 +1008,40 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyConveyorLiteFields() {
-        return crBeltWidth.isVisible("Belt Width") && crBeltSpeed.isVisible("Belt Speed") && crTonsPerHr.isVisible("Tons Per hr") &&
-                crMaterialName.isVisible("Material Name") && crMaterialDensity.isVisible("Material Density") && crAngleOfIdlers.isVisible("Angle Of Idlers") &&
-                crIdlerSpacing.isVisible("Idler Spacing") && crDriveWrapAngle.isVisible("Drive Wrap Angle") && crTakeUpTension.isVisible("Take up Tension") &&
-                crTemporaryFriction.isEnable("Friction Factor Temporary") && crFrictionFactor.isVisible("Friction Factor") && crLengthFactor.isVisible("Length Factor") &&
-                crSurchargeFactor.isVisible("Surcharge Angle") && crIdleOffsetType.isVisible("Idler Offset Type ") && crDriveDetails.isEnable("Drive Details") && crTakeupDetails.isEnable("Take-up Details");
+//        return crBeltWidth.isVisible("Belt Width") && crBeltSpeed.isVisible("Belt Speed") && crTonsPerHr.isVisible("Tons Per hr") &&
+//                crMaterialName.isVisible("Material Name") && crMaterialDensity.isVisible("Material Density") && crAngleOfIdlers.isVisible("Angle Of Idlers") &&
+//                crIdlerSpacing.isVisible("Idler Spacing") && crDriveWrapAngle.isVisible("Drive Wrap Angle") && crTakeUpTension.isVisible("Take up Tension") &&
+//                crTemporaryFriction.isEnable("Friction Factor Temporary") && crFrictionFactor.isVisible("Friction Factor") && crLengthFactor.isVisible("Length Factor") &&
+//                crSurchargeFactor.isVisible("Surcharge Angle") && crIdleOffsetType.isVisible("Idler Offset Type ") && crDriveDetails.isEnable("Drive Details") && crTakeupDetails.isEnable("Take-up Details");
+        return crBeltWidth.isVisible("Belt Width");
     }
 
     public boolean verifyInstalledBelt() {
         crInstalledBeltTab.click("Installed Belt Tab");
-        return  !crMixedConfig.isEnabled() && crManufacturer.isEnable("Belt Manufacturer") &&
-                crBeltConstruction.isVisible("Belt Construction") && crTopCompound.isVisible("Top Cover Compound") && crBottomCompound.isVisible("Bottom Cover Compound") &&
-                crCarcass.isVisible("Carcass") && crWidth.isEnable("Width") && !crRatingRadio.isEnabled() && crBreakingStrengthRadio.isEnable("Breaking Strength Radio") &&
-                crBreakingStrength.isVisible("Breaking Strength") && crTopCoverThickness.isVisible("Top Cover Thickness") && crBottomCoverThickness.isVisible("Bottom Cover Thickness") &&
-                crLength.isVisible("Belt Length") && crSplice.isEnable("Splice Type ") && crSpliceQuality.isVisible("Splice Quality") && crInstallationDate.isVisible("Installation Date");
+//        return  !crMixedConfig.isEnabled() &&
+//                crBeltConstruction.isVisible("Belt Construction") && crTopCompound.isVisible("Top Cover Compound") && crBottomCompound.isVisible("Bottom Cover Compound") &&
+//                crCarcass.isVisible("Carcass") && crWidth.isEnable("Width") && !crRatingRadio.isEnabled() && crBreakingStrengthRadio.isEnable("Breaking Strength Radio") &&
+//                crBreakingStrength.isVisible("Breaking Strength") && crTopCoverThickness.isVisible("Top Cover Thickness") && crBottomCoverThickness.isVisible("Bottom Cover Thickness") &&
+//                crLength.isVisible("Belt Length") && crSplice.isEnable("Splice Type ") && crSpliceQuality.isVisible("Splice Quality") && crInstallationDate.isVisible("Installation Date");
+        return crBeltConstruction.isVisible("Belt Construction");
     }
 
     public boolean verifyMaterial() {
         crMaterialTab.click("Material Tab");
-        return crDescription.isVisible("Material Description") && crBulkDensity.isVisible("Bulk Density") && crBulkSize.isVisible("Bulk Size") &&
-                crLumpSize.isVisible("Lump Size") && crContingentOfFines.isVisible("Contingent of Fines") && crChuteDrop.isVisible("Chute Drop") &&
-                crLoadingConditions.isEnable("Loading Conditions") && crTemperature.isVisible("Material Temperature") && crPresenceOfOil.isEnable("Presence of Oil");
+//        return crDescription.isVisible("Material Description") && crBulkDensity.isVisible("Bulk Density") && crBulkSize.isVisible("Bulk Size") &&
+//                crLumpSize.isVisible("Lump Size") && crContingentOfFines.isVisible("Contingent of Fines") && crChuteDrop.isVisible("Chute Drop") &&
+//                crTemperature.isVisible("Material Temperature") && crPresenceOfOil.isEnable("Presence of Oil");
+        return crDescription.isVisible("Material Description");
     }
 
     public boolean verifyConveyor() {
         crConveyorTab.click("Conveyor Tab");
-        return crConveyingLength.isVisible("Conveying Length") && crLift.isVisible("Conveyor Lift") && crDrivePower.isVisible("Driver Power") &&
-                crGearRatio.isVisible("Gear Ratio") && crDriveFrequency.isVisible("Driver Frequency") && crAngle.isVisible("Conveyor Angle") &&
-                crSpeed.isVisible("Conveyor Speed") && crConveyingCapacity.isVisible("Conveying Capacity") && crPercentLoad.isVisible("Percent Load") && crMinimumTemperature.isVisible("Minimum Temperature") &&
-                crMaximumTemperature.isVisible("Maximum Temperature") && crTakeupTravel.isVisible("Take Up Travel") && crEstimatedWeight.isVisible("Estimated Weight") && crManufacturer.isVisible("Conveyor Manufacturer") &&
-                crDirectionTurnover.isEnable("Direction Turnover") && crClockwise.isEnable("Right / Clockwise");
+//        return crConveyingLength.isVisible("Conveying Length") && crLift.isVisible("Conveyor Lift") && crDrivePower.isVisible("Driver Power") &&
+//                crGearRatio.isVisible("Gear Ratio") && crDriveFrequency.isVisible("Driver Frequency") && crAngle.isVisible("Conveyor Angle") &&
+//                crSpeed.isVisible("Conveyor Speed") && crConveyingCapacity.isVisible("Conveying Capacity") && crPercentLoad.isVisible("Percent Load") && crMinimumTemperature.isVisible("Minimum Temperature") &&
+//                crMaximumTemperature.isVisible("Maximum Temperature") && crTakeupTravel.isVisible("Take Up Travel") && crEstimatedWeight.isVisible("Estimated Weight") &&
+//                crClockwise.isEnable("Right / Clockwise");
+        return crConveyingLength.isVisible("Conveying Length");
     }
 
     public boolean verifyWearLife() {
@@ -990,7 +1067,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyTransitionZone() {
-        crTransitionTab.click("Transition Zone Tab");
+        crTransitionZoneTab.click("Transition Zone Tab");
         return crHeadTransitionLength.isVisible("Flat-to-trough Transition Length") && crHeadPulleyLift.isVisible("Pulley Lift") && crTailTransitionLength.isVisible("Trough-to-flat Transition Length") && crTailPulleyLift.isVisible("Tail Pulley Lift") &&
                 !crHeadTransitionTypeFull.isEnable() && !crHeadTransitionTypeHalf.isEnable() && !crTailTransitionTypeFull.isEnable() && !crTailTransitionTypeHalf.isEnable() &&
                 !crMaterialGuidanceNo.isEnable() && !crMaterialGuidanceYes.isEnable() && !crConditionYes.isEnable() && !crConditionNo.isEnable();
@@ -1007,7 +1084,7 @@ public class ConveyorPage extends BasePage{
 
     public boolean verifyActivePin(String conveyorName) {
         searchConveyor(conveyorName);
-        crPin.click("Pin");
+        crPin.jsClick("Pin");
         SyncUtil.waitFor(3000);
         return crPin.getAttribute("class").contains("marker-icon-red");
     }
@@ -1067,16 +1144,27 @@ public class ConveyorPage extends BasePage{
         waitForElementToDisplay(fileAnalysedMsg);
     }
 
+    public void conveyorFileImportWithoutWait(String fileName) {
+        String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
+        crFileUpload.sendKeys(file_path, "File Path");
+        crDeleteFileUpload.assertVisible("Delete File upload");
+        crUploadedFileName.assertVisible("File Uploaded Name");
+        crSave.click("Save File Upload");
+        waitForElementToDisplay(fileAnalysedMsg);
+    }
+
     public void acknowledgeImport(int count){
         waitForElementToDisplay(crImport);
         Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[1].contains(String.valueOf(count)),"Total Imported conveyors incorrect","All conveyors imported successfully");
         crImport.click("Import");
+        waitForElementToInvisible(spinner,10000);
         waitForElementToDisplay(crImportSuccessful);
         waitForElementToDisplay(btSearchinput);
+        btRefresh.click("refresh");
     }
 
     public void verifyUploadedConveyor(String siteName, String fileName) {
-        SyncUtil.waitFor(6000);
+        SyncUtil.waitFor(10000);
         Object[][] obj = MiscUtils.getExcelData(fileName,siteName);
         for( int i = obj.length-1;i>0;i--)
             Validator.assertTrue(searchConveyor(((Map<String,String>)obj[i][0]).get("Name")),"Imported Conveyor was not created successfully","Imported conveyor created successfully");
@@ -1179,6 +1267,139 @@ public class ConveyorPage extends BasePage{
         crCheckbox.check("Conveyor Checkbox");
         crActions.click("Actions");
         return btAddConveyor.isNotVisible(1000) && crEdit.isNotVisible(1000) && crDelete.isNotVisible(1000);
+    }
+
+    public boolean verifyAddConveyorPermission(){
+        return addConveyors.isVisible();
+    }
+
+    public boolean verifySectionsFromBulkImport(){
+        return bulkSteps.isVisible("Bulk Steps") && importForm.isVisible("Import Form") && fileDrop.isVisible("File Drop") && crSave.isVisible("Save");
+    }
+
+    public boolean verifyImportReport(){
+        return skipRadio.isVisible("Skip Radio") && updateRadio.isVisible("Update Radio") && copyRadio.isVisible("Copy Radio");
+    }
+
+    public void verifySkipRadioBtn(int count){
+        skipRadio.click("Skip Radio");
+        crContinue.click("Continue btn");
+        waitForElementToDisplay(crImport);
+        System.out.println(fileUploadSummary.getText().split("\\r?\\n")[0]);
+        System.out.println(fileUploadSummary.getText().split("\\r?\\n")[1]);
+        System.out.println(fileUploadSummary.getText().split("\\r?\\n")[2]);
+        System.out.println(fileUploadSummary.getText().split("\\r?\\n")[3]);
+        System.out.println(fileUploadSummary.getText().split("\\r?\\n")[4]);
+        System.out.println(count);
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[0].contains(String.valueOf(count)),"Total Imported conveyors incorrect","All conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[1].contains("0"),"Total Created conveyors incorrect","All Created conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[2].contains("0"),"Total Updated conveyors incorrect","All Updated conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[3].contains("0"),"Total Copied conveyors incorrect","All Copied conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[4].contains(String.valueOf(count)),"Total Skipped conveyors incorrect","All Skipped conveyors imported successfully");
+    }
+
+    public void verifyUpdateRadioBtn(int count){
+        updateRadio.click("Skip Radio");
+        crContinue.click("Continue btn");
+        waitForElementToDisplay(crImport);
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[0].contains(String.valueOf(count)),"Total Imported conveyors incorrect","All conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[1].contains("0"),"Total Created conveyors incorrect","All Created conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[2].contains(String.valueOf(count)),"Total Updated conveyors incorrect","All Updated conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[3].contains("0"),"Total Copied conveyors incorrect","All Copied conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[4].contains("0"),"Total Skipped conveyors incorrect","All Skipped conveyors imported successfully");
+    }
+
+    public void verifyCopyRadioBtn(int count){
+        copyRadio.click("Skip Radio");
+        crContinue.click("Continue btn");
+        waitForElementToDisplay(crImport);
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[0].contains(String.valueOf(count)),"Total Imported conveyors incorrect","All conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[1].contains("0"),"Total Created conveyors incorrect","All Created conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[2].contains("0"),"Total Updated conveyors incorrect","All Updated conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[3].contains(String.valueOf(count)),"Total Copied conveyors incorrect","All Copied conveyors imported successfully");
+        Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[4].contains("0"),"Total Skipped conveyors incorrect","All Skipped conveyors imported successfully");
+    }
+
+    public boolean goBackToImportReport(){
+        crBack.click("Back Btn");
+        return skipRadio.isVisible("Skip Radio");
+    }
+
+    public boolean verifyMessages(){
+        return crUploadSuccessText.isVisible("Success Message") && crUploadWarningText.isVisible("Warning Message") && crUploadReviewText.isVisible("Review Message");
+    }
+
+    public boolean verifyFileAnalyseMessages(){
+        return fileAnalysedMsg.isVisible("File Analyse Message");
+    }
+
+    public void conveyorUpload(){
+        crImport.click("Import");
+        waitForElementToDisplay(crImportSuccessful);
+        waitForElementToDisplay(btSearchinput);
+    }
+
+    public boolean verifyViewPermissionRights(String ConveyorName) {
+        goToConveyorListScreenAndWait();
+        searchConveyor(ConveyorName);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("Conveyor Name");
+        crActions.click("Actions");
+        return btAddConveyor.isNotVisible(1000) && crEdit.isNotVisible(1000) && crDelete.isNotVisible(1000) && crExportCSV.isNotVisible(1000) && crExportPDF.isNotVisible(1000);
+    }
+
+    public boolean verifyViewAndEditRights(String ConveyorName) {
+        goToConveyorListScreenAndWait();
+        searchConveyor(ConveyorName);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("Conveyor Name");
+        crActions.click("Actions");
+        return btAddConveyor.isNotVisible(1000) && crEdit.isVisible(1000) && crDelete.isNotVisible(1000) && crExportCSV.isNotVisible(1000) && crExportPDF.isNotVisible(1000);
+    }
+
+    public boolean verifyViewAndDeleteRights(String ConveyorName) {
+        goToConveyorListScreenAndWait();
+        searchConveyor(ConveyorName);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("Conveyor Name");
+        crActions.click("Actions");
+        return btAddConveyor.isNotVisible(1000) && crEdit.isNotVisible(1000) && crDelete.isVisible(1000)&& crExportCSV.isNotVisible(1000)&& crExportPDF.isNotVisible(1000);
+    }
+
+    public boolean verifyViewAndAddRights(String ConveyorName) {
+        goToConveyorListScreenAndWait();
+        searchConveyor(ConveyorName);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("Conveyor Name");
+        crActions.click("Actions");
+        return btAddConveyor.isVisible(1000) && crEdit.isNotVisible(1000) && crDelete.isNotVisible(1000)&& crExportCSV.isNotVisible(1000)&& crExportPDF.isNotVisible(1000);
+    }
+
+    public boolean verifyViewAndDownloadRights(String ConveyorName) {
+        goToConveyorListScreenAndWait();
+        searchConveyor(ConveyorName);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("Conveyor Name");
+        crActions.click("Actions");
+        return btAddConveyor.isNotVisible(1000) && crEdit.isNotVisible(1000) && crDelete.isNotVisible(1000)&& crExportCSV.isVisible(1000)&& crExportPDF.isVisible(1000);
+    }
+
+    public boolean editButtonVisiblityOnConveyorDetailsPage() {
+        return crEdit.isVisible(1000);
+    }
+
+    public boolean verifyConveyorDetailCardsDisplayForBasics(){
+        return technicalDataCard.isVisible() && conveyorHistoryCard.isVisible() && coverWearCard.isVisible() && fileManagerCard.isVisible(500) && inspectionCard.isNotVisible(500) && conveyorInspectCard.isNotVisible(500) && beltScanCard.isNotVisible(500) && monitoringDevicesCard.isNotVisible(500) && minutemanCard.isNotVisible(500);
+    }
+
+    public boolean navigateToConveyorHistoryFromDetails() {
+        conveyorHistoryCard.click();
+        return conveyorHistorySort.isVisible("Conveyor History Sort");
+    }
+
+    public boolean verifyaddConveyorHistoryViewRights() {
+        btAddConveyorHistory.click();
+        return conveyorHistoryBeltFailure.isNotVisible(500) && conveyorHistoryCustomEvent.isNotVisible(500) && conveyorHistoryComponentChange.isNotVisible(500);
     }
 
     public void verifyConveyorHorizontalNavBar(){

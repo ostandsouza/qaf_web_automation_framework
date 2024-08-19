@@ -213,6 +213,7 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=//span[text()='Add New Position']/../..//span[text()='Save']")
     public CustomElement cwPositionSave;
+
     @FindBy(locator="xpath=//label[text()='Segment']/parent::div//input")
     public CustomElement cwPositionSegment;
 
@@ -439,6 +440,24 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=(//div[@role='dialog'])[1]")
     public CustomElement crDialog;
+
+    @FindBy(locator="xpath=//h4[text()='Positions']")
+    public CustomElement positionHeading;
+
+    @FindBy(locator="xpath=//span[text()='Wear Trend']")
+    public CustomElement wearTrendHeading;
+
+    @FindBy(locator="xpath=//span[@class='p-button-icon pi pi-download']")
+    public CustomElement measurementDownload;
+
+    @FindBy(locator="xpath=(//span[@class='p-button-icon ctp-icon-Edit'])[2]")
+    public CustomElement editMeasurement;
+
+    @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[1]")
+    public CustomElement cwAddNewMeasurement;
+
+    @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Delete'])[1]")
+    public CustomElement measurementDelete;
 
     @FindBy(locator="xpath=//th[@id='name-col']")
     public CustomElement hdConveyor;
@@ -777,7 +796,7 @@ public class CoverWearPage extends BasePage{
 
     public void editSpecifications(String topCoverThickness, String bottomCoverThickness, String topCoverCompound, String bottomCoverCompound, String positionDurometer){
         cwEditSpec.click("Edit");
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(2000);
         cwBeltWidth.sendKeys("600");
         cwBeltLength.sendKeys("400");
         dropdownSelectSearch(cwTopCoverThickness, cwInput, topCoverThickness);
@@ -791,6 +810,7 @@ public class CoverWearPage extends BasePage{
 
     public void addPosition(String segment, boolean top, String tons, String durameter){
         cwSpecsLoader.waitForNotVisible(10000);
+        SyncUtil.waitFor(2000);
         cwAddNew.click("Edit");
         cwPositionSegment.sendKeys(segment, "Segment");
         cwPositionTonsConveyed.sendKeys(tons, "Tons Conveyed");
@@ -1025,7 +1045,6 @@ public class CoverWearPage extends BasePage{
     }
 
     public void verifySaveFunctionality(){
-        SyncUtil.waitFor(3000);
         waitForElementVisible(cwSave,5000,1000);
         waitForElementToBeClickable(cwSave);
         cwSave.click("Save");
@@ -1455,6 +1474,136 @@ public class CoverWearPage extends BasePage{
     public void enterDataPoints(String count){
         noOfColumnsField.clear();
         noOfColumnsField.sendKeys(count);
+    }
+
+    public boolean verifyViewRights(String ConveyorName) {
+        searchCoverWear(ConveyorName);
+        waitForElementToDisplay(cwCheckbox);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwAddNew.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwDelete.isNotVisible(1000);
+    }
+    public boolean verifyViewAndAddRights(String ConveyorName) {
+        searchCoverWear(ConveyorName);
+        waitForElementToDisplay(cwCheckbox);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwAddNew.isVisible(1000) && cwEdit.isNotVisible(1000) && cwDelete.isNotVisible(1000);
+    }
+
+    public boolean verifyViewAndEditRights(String ConveyorName) {
+        searchCoverWear(ConveyorName);
+        waitForElementToDisplay(cwCheckbox);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwAddNew.isNotVisible(1000) && cwEdit.isVisible(1000) && cwDelete.isNotVisible(1000);
+    }
+
+    public boolean verifyViewAndDeleteRights(String ConveyorName) {
+        searchCoverWear(ConveyorName);
+        waitForElementToDisplay(cwCheckbox);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwAddNew.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwDelete.isVisible(1000);
+
+    }
+    public boolean verifyViewAndDownloadRights(String ConveyorName) {
+        searchCoverWear(ConveyorName);
+        waitForElementToDisplay(cwCheckbox);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        cwAddNew.isNotVisible(1000);
+        cwEdit.isVisible(1000);
+        cwDelete.isNotVisible(1000);
+        return cwAddNew.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwDelete.isNotVisible(1000);
+    }
+
+    public boolean verifyViewRightsForSpecification(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        SyncUtil.waitFor(8000);
+        waitForElementToDisplay(positionHeading);
+        waitForElementToDisplay(cwCheckbox);
+        cwEditSpec.isNotVisible(1000);
+        cwAddNew.isNotVisible(1000);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwDelete.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwExport.isNotVisible(1000);
+    }
+
+    public boolean verifyViewAddRightsForSpecification(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        SyncUtil.waitFor(10000);
+        waitForElementToDisplay(positionHeading);
+        waitForElementToDisplay(cwCheckbox);
+        cwEditSpec.isNotVisible(1000);
+        cwAddNew.isVisible(1000);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwDelete.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwExport.isNotVisible(1000);
+    }
+
+    public boolean verifyViewEditRightsForSpecification(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        SyncUtil.waitFor(10000);
+        waitForElementToDisplay(positionHeading);
+        waitForElementToDisplay(cwCheckbox);
+        cwEditSpec.isVisible(1000);
+        cwAddNew.isNotVisible(1000);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwDelete.isNotVisible(1000) && cwEdit.isVisible(1000) && cwExport.isNotVisible(1000);
+    }
+
+    public boolean verifyViewDeleteRightsForSpecification(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        SyncUtil.waitFor(10000);
+        waitForElementToDisplay(positionHeading);
+        waitForElementToDisplay(cwCheckbox);
+        cwEditSpec.isNotVisible(1000);
+        cwAddNew.isNotVisible(1000);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwDelete.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwExport.isVisible(1000);
+    }
+    public boolean verifyViewDownloadRightsForSpecification(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        SyncUtil.waitFor(10000);
+        waitForElementToDisplay(positionHeading);
+        waitForElementToDisplay(cwCheckbox);
+        cwEditSpec.isNotVisible(1000);
+        cwAddNew.isNotVisible(1000);
+        cwCheckbox.check("CoverWear Checkbox");
+        cwActions.click("Actions");
+        return cwDelete.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwExport.isVisible(1000);
+    }
+    public boolean verifyViewRightsForMeasurement(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        waitForElementToDisplay(wearTrendHeading);
+        return cwAddNewMeasurement.isNotVisible(1000) && editMeasurement.isNotVisible(1000) && measurementDownload.isNotVisible(1000) && measurementDelete.isNotVisible(1000);
+
+    }
+    public boolean verifyViewAddRightsForMeasurement(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        waitForElementToDisplay(wearTrendHeading);
+        return cwAddNewMeasurement.isVisible(1000) && editMeasurement.isNotVisible(1000) && measurementDownload.isNotVisible(1000) && measurementDelete.isNotVisible(1000);
+    }
+
+    public boolean verifyViewEditRightsForMeasurement(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        waitForElementToDisplay(wearTrendHeading);
+        return cwAddNewMeasurement.isNotVisible(1000) && editMeasurement.isVisible(1000) && measurementDownload.isNotVisible(1000) && measurementDelete.isNotVisible(1000);
+    }
+
+    public boolean verifyViewDeleteRightsForMeasurement(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        waitForElementToDisplay(wearTrendHeading);
+        return cwAddNewMeasurement.isNotVisible(1000) && editMeasurement.isNotVisible(1000) && measurementDownload.isNotVisible(1000) && measurementDelete.isVisible(1000);
+    }
+
+    public boolean verifyViewDownloadRightsForMeasurement(String ConveyorName) {
+        cwViewIcon.click("CoverWear");
+        waitForElementToDisplay(measurementDownload);
+        return cwAddNewMeasurement.isNotVisible(1000) && editMeasurement.isNotVisible(1000) && measurementDownload.isVisible(1000) && measurementDelete.isNotVisible(1000);
     }
 
     public void extractCoverGradeValue(){

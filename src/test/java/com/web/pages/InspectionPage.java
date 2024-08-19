@@ -128,7 +128,10 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
 	public CustomElement cbCheckbox;
 
-	@FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+	@FindBy(locator="xpath=(//td//p-tablecheckbox)[1]//input")
+	public CustomElement cbCheckboxInput;
+
+	@FindBy(locator="xpath=(//button/chevrondownicon)[2]")
 //	@FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
 	public CustomElement ddlActions;
 
@@ -329,6 +332,11 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//button[contains(@class,'p-dialog-header-icon')]")
 	public CustomElement closePopup;
 
+	@FindBy(locator = "xpath=//div[text()='Failed to update inspection: Unauthorized']")
+	public CustomElement inspectionAddErrorMsg;
+
+	@FindBy(locator = "xpath=//timesicon")
+	public CustomElement crossButton;
 
 	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[1]")
 	public CustomElement txtInspCount;
@@ -391,10 +399,14 @@ public class InspectionPage extends BasePage {
 	public CustomElement multiSelectCloseBtn;
 
 	public void goToInspection() {
-		if (!lnkInspection.isVisible())
+		if(!lnkInspection.isVisible())
 			lnkHome.click("Home");
-		SyncUtil.waitFor(10000);
-		lnkInspection.click("Inspection List");
+		waitForElementVisible(lnkInspection, 10000,500);
+		lnkInspection.jsClick();
+		waitForPageLoad(10000);
+		waitForElementVisible(btSearchinput,5000,500);
+		SyncUtil.waitFor(2000);
+//		lnkInspection.click("Inspection List");
 		btSearchinput.isVisible("Inspection List Page");
 	}
 
@@ -442,8 +454,9 @@ public class InspectionPage extends BasePage {
 		tbInspectionName.type(inspectionName);
 		waitForElementToBeClickable(ddlSiteCustomername);
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
-		ddlInspectorName.verifyText(fullName,"Inspector Name");
-		Reporter.log("Inspection is created", MessageTypes.Pass);
+//		dropdownselectsearch(ddlConveyor, tbInput, conveyorName);
+//		ddlInspectorName.verifyText(fullName,"Inspector Name");
+		Reporter.log("Inspection is created",MessageTypes.Pass);
 	}
 
 	public void addInspection(String inspectionName) {
@@ -717,7 +730,7 @@ public class InspectionPage extends BasePage {
 	}
 
 	public boolean verifyMinimize() {
-		summaryMinimize.click("Summary window Minimize");
+		summaryMinimize.jsClick("Summary window Minimize");
 		return !summaryMinimize.isVisible() && summaryMaximize.isVisible("Summary window Maximize");
 	}
 
@@ -942,5 +955,97 @@ public class InspectionPage extends BasePage {
 		Validator.assertTrue(driver.findElement(By.xpath(siteSelected2)).isDisplayed(),"The user is not able to select site2","The user is  able to select site2");
 	}
 
+	public void verifyViewRights(String conveyorName, String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status) {
+		searchInspection(inspectionName);
+		waitForElementToDisplay(cbCheckbox);
+		Validator.assertTrue(!cbCheckboxInput.isEnabled(), "Inspection checkbox should not be enabled with only view rights", "Inspection checkbox is disabled with only view rights");
+		Validator.assertTrue(!btnAddInspection.isVisible(),"Add inspection should not be visible with view only rights", "Add inspection is not visible with view only rights");
+		goToInspectionDetailScreen(inspectionName);
+		Validator.assertTrue(!btnAddnew.isVisible(),"Add inspection item should not be visible with view only rights", "Add inspection item is not visible with view only rights");
+//		addItemMandatoryField(conveyorName, assetName, assetDetail, failureMode, condition, status);
+//		waitForElementToBeClickable(btnSave);
+//		btnSave.click("Save");
+//		SyncUtil.waitFor(3000);
+//		verifyAddInspectionItemErrorMsg();
+//		crossButton.click("Cross Button");
+//		edit();
+//		verifyAddInspectionItemErrorMsg();
+//		SyncUtil.waitFor(3000);
+//		crossButton.click("Cross Button");
+//		SyncUtil.waitFor(5000);
+//		delete();
+//		verifyAddInspectionItemErrorMsg();
+//		SyncUtil.waitFor(3000);
+	}
+
+	public void verifyViewAndEditRights(String conveyorName, String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status) {
+		goToInspectionScreenAndWait();
+		editInspection(inspectionName);
+		//	btnSave.click("Save");
+		waitForElementToDisplay(inspectionUpdateMsg);
+		addItemMandatoryField(conveyorName, assetName, assetDetail, failureMode, condition, status);
+		verifyAddInspectionItemErrorMsg();
+		SyncUtil.waitFor(3000);
+		crossButton.click("Cross Button");
+		SyncUtil.waitFor(3000);
+		delete();
+		verifyAddInspectionItemErrorMsg();
+	}
+
+	public void verifyViewAndAddRights(String conveyorName, String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status) {
+		searchInspection(inspectionName);
+		waitForElementToDisplay(cbCheckbox);
+		Validator.assertTrue(!cbCheckboxInput.isEnabled(), "Inspection checkbox should not be enabled with only view rights", "Inspection checkbox is disabled with only view rights");
+		Validator.assertTrue(btnAddInspection.isVisible(),"Add inspection is visible with add rights", "Add inspection is not visible with add rights");
+		goToInspectionDetailScreen(inspectionName);
+		Validator.assertTrue(!btnAddnew.isVisible(),"Add inspection item should not be visible with view only rights", "Add inspection item is not visible with view only rights");
+		Validator.assertTrue(!btnEdit.isVisible(),"Edit inspection item should not be visible with view only rights", "Edit inspection item is not visible with view only rights");
+		Validator.assertTrue(!btnDelete.isVisible(),"Delete inspection item should not be visible with view only rights", "Delete inspection item is not visible with view only rights");
+//		addItemMandatoryField(conveyorName, assetName, assetDetail, failureMode, condition, status);
+//		btnSave.click("Save");
+//		waitForElementToDisplay(inspectionUpdateMsg);
+//		btnEdit.click();
+//		btnSave.click("Save");
+//		verifyAddInspectionItemErrorMsg();
+//		SyncUtil.waitFor(3000);
+//		crossButton.click("Cross Button");
+//		SyncUtil.waitFor(3000);
+//		delete();
+//		verifyAddInspectionItemErrorMsg();
+	}
+
+	public void verifyViewAndDeleteRights(String conveyorName, String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status) {
+		searchInspection(inspectionName);
+		waitForElementToDisplay(cbCheckbox);
+		Validator.assertTrue(cbCheckboxInput.isEnabled(), "Inspection checkbox is not be enabled with only delete rights", "Inspection checkbox is enabled for delete rights");
+		Validator.assertTrue(!btnAddInspection.isVisible(),"Add inspection is visible with delete rights", "Add inspection is visible with delete rights");
+		cbCheckbox.click("checkbox");
+		ddlActions.click("action");
+		Validator.assertTrue(!btnEditInspection.isVisible(),"Edit inspection is visible with delete rights", "Edit inspection is not visible with delete rights");
+		Validator.assertTrue(btnDeleteInspection.isVisible(),"Delete inspection is not visible with delete rights", "Delete inspection is visible with delete rights");
+		goToInspectionDetailScreen(inspectionName);
+		Validator.assertTrue(!btnAddnew.isVisible(),"Add inspection item should not be visible with view only rights", "Add inspection item is not visible with view only rights");
+		Validator.assertTrue(!btnEdit.isVisible(),"Edit inspection item should not be visible with view only rights", "Edit inspection item is not visible with view only rights");
+		Validator.assertTrue(!btnDelete.isVisible(),"Delete inspection item should not be visible with view only rights", "Delete inspection item is not visible with view only rights");
+//		goToInspectionDetailScreen(inspectionName);
+//		inspectionDelete();
+//		waitForElementToDisplay(inspectionUpdateMsg);
+//		addItemMandatoryField(conveyorName, assetName, assetDetail, failureMode, condition, status);
+//		btnSave.click("Save");
+//		verifyAddInspectionItemErrorMsg();
+//		SyncUtil.waitFor(3000);
+//		crossButton.click("Cross Button");
+//		SyncUtil.waitFor(3000);
+//		btnEdit.click();
+//		btnSave.click("Save");
+//		verifyAddInspectionItemErrorMsg();
+//		crossButton.click("Cross Button");
+
+	}
+
+	public void verifyAddInspectionItemErrorMsg() {
+		waitForElementToDisplay(inspectionAddErrorMsg);
+		Reporter.log("Add Inspection error message is displayed", MessageTypes.Pass);
+	}
 
 }

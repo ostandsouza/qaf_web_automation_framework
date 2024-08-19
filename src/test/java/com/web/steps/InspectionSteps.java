@@ -68,6 +68,7 @@ public class InspectionSteps {
 		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
 		inspectionpage.searchInspection(inspectionName);
 		inspectionpage.downloadPDF();
+		System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd")+"-"+custSIteName+"-Multiple-"+conveyorName+".pdf");
 		System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+conveyorName+".pdf");
 		Validator.assertTrue(MiscUtils.checkDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+inspectionName+".pdf"),"PDF report was not found","PDF report was downloaded successfully");
 	}
@@ -365,4 +366,23 @@ public class InspectionSteps {
 		inspectionpage.verifyMultiSelInSiteDropDown(siteName,siteName2);
 	}
 
+	@QAFTestStep(description="Verify only view permission right for {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void verifyViewPermissionRightForInspections(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status) {
+		inspectionpage.verifyViewRights(conveyorName,inspectionName,assetName, assetDetail, failureMode, condition, status);
+	}
+
+	@QAFTestStep(description="Verify only view and edit permission right for {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void verifyViewAndEditPermissionRightForInspections(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status) {
+		inspectionpage.verifyViewAndEditRights(conveyorName,inspectionName,assetName, assetDetail, failureMode, condition, status);
+	}
+
+	@QAFTestStep(description="Verify only view and add permission right for {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void verifyViewAndAddPermissionRightForInspections(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status) {
+		inspectionpage.verifyViewAndAddRights(conveyorName,inspectionName,assetName, assetDetail, failureMode, condition, status);
+	}
+
+	@QAFTestStep(description="Verify only view and delete permission right for {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void verifyViewAndDeletePermissionRightForInspections(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status) {
+		inspectionpage.verifyViewAndDeleteRights(conveyorName,inspectionName,assetName, assetDetail, failureMode, condition, status);
+	}
 }

@@ -29,13 +29,43 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=//div/span[text()='Corporates']")
     public CustomElement corporateHeader;
 
+    @FindBy(locator = "xpath=(//app-card//div[text()='File Manager'])[1]")
+    public CustomElement fileManagerCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Sites'])[1]")
+    public CustomElement siteCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyors'])[1]")
+    public CustomElement conveyorsCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Cover Wear'])[1]")
+    public CustomElement coverWearCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Inspections'])[1]")
+    public CustomElement inspectionCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyor Inspect'])[1]")
+    public CustomElement conveyorInspectCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Belt Scans'])[1]")
+    public CustomElement beltScanCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]")
+    public CustomElement monitoringDevicesCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Heavy Equipment'])[1]")
+    public CustomElement heavyEquipmentCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.'])[1]")
+    public CustomElement minutemanCard;
+
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
     public CustomElement btAddCorp;
 
     @FindBy(locator = "xpath=//input[@name='company_name']")
     public CustomElement tbCompanyName;
 
-    @FindBy(locator = "xpath=//span[text()='Save and Close']/..")
+    @FindBy(locator = "xpath=//span[text()='Create']/..")
     public CustomElement btSaveandclose;
 
     @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
@@ -47,7 +77,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//div[text()=' Distributor Shop ']")
     public CustomElement radioDistribtorshop;
 
-    @FindBy(locator = "xpath=//li[@aria-label='Customer Corporate']")
+    @FindBy(locator = "xpath=//div[text()=' Customer Corporate ']")
     public CustomElement radioCustomerCorportae;
 
     @FindBy(locator = "xpath=//div[text()=' Customer Site ']")
@@ -117,7 +147,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[2]")
     public CustomElement btviewicon2;
 
-    @FindBy(locator = "xpath=//span[text()='Update']")
+    @FindBy(locator = "xpath=//span[text()='Save']")
     public CustomElement btUpdate;
 
     @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
@@ -218,7 +248,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//h4[text()='New Company']")
     public CustomElement newCompany;
 
-    @FindBy(locator = "xpath=//div/span[text()='Conveyors']")
+    @FindBy(locator = "xpath=(//div[text()='Conveyors'])[1]")
     public CustomElement conveyorHeader;
 
     @FindBy(locator = "xpath=//span[text()='Conveyor Trails']")
@@ -229,6 +259,9 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator= "xpath=//label[text()='Site']/following::span[1]")
     public CustomElement drSitedropdown;
+
+    @FindBy(locator="xpath=//span[text()='Edit']")
+    public CustomElement btEditDetails;
 
     @FindBy(locator= "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component p-disabled']")
     public CustomElement btnSaveDisabled;
@@ -262,6 +295,12 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btAddCorp);
         btAddCorp.click("Add Corp");
     }
+
+    public boolean verifyAddCorpViewPermission() {
+        scrollPageup();
+        return btAddCorp.isNotVisible(500);
+    }
+
 
     public void createDistributorCorporate(String companyName, String address) {
         selectDistributorCorp();
@@ -358,7 +397,7 @@ public class CorporatePage extends BasePage{
     public void selectCustomerCorp() {
         drTypeofcompany.click("Corporate Type");
         waitForElementToDisplay(radioCustomerCorportae);
-        radioCustomerCorportae.click("Distributor Corp");
+        radioCustomerCorportae.click("Customer Corp");
     }
 
     public void selectCustomerSite() {
@@ -426,7 +465,7 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btCheckbox);
         btCheckbox.click("Site Checkbox");
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
-        btActions.click("Actions");
+        btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
         typeOfCompanyLoader.waitForText("Customer Site");
@@ -609,6 +648,48 @@ public class CorporatePage extends BasePage{
     public void verifyDeleteConveyor(String conveyor) {
         btSearchinput.type(conveyor, "Conveyor name");
         Validator.assertTrue(noList.isVisible("No Site/Shop"), "Conveyor found even after delete", "Conveyor not found after delete");
+    }
+
+    public boolean verifyViewAndEditRights(String CorporateName) {
+        // goToCorporate();
+        searchCorporate(CorporateName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("CorporateName");
+        btActions.click("Actions");
+        return btAddCorp.isNotVisible(1000) && btEdit.isVisible(1000) && btDelete.isNotVisible(1000);
+    }
+
+    public boolean verifyViewAndDeleteRights(String CorporateName) {
+        // goToCorporate();
+        searchCorporate(CorporateName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("CorporateName");
+        btActions.click("Actions");
+        return btAddCorp.isNotVisible(1000) && btEdit.isNotVisible(1000) && btDelete.isVisible(1000);
+    }
+
+
+    public boolean verifyViewRights(String CorporateName) {
+        // goToCorporate();
+        searchCorporate(CorporateName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("CorporateName");
+        btActions.click("Actions");
+        return btAddCorp.isNotVisible(1000) && btEdit.isNotVisible(1000) && btDelete.isNotVisible(1000);
+
+    }
+    public boolean verifyEditButtonVisibleOnCorporateDetailsPage(String CorporateName){
+        goToCorporateDetails(CorporateName);
+        return btEditDetails.isVisible(1000);
+    }
+
+    public boolean verifyCorporateDetailCardsDisplayForBasics(){
+        return siteCard.isVisible() && conveyorsCard.isVisible() && coverWearCard.isVisible() && fileManagerCard.isNotVisible(500) && inspectionCard.isNotVisible(500) && conveyorInspectCard.isNotVisible(500) && beltScanCard.isNotVisible(500) && monitoringDevicesCard.isNotVisible(500) && heavyEquipmentCard.isNotVisible(500) && minutemanCard.isNotVisible(500);
+    }
+
+    public boolean verifyCustomerTypeForSitePermission() {
+        drTypeofcompany.click("Corporate Type");
+        return radioDistribtorshop.isNotVisible(500) && radioDistributorCorp.isNotVisible(500) && radioCustomerCorportae.isNotVisible(500) && radioCustomeSite.isVisible(500);
     }
 
     public void verifyMandatoryFields(){

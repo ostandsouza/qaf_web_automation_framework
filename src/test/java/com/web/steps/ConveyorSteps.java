@@ -21,8 +21,8 @@ public class ConveyorSteps {
 
     @QAFTestStep(description="Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
     public void createAConveyor(String conveyorName, String distShopName, String custSiteName){
-//        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
-//        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         conveyorPage.createConveyor(conveyorName, distShopName, custSiteName);
     }
 
@@ -358,4 +358,139 @@ public class ConveyorSteps {
 
     }
 
+    @QAFTestStep(description="Navigate to Conveyor bulk import screen")
+    public void verifyBulkImportNavigation(){
+        Validator.assertTrue(conveyorPage.goToBulkImport(),"User is not in bulk import screen","Bulk import screen was successfully verified");
+    }
+
+    @QAFTestStep(description="Verify add conveyor permission")
+    public void verifyAddConveyorPermission(){
+        Validator.assertTrue(!conveyorPage.verifyAddConveyorPermission(),"Add conveyor is enabled","Add Conveyor should be disabled is successfully verified");
+    }
+
+    @QAFTestStep(description="Verify different sections from bulk import screen")
+    public void verifySectionsFromBulkImport(){
+        Validator.assertTrue(conveyorPage.verifySectionsFromBulkImport(),"All Section in bulk import are not available","All sections in conveyor bulk import are successfully verified");
+    }
+
+    @QAFTestStep(description="Verify download bulk upload template for distributor {DistCorpName} and with site {CustSiteName}")
+    public void verifyDownloadTemplateForSingleSite(String distCorpName, String custSiteName){
+        conveyorPage.checkDownloadTemplateForOneSite(distCorpName,custSiteName);
+        SyncUtil.waitFor(20000);
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"),"Conveyor bulk upload template for single site was not found","Conveyor bulk upload template for single site was downloaded successfully");
+        MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");    }
+
+    @QAFTestStep(description="Verify download bulk upload template for distributor {0} and with multisite {1} and with site {2}")
+    public void verifyDownloadTemplateForMultipleSite(String distCorpName, String custSiteName, String custSite2Name) {
+        conveyorPage.checkDownloadTemplateForMultipleSite(distCorpName, custSiteName, custSite2Name);
+        SyncUtil.waitFor(20000);
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"), "Conveyor bulk upload template for multiple sites was not found", "Conveyor bulk upload template for single site was downloaded successfully");
+        MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");
+    }
+
+    @QAFTestStep(description="Verify bulk upload file format with file {FileName}")
+    public void verifyBulkUploadFileFormat(String fileName) {
+        conveyorPage.conveyorFileImportWithoutWait(fileName);
+//        Validator.assertTrue(conveyorPage.conveyorFileImport(fileName).contains("2"),"Not all conveyors were imported successfully","All conveyors imported successfully");
+
+    }
+
+    @QAFTestStep(description="Verify acknowledge import screen for site {CustSiteName} with file {FileName}")
+    public void verifyAcknowledgeImportScreen(String custSiteName, String fileName) {
+        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
+        conveyorPage.acknowledgeImport(obj.length-1);
+    }
+
+    @QAFTestStep(description="Verify bulk import report screen")
+    public void verifyBulkImportReportScreen() {
+        conveyorPage.verifyImportReport();
+    }
+
+    @QAFTestStep(description="Verify skip radio button functionality for site {CustSiteName} with file {FileName}")
+    public void verifySkipRadioFunctionality(String custSiteName, String fileName) {
+        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
+        conveyorPage.verifySkipRadioBtn(obj.length-1);
+    }
+
+    @QAFTestStep(description="Verify update radio button functionality for site {CustSiteName} with file {FileName}")
+    public void verifyUpdateRadioFunctionality(String custSiteName, String fileName) {
+        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
+        conveyorPage.verifyUpdateRadioBtn(obj.length-1);
+    }
+
+    @QAFTestStep(description="Verify copy radio button functionality for site {CustSiteName} with file {FileName}")
+    public void verifyCopyRadioFunctionality(String custSiteName, String fileName) {
+        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
+        conveyorPage.verifyCopyRadioBtn(obj.length-1);
+    }
+
+    @QAFTestStep(description="Go Back to bulk import report")
+    public void verifyBackNavigation() {
+        conveyorPage.goBackToImportReport();
+    }
+
+    @QAFTestStep(description="Verify bulk import review messages")
+    public void verifyReviewMessages() {
+        conveyorPage.verifyMessages();
+    }
+
+    @QAFTestStep(description="Verify file analysis success message")
+    public void verifyFileAnalysisMessages() {
+        conveyorPage.verifyFileAnalyseMessages();
+    }
+
+    @QAFTestStep(description="Click on the import conveyor")
+    public void clickOnImportConveyor() {
+        conveyorPage.conveyorUpload();
+    }
+
+    @QAFTestStep(description="Verify Edit button is visible on details screen")
+    public void verifyEditBtnDisplayed(){
+        conveyorPage.editButtonVisiblityOnConveyorDetailsPage();
+    }
+
+    @QAFTestStep(description="Verify only view permission right for conveyors {ConveyorName}")
+    public void verifyOnlyViewPermissionRightForConveyors(String ConveyorName) {
+        Validator.assertTrue(conveyorPage.verifyViewPermissionRights(ConveyorName), "View Permission for conveyor is failing", "View permission for conveyor is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and edit permission right for conveyors {ConveyorName}")
+    public void verifyOnlyViewAndEditPermissionRightForConveyors(String ConveyorName) {
+        Validator.assertTrue(conveyorPage.verifyViewAndEditRights(ConveyorName), "Edit And view Permission for conveyor is failing", "Edit and view permission for conveyor is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and Delete permission right for conveyor {ConveyorName}")
+    public void verifyViewAndDeletePermissionRightForConveyor(String ConveyorName) {
+        Validator.assertTrue(conveyorPage.verifyViewAndDeleteRights(ConveyorName), "Delete and view Permission for conveyor is failing", "Delete and view permission for conveyor is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and add permission right for conveyor {ConveyorName}")
+    public void verifyViewAndAddPermissionRightForConveyor(String ConveyorName) {
+        Validator.assertTrue(conveyorPage.verifyViewAndAddRights(ConveyorName), "Add And view Permission for conveyor is failing", "Add and view permission for conveyor is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and download permission right for conveyor {ConveyorName}")
+    public void verifyViewAndDownloadPermissionRightForConveyor(String ConveyorName) {
+        Validator.assertTrue(conveyorPage.verifyViewAndDownloadRights(ConveyorName), "Download And view Permission for conveyor is failing", "Download and view permission for conveyor is verified successfully");
+    }
+
+    @QAFTestStep(description="wait for conveyors to load")
+    public void conveyorLoad() {
+        conveyorPage.goToConveyorListScreenAndWait();
+    }
+
+    @QAFTestStep(description="Verify conveyor detail screen card display")
+    public void conveyorDetailsCardDisplay() {
+        Validator.assertTrue(conveyorPage.verifyConveyorDetailCardsDisplayForBasics(), "After setting view rights for basics the card display showing other cards too", "After setting view right card display for basics, showing only 3 cards");
+    }
+
+    @QAFTestStep(description="User clicks on Conveyor History")
+    public void navigateToConveyorHistory() {
+        Validator.assertTrue(conveyorPage.navigateToConveyorHistoryFromDetails(),"User Conveyor history navigation failed", "User Conveyor history navigation was successful");
+    }
+
+    @QAFTestStep(description="User should not see dropdown with belt failure options for view rights")
+    public void addConveyorHistoryViewRights() {
+        Validator.assertTrue(conveyorPage.verifyaddConveyorHistoryViewRights(), "Add Conveyor history option enabled for view rights", "Add Conveyor history option disabled for view rights");
+    }
 }

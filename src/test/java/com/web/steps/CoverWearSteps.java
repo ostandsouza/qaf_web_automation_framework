@@ -17,9 +17,9 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Add Cover Wear for conveyor {ConveyorName} and site {CustSiteName} with data {FullName} {PositionName} {TopCoverThickness} {BottomCoverThickness} {Durometer} {TopCoverCompound} {BottomCoverCompound}")
     public void createCoverWearMeasurement(String conveyorName, String custSiteName, String fullName, String positionName, String topCoverThickness, String bottomCoverThickness, String durometer, String topCoverCompound, String bottomCoverCompound){
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
-        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
+//        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+//        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+//        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
         coverWearPage.goToCoverWearScreen();
         coverWearPage.addNewMeasurement(conveyorName, custSiteName,positionName,topCoverThickness,bottomCoverThickness,durometer,topCoverCompound,bottomCoverCompound);
     }
@@ -703,5 +703,80 @@ public class CoverWearSteps {
         coverWearPage.verifyCoverWearPDFContents(conveyorName,siteName);
     }
 
+    @QAFTestStep(description="Verify only view permission right for CoverWear {ConveyorName}")
+    public void verifyViewPermissionRightForCoverWear(String ConveyorName) {
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(coverWearPage.verifyViewRights(ConveyorName), "View Permission for cover wear is failing", "View permission for cover wear is verified successfully");
+    }
 
+    @QAFTestStep(description="Verify only view & add permission right for CoverWear {ConveyorName}")
+    public void verifyViewAndAddPermissionRightForCoverWear(String ConveyorName) {
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(coverWearPage.verifyViewAndAddRights(ConveyorName), "Add And view Permission for cover wear is failing", "Add and view permission for cover wear is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view & edit permission right for CoverWear {ConveyorName}")
+    public void verifyViewAndEditPermissionRightForCoverWear(String ConveyorName) {
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(coverWearPage.verifyViewAndEditRights(ConveyorName), "Edit And view Permission for cover wear is failing", "Edit and view permission for cover wear is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view & delete permission right for CoverWear {ConveyorName}")
+    public void verifyViewAndDeletePermissionRightForCoverWear(String ConveyorName) {
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(coverWearPage.verifyViewAndDeleteRights(ConveyorName), "Delete And view Permission for cover wear is failing", "Delete and view permission for cover wear is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view & download permission right for CoverWear {ConveyorName}")
+    public void verifyViewAndDownloadPermissionRightForCoverWear(String ConveyorName) {
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(coverWearPage.verifyViewAndDownloadRights(ConveyorName), "Download And view Permission for cover wear is failing", "Download and view permission for cover wear is verified successfully");
+    }
+    @QAFTestStep(description="Verify only view permission right for CoverWear Details screen {ConveyorName}")
+    public void verifyViewPermissionRightForCoverWearDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewRightsForSpecification(ConveyorName), "View Permission for cover wear details is failing", "View permission for cover wear details is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and add permission right for CoverWear Details screen {ConveyorName}")
+    public void verifyViewAddPermissionRightForCoverWearDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewAddRightsForSpecification(ConveyorName), "Add And view Permission for cover wear details is failing", "Add and view permission for cover wear details is verified successfully");
+    }
+    @QAFTestStep(description="Verify only view and edit permission right for CoverWear Details screen {ConveyorName}")
+    public void verifyViewEditPermissionRightForCoverWearDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewEditRightsForSpecification(ConveyorName), "Edit And view Permission for cover wear details is failing", "Edit and view permission for cover wear details is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and delete permission right for CoverWear Details screen {ConveyorName}")
+    public void verifyViewDeletePermissionRightForCoverWearDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewDeleteRightsForSpecification(ConveyorName), "Delete And view Permission for cover wear details is failing", "Delete and view permission for cover wear details is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and download permission right for CoverWear Details screen {ConveyorName}")
+    public void verifyViewDownloadPermissionRightForCoverWearDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewDownloadRightsForSpecification(ConveyorName), "Download And view Permission for cover wear details is failing", "Download and view permission for cover wear details is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view permission right for measurement Details screen {ConveyorName}")
+    public void verifyViewPermissionRightForMeasurementDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewRightsForMeasurement(ConveyorName), "View Permission for cover wear measurement is failing", "View permission for cover wear measurement is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and add permission right for measurement Details screen {ConveyorName}")
+    public void verifyViewAddPermissionRightForMeasurementDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewAddRightsForMeasurement(ConveyorName), "Add And view Permission for cover wear measurement is failing", "Add and view permission for cover wear measurement is verified successfully");
+    }
+    @QAFTestStep(description="Verify only view and edit permission right for measurement Details screen {ConveyorName}")
+    public void verifyViewEditPermissionRightForMeasurementDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewEditRightsForMeasurement(ConveyorName), "Edit And view Permission for cover wear measurement is failing", "Edit and view permission for cover wear measurement is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and delete permission right for measurement Details screen {ConveyorName}")
+    public void verifyViewDeletePermissionRightForMeasurementDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewDeleteRightsForMeasurement(ConveyorName), "Delete And view Permission for cover wear measurement is failing", "Delete and view permission for cover wear measurement is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and download permission right for measurement Details screen {ConveyorName}")
+    public void verifyViewDownloadPermissionRightForMeasurementDetails(String ConveyorName) {
+        Validator.assertTrue(coverWearPage.verifyViewDownloadRightsForMeasurement(ConveyorName), "Download And view Permission for cover wear measurement is failing", "Download and view permission for cover wear measurement is verified successfully");
+    }
 }

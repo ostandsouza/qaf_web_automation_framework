@@ -258,7 +258,6 @@ Scenario: Verify add all new items in inspection and close
 
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
-     And   Navigate to Add Inspection screen from list screen
      And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
@@ -282,7 +281,6 @@ Scenario: Verify success message after saving inspection event
 
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
-     And   Navigate to Add Inspection screen from list screen
      And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
@@ -295,7 +293,6 @@ Scenario: Verify success message after saving inspection event
 
       When  Navigate to site details for site '${CustSiteName}'
       Then  Verify navigation to inspection tile
-      And   Navigate to Add Inspection screen from list screen
       And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
       And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
@@ -314,7 +311,7 @@ Scenario: Verify success message after saving inspection event
  @Regression25
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
- @key:Inspection_AddSiteInspection
+ @key:InspectionItem_Edit
  Scenario: Verify a edit inspection event
 
     When  Navigate to site details for site '${CustSiteName}'

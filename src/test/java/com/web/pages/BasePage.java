@@ -73,7 +73,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      */
     public void waitForElementToInvisible(WebElement element, int timeOutInSeconds) {
         try{
-            setImplicitWait(1000, TimeUnit.MILLISECONDS);
+            setImplicitWait(2000, TimeUnit.MILLISECONDS);
             QAFWebDriverWait wdWait = new QAFWebDriverWait(driver, timeOutInSeconds);
             wdWait.until(invisibilityOfWebElementLocated(element));
             setImplicitWait(5000, TimeUnit.MILLISECONDS);
@@ -255,7 +255,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     	
     	dropDownButton.click();
         setImplicitWait(15000,TimeUnit.MILLISECONDS);
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(300);
         waitForPresenceOfElements(By.xpath(dropDownItems));
         List<WebElement> Options = driver.findElements(By.xpath(dropDownItems));
         for(WebElement ele:Options) {
@@ -286,9 +286,9 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     public void dropdownSelectSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
 		dropDownButton.click();
         waitForElementToBeClickable(dropDownButton);
+        SyncUtil.waitFor(100);
 		Search.type(itemstosearch);
-        SyncUtil.waitFor(10000);
-        setImplicitWait(150000,TimeUnit.MILLISECONDS);
+        setImplicitWait(70000,TimeUnit.MILLISECONDS);
 		waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
 		driver.findElement("//span[text()='"+itemstosearch+"']").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);
@@ -316,5 +316,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         actions.moveToElement(imageElement, xCoordinate, yCoordinate).click().build().perform();
     }
 
+    public void browserBack() {
+        driver.navigate().back();
+    }
 
 }

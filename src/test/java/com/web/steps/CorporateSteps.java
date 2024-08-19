@@ -289,5 +289,44 @@ public class CorporateSteps {
     	corpPage.verifyMandatoryFields();
     }
 
+    @QAFTestStep(description="Verify only view and edit permission right for corporate {CorporateName}")
+    public void verifyViewAndEditPermissionRightForCorporate(String CorporateName) {
+        Validator.assertTrue(corpPage.verifyViewAndEditRights(CorporateName), "Add And view Permission for site is failing", "Add and view permission for site is verified successfully");
+    }
 
+    @QAFTestStep(description="Verify only view and delete permission right for corporate {CorporateName}")
+    public void verifyViewAndDeletePermissionRightForCorporate(String CorporateName) {
+        Validator.assertTrue(corpPage.verifyViewAndDeleteRights(CorporateName), "Add And view Permission for site is failing", "Add and view permission for site is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view permission right for corporate {CorporateName}")
+    public void verifyViewPermissionRightForCorporate(String CorporateName) {
+        Validator.assertTrue(corpPage.verifyViewRights(CorporateName), "Add And view Permission for site is failing", "Add and view permission for site is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify edit button visible on Corp Details Page {CorporateName}")
+    public void verifyEditButtonVisibleCorpDetailsPage(String CorporateName) {
+        Validator.assertTrue(corpPage.verifyEditButtonVisibleOnCorporateDetailsPage(CorporateName), "Add And view Permission for site is failing", "Add and view permission for site is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify card display in corporate details screen")
+    public void verifyCardDisplayForBasicsView() {
+        Validator.assertTrue(corpPage.verifyCorporateDetailCardsDisplayForBasics(), "After setting view rights for basics the card display showing other cards too", "After setting view right card display for basics, showing only 3 cards");
+    }
+
+    @QAFTestStep(description="Navigate to add corporate from corporate details screen")
+    public void goToAddCorporateDetails(){
+        corpPage.goToAddCorporate();
+    }
+
+
+    @QAFTestStep(description="Verify add corporate button from corporate details screen for site view permission")
+    public void verifyAddCorpViewPermission(){
+        Validator.assertTrue(corpPage.verifyAddCorpViewPermission(),"Add Corporate icon should not be visible in corporate details screen for site view permission", "Add Corporate icon not visible in corporate details screen for site view permission");
+    }
+
+    @QAFTestStep(description="Verify type of company dropdown contents for only site permission")
+    public void verifyCompanyTypeDropdown(){
+        Validator.assertTrue(corpPage.verifyCustomerTypeForSitePermission(),"Only site should be visible in type of company dropdown", "Other option are enabled in type of company dropdown");
+    }
 }

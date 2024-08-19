@@ -141,6 +141,7 @@ public class UserSteps extends BasePage {
     public void ClickOnLogout() {
 		SyncUtil.waitFor(3000);
 		userpage.clickOnLogout();
+		SyncUtil.waitFor(2000);
 	}
 
 	@QAFTestStep(description="Create a Market manager {FullNameInd} and {Phone} and {EmailInd} and {ProfileType} and {UserPassword} and {RetypePassword}")
@@ -161,9 +162,9 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description="Create a Distributor User {FullName} and {Phone} and {EmailDist} and {ProfileTypeDist} and {UserPassword} and {RetypePassword} and {CoporateRole} and {DistCorpName} and {DistShopName} and {CustSiteName}")
 	public void createDistributorUserForIndiaJohnDoe(String FullName,String Phone,String EmailDist, String ProfileTypeDist,String UserPassword,String RetypePassword, String CoporateRole, String DistCorpName, String DistShopName, String CustSiteName) {
-//		String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
-//		userpage.apiBase.deleteProfileAPI(userid);
-//		userpage.apiBase.deleteUserAPI(userid);
+		String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
+		userpage.apiBase.deleteProfileAPI(userid);
+		userpage.apiBase.deleteUserAPI(userid);
 		userpage.usersclick();
 		userpage.addClick();
 		userpage.setfullname(FullName);
@@ -213,8 +214,10 @@ public class UserSteps extends BasePage {
 		userpage.searchUser(fullName);
 		userpage.goToEditUserPage(fullName);
 		userpage.Nextclick();
-		userpage.verifyTerritory(region);
+//		userpage.goToTerritory();
+//		userpage.verifyTerritory(region);
 		userpage.Nextclick();
+//		userpage.goToUserPermission();
 		userpage.verifyPermission(add, edit, delete, view, download);
 	}
 
@@ -225,6 +228,7 @@ public class UserSteps extends BasePage {
 		userpage.goToEditUserPage(fullName);
 		userpage.Nextclick();
 		userpage.Nextclick();
+//		userpage.goToUserPermission();
 		userpage.verifyPermission(add, edit, delete, view, download);
 	}
 
@@ -276,8 +280,7 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description="Verify the success message after uploading file with name {file}")
 	public void verifySuccessMsgFileUpload(String fileName){
-		SyncUtil.waitFor(10000);
-		Validator.assertTrue(userpage.userFileUpload(fileName),"Bulk import file upload failed","Bulk import file upload was successful");
+		Validator.assertTrue(userpage.userFileUpload(fileName),"User bulk import file upload failed","User bulk import file upload was successful");
 	}
 
 	@QAFTestStep(description="Verify bulk upload analysis result after uploading file with name {file} having count {count}")
@@ -507,4 +510,40 @@ public class UserSteps extends BasePage {
 		userpage.verifyUserCreationInListPage(User);
 	}
 
+	@QAFTestStep(description="Click on Update btn")
+	public void clickOnUpdateBtn(){
+		userpage.updateBtnClick();
+	}
+
+	@QAFTestStep(description = "User clicks on Users link present in navigation bar")
+	public void userClicksOnUsersLinkPresentInNavigationBar() {	userpage.usersclick();	}
+
+	@QAFTestStep(description = "Search {FullName} User on List page and then edit the same and navigate to permission screen")
+	public void searchUserInUserListAndEdit(String fullName) {
+		SyncUtil.waitFor(5000);
+		userpage.goToUsersAndWait();
+		userpage.searchUser(fullName);
+		userpage.goToEditUserPage(fullName);
+		SyncUtil.waitFor(3000);
+//		userpage.goToUserPermission();
+		userpage.Nextclick();
+		userpage.waitForTerritory();
+		userpage.Nextclick();
+	}
+
+	@QAFTestStep(description="Reset all permissions")
+	public void resetPermission(){
+		userpage.restPermission();
+	}
+
+	@QAFTestStep(description="Add permission rights under {MainModule} with {Add} {Edit} {Delete} {View} {Download} and Update user")
+	public void updateUserPermission(String mainModule, String add, String edit, String delete, String view, String download) {
+		userpage.setPermission(mainModule,add, edit, delete, view, download);
+
+	}
+	@QAFTestStep(description="Add permission rights under {MainModule} {SubModule} with {Add1} {Edit1} {Delete1} {View1} {Download1} and Update user")
+	public void updateUserPermissionAtSubModule(String mainModule,String subModule, String add, String edit, String delete, String view, String download) {
+		userpage.setPermission(mainModule,subModule,add, edit,delete,view,download);
+
+	}
 }

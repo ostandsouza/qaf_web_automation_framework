@@ -305,7 +305,6 @@ Scenario:  verify user is able to generate the password on users screen
 @sheetName:Regression
 @key:Usermanagement_ChangePassword
 Scenario: Verify the user is able to update the password
-
   Given Login with '${UserName}' and '${Password}'
   And User clicks on Profile
   When User enters New Password '${Password}' and Confirm '${UserPassword}' and click on Update

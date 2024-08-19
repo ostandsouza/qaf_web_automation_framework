@@ -77,6 +77,12 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//span[text()='Generate password']")
 	public CustomElement btGeneratePassword;
 
+	@FindBy(locator = "xpath=//span[text()='Permissions']")
+	public CustomElement btPermission;
+
+	@FindBy(locator = "xpath=//span[text()='Assign']")
+	public CustomElement btAssign;
+
 	@FindBy(locator = "xpath=//span[text()='Next']")
 	public CustomElement btNext;
 
@@ -118,7 +124,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//th[contains(text(),'Download')]/p-tristatecheckbox//div[@role='checkbox']")
 	public CustomElement cbAllcheckboxDownload;
 	
-	@FindBy(locator = "xpath=//span[text()='Save and Close']")
+	@FindBy(locator = "xpath=//span[text()='Create']")
 	public CustomElement btSaveandClose;
 
 	@FindBy(locator = "xpath=//li[contains(@class,'user-profile')]")
@@ -149,13 +155,13 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//div[@role='checkbox']")
 	public CustomElement ddlCheckbox;
 
-	@FindBy(locator="xpath=//div[text()=' Engineering ']")
+	@FindBy(locator="xpath=//div[text()=' ENGINEERING ']")
 	public CustomElement eleEngineering;
 	
-	@FindBy(locator="xpath=//div[text()=' Basics ']")
+	@FindBy(locator="xpath=//div[text()=' BASIC ']")
 	public CustomElement eleBasics;
 	
-	@FindBy(locator="xpath=//tr[@class='ng-star-inserted']//td//p-tablecheckbox")
+	@FindBy(locator="xpath=//tr[@class='p-selectable-row ng-star-inserted']//td//p-tablecheckbox")
 	public CustomElement cbTablecheckbox;
 	
 	@FindBy(locator="xpath=//button[@class='p-element p-splitbutton-menubutton p-button p-component p-button-icon-only']")
@@ -164,7 +170,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//span[text()='Edit']")
 	public CustomElement btEdit;
 	
-	@FindBy(locator="xpath=//span[text()='Update']")
+	@FindBy(locator="xpath=//span[text()='Save']")
 	public CustomElement btUpdate;
 	
 	@FindBy(locator="//span[text()='Delete']")
@@ -315,7 +321,8 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//div[contains(@class,'p-datatable-header')]//h4[text()='Users']")
 	public CustomElement usersHeader;
 
-
+	@FindBy(locator="xpath=//span[text()='Save']/..")
+	public CustomElement updateBtn;
 
 	@FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
 	public CustomElement userDefaultImage;
@@ -402,8 +409,8 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=(//button[@icon='pi pi-refresh'])[2]")
 	public CustomElement userRefresh;
 
-	@FindBy(locator = "xpath=//span[text()='Assign']")
-	public CustomElement btAssign;
+//	@FindBy(locator = "xpath=//span[text()='Assign']")
+//	public CustomElement btAssign;
 
 	@FindBy(locator = "xpath=//label[text()='Profile']/..//p-dropdown")
 	public CustomElement btDropDown;
@@ -545,6 +552,14 @@ public class UsersPage extends BasePage{
 		tbRetypePassword.type(retypepassword,"Retypepassword");		
 	}
 
+	public void goToUserPermission(){
+		btPermission.jsClick();
+	}
+
+	public void goToTerritory(){
+		btAssign.jsClick();
+	}
+
 	public void Nextclick() {
 		btNext.click();
 	}
@@ -591,9 +606,11 @@ public class UsersPage extends BasePage{
 	 *@author Ostan dsouza
 	 */
 	public void setPermission(String mainModule, String subModule, String add, String edit, String delete, String view, String download) {
-		waitForElementVisible(btNext, 5000,500);
-		btNext.click();
-		SyncUtil.waitFor(1000);
+		if(btNext.isVisible()) {
+			waitForElementVisible(btNext, 5000, 500);
+			btNext.click();
+			SyncUtil.waitFor(1000);
+		}
 		waitForElementToInvisible(cbSpinner,20000);
 		driver.findElement(By.xpath("//span[contains(text(),'"+mainModule+"')]/..//button")).click();
 		if(add.equalsIgnoreCase("true"))
@@ -620,25 +637,28 @@ public class UsersPage extends BasePage{
 	 *@author Ostan dsouza
 	 */
 	public void setPermission(String mainModule, String add, String edit, String delete, String view, String download) {
-		waitForElementVisible(btNext, 5000,500);
-		btNext.click();
-		SyncUtil.waitFor(1000);
-		waitForElementToInvisible(cbSpinner,20000);
+		if(btNext.isVisible()) {
+			waitForElementVisible(btNext, 5000, 500);
+			btNext.click();
+			SyncUtil.waitFor(1000);
+			waitForElementToInvisible(cbSpinner, 20000);
+		}
 		if(add.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//div[contains(@class,'p-checkbox ')])[1]")).click();
+			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[1]")).click();
 		if(edit.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//div[contains(@class,'p-checkbox ')])[2]")).click();
+			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[2]")).click();
 		if(delete.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//div[contains(@class,'p-checkbox ')])[3]")).click();
+			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[3]")).click();
 		if(view.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//div[contains(@class,'p-checkbox ')])[4]")).click();
+			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[4]")).click();
 		if(download.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//div[contains(@class,'p-checkbox ')])[5]")).click();
+			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[5]")).click();
 	}
 
 	public void setTerritory(String region) {
 		waitForPageLoad(5000);
 		waitForElementToDisplay(eleArrowMT);
+//		eleCheckboxMT.click();
 		if(region.equalsIgnoreCase("APAC")){
 			Reporter.log("isSelected: ="+cbCheckboxAPAC.getAttribute("aria-checked"));
 			if(cbCheckboxAPAC.getAttribute("aria-checked").equalsIgnoreCase("false")){
@@ -710,11 +730,11 @@ public class UsersPage extends BasePage{
 
     public void distributorInformation(String corporate, String role) {
     	dropdownSelectSearch(ddlCorportaedropdown, tbCorporateSearch, corporate);
-    	ddlCorporateroledropdown.click();
-		if(role.equalsIgnoreCase("manager"))
-    		rdbManager.click();
-		else
-			rdbEngineer.click();
+//    	ddlCorporateroledropdown.click();
+//		if(role.equalsIgnoreCase("manager"))
+//    		rdbManager.click();
+//		else
+//			rdbEngineer.click();
     	ddlSubscriptionType.click();
     	eleEngineering.click();
     	eleBasics.click();
@@ -783,11 +803,12 @@ public class UsersPage extends BasePage{
 		Reporter.log("Profile :="+btProfile.getText());
 		Reporter.log("Corp :="+btCorporate.getText());
 		Reporter.log("SUbs :="+(btSubscription.getText()));
-		Reporter.log("Territory :="+btTerritory.getText());
+//		Reporter.log("Territory :="+btTerritory.getText());
 		btviewicon.click();
 		waitForElementToDisplay(editBtn);
 		waitForElementToBeClickable(editBtn);
-		SyncUtil.waitFor(25000);
+//		SyncUtil.waitFor(25000);
+		SyncUtil.waitFor(5000);
 		waitForElementToBeClickable(editBtn);
 		editBtn.click();
 	}
@@ -811,7 +832,7 @@ public class UsersPage extends BasePage{
 	public void goToUsersAndWait() {
 		waitForElementVisible(lnkUsers, 10000,500);
 		lnkUsers.click();
-		SyncUtil.waitFor(5000);
+		SyncUtil.waitFor(10000);
 		scrollPageDown();
 		String val="";
 		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
@@ -1263,5 +1284,29 @@ public class UsersPage extends BasePage{
 		fileUpload.sendKeys(file_path, "File Path");
 		deleteFile.assertVisible("Delete File upload");
 		return uploadFailure.isVisible();
+	}
+
+	public void restPermission(){
+		SyncUtil.waitFor(1000);
+		waitForElementToInvisible(cbSpinner,20000);
+		if(cbAllcheckboxAdd.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+			cbAllcheckboxAdd.click();
+		if(cbAllcheckboxEdit.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+			cbAllcheckboxEdit.click();
+		if(cbAllcheckboxDelete.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+			cbAllcheckboxDelete.click();
+		if(cbAllcheckboxView.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+			cbAllcheckboxView.click();
+		if(cbAllcheckboxDownload.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+			cbAllcheckboxDownload.click();
+
+	}
+
+	public void updateBtnClick() {
+		waitForElementVisible(updateBtn, 10000,500);
+		updateBtn.click();
+		SyncUtil.waitFor(5000);
+		waitForElementToInvisible(buttonLoader,15000);
+
 	}
 }
