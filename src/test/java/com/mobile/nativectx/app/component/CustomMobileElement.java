@@ -10,6 +10,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.LongPressOptions;
+import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Pause;
@@ -19,6 +21,9 @@ import org.openqa.selenium.interactions.Sequence;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 public class CustomMobileElement extends CustomElement {
 
@@ -51,6 +56,12 @@ public class CustomMobileElement extends CustomElement {
     public void singleTap(String objName) {
         this.singleTap();
         Reporter.log("Taped on " + objName, MessageTypes.Info);
+    }
+
+    public void press() {
+//        if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout")))
+        longPress();
+//        else throw new RuntimeException(this+" element for click not found");
     }
 
     /**
@@ -272,16 +283,27 @@ public class CustomMobileElement extends CustomElement {
         int start = this.getLocation().x+this.getSize().width/2;
         int end = this.getLocation().y+this.getSize().height/2;
 
-        PointerInput pointer = new PointerInput(PointerInput.Kind.TOUCH, "finger");
-        Sequence longp = new Sequence(pointer,1)
-                .addAction(pointer.createPointerMove(Duration.ofMillis(0), PointerInput.Origin.viewport(), start,end))
-                .addAction(pointer.createPointerDown(0))
-                .addAction(new Pause(pointer,Duration.ofSeconds(5)))
-                .addAction(pointer.createPointerUp(0));
+        System.out.println("Long pressing at coordinates: (" + start + ", " + end + ")");
 
-        getAppiumDriver().perform(Collections.singletonList(longp));
+
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence longPress = new Sequence(finger,1);
+        longPress.addAction(finger.createPointerMove(Duration.ofMillis(0), PointerInput.Origin.viewport(), start, end));
+        longPress.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        longPress.addAction(new Pause(finger, Duration.ofMillis(10000))); // Adjust this duration if necessary
+        longPress.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        getAppiumDriver().perform(Collections.singletonList(longPress));
         Reporter.log("Long pressed on element" + objName, MessageTypes.Info);
+        try {
+            getAppiumDriver().perform(Arrays.asList(longPress));
+            System.out.println("Long press performed successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+              System.out.println("Failed to perform long press.");
+        }
+
     }
+
 
     /**
      *This method is used to zoom in on element

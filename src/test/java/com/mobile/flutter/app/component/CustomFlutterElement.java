@@ -53,9 +53,18 @@ public class CustomFlutterElement extends FlutterElement {
      */
     @Override
     public void click() {
-        if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout")))
+//        if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout")))
             singleTap();
-        else throw new RuntimeException(this+" element for click not found");
+//        else throw new RuntimeException(this+" element for click not found");
+    }
+    /**
+     *This method is used to perform click action on Flutter element if only present
+     *@return Null
+     */
+    public void press() {
+//        if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout")))
+        longPress();
+//        else throw new RuntimeException(this+" element for click not found");
     }
 
     /**
@@ -213,10 +222,10 @@ public class CustomFlutterElement extends FlutterElement {
     public void longPress(String... objName) {
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
-                int val = getAppiumDriver() instanceof AndroidDriver ? 500 : 5000;
+                int val = getAppiumDriver() instanceof AndroidDriver ? 5000 : 5000;
                 getAppiumDriver().executeScript("flutter: longTap", this.getId(), new HashMap<String, Object>() {{
                     put("durationMilliseconds", val);
-                    put("frequency", 1000);
+                    put("frequency", 500);
                 }});
                 Reporter.log("Press gesture on " + objName, MessageTypes.Info);
             }

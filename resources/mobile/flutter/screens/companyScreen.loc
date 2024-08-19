@@ -4,6 +4,8 @@ dashboard.distributor.shop = flutter-text=Distributor Shop
 dashboard.customer.site = flutter-text=Customer Site
 dashboard.customer.corporate = flutter-rawmap={"finderType":"Ancestor","matching":"{\"finderType\":\"ByType\",\"type\": \"ListTile\"}","of":"{\"finderType\":\"ByText\",\"text\": \"Customer Corporate\"}"}
 dashboard.company.field = flutter-type=TextFormField
+
+
 dashboard.address.field = flutter-valuekey=Address
 dashboard.save.btn = flutter-text=Save
 corporate.edit.save = flutter-text=Save changes
@@ -17,6 +19,7 @@ corporate.edit.name = flutter-valuekey=Company Name
 corporate.address.field = flutter-type=Autocomplete<Prediction>
 corporate.edit.companyType = flutter-valuekey=Type of Company
 corporate.edit.count = flutter-valuekey=associate_count
+corporate.edit.territoryManager = flutter-valuekey=Territory Manager
 corporate.edit.success = flutter-text=Company successfully updated
 corporate.filter.search = flutter-valuekey=search_box
 site.name.field = flutter-valuekey=Site Name
@@ -31,5 +34,34 @@ corporate.details.header = flutter-valuekey=details_header
 corporate.site.list = flutter-rawmap={"finderType":"Ancestor","matching":"{\"finderType\":\"ByType\",\"type\": \"ListView\"}","of":"{\"finderType\":\"ByType\",\"type\": \"SiteRow\"}"}
 site.search.field = flutter-valuekey=site_search
 corporate.frame.screen= flutter-type=SingleChildScrollView
+site.conveyor.action=flutter-valuekey=action_btn
+
+corporate.corporateList.header = flutter-text=Corporates
+corporate.view.header=flutter-valuekey=company_header
+company.company.card=flutter-valuekey=company-card
+corporate.name.field=flutter-valuekey=company_Name
+
+company.add.icon = flutter-valuekey=AddCompanyIcon
+company.add.header = flutter-text=Add Corporate
+company.add.corporate = flutter-text=ADD CORPORATE
+company.add.back=flutter-valuekey=AddCompanyBack
+company.add.site = flutter-text=ADD SITE/SHOP
+company.addSite.header = flutter-text=Add Site
+company.addSite.back=flutter-valuekey=AddSiteBack
+sites.conveyor.edit = flutter-text=Edit
+sites.conveyor.delete = flutter-text=Delete
+company.search.placeholder=flutter-text=Search in corporates
+corporate.inspection.header=flutter-text=Inspections
+corporate.tools.header=flutter-text=Tools
+
+corporate.site.count=flutter-valuekey=list_card_count
+
+
+
+
+
+
+
+
 
 

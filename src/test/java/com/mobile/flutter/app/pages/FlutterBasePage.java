@@ -1,6 +1,7 @@
 package com.mobile.flutter.app.pages;
 
 import com.common.utils.APIBase;
+import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.support.flutter.ByFlutter;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
@@ -8,6 +9,7 @@ import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -102,4 +104,8 @@ public class FlutterBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
             e.printStackTrace();
         }
     }
+
+
+
+
 }

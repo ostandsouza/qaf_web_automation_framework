@@ -298,6 +298,11 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator = "//label[normalize-space()='Street and No.']")
     public CustomElement textStreet;
+    @FindBy(locator = "(//div[@class='card-inner-wrapper' and contains(div, 'Sites')])[1]")
+    public CustomElement siteCard ;
+    @FindBy(locator = "//span[contains(@class,'p-panel-title') and text()='Sites']")
+    public CustomElement sitesHeader ;
+
 
 
 
@@ -307,6 +312,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void clickCorporates() {
+        SyncUtil.waitFor(5000);
         waitForElementVisible(lCorporates, 10000,500);
         lCorporates.click("Corporate");
         waitForElementToDisplay(btAddCorp);
@@ -857,6 +863,7 @@ public class CorporatePage extends BasePage{
         Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not created successfully","the company is created successfully");
 
     }
+
 
 
 }

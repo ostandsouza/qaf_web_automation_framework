@@ -1,6 +1,7 @@
 package com.mobile.flutter.app.steps;
 
 import com.common.utils.SyncUtil;
+import com.mobile.flutter.app.pages.ConveyorPage;
 import com.mobile.flutter.app.pages.CorporatePage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
@@ -8,6 +9,9 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 
 public class CorporateSteps {
+
+    CorporatePage corporatePage=new CorporatePage();
+    DashboardNativePage dashboardNativePage=new DashboardNativePage();
 
     @QAFTestStep(description = "User navigates to add corporate screen with {CorpName} and {EditDistCorpName}")
     public void addCorpNavigation(String corpName, String editDistCorpName) {
@@ -35,11 +39,11 @@ public class CorporateSteps {
         Validator.assertTrue(!CorporatePage.getInstance().verifyEditStatus(),"Newly added corporate able to edit when no permission","Newly added not able corporate able to edit when no permission");
     }
 
-    @QAFTestStep(description = "Verify user is able to edit corporate name {EditDistCorpName} and {EditDistCorpAddress}")
-    public void verifyCorporateEditName(String editDistCorpName, String editDistCorpAddress) {
+    @QAFTestStep(description = "Verify user is able to edit corporate name {EditDistCorpName} and {EditDistCorpAddress} and {EditTerritoryManager}")
+    public void verifyCorporateEditName(String editDistCorpName, String editDistCorpAddress,String editTerritoryManager) {
         CorporatePage.getInstance().goToCorporateDetails();
-        Validator.assertTrue(CorporatePage.getInstance().goToCorporateEditScreen(),"Newly added corporate not able to edit with edit permission","Newly added corporate able to edit when edit permission");
-        Validator.assertTrue(CorporatePage.getInstance().updateCorporateName(editDistCorpName,editDistCorpAddress),"Not able to update corporate name","Able to update corporate name");
+        Validator.assertTrue(CorporatePage.getInstance().goToCorporateEditScreen(editDistCorpName),"Newly added corporate not able to edit with edit permission","Newly added corporate able to edit when edit permission");
+        Validator.assertTrue(CorporatePage.getInstance().updateCorporateName(editDistCorpName,editDistCorpAddress,editTerritoryManager),"Not able to update corporate name","Able to update corporate name");
     }
 
     @QAFTestStep(description = "Verify the corporate count")
@@ -65,6 +69,29 @@ public class CorporateSteps {
         DashboardNativePage.getInstance().filterDistributorCorporate();
         Validator.assertTrue(DashboardNativePage.getInstance().filterCorporateFromDropdown(editDistCorpName),"Filter corporate multiselect not working as expected","Filter corporate multiselect is working as expected");
 //        Validator.assertTrue(DashboardNativePage.getInstance().saveFilter(),"Unable to save filter changes in corporate screen","Able lto save filter changes in corporate screen");
+    }
+
+    @QAFTestStep(description = "Click on the filter Icon and select the corporate type and territory {territory} from the dropdown")
+    public void selectTerritoryAndCorporateTypeFilter(String territory)
+    {
+        Validator.assertTrue(DashboardNativePage.getInstance().goToFilterScreen(),"Not able to open filter screen for corporate list page","Successfully able to navigate to corporate list screen");
+        DashboardNativePage.getInstance().filterCustomerCorporate();
+//      Validator.assertTrue(DashboardNativePage.getInstance().filterTerritoryDropDown(territory),"Filter market multiselect not working as expected","Filter market multiselect is working as expected");
+        DashboardNativePage.getInstance().filterTerritoryDropDown(territory);
+    }
+    @QAFTestStep(description = "Click on Corporate dropdown and verify only the corporates {corp1} and {corp2} that belongs to selected market's and  corporate types are visible")
+    public void clickCorpDdlAndVerifyList(String corp1,String corp2)
+    {
+        DashboardNativePage.getInstance().corpFilterDdlClick();
+        DashboardNativePage.getInstance().verifyDdlCorporates(corp1,corp2);
+    }
+
+    @QAFTestStep(description = "Select the corporates {CustCorp} and {CustCorp2}  via checkbox and save and verify redirection to Corporate list page")
+    public void selectCorpFilterAndVerify(String corp1,String corp2)
+    {
+        Validator.assertTrue(DashboardNativePage.getInstance().multipleFilterCorporateFromDropdown(corp1,corp2),"Filter corporate multiselect not working as expected","Filter corporate multiselect is working as expected");
+        SyncUtil.waitFor(2000);
+
     }
 
     @QAFTestStep(description = "Apply filter with customer corporate type as {EditDistCorpName}")
@@ -107,11 +134,24 @@ public class CorporateSteps {
         Validator.assertTrue(CorporatePage.getInstance().addSite(siteName, address, customerCorp, territory, manager, shop),"New customer site was not created","New customer site was created successfully");
     }
 
+    @QAFTestStep(description = "Add customer site with {CustSiteName} {CustSiteAddress} {CustCorpName} {Territory} and verify that selected address  is displayed in the map")
+    public void verifyAddressOfCustomerSite(String siteName, String address, String customerCorp, String territory) {
+        CorporatePage.getInstance().verifyMapFields(siteName, address, customerCorp, territory);
+    }
+
     @QAFTestStep(description = "User navigates to add site/shop screen with {CustSiteName} and {EditCustSiteName}")
     public void addSiteShopNavigation(String custSiteName, String editCustSiteName) {
         String companyId = DashboardPage.getInstance().apiBase.getCompanyID(DashboardPage.getInstance().apiBase.getCompanyAPI(custSiteName));
         DashboardPage.getInstance().apiBase.deleteCompanyAPI(companyId);
         companyId = DashboardPage.getInstance().apiBase.getCompanyID(DashboardPage.getInstance().apiBase.getCompanyAPI(editCustSiteName));
+        DashboardPage.getInstance().apiBase.deleteCompanyAPI(companyId);
+        DashboardNativePage.getInstance().refreshPage();
+        Validator.assertTrue(DashboardPage.getInstance().goToSiteShop(),"Add Site/Shop page is not visible","Add Site/Shop page is visible");
+    }
+
+    @QAFTestStep(description = "User navigates to add site/shop screen with {CustSiteName}")
+    public void addSiteShopPageNavigation(String custSiteName) {
+        String companyId = DashboardPage.getInstance().apiBase.getCompanyID(DashboardPage.getInstance().apiBase.getCompanyAPI(custSiteName));
         DashboardPage.getInstance().apiBase.deleteCompanyAPI(companyId);
         DashboardNativePage.getInstance().refreshPage();
         Validator.assertTrue(DashboardPage.getInstance().goToSiteShop(),"Add Site/Shop page is not visible","Add Site/Shop page is visible");
@@ -145,13 +185,13 @@ public class CorporateSteps {
         Validator.assertTrue(CorporatePage.getInstance().getCorporateCount().equals(count),"Shop/Site count is not matching","Shop/Site count is verified successfully");
     }
 
-    @QAFTestStep(description = "Verify user is able to edit shop name {DistShopName} to {EditDistShopName} and {EditDistShopAddress}")
-    public void verifyShopEditName(String distShopName,String editDistCorpName, String editDistCorpAddress) {
+    @QAFTestStep(description = "Verify user is able to edit shop name {DistShopName} to {EditDistShopName} and {EditDistShopAddress} and {EditTerritoryManager}")
+    public void verifyShopEditName(String distShopName,String editDistCorpName, String editDistCorpAddress, String editTerritory) {
         Validator.assertTrue(CorporatePage.getInstance().goToSiteShopCard(distShopName).equals(distShopName),"Site/Shop card name mismatch","Site/Shop card name verification successful");
         Validator.assertTrue(CorporatePage.getInstance().getCorporateCount().equals("0"),"Site/Shop count mismatch","Site/Shop count verification successful");
         CorporatePage.getInstance().goToSiteShopDetails();
-        Validator.assertTrue(CorporatePage.getInstance().goToCorporateEditScreen(),"Newly added corporate shop/site able to edit with edit permission","Newly added corporate shop/site able to edit when edit permission");
-        Validator.assertTrue(CorporatePage.getInstance().updateCorporateName(editDistCorpName,editDistCorpAddress),"Not able to update corporate shop/site name","Able to update corporate shop/site name");
+        Validator.assertTrue(CorporatePage.getInstance().goToCorporateEditScreen(distShopName),"Newly added corporate shop/site able to edit with edit permission","Newly added corporate shop/site able to edit when edit permission");
+        Validator.assertTrue(CorporatePage.getInstance().updateCorporateName(editDistCorpName,editDistCorpAddress,editTerritory),"Not able to update corporate shop/site name","Able to update corporate shop/site name");
     }
 
     @QAFTestStep(description = "Close search box from site/shop screen")
@@ -160,7 +200,7 @@ public class CorporateSteps {
     }
 
 
-    @QAFTestStep(description="Verify the site filter result for {0}")
+    @QAFTestStep(description="Verify the site filter result for {EditCustSiteName}")
     public void verifyTheSiteFilterResultFor(String distShopName){
         Validator.assertTrue(DashboardNativePage.getInstance().getFirstSearchSiteShop().contains(distShopName),"Shop/Site name is not matching after applying filter","Shop/Site name is verified successfully after applying filter");
     }
@@ -172,6 +212,133 @@ public class CorporateSteps {
 
         Validator.assertTrue(DashboardNativePage.getInstance().saveFilter(),"Unable to save filter changes in corporate screen","Able lto save filter changes in corporate screen");
     }
+
+    @QAFTestStep(description="Verify that the corporate symbol is visible in the footer")
+    public void verifyCorporateSymbolIsVisible(){
+//        corporatePage.verifyCorpSymbolVisible();
+        dashboardNativePage.companyLogoIsVisible();
+    }
+
+    @QAFTestStep(description="Click on corporate symbol and verify it navigates to corporate list page")
+    public void clickAndVerifyCorpListNavigation(){
+//        corporatePage.clickCorporateSymbol();
+        dashboardNativePage.corporateSymbolClick();
+        corporatePage.verifyCorpListPageNavigation();
+    }
+    @QAFTestStep(description="Verify the heading of corporate list page")
+    public void verifyCorporateListHeading(){
+        corporatePage.verifyCorporateHeader();
+    }
+
+    @QAFTestStep(description="Verify the fields in the header of the corporate list page")
+    public void verifyCorporateListFields(){
+        dashboardNativePage.verifyCorporateListHeaderFields();
+    }
+
+    @QAFTestStep(description="Navigate to Add Corporate Page")
+    public void navigateToTheAddCorporatePage(){
+        CorporatePage.getInstance().addCompanyBtnClick();
+        CorporatePage.getInstance().isAddCompanyPage();
+    }
+
+    @QAFTestStep(description = "User navigates to the Add Corporate Page with {DistCorpName}")
+    public void addCorporatePageNavigation(String corpName) {
+        SyncUtil.waitFor(30000);
+        String companyId = DashboardPage.getInstance().apiBase.getCompanyID(DashboardPage.getInstance().apiBase.getCompanyAPI(corpName));
+        DashboardPage.getInstance().apiBase.deleteCompanyAPI(companyId);
+        DashboardNativePage.getInstance().refreshPage();
+        Validator.assertTrue(DashboardPage.getInstance().goToAddCorp(),"Add corporate is not visible","Add corporate page is visible");
+    }
+
+    @QAFTestStep(description="Verify back button is visible next to add corporate heading")
+    public void verifyBackBtn(){
+        corporatePage.verifyBackBtnVisible();
+    }
+
+
+    @QAFTestStep(description="Click on back button and verify it navigates to corporate list page")
+    public void clickAndVerifyBackBtnFunctionality(){
+        corporatePage.goBackToCorporateListScreen();
+    }
+
+
+    @QAFTestStep(description="Click on type of company and verify the dropdown")
+    public void clickAndVerifyCompanyDdl(){
+        corporatePage.companyTypeClick();
+        corporatePage.verifyCompanyTypeDdl();
+    }
+
+    @QAFTestStep(description="Verify user is able to select distributor corporate from the dropdown")
+    public void selectDistCorpCompany(){
+        corporatePage.selectDistCorporate();
+    }
+
+    @QAFTestStep(description="Verify user is able to select customer corporate from the dropdown")
+    public void selectCustCorpCompany(){
+        corporatePage.selectCustomerCorp();
+    }
+
+
+
+    @QAFTestStep(description="Create a distributor corporate with {CompanyName} {Address} and logo {CompanyLogo}")
+    public void createDistributorCorporateAndVerify(String companyName,String address, String imageName){
+        corporatePage.createDistributorCorp(companyName,address,imageName);
+    }
+
+    @QAFTestStep(description="Click on {DistCorpName} company name and verify it navigates to details screen and verify the heading")
+    public void clickAndVerifyCompanyHeading(String companyName){
+        corporatePage.companyNameClick();
+        corporatePage.verifyCompanyHeading(companyName);
+    }
+
+    @QAFTestStep(description="Click on corporate card and verify it navigates to company detail page")
+    public void clickAndVerifyCompanyDetailPage(){
+        corporatePage.companyCardClick();
+        corporatePage.verifyIsDetailPage();
+    }
+
+    @QAFTestStep(description="Verify the user filled details in company page {DistCorpName}")
+    public void verifyAddCompanyDetails(String companyName){
+        corporatePage.verifyCompanyDetails(companyName);
+    }
+
+    @QAFTestStep(description="Click on search icon and verify the placeholder and back button")
+    public void clickAndVerifySearchIcon(){
+
+        DashboardNativePage.getInstance().goToSearch();
+        DashboardNativePage.getInstance().verifySearchFields();
+    }
+    @QAFTestStep(description="Search for the corporate {CustCorpName} and verify matched string is displayed")
+    public void verifySearchString(String corpName){
+        CorporatePage.getInstance().enterSearchQuery(corpName);
+        CorporatePage.getInstance().verifyCorporateSearch(corpName);
+    }
+    @QAFTestStep(description="Search for a corporate {CustCorpName} and verify the fields in corporate list screen")
+    public void verifyCorporateListScreenFields(String corpName){
+        DashboardNativePage.getInstance().goToSearch();
+        CorporatePage.getInstance().enterSearchQuery(corpName);
+        CorporatePage.getInstance().verifyCorpListScreen();
+    }
+    @QAFTestStep(description="Verify the links displayed in the footer")
+        public void verifyLinksInFooter() {
+            DashboardNativePage.getInstance().verifyLinksInCorpFooter();}
+
+    @QAFTestStep(description="Click on the links in the footer and verify it navigates to respective pages")
+    public void clickAndVerifyLinksNavigation() {
+        CorporatePage.getInstance().verifyLinksNavigation();
+    }
+    @QAFTestStep(description="Click on {CustCorpName} corporate  and verify it navigates to corporate details screen")
+    public void clickAndVerifyCorpDetailsPage(String companyName){
+        DashboardNativePage.getInstance().verifyCorpFirstSearch();
+        CorporatePage.getInstance().verifyCompanyHeading(companyName);
+
+    }
+    @QAFTestStep(description = "Look for the data in Corporate List page and verify it shows only filtered data {CustCorp} and {CustCorp2}")
+    public void verifyFilteredDataDisplay(String corp1,String corp2)
+    {
+        DashboardNativePage.getInstance().verifyFilteredCorp(corp1,corp2);
+    }
+
 
 
 }

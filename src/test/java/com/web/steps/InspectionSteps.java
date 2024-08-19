@@ -5,6 +5,7 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
+import com.web.pages.CorporatePage;
 import com.web.pages.InspectionPage;
 import com.web.pages.UsersPage;
 
@@ -15,6 +16,8 @@ public class InspectionSteps {
 
 	InspectionPage inspectionpage = new InspectionPage();
 	UsersPage userPage=new UsersPage();
+	CorporatePage corporatePage=new CorporatePage();
+	ConveyorPage conveyorPage=new ConveyorPage();
 
 
 	@QAFTestStep(description="Select Inspection on the Navigation Pane")
@@ -352,7 +355,7 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Click on conveyor {ConveyorName} name in breadcrumb anf verify it navigates to conveyor technical data screen")
 	public void clickOnConveyorBreadCrumbAndVerify(String conveyorName){
-		inspectionpage.conveyorNameClick();
+		inspectionpage.conveyorNameClick(conveyorName);
 		inspectionpage.verifyConveyorPageNavigation();
 	}
 
@@ -364,10 +367,10 @@ public class InspectionSteps {
 		inspectionpage.verifyInspections(noOfInspections,conveyorName,8);
 	}
 
-	@QAFTestStep(description="Click on site name in breadcrumb anf verify it navigates to site page")
-	public void clickOnSiteBreadCrumbAndVerify(){
-		inspectionpage.siteNameClick();
-		inspectionpage.verifySitePageNavigation();
+	@QAFTestStep(description="Click on site name {CustSiteName} in breadcrumb anf verify it navigates to site page")
+	public void clickOnSiteBreadCrumbAndVerify(String siteName){
+		inspectionpage.siteNameClick(siteName);
+		inspectionpage.verifySitePageNavigation(siteName);
 	}
 
 	@QAFTestStep(description="Click on Inspection tile and verify it displays only corresponding site {CustSiteName} inspections")
@@ -378,10 +381,10 @@ public class InspectionSteps {
 		inspectionpage.verifyInspections(noOfInspections,custSiteName,7);
 	}
 
-	@QAFTestStep(description="Click on corporate name in inspection breadcrumb anf verify it navigates to corporate page")
-	public void clickOnCorporateBreadCrumbAndVerify(){
-		inspectionpage.corporateNameClick();
-		inspectionpage.verifyCorporatePageNavigation();
+	@QAFTestStep(description="Click on corporate name {CustCorp} in inspection breadcrumb anf verify it navigates to corporate page")
+	public void clickOnCorporateBreadCrumbAndVerify(String corpName){
+		inspectionpage.corporateNameClick(corpName);
+		inspectionpage.verifyCorporatePageNavigation(corpName);
 	}
 
 	@QAFTestStep(description="Click on Inspection tile and verify it displays only corresponding corporate {CustCorp} inspections")
@@ -397,6 +400,58 @@ public class InspectionSteps {
 		inspectionpage.corpBreadCrumbClick();
 		inspectionpage.verifyCorporateListPageNavigation();
 	}
+	@QAFTestStep(description = "Click on corporates and open corporate {Corporate}")
+	public void navigateToCorporate(String corp) {
+		corporatePage.clickCorporates();
+		corporatePage.goToCorporateDetails(corp);
+        inspectionpage.verifyCorporatePageNavigation(corp);
+	}
+
+	@QAFTestStep(description = "Click on inspections and verify user is able to open inspections")
+	public void verifyTheInspectionCardClick() {
+		inspectionpage.verifyInspectionCardClick();
+	}
+	@QAFTestStep(description = "Click on inspection dashboard symbol and verify user is able to click on dashboard")
+	public void clickAndVerifyInspectionDashboard() {
+		inspectionpage.inspectionDashboardBtnClick();
+	}
+
+	@QAFTestStep(description = "Verify user is able to see the cards")
+	public void verifyCardsOnInspectionDashboard() {
+		inspectionpage.verifyInspectionDashboardCards();
+	}
+
+	@QAFTestStep(description = "Click on site dropdown and verify user is able to select a site {SiteName}")
+	public void clickAndVerifySiteDropDown(String siteName) {
+		inspectionpage.siteDropDownClick();
+		inspectionpage.verifySiteDropDownClicked(siteName);
+	}
+	@QAFTestStep(description = "Verify actions button is present and is enabled by default")
+	public void verifyActionsButtonEnabledByDefault() {
+		inspectionpage.verifyActionBtnEnabled();
+	}
+
+	@QAFTestStep(description = "Click on actions dropdown button and verify 'export button' with PDF symbol is visible")
+	public void clickActionBtnAndVerifyPDFfield() {
+		conveyorPage.actionBtnClick();
+		inspectionpage.verifyExportPDFIsVisible();
+	}
+	@QAFTestStep(description = "Click on Export PDF button and verify PDF is downloaded for company {Corporate}")
+	public void clickOnExportButtonAndVerify(String corp) {
+		inspectionpage.exportBtnClick();
+		SyncUtil.waitFor(15000);
+		Validator.assertTrue(MiscUtils.checkDownloadedFiles(corp+"-inspection-dashboard.pdf"),"PDF report was not found","PDF report was downloaded successfully");
+		MiscUtils.deleteDownloadedFiles(corp+"-inspection-dashboard.pdf");
+
+	}
+
+	@QAFTestStep(description = "Verify that the selected site for {SiteName} and company {Corporate} is visible under downloaded PDF under Site Selection")
+	public void verifySelectedSiteInReport(String siteName,String corp) {
+		inspectionpage.verifyInspectionDashboardContents(siteName,corp);
+		MiscUtils.deleteDownloadedFiles(corp+"-inspection-dashboard.pdf");
+	}
+
+
 
 }
 

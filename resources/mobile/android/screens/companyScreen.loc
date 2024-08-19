@@ -8,17 +8,29 @@ dashboard.gallery.btn = accessibility id=Gallery
 dashboard.alert.popup = xpath=//android.widget.TextView[@resource-id='merchant-name']
 dashboard.permission.dismiss = xpath=//android.widget.TextView[@resource-id='merchant-name']
 dashboard.ok.btn = accessibility id=OK
-dashboard.firstSearch.map = xpath=//android.widget.ScrollView/../../following-sibling::android.view.View[1]/android.view.View[1]
+
+dashboard.firstSearch.map = xpath=//android.widget.ScrollView/../..//android.widget.ScrollView/android.view.View[4]
+
+
 dashboard.firstSearch.dropdown = xpath=//android.widget.ScrollView/../../following-sibling::android.view.View[1]/android.view.View[1]
 coverWear.firstSearch.dropdown = xpath=//android.widget.EditText/android.widget.ScrollView/android.view.View[1]
 dashboard.search.txt = xpath=//android.view.View[contains(@content-desc,'results found')]
-dashboard.firstSearch.list = xpath=//android.widget.Button/../following-sibling::android.view.View[1]/android.view.View/android.view.View[1]//android.view.View
+
+dashboard.firstSearch.list = xpath=(//android.view.View/android.widget.Button/../following-sibling::android.view.View[1]/android.view.View/android.view.View[1]/android.view.View/android.view.View)[1]
+dashboard.secondSearch.list=xpath=(//android.view.View/android.widget.Button/../following-sibling::android.view.View[1]/android.view.View/android.view.View[2]/android.view.View/android.view.View)[1]
+dashboard.firstSearch.corpType=xpath=//android.view.View/android.widget.Button/../following-sibling::android.view.View/android.view.View/android.view.View[1]
+
+site.search.firstResult = xpath=//android.view.View/android.view.View/android.widget.ImageView[(@content-desc)][1]//android.view.View[1]
+
+
 dashboard.conveyor.firstSearch = xpath=//android.widget.Button/../following-sibling::android.view.View[1]/android.view.View[1]/android.view.View[1]
 corporate.edit.btn = xpath=//android.widget.ImageView[@content-desc='Edit']
 dashboard.coverWear.Btn = xpath=//android.view.View[contains(@content-desc,'Cover Wear')]
 dashboard.coverWear.position = xpath=//android.view.View[contains(@content-desc,'Durometer')]
 dashboard.coverWear.headerTxt = xpath=//android.widget.TextView[@resource-id='merchant-name']
 dashboard.coverWear.positions = xpath=//android.view.View[contains(@content-desc,'Durometer')]/following-sibling::android.view.View/android.view.View/android.widget.ImageView
+dashboard.coverWear.firstPosition= xpath=//android.view.View[contains(@content-desc,'Durometer')]/following-sibling::android.view.View/android.view.View/android.widget.ImageView[1]
+dashboard.coverWear.checkbox=xpath=(//android.view.View//android.view.View//android.widget.ImageView//android.widget.CheckBox)[1]
 company.search.back = xpath=//android.widget.Button
 company.filter.icon = xpath=//android.view.View[@content-desc='Filters']/following-sibling::android.widget.ImageView
 company.filter.close = xpath=//android.view.View[@content-desc='Filters']/following-sibling::android.widget.Button[1]
@@ -37,7 +49,6 @@ site.firstSearch.dropdown = xpath=//android.widget.EditText/android.view.View/an
 site.territory.firstSearch = xpath=//android.widget.EditText/android.widget.ScrollView/android.view.View[1]
 corporate.details.search = xpath=//android.widget.EditText
 corporate.details.name = xpath=//android.widget.HorizontalScrollView/android.view.View/android.view.View[1]
-site.search.firstResult = xpath=//android.view.View/android.view.View/android.widget.ImageView[(@content-desc)][1]//android.view.View[1]
 conveyor.delete.btn = accessibility id=Delete
 conveyor.delete.txt = xpath=//android.widget.Button[contains(@content-desc,"Are you sure you want to delete this conveyor?")]
 conveyor.details.TechnicalData = xpath=//android.widget.ImageView[contains(@content-desc,'Technical Data')]
@@ -46,4 +57,12 @@ conveyor.details.Inspection = xpath=//android.widget.ImageView[contains(@content
 conveyor.details.FileManager = xpath=//android.widget.ImageView[contains(@content-desc,'File Manager')]
 filter.dropdown.firstSearch = xpath=(//android.widget.CheckBox[@content-desc])[1]
 filter.dropdown.save = xpath=//android.widget.Button[contains(@content-desc,"Show")]
+sites.map.marker=xpath=//android.view.View[@content-desc="Google Map"]//android.view.View[@content-desc="Map Marker"]
+sites.map.zoomIn=xpath=//android.widget.LinearLayout//android.widget.ImageView[@content-desc="Zoom in"]
+sites.map.zoomOut=xpath=//android.widget.LinearLayout//android.widget.ImageView[@content-desc="Zoom out"]
+site.conveyor.firstSearch=xpath=(//android.view.View/android.view.View/android.view.View[contains(@content-desc,'Last update')])[1]
+
+
+
+
 

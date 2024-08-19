@@ -981,7 +981,7 @@ public class EmailableTestNGReport implements IReporter {
         writer.print(">");
         String paltform= System.getenv("platform") == null ? "Web": System.getenv("platform");
         String env= System.getenv("ENV")== null ? getBundle().getString("env.setup"): System.getenv("ENV");
-        String type= System.getenv("type")== null ? "Sanity flow": System.getenv("type");
+        String type= System.getenv("type")== null ? "Regression flow": System.getenv("type");
         String automatableUrl= System.getenv("AutomatableUrl")== null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("AutomatableUrl");
         writeColumnValue("Conti Plus", "num");
         writeColumnValue(paltform,"");

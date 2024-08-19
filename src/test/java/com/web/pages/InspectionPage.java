@@ -342,6 +342,9 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator="xpath=//li//span[text()='Export PDF']")
 	public CustomElement btnExportInspection;
+	@FindBy(locator="xpath=//span[contains(@class,'ctp-icon-File-PDF')]")
+	public CustomElement btnExportPDFIcon;
+
 
 	@FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]")
 	public CustomElement deleteDialogbox;
@@ -381,6 +384,39 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator = "xpath=(//span[text()=\"Corporates\"])[2]")
 	public CustomElement corporateLink;
+
+	@FindBy(locator="xpath=(//div[@class='card-inner-wrapper' and contains(div, 'Inspections')])[2]")
+	public CustomElement btInspectionCard;
+	@FindBy(locator="xpath=//span[text()='Inspection Event']")
+	public CustomElement txtInspectionEvent;
+
+	@FindBy(locator= "xpath=(//span//i[contains(@class,'ctp-icon-Bar-Chart')])[2]")
+	public CustomElement iconBarChart;
+
+	@FindBy(locator= "xpath= //p-card//div[text()=' GOOD ']")
+	public CustomElement cardStatusGood;
+
+	@FindBy(locator= "xpath= //p-card//div[text()=' FAULT '] ")
+	public CustomElement cardStatusFault;
+	@FindBy(locator= "xpath= //p-card//div[text()=' POOR ']")
+	public CustomElement cardStatusPoor;
+
+	@FindBy(locator= "xpath= //p-card//div[text()=' CRITICAL ']")
+	public CustomElement cardStatusCritical;
+	@FindBy(locator= "xpath= //p-card//div[text()=' TOTAL ']")
+	public CustomElement cardStatusTotal;
+
+	@FindBy(locator= "xpath= //div//label[text()='Select Site']/..//p-multiselect[@optionvalue='companyId']")
+	public CustomElement ddlSiteDropdown;
+	@FindBy(locator= "xpath=//div[contains(@class,'p-multiselect-panel')]//div[contains(@class,'p-multiselect-filter-container')]//input[contains(@class,'p-multiselect-filter')]")
+	public CustomElement tbMultipleSiteDropdwn;
+
+	@FindBy(locator="xpath=//button[contains(@class,'p-multiselect-close')]")
+	public CustomElement multiSelectCloseBtn;
+	@FindBy(locator="xpath=//button//span[text()='Actions']")
+	public CustomElement btnActions;
+
+
 
 
 
@@ -569,6 +605,17 @@ public class InspectionPage extends BasePage {
 			Validator.assertTrue(val.contains(custSiteName),"PDF Report was generated for the wrong customer Site","PDF Report was generated for the right customer Site");
 			Validator.assertTrue(val.contains(conveyorName)||val.contains("Multiple"),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
 			Validator.assertTrue(val.contains(inspectionName),"PDF Report was generated for the wrong inspection","PDF Report was generated for the right inspection");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void verifyInspectionDashboardContents(String custSiteName,String corp) {
+		PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+ corp+"-inspection-dashboard.pdf");
+		try {
+			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+			System.out.println(val);
+			Validator.assertTrue(val.contains(custSiteName),"PDF Report was generated for the wrong customer Site","PDF Report was generated for the right customer Site");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -859,6 +906,8 @@ public class InspectionPage extends BasePage {
 	{
 //		waitForElementVisible(defaultImage,5000,500);
 //		waitForElementToInvisible(defaultImage);
+		waitForPageLoad(20000);
+		SyncUtil.waitFor(5000);
 		waitForElementVisible(uploadedImage,10000,5000);
 		Validator.assertTrue(uploadedImage.isVisible(),"the image is not visible","the uploaded image is visible");
 
@@ -920,14 +969,19 @@ public class InspectionPage extends BasePage {
 		ddViewicon.click();
 	}
 
-	public void conveyorNameClick()
+	public void conveyorNameClick(String conveyorName)
 	{
-		waitForElementVisible(conveyorBreadCrumb,5000,500);
-		conveyorBreadCrumb.jsClick("Conveyor name");
+		String conveyorBreadCrumb = "//span[text()='" + conveyorName + "']";
+		waitForElementVisible(driver.findElement(By.xpath(conveyorBreadCrumb)), 10000, 500);
+//		waitForElementVisible(siteBreadCrumb, 5000, 500);
+		scrollPageup();
+		SyncUtil.waitFor(5000);
+		waitForElementToBeClickable(driver.findElement(By.xpath(conveyorBreadCrumb)));
+		driver.findElement(By.xpath(conveyorBreadCrumb)).click();
+//		waitForElementVisible(conveyorBreadCrumb,5000,500);
+//		conveyorBreadCrumb.jsClick("Conveyor name");
 
 	}
-
-
 
 	public void verifyConveyorPageNavigation()
 	{
@@ -955,35 +1009,64 @@ public class InspectionPage extends BasePage {
 		}
 	}
 
-	public void siteNameClick()
-	{
-		waitForElementVisible(siteBreadCrumb,5000,500);
-		siteBreadCrumb.jsClick();
-
-	}
-	public void verifySitePageNavigation()
-	{
-//		SyncUtil.waitFor(10000);
-		waitForPageLoad(15000);
-		waitForElementVisible(siteHeader,10000,500);
-		Validator.assertTrue(siteHeader.isVisible(),"User is not navigated to site page","User is navigated to site detail page");
-		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/sites/details"),"User is not navigated to site page","User is navigated to site  page");
-
-	}
-
-
-	public void corporateNameClick()
-	{
-		waitForElementVisible(corpBreadCrumb,5000,500);
-		corpBreadCrumb.jsClick();
-	}
-
-	public void verifyCorporatePageNavigation()
-	{
+	public void siteNameClick(String siteName) {
+		String xpath = "//span[text()='"+siteName+"']";
+		waitForElementVisible(driver.findElement(By.xpath(xpath)), 10000, 500);
+//		waitForElementVisible(siteBreadCrumb, 5000, 500);
+		scrollPageup();
+		SyncUtil.waitFor(5000);
+		waitForElementToBeClickable(driver.findElement(By.xpath(xpath)));
+		driver.findElement(By.xpath(xpath)).click();
 		SyncUtil.waitFor(10000);
+
+	}
+
+	public void verifySitePageNavigation(String siteName) {
+		// Wait for the page to load completely
+		waitForPageLoad(20000);
+		SyncUtil.waitFor(5000);
+		// Construct the XPath for the site header
+		String siteHeader = "//div[contains(@class,'p-panel-header') and .//span[contains(text(),'"+siteName+"')]]";
+
+		// Wait for the site header to be visible
+		waitForElementVisible(driver.findElement(By.xpath(siteHeader)), 20000, 500);
+
+		// Wait for the site header to be displayed
+		waitForElementToDisplay(driver.findElement(siteHeader));
+
+		// Check if the site header is displayed
+		Validator.assertTrue(driver.findElement(By.xpath(siteHeader)).isDisplayed(), "User is not navigated to site page", "User is navigated to site detail page");
+
+		// Check if the current URL contains the expected path
+		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/sites/details"), "User is not navigated to site page", "User is navigated to site page");
+	}
+
+
+	public void corporateNameClick(String corpName)
+	{
+		String corpBreadCrumb = "//span[text()='"+corpName+"']";
+//		waitForElementVisible(corpBreadCrumb,5000,500);
+		waitForElementVisible(driver.findElement(By.xpath(corpBreadCrumb)), 10000, 500);
+//		waitForElementVisible(siteBreadCrumb, 5000, 500);
+		scrollPageup();
+		SyncUtil.waitFor(5000);
+		waitForElementToBeClickable(driver.findElement(By.xpath(corpBreadCrumb)));
+		driver.findElement(By.xpath(corpBreadCrumb)).click();
+		SyncUtil.waitFor(10000);
+
+	}
+
+
+	public void verifyCorporatePageNavigation(String corpName)
+	{
 		waitForPageLoad(15000);
-		waitForElementVisible(corpHeader,10000,500);
-		Validator.assertTrue(corpHeader.isVisible(),"User is not navigated to corporate detail page","User is navigated to corporate detail page");
+		String corpHeader="//div[contains(@class,'p-panel-header') and .//span[contains(text(),'"+corpName+"')]]";
+		waitForElementVisible(driver.findElement(By.xpath(corpHeader)), 20000, 500);
+		waitForElementToDisplay(driver.findElement(corpHeader));
+//		waitForElementVisible(siteHeader,10000,500);
+		Validator.assertTrue(driver.findElement(By.xpath(corpHeader)).isDisplayed(),"User is not navigated to corporate detail page","User is navigated to corporate detail page");
+//		waitForElementVisible(corpHeader,10000,500);
+//		Validator.assertTrue(corpHeader.isVisible(),"User is not navigated to corporate detail page","User is navigated to corporate detail page");
 		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/companies/detail"),"User is not navigated to corporate detail page","User is navigated to corporate page");
 
 	}
@@ -1003,6 +1086,66 @@ public class InspectionPage extends BasePage {
 		waitForElementVisible(headerCorporate,10000,500);
 		Validator.assertTrue(headerCorporate.isVisible(),"User is not navigated to corporate list page","User is navigated to corporate list page");
 		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/companies/list"),"User is not navigated to corporate list page","User is navigated to corporate list page");
+
+	}
+
+	public void verifyInspectionCardClick(){
+		waitForElementVisible(btInspectionCard,5000,1000);
+		waitForElementToBeClickable(btInspectionCard);
+		Validator.assertTrue(btInspectionCard.isEnable(),"Inspection Card is not clickable","Inspection Card is clickable");
+		btInspectionCard.click();
+		waitForPageLoad(5000);
+		Validator.assertTrue(txtInspectionEvent.isDisplayed(),"Inspection Page is not loaded","Inspection Page is loaded");
+	}
+	public void inspectionDashboardBtnClick()
+	{
+		waitForElementVisible(iconBarChart,5000,500);
+		waitForElementToBeClickable(iconBarChart);
+		iconBarChart.jsClick("inspection dashboard");
+		Validator.assertTrue(iconBarChart.isEnabled(),"Inspection dashboard is clickable","Inspection dashboard is  clickable");
+
+	}
+
+	public void verifyInspectionDashboardCards()
+	{
+		waitForElementVisible(cardStatusTotal,10000,500);
+		Validator.assertTrue(cardStatusTotal.isVisible() && cardStatusCritical.isVisible() && cardStatusPoor.isVisible()
+		&& cardStatusFault.isVisible() && cardStatusGood.isVisible(),"User cannot see all cards in inspection dashboard","User can see all cards in inspection dashboard");
+	}
+	public void siteDropDownClick()
+	{
+		waitForElementVisible(ddlSiteDropdown,10000,500);
+		waitForElementToBeClickable(ddlSiteDropdown);
+		ddlSiteDropdown.click();
+		SyncUtil.waitFor(10000);
+	}
+	public void verifySiteDropDownClicked(String siteName)
+	{
+		waitForElementVisible(multiSelectCloseBtn,10000,500);
+		multiSelectCloseBtn.click();
+		SyncUtil.waitFor(50000);
+		waitForElementVisible(ddlSiteDropdown,10000,500);
+		ddlSiteDropdown.click();
+		setImplicitWait(30000,TimeUnit.MILLISECONDS);
+		String site="//p-multiselectitem//li[@aria-label='"+siteName+"']";
+		waitForElementVisible(driver.findElement(By.xpath(site)),10000,500);
+		driver.findElement(By.xpath(site)).click();
+		waitForElementToDisplay(tbMultipleSiteDropdwn);
+		waitForElementVisible(tbMultipleSiteDropdwn,20000,500);
+		String siteSelected="//p-multiselectitem//li[@aria-label='"+siteName+"' and contains(@class, 'p-highlight')]";
+		waitForElementVisible(driver.findElement(By.xpath(siteSelected)),10000,500);
+		Validator.assertTrue(driver.findElement(By.xpath(siteSelected)).isDisplayed(),"The user is not able to select site","The user is  able to select site");
+	}
+	public void verifyActionBtnEnabled()
+	{
+		Validator.assertTrue(btnActions.isPresent(),"The actions button is not present in inspection dashboard","The actions button is present in inspection dashboard");
+		Validator.assertTrue(btnActions.isEnabled(),"The actions button is not enabled by default in inspection dashboard","The actions button is enabled by default in inspection dashboard");
+
+	}
+	public void verifyExportPDFIsVisible()
+	{
+		waitForElementVisible(btnExportInspection, 10000,500);
+		Validator.assertTrue(btnExportInspection.isVisible() && btnExportPDFIcon.isVisible(),"User is not able to see Export PDF along with PDF Symbol","User is able to see Export PDF along with PDF Symbol");
 
 	}
 

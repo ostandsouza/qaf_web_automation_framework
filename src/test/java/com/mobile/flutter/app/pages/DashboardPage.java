@@ -5,6 +5,7 @@ import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
+import com.qmetry.qaf.automation.util.Validator;
 import org.testng.Assert;
 
 public class DashboardPage extends FlutterBasePage {
@@ -46,8 +47,15 @@ public class DashboardPage extends FlutterBasePage {
     @FindBy(locator = "dashboard.add.inspection")
     public CustomFlutterElement addInspection;
 
+    @FindBy(locator = "dashboard.card.conveyor")
+    public CustomFlutterElement conveyorTile;
+
+    @FindBy(locator = "corporate.conveyorList.header")
+    public CustomFlutterElement conveyorListHeader;
+
 
     public boolean isHomePage() {
+        Validator.assertTrue(homeTitle.isPresent(),"User is not navigated Home Page","User is navigated Home Page");
         return homeTitle.isPresent();
     }
 
@@ -62,37 +70,78 @@ public class DashboardPage extends FlutterBasePage {
 //        return ConveyorPage.getInstance().isMyProfile();
 //    }
 
-    public boolean goToAddCorp() {
+    public void addIconClick()
+    {
         loadingDashboard.waitForTheElementToBeInvisible(45);
         addIcon.waitForTheElementToBeVisible(30);
         addIcon.click();
+    }
+
+    public boolean goToAddCorp() {
+        SyncUtil.waitFor(20000);
+        addIconClick();
         addCorporate.click();
         return CorporatePage.getInstance().isCompanyPage();
     }
 
     public boolean goToSiteShop() {
-        loadingDashboard.waitForTheElementToBeInvisible(45);
-        addIcon.waitForTheElementToBeVisible(30);
-        addIcon.click();
+        addIconClick();
         addSiteShop.click();
         return CorporatePage.getInstance().isCompanyPage();
     }
 
     public boolean goToConveyor() {
-        loadingDashboard.waitForTheElementToBeInvisible(45);
-        addIcon.waitForTheElementToBeVisible(30);
-        addIcon.click();
+        addIconClick();
         addConveyor.click();
         return ConveyorPage.getInstance().isConveyorPage();
     }
 
     public boolean goToInspection() {
-        loadingDashboard.waitForTheElementToBeInvisible(45);
-        addIcon.waitForTheElementToBeVisible(30);
-        addIcon.click();
+        addIconClick();
         addInspection.click();
         return InspectionPage.getInstance().isInspectionPage();
     }
+
+    public void conveyorTileClick()
+    {
+        DashboardNativePage.getInstance().conveyorCardClick();
+        ConveyorPage.getInstance().isConveyorPage();
+    }
+    public boolean addInspectionClick()
+    {
+        addInspection.waitForTheElementToBeVisible(10000);
+        addInspection.click();
+        return InspectionPage.getInstance().isInspectionPage();
+    }
+
+    public void inspectionTileClick()
+    {
+        DashboardNativePage.getInstance().inspectionCardClick();
+        CorporatePage.getInstance().isInspectionListPage();
+    }
+
+    public void coverWearTileClick()
+    {
+        DashboardNativePage.getInstance().coverWearCardClick();
+        CoverWearPage.getInstance().isCoverWearPage();
+        waitForPageToLoad();
+        SyncUtil.waitFor(40000);
+
+    }
+
+    public void siteTileClick()
+    {
+        DashboardNativePage.getInstance().siteCardClick();
+        SitePage.getInstance().isSitesPage();
+    }
+   public void verifyHomeAddIconFields()
+   {
+       addCorporate.waitForTheElementToBeVisible(10000);
+       Validator.assertTrue(addCorporate.isVisible()&&addConveyor.isVisible()&&addSiteShop.isVisible()&&addInspection.isVisible(),
+               "Add Inspection Add Conveyor Add Site/Shop Add Corporate buttons are not visible","Add Inspection Add Conveyor Add Site/Shop Add Corporate buttons are not visible");
+
+   }
+
 
 
 }
