@@ -235,4 +235,23 @@ public class MiscUtils {
 
         return data;
     }
+
+    public static List<String> findMatches(String regex,  List<String>  input) {
+        List<String> matches = new ArrayList<>();
+        Pattern pattern = Pattern.compile(regex);
+
+        for (String str : input) {
+            Matcher matcher = pattern.matcher(str);
+            while (matcher.find()) {
+                matches.add(matcher.group());
+            }
+        }
+        return matches;
+    }
+
+    public static String convertDateFormat(String dateString) {
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d, yyyy"));
+        return formattedDate;
+    }
 }

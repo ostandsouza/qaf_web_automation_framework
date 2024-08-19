@@ -8,8 +8,12 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.annotations.UiElement;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
+import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import java.util.concurrent.TimeUnit;
+
+import static org.testng.Assert.assertEquals;
 
 public class CorporatePage extends BasePage{
 
@@ -226,6 +230,19 @@ public class CorporatePage extends BasePage{
     @FindBy(locator= "xpath=//label[text()='Site']/following::span[1]")
     public CustomElement drSitedropdown;
 
+    @FindBy(locator= "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component p-disabled']")
+    public CustomElement btnSaveDisabled;
+
+    @FindBy(locator= "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component']")
+    public CustomElement btnSaveEnabled;
+
+    @FindBy(locator="//div[@class='p-breadcrumb p-component']")
+    public CustomElement bcAddUserLink;
+
+    @FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
+    public CustomElement addDefaultImgSrc;
+
+
     public void goToAddCompany() {
         addCompany.click("Add Company");
         newCompany.isVisible("New Company Header");
@@ -234,11 +251,14 @@ public class CorporatePage extends BasePage{
     public void clickCorporates() {
         waitForElementVisible(lCorporates, 10000,500);
         lCorporates.click("Corporate");
+        waitForPageLoad(10000);
+        waitForElementVisible(corporateHeader,5000,500);
+        Validator.assertTrue(corporateHeader.isDisplayed(),"Company List page has not loaded","Company List page has not loaded");
         waitForElementToDisplay(btAddCorp);
     }
 
     public void goToAddCorporate() {
-        scrollPageup();
+//        scrollPageup();
         waitForElementToDisplay(btAddCorp);
         btAddCorp.click("Add Corp");
     }
@@ -328,15 +348,17 @@ public class CorporatePage extends BasePage{
     }
 
     public void selectDistributorCorp() {
+        waitForElementToDisplay(drTypeofcompany);
+        waitForElementToBeClickable(drTypeofcompany);
         drTypeofcompany.click("Corporate Type");
         waitForElementToDisplay(radioDistributorCorp);
-        radioDistributorCorp.click("Customer Corp");
+        radioDistributorCorp.click("Distributor Corp");
     }
 
     public void selectCustomerCorp() {
         drTypeofcompany.click("Corporate Type");
         waitForElementToDisplay(radioCustomerCorportae);
-        radioCustomerCorportae.click("Customer Corp");
+        radioCustomerCorportae.click("Distributor Corp");
     }
 
     public void selectCustomerSite() {
@@ -588,4 +610,39 @@ public class CorporatePage extends BasePage{
         btSearchinput.type(conveyor, "Conveyor name");
         Validator.assertTrue(noList.isVisible("No Site/Shop"), "Conveyor found even after delete", "Conveyor not found after delete");
     }
+
+    public void verifyMandatoryFields(){
+        Validator.assertTrue(btnSaveDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
+        tbCompanyName.type("");
+        Validator.assertTrue(btnSaveEnabled.isDisplayed(),"Cancel button is not enabled","Cancel button is enabled");
+    }
+
+
+    public void verifyUserBreadCrumb()
+    {
+        waitForPageLoad(15000);
+        waitForElementVisible(addDefaultImgSrc,5000,500);
+        waitForElementVisible(bcAddUserLink,10000,500);
+        Validator.assertTrue(bcAddUserLink.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb element is displayed");
+        assertEquals(bcAddUserLink.getText(), "Home\nCorporates\nAdd", "Breadcrumb text does not match expected");
+    }
+
+    public void verifyBlankField(){
+        Validator.assertTrue(btnSaveDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
+        }
+
+//    public void addBlankCompanyAndAddress(String Address) {
+//        tbCompanyName.type("");
+//        tbAddress.type(Address,"Address bar");
+//        tbAddress.click();
+//        waitForElementToDisplay(tbMapFirstSearchOption);
+//        waitForElementToBeClickable(tbMapFirstSearchOption);
+//        tbMapFirstSearchOption.click("Map search result");
+//    }
+
+    public void verifyManFields(int mandatoryCount){
+       Assert.assertEquals(driver.findElements(By.xpath("//div[not(@hidden)]/label/em[text()='*']/..")).size(), mandatoryCount, "Expected count does not match actual count");
+    }
+
+
 }

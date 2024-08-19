@@ -1,6 +1,4 @@
 package com.common.utils;
-
-import com.sun.corba.se.impl.orbutil.concurrent.SyncUtil;
 import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

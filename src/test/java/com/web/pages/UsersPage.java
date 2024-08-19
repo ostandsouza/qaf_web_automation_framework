@@ -6,6 +6,7 @@ package com.web.pages;
 import com.common.utils.ClasspathResourceHelper;
 import com.common.utils.MiscUtils;
 import com.qmetry.qaf.automation.util.Validator;
+import org.apache.poi.ss.util.ImageUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -15,14 +16,20 @@ import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.util.Reporter;
+import org.testng.Assert;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static com.common.utils.MiscUtils.findMatches;
 
 public class UsersPage extends BasePage{
 
 //	public QAFWebDriver driver;
 
+//	String noOfMasterSites;
 
 
 	@FindBy(locator = "xpath=//span[text()='Users']")
@@ -148,7 +155,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//div[text()=' Basics ']")
 	public CustomElement eleBasics;
 	
-	@FindBy(locator="xpath=//tr[@class='p-selectable-row ng-star-inserted']//td//p-tablecheckbox")
+	@FindBy(locator="xpath=//tr[@class='ng-star-inserted']//td//p-tablecheckbox")
 	public CustomElement cbTablecheckbox;
 	
 	@FindBy(locator="xpath=//button[@class='p-element p-splitbutton-menubutton p-button p-component p-button-icon-only']")
@@ -308,6 +315,131 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//div[contains(@class,'p-datatable-header')]//h4[text()='Users']")
 	public CustomElement usersHeader;
 
+
+
+	@FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
+	public CustomElement userDefaultImage;
+
+	@FindBy(locator="//div[@class='icon']//img")
+	public CustomElement cameraIcon;
+
+	@FindBy(locator="//div[@role='dialog']")
+	public CustomElement dialogBox;
+
+	@FindBy(locator="//label[normalize-space()='Upload Image']")
+	public CustomElement btUploadImg;
+
+	@FindBy(locator="//button[@class='p-element p-button p-component ng-star-inserted']//span[normalize-space()='Cancel']")
+	public CustomElement btCancelImg;
+
+	@FindBy(locator="//div[contains(@class,'cropped-frame')]")
+	public CustomElement imgPreview;
+
+	@FindBy(locator="//span[@class='ngx-ic-resize ngx-ic-topright ng-star-inserted']")
+	public CustomElement eleResize;
+
+	@FindBy(locator="//span[normalize-space()='Cancel']")
+	public CustomElement btnCancelUser;
+
+	@FindBy(locator="//p-splitbutton[@icon='ctp-icon-Save']")
+	public CustomElement btnTempSave;
+
+	@FindBy(locator="//input[@id='templateName']")
+	public CustomElement tbTempName;
+
+	@FindBy(locator="//div[@aria-label='dropdown trigger']")
+	public CustomElement ddlTempDropdown;
+
+	@FindBy(locator="//p-splitbutton[@icon='ctp-icon-Edit']")
+	public CustomElement btnTempEdit;
+
+	@FindBy(locator="//p-splitbutton[@icon='ctp-icon-Delete']")
+	public CustomElement btnTempDelete;
+
+	@FindBy(locator ="//div[text()='Template Deleted']")
+	public CustomElement altDeletedTemp;
+
+	@FindBy(locator ="//div[text()='Template Created']")
+	public CustomElement altCreatedTemp;
+
+	@FindBy(locator ="//div[text()='Template Updated']")
+	public CustomElement altUpdatedTemp;
+
+	@FindBy(locator ="//span[text()='Yes']")
+	public CustomElement btnYes;
+
+	@FindBy(locator="xpath=//span[text()='Confirmation']")
+	public CustomElement dialogBoxDelete;
+
+//	@FindBy(locator="//div[not(@hidden)]/label/em[text()='*']/..")
+//	public CustomElement manField;
+
+	@FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
+	public CustomElement home;
+
+	@FindBy(locator = "xpath=//a[@routerlinkactive]//span[text()='Sites']")
+	public CustomElement Site;
+
+	@FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+	public CustomElement paginationEntry;
+
+	@FindBy(locator = "xpath=//span[text()='Previous']")
+	public CustomElement btnPrevious;
+
+	@FindBy(locator = "xpath=//div[text()=' Personal information ']")
+	public CustomElement txtPersonalInfo;
+
+	@FindBy(locator="xpath=(//button[@type='button']//chevrondownicon)[2]")
+	public CustomElement ddlUserActions;
+
+
+	@FindBy(locator = "xpath=//td[text()='No users to list!']")
+	public CustomElement txtNoResult;
+
+	@FindBy(locator = "xpath=(//p-skeleton)[1]")
+	public CustomElement userLoader;
+
+	@FindBy(locator = "xpath=(//button[@icon='pi pi-refresh'])[2]")
+	public CustomElement userRefresh;
+
+	@FindBy(locator = "xpath=//span[text()='Assign']")
+	public CustomElement btAssign;
+
+	@FindBy(locator = "xpath=//label[text()='Profile']/..//p-dropdown")
+	public CustomElement btDropDown;
+
+	@FindBy(locator = "xpath=//label[text()='Profile']/..//p-dropdown//span//div")
+	public CustomElement btDropDownInput;
+
+	@FindBy(locator = "xpath=//p-radiobutton[@value='update']")
+	public CustomElement rdbtnUpdate;
+	@FindBy(locator = "xpath=//h6[text()='Analysis Results and Message']")
+	public CustomElement txtAnalysisResult;
+	@FindBy(locator = "xpath=//div[contains(text(),'Total Users: ')]")
+	public CustomElement txtTotalUsers;
+	@FindBy(locator = "xpath=//div[contains(text(),'Users to Create: ')]")
+	public CustomElement txtUsersToCreate;
+	@FindBy(locator = "xpath=//div[contains(text(),'Users to Update: ')]")
+	public CustomElement txtUsersToUpdate;
+	@FindBy(locator = "xpath=//div[contains(text(),'Users to Skip: ')]")
+	public CustomElement txtUsersToSkip;
+	@FindBy(locator = "xpath=//div[contains(text(),'Warnings: ')]")
+	public CustomElement txtWarnings;
+	@FindBy(locator = "xpath=//div[contains(text(),'Errors: ')]")
+	public CustomElement txtErrors;
+
+	@FindBy(locator = "xpath=//h6[text()='Import Report']")
+	public CustomElement importReportHeader;
+
+	@FindBy(locator = "xpath=//p[text()='Drop File to Import(format:xlsx)']")
+	public CustomElement txtDropFile;
+
+	@FindBy(locator ="//div[text()='Users has been imported successfully.']")
+	public CustomElement altSuccessUserCreation;
+
+	@FindBy(locator = "xpath=//div[text()='Please check the excel file or record count and try to upload again.']")
+	public CustomElement uploadFailure;
+
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
 		lnkUsers.jsClick();
@@ -316,8 +448,25 @@ public class UsersPage extends BasePage{
 	}
 
 	public boolean searchUser(String searchtext) {
+		waitForPageLoad(10000);
 		waitForElementVisible(btSearchinput, 10000, 500);
 		btSearchinput.type(searchtext);
+		waitForElementToInvisible(userLoader,10000);
+		waitForElementToInvisible(txtNoResult,20000);
+		waitForElementVisible(btCheckbox,20000,500);
+		waitForElementToDisplay(btCheckbox);
+		return btCheckbox.isVisible("User Found");
+	}
+
+	public boolean searchUserEdit(String searchtext) {
+		waitForPageLoad(10000);
+//		SyncUtil.waitFor(10000);
+		waitForElementVisible(btSearchinput, 10000, 500);
+		btSearchinput.type(searchtext);
+		SyncUtil.waitFor(10000);
+//		waitForPageLoad(20000);
+		waitForElementVisible(driver.findElement(By.xpath("//td[contains(text(),' "+searchtext+" ')]")),20000,1000);
+		waitForElementVisible(btCheckbox,20000,500);
 		waitForElementToDisplay(btCheckbox);
 		return btCheckbox.isVisible("User Found");
 	}
@@ -325,10 +474,12 @@ public class UsersPage extends BasePage{
 	public void addClick() {
 		lnkUsers.jsClick();
 		waitForElementToDisplay(btAdd);
-		btAdd.click();
+		waitForElementToBeClickable(btAdd);
+		btAdd.jsClick();
 	}
 
 	public void setfullname(String Fullname) {
+		waitForPageLoad(5000);
 		waitForElementVisible(tbFullName, 5000,500);
 		tbFullName.type(Fullname, "Fullname");
 	}
@@ -488,16 +639,25 @@ public class UsersPage extends BasePage{
 	public void setTerritory(String region) {
 		waitForPageLoad(5000);
 		waitForElementToDisplay(eleArrowMT);
-//		eleCheckboxMT.click();
 		if(region.equalsIgnoreCase("APAC")){
 			Reporter.log("isSelected: ="+cbCheckboxAPAC.getAttribute("aria-checked"));
-			if(cbCheckboxAPAC.getAttribute("aria-checked").equalsIgnoreCase("false"))
-				cbCheckboxAPAC.click();
+			if(cbCheckboxAPAC.getAttribute("aria-checked").equalsIgnoreCase("false")){
+				cbCheckboxAPAC.click();}
 		}
 		else if(region.equalsIgnoreCase("EMEA")) {
 			Reporter.log("isSelected: ="+cbCheckboxEMEA.getAttribute("aria-checked"));
 			if(cbCheckboxEMEA.getAttribute("aria-checked").equalsIgnoreCase("false"))
 				cbCheckboxEMEA.click();
+		}
+		else if(region.equalsIgnoreCase("North America")) {
+			Reporter.log("isSelected: ="+cbCheckboxNA.getAttribute("aria-checked"));
+			if(cbCheckboxNA.getAttribute("aria-checked").equalsIgnoreCase("false"))
+				cbCheckboxNA.click();
+		}
+		else if(region.equalsIgnoreCase("South America")) {
+			Reporter.log("isSelected: ="+cbCheckboxSA.getAttribute("aria-checked"));
+			if(cbCheckboxSA.getAttribute("aria-checked").equalsIgnoreCase("false"))
+				cbCheckboxSA.click();
 		}
 		else eleCheckboxMT.click();
 	}
@@ -532,7 +692,9 @@ public class UsersPage extends BasePage{
 	public void Clicksaveandclose() {
 		waitForPageLoad(3000);
 		waitForElementVisible(btSaveandClose, 10000,500);
+		waitForElementToBeClickable(btSaveandClose);
 		btSaveandClose.click();
+		waitForElementToBeClickable(btSaveandClose);
 		SyncUtil.waitFor(15000);
 		waitForElementToDisplay(btSearchinput);
 		Reporter.log("User is created",MessageTypes.Pass);
@@ -636,6 +798,8 @@ public class UsersPage extends BasePage{
 
 	public void clickOnUpdateBtn() {
 		btUpdate.click();
+		waitForElementToInvisible(btUpdate,5000);
+		waitForPageLoad(5000);
 	}
 
 	public void goToUsers() {
@@ -656,7 +820,7 @@ public class UsersPage extends BasePage{
 				break;
 			}
 			val = pagination.getText();
-			SyncUtil.waitFor(5000);
+			SyncUtil.waitFor(10000);
 		}
 	}
 
@@ -809,5 +973,295 @@ public class UsersPage extends BasePage{
 	public void verifyTemplateSheet(String siteName, String fileName) {
 		List<String> obj = MiscUtils.getDownloadedExcelSheet(fileName);
 		Validator.assertTrue(obj.contains(siteName),"Template was downloaded for incorrect user type","Template was downloaded for right user type successfully");
+	}
+
+	public void usersClick() {
+		waitForElementVisible(lnkUsers, 5000,1000);
+		waitForElementToBeClickable(lnkUsers);
+		lnkUsers.click();
+		waitForPageLoad(20000);
+		waitForElementVisible(usersHeader,5000,500);
+	}
+
+	public void addIconClick() {
+		waitForElementToDisplay(btAdd);
+		waitForElementVisible(btAdd,20000,1000);
+		waitForElementToBeClickable(btAdd);
+		waitForPageLoad(5000);
+		btAdd.jsClick();
+	}
+
+	public void verifyDefaultImage()
+	{
+		waitForElementVisible(userDefaultImage,5000,500);
+		Validator.assertTrue(userDefaultImage.isDisplayed(), "Default image is not displayed","Default Image is Displayed");
+		hoverOverElement(userDefaultImage);
+		waitForElementVisible(cameraIcon,5000,500);
+		Validator.assertTrue(cameraIcon.isDisplayed(), "cameraIcon is not visible on the page","cameraIcon is  visible on the page");
+
+	}
+
+	public void verifyOptionInImagePanel(){
+		waitForElementVisible(cameraIcon,5000,500);
+		cameraIcon.click();
+		waitForElementVisible(dialogBox, 10000,500);
+		Validator.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible","Dialog box is visible");
+		Validator.assertTrue(btUploadImg.isDisplayed(),"Upload button is not visible","Upload button is visible");
+		Validator.assertTrue(imgPreview.isDisplayed(),"Image Preview is not visible","Image Preview is visible");
+		Validator.assertTrue(saveBtn.isDisplayed(),"Save Button is not visible","Save Button is visible");
+		Validator.assertTrue(btCancelImg.isDisplayed(),"Cancel Button is not visible","Cancel Button is visible");
+	}
+
+	public void uploadImageClick()
+	{
+		waitForElementVisible(btUploadImg,5000,500);
+		waitForElementToBeClickable(btUploadImg);
+		btUploadImg.click();
+	}
+
+	public void imageUpload(String fileName){
+		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
+		fileUpload.sendKeys(file_path, "img_upload");
+	}
+
+
+	public void cropOrMoveImage()
+	{
+		waitForElementVisible(eleResize,5000,500);
+		cropImage(eleResize);
+	}
+
+	public void clickSave(){
+		saveBtn.click();
+		waitForElementToInvisible(saveBtn,10000);
+		String expectedSrc = "/assets/img/upload_default.png";
+		Assert.assertNotEquals(userDefaultImage.getAttribute("src"), expectedSrc, "The src attribute of the addDefaultImg element is not as expected");
+	}
+
+	public void verifyCancel(){
+		waitForElementVisible(btnCancelUser,5000,500);
+		Validator.assertTrue(btnCancelUser.isDisplayed(),"Cancel button is not visible","Cancel button is visible");
+		btnCancelUser.click();
+	}
+
+	public void verifyUserTablePage()
+	{
+		waitForPageLoad(5000);
+		Validator.assertTrue(driver.getCurrentUrl().contains("secure/users/list"),"URL missMatch","URL validation passed");
+
+	}
+	public void nextClick() {
+		btNext.click();
+	}
+
+	public void createTemplate(String templateName){
+		waitForElementToBeClickable(btnTempSave);
+		btnTempSave.click();
+		waitForElementVisible(dialogBox, 10000,500);
+		Validator.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible","Dailog box is visible");
+		waitForElementVisible(tbTempName,5000,1000);
+		tbTempName.type(templateName,"templateName");
+		waitForElementVisible(saveBtn,10000,1000);
+		waitForElementToBeClickable(saveBtn);
+		saveBtn.click();
+	}
+
+	public void selectCustomTemplate(String templateName) {
+		waitForElementToDisplay(ddlTempDropdown);
+		waitForElementToBeClickable(ddlTempDropdown);
+		ddlTempDropdown.click();
+		waitForElementVisible(driver.findElement(By.xpath("//li[@aria-label='" + templateName + "']")),10000,1000);
+		waitForElementToBeClickable(driver.findElement(By.xpath("//li[@aria-label='" + templateName + "']")));
+		driver.findElement(By.xpath("//li[@aria-label='" + templateName + "']")).click();
+	}
+	public void verifyCustomTemplate(String templateName) {
+		waitForElementToDisplay(ddlTempDropdown);
+		waitForElementToBeClickable(ddlTempDropdown);
+		ddlTempDropdown.click();
+		waitForElementVisible(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")), 5000, 500);
+		Validator.assertTrue(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")).isDisplayed(),"Template is not selected","Template is selected");
+	}
+
+	public void editTemplate(){
+		btnTempEdit.click();
+	}
+
+	public void editPermission(String add, String edit, String delete, String view, String download) {
+		if(!(cbAllcheckboxAdd.getAttribute("aria-checked").equals(add)))
+			cbAllcheckboxAdd.click();
+		if(!(cbAllcheckboxEdit.getAttribute("aria-checked").equals(edit)))
+			cbAllcheckboxEdit.click();
+		if(!(cbAllcheckboxDelete.getAttribute("aria-checked").equals(delete)))
+			cbAllcheckboxDelete.click();
+		if(!(cbAllcheckboxView.getAttribute("aria-checked").equals(view)))
+			cbAllcheckboxView.click();
+		if(!(cbAllcheckboxDownload.getAttribute("aria-checked").equals(download)))
+			cbAllcheckboxDownload.click();
+	}
+
+	public void deleteTemplate(){
+		btnTempDelete.click();
+		waitForElementVisible(dialogBoxDelete,5000,500);
+		btnYes.click();
+	}
+	public void verifyCreateTemplate(){
+		waitForPageLoad(3000);
+		SyncUtil.waitFor(3000);
+		waitForElementVisible(altCreatedTemp,30000,1000);
+		waitForElementToDisplay(altCreatedTemp);
+		Validator.assertTrue(altCreatedTemp.isDisplayed(),"Create alert is not displayed","Create alert is displayed");
+	}
+
+	public void verifyDeleteTemplate(){
+		waitForPageLoad(5000);
+		SyncUtil.waitFor(3000);
+		waitForElementVisible(altDeletedTemp,30000,1000);
+		waitForElementToDisplay(altDeletedTemp);
+		Validator.assertTrue(altDeletedTemp.isDisplayed(),"Delete alert is not displayed","Delete alert is displayed");
+	}
+	public void verifyUpdateTemplate(){
+		waitForPageLoad(5000);
+//		SyncUtil.waitFor(3000);
+		waitForElementVisible(altUpdatedTemp,30000,1000);
+		waitForElementToDisplay(altUpdatedTemp);
+		Validator.assertTrue(altUpdatedTemp.isDisplayed(),"Create alert is not displayed","Create alert is displayed");
+	}
+
+	public void verifyAscOrder(){
+		List<String> extraxtedList = driver.findElements(By.xpath("//p-chip//div")).stream().map(x->x.getText()).collect(Collectors.toList());
+		String regex = "\\b(?<!\\d)([a-zA-Z]+(\\s+[a-zA-Z]+)*)\\b";
+		List<String> textList = findMatches(regex, extraxtedList);
+		boolean isAscending = IntStream.range(0, textList.size() - 1)
+				.allMatch(i -> textList.get(i).compareTo(textList.get(i + 1)) <= 0);
+		Validator.assertTrue(isAscending,"List Ascending Order Mismatch","List is in Ascending Order");
+	}
+
+	public void verifyNumberOfSites(String noOfMasterSites){
+		String noOfUserSites=MiscUtils.regexExtractor(paginationEntry.getText(),"(\\d+)(?!.*\\d)");
+		Assert.assertEquals(noOfMasterSites,noOfUserSites,"Number of sites matched");
+	}
+
+	public void clickOnPreviousBtn() {
+		btnPrevious.click();
+	}
+
+	public void validateInfoPage(){
+		waitForPageLoad(5000);
+		waitForElementVisible(tbFullName,5000,1000);
+		waitForElementVisible(tbEmail,5000,1000);
+		waitForElementVisible(tbPhone,5000,1000);
+		Validator.assertTrue(txtPersonalInfo.isDisplayed(),"Info Page yet to load","Info page loaded");
+	};
+
+	public void validateEditCorpInfo(String corpName){
+	waitForElementVisible(ddlCorportaedropdown,5000,1000);
+	waitForElementToBeClickable(ddlCorportaedropdown);
+	ddlCorportaedropdown.click();
+	waitForElementVisible(driver.findElement(By.xpath("//li[@aria-label='"+corpName+"'][@aria-selected='true']")), 5000, 500);
+	Validator.assertTrue(driver.findElement(By.xpath("//li[@aria-label='"+corpName+"'][@aria-selected='true']")).isDisplayed(),"Corporate is not selected","Corporate is selected");
+	};
+
+	public void goToEditUserPageWithActions(String userName) {
+		Reporter.log("Image :="+btImg.isDisplayed());
+		Reporter.log("Name :="+btName.getText());
+		Validator.assertTrue(btName.getText().equalsIgnoreCase(userName),"User search result did not match", "User search result verification successful");
+		Reporter.log("Profile :="+btProfile.getText());
+		waitForElementToBeClickable(cbTablecheckbox);
+		cbTablecheckbox.click();
+		waitForElementToBeClickable(ddlUserActions);
+		ddlUserActions.click();
+		waitForElementToDisplay(btEdit);
+		waitForElementToBeClickable(btEdit);
+		btEdit.click();
+		waitForPageLoad(5000);
+	}
+
+	public void assignPageclick() {
+		waitForElementToBeClickable(btAssign);
+		btAssign.click();
+	}
+	public void verifyProfileDropDownInBulkUpload() {
+	waitForElementVisible(btDropDown,5000,1000);
+    Validator.assertTrue(btDropDown.isVisible(),"DropDown is not visible","DropDown is visible");
+	}
+
+	public void clickContinentalUserAndVerifyLabel() {
+		waitForElementToBeClickable(btDropDown);
+		btDropDown.click();
+		waitForElementVisible(rdbSelectprofiletypeStandardContinentalUser,5000,1000);
+		Validator.assertTrue(rdbSelectprofiletypeStandardContinentalUser.isVisible(),"Standard Continental User is not visible","Standard Continental User is visible");
+		rdbSelectprofiletypeStandardContinentalUser.click();
+		waitForElementVisible(btDropDown,5000,1000);
+		Validator.assertTrue(btDropDownInput.getText().contains("Standard continental user"),"Standard Continental User is not present as dropdown label","Standard Continental User is present as dropdown label");
+	}
+
+	public void verifyAnalysisBar(){
+		waitForPageLoad(5000);
+		waitForElementVisible(analysingUsers,15000,1000);
+		Validator.assertTrue(analysingUsers.isDisplayed(),"Analysis Bar is not displayed","Analysis Bar is displayed");
+	}
+	public void verifyUserUploadBackBtnFunctionality(){
+		waitForPageLoad(5000);
+		waitForElementVisible(backBtn,10000,1000);
+		Validator.assertTrue(backBtn.isDisplayed(),"Back Button is not displayed","Back Button is displayed");
+		backBtn.click();
+		waitForPageLoad(5000);
+		waitForElementVisible(importFormHeader,5000,1000);
+		Validator.assertTrue(importFormHeader.isDisplayed(),"Import Form is not displayed","Import Form is displayed");
+
+	}
+	public void selectUpdateBtnInImportReportPage(){
+		waitForPageLoad(5000);
+		waitForElementVisible(rdbtnUpdate,5000,1000);
+		rdbtnUpdate.click();
+		Validator.assertTrue(rdbtnUpdate.isDisplayed(),"Update is not selected","Update is selected");
+	}
+	public void verifyContinueBtnInImportPage(){
+		waitForElementVisible(continueBtn,5000,1000);
+		continueBtn.click();
+		waitForPageLoad(5000);
+		waitForElementVisible(txtAnalysisResult,5000,1000);
+		Validator.assertTrue(txtAnalysisResult.isDisplayed(),"Analysis Result is not selected","Analysis Result is selected");
+	}
+	public void verifyImportAnalysisPageData(){
+		Validator.assertTrue(txtTotalUsers.isDisplayed(),"Total Users is not selected","Total Users is selected");
+		Validator.assertTrue(txtUsersToCreate.isDisplayed(),"Users To Create is not selected","Users To Create is selected");
+		Validator.assertTrue(txtUsersToUpdate.isDisplayed(),"Users to Update is not selected","Users to Update is selected");
+		Validator.assertTrue(txtUsersToSkip.isDisplayed(),"Users to Skip is not selected","Users to Skip is selected");
+		Validator.assertTrue(txtWarnings.isDisplayed(),"Warnings is not selected","Warnings is selected");
+		Validator.assertTrue(txtErrors.isDisplayed(),"Errors is not selected","Errors is selected");
+	}
+
+	public void verifyUserUploadBackBtnInAnalysisPage(){
+		waitForPageLoad(5000);
+		waitForElementVisible(backBtn,10000,1000);
+		Validator.assertTrue(backBtn.isDisplayed(),"Back Button is not displayed","Back Button is displayed");
+		backBtn.click();
+		waitForPageLoad(5000);
+		waitForElementVisible(importReportHeader,5000,1000);
+		Validator.assertTrue(importReportHeader.isDisplayed(),"Bulk Import is not displayed","Bulk Import is displayed");
+	}
+	public void clickDeleteAndVerifyRemoval(){
+		waitForElementVisible(deleteFile,5000,1000);
+		deleteFile.click();
+		Validator.assertTrue(txtDropFile.isDisplayed(),"File is not deleted","File is deleted");
+	}
+	public void clickImportAndVerifyToastMsg(){
+		waitForElementVisible(importBtn,5000,1000);
+		importBtn.click();
+		waitForElementVisible(altSuccessUserCreation,5000,1000);
+		Validator.assertTrue(altSuccessUserCreation.isDisplayed(),"Unable to Import ","Import successful");
+	}
+	public void verifyUserCreationInListPage(String user){
+		waitForPageLoad(5000);
+		waitForElementVisible(usersHeader,5000,1000);
+		Validator.assertTrue(searchUser(user),"User is not found","User was import Succesfully");
+	}
+
+	public boolean userWrongFileUpload(String fileName) {
+		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
+		fileUpload.sendKeys(file_path, "File Path");
+		deleteFile.assertVisible("Delete File upload");
+		return uploadFailure.isVisible();
 	}
 }

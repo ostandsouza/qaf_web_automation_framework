@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -26,6 +27,8 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static com.common.utils.MiscUtils.convertDateFormat;
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.io.File.separator;
 import static java.lang.Math.abs;
 
@@ -104,6 +107,9 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
     public CustomElement cwAddNew;
+
+    @FindBy(locator = "xpath=//span[@class='p-button-icon ctp-icon-Add-circle']")
+    public CustomElement btAdd;
 
     @FindBy(locator="xpath=//label[text()='Site']/parent::div//div[@role='button']")
     public CustomElement cwSiteDropDown;
@@ -434,6 +440,298 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//div[@role='dialog'])[1]")
     public CustomElement crDialog;
 
+    @FindBy(locator="xpath=//th[@id='name-col']")
+    public CustomElement hdConveyor;
+
+    @FindBy(locator="xpath=//th[@id='site-col']")
+    public CustomElement hdSite;
+
+    @FindBy(locator="xpath=//th[@psortablecolumn='installedDate']")
+    public CustomElement hdInstalledDate;
+
+    @FindBy(locator="xpath=//th[@id='install-col']")
+    public CustomElement hdCoverGrade;
+
+    @FindBy(locator="xpath=//th[@id='process-col']")
+    public CustomElement hdDurometer;
+
+    @FindBy(locator="xpath=//th[@id='belt-col']")
+    public CustomElement hdRemainingLife;
+
+    @FindBy(locator="xpath=//th[@id='inspec-col']")
+    public CustomElement hdRemainingCover;
+
+    @FindBy(locator="xpath=//th[@id='more-col']")
+    public CustomElement hdMore;
+
+    @FindBy(locator="xpath=//div[@aria-label='dropdown trigger']")
+    public CustomElement btPgDropDown;
+
+    @FindBy(locator="xpath=(//li[@role='option'])[1]")
+    public CustomElement ddlPaginationFirstValue;
+
+    @FindBy(locator="xpath=(//li[@role='option'])[2]")
+    public CustomElement ddlPaginationSecondValue;
+
+    @FindBy(locator="xpath=(//li[@role='option'])[3]")
+    public CustomElement ddlPaginationThirdValue;
+
+    @FindBy(locator="xpath=//anglerighticon")
+    public CustomElement btPgNext;
+
+    @FindBy(locator="xpath=//button[@class='p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted p-highlight']")
+    public CustomElement btPgHighlightedValue;
+
+    @FindBy(locator="//div[@role='dialog']")
+    public CustomElement dialogBox;
+
+    @FindBy(locator="//input[@formcontrolname='tonsConveyedCurrent']/../label")
+    public CustomElement tbTonsConveyedCurrentlabel;
+
+    @FindBy(locator="//input[@formcontrolname='temperature']/../label")
+    public CustomElement tbTemperaturelabel;
+
+    @FindBy(locator="//td[@id='durometer']//input")
+    public CustomElement inpdurometerValue;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='deviceType']")
+    public CustomElement deviceInstrumentField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='velocity']")
+    public CustomElement velocityField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='calibrationThickness']")
+    public CustomElement calibrationThicknessField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='surfaceTemperature']")
+    public CustomElement surfaceTemperatureField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='testPosition']")
+    public CustomElement testPositionField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='conveyor']")
+    public CustomElement conveyorField;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='customer']")
+    public CustomElement siteField;
+
+    @FindBy(locator="xpath=//li[@class='topbar-item scale']")
+    public CustomElement unitIcon;
+
+    @FindBy(locator="xpath=//h6[text()='Metric']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
+    public CustomElement cbMetricUnit;
+
+    @FindBy(locator="xpath=//h6[text()='Imperial']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
+    public CustomElement cbImperialUnit;
+
+    @FindBy(locator="xpath=//h6[text()='Metric']")
+    public CustomElement btMetricUnit;
+
+    @FindBy(locator="xpath=//h6[text()='Imperial']")
+    public CustomElement btImperialUnit;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='beltWidth']/../../label")
+    public CustomElement beltWidthFieldLabel;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='beltWidth']")
+    public CustomElement beltWidthField;
+
+    @FindBy(locator="xpath=//div[@class='gauge-container']//app-durometer")
+    public CustomElement imgGuazeMeter;
+
+    @FindBy(locator="xpath=//div[@class='center-label']//span")
+    public CustomElement getCwRemainingCoverPercent;
+
+    @FindBy(locator="xpath=//span[text()='Wear Rate Statistics & Projections']")
+    public CustomElement hdWearRateStatTable;
+
+    @FindBy(locator="xpath=//th[@id='site-col']//p[2]")
+    public CustomElement thYearsUnit;
+
+    @FindBy(locator="xpath=(//p[text()='Estimate Total Life']/../p[2])[2]")
+    public CustomElement thEstTotalLifeUnit;
+
+    @FindBy(locator="xpath=//p[text()='Est. Total Cost per Year']/../p[2]")
+    public CustomElement thEstTotalCostPerLifeUnit;
+
+    @FindBy(locator="xpath=//th[@id='name-col']")
+    public CustomElement thTonsConveyed;
+    @FindBy(locator="xpath=//th[@id='site-col']")
+    public CustomElement thYears;
+
+    @FindBy(locator="xpath=//p[text()='Wear rate']")
+    public CustomElement thWearRate;
+    @FindBy(locator="xpath=//p[text()='Projected Future Tons']")
+    public CustomElement thProjectedFutureTons;
+    @FindBy(locator="xpath=//p[text()='Projected Future Life']")
+    public CustomElement thProjectedFutureLife;
+    @FindBy(locator="xpath=(//p[text()='Estimate Total Life'])[1]")
+    public CustomElement thEstTotalLifeTons;
+
+    @FindBy(locator="xpath=(//p[text()='Estimate Total Life'])[2]")
+    public CustomElement thEstTotalLifeYears;
+
+    @FindBy(locator="xpath=//p[text()='Est. Total Cost per Ton']")
+    public CustomElement thEstTotalCostPerTonLife;
+
+    @FindBy(locator="xpath=//p[text()='Est. Total Cost per Year']")
+    public CustomElement thEstTotalCostPerYearLife;
+
+    @FindBy(locator="xpath=//div[@class='col']")
+    public CustomElement hdPositionName;
+    @FindBy(locator="xpath=//div[@class='col-12 subtitle']")
+    public CustomElement hdSpecificationValue;
+
+    @FindBy(locator="xpath=//div[@class='col-6 date']")
+    public CustomElement hdDateOfInstallation;
+
+    @FindBy(locator="xpath=//div[@class='col-6 durometer']")
+    public CustomElement hdNewDurometerValue;
+
+    @FindBy(locator="xpath=//span[text()='CV Common Regression']")
+    public CustomElement hdCoverWearBreadCrumb;
+
+    @FindBy(locator="xpath=//span[text()='Installed Belt']")
+    public CustomElement hdInstalledBelt;
+
+    @FindBy(locator="xpath=//label[text()='Installation Date']/..//p-calendar//input")
+    public CustomElement  ddInstallationDateValue;
+
+    @FindBy(locator="xpath=(//label[text()='Belt Construction']/../app-master-data-picker//div//input)[2]")
+    public CustomElement  ddBeltConstructionValue;
+
+    @FindBy(locator="xpath=(//label[text()='Width']/..//div//input)[2]")
+    public CustomElement  ddBeltWidthValue;
+
+    @FindBy(locator="xpath=(//label[text()='Top Cover Compound']/../app-master-data-picker//div//input)[2]")
+    public CustomElement  ddTopCoverCompoundValue;
+
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Compound']/../app-master-data-picker//div//input)[2]")
+    public CustomElement  ddBottomCoverCompoundValue;
+
+    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness']/..//div//input)[2]")
+    public CustomElement  ddTopCoverThicknessValue;
+
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness']/..//div//input)[2]")
+    public CustomElement  ddBottomCoverThicknessValue;
+
+    @FindBy(locator="xpath=//span[text()='Wear Profile']")
+    public CustomElement hdWearProfile;
+
+    @FindBy(locator="xpath=//h4[text()='Positions']")
+    public CustomElement hdPositionTable;
+
+    @FindBy(locator="xpath=//th[@id='name-col']")
+    public CustomElement hdPosition;
+
+    @FindBy(locator="xpath=//th[@psortablecolumn='tonsConveyed']")
+    public CustomElement hdTonsConveyed;
+
+    @FindBy(locator="xpath=//th[@psortablecolumn='ageToDate']")
+    public CustomElement hdAgeToDate;
+
+    @FindBy(locator="xpath=//th[@psortablecolumn='lastRecorded']")
+    public CustomElement hdLastRecorded;
+
+    @FindBy(locator="xpath=//th[@psortablecolumn='lowestReading']")
+    public CustomElement hdLowestReading;
+
+    @FindBy(locator="xpath=//p-dialog//input[@formcontrolname='customer']")
+    public CustomElement tbCustomer;
+
+    @FindBy(locator="xpath=//p-dialog//input[@formcontrolname='conveyor']")
+    public CustomElement tbConveyor;
+
+    @FindBy(locator="xpath=//p-dialog//input[@formcontrolname='width']")
+    public CustomElement tbWidth;
+
+    @FindBy(locator="xpath=//p-dialog//input[@formcontrolname='segment']")
+    public CustomElement tbSegment;
+    @FindBy(locator="xpath=//p-dialog//input[@formcontrolname='tonsConveyed']")
+    public CustomElement tbTonsConveyed;
+
+    @FindBy(locator="xpath=//p-dialog//input[@formcontrolname='durometer']")
+    public CustomElement tbDurometer;
+
+    @FindBy(locator="xpath=//input[@value='top']")
+    public CustomElement tbTop;
+
+    @FindBy(locator="xpath=//input[@value='top']//../../div[2]")
+    public CustomElement rbtTop;
+
+    @FindBy(locator = "xpath=//p-dialog//span[text()='Save']")
+    public CustomElement btSave;
+
+    @FindBy(locator = "xpath=(//td[2]//span)[2]")
+    public CustomElement txtPosition;
+
+    @FindBy(locator="xpath=//div[@class='durometer-container']")
+    public CustomElement btGuazeMeter;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='customer']/../../label")
+    public CustomElement txtSite;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='conveyor']/../../label")
+    public CustomElement txtConveyor;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='beltWidth']/../../label")
+    public CustomElement txtBeltWidth;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='topCoverThicknessNominal']//../label")
+    public CustomElement txtTopCoverThicknessNominal;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='bottomCoverThicknessNominal']//../label")
+    public CustomElement txtBottomCoverThicknessNominal;
+    @FindBy(locator="xpath=//input[@formcontrolname='beltLength']/../../label")
+    public CustomElement txtBeltLength;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='topCoverThicknessActual']//../label")
+    public CustomElement txtTopCoverThicknessActual;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='bottomCoverThicknessActual']//../label")
+    public CustomElement txtBottomCoverThicknessActual;
+
+    @FindBy(locator="xpath=//p-dropdown[@formcontrolname='numberOfDatapoints']/../label")
+    public CustomElement txtNoOfDatapoints;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='durometer']/../../label")
+    public CustomElement txtDurometer;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='priceOfBelt']/../../label")
+    public CustomElement txtPriceOfBelt;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='numberOfColumns']/../../label")
+    public CustomElement txtNoOfColumns;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='topCoverCompound']//../label")
+    public CustomElement txtTopCoverCompound;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='bottomCoverCompound']//../label")
+    public CustomElement txtBottomCoverCompound;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='topCoverCriticalThickness']//../label")
+    public CustomElement txtTopCoverCriticalThickness;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='topCoverPoorThickness']//../label")
+    public CustomElement txtTopCoverPoorThickness;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='bottomCoverCriticalThickness']//../label")
+    public CustomElement txtBottomCoverCriticalThickness;
+
+    @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='bottomCoverPoorThickness']//../label")
+    public CustomElement txtBottomCoverPoorThickness;
+
+   @FindBy(locator="xpath=//label[text()='Include']")
+    public CustomElement hdInclude;
+
+    @FindBy(locator="xpath=//label[text()='Position']")
+    public CustomElement hdPositionExportPop;
+
+    @FindBy(locator="xpath=//button[@icon='pi pi-download']")
+    public CustomElement btReportDownload;
+
+    @FindBy(locator="xpath=//input[@placeholder='Search']")
+    public CustomElement btSearchinput;
 
     public void goToCoverWearScreen(){
         if(!coverWearList.isVisible())
@@ -549,6 +847,12 @@ public class CoverWearPage extends BasePage{
         waitForElementToDisplay(cwViewIcon);
         cwViewIcon.click("Position Detail");
         crCoverWearCard.isEnable("Cover Wear Data");
+    }
+
+    public void goToThePositionDetailScreen(String positionName) {
+        searchPosition(positionName);
+        waitForElementToDisplay(cwViewIcon);
+        cwViewIcon.click("Position Detail");
     }
 
     public void verifyDeletePosition(String segmentName) {
@@ -721,9 +1025,12 @@ public class CoverWearPage extends BasePage{
     }
 
     public void verifySaveFunctionality(){
+        SyncUtil.waitFor(3000);
+        waitForElementVisible(cwSave,5000,1000);
+        waitForElementToBeClickable(cwSave);
         cwSave.click("Save");
         waitForElementToInvisible(cwSpecsLoader,40000);
-        Validator.assertTrue(!tonsConveyedCurrent.isVisible(),"Add Measurement window was not closed after save","Add measurement window was closed successfully");
+        Validator.assertTrue(!(tonsConveyedCurrent.isVisible()),"Add Measurement window was not closed after save","Add measurement window was closed successfully");
     }
 
     public void verifyPreviousMeasurementTable(String installationDate, String previousMeasurementDate, String previousThickness){
@@ -1149,4 +1456,447 @@ public class CoverWearPage extends BasePage{
         noOfColumnsField.clear();
         noOfColumnsField.sendKeys(count);
     }
+
+    public void extractCoverGradeValue(){
+        String cwValue= cwGrade.getText();
+        getBundle().setProperty("coverWearValue", cwValue);
+    }
+
+    public String calculateCoverGradeValue(String topCoverValue, String bottomCoverValue) {
+        if (topCoverValue.equals(bottomCoverValue)) {
+            return topCoverValue;
+        } else {
+            return topCoverValue + "/" + bottomCoverValue;
+        }
+    }
+    public void verifyCoverGradeValue(){
+    waitForPageLoad(10000);
+    waitForElementVisible(cwTopCoverCompoundInput,20000,1000);
+    waitForElementVisible(cwBottomCoverCompoundInput,20000,1000);
+    String topCoverValue= cwTopCoverCompoundInput.getText();
+    String bottomCoverValue=cwBottomCoverCompoundInput.getText();
+    String extCoverWearValue= calculateCoverGradeValue(topCoverValue,bottomCoverValue);
+    String expectedValue = getBundle().getProperty("coverWearValue").toString();
+    Assert.assertEquals(expectedValue, extCoverWearValue, "CoverWear value matched");
+    }
+
+    public void verifyCoverWearHeader(){
+        waitForElementVisible(coverWearHeader,5000,1000);
+        Validator.assertTrue(coverWearHeader.getText().contains("Cover Wear Summary"),"Cover Wear Summary is not visible","Cover Wear Summary is visible");
+    }
+
+    public void verifyCoverWearCoulmnName(){
+        waitForElementVisible(hdConveyor,5000,1000);
+        Validator.assertTrue(hdConveyor.getText().contains("Conveyor"),"Conveyor is not visible","Conveyor is visible");
+        Validator.assertTrue(hdSite.getText().contains("Site"),"Site is not visible","Site is visible");
+        Validator.assertTrue(hdInstalledDate.getText().contains("Installed Date"),"Installed Date is not visible","Installed Date is visible");
+        Validator.assertTrue(hdCoverGrade.getText().contains("Cover Grade"),"Cover Grade is not visible","Cover Grade is visible");
+        Validator.assertTrue(hdDurometer.getText().contains("Durometer Shore A"),"Durometer Shore A is not visible","Durometer Shore A is visible");
+        Validator.assertTrue(hdRemainingLife.getText().contains("Remaining Life by Time"),"Remaining Life by Time is not visible","Remaining Life by Time is visible");
+        Validator.assertTrue(hdRemainingCover.getText().contains("Remaining Cover %"),"Remaining Cover % is not visible","Remaining Cover % is visible");
+        Validator.assertTrue(hdMore.getText().contains("More"),"More is not visible","More is visible");
+    }
+
+    public void verifyPaginationDropDown(){
+        waitForPageLoad(10000);
+        waitForElementVisible(cwConveyorName,10000,1000);
+        waitForElementVisible(btPgDropDown,10000,1000);
+        waitForElementToBeClickable(btPgDropDown);
+        btPgDropDown.click();
+        waitForElementVisible(ddlPaginationFirstValue,5000,1000);
+        Validator.assertTrue(ddlPaginationFirstValue.getText().contains("10"),"Pagination value 10 is not displayed","Pagination value 10 is displayed");
+        Validator.assertTrue(ddlPaginationSecondValue.getText().contains("25"),"Pagination value 25 is not displayed","Pagination value 25 is displayed");
+        Validator.assertTrue(ddlPaginationThirdValue.getText().contains("50"),"Pagination value 50 is not displayed","Pagination value 50 is displayed");
+    }
+
+    public void verifyPaginationForwardArrowButton(){
+        waitForElementVisible(btPgNext,5000,1000);
+        waitForElementToBeClickable(btPgNext);
+        btPgNext.jsClick();
+        Validator.assertTrue(btPgHighlightedValue.getText().contains("2"),"Pagination is not present at 2","Pagination is present at 2");
+    }
+
+    public void clickAdd(){
+        waitForElementVisible(cwAddNew,5000,1000);
+        waitForElementToBeClickable(cwAddNew);
+        cwAddNew.click();
+        waitForElementVisible(dialogBox,5000,1000);
+        Validator.assertTrue(dialogBox.isDisplayed(),"Dialogbox is not displayed","Dialogbox is displayed");
+    }
+
+    public void verifyNonMandatoryFields(){
+        waitForPageLoad(4000);
+        waitForElementVisible(tbTonsConveyedCurrentlabel,5000,1000);
+        Validator.assertFalse(tbTonsConveyedCurrentlabel.getText().contains("*"),"TonsConveyedCurrent Mandatory field","TonsConveyedCurrent Not Mandatory field");
+        waitForElementVisible(tbTemperaturelabel,5000,1000);
+        Validator.assertFalse(tbTemperaturelabel.getText().contains("*"),"Temperature Mandatory field","Temperature Not Mandatory field");
+    }
+
+    public void addMeasurmentPopUpFields(String CustSiteName,String ConveyorName,String Position){
+        waitForPageLoad(5000);
+        dropdownSelectSearch(cwSiteDropDown, cwInput, CustSiteName);
+        waitForPageLoad(10000);
+        dropdownSelectSearch(cwConveyorDropDown, cwInput, ConveyorName);
+        waitForElementVisible(cwPositionDropDown,5000,500);
+        dropdownSelect(cwPositionDropDown, ListItem, Position); }
+
+    public void typeReadingValues(String value){
+        for(int i=1;i<8;i++)
+        {
+            WebElement reading=  driver.findElement(By.xpath("(//td[@id='datapointmeasurement']//input)["+i+"]"));
+            reading.clear();
+            reading.sendKeys(value);
+        }
+    }
+    public void addMeasurementReadingsValue(String durometerValue,String value){
+        waitForPageLoad(5000);
+        waitForElementVisible(inpdurometerValue,10000,1000);
+        inpdurometerValue.type(durometerValue);
+        waitForElementVisible(inpdurometerValue,3000,1000);
+        typeReadingValues(value);
+    }
+    public void addTempAndTonsValueAsZero(String zero){
+        waitForElementVisible(tonsConveyedCurrent,20000,1000);
+        tonsConveyedCurrent.type(zero);
+        temperatureField.type(zero);
+    }
+
+    public void addDeviceInformation(String device ,String velocity,String thickness,String surfaceTemp,String testPos){
+        waitForElementVisible(deviceInstrumentField,5000,1000);
+        deviceInstrumentField.type(device);
+        velocityField.type(velocity);
+        calibrationThicknessField.type(thickness);
+        surfaceTemperatureField.type(surfaceTemp);
+        testPositionField.type(testPos);
+    }
+
+    public void verifyUserSavedMeasurementDetails(String CustSiteName ,String ConveyorName){
+        waitForPageLoad(5000);
+        waitForElementToBeClickable(cwEditSpec);
+        cwEditSpec.click();
+        waitForElementVisible(conveyorField,5000,1000);
+        waitForElementVisible(siteField,5000,1000);
+        SyncUtil.waitFor(2000);
+        Validator.assertTrue(siteField.getAttribute("value").contains(CustSiteName),"Site value misMatch","Site value matched");
+        Validator.assertTrue(conveyorField.getAttribute("value").contains(ConveyorName),"Conveyor value misMatch","Conveyor value matched");
+    }
+
+    public void verifyDataHeaderUnitAsMetric(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,5000,1000);
+        waitForElementToBeClickable(unitIcon);
+        unitIcon.click();
+        waitForElementVisible(cbMetricUnit,5000,1000);
+        Validator.assertTrue(cbMetricUnit.isDisplayed(),"Metric unit is not selected","Metric unit is selected");
+//        unitIcon.click();
+    }
+        public void verifyDataHeaderUnitAsImperial(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,5000,1000);
+        waitForElementToBeClickable(unitIcon);
+        SyncUtil.waitFor(5000);
+        unitIcon.click();
+        SyncUtil.waitFor(10000);
+        waitForElementVisible(cbImperialUnit,5000,1000);
+        Validator.assertTrue(cbImperialUnit.isDisplayed(),"Imperial unit is not selected","Imperial unit is selected");
+    }
+
+
+    public void verifyDataInMetric(String metricValue){
+        waitForElementVisible(beltWidthFieldLabel,5000,1000);
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(beltWidthFieldLabel.getText().contains("mm"),"Metric unit is not selected","Metric unit is selected");
+        waitForElementVisible(beltWidthFieldLabel,5000,1000);
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(beltWidthField.getAttribute("value").contains(metricValue),"Metric value is not matching","Metric value is matching");
+    }
+
+    public void verifyDataInImperial(String imperialValue){
+        waitForElementVisible(beltWidthFieldLabel,5000,1000);
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(beltWidthFieldLabel.getText().contains("in"),"Imperial unit is not selected","Imperial unit is selected");
+        waitForElementVisible(beltWidthField,5000,1000);
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(beltWidthField.getAttribute("value").contains(imperialValue),"Imperial value is not matching","Imperial value is matching");
+    }
+
+    public void addDataAsMetric(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,5000,1000);
+        waitForElementToBeClickable(unitIcon);
+        unitIcon.click();
+        waitForElementVisible(btMetricUnit,5000,1000);
+        waitForElementToBeClickable(btMetricUnit);
+        btMetricUnit.click();
+    }
+
+    public void addDataAsImperial(){
+        waitForPageLoad(5000);
+        waitForElementVisible(unitIcon,15000,1000);
+        waitForElementToBeClickable(unitIcon);
+        unitIcon.click();
+        waitForElementVisible(btImperialUnit,15000,1000);
+        waitForElementToBeClickable(btImperialUnit);
+        btImperialUnit.click();
+    }
+
+    public void addNewMeasurementWithWidth(String conveyorName, String siteName, String position, String beltWidth) {
+        cwAddNew.click("Add New Measurement");
+        waitForElementToDisplay(cwSiteDropDown);
+        waitForPageLoad(5000);
+        dropdownSelectSearch(cwSiteDropDown, cwInput, siteName);
+        waitForPageLoad(5000);
+        dropdownSelectSearch(cwConveyorDropDown, cwInput, conveyorName);
+        dropdownSelect(cwPositionDropDown, ListItem, position);
+        waitForPageLoad(5000);
+        SyncUtil.waitFor(5000);
+        waitForElementToBeClickable(cwEditSpec);
+        cwEditSpec.click("Edit");
+        waitForElementVisible(cwBeltWidth,10000,1000);
+        waitForElementToBeClickable(cwBeltWidth);
+        SyncUtil.waitFor(5000);
+        cwBeltWidth.clear();
+        cwBeltWidth.sendKeys(beltWidth);
+        cwSave.click();
+        waitForElementToInvisible(cwSpecsLoader,15000);
+    }
+
+    public void clickAddMeasurment(){
+        waitForElementVisible(btAdd,5000,1000);
+        waitForElementToBeClickable(btAdd);
+        waitForPageLoad(5000);
+        btAdd.jsClick();
+        waitForElementVisible(dialogBox,20000,1000);
+        Validator.assertTrue(dialogBox.isDisplayed(),"Dialogbox is not displayed","Dialogbox is displayed");
+    }
+
+    public void verifyGuazeImageInSpec(){
+        waitForPageLoad(5000);
+        waitForElementVisible(imgGuazeMeter,10000,1000);
+        Validator.assertTrue(imgGuazeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
+        }
+
+    public void verifyGuazeEmptyData(){
+        waitForElementVisible(getCwRemainingCoverPercent,10000,1000);
+        Validator.assertTrue(getCwRemainingCoverPercent.getText().equals("--"),"Guaze data is not empty","Guaze data meter is empty");
+    }
+
+    public void verifyWearRateStatTable(){
+        waitForElementVisible(hdWearRateStatTable,10000,1000);
+        Validator.assertTrue(hdWearRateStatTable.isDisplayed(),"Wear Rate Statistics & Projections Table is not displayed","Wear Rate Statistics & Projections Table is displayed");
+    }
+
+    public void verifyWearRateTableValueAreYear(){
+        waitForElementVisible(thYearsUnit,10000,1000);
+        Validator.assertTrue(thYearsUnit.getText().contains("Year"),"Year Value is not in Year","Year Value is in Year");
+        Validator.assertTrue(thEstTotalLifeUnit.getText().contains("Year"),"Estimate Total Life Value is not in Year","Estimate Total Life Value is in Year");
+        Validator.assertTrue(thEstTotalCostPerLifeUnit.getText().contains("Year"),"Total Cost per Year Value is not in Year","Total Cost per Year Value is in Year");
+    }
+    public void verifyWearRateStatAndProjectionFields(){
+      waitForElementVisible(thTonsConveyed,10000,1000);
+      Validator.assertTrue(thTonsConveyed.isDisplayed(),"Tons Conveyed is not displayed","Tons Conveyed is displayed");
+      Validator.assertTrue(thYears.isDisplayed(),"Year is not displayed","Year is displayed");
+      Validator.assertTrue(thWearRate.isDisplayed(),"Wear rate is not displayed","Wear rate is displayed");
+      Validator.assertTrue(thProjectedFutureTons.isDisplayed(),"Projected Future Tons is not displayed","Projected Future Tons is displayed");
+      Validator.assertTrue(thProjectedFutureLife.isDisplayed(),"Projected Future Life is not displayed","Projected Future Life is displayed");
+      Validator.assertTrue(thEstTotalLifeTons.isDisplayed(),"Estimate Total Life Tons is not displayed","Estimate Total Life Tons is displayed");
+      Validator.assertTrue(thEstTotalLifeYears.isDisplayed(),"Estimate Total Life Years is not displayed","Estimate Total Life Years is displayed");
+      Validator.assertTrue(thEstTotalCostPerTonLife.isDisplayed(),"Est. Total Cost per Ton is not displayed","Est. Total Cost per Ton is displayed");
+      Validator.assertTrue(thEstTotalCostPerYearLife.isDisplayed(),"Est. Total Cost per Year is not displayed","Est. Total Cost per Year is displayed");
+    }
+
+    public void verifyPositionHeader(String positionName){
+        waitForPageLoad(3000);
+        waitForElementVisible(hdPositionName,10000,1000);
+        Validator.assertTrue(hdPositionName.getText().contains(positionName),"Position Name doesn't match","Position Name matches");
+    }
+
+    public void verifySpecificationFormat(String beltConstruction, String beltWidth, String topCoverCompound, String bottomCoverCompound, String topCoverThickness, String bottomCoverThickness){
+        waitForElementVisible(hdSpecificationValue,10000,1000);
+        Validator.assertTrue(hdSpecificationValue.getText().contains("Specification: "+beltConstruction+" "+beltWidth+" - "+topCoverThickness+" / "+bottomCoverThickness+" "+topCoverCompound+"/"+bottomCoverCompound),"Specification Value doesn't match","Specification Value matches");
+    }
+
+    public void verifyDateOfInsFormat(String date){
+        waitForElementVisible(hdDateOfInstallation,10000,1000);
+        Validator.assertTrue(hdDateOfInstallation.getText().contains("Date of Installation: "+date),"Date of installation doesn't match","Date of installation matches");
+    }
+
+    public void verifyNewDurometerFormat(String durometer){
+        waitForElementVisible(hdNewDurometerValue,10000,1000);
+        Validator.assertTrue(hdNewDurometerValue.getText().contains("Durometer (New Belt): "+durometer),"Durometer Value doesn't match","Durometer Value matches");
+    }
+
+    public void verifyDateAndSpecificationValue(String date,String beltConstruction, String beltWidth, String topCoverCompound, String bottomCoverCompound, String topCoverThickness, String bottomCoverThickness){
+        waitForElementVisible(hdCoverWearBreadCrumb,10000,1000);
+        hdCoverWearBreadCrumb.jsClick();
+        waitForPageLoad(5000);
+        waitForElementVisible(hdInstalledBelt,5000,1000);
+        waitForElementToBeClickable(hdInstalledBelt);
+        hdInstalledBelt.click();
+        waitForElementVisible(ddBeltConstructionValue,5000,1000);
+        Validator.assertTrue(convertDateFormat(ddInstallationDateValue.getAttribute("value")).equalsIgnoreCase(date),"Date Value doesn't match","Date Value matches");
+        Validator.assertTrue(ddBeltConstructionValue.getAttribute("value").equalsIgnoreCase(beltConstruction),"Belt Construction Value doesn't match","Belt Construction Value matches");
+        Validator.assertTrue(ddBeltWidthValue.getAttribute("value").equalsIgnoreCase(beltWidth),"Date Value doesn't match","Date Value matches");
+        Validator.assertTrue(ddTopCoverThicknessValue.getAttribute("value").equalsIgnoreCase(topCoverThickness),"Top Cover Thickness Value doesn't match","Top Cover Thickness Value matches");
+        Validator.assertTrue(ddBottomCoverThicknessValue.getAttribute("value").equalsIgnoreCase(bottomCoverThickness),"Bottom Cover Thickness Value doesn't match","Bottom Cover Thickness Value matches");
+        Validator.assertTrue(ddTopCoverCompoundValue.getAttribute("value").equalsIgnoreCase(topCoverCompound),"Top Cover Compound Value doesn't match","Top Cover Compound Value matches");
+        Validator.assertTrue(ddBottomCoverCompoundValue.getAttribute("value").equalsIgnoreCase(bottomCoverCompound),"Bottom Cover Compound Value doesn't match","Bottom Cover Compound Value matches");
+    }
+
+    public void verifyProfileGraphIsDisplayed(){
+        waitForElementVisible(hdWearProfile,10000,1000);
+        Validator.assertTrue(hdWearProfile.getText().contains("Wear Profile"),"Wear Profile Graph is not displayed","Wear Profile Graph is displayed");
+    }
+
+    public void verifyCoverWearPositionTableHeader(){
+        waitForElementVisible(hdPositionTable,5000,1000);
+        Validator.assertTrue(hdPositionTable.getText().equalsIgnoreCase("Positions"),"Positions is not visible","Positions is visible");
+    }
+
+    public void verifyCoverWearPositionTableCoulmnName(){
+        waitForElementVisible(hdConveyor,5000,1000);
+        Validator.assertTrue(hdPosition.getText().contains("Position"),"Position is not visible","Position is visible");
+        Validator.assertTrue(hdInstalledDate.getText().contains("Installed Date"),"Installed Date is not visible","Installed Date is visible");
+        Validator.assertTrue(hdTonsConveyed.getText().contains("Tons Conveyed"),"Tons Conveyed is not visible","Tons Conveyed is visible");
+        Validator.assertTrue(hdAgeToDate.getText().contains("Age to date"),"Age to date is not visible","Age to date is visible");
+        Validator.assertTrue(hdLastRecorded.getText().contains("Last Recorded"),"Last Recorded is not visible","Last Recorded is visible");
+        Validator.assertTrue(hdLowestReading.getText().contains("Lowest Reading"),"Lowest Reading is not visible","Lowest Reading is visible");
+        Validator.assertTrue(hdDurometer.getText().contains("Durometer Shore A"),"Durometer Shore A is not visible","Durometer Shore A is visible");
+        Validator.assertTrue(hdRemainingLife.getText().contains("Remaining Life by Time"),"Remaining Life by Time is not visible","Remaining Life by Time is visible");
+        Validator.assertTrue(hdRemainingCover.getText().contains("Remaining Cover %"),"Remaining Cover % is not visible","Remaining Cover % is visible");
+        Validator.assertTrue(hdMore.getText().contains("More"),"More is not visible","More is visible");
+    }
+
+    public void verifyAddNewPositionPopUp(){
+        waitForElementVisible(crDialog,5000,1000);
+        waitForPageLoad(5000);
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(hdPositionTable.getText().equalsIgnoreCase("Positions"),"Positions is not visible","Positions is visible");
+        waitForPageLoad(5000);
+    }
+    public void verifyCustomerField(String site){
+        waitForPageLoad(5000);
+        SyncUtil.waitFor(20000);
+        waitForElementVisible(tbCustomer,5000,1000);
+        Validator.assertTrue(tbCustomer.getAttribute("value").equalsIgnoreCase(site),"Customer value doesnt match","Customer value match");
+         }
+
+    public void verifyConveyorField(String conveyor){
+        waitForElementVisible(tbConveyor,5000,1000);
+        Validator.assertTrue(tbConveyor.getAttribute("value").equalsIgnoreCase(conveyor),"Conveyor value doesnt match","Conveyor value match");
+    }
+    public void verifyWidthField(String width){
+        Validator.assertTrue(tbWidth.getAttribute("value").equalsIgnoreCase(width),"Width value doesnt match","Width value match");
+    }
+    public void addSegmentField(String segment){
+        waitForElementToBeClickable(tbSegment);
+        tbSegment.type(segment);
+        }
+    public void addTonsConveyedField(String zero){
+        waitForElementToBeClickable(tbTonsConveyed);
+        tbTonsConveyed.type(zero);
+    }
+    public void addDurometerField(String durometer){
+        waitForElementToBeClickable(tbDurometer);
+        tbDurometer.type(durometer);
+     }
+     public void addTopBottomValue(){
+        waitForElementToBeClickable(rbtTop);
+         rbtTop.click();
+        Validator.assertTrue(tbTop.getAttribute("aria-checked").equalsIgnoreCase("true"),"Top is not selected","Top is selected");
+     }
+
+    public void clickOnSave(){
+        waitForElementToBeClickable(btSave);
+        btSave.jsClick();
+    }
+    public void verifySegmentCreation(String positionName) {
+        waitForPageLoad(5000);
+        searchPosition(positionName);
+        waitForElementVisible(txtPosition,10000,1000);
+        Validator.assertTrue(txtPosition.getText().equalsIgnoreCase(positionName), "Position is not created", "Position is created");
+    }
+    public void verifySpecificationHeader() {
+        waitForPageLoad(5000);
+        waitForElementVisible(specificationHeader,10000,1000);
+        Validator.assertTrue(specificationHeader.getText().equalsIgnoreCase("Specification"), "Specification header is not visible", "Specification header is visible");
+    }
+    public void verifySpecificationTableFields() {
+        waitForPageLoad(5000);
+        Validator.assertTrue(btGuazeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
+        Validator.assertTrue(txtSite.isDisplayed(),"Site is not displayed","Site is displayed");
+        Validator.assertTrue(txtConveyor.isDisplayed(),"Conveyor is not displayed","Conveyor is displayed");
+        Validator.assertTrue(txtBeltWidth.isDisplayed(),"BeltWidth is not displayed","BeltWidth is displayed");
+        Validator.assertTrue(txtTopCoverThicknessNominal.isDisplayed(),"TopCoverThicknessNominal is not displayed","TopCoverThicknessNominal is displayed");
+        Validator.assertTrue(txtBottomCoverThicknessNominal.isDisplayed(),"BottomCoverThicknessNominal is not displayed","BottomCoverThicknessNominal is displayed");
+        Validator.assertTrue(txtBeltLength.isDisplayed(),"BeltLength is not displayed","BeltLength is displayed");
+        Validator.assertTrue(txtTopCoverThicknessActual.isDisplayed(),"TopCoverThicknessActual is not displayed","TopCoverThicknessActual is displayed");
+        Validator.assertTrue(txtBottomCoverThicknessActual.isDisplayed(),"BottomCoverThicknessActual is not displayed","BottomCoverThicknessActual is displayed");
+        Validator.assertTrue(txtNoOfDatapoints.isDisplayed(),"Number Of Datapoints is not displayed","Number Of Datapoints is displayed");
+        Validator.assertTrue(txtDurometer.isDisplayed(),"Durometer is not displayed","Durometer is displayed");
+        Validator.assertTrue(txtPriceOfBelt.isDisplayed(),"PriceOfBelt is not displayed","PriceOfBelt is displayed");
+        Validator.assertTrue(txtNoOfColumns.isDisplayed(),"Number Of Columns is not displayed","Number Of Columns is displayed");
+        Validator.assertTrue(txtTopCoverCompound.isDisplayed(),"TopCoverCompound is not displayed","TopCoverCompound is displayed");
+        Validator.assertTrue(txtBottomCoverCompound.isDisplayed(),"BottomCoverCompound is not displayed","SBottomCoverCompound is displayed");
+        Validator.assertTrue(txtTopCoverCriticalThickness.isDisplayed(),"TopCoverCriticalThickness is not displayed","TopCoverCriticalThickness is displayed");
+        Validator.assertTrue(txtTopCoverPoorThickness.isDisplayed(),"TopCoverPoorThicknessis not displayed","TopCoverPoorThickness is displayed");
+        Validator.assertTrue(txtBottomCoverCriticalThickness.isDisplayed(),"BottomCoverCriticalThickness is not displayed","BottomCoverCriticalThickness is displayed");
+        Validator.assertTrue(txtBottomCoverPoorThickness.isDisplayed(),"BottomCoverPoorThickness is not displayed","BottomCoverPoorThickness is displayed");
+        Validator.assertTrue(cwEditSpec.isDisplayed(),"Edit button is not displayed","Edit button is displayed");
+        Validator.assertTrue(cwSave.isDisplayed(),"Save button meter is not displayed","Save button is displayed");
+        Validator.assertTrue(cwCancel.isDisplayed(),"Cancel button meter is not displayed","Cancel button is displayed");
+    }
+
+    public void clickOnExportPDF() {
+        waitForElementVisible(cwExport,5000,1000);
+        cwExport.click();
+    }
+
+    public void verifyExportPopUp() {
+        waitForElementVisible(crDialog,10000,1000);
+        Validator.assertTrue(downloadPopup.isDisplayed(),"Pop Up is not visible","Pop Up is visble");
+        Validator.assertTrue(dateRangeFrom.isDisplayed(),"Date Range From is not visible","Date Range From is visible");
+        Validator.assertTrue(hdPositionExportPop.isDisplayed(),"Position is not visible","Position is visible");
+        Validator.assertTrue(hdInclude.isDisplayed(),"Include is not visible","Include is visible");
+        includePositionTypes.click();
+        Validator.assertTrue(includeDropdownContent(),"Include Contents is not visible","Include Contents is visible");
+        multiSelectCloseBtn.click();
+        verifyCommentAndPhotos();
+        Validator.assertTrue(applyBtn.isDisplayed(),"Apply Button is not visible","Apply Button is visible");
+        Validator.assertTrue(cancelBtn.isDisplayed(),"Cancel Button is not visible","Cancel Button is visible");
+    }
+
+    public void clickReportDownloadButton() {
+       waitForPageLoad(5000);
+       waitForElementVisible(cwCheckbox,5000,1000);
+       waitForElementToBeClickable(btReportDownload);
+       btReportDownload.click();
+       waitForElementVisible(crDialog,5000,1000);
+       Validator.assertTrue(crDialog.isVisible(),"Dialog is not visible","Dialog is visible");
+    }
+    public void extractCoverWearData() {
+       waitForPageLoad(5000);
+        getBundle().setProperty("cwConveyorValue", cwConveyorName.getText());
+        getBundle().setProperty("cwSiteValue", cwSiteName.getText());
+        getBundle().setProperty("cwInstallDateValue", cwInstalledDatee.getText());
+        getBundle().setProperty("cwCoverGradeValue", cwGrade.getText());
+        getBundle().setProperty("cwDurometerValue", cwDurometer.getText());
+        getBundle().setProperty("cwRemainingTimeValue", cwRemainingLife.getText());
+        getBundle().setProperty("cwRemainingPerValue", cwRemainingCover.getText());
+    }
+
+    public void verifyCoverWearPDFContents(String conveyorName, String siteName) {
+        PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + conveyorName + "_" + siteName + ".pdf");
+        try {
+            String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+            Validator.assertTrue(val.contains(getBundle().getProperty("cwConveyorValue").toString()), "Conveyor in PDF Report does not match", "Conveyor in PDF Report match");
+            Validator.assertTrue(val.contains(getBundle().getProperty("cwSiteValue").toString()), "Site in PDF Report does not match", "Site in PDF Report match");
+            Validator.assertTrue(val.contains(getBundle().getProperty("cwDurometerValue").toString()), "Durometer in PDF Report does not match", "Durometer in PDF Report match");
+      } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

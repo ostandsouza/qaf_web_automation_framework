@@ -15,4 +15,13 @@ public class DashboardSteps {
     public void navigateToUserMyProfileScreen(){
         DashboardPage.getInstance().goToProfilePage();
     }
+    @QAFTestStep(description="Navigate to Add Corporate Page")
+    public void navigateToTheAddCorporatePage(){
+        DashboardPage.getInstance().goToAddCorp();
+    }
+
+    @QAFTestStep(description="Navigate to Add Site Page")
+    public void navigateToTheAddSitePage(){
+        DashboardPage.getInstance().goToSiteShop();
+    }
 }

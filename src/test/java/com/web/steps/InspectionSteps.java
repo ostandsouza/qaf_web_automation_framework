@@ -1,8 +1,10 @@
 package com.web.steps;
 
 import com.common.utils.MiscUtils;
+import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
+import com.web.pages.CorporatePage;
 import com.web.pages.InspectionPage;
 
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 public class InspectionSteps {
 
 	InspectionPage inspectionpage = new InspectionPage();
+
+	CorporatePage corpPage = new CorporatePage();
 	
 	@QAFTestStep(description="Select Inspection on the Navigation Pane")
 	public void selectInspectionOnTheNavigationPane(){
@@ -273,4 +277,92 @@ public class InspectionSteps {
 	public void enterInspectionName(String inspectionName){
 		inspectionpage.enterInspectionName(inspectionName);
 	}
+
+	@QAFTestStep(description="Navigate to inspection list screen and wait for data load")
+	public void navigateToInspectionPage(){
+		inspectionpage.goToInspectionScreenAndWait();
+	}
+	@QAFTestStep(description="Verify inspection total count is displayed")
+	public void verifyInspecTotalCount(){
+		inspectionpage.verifyInspectionCount();
+	}
+	@QAFTestStep(description="Verify number of the to be completed inspection is displayed")
+	public void verifyInspecToBeCompleteCount(){
+		inspectionpage.verifyInspectionCompleteCount();
+	}
+
+	@QAFTestStep(description="Extract inspection item status value for {Inspection}")
+	public void extractInspStatusValue(String inspection){
+		inspectionpage.waitForPageLoad(10000);
+		inspectionpage.searchInspectionItem(inspection);
+//		inspectionpage.clickOnViewBtn();
+		inspectionpage.extractStatusValue();
+	}
+
+	@QAFTestStep(description="Click on view button")
+	public void clickOnViewButton(){
+		inspectionpage.clickOnViewBtn();
+	}
+
+	@QAFTestStep(description="Verify the inspection item status value")
+	public void verifyInspectionStatusValue(){
+		inspectionpage.verifyStatusValue();
+	}
+
+	@QAFTestStep(description="Extract inspection item condition value for {Inspection}")
+	public void extractInspConditionValue(String inspection){
+		inspectionpage.waitForPageLoad(10000);
+		inspectionpage.searchInspectionItem(inspection);
+		inspectionpage.extractConditionValue();
+	}
+
+	@QAFTestStep(description="Verify the inspection item condition value")
+	public void verifyInspectionConditionValue(){
+		inspectionpage.verifyConditionValue();
+	}
+
+	@QAFTestStep(description="Verify duplicate inspection event for {InspectionName}")
+	public void verifyTheDulpicateInspection(String inspectionName){
+		inspectionpage.verifyDulpicateInspection(inspectionName);
+	}
+
+	@QAFTestStep(description="Add the inspection Event for conveyor {ConveyorName} with {InspectionName} {CustSiteName} {FullName}")
+	public void addInspectionEventForConveyor(String conveyorName, String inspectionName, String custSiteName, String fullName){
+		inspectionpage.goToInspection();
+		inspectionpage.addInspection(inspectionName,custSiteName,fullName);
+	}
+
+	@QAFTestStep(description="Add duplicate inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void createDulpicateInspectionItemMandatoryFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
+		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
+		inspectionpage.saveDulpicateInspectionItem();
+	}
+
+	@QAFTestStep(description = "Click on corporates and open corperate {Corporate}")
+	public void navigateToCorporate(String corp) {
+		corpPage.clickCorporates();
+		corpPage.searchCorporate(corp);
+		inspectionpage.viewAndVerifyCorporatePage();
+	}
+
+	@QAFTestStep(description = "Verify Inspection Tile is clickable")
+	public void verifyTheInspectionCardClick() {
+		inspectionpage.verifyInspectionCardClick();
+	}
+
+	@QAFTestStep(description = "Click on inspection dashboard symbol and verify user is able to click on dashboard")
+	public void clickAndVerifyInspectionDashboard() {
+		inspectionpage.inspectionDashboardBtnClick();
+	}
+	@QAFTestStep(description = "Verify number of inpection items for {Total} {Critical} {Poor} {Fault} {Good}")
+	public void verifyTheInspectionItemsCounts(String total, String critical,String poor,String fault,String good) {
+		inspectionpage.verifyInspectionItemsCounts(total,critical,poor,fault,good);
+	}
+
+	@QAFTestStep(description = "Click on site dropdown and verify user is able to select multiple site {SiteName} {SiteName2}")
+	public void clickAndVerifyMultipleSelectionInSiteDropDown(String siteName,String siteName2) {
+		inspectionpage.siteDropDownClick();
+		inspectionpage.verifyMultiSelInSiteDropDown(siteName,siteName2);
+	}
+
 }

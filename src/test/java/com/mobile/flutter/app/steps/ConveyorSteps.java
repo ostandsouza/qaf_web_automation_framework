@@ -1,6 +1,7 @@
 package com.mobile.flutter.app.steps;
 
 import com.mobile.flutter.app.pages.ConveyorPage;
+import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
@@ -66,5 +67,6 @@ public class ConveyorSteps {
         Validator.assertTrue(DashboardNativePage.getInstance().filterSiteFromDropdown(editDistCorpName),"Filter corporate multiselect not working as expected","Filter corporate multiselect is working as expected");
 //        Validator.assertTrue(DashboardNativePage.getInstance().saveFilter(),"Unable lto save filter changes in corporate screen","Able lto save filter changes in corporate screen");
     }
+
 }
 

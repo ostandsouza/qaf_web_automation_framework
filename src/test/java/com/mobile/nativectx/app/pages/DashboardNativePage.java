@@ -518,5 +518,17 @@ public class DashboardNativePage extends NativeBasePage {
         return flag;
     }
 
+//    public void goToCorporatePage() {
+//        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//        corporateIcon.click();
+//        switchContext("FLUTTER");
+//    }
 
+    public void corporateSymbolClick()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        corporateIcon.click();
+        switchContext("FLUTTER");
+
+    }
 }

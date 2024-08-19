@@ -256,4 +256,38 @@ public class CorporateSteps {
         corpPage.updateCorp();
     }
 
+    @QAFTestStep(description = "User navigates to Add coporates page")
+    public void navigateToAddCorporate() {
+        corpPage.clickCorporates();
+        corpPage.goToAddCorporate();
+    }
+
+    @QAFTestStep(description = "Add Corporate fields {companyName} {address}")
+    public void addAllFields(String companyName,String address) {
+        corpPage.selectDistributorCorp();
+        corpPage.addCorporateDetails(companyName,address);
+    }
+
+
+    @QAFTestStep(description = "Verify the corporate bread crumb")
+    public void verifyUserBreadCrumb() {
+        corpPage.verifyUserBreadCrumb();
+    }
+
+    @QAFTestStep(description = "Verify company name as blank")
+    public void verifyEmptyField() {
+        corpPage.verifyBlankField();
+    }
+
+    @QAFTestStep(description="Verify {mandatoryCount} mandatory fields")
+    public void verifyMandatoryFields(int mandatoryCount) {
+        corpPage.verifyManFields(mandatoryCount);
+    }
+
+    @QAFTestStep(description="Verify mandatory fields is filled")
+    public void verifyMandatoryFilled() {
+    	corpPage.verifyMandatoryFields();
+    }
+
+
 }
