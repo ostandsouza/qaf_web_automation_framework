@@ -129,8 +129,6 @@ Scenario: Verify profile dropdown
 @key:UserManagement_Bulk_Upload
 Scenario: Upload file having correct file format
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
     Then Navigate to User Bulk Upload
     And Verify the success message after uploading file with name '${File}'
 

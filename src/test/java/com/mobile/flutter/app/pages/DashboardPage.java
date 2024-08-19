@@ -5,6 +5,7 @@ import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
+import com.qmetry.qaf.automation.util.Validator;
 import org.testng.Assert;
 
 public class DashboardPage extends FlutterBasePage {
@@ -65,7 +66,10 @@ public class DashboardPage extends FlutterBasePage {
     public boolean goToAddCorp() {
         loadingDashboard.waitForTheElementToBeInvisible(45);
         addIcon.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(addIcon.isDisplayed(),"Add Icon is not Visible","Add Icon is Visible");
         addIcon.click();
+        Validator.assertTrue(addCorporate.isDisplayed(),"Add Corporate is not Visible","Add Corporate is Visible");
+        Validator.assertTrue(addSiteShop.isDisplayed(),"Add Site is not Visible","Add Site is Visible");
         addCorporate.click();
         return CorporatePage.getInstance().isCompanyPage();
     }
@@ -74,6 +78,8 @@ public class DashboardPage extends FlutterBasePage {
         loadingDashboard.waitForTheElementToBeInvisible(45);
         addIcon.waitForTheElementToBeVisible(30);
         addIcon.click();
+        Validator.assertTrue(addCorporate.isDisplayed(),"Add Corporate is not Visible","Add Corporate is Visible");
+        Validator.assertTrue(addSiteShop.isDisplayed(),"Add Site is not Visible","Add Site is Visible");
         addSiteShop.click();
         return CorporatePage.getInstance().isCompanyPage();
     }

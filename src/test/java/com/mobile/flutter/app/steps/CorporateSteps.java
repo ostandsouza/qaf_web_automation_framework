@@ -1,13 +1,20 @@
 package com.mobile.flutter.app.steps;
 
 import com.common.utils.SyncUtil;
+import com.mobile.flutter.app.pages.ConveyorPage;
 import com.mobile.flutter.app.pages.CorporatePage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 
+import java.time.Duration;
+
 public class CorporateSteps {
+
+    DashboardNativePage dashboardNativePage = new DashboardNativePage();
+    CorporatePage corporatePage = new CorporatePage();
+
 
     @QAFTestStep(description = "User navigates to add corporate screen with {CorpName} and {EditDistCorpName}")
     public void addCorpNavigation(String corpName, String editDistCorpName) {
@@ -171,6 +178,31 @@ public class CorporateSteps {
         DashboardNativePage.getInstance().filterDescendingOrder();
 
         Validator.assertTrue(DashboardNativePage.getInstance().saveFilter(),"Unable to save filter changes in corporate screen","Able lto save filter changes in corporate screen");
+    }
+
+
+    @QAFTestStep(description="Click on corporate symbol and verify it navigates to corporate list page")
+    public void clickAndVerifyCorpListNavigation(){
+        dashboardNativePage.corporateSymbolClick();
+        corporatePage.verifyCorpListPageNavigation();
+    }
+//    @QAFTestStep(description = "Navigate to corporate listing screen")
+//    public void nagivateToTheCorporateListScreen() {
+//        Validator.assertTrue(CorporatePage.getInstance().goBackToCorporateListScreen(),"Unable to navigate to corporate list screen from details screen","Able to navigate to corporate list screen from details screen");
+//    }
+    @QAFTestStep(description = "Go back to conveyor list screen")
+    public void verifyBackToTheConveyorListScreen() {
+//        CorporatePage.getInstance().verifyCorpListPage();
+        Validator.assertTrue(CorporatePage.getInstance().goBackToCorporateListScreen(),"Unable to navigate to corporate list screen from details screen","Able to navigate to corporate list screen from details screen");
+    }
+
+    @QAFTestStep(description="Verify default type of company field")
+    public void verifyTheDefaultTypeOfCompanyField(){
+        CorporatePage.getInstance().verifyDefaultCompField();
+    }
+    @QAFTestStep(description="Verify default type of site field is '${CompanyField}'")
+    public void verifyTheDefaultTypeOfSiteField(String value){
+        CorporatePage.getInstance().verifyDefaultSiteField(value);
     }
 
 

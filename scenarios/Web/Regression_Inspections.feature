@@ -375,10 +375,8 @@ Scenario: Verify success message after saving inspection event
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
-Scenario: Verify user is able to open the inspections from the corporate leve
+Scenario: Verify user is able to open the inspections from the corporate level
 
-  Given User is at Login page
-  When Login with '${UserName}' and '${Password}'
   And Click on corporates and open corperate '${Corporate}'
   Then Verify Inspection Tile is clickable
 

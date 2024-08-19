@@ -6,6 +6,7 @@ import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.mobile.utils.DIRECTION;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
+import com.qmetry.qaf.automation.util.Validator;
 import org.testng.Assert;
 
 import java.time.Duration;
@@ -350,5 +351,24 @@ public class CorporatePage extends FlutterBasePage {
         siteSearch.sendKeys(shopName);
         return corporateSiteListFirst.isVisible("Associated Shop");
     }
+//    public void verifyCorpListPage(){
+//        DashboardNativePage.getInstance().goToCorporatePage();
+//    }
+    public void verifyCorpListPageNavigation()
+    {
+        Validator.assertTrue(DashboardNativePage.getInstance().isCorporateList(),"User is not navigated to corporate list screen","User is not navigated to corporate list screen");
+    }
+
+    public void verifyDefaultCompField(){
+        companyType.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(companyType.getText().contains("j"),"Default Text is not present","Default Text is present");
+    }
+    public void verifyDefaultSiteField(String value){
+        companyType.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(companyType.getText().contains(value),"Default Text is not present","Default Text is present");
+    }
+
+
+
 
 }

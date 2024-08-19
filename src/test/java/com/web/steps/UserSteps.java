@@ -467,8 +467,8 @@ public class UserSteps extends BasePage {
 		userpage.clickContinentalUserAndVerifyLabel();
 	}
 
-	@QAFTestStep(description="Verify analysis bar is displayed uploading file with name {0}")
-	public void verifyTheAnalysisBar(String fileName){
+	@QAFTestStep(description="Verify analysis bar is displayed uploading file with name {File}")
+	public void verifyTheAnalysisBarDisplay(String fileName){
 		userpage.userFileImport(fileName);
 		userpage.verifyAnalysisBar();
 	}
