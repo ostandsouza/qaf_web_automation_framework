@@ -275,6 +275,78 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
     public CustomElement addDefaultImgSrc;
 
+    @FindBy(locator="//img[@src='/assets/img/upload_default.png']")
+    public CustomElement addCompanyDefaultImage;
+    @FindBy(locator="//div[@class='p-breadcrumb p-component']")
+    public CustomElement bcAddCompanyLink;
+
+    @FindBy(locator="xpath=(//span[text()='Corporates'])[2]")
+    public CustomElement bcCorporatesLink;
+
+    @FindBy(locator="xpath=//div[contains(@class,'p-panel-header')]//span[text()='Corporates']")
+    public CustomElement txtCorporateHeader;
+
+    @FindBy(locator="xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
+    public CustomElement bcHomeLink;
+
+    @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
+    public CustomElement btAdd;
+
+    @FindBy(locator = "//span[text()=\"Add Company\"]")
+    public CustomElement lnkAddCompany;
+
+    @FindBy(locator = "//h4[text()='New Company']")
+    public CustomElement txtCompanyHeader;
+
+    @FindBy(locator = "//button[contains(@aria-pressed, 'false') and @title='Toggle fullscreen view']")
+    public CustomElement iconMaximize;
+
+    @FindBy(locator = "//button[contains(@aria-pressed, 'true') and @title='Toggle fullscreen view']")
+    public CustomElement iconMaximized;
+
+    @FindBy(locator = "//li[@id='p-highlighted-option' and @aria-label=\"Distributor Corporate\"]")
+    public CustomElement rdbDistributorCorporate;
+
+    @FindBy(locator = "//div[contains(@class, 'pac-item')]")
+    public CustomElement autoSuggest;
+
+    @FindBy(locator ="//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
+    public CustomElement mapLocation;
+
+    @FindBy(locator = "//div//input[@formcontrolname='street']")
+    public CustomElement tbStreet;
+
+    @FindBy(locator = "//input[@formcontrolname='city']")
+    public CustomElement tbCity;
+
+    @FindBy(locator = "//input[@formcontrolname='zipcode']")
+    public CustomElement tbZipCode;
+
+    @FindBy(locator = "//input[@formcontrolname='state']")
+    public CustomElement tbState;
+
+    @FindBy(locator = "//input[@formcontrolname='country']")
+    public CustomElement tbCountry;
+
+    @FindBy(locator = "//span[normalize-space()='Cancel']")
+    public CustomElement btnCancel;
+
+    @FindBy(locator = "//span[normalize-space()='Apply']")
+    public CustomElement btnApply;
+
+    @FindBy(locator = "//div[contains(@class,'p-toast-summary') and contains(text(),'Success')]")
+    public CustomElement toastSuccess;
+
+    @FindBy(locator = "//p-card[@id='manualaddress-card']")
+    public CustomElement manualAddressCard;
+
+    @FindBy(locator = "//label[normalize-space()='Street and No.']")
+    public CustomElement textStreet;
+//    @FindBy(locator = "(//div[@class='card-inner-wrapper' and contains(div, 'Sites')])[1]")
+//    public CustomElement siteCard ;
+    @FindBy(locator = "//span[contains(@class,'p-panel-title') and text()='Sites']")
+    public CustomElement sitesHeader ;
+
 
     public void goToAddCompany() {
         addCompany.click("Add Company");
@@ -381,6 +453,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void selectDistributorShop() {
+        waitForElementVisible(drTypeofcompany,5000,500);
         drTypeofcompany.click("Corporate Type");
         waitForElementToDisplay(radioDistribtorshop);
         radioDistribtorshop.click("Distributor shop");
@@ -547,7 +620,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void deleteCorporate(String corpName) {
-        goToCorporate();
+//        goToCorporate();
         waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(corpName);
         btCheckbox.click();
@@ -698,7 +771,6 @@ public class CorporatePage extends BasePage{
         Validator.assertTrue(btnSaveEnabled.isDisplayed(),"Cancel button is not enabled","Cancel button is enabled");
     }
 
-
     public void verifyUserBreadCrumb()
     {
         waitForPageLoad(15000);
@@ -724,6 +796,175 @@ public class CorporatePage extends BasePage{
     public void verifyManFields(int mandatoryCount){
        Assert.assertEquals(driver.findElements(By.xpath("//div[not(@hidden)]/label/em[text()='*']/..")).size(), mandatoryCount, "Expected count does not match actual count");
     }
+
+//        waitForElementVisible(addCompanyDefaultImage,5000,500);
+//        waitForElementVisible(bcAddCompanyLink,10000,500);
+//        Assert.assertTrue(bcAddCompanyLink.isDisplayed(), "Breadcrumb element is not displayed");
+//        assertEquals(bcAddCompanyLink.getText(), "Home\nCorporates\nAdd", "Breadcrumb text does not match expected");
+//
+//    }
+
+    public void corporateLinkClick()
+    {
+        bcCorporatesLink.click();
+        waitForPageLoad(5000);
+        waitForElementVisible(txtCorporateHeader,5000,500);
+        Validator.assertTrue(txtCorporateHeader.isVisible(),"Page is not redirected to corporate-list page","Redirected to corporate-list page");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/companies/list"),"URL missMatch","URL validation passed");
+
+    }
+
+    public void addClick() {
+        waitForElementToDisplay(btAdd);
+        btAdd.click();
+    }
+
+    public void homeLinkClick()
+    {
+        waitForElementVisible(bcHomeLink,10000,500);
+        bcHomeLink.click();
+        waitForPageLoad(20000);
+        waitForElementVisible(bcAddCompanyLink,10000,500);
+        Assert.assertTrue(bcAddCompanyLink.isDisplayed(), "Breadcrumb element is not displayed");
+        assertEquals(bcAddCompanyLink.getText(), "Home\nSites", "Breadcrumb text does not match expected");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"URL missMatch","URL validation passed");
+
+    }
+    public void homePageVerify()
+    {
+        waitForElementVisible(bcAddCompanyLink,10000,500);
+        Assert.assertTrue(bcAddCompanyLink.isDisplayed(), "Breadcrumb element is not displayed");
+        assertEquals(bcAddCompanyLink.getText(), "Home\nSites", "Breadcrumb text does not match expected");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"URL missMatch","URL validation passed");
+
+    }
+
+    public void verifyAddUserLink()
+    {
+        waitForElementVisible(lnkAddCompany,5000,500);
+        Validator.assertTrue(lnkAddCompany.isVisible(),"Add Company link is not visible in navigation bar","Add company Link is visible in navigation bar");
+
+    }
+
+    public void verifyAddCompanyPage()
+    {
+        waitForElementVisible(bcAddCompanyLink,10000,500);
+        waitForElementVisible(txtCompanyHeader,5000,500);
+        Validator.assertTrue(txtCompanyHeader.isVisible(),"User is not in Add Company page","User is in Add Company page");
+
+
+    }
+
+    public void maximizeIconClick()
+    {
+        waitForElementVisible(iconMaximize,5000,500);
+        iconMaximize.click();
+
+    }
+
+    public void verifyMapMaximization()
+    {
+        waitForElementVisible(iconMaximized,5000,500);
+        Validator.assertTrue(iconMaximized.isVisible(),"The map is not maximized","The map is maximized");
+
+    }
+
+    public void setNewLocation(String Address)
+    {
+        waitForElementVisible(tbAddress,5000,500);
+        tbAddress.type(Address, "Address");
+
+
+    }
+    public void verifyAutoSuggestion(String Address)
+    {
+        waitForElementVisible(driver.findElement(By.xpath("//div[contains(@class, 'pac-container')]//div[1]//span[text()='"+Address+"']")),5000,500);
+        Validator.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'pac-container')]//div[1]//span[text()='"+Address+"']")).isDisplayed(),"The autoSuggest address does not match the text box","autoSuggest address matches the address in text box");
+
+    }
+
+    public void clickDistributorCorporate() {
+        selectDistributorCorp();
+    }
+    public void verifyAddDistCorporate()
+    {
+        waitForElementVisible(drTypeofcompany,5000,500);
+        drTypeofcompany.click("Corporate Type");
+        waitForElementVisible(rdbDistributorCorporate,5000,500);
+        Validator.assertTrue(rdbDistributorCorporate.isVisible(),"Distributor corporate is not selected by default","Distributor corporate is  selected by default");
+
+    }
+
+    public void addDistCorporateDetails(String companyname, String Address) {
+        tbCompanyName.type(companyname, "Company name");
+        tbAddress.type(Address, "Address bar");
+    }
+
+    public void setCompanyAndAddress(String companyName,String address)
+    {
+        addDistCorporateDetails(companyName, address);
+    }
+
+    public void verifyCompanyAndAutoSuggest(String companyName)
+    {
+        Validator.assertTrue(tbCompanyName.getAttribute("value").equalsIgnoreCase(companyName),"User is unable to enter company name", "user is able to enter company name");
+//        Validator.assertTrue(autoSuggest.isNotVisible(2000),"The auto suggest is getting displayed","The auto suggest is not getting displayed");
+
+
+    }
+
+    public void clickOnMap()
+    {
+        waitForElementVisible(mapLocation,10000,500);
+        waitForElementToBeClickable(mapLocation);
+        mapLocation.jsClick();
+    }
+
+    public void verifyMapAddressFieldNames()
+    {
+        waitForElementVisible(manualAddressCard,5000,500);
+        waitForElementVisible(textStreet,5000,500);
+        Validator.assertTrue(textStreet.isVisible(),"street field is not visible","street field is visible");
+        waitForElementVisible(tbCity,5000,500);
+        Validator.assertTrue(tbCity.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(tbZipCode,5000,500);
+        Validator.assertTrue(tbZipCode.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(tbState,5000,500);
+        Validator.assertTrue(tbState.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(tbCountry,5000,500);
+        Validator.assertTrue(tbCountry.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(btnCancel,5000,500);
+        Validator.assertTrue(btnCancel.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(btnApply,5000,500);
+        Validator.assertTrue(btnApply.isVisible(),"city field is not visible","city field is visible");
+
+
+    }
+    public void clickSaveBtnAndVerify()
+    {
+        waitForElementVisible(btSaveandclose,5000,500);
+        btSaveandclose.click();
+        waitForPageLoad(10000);
+        Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(),"company is not created","company is created successfully");
+    }
+    public void setMapAddress(String street,String city,String zipCode,String state,String country)
+    {
+        verifyMapAddressFieldNames();
+        tbStreet.type(street);
+        tbCity.type(city);
+        tbZipCode.type(zipCode);
+        tbState.type(state);
+        tbCountry.type(country);
+        btnApply.click();
+
+    }
+
+//    public void verifyComapanyCreation()
+//    {
+//        waitForElementVisible(toastSuccess,5000,500);
+//        Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not created successfully","the company is created successfully");
+//
+//    }
 
 
 }

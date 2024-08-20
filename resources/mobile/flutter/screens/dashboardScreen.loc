@@ -6,3 +6,4 @@ dashboard.add.site = flutter-text=ADD SITE/SHOP
 dashboard.add.corporate = flutter-text=ADD CORPORATE
 dashboard.add.inspection = flutter-text=ADD INSPECTION
 dashboard.loading.animation = flutter-type=LinearProgressIndicator
+dashboard.card.conveyor=flutter-valuekey=conveyor_tile

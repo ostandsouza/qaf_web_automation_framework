@@ -213,12 +213,12 @@ public class DemoFlowSteps {
         userpage.addClick();
         userpage.setfullname(FullNameInd);
         userpage.setPhone("+91",Phone);
-        userpage.setemail(EmailInd);
+        userpage.setEmail(EmailInd);
         userpage.setProfileType(ProfileType);
-        userpage.setpassword(UserPassword);
-        userpage.setretypepassword(RetypePassword);
+        userpage.setPassword(UserPassword);
+        userpage.setRetypePassword(RetypePassword);
         userpage.distributorInformation(DistCorpName,CoporateRole);
-        userpage.Nextclick();
+        userpage.nextClick();
         uManagementPage.DistributorAssignment(DistShopGerName,CustSiteGerName);
         userpage.setPermission();
         userpage.Clicksaveandclose();

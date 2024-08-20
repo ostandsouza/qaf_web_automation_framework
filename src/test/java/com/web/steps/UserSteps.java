@@ -8,7 +8,9 @@ import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.BasePage;
 import com.web.pages.SitePage;
+import com.web.pages.CorporatePage;
 import com.web.pages.UsersPage;
+import org.openqa.selenium.By;
 
 import java.util.Map;
 
@@ -19,7 +21,8 @@ public class UserSteps extends BasePage {
 
 	SitePage sitepage = new SitePage();
 	String noOfMasterSites;
-	
+	CorporatePage corpPage = new CorporatePage();
+
 	@QAFTestStep(description = "User is at home page")
     public void verifyUserIsAtHomePage() {
 		userpage.verifyTitle("Conti+");
@@ -48,6 +51,7 @@ public class UserSteps extends BasePage {
 	
 	@QAFTestStep(description = "User can view add user page")
     public void verifyadduserspage() {
+		waitForPageLoad(5000);
 		 	if (userpage.getCurrentURL().endsWith("secure/users/add/user-info"))
 	            Reporter.log("Add Users page is displayed", MessageTypes.Pass);
 	        else
@@ -59,10 +63,10 @@ public class UserSteps extends BasePage {
 		userpage.setfullname(Fullname);
 		userpage.setPhone("+91",Phone);
 		String Email = "Demotm"+randomestring()+"@mailinator.com";
-		userpage.setemail(Email);
+		userpage.setEmail(Email);
 		userpage.setProfileType(Profiletype);
-		userpage.setpassword(Userpassword);
-		userpage.setretypepassword(Retypepassword);
+		userpage.setPassword(Userpassword);
+		userpage.setRetypePassword(Retypepassword);
 		userpage.Nextclick();
 		userpage.setTerritory("APAC");
 		
@@ -72,10 +76,10 @@ public class UserSteps extends BasePage {
 		userpage.setfullname(Fullname1);
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demosc"+randomestring()+"@mailinator.com";
-		userpage.setemail(Email1);
+		userpage.setEmail(Email1);
 		userpage.setProfileType(Profiletypetu);
-		userpage.setpassword(Userpassword);
-		userpage.setretypepassword(Retypepassword);
+		userpage.setPassword(Userpassword);
+		userpage.setRetypePassword(Retypepassword);
 		userpage.Nextclick();
 		userpage.setPermissions();
 		
@@ -86,10 +90,10 @@ public class UserSteps extends BasePage {
 		userpage.setfullname(Fullname2);
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
-		userpage.setemail(Email1);
+		userpage.setEmail(Email1);
 		userpage.setProfileType(Profiletypeta1);
-		userpage.setpassword(Userpassword);
-		userpage.setretypepassword(Retypepassword);
+		userpage.setPassword(Userpassword);
+		userpage.setRetypePassword(Retypepassword);
 		userpage.Nextclick();
 		userpage.setpermissionmm1();
 		
@@ -99,10 +103,10 @@ public class UserSteps extends BasePage {
 		userpage.setfullname(Fullname3);
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
-		userpage.setemail(Email1);
+		userpage.setEmail(Email1);
 		userpage.setProfileType(Profiletypeta1);
-		userpage.setpassword(Userpassword);
-		userpage.setretypepassword(Retypepassword);
+		userpage.setPassword(Userpassword);
+		userpage.setRetypePassword(Retypepassword);
 		userpage.Nextclick();
 		userpage.setpermissionmm1();
 		
@@ -113,10 +117,10 @@ public class UserSteps extends BasePage {
 		userpage.setfullname(Fullname4);
 		userpage.setPhone("+91",Phone);
 		String Email1 = "Demomm"+randomestring()+"@mailinator.com";
-		userpage.setemail(Email1);
+		userpage.setEmail(Email1);
 		userpage.setProfileType(Profiletypeta);
-		userpage.setpassword(Userpassword);
-		userpage.setretypepassword(Retypepassword);
+		userpage.setPassword(Userpassword);
+		userpage.setRetypePassword(Retypepassword);
 		userpage.Nextclick();
 		userpage.setpermissionmm1();
 		
@@ -144,7 +148,7 @@ public class UserSteps extends BasePage {
 		SyncUtil.waitFor(2000);
 	}
 
-	@QAFTestStep(description="Create a Market manager {FullNameInd} and {Phone} and {EmailInd} and {ProfileType} and {UserPassword} and {RetypePassword}")
+	@QAFTestStep(description="Create a Market manager {FullName} and {Phone} and {Email} and {ProfileType} and {UserPassword} and {RetypePassword}")
 	public void createMarketManager(String FullNameInd,String Phone,String EmailInd, String ProfileType,String UserPassword,String RetypePassword) {
 		String userid = userpage.apiBase.getUserProfileAPI(EmailInd);
 		userpage.apiBase.deleteProfileAPI(userid);
@@ -153,10 +157,10 @@ public class UserSteps extends BasePage {
 		userpage.addClick();
 		userpage.setfullname(FullNameInd);
 		userpage.setPhone("+91",Phone);
-		userpage.setemail(EmailInd);
+		userpage.setEmail(EmailInd);
 		userpage.setProfileType(ProfileType);
-		userpage.setpassword(UserPassword);
-		userpage.setretypepassword(RetypePassword);
+		userpage.setPassword(UserPassword);
+		userpage.setRetypePassword(RetypePassword);
 		userpage.Nextclick();
 	}
 
@@ -169,10 +173,10 @@ public class UserSteps extends BasePage {
 		userpage.addClick();
 		userpage.setfullname(FullName);
 		userpage.setPhone("+91",Phone);
-		userpage.setemail(EmailDist);
+		userpage.setEmail(EmailDist);
 		userpage.setProfileType(ProfileTypeDist);
-		userpage.setpassword(UserPassword);
-		userpage.setretypepassword(RetypePassword);
+		userpage.setPassword(UserPassword);
+		userpage.setRetypePassword(RetypePassword);
 		userpage.distributorInformation(DistCorpName,CoporateRole);
 		userpage.Nextclick();
 		userpage.DistributorAssignment(DistShopName,CustSiteName);
@@ -368,10 +372,10 @@ public class UserSteps extends BasePage {
 		userpage.addClick();
 		userpage.setfullname(FullName);
 		userpage.setPhone("+91",Phone);
-		userpage.setemail(Email);
+		userpage.setEmail(Email);
 		userpage.setProfileType(ProfileType);
-		userpage.setpassword(UserPassword);
-		userpage.setretypepassword(RetypePassword);
+		userpage.setPassword(UserPassword);
+		userpage.setRetypePassword(RetypePassword);
 		userpage.nextClick();
 	}
 
@@ -401,6 +405,86 @@ public class UserSteps extends BasePage {
 		userpage.verifyUpdateTemplate();
 		userpage.selectCustomTemplate(templateName);
 		userpage.verifyPermission(add, edit, delete, view, download);
+	}
+
+	@QAFTestStep(description = "Click on Add user icon")
+	public void clickOnAddUserIcon() {
+		userpage.addClick();
+	}
+	@QAFTestStep(description = "Verify the user bread crumb")
+	public void verifyTheUserBreadCrumb() {
+		userpage.verifyUserBreadCrumb();
+	}
+
+	@QAFTestStep(description = "Click on User Link to redirect to user page")
+	public void verifyUserPageClick () {
+		userpage.userLinkClick();
+		userpage.verifyUserListPage();
+
+
+	}
+
+	@QAFTestStep(description = "Click on Home Link to redirect to home page")
+	public void verifyHomePageClick () {
+		userpage.homeLinkClick();
+
+	}
+
+	@QAFTestStep(description = "Verify the default image is displayed and on hover camera icon is displayed")
+	public void verifyDefaultImageAndCameraIcon () {
+		userpage.verifyDefaultImage();
+		userpage.verifyCameraIcon();
+
+	}
+
+	@QAFTestStep(description = "Verify that Image Viewer panel is displayed on clicking the camera icon")
+	public void clickOnCameraIcon () {
+		userpage.cameraIconClick();
+
+	}
+
+	@QAFTestStep(description = "User clicks on Upload Image")
+	public void clickOnImageUpload () {
+		userpage.uploadBtnClick();
+
+	}
+
+	@QAFTestStep(description = "Verify that selected image is getting displayed in the image viewer panel")
+	public void verifyUploadedImageFunctionality () {
+		userpage.verifyImageUpload();
+
+	}
+
+	@QAFTestStep(description = "User clicks on cancel button")
+	public void clickOnCancelBtn () {
+		userpage.cancelBtnClick();
+
+	}
+
+	@QAFTestStep(description = "Verify that the image viewer panel is closed and image is not uploaded")
+	public void verifyImageViewPanel () {
+		userpage.verifyImageViewPanelClosed();
+
+	}
+
+	@QAFTestStep(description = "Verify that new master user {FullName} is created and redirected to userList page")
+	public  void verifyUserCreation(String FullName)
+	{
+		userpage.verifyNavigationToUserListPage();
+		userpage.searchUser(FullName);
+
+	}
+
+	@QAFTestStep(description = "Logout from the current master user and Login with created user '{Email}' and '{UserPassword}")
+	public void logoutCurrentUser(){
+		userpage.currentUserLogout();
+
+	}
+
+	@QAFTestStep(description="Add permission rights with {Add} {Edit} {Delete} {View} {Download} and create template {templateName}")
+	public void addPermissionAndCreateTemplate(String add, String edit, String delete, String view, String download, String templateName) {
+		userpage.setPermission(add, edit, delete, view, download);
+		userpage.createPermissionTemplate(templateName);
 	}
 
 	@QAFTestStep(description="Verify template is created")
@@ -546,4 +630,75 @@ public class UserSteps extends BasePage {
 		userpage.setPermission(mainModule,subModule,add, edit,delete,view,download);
 
 	}
+
+	@QAFTestStep(description="Click on delete button and verify that delete popup is displayed")
+	public void verifyDeleteBtnClick() {
+		userpage.deleteBtnClick();
+		userpage.verifyDeletePopup();
+	}
+
+	@QAFTestStep(description="Click on no or close image button and verify that delete popup is closed")
+	public void verifyDialogBoxClosed() {
+		userpage.closeDialogBox();
+	}
+
+	@QAFTestStep(description="Look for the created template {templateName} in the dropdown and verify it is visible")
+	public void verifyTemplateVisible(String templateName) {
+		userpage.verifyTemplate(templateName);
+	}
+
+	@QAFTestStep(description="Verify the profile type {ProfileTypeVerify} of the user")
+	public void verifyProfileTypeOfUser(String profileTypeVerify) {
+
+		userpage.verifyProfileType(profileTypeVerify);
+	}
+
+	@QAFTestStep(description = "Verify the fullName {FullName} of the user")
+	public void verifyFullName(String fullName)
+	{
+		userpage.verifyFullName(fullName);
+	}
+
+	@QAFTestStep(description="Verify it redirects to users page")
+	public void verifyUsersPageNavigation() {
+		userpage.verifyUserListPage();
+	}
+
+	@QAFTestStep(description="Click on corporate link in navigation bar")
+	public void navigateToCorporatePage() {
+		corpPage.clickCorporates();
+//		driver.findElements(By.xpath("//div[contains(@class,'p-chip-text')]")).stream().map(x->x.getText()).forEach(System.out::println);
+	}
+
+	@QAFTestStep(description="Verify the assignments {Region} for the current user")
+	public void verifyAssignmentsForNewUser(String region)
+	{
+		SyncUtil.waitFor(40000);
+		int noOfCorporates = Integer.parseInt(MiscUtils.regexExtractor(userpage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		userpage.verifyAssignments(region, noOfCorporates);
+
+	}
+
+	@QAFTestStep(description="Verify that it redirects to assignment page")
+	public void verifyAssignmentPageRedirection()
+	{
+		userpage.verifyAssignmentNavigation();
+
+	}
+
+	@QAFTestStep(description="Verify that user is able to select {Region} checkbox")
+	public void verifyCheckboxSelection(String region)
+	{
+		userpage.verifyCheckboxChecked(region);
+
+	}
+
+	@QAFTestStep(description="Click on next button verify that it redirects to permissions page")
+	public void verifyPermissionsPageRedirection()
+	{
+		userpage.nextClick();
+		userpage.verifyPermissionPageNavigation();
+
+	}
 }
+

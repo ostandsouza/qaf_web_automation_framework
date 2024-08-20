@@ -300,7 +300,6 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         SyncUtil.waitFor(2000);
     }
 
-
     public void hoverOverElement(WebElement element) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
@@ -318,6 +317,15 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
     public void browserBack() {
         driver.navigate().back();
+    }
+
+    public void dragAndDrop(WebElement fromElement, WebElement toElement) {
+        Actions actions = new Actions(driver);
+        actions.clickAndHold(fromElement)
+                .moveToElement(toElement)
+                .release()
+                .build()
+                .perform(); // Perform the action chain
     }
 
 }

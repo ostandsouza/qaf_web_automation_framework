@@ -1,0 +1,1 @@
+conveyor.customer.site=xpath=//android.widget.ScrollView//android.view.View[contains(@content-desc, 'CS Automation Site')]

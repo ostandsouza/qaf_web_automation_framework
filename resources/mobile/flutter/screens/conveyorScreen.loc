@@ -15,3 +15,8 @@ conveyor.list.upload = flutter-valuekey=conveyor_upload
 conveyor.list.more = flutter-valuekey=conveyor_more
 conveyor.more.edit = flutter-text=Edit
 conveyor.more.delete = flutter-text=Delete
+
+corporate.conveyorList.header = flutter-text=Conveyors
+conveyor.add.icon = flutter-valuekey=AddConveyorIcon
+conveyor.add.header = flutter-text=Add Conveyor
+conveyor.toast.error=flutter-text=Conveyor Name is required

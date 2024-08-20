@@ -6,6 +6,8 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
 import com.web.pages.CoverWearPage;
+import com.web.pages.InspectionPage;
+
 import com.web.pages.UsersPage;
 import org.json.simple.parser.ParseException;
 
@@ -14,6 +16,9 @@ public class CoverWearSteps {
     CoverWearPage coverWearPage = new CoverWearPage();
     ConveyorPage conveyorPage = new ConveyorPage();
     UsersPage userpage = new UsersPage();
+
+    InspectionPage inspectionPage=new InspectionPage();
+    UsersPage userPage=new UsersPage();
 
     @QAFTestStep(description="Add Cover Wear for conveyor {ConveyorName} and site {CustSiteName} with data {FullName} {PositionName} {TopCoverThickness} {BottomCoverThickness} {Durometer} {TopCoverCompound} {BottomCoverCompound}")
     public void createCoverWearMeasurement(String conveyorName, String custSiteName, String fullName, String positionName, String topCoverThickness, String bottomCoverThickness, String durometer, String topCoverCompound, String bottomCoverCompound){
@@ -253,6 +258,15 @@ public class CoverWearSteps {
         MiscUtils.deleteDownloadedFiles("Cover_wear_summary_report.pdf");
     }
 
+    @QAFTestStep(description="Verify the download functionality in list screen for columnNames")
+    public void verifyDownloadColumns() {
+        coverWearPage.verifyDownloadFunctionality();
+//        SyncUtil.waitFor(40000);
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("Cover_wear_summary_report.pdf"),"Cover wear summary report was not found","Cover wear summary report was downloaded successfully");
+        coverWearPage.verifyPDFColumns("Cover Wear - Conveyor Summary Report");
+//        MiscUtils.deleteDownloadedFiles("Cover_wear_summary_report.pdf");
+    }
+
     @QAFTestStep(description="Verify after select cover wear record {0} action button is enabled")
     public void verifyAfterSelectingCoverWearActionButtonIsEnabled(String conveyorName){
         coverWearPage.searchCoverWear(conveyorName);
@@ -320,6 +334,21 @@ public class CoverWearSteps {
         coverWearPage.verifyPDFBottomPosition(conveyorName,custSiteName);
         MiscUtils.deleteDownloadedFiles(conveyorName+"_"+custSiteName+".pdf");
     }
+
+    @QAFTestStep(description="Verify the download functionality of coverWear with {ConveyorName} and {CustSiteName} {CorporateName}")
+    public void verifyDownloadConveyorReport(String conveyorName, String custSiteName, String corporateName ){
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles(conveyorName+"_"+custSiteName+".pdf"),"Cover Wear report was not found","Cover wear  report was downloaded successfully");
+        coverWearPage.verifyPDFHeading(conveyorName,custSiteName,corporateName);
+//        MiscUtils.deleteDownloadedFiles(conveyorName+"_"+custSiteName+".pdf");
+    }
+
+    @QAFTestStep(description="Look for the date in generated report and verify if it is in the expected format {ConveyorName} and {CustSiteName} {CorporateName} and {Contributor} and {FromDate} {ToDate}")
+    public void verifyDateInGeneratedReport(String conveyorName, String custSiteName,String corporateName,String contributor,String fromDate,String toDate){
+        coverWearPage.verifyPDFdate(conveyorName,custSiteName,corporateName,"C1 Common Regression (1 top) Cust Automation Common Corp         - Cust Automation Common India",contributor,fromDate,toDate);
+//        MiscUtils.deleteDownloadedFiles(conveyorName+"_"+custSiteName+".pdf");
+    }
+
+
 
     @QAFTestStep(description="Verify whether the specifications is populated when no technical data is present for {ConveyorName} {CustSiteName}")
     public void verifySpecsWithNoTechnicalData(String conveyorName, String custSiteName){
@@ -504,8 +533,190 @@ public class CoverWearSteps {
     }
 
     @QAFTestStep(description="Add details {CustSiteName} {ConveyorName} {Position} for measurement pop up")
-    public void addTheMeasurmentPopUpFields(String CustSiteName,String ConveyorName,String Position){
-        coverWearPage.addMeasurmentPopUpFields(CustSiteName,ConveyorName,Position);
+    public void addTheMeasurmentPopUpFields(String CustSiteName,String ConveyorName,String Position) {
+        coverWearPage.addMeasurmentPopUpFields(CustSiteName, ConveyorName, Position);
+    }
+
+    @QAFTestStep(description="Verify user is on the home page of the application")
+    public void verifyHomePageNavigation(){
+        coverWearPage.verifyHomePage();
+    }
+
+    @QAFTestStep(description="Click on coverWear card and verify it navigates to coverWear list page")
+    public void clickOnCoverWear(){
+        coverWearPage.clickCoverWearCard();
+//        coverWearPage.verifyCoverWearNavigation();
+        coverWearPage.verifyCoverWearListPageNavigation();
+    }
+
+    @QAFTestStep(description="Click on coverWear card and verify it navigates to coverWear list specification page")
+    public void clickOnCoverWearCardAndVerify(){
+        coverWearPage.clickCoverWearCard();
+        coverWearPage.verifyCoverWearNavigation();
+    }
+
+
+    @QAFTestStep(description="Verify the breadCrumb of coverWear page")
+    public void verifyBreadCrumbOfPage(){
+        coverWearPage.verifyCoverWearBreadCrumb();
+    }
+
+    @QAFTestStep(description="Click on home link in breadCrumb and verify it navigates to home page")
+    public void ClickOnHomeLinkAndVerify(){
+        coverWearPage.homeLinkClick();
+        coverWearPage.verifyHomePage();
+    }
+
+    @QAFTestStep(description="Look for the searchBar in the table and verify search icon and search placeholder is visible")
+    public void VerifySearchBarVisible(){
+        coverWearPage.verifySearchBar();
+    }
+
+    @QAFTestStep(description="Enter the text {searchItem} to search")
+    public void searchForItemInSearchBar(String searchItem){
+        coverWearPage.searchForItem(searchItem);
+    }
+
+    @QAFTestStep(description="Verify the matching result is displayed or No record found message should display")
+    public void verifySearchItemInSearchBar(){
+        coverWearPage.verifySearchItem();
+    }
+
+    @QAFTestStep(description="Apply sorting or filter on column name")
+    public void applyFilterOrSorting(){
+        coverWearPage.applyColumnFilterClick();
+    }
+
+    @QAFTestStep(description="Verify that the filter is applied")
+    public void verifyFilterOrSorting(){
+        SyncUtil.waitFor(40000);
+        int noOfCoverWears = Integer.parseInt(MiscUtils.regexExtractor(coverWearPage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        System.out.println("calling before verifyColumnFilterClick "+noOfCoverWears);
+        coverWearPage.verifyColumnFilterClick(noOfCoverWears);
+    }
+
+    @QAFTestStep(description="Click on clear filter and verify filter is removed")
+    public void clearFilterAndVerify(){
+        coverWearPage.clearFilterClick();
+        coverWearPage.verifyFilterIsRemoved();
+    }
+
+    @QAFTestStep(description="Click on the column name and verify the column names")
+    public void clickOnColumnNamesAndVerify(){
+        coverWearPage.columNamesClick();
+        coverWearPage.verifyColumnNames();
+    }
+
+    @QAFTestStep(description="Select any column name to be displayed and verify the column is displayed")
+    public void selectColumnAndVerify(){
+        coverWearPage.selectColumnName();
+        coverWearPage.verifyColumnIsVisible();
+    }
+
+    @QAFTestStep(description="Click on column header {ColumnHeader} of {ColumnNumber} nd column and verify sorting should be in increasing order")
+    public void clickOnColumnAndVerifySorting(String columnHeader,int columnNumber){
+        coverWearPage.clickOnColumn(columnHeader);
+        coverWearPage.verifyIncreasingOrderSorting(columnNumber);
+    }
+
+    @QAFTestStep(description="Click on column header {ColumnHeader} of {ColumnNumber} nd column again and verify sorting should be in decreasing order")
+    public void clickOnColumnAndVerifyDecreasingOrder(String columnHeader,int columnNumber){
+        coverWearPage.clickOnColumn(columnHeader);
+        coverWearPage.verifyDecreasingOrderSorting(columnNumber);
+    }
+
+    @QAFTestStep(description="Look for the count displayed in yellow of durometer and verify the count")
+    public void lookForYellowCountAndVerify(){
+//        coverWearPage.getCountFromDurometer();
+        coverWearPage.verifyYellowCount();
+    }
+
+    @QAFTestStep(description="Look for the count displayed in red of durometer and verify the count")
+    public void lookForRedCountAndVerify(){
+        coverWearPage.verifyRedCount();
+    }
+
+    @QAFTestStep(description="Look for the count displayed in green of durometer and verify the count")
+    public void lookForGreenCountAndVerify(){
+        coverWearPage.verifyGreenCount();
+    }
+
+
+
+    @QAFTestStep(description="Search for the conveyor {ConveyorName} in cover wear listing screen and navigate")
+    public void searchForConveyor(String conveyorName){
+        coverWearPage.goToCoverWearDetailScreen(conveyorName);
+    }
+
+    @QAFTestStep(description="Click on conveyor position {Position} and navigate to position screen")
+    public void navigationToPositionDetailScreen(String position){
+        coverWearPage.verifyPositionNav(position);
+    }
+
+    @QAFTestStep(description="Verify the bread crumb of cover wear position page with position {Position} conveyor {ConveyorName} site {CustSiteName} corporate {CustCorp}")
+    public void verifyBreadCrumbOfPosition(String position,String conveyor,String site,String corporate){
+        coverWearPage.verifyPositionBreadCrumb(position,conveyor,site,corporate);
+    }
+
+    @QAFTestStep(description="Verify user navigates to respective page on bread crumb click {CustSiteName} {CustCorp} {ConveyorName}")
+    public void verifyBreadCrumbNavigation(String siteName,String corpName,String conveyorName){
+        inspectionPage.conveyorNameClick(conveyorName);
+        inspectionPage.verifyConveyorPageNavigation();
+        inspectionPage.siteNameClick(siteName);
+        inspectionPage.verifySitePageNavigation(siteName);
+        inspectionPage.corporateNameClick(corpName);
+        inspectionPage.verifyCorporatePageNavigation(corpName);
+
+    }
+
+    @QAFTestStep(description="Verify user navigates to respective page on bread crumb click of cover wear {CustSiteName} {CustCorp}")
+    public void verifyBreadCrumbNavigationOfCoverWear(String siteName,String corpName){
+        inspectionPage.siteNameClick(siteName);
+        inspectionPage.verifySitePageNavigation(siteName);
+        coverWearPage.coverWearcorporateNameClick(corpName);
+        inspectionPage.verifyCorporatePageNavigation(corpName);
+        inspectionPage.corpBreadCrumbClick();
+        inspectionPage.verifyCorporateListPageNavigation();
+
+    }
+
+
+    @QAFTestStep(description="Verify Gauge image is displayed in specification field")
+    public void verifyTheGaugeImageInSpecification(){
+        coverWearPage.verifyGaugeImageInSpec();
+    }
+
+    @QAFTestStep(description="Extract the data from the position {Position} and navigate to position detail page")
+    public void extractTheDataFromPosition(String position){
+        coverWearPage.searchPosition(position);
+        coverWearPage.extractPositionData();
+        coverWearPage.positionDetailsClick();
+    }
+
+    @QAFTestStep(description="Verify that all the data is displayed in the gauge meter")
+    public void verifyGaugeMeterData(){
+        coverWearPage.verifyDataInGaugeMeter();
+    }
+
+    @QAFTestStep(description="Verify the data in gauge meter matches with data in the position detail page")
+    public void verifyGaugeMeterAndTableData(){
+        coverWearPage.verifyGaugeDataAndTableData();
+    }
+
+    @QAFTestStep(description="Click on add new measurement and verify the pop-up to add measurement is visible")
+    public void addMeasurementClickAndVerify(){
+        coverWearPage.btnAddMeasurementClick();
+        coverWearPage.verifyAddMeasurementPopupVisible();
+    }
+
+    @QAFTestStep(description="Verify fields to add device details is displayed")
+    public void verifyFieldsOfAddDevice(){
+        coverWearPage.verifyAddDetailsFields();
+    }
+
+    @QAFTestStep(description="User adds the value for instrument {Instrument} velocity {Velocity} Calibration thickness {CalibrationThickness} surfaceTemperature {surfaceTemperature} test Position {testPosition}")
+    public void addDeviceMeasurement(String instrument,String velocity,String calibrationThickness,String surfaceTemperature,String testPosition){
+        coverWearPage.addDeviceMeasurementValues(instrument,velocity,calibrationThickness,surfaceTemperature,testPosition);
     }
 
     @QAFTestStep(description="Add readings durometer values {DurometerValue} and {Value}")
@@ -779,4 +990,176 @@ public class CoverWearSteps {
     public void verifyViewDownloadPermissionRightForMeasurementDetails(String ConveyorName) {
         Validator.assertTrue(coverWearPage.verifyViewDownloadRightsForMeasurement(ConveyorName), "Download And view Permission for cover wear measurement is failing", "Download and view permission for cover wear measurement is verified successfully");
     }
+
+    @QAFTestStep(description="Click on save button and verify measurement is saved")
+    public void clickSaveAndVerify(){
+        coverWearPage.btnSaveClick();
+
+    }
+
+    @QAFTestStep(description="Click on edit button and verify measurement popup is opened with user saved data {SurfaceTemperature} {TestPosition}")
+    public void clickEditBtnAndVerifyData(String surfaceTemperature,String testPosition ){
+        coverWearPage.btnEditClick();
+        coverWearPage.verifyAddMeasurementPopupVisible();
+        coverWearPage.verifyUserEnteredData(surfaceTemperature,testPosition);
+
+    }
+
+    @QAFTestStep(description="Click on delete button to delete the added measurement value")
+    public void clickOnDeleteBtn(){
+        coverWearPage.btnCloseClick();
+        coverWearPage.btnDeleteClick();
+
+    }
+    @QAFTestStep(description="Extract the installed date data from the position {Position} and navigate to position detail page")
+    public void extractTheInstalledDateFromPosition(String position){
+        coverWearPage.searchPosition(position);
+        coverWearPage.extractDateValue();
+        coverWearPage.positionDetailsClick();
+
+    }
+
+    @QAFTestStep(description="Verify the installed date in the table is same as installed date in the position detail screen")
+    public void verifyInstalledDateEntry(){
+        coverWearPage.verifyInstalledDates();
+
+    }
+
+    @QAFTestStep(description="Verify edit and attachment link should be displayed for installed date entry row")
+    public void verifyEditAndAttachmentLinkVisible(){
+        coverWearPage.verifyAttachmentLinkVisible();
+        coverWearPage.verifyEditLinkVisible();
+
+    }
+
+    @QAFTestStep(description="Click on edit link user should be able to edit the measurement details {Thickness} {DurometerVal}")
+    public void clickOnEditLinkAndVerifyEditFunction(String thickness,String durometerValue){
+        coverWearPage.editBtnClick();
+        coverWearPage.editFunctionality(thickness,durometerValue);
+
+    }
+    @QAFTestStep(description="Click on attachment link user should be able to upload image")
+    public void clickOnAttachmentLinkAndVerify(){
+        coverWearPage.verifyAttachmentFunctionality();
+        coverWearPage.closeAttachment();
+    }
+
+    @QAFTestStep(description="Look for measurement table and verify data is available in measurement table")
+    public void verifyDataVisibleInMeasurementTable(){
+        coverWearPage.verifyMeasurementTableData();
+    }
+    @QAFTestStep(description="Look for attachment link and verify the background is highlighted when image is not attached")
+    public void verifyAttachmentIsHighlighted(){
+        coverWearPage.verifyAttachmentHighlight();
+    }
+
+    @QAFTestStep(description="Click link to upload image {imgName} and Click save button and verify image is uploaded")
+    public void clickOnEditAndVerifyImageUpload(String imgName){
+        coverWearPage.editMeasurement();
+        inspectionPage.selectFilesBtnClick();
+        userPage.imageUpload(imgName);
+        SyncUtil.waitFor(10000);
+        coverWearPage.btnSaveClick();
+        coverWearPage.verifyUploadedImage();
+    }
+    @QAFTestStep(description = "Verify the background color is removed after the image is uploaded")
+    public void verifyAttachmentIsNotHighlighted()
+    {
+        coverWearPage.verifyAttachBackgroundRemoved();
+    }
+
+    @QAFTestStep(description = "Click on add icon button and verify user is able to add more attachment {imgNameTwo}")
+    public void addMoreBtnClickAndVerifyMoreAttachment(String imageTwo)
+    {
+        coverWearPage.verifyAttachmentFunctionality();
+        coverWearPage.addMoreAttachmentsClick();
+        userPage.imageUpload(imageTwo);
+        coverWearPage.verifyAttachmentImageUploaded();
+    }
+
+    @QAFTestStep(description = "Look for more attachment file in corosal additional image should be displayed")
+    public void verifyMoreFilesInCorrosal()
+    {
+        coverWearPage.verifyAttachmentImageUploaded();
+    }
+
+    @QAFTestStep(description = "Click on image below in the corrosal respective image should get maximized")
+    public void clickTheImageInCorrosalAndVerify()
+    {
+        coverWearPage.clickImageInCorrosal();
+        coverWearPage.verifyCorrosalImageMaximazed();
+    }
+
+    @QAFTestStep(description = "Click on delete button at the top and verify respective image should be deleted")
+    public void clickOnTheDeleteAndVerify()
+    {
+        coverWearPage.clickImageInCorrosal();
+        coverWearPage.verifyCorrosalImageMaximazed();
+        coverWearPage.clickOnDeleteAndVerify();
+    }
+
+    @QAFTestStep(description = "Delete the uploaded image from the measurement")
+    public void deleteTheImageFromMeasurement()
+    {
+        coverWearPage.waitForPageLoad(10000);
+        coverWearPage.editMeasurement();
+        coverWearPage.deleteMeasurementImage();
+    }
+    @QAFTestStep(description="Verify the breadCrumb of the cover wear listing page {CustSiteName} {CustCorp} {ConveyorName}")
+    public void verifyBreadCrumbOfCoverWear(String site,String corporate,String conveyor){
+        coverWearPage.verifyConveyorCoverWearBreadCrumb(site,corporate,conveyor);
+    }
+
+    @QAFTestStep(description="Look for count displayed in card and verify count should display total number of measurement of all positions")
+    public void verifyCoverWearPositionMeasurementCount(){
+        coverWearPage.verifyPositionMeasurementCount();
+    }
+
+    @QAFTestStep(description="Verify that the gauge meter with lowest belt cover % is visible in the card")
+    public void verifyLowestPercentageDisplay(){
+        SyncUtil.waitFor(5000);
+        System.out.println(coverWearPage.coverWearPaginationEntry.getText());
+        int noOfPositions = Integer.parseInt(MiscUtils.regexExtractor(coverWearPage.coverWearPaginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+//        coverWearPage.calculateLowestPercentage(noOfPositions);
+        coverWearPage.verifyGaugePercentageDisplay(noOfPositions);
+    }
+    @QAFTestStep(description="Verify remaining life and duro meter value is displayed in the card")
+    public void verifyRemainingLifeAndDurometerValueDisplayed(){
+        coverWearPage.verifyRemainingLifeValueDisplayed();
+        coverWearPage.verifyDurometerValueDisplayed();
+
+    }
+
+    @QAFTestStep(description="Click on the column names of the conveyor cover wear and verify the column names")
+    public void clickAndVerifyCoverWearColumnNames(){
+        coverWearPage.columNamesClick();
+        coverWearPage.verifyConveyorCoverWearColumns();
+    }
+
+    @QAFTestStep(description="Click on any column name in cover wear details page and verify only those data is displayed in the table")
+    public void selectAndVerifyColumnName(){
+        coverWearPage.selectCoverWearColumnName();
+        coverWearPage.verifyColumnNameIsNotVisible();
+//        coverWearPage.columNamesClick();
+//        coverWearPage.selectCoverWearColumnName();
+//        coverWearPage.verifySelectColumnIsVisible();
+    }
+
+    @QAFTestStep(description="Click on {CoverWearName} report download button")
+    public void clickTheReportDownloadButton(String conveyorName){
+        coverWearPage.searchCoverWear(conveyorName);
+        coverWearPage.clickReportDownloadButton();
+    }
+    @QAFTestStep(description="Select all fields {FromDate} {ToDate} in the popup and verify user is able to fill respective fields")
+    public void selectAllFieldsInDownloadPopup(String fromDate, String toDate){
+        coverWearPage.downloadPositionReport(fromDate,toDate);
+    }
+
+    @QAFTestStep(description="Select the column {Corporates} and verify only those columns are displayed in the table")
+    public void selectSomeColumnsAndVerifyTable(String corporates){
+        conveyorPage.addColumnFilters(corporates);
+        Validator.assertTrue(coverWearPage.verifyCoverWearColumnFilters(), "All filters are applied in table ", "All filters were successfully verified");
+
+    }
 }
+

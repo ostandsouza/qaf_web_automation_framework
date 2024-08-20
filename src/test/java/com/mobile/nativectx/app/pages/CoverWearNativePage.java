@@ -1,0 +1,55 @@
+package com.mobile.nativectx.app.pages;
+
+import com.common.utils.SyncUtil;
+import com.mobile.nativectx.app.component.CustomMobileElement;
+import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.Validator;
+import org.openqa.selenium.WebElement;
+
+import java.time.Duration;
+import java.util.List;
+
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+
+public class CoverWearNativePage extends NativeBasePage {
+
+    private static CoverWearNativePage obj;
+
+    public static CoverWearNativePage getInstance(){
+        if(obj==null)
+            obj = new CoverWearNativePage();
+        return obj;
+    }
+    @FindBy(locator = "coverWear.installation.editBtn")
+    protected CustomMobileElement installationEditBtn;
+
+    @FindBy(locator = "coverWear.measurement.deleteBtn")
+    protected CustomMobileElement deleteMeasurementBtn;
+
+
+
+    public boolean verifyEditButtonIsVisible()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        boolean flag=installationEditBtn.isPresent();
+        switchContext("FLUTTER");
+        return flag;
+    }
+    public void editBtnClick()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        installationEditBtn.click();
+        switchContext("FLUTTER");
+    }
+    public boolean verifyDeleteBtnIsVisible()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        boolean flag=deleteMeasurementBtn.isPresent();
+        switchContext("FLUTTER");
+        return flag;
+    }
+
+
+
+
+}

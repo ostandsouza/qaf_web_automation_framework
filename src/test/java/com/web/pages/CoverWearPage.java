@@ -2,8 +2,10 @@ package com.web.pages;
 
 import com.common.component.CustomElement;
 import com.common.utils.ClasspathResourceHelper;
+import com.common.utils.MiscUtils;
 import com.common.utils.PDFHelper;
 import com.common.utils.SyncUtil;
+import com.qmetry.qaf.automation.core.ConfigurationManager;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
@@ -12,6 +14,8 @@ import groovyjarjarantlr4.v4.codegen.model.Sync;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -21,16 +25,16 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static com.common.utils.MiscUtils.convertDateFormat;
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.io.File.separator;
+import static java.lang.Integer.parseInt;
 import static java.lang.Math.abs;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class CoverWearPage extends BasePage{
 
@@ -85,6 +89,9 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement cwCheckbox;
+
+    @FindBy(locator="xpath=//td//p-tablecheckbox")
+    public CustomElement cwCheckboxes;
 
     @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
@@ -304,11 +311,14 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//span[contains(@class,'pi-spinner')])[2]")
     public CustomElement downloadSpinner;
 
-    @FindBy(locator="xpath=(//app-card//div[text()='Cover Wear'])[2]")
+    @FindBy(locator="xpath=(//div[contains(@class,\"p-carousel-item\")]//app-card//div[@class=\"card-inner-wrapper\" and contains(div, \"Cover Wear\")])[1]")
     public CustomElement coverWearCard;
 
     @FindBy(locator="xpath=//span[text()='Cover Wear Summary']")
     public CustomElement coverWearHeader;
+
+    @FindBy(locator="xpath=//span[text()=\"Specification\"]")
+    public CustomElement headerSpecification;
 
     @FindBy(locator="xpath=//span[text()='Specification']")
     public CustomElement specificationHeader;
@@ -509,6 +519,144 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="//input[@formcontrolname='temperature']/../label")
     public CustomElement tbTemperaturelabel;
+
+    @FindBy(locator="xpath=//span[contains(@id, \"p-panel-5_header\") and contains(text(), \"Sites\")]")
+    public CustomElement siteHeader;
+
+    @FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+    public CustomElement coverWearBreadCrumb;
+
+    @FindBy(locator="xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
+    public CustomElement homeLink;
+
+    @FindBy(locator="xpath=//span[@class=\"p-input-icon-left\"]")
+    public CustomElement searchBar;
+
+    @FindBy(locator="xpath=//i[@class=\"ctp-icon-Search\"]")
+    public CustomElement searchBarIcon;
+
+    @FindBy(locator="xpath=//td[normalize-space()='No data found']")
+    public CustomElement searchNotFound;
+
+    @FindBy(locator="xpath=//td[text()=\"No Conveyor List Found.\"]")
+    public CustomElement conveyorSearchNotFound;
+
+    @FindBy(locator="xpath=//th[@id='site-col']")
+    public CustomElement siteColumn;
+
+    @FindBy(locator="xpath=//p-columnfilter[@field='site']")
+    public CustomElement siteFilter;
+
+    @FindBy(locator="xpath=//p-columnfilterformelement//input")
+    public CustomElement filterText;
+
+    @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+    public CustomElement paginationEntry;
+
+    @FindBy(locator = "xpath=(//p-paginator//span)[1]")
+    public CustomElement coverWearPaginationEntry;
+
+    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Clear-Filters'])[2]")
+    public CustomElement clearFilterBtn;
+
+    @FindBy(locator = "//button[contains(@class, \"p-column-filter-menu-button-active\")]")
+    public CustomElement appliedFilter;
+
+    @FindBy(locator = "xpath=//div[@class='p-element p-multiselect-label-container']")
+    public CustomElement columnNameBtn;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Conveyor']")
+    public CustomElement conveyorColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Site']")
+    public CustomElement siteColumnName;
+
+    @FindBy(locator = "xpath=//div[normalize-space()='Corporate']")
+    public CustomElement corporateColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Installed Date']")
+    public CustomElement installedDateColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Cover Grade']")
+    public CustomElement coverGradeColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Remaining Life by Time']")
+    public CustomElement remainingLifeColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Last Recorded']")
+    public CustomElement lastRecordedColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Lowest Reading']")
+    public CustomElement lowestReadingColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Durometer Shore A']")
+    public CustomElement durometerColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Remaining Cover %']")
+    public CustomElement remainingCoverColumnName;
+
+    @FindBy(locator = "xpath=//th[@psortablecolumn=\"corporateName\"]")
+    public CustomElement corporateColumnHeader;
+
+    @FindBy(locator = "//div[normalize-space()='Cover Grade']")
+    public CustomElement coverGradeColumn;
+
+    @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[1]/div[@class='conti-round'])[1]")
+    public CustomElement greenCountValue;
+
+    @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[2]/div[@class='conti-round'])[1]")
+    public CustomElement yellowCountValue;
+
+    @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[3]/div[@class='conti-round'])[1]")
+    public CustomElement redCountValue;
+
+    @FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+    public CustomElement cowerWearBreadcrumb;
+
+    @FindBy(locator="xpath=//span[text()='CS Common Regression']")
+    public CustomElement conveyorBreadCrumb;
+
+    @FindBy(locator="xpath=//div[@class='gauge-container']//app-durometer")
+    public CustomElement imgGaugeMeter;
+
+    @FindBy(locator="xpath=//td[8]//span[@class=\"durometer\"]")
+    public CustomElement txtValDurometer;
+    @FindBy(locator="xpath=//td[9]/span")
+    public CustomElement txtValRemainingLife;
+
+    @FindBy(locator="xpath=//td[10]//app-durometer//*//div//span\n")
+    public CustomElement txtValRemainingCover;
+
+    @FindBy(locator="xpath=//div[@class=\"gauge-container\"]//*//div//span")
+    public CustomElement gaugeValRemainingCover;
+
+    @FindBy(locator="xpath=//div[@class=\"gauge-container\"]//*//div[@class=\"bottom-label\"]//span")
+    public CustomElement gaugeValRemainingLife;
+
+    @FindBy(locator="xpath=//div[@class=\"gauge-container\"]//div[@class=\"label\"]//span")
+    public CustomElement gaugeValDurometer;
+
+    @FindBy(locator="xpath=//div[@class=\"gauge-container\"]//div[@class=\"rating\"]")
+    public CustomElement gaugePercentageRange;
+
+    @FindBy(locator="xpath=//div[@role=\"tablist\"]//button[@icon=\"ctp-icon-Add-circle\"]")
+    public CustomElement btAddMeasurement;
+
+    @FindBy(locator="xpath=//div[@role=\"dialog\" and contains(@class,\"p-dialog\")]")
+    public CustomElement measurementPopup;
+
+    @FindBy(locator="xpath=//input[@formcontrolname=\"deviceType\"]")
+    public CustomElement tbDeviceType;
+    @FindBy(locator="xpath=//input[@formcontrolname=\"velocity\"]")
+    public CustomElement tbVelocity;
+    @FindBy(locator="xpath=//input[@formcontrolname=\"calibrationThickness\"]")
+    public CustomElement tbCalibrationThickness;
+
+    @FindBy(locator="xpath=//input[@formcontrolname=\"surfaceTemperature\"]")
+    public CustomElement tbSurfaceTemperature;
+
+    @FindBy(locator="xpath=//input[@formcontrolname='testPosition']")
+    public CustomElement tbTestPosition;
 
     @FindBy(locator="//td[@id='durometer']//input")
     public CustomElement inpdurometerValue;
@@ -746,6 +894,110 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Position']")
     public CustomElement hdPositionExportPop;
 
+    @FindBy(locator="//button//span[text()=\"Save\"]")
+    public CustomElement btnSave;
+
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[3]//*//button[@icon=\"ctp-icon-Edit\"]")
+    public CustomElement btnEdit;
+
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[2]//*//button[@icon=\"ctp-icon-Attachments\"]")
+    public CustomElement btnAttachmentLink;
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[2]//*//button[@icon=\"ctp-icon-Edit\"]")
+    public CustomElement btnEditLink;
+
+    @FindBy(locator="(//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[4])[1]")
+    public CustomElement trAddedMeasurement;
+
+    @FindBy(locator="//table[@role=\"table\"]//tbody//tr//td[3]")
+    public CustomElement tdInstalledDateTableValue;
+
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[2]//td[2]")
+    public CustomElement tdInstalledDateDetailValue;
+
+    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[4]//*//button[@icon=\"ctp-icon-Delete\"]")
+    public CustomElement btnDelete;
+
+    @FindBy(locator="//button[contains(@class,\"p-dialog-header-close\")]")
+    public CustomElement btnClose;
+
+    @FindBy(locator="//p-confirmdialog[@header=\"Confirmation\"]")
+    public CustomElement dialogConfirm;
+
+    @FindBy(locator = "//button[contains(@class,\"p-confirm-dialog-accept\")]")
+    public CustomElement dialogConfirmAccept;
+
+    @FindBy(locator ="//app-wear-measurements//p-panel[@styleclass=\"wear-measurements-header\"]")
+    public CustomElement wearMeasurementTable;
+
+    @FindBy(locator = "(//app-wear-measurements//p-panel[@styleclass=\"wear-measurements-header\"]//*//table//td[2])[1]")
+    public CustomElement wearMeasurementTableData;
+
+    @FindBy(locator = "//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[3]//*//button[@icon=\"ctp-icon-Attachments\" and @disabled]")
+    public CustomElement lnkAttachmentDisabled;
+
+    @FindBy(locator = "//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[3]//*//button[@icon=\"ctp-icon-Attachments\"]")
+    public CustomElement lnkAttachmentEnabled;
+
+    @FindBy(locator = "//app-image-viewer[@cssclassname=\"wrapper-image\"]")
+    public CustomElement uploadedImage;
+
+    @FindBy(locator = "//app-measurement-attachments//button[@icon=\"ctp-icon-Add-circle\"]")
+    public CustomElement btnAddMoreAttachments;
+
+//    @FindBy(locator = "(//div[contains(@class,'image-list-container-outer')]//div[@class='image-list-container']//img[contains(@class,'thumbnail')])[2]")
+//    public CustomElement corrosalImage;
+
+    @FindBy(locator = "//div[@class='image-list-container']//img[2]")
+    public CustomElement corrosalImage;
+
+    @FindBy(locator = "//div[@class='view-image-container']//img")
+    public CustomElement corrosalViewImage;
+
+    @FindBy(locator = "//app-measurement-attachments//button[@icon='ctp-icon-Delete']")
+    public CustomElement btnCorrosalDeleteImg;
+
+    @FindBy(locator = "//button[@icon=\"pi pi-trash\"]")
+    public CustomElement btnMeasurementImageDelete;
+
+    @FindBy(locator = "//button[contains(@class,\"p-dialog-header-close\")]")
+    public CustomElement btnDialogClose;
+
+    @FindBy(locator = "(//app-card//div[text()='Cover Wear'])[1]//../div[2]//span)[3]")
+    public CustomElement coverWearMeasurementCount;
+
+    @FindBy(locator = "xpath=(//div[@class='container']/div[@class='label-container']/div[@class='center-label']/span)[2]")
+    public CustomElement cardRemainingCoverValue;
+
+//app-card//app-durometer//div//div[@class="bottom-label"]//span[1]
+// (//app-card//*//div[(@class="header")]/../../*//app-durometer//div[@class="center-label"]//span)[3]
+
+    @FindBy(locator = "xpath=(//div[@class='container']/div[@class='label-container']/div[@class='bottom-label']/span)[2]")
+    public CustomElement cardRemainingLifeValue;
+
+    @FindBy(locator = "xpath=(//app-card//div[contains(@class,'footer')]//span[contains(@class,'coverWear')])[2]")
+    public CustomElement cardDurometerValue;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Position']")
+    public CustomElement positionColumnName;
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Tons Conveyed']")
+    public CustomElement tonsConveyedColumnName;
+
+    @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Age to date']")
+    public CustomElement ageToDateColumnName;
+
+    @FindBy(locator = "//th[@psortablecolumn=\"name\"]")
+    public CustomElement tablePositionHeader;
+    @FindBy(locator = "//th[@psortablecolumn='coverGrade']")
+    public CustomElement coverGradeHeader;
+
+    @FindBy(locator = "xpath=//th[@psortablecolumn='durometerSortOrder']")
+    public CustomElement durometerShoreHeader;
+
+    @FindBy(locator = "xpath=//th[@psortablecolumn='remainingLifeByTime']")
+    public CustomElement remainingLifeHeader;
+    @FindBy(locator = "xpath=//th[@psortablecolumn=\"remainingLifeByPercentage\"]")
+    public CustomElement remainingLifePercentageHeader;
+
     @FindBy(locator="xpath=//button[@icon='pi pi-download']")
     public CustomElement btReportDownload;
 
@@ -947,7 +1199,7 @@ public class CoverWearPage extends BasePage{
         List<WebElement> Options = driver.findElements(By.xpath(ListItem));
         System.out.println("actual positions ="+Options.size());
         System.out.println("expected positions ="+count);
-        Validator.assertTrue(Options.size() == Integer.parseInt(count),"Position dropdown is showing incorrect positions","Position dropdown verified successfully");
+        Validator.assertTrue(Options.size() == parseInt(count),"Position dropdown is showing incorrect positions","Position dropdown verified successfully");
         for(WebElement ele:Options) {
             waitForElementToBeClickable(ele);
             String value = ele.getAttribute("innerText");
@@ -986,8 +1238,7 @@ public class CoverWearPage extends BasePage{
     }
 
     public void verifyPreviousTonsConveyed(String value) {
-        System.out.println(tonsConveyedPreviously.getAttribute("value"));
-        System.out.println(value);
+
         Validator.assertTrue(tonsConveyedPreviously.getAttribute("value").equalsIgnoreCase(value),"Previous tons conveyed is incorrectly prefilled","Previous tons conveyed is validated successfully");
     }
 
@@ -1126,7 +1377,6 @@ public class CoverWearPage extends BasePage{
         PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+conveyorName+"_"+siteName+".pdf");
         try {
             String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
-            System.out.println(fullName);
             Validator.assertTrue(val.contains(fullName),"PDF Report was generated for wrong user","PDF Report was generated for the right user");
             Validator.assertTrue(val.contains(conveyorName),"PDF Report has incorrect conveyor name","PDF Report conveyor verified successfully");
             Validator.assertTrue(val.contains(siteName),"PDF Report has incorrect site name","PDF Report site name verified successfully");
@@ -1135,6 +1385,48 @@ public class CoverWearPage extends BasePage{
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void verifyPDFHeading(String conveyorName,String siteName,String corporateName)
+    {
+        PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+conveyorName+"_"+siteName+".pdf");
+        try {
+            String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+            System.out.println(val);
+            Validator.assertTrue(val.contains(corporateName+'-'+siteName+'-'+conveyorName),"PDF Report has incorrect heading","PDF Report heading verified successfully");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    public static String dateFormatter(Date date) {
+        // Define the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+
+        // Format the date
+        return dateFormat.format(date);
+    }
+
+    public void verifyPDFdate(String conveyorName,String siteName,String corporateName,String header,String contributor,String fromDate,String toDate)
+    {
+        PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+conveyorName+"_"+siteName+".pdf");
+        try {
+            String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+            System.out.println(val);
+//            Validator.assertTrue(val.contains(corporateName+'-'+siteName+'-'+conveyorName),"PDF Report has incorrect heading","PDF Report heading verified successfully");
+            Validator.assertTrue(val.contains(header),"PDF Report has incorrect heading","PDF Report heading verified successfully");
+            Validator.assertTrue(val.contains("Generated Date: "+dateFormatter(new Date())),"PDF Report has incorrect generated date","PDF Report has correct generated date");
+            Validator.assertTrue(val.contains("Generated By: "+contributor),"PDF Report has incorrect generated By","PDF Report has correct generated By");
+            Validator.assertTrue(val.contains("Date Range: "+dateFormatter(new Date(fromDate))+" - "+dateFormatter(new Date(toDate))),"PDF Report has incorrect date range","PDF Report has correct date range");
+            Validator.assertTrue(val.matches("2024 ContiTech AG, ALL RIGHTS RESERVED Page \\d+ of \\d+"), "Footer does not match", "Footer matches");
+            Validator.assertTrue(val.contains("Segment Installed Date Tons Conveyed Cover Grade Age to date Last Recording Lowest Reading (Top) Durometer Shore A Remaining Life by %"), "Column header does not match", "Column header matchs");
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void verifyPDFTopPosition(String conveyorName, String siteName) {
@@ -1166,6 +1458,41 @@ public class CoverWearPage extends BasePage{
             System.out.println("fullName; "+val);
             System.out.println("fullName; "+val.contains(fullName));
             Validator.assertTrue(val.contains(fullName),"PDF Report was generated for wrong user","PDF Report was generated for the right user");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void verifyPDFColumns(String header) {
+        PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+"Cover_wear_summary_report"+".pdf");
+        try {
+            String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+
+            // Check the header
+            Validator.assertTrue(val.contains(header), "PDF Report has incorrect header", "PDF Report header verified successfully");
+
+            System.out.println("fullName; " + val);
+            System.out.println(corporateColumnHeader.getText() + "**********");
+
+            // Extract text from the elements
+            String corporateHeader = corporateColumnHeader.getText();
+            String tableHeader = tablePositionHeader.getText();
+            String siteHeader = siteColumn.getText();
+            String coverGrade = coverGradeHeader.getText();
+            String durometerShore = durometerShoreHeader.getText();
+            String remainingLifePercentage = remainingLifePercentageHeader.getText();
+            String remainingLife = remainingLifeHeader.getText();
+
+            // Check if all required headers are present in the PDF content
+            boolean allHeadersPresent = val.contains(corporateHeader) &&
+                    val.contains(tableHeader) &&
+                    val.contains(siteHeader) &&
+                    val.contains(coverGrade) &&
+                    val.contains(durometerShore) &&
+                    val.contains(remainingLifePercentage) &&
+                    val.contains(remainingLife);
+
+            Validator.assertTrue(allHeadersPresent, "Selected column is not present in PDF Report", "Selected column is present in PDF Report");
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -1231,6 +1558,13 @@ public class CoverWearPage extends BasePage{
         cwTableView.click("View Icon");
         positionHeader.isVisible("Position Header");
     }
+    public void positionDetailsClick()
+    {
+        cwTableView.click("View Icon");
+        positionHeader.isVisible("Position Header");
+        waitForPageLoad(10000);
+
+    }
 
     public void selectGivenDate(String date) {
         String day = null;
@@ -1253,7 +1587,7 @@ public class CoverWearPage extends BasePage{
         int val;
         SyncUtil.waitFor(1000);
         calendarMonth.click("Calendar Month");
-        val = Integer.parseInt(calendarYear.getText("Calendar year")) - Integer.parseInt(year);
+        val = parseInt(calendarYear.getText("Calendar year")) - parseInt(year);
         if (val > 0)
             for (int i = 0; i < abs(val); i++)
                calendarPrev.click("Calendar Decrement");
@@ -1420,7 +1754,7 @@ public class CoverWearPage extends BasePage{
     }
 
     public boolean verifyAttachmentFunctionality() {
-        attachmentBtn.click("Attachment Btn");
+        attachmentBtn.jsClick("Attachment Btn");
         return imgDialog.isVisible("Image dialog");
     }
 
@@ -1431,14 +1765,16 @@ public class CoverWearPage extends BasePage{
 
     public boolean editMeasurement() {
         scrollPageup();
-        editBtn.click("Edit Measurement");
+        editBtn.jsClick("Edit Measurement");
         return cwConveyorInput.isVisible("Conveyor Inout");
     }
 
     public boolean editFunctionality(String thickness, String durometer) {
+        durometerMeasurement.stream().forEach(x->x.clear());
         durometerMeasurement.stream().forEach(x -> x.sendKeys(durometer));
+        dataPoints.stream().forEach(x->x.clear());
         dataPoints.stream().forEach(x -> x.sendKeys(thickness));
-        cwSave.click("Save");
+        cwSave.jsClick("Save");
         return !cwConveyorInput.isNotVisible(1000);
     }
 
@@ -1688,6 +2024,446 @@ public class CoverWearPage extends BasePage{
         dropdownSelectSearch(cwConveyorDropDown, cwInput, ConveyorName);
         waitForElementVisible(cwPositionDropDown,5000,500);
         dropdownSelect(cwPositionDropDown, ListItem, Position); }
+
+    public void verifyHomePage()
+    {
+        waitForPageLoad(15000);
+//        waitForElementVisible(siteHeader,10000,500);
+//        Validator.assertTrue(siteHeader.isVisible(),"User is not in home page of the application","User is in home page of the application");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"User is not in home page of the application","User is in home page of the application");
+
+    }
+    public void clickCoverWearCard()
+    {
+        SyncUtil.waitFor(10000);
+        setImplicitWait(20000,TimeUnit.MILLISECONDS);
+        waitForPageLoad(20000);
+        waitForElementVisible(coverWearCard,20000,500);
+        waitForElementToBeClickable(coverWearCard);
+        coverWearCard.jsClick();
+        waitForPageLoad(20000);
+
+    }
+    public void verifyCoverWearNavigation()
+    {
+//        SyncUtil.waitFor(10000);
+        waitForPageLoad(20000);
+        waitForElementVisible(headerSpecification,20000,500);
+        Validator.assertTrue(headerSpecification.isVisible(),"user is not navigated to coverWear list page","user is  navigated to coverWear list page");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/cover-wear"),"URL mismatch","URL matches");
+
+    }
+
+    public void verifyCoverWearListPageNavigation()
+    {
+        waitForPageLoad(20000);
+        waitForElementVisible(coverWearHeader,20000,500);
+        Validator.assertTrue(coverWearHeader.isVisible(),"user is not navigated to coverWear list page","user is  navigated to coverWear list page");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/secure/dashboard/cover-wear"),"URL mismatch","URL matches");
+
+    }
+    public void verifyCoverWearBreadCrumb()
+    {
+        waitForElementVisible(coverWearHeader,5000,500);
+        Validator.assertTrue(coverWearBreadCrumb.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb text is displayed");
+        Assert.assertEquals(coverWearBreadCrumb.getText(), "Home\nCover Wear", "Breadcrumb text does not match expected");
+
+    }
+
+    public void homeLinkClick()
+    {
+        waitForElementVisible(homeLink,5000,500);
+        homeLink.click();
+
+    }
+
+    public void verifySearchBar()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(searchBar,5000,500);
+        Validator.assertTrue(searchBar.isVisible(),"The searchBar is not visible","The searchBar is visible");
+        Validator.assertTrue(cwSearchInput.isVisible(),"The search placeholder is not present","The search placeholder is  present");
+        Validator.assertTrue(searchBarIcon.isVisible(),"The searchBar icon is not present","The searchBar icon is  present");
+
+    }
+
+    public void searchForItem(String searchItem)
+    {
+        cwSearchInput.type(searchItem, "Cover Wear Search");
+    }
+
+    public void verifySearchItem() {
+        try {
+            waitForPageLoad(10000);
+            SyncUtil.waitFor(25000);
+            waitForElementVisible(cwCheckboxes,20000,500);
+            waitForElementToDisplay(cwCheckboxes);
+
+            if (cwCheckboxes.isDisplayed()) {
+                Validator.assertTrue(cwCheckboxes.isVisible(), "No items found", "Search items found");
+            }
+        } catch (TimeoutException e) {
+            Validator.assertTrue(searchNotFound.isVisible() || conveyorSearchNotFound.isVisible(), "No data found text is not visible", "No data found text is visible");
+        }
+    }
+
+    public void applyColumnFilterClick()
+    {
+        waitForElementVisible(siteColumn,5000,500);
+        hoverOverElement(siteColumn);
+        waitForElementVisible(siteFilter,5000,500);
+        siteFilter.click();
+        waitForElementVisible(filterText,5000,500);
+        filterText.type("w");
+        waitForElementVisible(applyBtn,5000,500);
+        applyBtn.click();
+        System.out.println("inside if click ****************");
+
+
+    }
+
+    public void verifyColumnFilterClick(int noOfCoverWears)
+    {
+        waitForElementVisible(siteColumn,5000,500);
+        hoverOverElement(siteColumn);
+        waitForElementVisible(appliedFilter,10000,500);
+        for (int i = 1; i <= noOfCoverWears; i++)
+        {
+            String tdText = driver.findElement(By.xpath("//table//tr["+ i +"]/td[3]")).getText(); // Get the text of the td element
+
+            if (tdText.startsWith("W")) // Check if the text starts with 'w'
+            {
+                // If the filter is applied, assert it for this row
+                Validator.assertTrue(true, "Filter is not applied for row ","filter is applied");
+            } else {
+                // If the filter is not applied, assert it for this row
+                System.out.println("No filter applied for row " + i);
+                // Add your assertion code here
+            }
+        }
+    }
+
+    public void clearFilterClick()
+    {
+        waitForElementVisible(clearFilterBtn,10000,500);
+        clearFilterBtn.click();
+    }
+
+    public void verifyFilterIsRemoved()
+    {
+        waitForElementVisible(siteColumn,5000,500);
+        hoverOverElement(siteColumn);
+        Validator.assertTrue(appliedFilter.isNotVisible(10000),"filter is not removed","filter is removed");
+    }
+
+    public void columNamesClick()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(columnNameBtn,10000,500);
+        columnNameBtn.jsClick();
+    }
+
+    public void verifyColumnNames()
+    {
+        waitForElementVisible(conveyorColumnName,5000,500);
+        Validator.assertTrue(conveyorColumnName.isVisible(),"conveyor column name is not visible","conveyor column name is visible");
+        Validator.assertTrue(siteColumnName.isVisible(),"site column name is not visible","site column name is visible");
+        Validator.assertTrue(corporateColumnName.isVisible(),"corporate column name is not visible","corporate column name is visible");
+        Validator.assertTrue(installedDateColumnName.isVisible(),"installedDate column name is not visible","installedDate column name is visible");
+        Validator.assertTrue(coverGradeColumnName.isVisible(),"coverWear column name is not visible","coverWear column name is visible");
+        Validator.assertTrue(remainingLifeColumnName.isVisible(),"Remaining life by Time  column name is not visible","Remaining life by Time column name is visible");
+        Validator.assertTrue(lastRecordedColumnName.isVisible(),"Last recorded column name is not visible","Last recorded column name is visible");
+        Validator.assertTrue(lowestReadingColumnName.isVisible(),"Lowest Reading column name is not visible","Lowest Reading column name is visible");
+        Validator.assertTrue(durometerColumnName.isVisible(),"Durometer Shore column name is not visible","Durometer Shore column name is visible");
+        Validator.assertTrue(remainingCoverColumnName.isVisible(),"Remaining Cover % column name is not visible","Remaining Cover % column name is visible");
+    }
+
+    public void verifyColumnIsVisible()
+    {
+        waitForElementVisible(corporateColumnHeader,10000,500);
+        Validator.assertTrue(corporateColumnHeader.isVisible(),"selected column '"+corporateColumnHeader.getText()+"' is not displayed","selected column '"+corporateColumnHeader.getText()+"' is displayed");
+
+    }
+
+    public void selectColumnName()
+    {
+        waitForElementVisible(corporateColumnName,5000,500);
+        corporateColumnName.click();
+
+    }
+    public void clickOnColumn(String columnHeader)
+    {
+        waitForElementVisible(driver.findElement(By.xpath("//div[normalize-space()='"+columnHeader+"']")),5000,500);
+        driver.findElement(By.xpath("//div[normalize-space()='"+columnHeader+"']")).click();
+        //        waitForElementVisible(coverGradeColumn,5000,500);
+//        coverGradeColumn.click();
+
+    }
+
+    private List<String> getColumnData(int columnNumber) {
+        List<WebElement> rows = driver.findElements(By.xpath("//tbody/tr"));
+        List<String> columnData = new ArrayList<>();
+        for (WebElement row : rows) {
+            WebElement cell = row.findElement(By.xpath("./td[" + columnNumber + "]"));
+            columnData.add(cell.getText().trim());
+        }
+        return columnData;
+    }
+
+    public void verifyIncreasingOrderSorting(int columnNumber)
+    {
+//        int columnNumber = 5; // Example: retrieve data from the 5th column
+        List<String> columnDataAfterSortingIncreasing = getColumnData(columnNumber);
+        List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
+        expectedSortedDataIncreasing.sort(null);
+        Validator.assertTrue(columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing), "Sorting in increasing order is not applied correctly","sorting is applied in increasing order");
+
+    }
+
+    public void verifyDecreasingOrderSorting(int columnNumber)
+    {
+//        int columnNumber = 5; // Example: retrieve data from the 5th column
+        List<String> columnDataAfterSortingDecreasing = getColumnData(columnNumber);
+        List<String> expectedSortedDataDecreasing = new ArrayList<>(columnDataAfterSortingDecreasing);
+        expectedSortedDataDecreasing.sort(Collections.reverseOrder());
+        // Compare the values of the column data after sorting with the expected sorted data (decreasing order)
+        Validator.assertTrue(columnDataAfterSortingDecreasing.equals(expectedSortedDataDecreasing), "Sorting in decreasing order is not applied correctly","sorting is applied in decreasing order");
+
+    }
+    int redCount = 0;
+    int yellowCount = 0;
+    int greenCount = 0;
+    public void getCountFromDurometer()
+    {
+
+
+        for(int i=1;i<=8;i++)
+        {
+            SyncUtil.waitFor(10000);
+//            waitForPageLoad(10000);
+            String durometerXpath = "//table//tr[" + i + "]/td[6]//span"; // Replace this with the actual XPath for durometer value
+            String lifecycleXpath = "//table//tr[" + i + "]/td[8]//span"; // Replace this with the actual XPath for lifecycle value
+            waitForElementVisible(driver.findElement(By.xpath(durometerXpath)),5000,500);
+            waitForElementVisible(driver.findElement(By.xpath(lifecycleXpath)),5000,500);
+
+
+            WebElement durometerElement = driver.findElement(By.xpath(durometerXpath));
+            WebElement lifecycleElement = driver.findElement(By.xpath(lifecycleXpath));
+
+            // Extract numeric values from elements
+            int durometerValue = extractNumericValue(durometerElement.getText());
+
+            int lifecycleValue;
+            System.out.println(lifecycleElement.getText()+"text isss");
+            if(Objects.equals(lifecycleElement.getText(), "--"))
+            {
+                lifecycleValue=0;
+
+            }
+            else {
+                 lifecycleValue = extractNumericValue(lifecycleElement.getText());
+
+            }
+
+            String color = getHighestPriorityColor(durometerValue, lifecycleValue);
+
+            switch (color) {
+                case "red":
+                    redCount++;
+                    break;
+                case "yellow":
+                    yellowCount++;
+                    break;
+                case "green":
+                    greenCount++;
+                    break;
+            }
+//
+        }
+        System.out.println("Red count: " + redCount);
+        System.out.println("green count: " + greenCount);
+        System.out.println("yellow count: " + yellowCount);
+
+
+    }
+    public void verifyYellowCount()
+    {
+        waitForPageLoad(10000);
+//        SyncUtil.waitFor(10000);
+        getCountFromDurometer();
+        WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[2]/div[@class='conti-round'])[1]"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
+        Assert.assertEquals(yellowCount,parseInt(tileValue),"The yellowCount does not match");
+
+    }
+    public void verifyRedCount()
+    {
+        waitForPageLoad(10000);
+        getCountFromDurometer();
+        WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[3]/div[@class='conti-round'])[1]"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
+        Assert.assertEquals(redCount,parseInt(tileValue),"The redCount does not match");
+
+    }
+
+    public void verifyGreenCount()
+    {
+        waitForPageLoad(10000);
+        getCountFromDurometer();
+        WebElement element = driver.findElement(By.xpath("(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[1]/div[@class='conti-round'])[1]"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String tileValue = (String) js.executeScript("return arguments[0].textContent;", element);
+        Assert.assertEquals(greenCount,parseInt(tileValue),"The redCount does not match");
+
+    }
+
+
+    private String getHighestPriorityColor(double durometer, double lifecycle) {
+        String durometerStatus;
+        if (durometer < 45 || durometer >= 83) {
+            durometerStatus = "red";
+        } else if (durometer >= 45 && durometer < 55) {
+            durometerStatus = "yellow";
+        } else if (durometer >= 55 && durometer <= 73) {
+            durometerStatus = "green";
+        } else if (durometer > 73 && durometer < 83) {
+            durometerStatus = "yellow";
+        } else {
+            durometerStatus = "unknown";
+        }
+
+        String lifecycleStatus;
+        if (lifecycle < 10 && lifecycle>=1) {
+            lifecycleStatus = "red";
+        } else if (lifecycle <= 20) {
+            lifecycleStatus = "yellow";
+        } else if (lifecycle > 30) {
+            lifecycleStatus = "green";
+        } else {
+            lifecycleStatus = "unknown";
+        }
+
+        // Compare the statuses based on priority
+        if ((durometerStatus.equals("red") && lifecycleStatus.equals("red")) ||
+                (durometerStatus.equals("red") && lifecycleStatus.equals("yellow")) ||
+                (durometerStatus.equals("yellow") && lifecycleStatus.equals("red"))||
+            (durometerStatus.equals("red") && lifecycleStatus.equals("green"))||
+        (durometerStatus.equals("green") && lifecycleStatus.equals("red")))
+
+        {
+            return "red";
+        } else if ((durometerStatus.equals("yellow") && lifecycleStatus.equals("yellow")) ||
+                (durometerStatus.equals("green") && lifecycleStatus.equals("yellow")) ||
+                (durometerStatus.equals("yellow") && lifecycleStatus.equals("green"))) {
+            return "yellow";
+        } else if((durometerStatus.equals("green") && lifecycleStatus.equals("green"))) {
+            return "green";
+        }
+        return "yellow";
+
+    }
+
+    private static int extractNumericValue(String text) {
+        String numericText = text.replaceAll("\\D", ""); // This removes all non-digit characters
+        return parseInt(numericText);
+
+    }
+    public void verifyPositionBreadCrumb(String position,String conveyor,String site,String corporate)
+    {
+        waitForElementVisible(cowerWearBreadcrumb,10000,500);
+        Validator.assertTrue(cowerWearBreadcrumb.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb text is displayed");
+        Assert.assertEquals(cowerWearBreadcrumb.getText(), "Home\nCorporates\n"+corporate+"\n"+site+"\n"+conveyor+"\n"+position, "Breadcrumb text does not match expected");
+
+
+    }
+
+    public void conveyorNameClick()
+    {
+        waitForElementVisible(conveyorBreadCrumb,5000,500);
+        conveyorBreadCrumb.jsClick("Conveyor name");
+
+    }
+
+    public void verifyGaugeImageInSpec(){
+        waitForPageLoad(5000);
+        scrollPageup();
+        waitForElementVisible(imgGaugeMeter,10000,1000);
+        Validator.assertTrue(imgGaugeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
+    }
+
+
+
+    public void extractPositionData()
+    {
+        waitForElementVisible(txtValDurometer,5000,500);
+         String duro_meterValue=txtValDurometer.getText();
+         getBundle().setProperty("durometerTxtValue",duro_meterValue);
+
+        waitForElementVisible(txtValRemainingLife,5000,500);
+        String remainingLifeValue=  txtValRemainingLife.getText();
+        getBundle().setProperty("remainingLifeTxtValue",remainingLifeValue);
+
+        waitForElementVisible(txtValRemainingCover,5000,500);
+         String remainingCoverValue=txtValRemainingCover.getText();
+         getBundle().setProperty("remainingCoverTxtValue",remainingCoverValue);
+
+    }
+    public void verifyDataInGaugeMeter()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(gaugeValRemainingCover,10000,500);
+        Validator.assertTrue(gaugeValRemainingCover.isVisible(),"The remaining cover % value is not displayed in gauge image","The remaining cover % value is  displayed in gauge image");
+        Validator.assertTrue(gaugeValRemainingLife.isVisible(),"The remaining life value is not displayed in gauge image","The remaining life value is  displayed in gauge image");
+        Validator.assertTrue(gaugeValDurometer.isDisplayed(),"The duro meter value is not displayed in gauge image","The duro meter value is  displayed in gauge image");
+        Validator.assertTrue(gaugePercentageRange.isDisplayed(),"The duro meter range value is not displayed in gauge image","The duro meter range value is displayed in gauge image");
+    }
+
+    public void verifyGaugeDataAndTableData()
+    {
+        String actualDurometerText = gaugeValDurometer.getText().toString();
+        String actualNumericDurometerValue = actualDurometerText.split("\\s+")[0];
+        Assert.assertEquals(getBundle().getProperty("durometerTxtValue"),actualNumericDurometerValue,"the duro meter values are not same");
+        Assert.assertEquals(getBundle().getProperty("remainingCoverTxtValue"),gaugeValRemainingCover.getText(),"the remaining cover  values are not same");
+        Assert.assertEquals(getBundle().getProperty("remainingLifeTxtValue"),gaugeValRemainingLife.getText(),"the remaining life values are not same");
+
+    }
+
+    public void btnAddMeasurementClick()
+    {
+        waitForElementVisible(btAddMeasurement,10000,500);
+        btAddMeasurement.jsClick();
+
+    }
+
+    public void verifyAddMeasurementPopupVisible()
+    {
+        waitForElementVisible(measurementPopup,10000,500);
+        Validator.assertTrue(measurementPopup.isVisible(),"the add measurement popup is not visible","the add measurement popup is visible");
+
+    }
+
+    public void verifyAddDetailsFields()
+    {
+        waitForElementVisible(tbDeviceType,10000,500);
+        Validator.assertTrue(tbDeviceType.isVisible(),"The deviceType field is not visible","The deviceType field is  visible");
+        Validator.assertTrue(tbVelocity.isVisible(),"The velocity field is not visible","The velocity field is  visible");
+        Validator.assertTrue(tbCalibrationThickness.isVisible(),"The CalibrationThickness field is not visible","The CalibrationThickness field is  visible");
+        Validator.assertTrue(tbSurfaceTemperature.isVisible(),"The SurfaceTemperature field is not visible","The SurfaceTemperature field is  visible");
+        Validator.assertTrue(tbTestPosition.isVisible(),"The TestPosition field is not visible","The TestPosition field is  visible");
+
+    }
+    public void addDeviceMeasurementValues(String instrument,String velocity,String calibrationThickness,String surfaceTemperature,String testPosition)
+    {
+        waitForElementVisible(tbDeviceType,10000,500);
+        tbDeviceType.type(instrument,"device type");
+        tbVelocity.type(velocity,"velocity");
+        tbCalibrationThickness.type(calibrationThickness,"calibrationThickness");
+        tbSurfaceTemperature.type(surfaceTemperature,"surfaceTemperature");
+        tbTestPosition.type(testPosition,"testPosition");
+
+    }
 
     public void typeReadingValues(String value){
         for(int i=1;i<8;i++)
@@ -2041,11 +2817,317 @@ public class CoverWearPage extends BasePage{
             Validator.assertTrue(val.contains(getBundle().getProperty("cwConveyorValue").toString()), "Conveyor in PDF Report does not match", "Conveyor in PDF Report match");
             Validator.assertTrue(val.contains(getBundle().getProperty("cwSiteValue").toString()), "Site in PDF Report does not match", "Site in PDF Report match");
             Validator.assertTrue(val.contains(getBundle().getProperty("cwDurometerValue").toString()), "Durometer in PDF Report does not match", "Durometer in PDF Report match");
-      } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public void btnSaveClick()
+    {
+        SyncUtil.waitFor(5000);
+        waitForElementVisible(btnSave,10000,500);
+        btnSave.jsClick();
+        waitForPageLoad(10000);
+
+    }
+    public void btnEditClick()
+    {
+        waitForPageLoad(10000);
+        SyncUtil.waitFor(5000);
+//        waitForElementVisible(trAddedMeasurement,10000,500);
+        waitForElementVisible(btnEdit,10000,500);
+        waitForElementToBeClickable(btnEdit);
+        btnEdit.jsClick("edit button is clicked");
+    }
+
+    public void verifyUserEnteredData(String surfaceTemperature,String position)
+    {
+        waitForPageLoad(10000);
+        SyncUtil.waitFor(10000);
+        waitForElementVisible(tbSurfaceTemperature,20000,500);
+        //SHOWING EMPTY
+        Assert.assertEquals(surfaceTemperature,tbSurfaceTemperature.getAttribute("value"),"the user entered data is not present");
+
+    }
+
+    public void extractDateValue() {
+        waitForElementVisible(tdInstalledDateTableValue, 10000, 500);
+        String installedDate = tdInstalledDateTableValue.getText();
+
+        // Parse the date from the original format "24 Apr 2024"
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM, dd, yyyy");
+        try {
+            Date date = inputFormat.parse(installedDate);
+            String formattedDate = outputFormat.format(date);
+
+            // Store the formatted date in properties or wherever needed
+            getBundle().setProperty("installedDateTb", formattedDate);
+        } catch (ParseException e) {
+            // Handle parsing exception
+            e.printStackTrace();
+        }
+    }
+
+    public void verifyInstalledDates()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(tdInstalledDateDetailValue,10000,500);
+        String actualText = tdInstalledDateDetailValue.getText();
+        String actualDate = actualText.replace("(Installed date)", "").trim(); // Remove prefix and trim whitespace
+        Assert.assertEquals(getBundle().getProperty("installedDateTb"), actualDate, "The installed dates don't match");
+
+    }
+
+    public void  verifyAttachmentLinkVisible()
+    {
+        waitForElementVisible(btnAttachmentLink,10000,500);
+        Validator.assertTrue(btnAttachmentLink.isVisible(),"The attachment link is not visible for installed data","The attachment link is visible for installed data");
+
+    }
+
+    public void  verifyEditLinkVisible()
+    {
+        waitForElementVisible(btnEditLink,10000,500);
+        Validator.assertTrue(btnEditLink.isVisible(),"The edit link is not visible for installed data","The edit link is visible for installed data");
+
+    }
+
+    public void btnCloseClick()
+    {
+        waitForElementVisible(btnClose,1000,500);
+        waitForElementToBeClickable(btnClose);
+        btnClose.jsClick();
+        waitForPageLoad(10000);
+    }
+
+    public void btnDeleteClick()
+    {
+        waitForElementVisible(btnDelete,10000,500);
+        waitForElementToBeClickable(btnDelete);
+        btnDelete.jsClick();
+        waitForElementVisible(dialogConfirm,10000,500);
+        Validator.assertTrue(dialogConfirm.isVisible(),"The dialog to delete measurement is not visible","The dialog to delete measurement is visible");
+        waitForElementVisible(dialogConfirmAccept,10000,500);
+        dialogConfirmAccept.jsClick();
+        Validator.assertTrue(btnEdit.verifyNotPresent(),"The measurement is not deleted","The measurement is deleted");
+    }
+
+    public void editBtnClick()
+    {
+        waitForElementVisible(btnEditLink,10000,500);
+        btnEditLink.jsClick();
+        SyncUtil.waitFor(5000);
+
+    }
+
+    public void verifyMeasurementTableData()
+    {
+        waitForPageLoad(10000);
+        waitForElementVisible(wearMeasurementTable,10000,500);
+        Validator.assertTrue(wearMeasurementTable.isVisible(),"The wear measurement table is not visible","The wear measurement table is  visible");
+        SyncUtil.waitFor(5000);
+        waitForElementVisible(tdInstalledDateDetailValue,10000,500);
+        Validator.assertTrue(tdInstalledDateDetailValue.isVisible(),"The wear measurement table data is visible","The wear measurement table data is  visible");
+    }
+    public void verifyAttachmentHighlight()
+    {
+        waitForElementVisible(lnkAttachmentDisabled,10000,500);
+        Validator.assertTrue(lnkAttachmentDisabled.isVisible(),"The background is not highlighted","The background is highlighted");
+
+    }
+
+    public void verifyUploadedImage()
+    {
+        waitForPageLoad(20000);
+        SyncUtil.waitFor(10000);
+        Validator.assertTrue(lnkAttachmentDisabled.verifyNotPresent(),"The image upload is not successfull","The image upload is successfull");
+    }
+
+    public void verifyAttachBackgroundRemoved()
+    {
+        waitForPageLoad(20000);
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(lnkAttachmentDisabled.verifyNotPresent(),"The image upload is not successfull","The image upload is successfull");
+    }
+
+    public void addMoreAttachmentsClick()
+    {
+        waitForElementVisible(btnAddMoreAttachments,10000,500);
+        btnAddMoreAttachments.jsClick("add more attachments");
+        waitForPageLoad(10000);
+
+    }
+
+    public void verifyAttachmentImageUploaded()
+    {
+        waitForElementToInvisible(progressLoader,20000);
+        waitForElementVisible(corrosalImage,20000,1000);
+        Validator.assertTrue(corrosalImage.isVisible(),"Additional images is not displayed","Additional images is displayed");
+
+    }
+
+    public void clickImageInCorrosal()
+    {
+        waitForElementVisible(corrosalImage,20000,1000);
+        corrosalImage.click();
+    }
+
+    public void verifyCorrosalImageMaximazed()
+    {
+        waitForElementVisible(corrosalImage,20000,1000);
+        waitForElementVisible(corrosalViewImage,20000,1000);
+        corrosalImage.click();
+        Validator.assertTrue(corrosalImage.getAttribute("src").equalsIgnoreCase(corrosalViewImage.getAttribute("src")),"Image is not maximized","Image is maximized");
+    }
+
+    public void clickOnDeleteAndVerify()
+    {
+        waitForElementVisible(btnCorrosalDeleteImg,20000,1000);
+        waitForElementToBeClickable(btnCorrosalDeleteImg);
+        btnCorrosalDeleteImg.click();
+        waitForElementVisible(dialogConfirmAccept,10000,500);
+        dialogConfirmAccept.jsClick();
+        waitForElementToInvisible(progressLoader,20000);
+        Validator.assertTrue(corrosalImage.verifyNotPresent(),"Images is not deleted","Images is deleted");
+        waitForElementVisible(btnDialogClose,10000,500);
+        btnDialogClose.jsClick();
+        waitForPageLoad(10000);
+
+    }
+
+    public void deleteMeasurementImage()
+    {
+        waitForElementVisible(btnMeasurementImageDelete,10000,500);
+        btnMeasurementImageDelete.jsClick();
+        SyncUtil.waitFor(10000);
+        btnSaveClick();
+        waitForPageLoad(20000);
+        verifyAttachmentHighlight();
+    }
+
+    public void verifyConveyorCoverWearBreadCrumb(String site,String corporate,String conveyor)
+    {
+        waitForElementVisible(cowerWearBreadcrumb,10000,500);
+        Validator.assertTrue(cowerWearBreadcrumb.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb text is displayed");
+        Assert.assertEquals(cowerWearBreadcrumb.getText(), "Home\nCorporates\n"+corporate+"\n"+site+"\n"+conveyor+"\nCover Wear", "Breadcrumb text does not match expected");
+    }
+
+    public void verifyPositionMeasurementCount()
+    {
+        waitForPageLoad(20000);
+        SyncUtil.waitFor(15000);
+        waitForElementToDisplay(coverWearMeasurementCount);
+        Validator.assertTrue(coverWearMeasurementCount.getText("count").equalsIgnoreCase("3"),"The measurement count does not matches","The measurement count matches");
+    }
+
+    public int calculateLowestPercentage(int noOfPositions) {
+        int lowestCoverPercent = 100; // Initialize with a high value to find the lowest percentage
+        getBundle().setProperty("lowestCoverPercentValue", lowestCoverPercent);
+
+        for (int i = 1; i <= 2; i++) {
+            // Construct XPath for the app-durometer's span within the specific table row
+            waitForPageLoad(20000);
+            SyncUtil.waitFor(10000);
+            String xpath = "(//tr["+i+"]//td[10]//app-durometer//div[@class='center-label']//span)[1]";
+
+            // Wait for the element to be visible
+            waitForElementVisible(driver.findElement(By.xpath(xpath)), 20000, 500);
+
+            // Get the text content of the span element
+            String remainingCoverPercent = driver.findElement(By.xpath(xpath)).getText();
+
+            // Extract the numeric part from the string and convert it to an integer
+            int percentValue = Integer.parseInt(remainingCoverPercent.replaceAll("[^0-9]", ""));
+
+            // Update the lowestCoverPercent if necessary
+            if (percentValue < lowestCoverPercent) {
+                lowestCoverPercent = percentValue;
+            }
+        }
+        return lowestCoverPercent;
+    }
+
+
+    public void verifyGaugePercentageDisplay(int noOfPositions)
+    {
+        int result=calculateLowestPercentage(noOfPositions);
+        SyncUtil.waitFor(10000);
+        Assert.assertEquals(result,parseInt(cardRemainingCoverValue.getText().replaceAll("[^0-9]", "")),"the remaining cover values doesnt match");
+
+    }
+
+    public void verifyRemainingLifeValueDisplayed()
+    {
+        waitForElementVisible(cardRemainingLifeValue,20000,500);
+        Validator.assertTrue(cardRemainingLifeValue.isVisible(),"Remaining life of belt is not displayed","Remaining life of belt is  displayed");
+
+    }
+    public void verifyDurometerValueDisplayed()
+    {
+        waitForElementVisible(cardDurometerValue,20000,500);
+        Validator.assertTrue(cardDurometerValue.isVisible(),"Durometer Value  of belt is not displayed","Durometer Value of belt is  displayed");
+
+    }
+
+    public void coverWearcorporateNameClick(String corporateName)
+    {
+        String coverWearcorpBreadCrumb = "//span[text()='"+corporateName+"']";
+//		waitForElementVisible(corpBreadCrumb,5000,500);
+        waitForElementVisible(driver.findElement(By.xpath(coverWearcorpBreadCrumb)), 10000, 500);
+//		waitForElementVisible(siteBreadCrumb, 5000, 500);
+        scrollPageup();
+        SyncUtil.waitFor(5000);
+        waitForElementToBeClickable(driver.findElement(By.xpath(coverWearcorpBreadCrumb)));
+        driver.findElement(By.xpath(coverWearcorpBreadCrumb)).click();
+        SyncUtil.waitFor(10000);
+
+    }
+
+    public void verifyConveyorCoverWearColumns()
+    {
+        waitForElementVisible(positionColumnName,5000,500);
+        Validator.assertTrue(positionColumnName.isVisible(),"position  column name is not visible","position column name is visible");
+        Validator.assertTrue(tonsConveyedColumnName.isVisible(),"Tons Conveyed column name is not visible","Tons Conveyed column name is visible");
+        Validator.assertTrue(ageToDateColumnName.isVisible(),"Age to Date column name is not visible","Age To Date column name is visible");
+        Validator.assertTrue(installedDateColumnName.isVisible(),"installedDate column name is not visible","installedDate column name is visible");
+        Validator.assertTrue(remainingLifeColumnName.isVisible(),"Remaining life by Time  column name is not visible","Remaining life by Time column name is visible");
+        Validator.assertTrue(lastRecordedColumnName.isVisible(),"Last recorded column name is not visible","Last recorded column name is visible");
+        Validator.assertTrue(lowestReadingColumnName.isVisible(),"Lowest Reading column name is not visible","Lowest Reading column name is visible");
+        Validator.assertTrue(durometerColumnName.isVisible(),"Durometer Shore column name is not visible","Durometer Shore column name is visible");
+        Validator.assertTrue(remainingCoverColumnName.isVisible(),"Remaining Cover % column name is not visible","Remaining Cover % column name is visible");
+        Validator.assertTrue(tablePositionHeader.isDisplayed(),"the position header is not displayed","the position header is displayed");
+    }
+
+    public void selectCoverWearColumnName()
+    {
+        waitForPageLoad(10000);
+        SyncUtil.waitFor(10000);
+        waitForElementVisible(positionColumnName,10000,500);
+        positionColumnName.jsClick();
+
+    }
+
+    public void verifyColumnNameIsNotVisible()
+    {
+        waitForPageLoad(10000);
+//        waitForElementInvisible(tablePositionHeader,10000,500);
+        Validator.assertTrue(tablePositionHeader.verifyNotPresent(),"Columns which are not selected is also visible","Data of only selected column is visible");
+
+    }
+
+    public void verifySelectColumnIsVisible()
+    {
+        waitForPageLoad(20000);
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(tablePositionHeader.isDisplayed(),"Position data is not visible in table visible","Position data is visible in the table");
+
+    }
+
+    public boolean verifyCoverWearColumnFilters(){
+        return corporateColumnHeader.isEnable() && siteColumn.isEnable() && tablePositionHeader.isEnable() && remainingLifePercentageHeader.isEnable()
+                && remainingLifeHeader.isEnable() && durometerShoreHeader.isEnable() && coverGradeHeader.isEnable();
+    }
 
 
 }

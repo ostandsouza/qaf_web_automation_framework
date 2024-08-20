@@ -1,5 +1,6 @@
 package com.mobile.flutter.app.steps;
 
+import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.pages.ConveyorPage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
@@ -13,6 +14,11 @@ public class ConveyorSteps {
         Validator.assertTrue(ConveyorPage.getInstance().addConveyor(conveyorName, custSiteName, distShopName),"New Conveyor was not created","New Conveyor was created successfully");
     }
 
+    @QAFTestStep(description = "Add conveyor without conveyorName {CustSiteName} {DistShopName}")
+    public void verifyAddConveyorWithoutName(String custSiteName, String distShopName) {
+//        Validator.assertTrue(ConveyorPage.getInstance().addConveyorWithoutName(custSiteName, distShopName),"New Conveyor was not created","New Conveyor was created successfully");
+        ConveyorPage.getInstance().addConveyorWithoutName(custSiteName, distShopName);
+    }
     @QAFTestStep(description = "Navigate to conveyor list and verify {ConveyorName} is present")
     public void verifyConveyorCreation(String conveyorName) {
         Validator.assertTrue(ConveyorPage.getInstance().verifyConveyorCreation(conveyorName),"Newly added Conveyor was not created","Newly added Conveyor was created successfully");
@@ -66,6 +72,34 @@ public class ConveyorSteps {
         DashboardNativePage.getInstance().filterDescendingOrder();
         Validator.assertTrue(DashboardNativePage.getInstance().filterSiteFromDropdown(editDistCorpName),"Filter corporate multiselect not working as expected","Filter corporate multiselect is working as expected");
 //        Validator.assertTrue(DashboardNativePage.getInstance().saveFilter(),"Unable lto save filter changes in corporate screen","Able lto save filter changes in corporate screen");
+    }
+
+
+    @QAFTestStep(description = "Verify that the conveyor tile is visible in home page and click on it")
+    public void clickAndVerifyConveyorTile() {
+            DashboardPage.getInstance().conveyorTileClick();
+    }
+
+    @QAFTestStep(description = "Click on add button in conveyor list page and verify it navigates to add conveyor page")
+    public void clickOnAddBtnAndVerifyNavigation() {
+        ConveyorPage.getInstance().addBtnClick();
+        ConveyorPage.getInstance().isAddConveyorPage();
+
+    }
+
+    @QAFTestStep(description = "Navigate to the Add Conveyor Page with {ConveyorName}")
+    public void addConveyorPageNavigation(String conveyorName) {
+//        SyncUtil.waitFor(30000);
+//        String conveyorId = DashboardPage.getInstance().apiBase.getConveyorsAPI(conveyorName);
+//        DashboardPage.getInstance().apiBase.deleteConveyorAPI(conveyorId);
+//        DashboardNativePage.getInstance().refreshPage();
+        Validator.assertTrue(DashboardPage.getInstance().goToConveyor(),"Add conveyor page is not visible","Add conveyor page is visible");
+    }
+
+    @QAFTestStep(description = "Add Conveyor with distributor {ConveyorName} {DistShopName} {CustSiteName}")
+    public void addConveyorWithDistributor(String conveyorName,String distName,String custSiteName) {
+        Validator.assertTrue(ConveyorPage.getInstance().addConveyorWithDistShop(conveyorName,distName, custSiteName),"New Conveyor was not created","New Conveyor was created successfully");
+
     }
 
 }

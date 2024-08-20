@@ -5,6 +5,7 @@ import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.mobile.utils.DIRECTION;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.Validator;
 import org.testng.Assert;
 
 public class ConveyorPage extends FlutterBasePage {
@@ -68,13 +69,76 @@ public class ConveyorPage extends FlutterBasePage {
     @FindBy(locator = "conveyor.more.delete")
     public CustomFlutterElement conveyorDeleteBtn;
 
+    @FindBy(locator = "corporate.conveyorList.header")
+    public CustomFlutterElement conveyorListHeader;
+
+    @FindBy(locator = "conveyor.add.icon")
+    public CustomFlutterElement addIcon;
+
+    @FindBy(locator = "conveyor.add.header")
+    public CustomFlutterElement addConveyorHeader;
+
+    @FindBy(locator = "conveyor.toast.error")
+    public CustomFlutterElement addConveyorNameError;
+
+
+
+
     public boolean isConveyorPage() {
-        return conveyorNameField.isPresent();
+        Validator.assertTrue(conveyorListHeader.isPresent(),"user navigated to conveyor list page","user navigated to conveyor list page");
+        return conveyorListHeader.isPresent();
+    }
+
+    public boolean isAddConveyorPage() {
+        Validator.assertTrue(addConveyorHeader.isPresent(),"user navigated to add conveyor page","user navigated to add conveyor  page");
+        return addConveyorHeader.isPresent();
     }
 
     public boolean addConveyor(String conveyorName, String custSiteName, String distShopName) {
+        waitForPageToLoad();
+        conveyorNameField.sendKeys(conveyorName);
+        customerField.click("Customer dropdown");
+        searchDropdown.sendKeys(custSiteName, "Customer");
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+        SyncUtil.waitFor(5000);
+
+        distributorField.click("Distributor dropdown");
+
+        searchDropdown.sendKeys(distShopName, "Distributor");
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+
+//        saveBtn.scrollIntoView("Save Btn");
+        saveBtn.scrollToElement(conveyorFrame, DIRECTION.DOWN, "Save Btn");
+        saveBtn.click();
+
+        saveBtn.waitForTheElementToBeInvisible(5000);
+        return !saveBtn.isVisible();
+    }
+
+    public boolean addConveyorWithDistShop(String conveyorName, String custSiteName, String distShopName) {
+
         conveyorNameField.sendKeys(conveyorName);
 
+        distributorField.click("Distributor dropdown");
+        searchDropdown.sendKeys(distShopName, "Distributor");
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+
+        customerField.click("Customer dropdown");
+        DashboardNativePage.getInstance().verifyCustomerSite();
+        searchDropdown.sendKeys(custSiteName, "Customer");
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+
+//        saveBtn.scrollIntoView("Save Btn");
+        saveBtn.scrollToElement(conveyorFrame, DIRECTION.DOWN, "Save Btn");
+        saveBtn.click();
+
+        saveBtn.waitForTheElementToBeInvisible(5000);
+        return !saveBtn.isVisible();
+    }
+
+
+    public void addConveyorWithoutName(String custSiteName, String distShopName)
+    {
         customerField.click("Customer dropdown");
         searchDropdown.sendKeys(custSiteName, "Customer");
         DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
@@ -86,9 +150,9 @@ public class ConveyorPage extends FlutterBasePage {
 //        saveBtn.scrollIntoView("Save Btn");
         saveBtn.scrollToElement(conveyorFrame, DIRECTION.DOWN, "Save Btn");
         saveBtn.click();
+        addConveyorNameError.waitForTheElementToBeVisible(45);
+        Validator.assertTrue(addConveyorNameError.isVisible(),"error message is displayed when conveyor name is not entered","error message is displayed when conveyor name is not entered");
 
-        saveBtn.waitForTheElementToBeInvisible(5000);
-        return !saveBtn.isVisible();
     }
 
     public boolean verifyConveyorCreation(String company) {
@@ -164,4 +228,24 @@ public class ConveyorPage extends FlutterBasePage {
         saveBtn.waitForTheElementToBeInvisible(5000);
         return !saveBtn.isVisible();
     }
+
+    public boolean editConveyorName(String conveyorName){
+        conveyorNameField.clear();
+        conveyorNameField.sendKeys(conveyorName);
+        saveBtn.scrollToElement(conveyorFrame, DIRECTION.DOWN, "Save Btn");
+        SyncUtil.waitFor(4000);
+        saveBtn.click();
+
+        saveBtn.waitForTheElementToBeInvisible(5000);
+        return !saveBtn.isVisible();
+    }
+
+    public void addBtnClick()
+    {
+//        System.out.println(getRenderTree());
+//        SyncUtil.waitFor(30000);
+//        addIcon.waitForTheElementToBeVisible(85);
+        addIcon.click();
+    }
+
 }

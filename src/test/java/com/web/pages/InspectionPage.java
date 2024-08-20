@@ -20,6 +20,8 @@ import com.qmetry.qaf.automation.util.Validator;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 
 
 public class InspectionPage extends BasePage {
@@ -355,6 +357,56 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//label[text()='Condition']//..//div//input")
 	public CustomElement txtConditionTotalValue;
 
+	@FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+	public CustomElement inspectionsBreadcrumb;
+
+	@FindBy(locator="xpath=//div[@role=\"alert\"]")
+	public CustomElement imageLoader;
+
+	@FindBy(locator="xpath=//app-image-viewer[@cssclassname=\"wrapper-image\"]")
+	public CustomElement uploadedImage;
+
+	@FindBy(locator="xpath=//button[contains(@icon,\"pi-trash\")]")
+	public CustomElement deleteBtn;
+
+	@FindBy(locator="xpath=//li//span[text()='Export PDF']")
+	public CustomElement btnExportInspection;
+	@FindBy(locator="xpath=//span[contains(@class,'ctp-icon-File-PDF')]")
+	public CustomElement btnExportPDFIcon;
+
+
+	@FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]")
+	public CustomElement deleteDialogbox;
+
+	@FindBy(locator="xpath=//checkicon[contains(@class,\"p-icon-wrapper\")]")
+	public CustomElement confirmBtn;
+
+	@FindBy(locator="xpath=//span[text()='CV Common Regression']")
+	public CustomElement conveyorBreadCrumb;
+
+	@FindBy(locator="xpath=//span[text()=\"Cust Automation Common India\"]")
+	public CustomElement siteBreadCrumb;
+
+	@FindBy(locator="xpath=//span[text()=\"Cust Automation Common Corp\"]")
+	public CustomElement corpBreadCrumb;
+
+	@FindBy(locator="xpath=//img[@src=\"/assets/img/upload_default.png\"]")
+	public CustomElement defaultImage;
+	@FindBy(locator="xpath=//input[@id=\"file-input\"]")
+	public CustomElement fileInput;
+
+	@FindBy(locator="xpath=//p-breadcrumb[.//*[self::span[text()='Technical Data']]]")
+	public CustomElement technicalDataHeader;
+
+	@FindBy(locator="xpath=//div[contains(@class,'p-panel-header') and .//span[contains(text(),'Cust Automation Common India')]]")
+	public CustomElement siteHeader;
+
+	@FindBy(locator="xpath=//div[contains(@class,'p-panel-header') and .//span[contains(text(),'Cust Automation Common Corp')]]")
+	public CustomElement corpHeader;
+
+	@FindBy(locator="xpath=//div[contains(@class,'p-panel-header') and .//span[contains(text(),'Corporates')]]")
+	public CustomElement headerCorporate;
+
 	@FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
 	public CustomElement paginationEntry;
 
@@ -364,9 +416,12 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//div[text()='Error'")
 	public CustomElement inspectionErrorMsg;
 
+	@FindBy(locator = "xpath=(//span[text()=\"Corporates\"])[2]")
+	public CustomElement corporateLink;
 
 	@FindBy(locator="xpath=(//div[@class='card-inner-wrapper' and contains(div, 'Inspections')])[2]")
 	public CustomElement btInspectionCard;
+
 	@FindBy(locator="xpath=//span[text()='Inspection Event']")
 	public CustomElement txtInspectionEvent;
 
@@ -381,14 +436,33 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator= "xpath=//p-card//div[text()=' GOOD ']/../div/span")
 	public CustomElement statusCardGoodCount;
+
 	@FindBy(locator= "xpath=//p-card//div[text()=' TOTAL ']/../div/span")
 	public CustomElement statusCardTotalCount;
+
 	@FindBy(locator= "xpath=//p-card//div[text()=' POOR ']/../div/span")
 	public CustomElement statusCardPoorCount;
+
 	@FindBy(locator= "xpath=//p-card//div[text()=' FAULT ']/../div/span")
 	public CustomElement statusCardFaultCount;
+
 	@FindBy(locator= "xpath=//p-card//div[text()=' CRITICAL ']/../div/span")
 	public CustomElement statusCardCriticalCount;
+
+	@FindBy(locator= "xpath= //p-card//div[text()=' GOOD ']")
+	public CustomElement cardStatusGood;
+
+	@FindBy(locator= "xpath= //p-card//div[text()=' FAULT '] ")
+	public CustomElement cardStatusFault;
+
+	@FindBy(locator= "xpath= //p-card//div[text()=' POOR ']")
+	public CustomElement cardStatusPoor;
+
+	@FindBy(locator= "xpath= //p-card//div[text()=' CRITICAL ']")
+	public CustomElement cardStatusCritical;
+
+	@FindBy(locator= "xpath= //p-card//div[text()=' TOTAL ']")
+	public CustomElement cardStatusTotal;
 
 	@FindBy(locator= "xpath= //div//label[text()='Select Site']/..//p-multiselect[@optionvalue='companyId']")
 	public CustomElement ddlSiteDropdown;
@@ -397,6 +471,9 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator="xpath=//button[contains(@class,'p-multiselect-close')]")
 	public CustomElement multiSelectCloseBtn;
+
+	@FindBy(locator="xpath=//button//span[text()='Actions']")
+	public CustomElement btnActions;
 
 	public void goToInspection() {
 		if(!lnkInspection.isVisible())
@@ -505,6 +582,7 @@ public class InspectionPage extends BasePage {
 
 	public void goToInspectionDetailScreen(String inspectionName) {
 		searchInspection(inspectionName);
+		waitForElementVisible(detailIcon,10000,500);
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
 		inspectionHeader.verifyText(inspectionName, "Inspection Header");
@@ -586,6 +664,17 @@ public class InspectionPage extends BasePage {
 			Validator.assertTrue(val.contains(conveyorName) || val.contains("Multiple"), "PDF Report was generated for the wrong conveyor", "PDF Report was generated for the right conveyor");
 			Validator.assertTrue(val.contains(inspectionName), "PDF Report was generated for the wrong inspection", "PDF Report was generated for the right inspection");
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void verifyInspectionDashboardContents(String custSiteName,String corp) {
+		PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+ corp+"-inspection-dashboard.pdf");
+		try {
+			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+			System.out.println(val);
+			Validator.assertTrue(val.contains(custSiteName),"PDF Report was generated for the wrong customer Site","PDF Report was generated for the right customer Site");
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -672,6 +761,8 @@ public class InspectionPage extends BasePage {
 	}
 
 	public boolean verifyAddInspectionFromList() {
+		waitForElementVisible(btAddInspection,10000,500);
+		waitForElementToBeClickable(btAddInspection);
 		btAddInspection.click("Add Inspection Icon");
 		return inspectionHeader.isVisible("Inspection Header");
 	}
@@ -906,6 +997,233 @@ public class InspectionPage extends BasePage {
 		Validator.assertTrue(txtInspectionEvent.isDisplayed(),"Inspection Page is not loaded","Inspection Page is loaded");
 	}
 
+	public void verifyUserBreadCrumb()
+	{
+		waitForElementVisible(inspectionHeader,5000,500);
+		Validator.assertTrue(inspectionHeader.isVisible(),"inspections header is not visible","inspections header is visible");
+		waitForElementVisible(inspectionsBreadcrumb,10000,500);
+		Validator.assertTrue(inspectionsBreadcrumb.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb text is displayed");
+		assertEquals(inspectionsBreadcrumb.getText(), "Home\nInspections", "Breadcrumb text does not match expected");
+
+	}
+	public void addNewBtnClick()
+	{
+		waitForElementVisible(btnAddnew,5000,500);
+		waitForElementToBeClickable(btnAddnew);
+		SyncUtil.waitFor(4000);
+		btnAddnew.click("Add New Inspection");
+	}
+
+	public void verifyAddFilesToUploadBtn()
+	{
+//		waitForElementVisible(fileInput,10000,500);
+//		Validator.assertTrue(fileInput.isVisible(),"Add files section is not visible","Add files section is visible");
+		waitForElementVisible(btnSelectFiles,5000,500);
+		Validator.assertTrue(btnSelectFiles.isVisible(),"User is not able to view add files to upload section","User is able to see add files to upload section");
+
+	}
+
+	public void selectFilesBtnClick()
+	{
+		waitForPageLoad(5000);
+		waitForElementVisible(btnSelectFiles,5000,500);
+		btnSelectFiles.jsClick();
+
+	}
+	public void verifyLoader()
+	{
+		waitForElementVisible(imageLoader,1000,500);
+		Validator.assertTrue(imageLoader.isVisible(),"the loader is not visible","the loader is visible");
+	}
+	public void verifyUploadedImage()
+	{
+//		waitForElementVisible(defaultImage,5000,500);
+//		waitForElementToInvisible(defaultImage);
+		waitForPageLoad(20000);
+		SyncUtil.waitFor(5000);
+		waitForElementVisible(uploadedImage,10000,5000);
+		Validator.assertTrue(uploadedImage.isVisible(),"the image is not visible","the uploaded image is visible");
+
+	}
+	public void verifyDeleteBtn()
+	{
+		waitForElementVisible(deleteBtn,10000,500);
+		Validator.assertTrue(deleteBtn.isVisible(),"The delete button is not visible","The delete button is visible");
+	}
+
+	public void deleteBtnClick()
+	{
+		waitForElementVisible(deleteBtn,10000,500);
+		waitForElementToBeClickable(deleteBtn);
+		deleteBtn.click();
+		waitForElementVisible(deleteDialogbox,5000,500);
+		waitForElementVisible(confirmBtn,5000,500);
+		waitForElementToBeClickable(confirmBtn);
+		confirmBtn.click();
+
+	}
+
+	public void verifyImageDeletion()
+	{
+		Validator.assertTrue(uploadedImage.verifyNotPresent(),"The image is failed to delete","The image is not uploaded");
+	}
+
+	public void exportBtnClick()
+	{
+		waitForElementVisible(ddlActions,5000,500);
+		ddlActions.click("Actions");
+		waitForElementVisible(btnExportInspection, 10000,500);
+		btnExportInspection.jsClick("Export pdf");
+
+
+	}
+
+	public void exportPDFConveyor(String conveyorName) {
+		searchInspectionItem(conveyorName);
+		selectInspection();
+		waitForElementVisible(ddlActions,5000,500);
+		ddlActions.click("Actions");
+		SyncUtil.waitFor(10000);
+		waitForElementVisible(btnExportInspection, 10000,500);
+		btnExportInspection.jsClick("Export pdf");
+
+	}
+	public void searchForInspectionItem(String conveyorName)
+	{
+		waitForElementVisible(btSearchinput,5000,500);
+		btSearchinput.type(conveyorName, "Inspection Search");
+		waitForElementVisible(cbCheckbox,10000,500);
+		waitForElementToDisplay(cbCheckbox);
+	}
+
+	public void viewInspectionItem()
+	{
+		waitForElementVisible(ddViewicon,5000,500);
+		ddViewicon.click();
+	}
+
+	public void conveyorNameClick(String conveyorName)
+	{
+		String conveyorBreadCrumb = "//span[text()='" + conveyorName + "']";
+		waitForElementVisible(driver.findElement(By.xpath(conveyorBreadCrumb)), 10000, 500);
+//		waitForElementVisible(siteBreadCrumb, 5000, 500);
+		scrollPageup();
+		SyncUtil.waitFor(5000);
+		waitForElementToBeClickable(driver.findElement(By.xpath(conveyorBreadCrumb)));
+		driver.findElement(By.xpath(conveyorBreadCrumb)).click();
+//		waitForElementVisible(conveyorBreadCrumb,5000,500);
+//		conveyorBreadCrumb.jsClick("Conveyor name");
+
+	}
+
+
+
+	public void verifyConveyorPageNavigation()
+	{
+		SyncUtil.waitFor(10000);
+		waitForPageLoad(15000);
+		waitForElementVisible(technicalDataHeader,10000,500);
+		Validator.assertTrue(technicalDataHeader.isVisible(),"User is not navigated to conveyor detail page","User is navigated to conveyor detail page");
+		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/conveyor/details"),"User is not navigated to conveyor detail page","User is navigated to conveyor detail page");
+
+	}
+
+	public void verifyInspections(int noOfData, String breadCrumbValue,int row) {
+		waitForPageLoad(10000);
+
+		for(int i = 1; i <= noOfData; i++) {
+			WebElement locator = driver.findElement(By.xpath("//tr["+i+"]/td["+row+"][contains(., '" + breadCrumbValue + "')]"));
+
+			try {
+				waitForElementVisible(locator,5000,500);
+				Validator.assertTrue(locator.isDisplayed(), "Inspections of " + breadCrumbValue + " is not visible", "Inspections of " + breadCrumbValue + " is visible");
+			} catch (TimeoutException e) {
+				Validator.assertTrue(false, "No inspections found for " + breadCrumbValue, " inspections found for " + breadCrumbValue);
+				break; // Exit the loop if no inspections are found
+			}
+		}
+	}
+
+	public void siteNameClick(String siteName) {
+		String xpath = "//span[text()='"+siteName+"']";
+		waitForElementVisible(driver.findElement(By.xpath(xpath)), 10000, 500);
+//		waitForElementVisible(siteBreadCrumb, 5000, 500);
+		scrollPageup();
+		SyncUtil.waitFor(5000);
+		waitForElementToBeClickable(driver.findElement(By.xpath(xpath)));
+		driver.findElement(By.xpath(xpath)).click();
+		SyncUtil.waitFor(10000);
+
+	}
+
+	public void verifySitePageNavigation(String siteName) {
+		// Wait for the page to load completely
+		waitForPageLoad(20000);
+		SyncUtil.waitFor(5000);
+		// Construct the XPath for the site header
+		String siteHeader = "//div[contains(@class,'p-panel-header') and .//span[contains(text(),'"+siteName+"')]]";
+
+		// Wait for the site header to be visible
+		waitForElementVisible(driver.findElement(By.xpath(siteHeader)), 20000, 500);
+
+		// Wait for the site header to be displayed
+		waitForElementToDisplay(driver.findElement(siteHeader));
+
+		// Check if the site header is displayed
+		Validator.assertTrue(driver.findElement(By.xpath(siteHeader)).isDisplayed(), "User is not navigated to site page", "User is navigated to site detail page");
+
+		// Check if the current URL contains the expected path
+		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/sites/details"), "User is not navigated to site page", "User is navigated to site page");
+	}
+
+
+	public void corporateNameClick(String corpName)
+	{
+		String corpBreadCrumb = "//span[text()='"+corpName+"']";
+//		waitForElementVisible(corpBreadCrumb,5000,500);
+		waitForElementVisible(driver.findElement(By.xpath(corpBreadCrumb)), 10000, 500);
+//		waitForElementVisible(siteBreadCrumb, 5000, 500);
+		scrollPageup();
+		SyncUtil.waitFor(5000);
+		waitForElementToBeClickable(driver.findElement(By.xpath(corpBreadCrumb)));
+		driver.findElement(By.xpath(corpBreadCrumb)).click();
+		SyncUtil.waitFor(10000);
+
+	}
+
+
+	public void verifyCorporatePageNavigation(String corpName)
+	{
+		waitForPageLoad(15000);
+		String corpHeader="//div[contains(@class,'p-panel-header') and .//span[contains(text(),'"+corpName+"')]]";
+		waitForElementVisible(driver.findElement(By.xpath(corpHeader)), 20000, 500);
+		waitForElementToDisplay(driver.findElement(corpHeader));
+//		waitForElementVisible(siteHeader,10000,500);
+		Validator.assertTrue(driver.findElement(By.xpath(corpHeader)).isDisplayed(),"User is not navigated to corporate detail page","User is navigated to corporate detail page");
+//		waitForElementVisible(corpHeader,10000,500);
+//		Validator.assertTrue(corpHeader.isVisible(),"User is not navigated to corporate detail page","User is navigated to corporate detail page");
+		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/companies/detail"),"User is not navigated to corporate detail page","User is navigated to corporate page");
+
+	}
+
+
+
+	public void corpBreadCrumbClick()
+	{
+		waitForElementVisible(corporateLink,5000,500);
+		corporateLink.jsClick();
+	}
+
+	public void verifyCorporateListPageNavigation()
+	{
+//		SyncUtil.waitFor(10000);
+		waitForPageLoad(15000);
+		waitForElementVisible(headerCorporate,10000,500);
+		Validator.assertTrue(headerCorporate.isVisible(),"User is not navigated to corporate list page","User is navigated to corporate list page");
+		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/companies/list"),"User is not navigated to corporate list page","User is navigated to corporate list page");
+
+	}
+
 	public void inspectionDashboardBtnClick()
 	{
 		waitForElementVisible(iconBarChart,5000,500);
@@ -923,6 +1241,14 @@ public class InspectionPage extends BasePage {
 		Validator.assertTrue(statusCardPoorCount.getText().contains(poor),"Poor Count doesn't match","Poor Count match");
 		Validator.assertTrue(statusCardFaultCount.getText().contains(fault),"Fault Count doesn't match","Fault Count match");
 		Validator.assertTrue(statusCardGoodCount.getText().contains(good),"Good Count doesn't match","Good Count match");
+
+	}
+
+	public void verifyInspectionDashboardCards()
+	{
+		waitForElementVisible(cardStatusTotal,10000,500);
+		Validator.assertTrue(cardStatusTotal.isVisible() && cardStatusCritical.isVisible() && cardStatusPoor.isVisible()
+		&& cardStatusFault.isVisible() && cardStatusGood.isVisible(),"User cannot see all cards in inspection dashboard","User can see all cards in inspection dashboard");
 	}
 
 	public void siteDropDownClick()
@@ -953,6 +1279,11 @@ public class InspectionPage extends BasePage {
 		waitForElementVisible(driver.findElement(By.xpath(siteSelected)),10000,500);
 		Validator.assertTrue(driver.findElement(By.xpath(siteSelected)).isDisplayed(),"The user is not able to select site","The user is  able to select site");
 		Validator.assertTrue(driver.findElement(By.xpath(siteSelected2)).isDisplayed(),"The user is not able to select site2","The user is  able to select site2");
+	}
+
+	public void verifySiteDropDownClicked(String siteName) {
+		waitForElementVisible(multiSelectCloseBtn, 10000, 500);
+		multiSelectCloseBtn.click();
 	}
 
 	public void verifyViewRights(String conveyorName, String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status) {
@@ -1046,6 +1377,21 @@ public class InspectionPage extends BasePage {
 	public void verifyAddInspectionItemErrorMsg() {
 		waitForElementToDisplay(inspectionAddErrorMsg);
 		Reporter.log("Add Inspection error message is displayed", MessageTypes.Pass);
+	}
+
+
+	public void verifyActionBtnEnabled()
+	{
+		Validator.assertTrue(btnActions.isPresent(),"The actions button is not present in inspection dashboard","The actions button is present in inspection dashboard");
+		Validator.assertTrue(btnActions.isEnabled(),"The actions button is not enabled by default in inspection dashboard","The actions button is enabled by default in inspection dashboard");
+
+	}
+
+	public void verifyExportPDFIsVisible()
+	{
+		waitForElementVisible(btnExportInspection, 10000,500);
+		Validator.assertTrue(btnExportInspection.isVisible() && btnExportPDFIcon.isVisible(),"User is not able to see Export PDF along with PDF Symbol","User is able to see Export PDF along with PDF Symbol");
+
 	}
 
 }
