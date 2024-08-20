@@ -13,12 +13,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<testSuiteFile>config/sanity_config.xml</testSuiteFile>
-		<sourceVersion>1.8</sourceVersion>
-		<targetVersion>1.8</targetVersion>
-		<qaf.version>4.0.0-RC2</qaf.version>
-		<restassured.version>4.5.1</restassured.version>
-		<selenium.version>4.11.0</selenium.version>
-		<appium.version>8.5.1</appium.version>
+		<sourceVersion>17</sourceVersion>
+		<targetVersion>17</targetVersion>
+		<qaf.version>4.0.0-RC3</qaf.version>
+		<restassured.version>5.5.0</restassured.version>
+		<selenium.version>4.14.1</selenium.version>
+		<appium.version>9.0.0</appium.version>
 		<testng.version>7.1.0</testng.version>
 		<assist.version>3.28.0-GA</assist.version>
 		<test.results.dir>test-results</test.results.dir>
@@ -45,6 +45,11 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
 			<version>4.5.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.10.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -147,6 +152,11 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.16.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>
