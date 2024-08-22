@@ -212,6 +212,14 @@ Scenario: ZaVerify user is able to see the metric data when metric radio button 
 @key:Conveyor_Belt_Metric
 Scenario: Verify user is able to edit the belt width for the metric unit Conversions
 
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Verify site and coporate fields are prefilled
+    Then Verify data value in header as metric
+    And Edit Conveyor belt width value '${BeltWidth}'
+    And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
+    Then Add data value in header as imperial
+    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for beltwidth
+
 @Regression17 @CTCP-1865
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -385,7 +393,7 @@ Scenario: ZVerify user is able to add the layout name
 @sheetName:Regression
 @key:Conveyor_Layout_Create
 Scenario: Verify user is able to click the back button
-=======
+
     And Edit Conveyor tons per hour value '${TonsPerHour}'
     And Verify data value unit as '${MetricUnit}' in Add Conveyor for TonsPerHour
     Then Add data value in header as imperial
@@ -410,12 +418,9 @@ Scenario: Verify the table layout picker
 @key:Conveyor_LayoutCreate
 Scenario: Verify the user should get the add button enable
 
->>>>>>> supreetha_dev
-
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Click on text box and verify user is able to enter the layout name '${LayoutName}'
-<<<<<<< HEAD
     And Click on back button and verify user lands on table layout settings
 
 @Regression25 @CTCP-2011
@@ -525,8 +530,6 @@ Scenario: Verify pagination functionality
     And Verify the conveyor count from conveyor list page
     Then Verify pagination forward arrow button
     And Verify pagination backward arrow button
-=======
-    And Verify add button is enabled
 
 @Regression27 @CTCP-2010
 @dataFile:resources/data/TestData.xls

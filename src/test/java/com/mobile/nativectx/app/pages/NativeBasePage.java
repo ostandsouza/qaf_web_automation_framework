@@ -9,7 +9,7 @@ import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
 import com.qmetry.qaf.automation.util.Reporter;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -200,7 +200,7 @@ public class NativeBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
         try{
             if (!isAndroid()){
-                driver.findElement(MobileBy.AccessibilityId("Done")).click();
+                driver.findElement(AppiumBy.accessibilityId("Done")).click();
             }
             else{
                 (getAppiumDriver() instanceof AndroidDriver? (AndroidDriver)getAppiumDriver() :(IOSDriver)getAppiumDriver()).hideKeyboard();
