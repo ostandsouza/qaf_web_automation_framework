@@ -36,7 +36,7 @@ pipeline {
                     sh( script: 'printenv')
                     sh( script: 'mvn -v')
                     sh( script: 'java -version')
-                    sh ( script: 'mvn -gs ${WORKSPACE}/settings.xml -s ${WORKSPACE}/settings.xml clean test')
+                    sh ( script: 'mvn -s ${WORKSPACE}/settings.xml -gs ${WORKSPACE}/settings.xml clean test')
                 }
             }
         }
