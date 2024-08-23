@@ -55,7 +55,7 @@ public class SiteSteps  {
         conveyorPage.selectEditOption();
         conveyorPage.verifyConveyorDetailPageNavigation();
         conveyorPage.editMapLocation();
-        conveyorPage.updateBtnClick();
+        conveyorPage.saveButtonClick();
 
     }
     @QAFTestStep(description = "Verify user is getting notification in last in first out format")

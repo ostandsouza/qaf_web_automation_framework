@@ -71,3 +71,182 @@ Scenario:Verifying the Single and Multiple Inspection types are available while 
   Then Click on add icon in home page and verify Add Inspection Add Conveyor Add Site/Shop Add Corporate are visible
   And Click on Add Inspection link and verify the fields in Add New Inspection page
   And Click o Inspection info and verify single and multiple inspection types options are available
+
+@CTCP-2254
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Login in the application
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  Then Verify user present in home screen
+
+@CTCP-2255
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating home page
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Verify user present in home screen
+  And Verify home screen details
+
+@CTCP-2256
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating + button in home page
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Verify user present in home screen
+  And Verify home page Add Icon navigation
+
+@CTCP-2257
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating Add Inspection link
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Navigate to add inspection page via Home and verify navigation
+  And Verify add New Inspection page details
+
+@CTCP-2260
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating the fields by providing the data
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Navigate to add inspection page via Home and verify navigation
+  And Add inspection custom distributor logo
+  And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectiorName}'
+
+@CTCP-2262
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating Belt Specs link
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Navigate to add inspection page via Home and verify navigation
+  And Add inspection custom distributor logo
+  And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectionName}'
+  And Add inspection belt scan
+
+@CTCP-2265
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating Add Inspection items link
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Navigate to add inspection page via Home and verify navigation
+  And Add inspection custom distributor logo
+  And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectionName}'
+  And Add inspection belt scan
+  And Verify add inspection items fields
+
+
+@CTCP-2266
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating + add inspection button in new inspection page
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Navigate to add inspection page via Home and verify navigation
+  And Add inspection custom distributor logo
+  And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectorName}'
+  And Add inspection belt scan
+  And Click Add New Item and verify navigation to Add New Item page
+
+@CTCP-2268
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating the flag,status icon and the count on displaying on them
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Navigate to add inspection page via Home and verify navigation
+  And Add inspection custom distributor logo
+  And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectorName}'
+  And Add inspection belt scan
+  And Click Add New Item and verify navigation to Add New Item page
+  And Verify the condition flags in the add inspection item page
+  And Verify the status options in the add inspection item page
+
+@CTCP-2276
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating sign off link
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Navigate to add inspection page via Home and verify navigation
+  And Add inspection custom distributor logo
+  And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectorName}'
+  And Add inspection belt scan
+  And Click Add New Item and verify navigation to Add New Item page
+  And Add '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Observation}' '${Recommendation}' '${Length}' for Add New Item Page
+  And Click Next Button for inspection Add Page
+  And Verify and Add '${Summary}' for Sign Off Page
+
+@CTCP-2278
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating save and close button in new inspection page
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And Navigate to add inspection page via Home and verify navigation
+    And Add inspection custom distributor logo
+    And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectorName}'
+    And Add inspection belt scan
+    And Click Add New Item and verify navigation to Add New Item page
+    And Add '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Observation}' '${Recommendation}' '${Length}' for Add New Item Page
+    And Click Next Button for inspection Add Page
+    And Verify and Add '${Summary}' for Sign Off Page
+    Then Verify user present in home screen
+
+@CTCP-2275
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating + add new item button in add inspection item in new inspection page
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And Navigate to add inspection page via Home and verify navigation
+    And Add inspection custom distributor logo
+    And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectorName}'
+    And Add inspection belt scan
+    And Click Add New Item and verify navigation to Add New Item page
+    And Add '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Observation}' '${Recommendation}' '${Length}' for Add New Item Page
+    And Add '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Observation}' '${Recommendation}' '${Length2}' for Add New Item Page
+
+@CTCP-2277
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Mobile
+Scenario: Validating save draft button in new inspection page
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And Navigate to add inspection page via Home and verify navigation
+    And Add inspection custom distributor logo
+    And Add inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectorName}'
+    And Add inspection belt scan
+    And Click Add New Item and verify navigation to Add New Item page
+    And Add '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Observation}' '${Recommendation}' '${Length}' for Add New Item Page
+    And Click and verify save draft button and user is present in same page
+    And Verify the data for inspection info with '${InspectionName}' '${ConveyorName}' '${CustSiteName}' '${InspectorName}'

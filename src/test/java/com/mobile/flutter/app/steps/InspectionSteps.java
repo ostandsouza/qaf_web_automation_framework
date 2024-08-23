@@ -5,6 +5,7 @@ import com.mobile.flutter.app.pages.CorporatePage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.flutter.app.pages.InspectionPage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
+import com.mobile.nativectx.app.pages.InspectionNativePage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 
@@ -100,6 +101,45 @@ public class InspectionSteps {
     {
         InspectionPage.getInstance().inspectionInfoClickAndVerifyTypes();
 
+    }
+
+
+    @QAFTestStep(description = "Verify add New Inspection page details")
+    public void verifyTheAddNewInspectionPageDetails() {
+        InspectionPage.getInstance().verifyAddNewInspectionPageDetails();
+    }
+    @QAFTestStep(description = "Verify add inspection items fields")
+    public void verifyTheAddInspectionItemsFields() {
+        InspectionPage.getInstance().verifyAddInspectionItemsFields();
+    }
+    @QAFTestStep(description = "Verify the condition flags in the add inspection item page")
+    public void verifyTheConditionFlagsInAddInspectionItems() {
+        InspectionPage.getInstance().verifyConditionFlagsInAddInspectionItems();
+    }
+    @QAFTestStep(description = "Verify the status options in the add inspection item page")
+    public void verifyTheStatusInAddInspectionItems() {
+        InspectionPage.getInstance().verifyStatusInAddInspectionItems();
+    }
+    @QAFTestStep(description = "Add {Asset} {Detail} {Failure} {Observation} {Recommnendation} {Length} for Add New Item Page")
+    public void addTheInspectionAddNewItemPageDetails(String asset,String detail,String failure,String observation,String recommendation,String length) {
+        InspectionPage.getInstance().addInspectionAddNewItemPageDetails(asset,detail,failure,observation,recommendation,length);
+    }
+    @QAFTestStep(description = "Verify and Add {Summary} for Sign Off Page")
+    public void addTheInspectionSignOffPageDetails(String summary) {
+        InspectionPage.getInstance().addInspectionSignOffPageDetails(summary);
+    }
+    @QAFTestStep(description = "Click Next Button for inspection Add Page")
+    public void inspectionNextButtonClick() {
+        InspectionNativePage.getInstance().clickInspectionInfoBeltNextBtn();
+    }
+    @QAFTestStep(description = "Click and verify save draft button and user is present in same page")
+    public void verifySaveDraftBtnAndPresentInSamePage() {
+        InspectionPage.getInstance().clickAndVerifySaveDraftBtn();
+        InspectionPage.getInstance().verifyAddNewInspectionPageDetails();
+    }
+    @QAFTestStep(description = "Verify the data for inspection info with {InspectionName} {ConveyorName} {CustSiteName} {InspectorName}")
+    public void verifyTheDataInAddInspectionInfo(String inspectionName, String conveyorName, String custSiteName,String inspectorName) {
+        InspectionPage.getInstance().addDataInInspectionInfo(inspectionName, conveyorName, custSiteName,inspectorName);
     }
 
 

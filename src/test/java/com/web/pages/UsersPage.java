@@ -1115,10 +1115,6 @@ public class UsersPage extends BasePage{
 	{
 		waitForElementVisible(userDefaultImage,5000,500);
 		Validator.assertTrue(userDefaultImage.isDisplayed(), "Default image is not displayed","Default Image is Displayed");
-		hoverOverElement(userDefaultImage);
-		waitForElementVisible(cameraIcon,5000,500);
-		Validator.assertTrue(cameraIcon.isDisplayed(), "cameraIcon is not visible on the page","cameraIcon is  visible on the page");
-
 	}
 
 	public void verifyOptionInImagePanel(){
@@ -1153,12 +1149,6 @@ public class UsersPage extends BasePage{
 
 	}
 
-	public void uploadBtnClick()
-	{
-		waitForElementVisible(btUploadImg,5000,500);
-		waitForElementToBeClickable(btUploadImg);
-		btUploadImg.click();
-	}
 
 	public void imageUpload(String fileName){
 		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
@@ -1202,12 +1192,6 @@ public class UsersPage extends BasePage{
 		waitForElementVisible(btnCancel,10000,500);
 		btnCancel.jsClick();
 	}
-	public void verifyImageViewPanelClosed()
-	{
-		waitForElementVisible(addDefaultImgSrc,5000,500);
-		Validator.assertTrue(addDefaultImgSrc.isVisible(),"The selected image is uploaded","The selected image is not uploaded");
-		Validator.assertTrue(imageViewerPanel.verifyNotPresent(),"Image view panel is still visible","Image viewer panel is not visible");
-	}
 
 	public void verifyNavigationToUserListPage()
 	{
@@ -1219,17 +1203,7 @@ public class UsersPage extends BasePage{
 		btNext.click();
 	}
 
-	public void createTemplate(String templateName){
-		waitForElementToBeClickable(btnTempSave);
-		btnTempSave.click();
-		waitForElementVisible(dialogBox, 10000,500);
-		Validator.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible","Dailog box is visible");
-		waitForElementVisible(tbTempName,5000,1000);
-		tbTempName.type(templateName,"templateName");
-		waitForElementVisible(saveBtn,10000,1000);
-		waitForElementToBeClickable(saveBtn);
-		saveBtn.click();
-	}
+
 
 	public void selectCustomTemplate(String templateName) {
 		waitForElementToDisplay(ddlTempDropdown);
@@ -1286,12 +1260,15 @@ public class UsersPage extends BasePage{
 
 
 	}
-
-	public void createPermissionTemplate(String templateName){
+	public void createTemplate(String templateName){
+		waitForElementToBeClickable(btnTempSave);
 		btnTempSave.click();
 		waitForElementVisible(dialogBox, 10000,500);
-		Assert.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible");
+		Validator.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible","Dailog box is visible");
+		waitForElementVisible(tbTempName,5000,1000);
 		tbTempName.type(templateName,"templateName");
+		waitForElementVisible(saveBtn,10000,1000);
+		waitForElementToBeClickable(saveBtn);
 		saveBtn.click();
 	}
 

@@ -157,6 +157,69 @@ public class CoverWearPage extends FlutterBasePage {
     @FindBy(locator ="coverWear.default.installation")
     public CustomFlutterElement defaultInstallation;
 
+    @FindBy(locator = "coverWear.position.gaugeTile")
+    public CustomFlutterElement positionGaugeTile;
+
+    @FindBy(locator = "coverWear.specification.header")
+    public CustomFlutterElement SpecificationHeader;
+
+    @FindBy(locator = "coverWear.position.header")
+    public CustomFlutterElement positionHeader;
+    @FindBy(locator = "coverWear.list.header")
+    public CustomFlutterElement coverWearHeader;
+
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Site\\\"}\"}")
+    public CustomFlutterElement siteLabel;
+
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Conveyor\\\"}\"}")
+    public CustomFlutterElement conveyorLabel;
+
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Number of Data Points\\\"}\"}")
+    public CustomFlutterElement noOfDataPointsLabel;
+    @FindBy(locator = "CoverWear.ddl.standard")
+    public CustomFlutterElement standardDdlValue;
+    @FindBy(locator = "CoverWear.ddl.every")
+    public CustomFlutterElement everyDdlValue;
+
+    @FindBy(locator = "CoverWear.ddl.custom")
+    public CustomFlutterElement customDdlValue;
+
+    @FindBy(locator = "coverWear.position.addBtn")
+    public CustomFlutterElement addNewPosition;
+
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"position_name\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"position_70_top\\\"}\"}")
+    public CustomFlutterElement searchedPositionName;
+
+    @FindBy(locator = "coverWear.addPosition.popHeader")
+    public CustomFlutterElement addPositionHeader;
+    @FindBy(locator = "coverWear.addPosition.segementName")
+    public CustomFlutterElement addSegementName;
+    @FindBy(locator = "coverWear.addPosition.topBtn")
+    public CustomFlutterElement addPositonTop;
+    @FindBy(locator = "coverWear.addPosition.bottomBtn")
+    public CustomFlutterElement addPositonBottom;
+
+    @FindBy(locator = "coverWear.addPosition.tonsConveyed")
+    public CustomFlutterElement addTonsConveyed;
+
+    @FindBy(locator = "coverWear.addPosition.shoreADuromater")
+    public CustomFlutterElement addShoreADuromater;
+
+    @FindBy(locator = "CoverWear.durometer.label")
+    public CustomFlutterElement durometerLabel;
+
+    @FindBy(locator = "CoverWear.priceOfBelt.label")
+    public CustomFlutterElement priceOfBeltLabel;
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Top Cover Compound\\\"}\"}")
+    public CustomFlutterElement topCoverCompoundLabel;
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Bottom Cover Compound\\\"}\"}")
+    public CustomFlutterElement bottomCoverCompoundLabel;
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Top Cover Thickness Nominal\\\"}\"}")
+    public CustomFlutterElement topCoverThicknessLabel;
+
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Bottom Cover Thickness Nominal\\\"}\"}")
+    public CustomFlutterElement bottomCoverThicknessLabel;
+
 
 
 
@@ -319,6 +382,63 @@ public class CoverWearPage extends FlutterBasePage {
         defaultInstallation.waitForTheElementToBeVisible(10000);
         Validator.assertTrue(defaultInstallation.isVisible(),"Default Installation is not visible","Default Installation header is  visible");
         Validator.assertTrue(CoverWearNativePage.getInstance().verifyEditButtonIsVisible(),"Edit button for installation is visible","Edit button for installation is visible");
+    }
+
+
+
+
+    public void verifyNoOfDataPointsDdl()
+    {
+        noOfDataPointsLabel.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(noOfDataPointsLabel.getText().contains("Standard(7)"),"No of data points ddl does not contains Standard(7) as default value","No of data points ddl contains Standard(7) as default value");
+        noOfDataPointsLabel.click();
+        standardDdlValue.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(standardDdlValue.isVisible() && everyDdlValue.isVisible() &&customDdlValue.isVisible(),
+                "All the dropdown values for number of data points are not visible","All the dropdown values for number of data points are visible");
+    }
+
+    public void addDurometerAndPriceOfBeltValues(String durometer,String priceOfBelt)
+    {
+        durometerLabel.waitForTheElementToBeVisible(10000);
+        durometerLabel.clear();
+        durometerLabel.sendKeys(durometer,"durometer value");
+        priceOfBeltLabel.clear();
+        priceOfBeltLabel.sendKeys(priceOfBelt,"price of the belt");
+    }
+
+    public void verifyTopAndBottomCoverCompounds(String topCoverCompound,String bottomCoverCompound)
+    {
+        topCoverCompoundLabel.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(topCoverCompoundLabel.getText().contains(topCoverCompound),"Top Cover compound does not have default values","Top Cover compound has default values");
+        bottomCoverCompoundLabel.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(bottomCoverCompoundLabel.getText().contains(topCoverCompound),"Bottom Cover compound does not have default values","Bottom Cover compound has default values");
+    }
+    public boolean enterDateOfInstallationandSave()
+    {
+        dateOfInstallation.waitForTheElementToBeVisible(10000);
+        dateOfInstallation.click();
+        DashboardNativePage.getInstance().selectCalenderDate();
+        saveBtn.click();
+        return successMsgSpecs.isVisible("Specs Message");
+    }
+
+    public void clickAddPositionBtn() {
+        Validator.assertTrue(addNewPosition.isPresent(),"Add New Position Button is not visbile","Add New Position Button is visbile");
+        addNewPosition.click();
+    }
+    public void clickAndVerifySearchPosition(String position) {
+        DashboardNativePage.getInstance().goToSearch();
+        DashboardNativePage.getInstance().enterSearchQuery(position);
+        Validator.assertTrue(searchedPositionName.isVisible(),"Searched position is not visible","Searched position is visbile");
+    }
+    public void addNewPositionDetails(String segment,String tonsConveyed,String shoreADurometer) {
+        addPositionHeader.waitForTheElementToBeVisible(5000);
+        Validator.assertTrue(addPositionHeader.isVisible(),"Add Position Pop up is not visible","Add Position Pop up is visible");
+        addSegementName.sendKeys(segment);
+        addPositonTop.click();
+        addTonsConveyed.sendKeys(tonsConveyed);
+        addShoreADuromater.sendKeys(shoreADurometer);
+        saveBtn.click();
     }
 
 }

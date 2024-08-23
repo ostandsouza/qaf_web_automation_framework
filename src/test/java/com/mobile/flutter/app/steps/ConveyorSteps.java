@@ -2,12 +2,15 @@ package com.mobile.flutter.app.steps;
 
 import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.pages.ConveyorPage;
+import com.mobile.flutter.app.pages.CorporatePage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 
 public class ConveyorSteps {
+    DashboardNativePage dashboardNativePage = new DashboardNativePage();
+    ConveyorPage conveyorPage = new ConveyorPage();
 
     @QAFTestStep(description = "Add conveyor with {ConveyorName} {CustSiteName} {DistShopName}")
     public void verifyAddConveyor(String conveyorName, String custSiteName, String distShopName) {
@@ -100,6 +103,49 @@ public class ConveyorSteps {
     public void addConveyorWithDistributor(String conveyorName,String distName,String custSiteName) {
         Validator.assertTrue(ConveyorPage.getInstance().addConveyorWithDistShop(conveyorName,distName, custSiteName),"New Conveyor was not created","New Conveyor was created successfully");
 
+    }
+    @QAFTestStep(description="Click on conveyor symbol and verify it navigates to conveyor list page")
+    public void clickAndVerifyConveyorListNavigation(){
+        SyncUtil.waitFor(20000);
+        dashboardNativePage.conveyorSymbolClick();
+        System.out.println("qweertyt clickAndVerifyConveyorListNavigation started1");
+        SyncUtil.waitFor(20000);
+        System.out.println("qweertyt clickAndVerifyConveyorListNavigation started2");
+        conveyorPage.verifyConveyorListPageNavigation();
+    }
+
+    @QAFTestStep(description = "Click back button from add Conveyor detail screen")
+    public void clickBackButtonFromConveyorDetail() {
+        Validator.assertTrue(CorporatePage.getInstance().goBackToCorporateListScreen(),"Unable to navigate to corporate list screen from details screen","Able to navigate to corporate list screen from details screen");
+    }
+
+    @QAFTestStep(description="Verify user present in conveyor list screen")
+    public void verifyTheConveyorListScreen(){
+        conveyorPage.verifyConveyorListPageNavigation();
+    }
+    @QAFTestStep(description="Navigate to add conveyor page via Conveyor List page and verify navigation")
+    public void navigateToTheAddCorporatePageViaConveyorList(){
+        Validator.assertTrue(conveyorPage.goToAddConveyorViaConvList(),"Add Conveyor Page is not displayed","Add Conveyor Page is displayed");
+    }
+
+    @QAFTestStep(description="Click on distributor shop dropdown and verify search option")
+    public void clickTheDistShopAndVerifySearch(){
+        conveyorPage.clickDistShopAndVerifySearch();
+    }
+    @QAFTestStep(description="Search and select the distributor Shop {distShop}")
+    public void clickTheDistShopAnderifySearch(String distShop){
+        conveyorPage.searchSelectDistributorShop(distShop);
+    }
+
+    @QAFTestStep(description = "Click on conveyor card in the home page")
+    public void clickTheConveyorTile() {
+        DashboardNativePage.getInstance().verifyHomeScreenDetailsNative();
+        DashboardPage.getInstance().conveyorTileClick();
+    }
+
+    @QAFTestStep(description = "Search and verify {ConveyorName} is present")
+    public void verifyTheConveyorIsPresent(String conveyorName) {
+        Validator.assertTrue(ConveyorPage.getInstance().verifyConveyorIsPresent(conveyorName),"Conveyor is not visible","Conveyor is visible");
     }
 
 }

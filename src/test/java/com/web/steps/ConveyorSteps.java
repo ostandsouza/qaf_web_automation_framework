@@ -36,7 +36,7 @@ public class ConveyorSteps {
         System.out.println("after delete apiBase");
 
         conveyorPage.createConveyorWithRequiredField(conveyorName, distShopName, custSiteName);
-        conveyorPage.clickSaveBtn();
+        conveyorPage.clickCreateBtn();
     }
 
 
@@ -198,22 +198,11 @@ public class ConveyorSteps {
         Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
     }
 
-
     @QAFTestStep(description = "verify user is able to delete layout for {Layout_Name}")
     public void verifyDeleteLayout(String layoutName) {
         conveyorPage.goToConveyorListScreen();
         conveyorPage.deleteLayout(layoutName);
         Validator.assertFalse(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
-    }
-
-    @QAFTestStep(description = "verify user {Email} is able to add new layout for {Corporates} {BeltWidth} {Rating} {Length} with {Layout_Name}")
-    public void verifyUserPreference(String email, String corporates, String beltWidth, String rating, String length, String layoutName) {
-        String userId = conveyorPage.apiBase.getUserProfileAPI(email);
-        String prefId = conveyorPage.apiBase.getPreferenceAPI(userId, layoutName);
-        conveyorPage.apiBase.deletePreferencesAPI(userId, prefId);
-        conveyorPage.goToConveyorListScreen();
-        conveyorPage.addLayout(corporates, beltWidth, rating, length, layoutName);
-        Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are not applied in table layout", "All filters were successfully verified");
     }
 
     @QAFTestStep(description = "Verify user is able see saved preference")
@@ -236,8 +225,9 @@ public class ConveyorSteps {
         conveyorPage.verifyGPSCoordinatesVisibility();
     }
 
-    @QAFTestStep(description = "User selects a site {SiteName} from the dropdown")
-    public void selectSiteNameFromDropDown(String siteName) {
+    @QAFTestStep(description = "User selects a site {SiteName} from the dropdown and enter conveyorName {ConveyorName1}")
+    public void selectSiteNameFromDropDown(String siteName,String conveyorName) {
+        conveyorPage.enterConveyorName(conveyorName);
         conveyorPage.clickSiteDropDown();
         conveyorPage.selectSiteName(siteName);
     }
@@ -287,6 +277,8 @@ public class ConveyorSteps {
     public void addMarkerClickAndVerifyTailCoordinates() {
         conveyorPage.addMarkerBtnClick();
         conveyorPage.verifyUpdatedGPSTail();
+        conveyorPage.clickCreateBtn();
+
     }
 
 
@@ -298,7 +290,9 @@ public class ConveyorSteps {
     @QAFTestStep(description = "Click on remarks radio button and click on save and close")
     public void clickRemarksBtnAndClickSaveAndClose() {
         conveyorPage.remarksBtnClick();
-        conveyorPage.clickOnSaveAndCloseBtn();
+        conveyorPage.clickCreateBtn();
+        conveyorPage.verifyNavigationToConveyorSiteCard();
+
     }
 
     @QAFTestStep(description = "Verify that user should get conveyor site card")
@@ -506,7 +500,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Click on update button and verify all changes are saved and navigated to conveyor list page")
     public void clickUpdateBtnAndVerify() {
-        conveyorPage.updateBtnClick();
+        conveyorPage.saveButtonClick();
         conveyorPage.verifyConveyorUpdation();
     }
 
@@ -545,10 +539,7 @@ public class ConveyorSteps {
     public void verifyImageViewPanel () {
         conveyorPage.verifyImageViewPanelClosed();
     }
-    @QAFTestStep(description = "User clicks on cancel button")
-    public void clickOnCancelBtn () {
-        conveyorPage.cancelBtnClick();
-    }
+
 
     @QAFTestStep(description="Create a conveyor with {ConveyorName} and {DistShopName} and {CustShopName} with mandatory field")
     public void createTheConveyorWithMan(String conveyorName, String distShopName, String custSiteName){

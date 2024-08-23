@@ -8,3 +8,6 @@ dashboard.conveyor.icon = xpath=//android.widget.Button/following-sibling::andro
 dashboard.corporate.icon = xpath=//android.widget.Button/following-sibling::android.view.View/android.widget.ImageView[3]
 dashboard.tool.icon = xpath=//android.widget.Button/following-sibling::android.view.View/android.widget.ImageView[4]
 dashboard.inspection.icon = xpath=//android.widget.Button/following-sibling::android.view.View/android.widget.ImageView[5]
+dashboard.conveyorInspect.card = xpath=//android.widget.ImageView[contains(@content-desc,'Conveyor Inspect')]
+dashboard.monitoringDevice.card = xpath=//android.widget.ImageView[contains(@content-desc,'Monitoring Devices')]
+address.auto.suggestion = xpath=//android.widget.ScrollView/../..//android.widget.ScrollView/android.view.View[4]

@@ -11,3 +11,6 @@ forgot.email.field = flutter-valuekey=email_f
 forgot.submit.btn = flutter-text=Submit
 continental.back.btn = flutter-text=Back
 continental.error.message = flutter-text=Ooops, something went wrong
+
+continental.email.errorMessage= flutter-text=Please enter valid email
+continental.forgot.page = flutter-text=Forgot your password

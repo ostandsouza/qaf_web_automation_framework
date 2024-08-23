@@ -4,6 +4,8 @@ import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.pages.ConveyorPage;
 import com.mobile.flutter.app.pages.CorporatePage;
 import com.mobile.flutter.app.pages.DashboardPage;
+import com.mobile.flutter.app.pages.SitePage;
+import com.mobile.nativectx.app.pages.CorporateNativePage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
@@ -335,31 +337,118 @@ public class CorporateSteps {
         DashboardNativePage.getInstance().verifyFilteredCorp(corp1,corp2);
     }
 
-
-
     @QAFTestStep(description="Click on corporate symbol and verify it navigates to corporate list page")
     public void clickAndVerifyCorpListNavigation(){
         dashboardNativePage.corporateSymbolClick();
         corporatePage.verifyCorpListPageNavigation();
     }
-//    @QAFTestStep(description = "Navigate to corporate listing screen")
-//    public void nagivateToTheCorporateListScreen() {
-//        Validator.assertTrue(CorporatePage.getInstance().goBackToCorporateListScreen(),"Unable to navigate to corporate list screen from details screen","Able to navigate to corporate list screen from details screen");
-//    }
-    @QAFTestStep(description = "Go back to conveyor list screen")
-    public void verifyBackToTheConveyorListScreen() {
-//        CorporatePage.getInstance().verifyCorpListPage();
-        Validator.assertTrue(CorporatePage.getInstance().goBackToCorporateListScreen(),"Unable to navigate to corporate list screen from details screen","Able to navigate to corporate list screen from details screen");
-    }
 
-    @QAFTestStep(description="Verify default type of company field")
-    public void verifyTheDefaultTypeOfCompanyField(){
-        CorporatePage.getInstance().verifyDefaultCompField();
-    }
     @QAFTestStep(description="Verify default type of site field is '${CompanyField}'")
     public void verifyTheDefaultTypeOfSiteField(String value){
         CorporatePage.getInstance().verifyDefaultSiteField(value);
     }
+
+
+    @QAFTestStep(description="Navigate to add site page from Corporate list page")
+    public void navigateToTheAddSitePage(){
+        CorporatePage.getInstance().goToAddSiteFromCorpList();
+    }
+
+    @QAFTestStep(description = "Verify add corporate heading")
+    public void verifyTheAddCorporateHeading() {
+        Validator.assertTrue(CorporatePage.getInstance().verifyAddCorporateHeading(),"Add Corporate is not visible","Add Corporate is visible");
+    }
+    @QAFTestStep(description = "Verify add corporate fields")
+    public void verifyTheAddCorporateFields() {
+        CorporatePage.getInstance().verifyAddCorporateFields();
+    }
+
+    @QAFTestStep(description = "Go back to corporate list screen")
+    public void verifyBackToTheConveyorListScreen() {
+        Validator.assertTrue(CorporatePage.getInstance().goBackToCorporateListScreenfromAddScreen(),"Unable to navigate to corporate list screen from details screen","Able to navigate to corporate list screen from details screen");
+    }
+
+    @QAFTestStep(description = "Add a Distributor corporate with {CorpName} {Address}")
+    public void verifyTheAddCorporateDistributor(String corpName, String address) {
+        CorporatePage.getInstance().addDistributorCorporateDetails(corpName, address);
+    }
+    @QAFTestStep(description = "Verify duplicate corporate creation")
+    public void verifyTheDuplicateCorporateCreation() {
+        CorporatePage.getInstance().verifyDuplicateCorporateCreation();
+    }
+
+
+    @QAFTestStep(description="Verify default type of company field for Corporate")
+    public void verifyTheDefaultTypeOfCompanyField(){
+        CorporatePage.getInstance().verifyDefaultCompField();
+    }
+    @QAFTestStep(description="Verify default type of company field for Site")
+    public void verifyTheDefaultTypeOfSiteField(){
+        CorporatePage.getInstance().verifyDefaultSiteField();
+    }
+
+    @QAFTestStep(description = "Verify navigation to corporate details screen for {CorpName}")
+    public void verifyNavigationToCorpDetails(String corpName) {
+        Validator.assertTrue(CorporatePage.getInstance().searchCorpAndVerifyCreation(corpName),"Corporate not found","Corporate found");
+        CorporatePage.getInstance().goToCorporateDetails();
+        SitePage.getInstance().verifyDetailPageHeader(corpName);
+    }
+
+    @QAFTestStep(description = "Verify data displayed in the Corporate list screen")
+    public void verifyTheDataInCorpListScreen() {
+        CorporateNativePage.getInstance().verifyDataInCorpListScreen();
+    }
+    @QAFTestStep(description = "Extract the site count from corporate list page")
+    public void extractTheCountInCorpListPage() {
+        CorporatePage.getInstance().extractCountInCorpList();
+//        CorporateNativePage.getInstance().extractCountInCorpList();
+
+    }
+    @QAFTestStep(description = "Navigate to {CorpName} detail Page and verify the site count in the corporate detail page")
+    public void verifyTheCountInCorpDetailPage(String corpName) {
+        DashboardNativePage.getInstance().navigateInsideCorp();
+        SitePage.getInstance().verifyInfoPageHeader(corpName);
+        CorporatePage.getInstance().verifyCountInCorpDetailPage();
+    }
+    @QAFTestStep(description="Click on filter icon")
+    public void clickTheFilterIcon(){
+        Validator.assertTrue(DashboardNativePage.getInstance().goToFilterScreen(),"Not able to open filter screen for corporate list page","Successfully able to navigate to corporate list screen");
+    }
+
+    @QAFTestStep(description="Verify fields in the filter pop up for corporate list")
+    public void verifyTheFilterFieldsInCorpList(){
+        CorporateNativePage.getInstance().verifyFilterFieldsInCorpList();
+
+    }
+    @QAFTestStep(description="Add descending order filter")
+    public void addDescDistFilter(){
+        DashboardNativePage.getInstance().filterDescendingOrder();
+        DashboardNativePage.getInstance().saveFilter();
+    }
+    @QAFTestStep(description="Verify filter is applied")
+    public void verifyTheFilterApplied(){
+        CorporateNativePage.getInstance().verifyClearFilterIsEnabled();
+    }
+
+    //    @QAFTestStep(description="Verify filter is not applied")
+//    public void verifyTheFilterIsNotApplied(){
+//        CorporateNativePage.getInstance().verifyFilterIsNotApplied();
+//    }
+    @QAFTestStep(description="Click clear filter")
+    public void clickClearFilter(){
+        CorporateNativePage.getInstance().applyClearFilter();
+//        CorporateNativePage.getInstance().verifyClearFilterIsDisabled();
+    }
+
+    @QAFTestStep(description="Verify clear filter")
+    public void verifyTheClearFilter(){
+        CorporateNativePage.getInstance().verifyClearFilter();
+    }
+
+
+
+
+
 
 
 }

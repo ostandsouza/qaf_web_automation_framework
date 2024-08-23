@@ -5,7 +5,7 @@ inspection.next.btn = flutter-text=Next
 inspection.save.btn = flutter-text=Save Draft
 inspection.search.dropdown = flutter-valuekey=Search
 inspection.list.header = flutter-text=Inspections
-inspection.list.addIcon=flutter-valuekey=InspectionAdd
+inspection.list.addIcon=flutter-valuekey=AddInspectionIcon
 inspection.Info.label=flutter-text=Inspection Info
 inspection.signOff.label=flutter-text=Sign Off
 inspection.saveAsDraft.label=flutter-text=Save Draft
@@ -70,5 +70,37 @@ inspection.addNewItem.itemLength= flutter-valuekey=InspectionItemLength
 
 
 
+inspection.addCustomerDistributorLogo.label = flutter-text=Add custom distributor logo
+inspection.Info.label = flutter-text=Inspection Info
+inspection.previous.btn = flutter-text=Previous
+inspection.beltSpecs.label = flutter-text=Belt Specs
+inspection.items.label = flutter-text=Add Inspection Items
+inspection.signOff.label = flutter-text=Sign Off
+inspection.uploadFile.label= flutter-text=Upload File
+inspection.addNewItem.button= flutter-text=Add New Item
+inspection.toBeCompleted.button= flutter-text=To be Completed
+inspection.completed.button= flutter-text=Completed
+inspection.saveAndClose.btn=flutter-text=Save & Close
+inspection.signOff.summaryLabel=flutter-text=Summary
 
+inspection.addNewItem.header= flutter-valuekey=AddNewItemHeader
+inspection.inspectorName.field = flutter-valuekey=Inspector Name
+inspection.beltWidth.field = flutter-valuekey=Belt Width
+inspection.beltRating.field = flutter-valuekey=Belt Rating
+inspection.topCoverThickness.field = flutter-valuekey=Top Cover Thickness
+inspection.bottomCoverThickness.field = flutter-valuekey=Bottom Cover Thickness
+inspection.beltCarcass.field = flutter-valuekey=Belt Carcass
+inspection.asset.dropdown= flutter-valuekey=Asset/Component
+inspection.detail.dropdown= flutter-valuekey=Detail
+inspection.failure.dropdown= flutter-valuekey=Failure Mode
+inspection.datePicker.dropdown= flutter-valuekey=ContiplusDatePicker
+inspection.condition.dropdown= flutter-valuekey=Condition
+inspection.status.dropDown=flutter-valuekey=Status
+inspection.condition.criticalFlag= flutter-valuekey=critical
+inspection.condition.poorFlag= flutter-valuekey=poor
+inspection.condition.faultFlag= flutter-valuekey=fault
+inspection.condition.goodFlag= flutter-valuekey=good
+inspection.observation.field= flutter-valuekey=Observation
+inspection.recommendation.field= flutter-valuekey=Recommendation
+inspection.addNewItem.itemLength= flutter-valuekey=InspectionItemLength
 

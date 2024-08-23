@@ -4,6 +4,7 @@ import com.mobile.flutter.app.pages.ConveyorPage;
 import com.mobile.flutter.app.pages.CorporatePage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.flutter.app.pages.SitePage;
+import com.mobile.nativectx.app.pages.CorporateNativePage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
@@ -80,6 +81,76 @@ public class SiteSteps {
         Validator.assertTrue(CorporatePage.getInstance().verifyConveyorList(conveyorName),"The conveyor name is not updated","The conveyor name is updated");
 
     }
+
+    @QAFTestStep(description = "Verify add site heading")
+    public void verifyTheAddSiteHeading() {
+        Validator.assertTrue(SitePage.getInstance().verifyAddSiteHeading(),"Add site not visible","Add site is visible");
+    }
+    @QAFTestStep(description="Navigate to add site page from Corporate list page")
+    public void verifyNavigationToTheAddSitePage(){
+        SitePage.getInstance().goToSiteShopFromCorpList();
+    }
+
+    @QAFTestStep(description = "Verify add site fields")
+    public void verifyTheAddSiteFields() {
+        SitePage.getInstance().verifyAddSiteFields();
+    }
+
+    @QAFTestStep(description = "Add a customer site with {CustSiteName} {CustSiteAddress} {CustCorpName} {DistShopName} {Territory} {Manager}")
+    public void verifyAddCustomerSiteDetails(String siteName, String address, String customerCorp,  String shop, String territory, String manager) {
+        SitePage.getInstance().addSiteDetails(siteName, address, customerCorp, territory, manager, shop);
+    }
+    @QAFTestStep(description = "Add a distributor shop with {DistShopName} {CustSiteAddress} {CustCorpName} {Territory} {Manager}")
+    public void verifyAddDistributorShopDetails(String shopName, String address, String customerCorp, String territory, String manager) {
+        SitePage.getInstance().addDistShopSiteDetails(shopName, address, customerCorp, territory, manager);
+    }
+    @QAFTestStep(description = "Verify duplicate site creation")
+    public void verifyTheDuplicateSiteCreation() {
+        SitePage.getInstance().verifyDuplicateSiteCreation();
+    }
+    @QAFTestStep(description = "Verify company creation success message and navigation to corporate lisiting page")
+    public void verifyCompCreationAndNavigationToCorpList() {
+        SitePage.getInstance().verifySuccessMsgForCreation();
+        DashboardNativePage.getInstance().isCorporateList();
+    }
+
+    @QAFTestStep(description = "Navigate to corporate details screen and verify shop name {DistShopName} is present")
+    public void verifyTheCorporateDetailsScreen(String distShopName) {
+        DashboardNativePage.getInstance().navigateInsideCorp();
+        System.out.println(distShopName+" before");
+        Validator.assertTrue(CorporatePage.getInstance().goToSiteShopCard(distShopName).equals(distShopName),"Site/Shop card name mismatch","Site/Shop card name verification successful");
+//        CorporatePage.getInstance().goToSiteShopDetails();
+
+//        CorporatePage.getInstance().goToSiteShopDetails();
+
+
+    }
+    @QAFTestStep(description = "Navigate to site details screen and verify header of shop name {DistShopName} is present")
+    public void verifyTheSiteDetailsScreen(String distShopName) {
+        System.out.println("upto");
+        CorporatePage.getInstance().goToSiteShopDetails();
+        System.out.println("dne");
+        SitePage.getInstance().verifyDetailPageHeader(distShopName);
+
+    }
+    @QAFTestStep(description = "Verify data {DistShopName} {CustSiteAddress} {Manager} in site details screen")
+    public void verifyTheDataInSiteDetailScreen(String shopName, String address, String manager) {
+        SitePage.getInstance().verifyDataInSiteDetailPage(shopName,address,manager);
+    }
+    @QAFTestStep(description = "Verify site details fields are disabled")
+    public void verifyTheSiteDetailsDisabled() {
+        CorporateNativePage.getInstance().verifySiteDetailsDisabled();
+    }
+
+    @QAFTestStep(description = "Verify user is unable to edit duplicate corporate name from {DistShopName} to {DistShopName}")
+    public void verifyTheDuplicateEditCorporate(String distCorpName,String editDistCorpName) {
+        Validator.assertTrue(CorporatePage.getInstance().goToCorporateEditScreen(distCorpName),"Newly added corporate not able to edit with edit permission","Newly added corporate able to edit when edit permission");
+        CorporateNativePage.getInstance().verifySiteDetailsEnabled();
+        Validator.assertTrue(CorporatePage.getInstance().updateDulpicateCorporateName(editDistCorpName),"Not able to update corporate name","Able to update corporate name");
+    }
+
+
+
 
 
 

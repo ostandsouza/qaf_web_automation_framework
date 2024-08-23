@@ -83,6 +83,16 @@ public class ConveyorPage extends FlutterBasePage {
 
 
 
+    @FindBy(locator = "dashboard.loading.animation")
+    public CustomFlutterElement loadingDashboard;
+
+
+
+    @FindBy(locator = "conveyor.distributor.fieldtext")
+    public CustomFlutterElement distributorFieldText;
+
+
+
 
     public boolean isConveyorPage() {
         Validator.assertTrue(conveyorListHeader.isPresent(),"user navigated to conveyor list page","user navigated to conveyor list page");
@@ -242,10 +252,51 @@ public class ConveyorPage extends FlutterBasePage {
 
     public void addBtnClick()
     {
-//        System.out.println(getRenderTree());
-//        SyncUtil.waitFor(30000);
-//        addIcon.waitForTheElementToBeVisible(85);
         addIcon.click();
+    }
+
+    public void verifyConveyorListPageNavigation()
+    {
+        SyncUtil.waitFor(40000);
+        Validator.assertTrue(conveyorListHeader.isDisplayed(),"User is not navigated to conveyor list screen","User is not navigated to conveyor list screen");
+//        SyncUtil.waitFor(5000);
+    }
+    public boolean goToAddConveyorViaConvList() {
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        addIcon.waitForTheElementToBeVisible(30);
+        addIcon.click();
+        return ConveyorPage.getInstance().isConveyorPage();
+    }
+    public void clickDistShopAndVerifySearch() {
+        SyncUtil.waitFor(8000);
+        distributorField.waitForTheElementToBeVisible(45);
+        distributorField.click("Distributor dropdown");
+        Validator.assertTrue(searchDropdown.isDisplayed(),"Search option is not displayed","Search option is displayed");
+    }
+    public void searchSelectDistributorShop(String distShop) {
+        searchDropdown.sendKeys(distShop, "Distributor");
+        SyncUtil.waitFor(10000);
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+        System.out.println("until here");
+        SyncUtil.waitFor(5000);
+        System.out.println(distributorFieldText.getText());
+        System.out.println("until here2");
+        System.out.println(distributorFieldText.getText()+"   distribuorField   "+distShop);
+        Validator.assertTrue(distributorFieldText.getText().contains(distShop),"Distributor Shop is not selected properly","Distributor Shop is selected properly");
+    }
+
+    public boolean verifyConveyorIsPresent(String company) {
+        DashboardNativePage.getInstance().goToSearch();
+        SyncUtil.waitFor(5000);
+        DashboardNativePage.getInstance().enterSearchQuery(company);
+        System.out.println(DashboardNativePage.getInstance().getSearchCount());
+        System.out.println(DashboardNativePage.getInstance().getConveyorSearchResult());
+        Assert.assertTrue(DashboardNativePage.getInstance().getSearchCount().equals("1"),"Search Result Count");
+        return DashboardNativePage.getInstance().getConveyorSearchResult().contains(company);
+    }
+    public void fileManagerCardClick() {
+        Validator.assertTrue(conveyorFileManagerDetails.isVisible(),"File Manager is not Visible","File Manager is visible");
+        conveyorFileManagerDetails.click();
     }
 
 }

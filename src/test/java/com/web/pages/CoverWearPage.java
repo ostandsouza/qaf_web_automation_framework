@@ -1121,11 +1121,6 @@ public class CoverWearPage extends BasePage{
         crCoverWearCard.isEnable("Cover Wear Data");
     }
 
-    public void goToThePositionDetailScreen(String positionName) {
-        searchPosition(positionName);
-        waitForElementToDisplay(cwViewIcon);
-        cwViewIcon.click("Position Detail");
-    }
 
     public void verifyDeletePosition(String segmentName) {
         cwSearchInput.type(segmentName, "Position Search");
@@ -1558,6 +1553,7 @@ public class CoverWearPage extends BasePage{
         cwTableView.click("View Icon");
         positionHeader.isVisible("Position Header");
     }
+
     public void positionDetailsClick()
     {
         cwTableView.click("View Icon");
@@ -2044,15 +2040,6 @@ public class CoverWearPage extends BasePage{
         waitForPageLoad(20000);
 
     }
-    public void verifyCoverWearNavigation()
-    {
-//        SyncUtil.waitFor(10000);
-        waitForPageLoad(20000);
-        waitForElementVisible(headerSpecification,20000,500);
-        Validator.assertTrue(headerSpecification.isVisible(),"user is not navigated to coverWear list page","user is  navigated to coverWear list page");
-        Validator.assertTrue(driver.getCurrentUrl().contains("/cover-wear"),"URL mismatch","URL matches");
-
-    }
 
     public void verifyCoverWearListPageNavigation()
     {
@@ -2390,9 +2377,8 @@ public class CoverWearPage extends BasePage{
         waitForPageLoad(5000);
         scrollPageup();
         waitForElementVisible(imgGaugeMeter,10000,1000);
-        Validator.assertTrue(imgGaugeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
+        Validator.assertTrue(imgGaugeMeter.isDisplayed(),"Gauge meter is not displayed","Gauge meter is displayed");
     }
-
 
 
     public void extractPositionData()
@@ -2595,11 +2581,7 @@ public class CoverWearPage extends BasePage{
         Validator.assertTrue(dialogBox.isDisplayed(),"Dialogbox is not displayed","Dialogbox is displayed");
     }
 
-    public void verifyGuazeImageInSpec(){
-        waitForPageLoad(5000);
-        waitForElementVisible(imgGuazeMeter,10000,1000);
-        Validator.assertTrue(imgGuazeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
-        }
+
 
     public void verifyGuazeEmptyData(){
         waitForElementVisible(getCwRemainingCoverPercent,10000,1000);

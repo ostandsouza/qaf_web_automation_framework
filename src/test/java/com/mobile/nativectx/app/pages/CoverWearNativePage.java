@@ -27,6 +27,11 @@ public class CoverWearNativePage extends NativeBasePage {
     protected CustomMobileElement deleteMeasurementBtn;
 
 
+    @FindBy(locator = "coverWear.addPosition.specErrorMsg")
+    protected CustomMobileElement posSpecErrorMsg;
+    @FindBy(locator = "coverWear.addPosition.existingPositionErrorMsg")
+    protected CustomMobileElement exisitingPosErrorMsg;
+
 
     public boolean verifyEditButtonIsVisible()
     {

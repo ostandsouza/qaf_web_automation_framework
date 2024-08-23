@@ -1,15 +1,16 @@
 package com.mobile.flutter.app.steps;
 
+import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.pages.ConveyorPage;
 import com.mobile.flutter.app.pages.CorporatePage;
 import com.mobile.flutter.app.pages.CoverWearPage;
 import com.mobile.flutter.app.pages.DashboardPage;
+import com.mobile.nativectx.app.pages.CoverWearNativePage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 
 public class CoverWearSteps {
-
 
     @QAFTestStep(description = "User navigates to cover wear from conveyor tile details with {ConveyorName} {CustCorpName} {CustSite}")
     public void verifyCoverWearNav(String conveyorName, String custCorp, String custSIte) {
@@ -122,7 +123,50 @@ public class CoverWearSteps {
     {
 //        CoverWearPage.getInstance().editInstallation(String instrument,String velocity,surfaceTemperature)
 
-
     }
+
+    @QAFTestStep(description = "Verify the dropdown values of Number of data points field")
+    public void verifyNoOfSplicesField()
+    {CoverWearPage.getInstance().verifyNoOfDataPointsDdl();}
+
+    @QAFTestStep(description = "Add the durometer value {Durometer} and price of the belt {PriceOfTheBelt} values")
+    public void addDurometerPriceOfBeltValues(String durometer,String priceOfBelt)
+    {CoverWearPage.getInstance().addDurometerAndPriceOfBeltValues(durometer,priceOfBelt);}
+
+    @QAFTestStep(description = "Verify topCoverCompound {TopCoverCompound} and bottomCoverCompound {BottomCoverCompound} comes with default values and are non editable")
+    public void verifyTopBottomCoverCompounds(String topCoverCompound,String bottomCoverCompound)
+    {CoverWearPage.getInstance().verifyTopAndBottomCoverCompounds(topCoverCompound,bottomCoverCompound);}
+
+    @QAFTestStep(description = "Enter the date of installation field and save the specification")
+    public void enterInstallationDateAndSave()
+    {
+        CoverWearPage.getInstance().enterDateOfInstallationandSave();
+    }
+
+    @QAFTestStep(description = "Click on add new position for coverWear")
+    public void clickTheAddNewPositionBtn()
+    {
+        CoverWearPage.getInstance().clickAddPositionBtn();
+    }
+
+    @QAFTestStep(description = "Click and verify search position {SearchPosition}")
+    public void clickAndVerifyTheSearchPosition(String position)
+    {
+        CoverWearPage.getInstance().clickAndVerifySearchPosition(position);
+    }
+    @QAFTestStep(description = "Click on coverWear card in the conveyor page")
+    public void clickCoverWearTileInConveyor() {
+        DashboardPage.getInstance().coverWearTileClick();
+    }
+    @QAFTestStep(description = "Add new position deatils {Segment} {TonsConveyed} {ShoreADurometer}")
+    public void addTheNewPositionDetails(String segment,String tonsConveyed,String shoreADurometer) {
+        System.out.println(segment+tonsConveyed+shoreADurometer);
+        CoverWearPage.getInstance().addNewPositionDetails(segment,tonsConveyed,shoreADurometer);
+    }
+    @QAFTestStep(description = "Verify user can not add position with dulpicate name")
+    public void verifyThePositionWithDulpicateName() {
+        CoverWearNativePage.getInstance().verifyExistingPositionErrorMsg();
+    }
+
 
 }

@@ -108,7 +108,7 @@ public class ConveyorPage extends BasePage{
     public CustomElement btSearchinput;
 
     @FindBy(locator = "xpath=//span[text()='Create']")
-    public CustomElement btSaveandclose;
+    public CustomElement btCreate;
 
     @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
     public CustomElement buttonLoader;
@@ -1145,7 +1145,7 @@ public class ConveyorPage extends BasePage{
 
     public void createConveyor(String conveyorName, String distShopName, String custSiteName) {
         enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
-        btSaveandclose.click("Save & Close");
+        btCreate.click("Save & Close");
         waitForElementToInvisible(buttonLoader,40000);
         btSearchinput.isVisible("Conveyor list screen");
     }
@@ -1154,24 +1154,16 @@ public class ConveyorPage extends BasePage{
         waitForPageLoad(20000);
         SyncUtil.waitFor(10000);
         enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
-        btSaveandclose.click("Save & Close");
+        btCreate.click("Save & Close");
     }
 
-    public void clickSaveBtn()
-    {
-        waitForElementVisible(btSaveandclose,10000,500);
-        btSaveandclose.click("Save & Close");
-        waitForElementToInvisible(buttonLoader,40000);
-        waitForPageLoad(20000);
-
-    }
 
     public void createConveyorWithImg(String conveyorName, String distShopName, String custSiteName, String img) {
         enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
         new CorporatePage().corporateImgUpload(img);
         waitForElementToBeClickable(enableWeatherSync);
         enableWeatherSync.click("Weather Sync");
-        btSaveandclose.click("Save & Close");
+        btCreate.click("Save & Close");
         waitForElementToInvisible(buttonLoader,10000);
         btSearchinput.isVisible("Conveyor list screen");
     }
@@ -1816,10 +1808,6 @@ public class ConveyorPage extends BasePage{
         Validator.assertTrue(verifyRemarksPage(),"Remarks Page is not displayed","Remarks Page is displayed");
     }
 
-    public void cancelBtnClick()
-    {
-        btnCancel.click();
-    }
 
     public void verifyImageViewPanelClosed()
     {
@@ -1827,7 +1815,6 @@ public class ConveyorPage extends BasePage{
         Validator.assertTrue(addDefaultImgSrc.isVisible(),"The selected image is uploaded","The selected image is not uploaded");
         Validator.assertTrue(imageViewerPanel.verifyNotPresent(),"Image view panel is still visible","Image viewer panel is not visible");
         Validator.assertTrue(addDefaultImgSrc.getAttribute("src").contains("/assets/img/upload_default.png"), "Image was uploaded", "Image was not uploaded");
-
     }
 
     public void createConveyorWithMan(String conveyorName, String distShopName, String custSiteName) {
@@ -1976,14 +1963,6 @@ public class ConveyorPage extends BasePage{
     {
         waitForElementVisible(crRemarksTab,5000,500);
         crRemarksTab.click("Remarks Tab");
-        waitForPageLoad(10000);
-
-    }
-
-    public void clickOnSaveAndCloseBtn()
-    {
-        waitForElementVisible(btSaveandclose,10000,500);
-        btSaveandclose.click("Save & Close");
         waitForPageLoad(10000);
 
     }
@@ -2804,5 +2783,25 @@ public class ConveyorPage extends BasePage{
         addMarkerBtnClick();
         verifyUpdatedGPSHead();
     }
+
+    public void enterConveyorName(String conveyorName)
+    {
+        waitForElementToDisplay(tbConveyorname);
+        waitForElementToBeClickable(tbConveyorname);
+        tbConveyorname.sendKeys(conveyorName,"conveyor name");
+    }
+    public void clickCreateBtn() {
+        waitForElementVisible(btCreate, 10000, 500);
+        waitForElementToBeClickable(btCreate);
+        btCreate.click();
+    }
+
+    public void saveButtonClick()
+    {
+        waitForElementToBeClickable(crSave);
+        crSave.click();
+        waitForPageLoad(10000);
+    }
+
 
 }

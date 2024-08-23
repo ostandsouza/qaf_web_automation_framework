@@ -306,7 +306,7 @@ public class InspectionSteps {
 		inspectionpage.extractStatusValue();
 	}
 
-	@QAFTestStep(description="Click on view button")
+	@QAFTestStep(description="Click on the view button")
 	public void clickOnViewButton(){
 		inspectionpage.clickOnViewBtn();
 	}
@@ -352,15 +352,9 @@ public class InspectionSteps {
 		inspectionpage.viewAndVerifyCorporatePage();
 	}
 
-	@QAFTestStep(description = "Verify Inspection Tile is clickable")
+	@QAFTestStep(description = "Click on inspections and verify user is able to open inspections")
 	public void verifyTheInspectionCardClick() {
 		inspectionpage.verifyInspectionCardClick();
-	}
-
-	@QAFTestStep(description="Navigate to inspection list page and wait")
-	public void navigateToInspectionScreen()
-	{
-		inspectionpage.goToInspectionScreenAndWait();
 	}
 
 

@@ -34,7 +34,7 @@ corporate.details.header = flutter-valuekey=details_header
 corporate.site.list = flutter-rawmap={"finderType":"Ancestor","matching":"{\"finderType\":\"ByType\",\"type\": \"ListView\"}","of":"{\"finderType\":\"ByType\",\"type\": \"SiteRow\"}"}
 site.search.field = flutter-valuekey=site_search
 corporate.frame.screen= flutter-type=SingleChildScrollView
-site.conveyor.action=flutter-valuekey=action_btn
+site.conveyor.action=flutter-valuekey=conveyor_more
 
 corporate.corporateList.header = flutter-text=Corporates
 corporate.view.header=flutter-valuekey=company_header
@@ -55,6 +55,27 @@ corporate.inspection.header=flutter-text=Inspections
 corporate.tools.header=flutter-text=Tools
 
 corporate.site.count=flutter-valuekey=list_card_count
+
+
+corporate.add.icon = flutter-valuekey=AddCompanyIcon
+corporate.add.back= flutter-valuekey=AddCompanyBack
+corporate.list.sitecount= flutter-rawmap={"finderType":"Ancestor","matching":"{\"finderType\":\"ByType\",\"valuekey\": \"Search\"}","of":"{\"finderType\":\"ByType\",\"valuekey\": \"list_card_count\"}"}
+corporate.view.header = flutter-valuekey=company_header
+
+corporate.company.existingerror = flutter-text=Company already exist
+corporate.list.header = flutter-text=Corporates
+corporate.add.header = flutter-text=Add Corporate
+corporate.add.site = flutter-text=ADD SITE/SHOP
+corporate.add.corporate = flutter-text=ADD CORPORATE
+site.default.company= flutter-text=Customer Site
+corporate.default.company= flutter-text=Customer Corporate
+site.add.header = flutter-text=Add Site
+site.companyinfo.header= flutter-text=Company Information
+site.territoryinfo.header = flutter-text=Territory Information
+site.additionalinfo.header = flutter-text=Additional Details
+site.company.existingerror = flutter-text=Site already exist
+site.company.successMsg= flutter-text= Company successfully created
+corporate.edit.success = flutter-text=Site already exist
 
 
 

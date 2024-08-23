@@ -20,3 +20,7 @@ corporate.conveyorList.header = flutter-text=Conveyors
 conveyor.add.icon = flutter-valuekey=AddConveyorIcon
 conveyor.add.header = flutter-text=Add Conveyor
 conveyor.toast.error=flutter-text=Conveyor Name is required
+
+conveyor.list.header = flutter-text=Conveyor
+conveyor.add.icon = flutter-valuekey=AddConveyorIcon
+conveyor.distributor.fieldtext = flutter-valuekey=Select Distributor Shop

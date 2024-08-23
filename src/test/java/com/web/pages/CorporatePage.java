@@ -68,6 +68,9 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Create']/..")
     public CustomElement btSaveandclose;
 
+    @FindBy(locator = "xpath=//button//span[text()='Create']")
+    public CustomElement btnCreate;
+
     @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
     public CustomElement drCompanyDropdownLoader;
 
@@ -445,11 +448,21 @@ public class CorporatePage extends BasePage{
         btSaveandclose.click("Save And Close");
     }
 
-    public void updateCorp() {
+    public void btnSaveClick() {
         scrollPageDown();
-        btUpdate.click("Update");
+        btSave.click("Save");
         waitForElementToInvisible(buttonLoader,10000);
         btSearchinput.isVisible("Corporate list screen");
+    }
+
+    public void clickCreateBtn()
+    {
+        waitForElementVisible(btnCreate,10000,500);
+        waitForElementToBeClickable(btnCreate);
+        btnCreate.click();
+        waitForPageLoad(10000);
+        Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(),"company is not created","company is created successfully");
+
     }
 
     public void selectDistributorShop() {

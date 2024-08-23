@@ -327,7 +327,10 @@ public class UserSteps extends BasePage {
 	@QAFTestStep(description = "Verify the default image is displayed and on hover camera icon is displayed")
 	public void verifyImagePanel(){
 		userpage.verifyDefaultImage();
+		userpage.verifyCameraIcon();
 	}
+
+
 	@QAFTestStep(description = "Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button")
 	public void verifyImagePanelWithOptions() {
 		userpage.verifyOptionInImagePanel();
@@ -380,13 +383,13 @@ public class UserSteps extends BasePage {
 	}
 
 	@QAFTestStep(description="Add permission rights with {Add} {Edit} {Delete} {View} {Download} and create template {templateName}")
-	public void addPermission(String add, String edit, String delete, String view, String download, String templateName) {
+	public void addPermissionTemplate(String add, String edit, String delete, String view, String download, String templateName) {
 		userpage.setPermission(add, edit, delete, view, download);
 		userpage.createTemplate(templateName);
 	}
 
 	@QAFTestStep(description="Add territory as {Region} and create template {templateName}")
-	public void addTerritory(String region, String templateName) {
+	public void addTerritoryTemplate(String region, String templateName) {
 		userpage.setTerritory(region);
 		userpage.createTemplate(templateName);
 	}
@@ -424,18 +427,8 @@ public class UserSteps extends BasePage {
 
 	}
 
-	@QAFTestStep(description = "Click on Home Link to redirect to home page")
-	public void verifyHomePageClick () {
-		userpage.homeLinkClick();
 
-	}
 
-	@QAFTestStep(description = "Verify the default image is displayed and on hover camera icon is displayed")
-	public void verifyDefaultImageAndCameraIcon () {
-		userpage.verifyDefaultImage();
-		userpage.verifyCameraIcon();
-
-	}
 
 	@QAFTestStep(description = "Verify that Image Viewer panel is displayed on clicking the camera icon")
 	public void clickOnCameraIcon () {
@@ -443,11 +436,6 @@ public class UserSteps extends BasePage {
 
 	}
 
-	@QAFTestStep(description = "User clicks on Upload Image")
-	public void clickOnImageUpload () {
-		userpage.uploadBtnClick();
-
-	}
 
 	@QAFTestStep(description = "Verify that selected image is getting displayed in the image viewer panel")
 	public void verifyUploadedImageFunctionality () {
@@ -461,11 +449,7 @@ public class UserSteps extends BasePage {
 
 	}
 
-	@QAFTestStep(description = "Verify that the image viewer panel is closed and image is not uploaded")
-	public void verifyImageViewPanel () {
-		userpage.verifyImageViewPanelClosed();
 
-	}
 
 	@QAFTestStep(description = "Verify that new master user {FullName} is created and redirected to userList page")
 	public  void verifyUserCreation(String FullName)
@@ -481,11 +465,6 @@ public class UserSteps extends BasePage {
 
 	}
 
-	@QAFTestStep(description="Add permission rights with {Add} {Edit} {Delete} {View} {Download} and create template {templateName}")
-	public void addPermissionAndCreateTemplate(String add, String edit, String delete, String view, String download, String templateName) {
-		userpage.setPermission(add, edit, delete, view, download);
-		userpage.createPermissionTemplate(templateName);
-	}
 
 	@QAFTestStep(description="Verify template is created")
 	public void verifyTemplateCreation() {

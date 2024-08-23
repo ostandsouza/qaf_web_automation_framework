@@ -95,6 +95,11 @@ public class CoverWearSteps {
         coverWearPage.goToCoverWearScreen();
     }
 
+    @QAFTestStep(description="Navigate to coverWear list screen and wait for data load")
+    public void navigateToCoverWearPage(){
+        coverWearPage.goToCoverWearScreenAndWait();
+    }
+
     @QAFTestStep(description="Verify mandatory parameter for add measurement {ConveyorName}")
     public void verifyMandatoryParameters(String conveyorName){
         String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
@@ -482,10 +487,7 @@ public class CoverWearSteps {
         coverWearPage.enterDataPoints(count);
     }
 
-    @QAFTestStep(description="Navigate to coverWear list screen and wait for data load")
-    public void navigateToCoverWearPage(){
-        coverWearPage.goToCoverWearScreenAndWait();
-    }
+
 
     @QAFTestStep(description="Search {ConveyorName} coverWear")
     public void searchTheCoverWear(String conveyorName){
@@ -548,13 +550,6 @@ public class CoverWearSteps {
 //        coverWearPage.verifyCoverWearNavigation();
         coverWearPage.verifyCoverWearListPageNavigation();
     }
-
-    @QAFTestStep(description="Click on coverWear card and verify it navigates to coverWear list specification page")
-    public void clickOnCoverWearCardAndVerify(){
-        coverWearPage.clickCoverWearCard();
-        coverWearPage.verifyCoverWearNavigation();
-    }
-
 
     @QAFTestStep(description="Verify the breadCrumb of coverWear page")
     public void verifyBreadCrumbOfPage(){
@@ -621,6 +616,7 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Click on column header {ColumnHeader} of {ColumnNumber} nd column again and verify sorting should be in decreasing order")
     public void clickOnColumnAndVerifyDecreasingOrder(String columnHeader,int columnNumber){
+        SyncUtil.waitFor(5000);
         coverWearPage.clickOnColumn(columnHeader);
         coverWearPage.verifyDecreasingOrderSorting(columnNumber);
     }
@@ -686,6 +682,7 @@ public class CoverWearSteps {
         coverWearPage.verifyGaugeImageInSpec();
     }
 
+
     @QAFTestStep(description="Extract the data from the position {Position} and navigate to position detail page")
     public void extractTheDataFromPosition(String position){
         coverWearPage.searchPosition(position);
@@ -739,16 +736,6 @@ public class CoverWearSteps {
         coverWearPage.verifyUserSavedMeasurementDetails(CustSiteName,ConveyorName);
     }
 
-    @QAFTestStep(description="Verify data value in header as metric")
-    public void verifyTheDataInHeaderUnitAsMetric(){
-        coverWearPage.verifyDataHeaderUnitAsMetric();
-    }
-
-    @QAFTestStep(description="Verify data value in header as imperial")
-    public void verifyTheDataInHeaderUnitAsImperial(){
-        coverWearPage.verifyDataHeaderUnitAsImperial();
-    }
-
     @QAFTestStep(description="Verify data value are in metric with value {MetricValue}")
     public void verifyTheDataAreInMetric(String metricValue){
         coverWearPage.verifyDataInMetric(metricValue);
@@ -757,11 +744,6 @@ public class CoverWearSteps {
     @QAFTestStep(description="Verify data value are in imperial with value {ImperialValue}")
     public void verifyTheDataAreInImperial(String imperialValue){
         coverWearPage.verifyDataInImperial(imperialValue);
-    }
-
-    @QAFTestStep(description="Add data value in header as imperial")
-    public void AddTheDataAsImperial(){
-        coverWearPage.addDataAsImperial();
     }
 
     @QAFTestStep(description="Add data value in header as metric")
@@ -775,20 +757,12 @@ public class CoverWearSteps {
         coverWearPage.addNewMeasurementWithWidth(conveyorName, custSiteName,positionName,beltWidth);
     }
 
-    @QAFTestStep(description="Navigation to Position Details Screen for position {Position}")
-    public void goToThePositionDetailPage(String positionName){
-        coverWearPage.goToThePositionDetailScreen(positionName);
-    }
 
     @QAFTestStep(description="Click on Add in Position Detail screen and verify Add new measurement pop up")
     public void clickOnAddInPositionAndVerifyPopUp(){
         coverWearPage.clickAddMeasurment();
     }
 
-    @QAFTestStep(description="Verify Guaze image is displayed in specification field")
-    public void verifyTheGuazeImageInSpecification(){
-        coverWearPage.verifyGuazeImageInSpec();
-    }
 
     @QAFTestStep(description="Verify no data is displayed in guaze")
     public void verifyTheGuazeEmptyData(){

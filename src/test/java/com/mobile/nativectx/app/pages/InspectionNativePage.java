@@ -36,6 +36,11 @@ public class InspectionNativePage extends NativeBasePage {
     protected CustomMobileElement inspCalenderCancelBtn;
     @FindBy(locator = "inspection.inspLocation.map")
     protected CustomMobileElement inspLocationMap;
+    @FindBy(locator = "inspection.signOff.summaryField")
+    protected CustomMobileElement summaryField;
+    @FindBy(locator = "inspection.saveAsDraft.popUp")
+    protected CustomMobileElement saveAsDraftPopUp;
+
 
 
     public void validateInspectionLocationPermissionPopUp() {
@@ -74,6 +79,18 @@ public class InspectionNativePage extends NativeBasePage {
         Validator.assertTrue(inspNextBtn.isDisplayed(),"Inspection Info Next Button is not Visible","Inspection Info Next Button is Visible");
         Validator.assertTrue(inspPrevBtn.isDisplayed(),"Inspection Info Previous Button is not Visible","Inspection Info Previous Button is Visible");
         inspNextBtn.click();
+        switchContext("FLUTTER");
+    }
+
+    public void verifyInspectionSummaryField(String summary) {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        Validator.assertTrue(summaryField.isVisible(),"Summary Field is not visible","Summary Field is visible");
+//        summaryField.sendKeys(summary);
+        switchContext("FLUTTER");
+    }
+    public void verifySaveAsDraftPopUp() {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        Validator.assertTrue(saveAsDraftPopUp.isVisible(),"Save as Draft Pop Up is not visible","Save as Draft Pop Up is visible");
         switchContext("FLUTTER");
     }
 

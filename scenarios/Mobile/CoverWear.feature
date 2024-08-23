@@ -74,4 +74,75 @@ Scenario: Verify position detail screen
     And Verify temperature adjusted measurements header and default installation field with measurement date and edit link are visible
     And Click on the edit button and verify user is able is edit installation '${Instrument}' '${Velocity}' '${SurfaceTension}' and verify user can delete measurement
 
+@CTCP-2441
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Measurement
+Scenario: Navigate to ultrasonic Position screen via Home Page
+
+    Given Verify user is on continental login page
+    And   Login to the application with '${UserName}' and '${Password}'
+    And Click on coverWear card in the home page
+    And Search for a conveyor '${ConveyorName}' and click on it and verify it navigates to position listing screen
+
+@CTCP-2447
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Measurement
+Scenario: Verify cover wear specification in case conveyor technical data not present
+
+    Given Verify user is on continental login page
+    And   Login to the application with '${UserName}' and '${Password}'
+    And Click on coverWear card in the home page
+    And Search for a conveyor '${ConveyorName}' and click on it and verify it navigates to position listing screen
+    And Click on the gauge tile in the position screen and navigate to specification screen
+    And Verify that siteName '${SiteName}' conveyor '${ConveyorName}' beltWidth '${BeltWidth}' BeltLength '${BeltLength}' comes with default values and are non editable
+    And Verify that top cover thickness nominal '${TopCoverThicknessNominal}' and bottom cover thickness '${BottomCoverThicknessNominal}' nominal comes with default values and are editable
+    And Verify the dropdown values of Number of data points field
+    And Add the durometer value '${Durometer}' and price of the belt '${PriceOfTheBelt}' values
+    And Verify topCoverCompound '${TopCoverCompound}' and bottomCoverCompound '${BottomCoverCompound}' comes with default values and are non editable
+    And Enter the date of installation field and save the specification
+
+@CTCP-2457
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Zero_Position
+Scenario: Verify add new position functionality in case conveyor technical Data not present
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And Click on conveyor symbol and verify it navigates to conveyor list page
+    Then Navigate to conveyor list and verify '${ConveyorName}' is present
+    And Navigate to conveyor details screen
+    And Click on coverWear card in the conveyor page
+    And Click on add new position for coverWear
+    And Verify add new position functionality when conveyor technical data is not present
+
+@CTCP-2450
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Measurement
+Scenario: Verify search functionality on position screen
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And Click on coverWear card in the home page
+    And Search for a conveyor '${ConveyorName}' and click on it and verify it navigates to position listing screen
+    And Click and verify search position '${SearchPosition}'
+
+@CTCP-2454
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_Measurement
+Scenario: Verify user can not add position with dulpicate name
+
+    Given Verify user is on continental login page
+    And   Login to the application with '${UserName}' and '${Password}'
+    And Click on coverWear card in the home page
+    And Search for a conveyor '${ConveyorName}' and click on it and verify it navigates to position listing screen
+    And Click on add new position for coverWear
+    And Add new position deatils '${Segment}' '${TonsConveyed}' '${ShoreADuromater}'
+    Then Verify user can not add position with dulpicate name
+
+
 

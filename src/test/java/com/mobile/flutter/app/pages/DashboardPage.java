@@ -80,12 +80,7 @@ public class DashboardPage extends FlutterBasePage {
         Validator.assertTrue(addSiteShop.isDisplayed(),"Add Site is not Visible","Add Site is Visible");
     }
 
-    public boolean goToAddCorp() {
-        SyncUtil.waitFor(20000);
-        addIconClick();
-        addCorporate.click();
-        return CorporatePage.getInstance().isCompanyPage();
-    }
+
 
     public boolean goToSiteShop() {
         addIconClick();
@@ -144,6 +139,30 @@ public class DashboardPage extends FlutterBasePage {
                "Add Inspection Add Conveyor Add Site/Shop Add Corporate buttons are not visible","Add Inspection Add Conveyor Add Site/Shop Add Corporate buttons are not visible");
 
    }
+    public void verifyHomeScreenDetails() {
+        DashboardNativePage.getInstance().verifyHomeScreenDetailsNative();
+        Validator.assertTrue(addIcon.isDisplayed(),"Add Icon is not Visible","Add Icon is Visible");
+    }
+
+    public boolean verifyHomePageAddIcon() {
+        loadingDashboard.waitForTheElementToBeInvisible(15);
+        addIcon.waitForTheElementToBeVisible(15);
+        Validator.assertTrue(addIcon.isDisplayed(),"Add Icon is not Visible","Add Icon is Visible");
+        addIcon.click();
+        Validator.assertTrue(addCorporate.isDisplayed(),"Add Corporate is not Visible","Add Corporate is Visible");
+        Validator.assertTrue(addSiteShop.isDisplayed(),"Add Site is not Visible","Add Site is Visible");
+        Validator.assertTrue(addConveyor.isDisplayed(),"Add Conveyor is not Visible","Add Conveyor is Visible");
+        Validator.assertTrue(addInspection.isDisplayed(),"Add Inspection is not Visible","Add Inspection is Visible");
+        return addCorporate.isDisplayed();
+    }
+
+    public boolean goToAddCorp() {
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
+        addCorporate.click();
+        return CorporatePage.getInstance().isCompanyPage();
+    }
+
+
 
 
 

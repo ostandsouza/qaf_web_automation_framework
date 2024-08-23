@@ -34,6 +34,43 @@ Scenario: Verify customer site field
     Then  Navigate to the Add Conveyor Page with '${ConveyorName}'
     And Add Conveyor with distributor '${ConveyorName}' '${DistShopName}' '${CustSiteName}'
 
+@CTCP-3274
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Navigate to Add conveyor via Home page
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Verify user present in home screen
+  Then Navigate to add conveyor page via Home and verify navigation
+
+@CTCP-3276
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario:Verify Navigate fields displayed in header
+
+  Given Verify user is on continental login page
+  And  Login to the application with '${UserName}' and '${Password}'
+  And Click on conveyor symbol and verify it navigates to conveyor list page
+  Then Navigate to add conveyor page via Conveyor List page and verify navigation
+  And Go back from conveyor details screen
+  And Verify user present in conveyor list screen
+
+@CTCP-3279
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Verify Distributor shop field
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And Verify user present in home screen
+    Then Navigate to add conveyor page via Home and verify navigation
+    And Click on distributor shop dropdown and verify search option
+    And Search and select the distributor Shop '${DistShop}'
+
 
 
 
