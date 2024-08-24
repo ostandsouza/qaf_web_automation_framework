@@ -37,7 +37,7 @@ pipeline {
                     sh( script: 'mvn -v')
                     sh( script: 'java -version')
                     sh( script: '/usr/libexec/java_home -v')
-                    sh( script: 'export JAVA_HOME="$(/usr/libexec/java_home -v 11)"'
+                    sh( script: 'export JAVA_HOME="$(/usr/libexec/java_home -v 11)"')
                     sh( script: 'java -version')
                     sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test')
                 }
@@ -84,41 +84,41 @@ pipeline {
          success{
             echo "Success Pipeline: ${currentBuild.fullDisplayName}"
             script {
-                    def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
-                    def jobName = currentBuild.fullDisplayName
-                    emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
-                    mimeType: 'text/html',
-                    subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
-                    to: "${env.mailRecipients}",
-                    replyTo: "${env.mailRecipients}",
-                    recipientProviders: [[$class: 'CulpritsRecipientProvider']]
+//                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
+//                     def jobName = currentBuild.fullDisplayName
+//                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
+//                     mimeType: 'text/html',
+//                     subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
+//                     to: "${env.mailRecipients}",
+//                     replyTo: "${env.mailRecipients}",
+//                     recipientProviders: [[$class: 'CulpritsRecipientProvider']]
                 }
         }
         failure {
             echo "Failure Pipeline: ${currentBuild.result}"
             echo "Attention @here ${env.JOB_NAME} #${env.BUILD_NUMBER} has failed."
             script {
-                    def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
-                    def jobName = currentBuild.fullDisplayName
-                    emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
-                    mimeType: 'text/html',
-                    subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
-                    to: "${env.mailRecipients}",
-                    replyTo: "${env.mailRecipients}",
-                    recipientProviders: [[$class: 'CulpritsRecipientProvider']]
+//                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
+//                     def jobName = currentBuild.fullDisplayName
+//                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
+//                     mimeType: 'text/html',
+//                     subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
+//                     to: "${env.mailRecipients}",
+//                     replyTo: "${env.mailRecipients}",
+//                     recipientProviders: [[$class: 'CulpritsRecipientProvider']]
             }
         }
         unstable{
             echo "Unstable Pipeline: ${currentBuild.result}"
             script {
-                    def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
-                    def jobName = currentBuild.fullDisplayName
-                    emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
-                    mimeType: 'text/html',
-                    subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
-                    to: "${env.mailRecipients}",
-                    replyTo: "${env.mailRecipients}",
-                    recipientProviders: [[$class: 'CulpritsRecipientProvider']]
+//                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
+//                     def jobName = currentBuild.fullDisplayName
+//                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
+//                     mimeType: 'text/html',
+//                     subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
+//                     to: "${env.mailRecipients}",
+//                     replyTo: "${env.mailRecipients}",
+//                     recipientProviders: [[$class: 'CulpritsRecipientProvider']]
             }
         }
     }
