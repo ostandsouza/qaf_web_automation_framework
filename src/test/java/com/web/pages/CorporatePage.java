@@ -491,7 +491,9 @@ public class CorporatePage extends BasePage{
 
     public void editCorporateName(String corpName, String editCorpName) {
         goToCorporate();
+        SyncUtil.waitFor(6000);
         goToCorporateEditScreen(corpName);
+        SyncUtil.waitFor(6000);
         setImplicitWait(10000, TimeUnit.MILLISECONDS);
         typeOfCompanyLoader.waitForText("Customer Corporate");
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
@@ -532,7 +534,9 @@ public class CorporatePage extends BasePage{
 
 
     public void editCustomerSite(String siteName, String editSiteName, String corp) {
+        SyncUtil.waitFor(4000);
         goToCorporateDetails(corp);
+        SyncUtil.waitFor(6000);
         btSearchinput.type(siteName, "Site name");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
@@ -542,7 +546,9 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
         typeOfCompanyLoader.waitForText("Customer Site");
+        SyncUtil.waitFor(4000);
         tbCompanyName.type(editSiteName);
+        SyncUtil.waitFor(2000);
         scrollPageup();
         dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
         drTerritoryManagerbutton.type("Territory India Automation", "Territory");
@@ -551,6 +557,7 @@ public class CorporatePage extends BasePage{
 
     public void deleteSiteOrShop(String custCorp, String custSite) {
         goToDistCorporateDetails(custCorp);
+        SyncUtil.waitFor(4000);
         btSearchinput.type(custSite, "Site/Shop name");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         btCheckbox.check("Site/Shop Checkbox");
@@ -559,6 +566,7 @@ public class CorporatePage extends BasePage{
         waitForElementVisible(btDelete, 10000,500);
         btDelete.jsClick("Delete");
         yesConfirmation.click("Confirm");
+        SyncUtil.waitFor(2000);
     }
 
     public void searchCorporate(String corpName) {
@@ -620,7 +628,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void deleteCorporate(String corpName) {
-//        goToCorporate();
+        goToCorporate();
         waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(corpName);
         btCheckbox.click();

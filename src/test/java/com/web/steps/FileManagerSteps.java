@@ -18,9 +18,9 @@ public class FileManagerSteps {
 
     @QAFTestStep(description="Add Folder by the name {FolderName} under site {siteName}")
     public void createNewFolder(String folderName, String siteName){
-        String companyId = fileManagerPage.apiBase.getCompanyID(fileManagerPage.apiBase.getCompanyAPI(siteName));
-        Response fileRes= fileManagerPage.apiBase.getFilesListAPI("site",companyId);
-        fileManagerPage.apiBase.getRootFileID(fileRes).forEach(x -> fileManagerPage.apiBase.deleteFilesAPI(x));
+//        String companyId = fileManagerPage.apiBase.getCompanyID(fileManagerPage.apiBase.getCompanyAPI(siteName));
+//        Response fileRes= fileManagerPage.apiBase.getFilesListAPI("site",companyId);
+//        fileManagerPage.apiBase.getRootFileID(fileRes).forEach(x -> fileManagerPage.apiBase.deleteFilesAPI(x));
         sitePage.goToSiteDetails(siteName);
         fileManagerPage.goToFileManager();
         fileManagerPage.createFolder(folderName);
