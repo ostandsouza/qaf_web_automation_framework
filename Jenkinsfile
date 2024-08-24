@@ -9,10 +9,10 @@ def prod_account  = "${CTP_PROD_AWS_ACCOUNT_NUMBER}"
 
 pipeline {
     agent { label "IBDGenericAgent" }
-    tools {
-        maven 'maven3.8.6'
-        jdk 'jdk1.8'
-    }
+//     tools {
+//         maven 'maven3.8.6'
+//         jdk 'jdk17'
+//     }
     environment {
         CREDS = credentials('CTP_DEV_CREDS')
        
@@ -35,9 +35,6 @@ pipeline {
                     sh( script: 'uname -a')
                     sh( script: 'printenv')
                     sh( script: 'mvn -v')
-                    sh( script: 'java -version')
-                    sh( script: '/usr/libexec/java_home -v')
-//                     sh( script: 'export JAVA_HOME="$(/usr/libexec/java_home -v 11)"')
                     sh( script: 'java -version')
                     sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test')
                 }
