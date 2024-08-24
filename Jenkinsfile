@@ -36,6 +36,9 @@ pipeline {
                     sh( script: 'printenv')
                     sh( script: 'mvn -v')
                     sh( script: 'java -version')
+//                     sh( script: 'apt-get install libxss1 libappindicator1 libindicator7')
+                    sh( script: 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
+                    sh( script: 'apt install ./google-chrome*.deb')
                     sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test')
                 }
             }
