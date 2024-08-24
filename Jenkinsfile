@@ -37,7 +37,7 @@ pipeline {
                     sh( script: 'mvn -v')
                     sh( script: 'java -version')
                     sh( script: '/usr/libexec/java_home -v')
-                    sh( script: 'export JAVA_HOME="$(/usr/libexec/java_home -v 11)"')
+//                     sh( script: 'export JAVA_HOME="$(/usr/libexec/java_home -v 11)"')
                     sh( script: 'java -version')
                     sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test')
                 }
