@@ -84,7 +84,7 @@ pipeline {
          success{
             echo "Success Pipeline: ${currentBuild.fullDisplayName}"
             script {
-//                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
+                    def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
 //                     def jobName = currentBuild.fullDisplayName
 //                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
 //                     mimeType: 'text/html',
@@ -98,7 +98,7 @@ pipeline {
             echo "Failure Pipeline: ${currentBuild.result}"
             echo "Attention @here ${env.JOB_NAME} #${env.BUILD_NUMBER} has failed."
             script {
-//                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
+                    def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
 //                     def jobName = currentBuild.fullDisplayName
 //                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
 //                     mimeType: 'text/html',
@@ -111,7 +111,7 @@ pipeline {
         unstable{
             echo "Unstable Pipeline: ${currentBuild.result}"
             script {
-//                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
+                    def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
 //                     def jobName = currentBuild.fullDisplayName
 //                     emailext body: '''${FILE,path="target/surefire-reports/customized-emailable-report.html"}''',
 //                     mimeType: 'text/html',
