@@ -19,6 +19,8 @@ pipeline {
         IBD_CLIENT_GITHUB_TOKEN = credentials('IBD_CLIENT_GITHUB_TOKEN')
         IBD_CLIENT_GITHUB_API = "https://github.geo.conti.de"
         IBD_CLIENT_GITHUB_KEY_TITLE = "IBD CLI Jenkins SSH Manager"
+        http_proxy="http://cias.geoaws.com:8080"
+        https_proxy="http://cias.geoaws.com:8080"
     }
 
     stages {
@@ -38,7 +40,8 @@ pipeline {
                     sh( script: 'java -version')
 //                     sh( script: 'apt-get install libxss1 libappindicator1 libindicator7')
                     sh( script: 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
-                    sh( script: 'apt install ./google-chrome*.deb')
+                    sh( script: 'sudo apt-get update')
+                    sh( script: 'sudo apt-get install ./google-chrome*.deb')
                     sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test')
                 }
             }
