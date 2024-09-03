@@ -36,6 +36,7 @@ public class APIBase {
     public void configureRestAssured() {
         System.out.println("Configuring RestAssured");
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        RestAssured.proxy("cias.geoaws.com", 8080);
         RestAPIHelper.configure();
         headersMap.put("appclientid",getBundle().getString("env.appId"));
 //      queryMaps.put(CoreConnectionPNames.CONNECTION_TIMEOUT, 1000)
