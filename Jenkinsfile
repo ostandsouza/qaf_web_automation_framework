@@ -61,17 +61,16 @@ pipeline {
 //             }
 //         }
         stage ('publish_HTML') {
-            when {
-                expression {
-                    return currentBuild.result == 'FAILURE'||currentBuild.result == 'SUCCESS'||currentBuild.result == 'UNSTABLE';
-                }
-            }
+//             when {
+//                 expression {
+//                     return currentBuild.result == 'FAILURE'||currentBuild.result == 'SUCCESS'||currentBuild.result == 'UNSTABLE';
+//                 }
+//             }
           steps {
                script{
                     env.FAILURE_STAGE = 'publish_HTML'
-
                     publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/customized-emailable-report.html', keepAll: true, reportDir: 'target/surefire-reports', reportFiles: 'customized-emailable-report.html', reportName: 'htmlReport', reportTitles: 'htmlReport'])
-
+                    println("${currentBuild.result}")
                 }
             }
         }
