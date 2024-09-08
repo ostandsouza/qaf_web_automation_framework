@@ -69,7 +69,7 @@ pipeline {
           steps {
                script{
                     env.FAILURE_STAGE = 'publish_HTML'
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/customized-emailable-report.html', keepAll: true, reportDir: 'target/surefire-reports', reportFiles: 'customized-emailable-report.html', reportName: 'htmlReport', reportTitles: 'htmlReport'])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/customized-emailable-report.html', keepAll: true, reportDir: 'test-results/**', reportFiles: 'customized-emailable-report.html', reportName: 'htmlReport', reportTitles: 'htmlReport'])
                     println("${currentBuild.result}")
                 }
             }
@@ -78,7 +78,7 @@ pipeline {
     post {
         always {
             script {
-               def summary = junit testResults: 'target/surefire-reports/TEST-*.xml'
+               def summary = junit testResults: 'test-results/**/TEST-*.xml'
 
                env.mailRecipients = 'ostan@codecraft.co.in, oston.prithesh.dsouza-EXT@continental.com'
             }
