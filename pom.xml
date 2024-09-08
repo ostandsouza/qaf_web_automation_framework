@@ -219,9 +219,7 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>${testSuiteFile}</suiteXmlFile>
 					</suiteXmlFiles>
-					<reportsDirectory>${test.results.dir}/${run.time}</reportsDirectory>
-					<testFailureIgnore>true</testFailureIgnore>
-					<skipTests>false</skipTests>
+<!--					<reportsDirectory>${test.results.dir}/${run.time}</reportsDirectory>-->
 					<systemPropertyVariables>
 						<org.uncommons.reportng.xml-dialect>testng</org.uncommons.reportng.xml-dialect>
 						<org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
