@@ -447,10 +447,10 @@ public class ConveyorSteps {
     }
 
 
-    @QAFTestStep(description = "Click on the filter icon and verify all fields {filterType} are visible")
-    public void clickOnFilterIconAndVerifyFields(String filterType) {
+    @QAFTestStep(description = "Click on the filter icon and verify all fields are visible")
+    public void clickOnFilterIconAndVerifyFields() {
         conveyorPage.filterIconClick();
-        conveyorPage.verifyFilterFields(filterType);
+        conveyorPage.verifyFilterFields();
     }
     @QAFTestStep(description = "Select {filterType} from filter dropdown and verify it is selected")
     public void clickAndVerifyStartsWithFilter(String filterType) {

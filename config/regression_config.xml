@@ -507,6 +507,51 @@
 <!--		</classes>-->
 <!--	</test>-->
 
+	<test name=" Monitoring Devices testcases" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_BeltMonitoring.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<parameter name="env.resources" value="resources/env_dev" />
+		<groups>
+			<run>
+
+				                <include name="CTCP-389" />
+				                <include name="CTCP-391" />
+				                <include name="CTCP-393" />
+				                <include name="CTCP-405" />
+				                 <include name="CTCP-401" />
+				                <include name="CTCP-412" />
+				                <include name="CTCP-405" />
+				                <include name="CTCP-478" />
+				                <include name="CTCP-481" />
+				                <include name="CTCP-483" />
+				                <include name="CTCP-485" />
+				                <include name="CTCP-494" />
+				                <include name="CTCP-495" />
+				                <include name="CTCP-496" />
+				                <include name="CTCP-493" />
+				                <include name="CTCP-492" />
+				                <include name="CTCP-489" />
+				                <include name="CTCP-490" />
+				                <include name="CTCP-491" />
+				                <include name="CTCP-3671" />
+				                <include name="CTCP-3672" />
+				                <include name="CTCP-3673" />
+				                <include name="CTCP-3674" />
+				                <include name="CTCP-3977" />
+				                <include name="CTCP-3978" />
+				                <include name="CTCP-4022" />
+
+
+
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
+
+
 
 
 </suite>

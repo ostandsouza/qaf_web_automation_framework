@@ -1109,6 +1109,10 @@ public class ConveyorPage extends BasePage{
             "Angle of Idlers","Carry Side Idler Spacing","Drive Wrap Angle","Take-up Tension","Surcharge Angle",
             "Idler Offset type","Drive Details","Take-up type","Stations","Belt Construction","Top Cover Component","Bottom Cover Component","Carcass","Rating","Belt Width","Top Cover Thickness","Bottom Cover Thickness","Material Density","Friction Factor"};
 
+    String[] DevicesColumnNames={"Name","Device Type","Site","Conveyor","Carcass","Belt Width","Region","Territory","Location",
+            "Status","Installation Date","Last Service Date","Belt/Conveyor Saves"};
+
+
     public void goToConveyorListScreen(){
         if(!conveyorList.isVisible())
             home.click("Home");
@@ -2309,8 +2313,13 @@ public class ConveyorPage extends BasePage{
 
     public void verifyColumnNamesArray()
     {
-
-        for (String columnName : columnNames) {
+        String[] columnNamesArray;
+        if(this.getCurrentURL().contains("/secure/dashboard/devices")) {
+            columnNamesArray = DevicesColumnNames;
+        }
+        else
+            columnNamesArray=columnNames;
+        for (String columnName : columnNamesArray) {
             setImplicitWait(20000, TimeUnit.MILLISECONDS);
             System.out.println(columnName);
             waitForElementVisible(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + columnName + "') and .//div[contains(@class, 'p-checkbox')]]")), 20000, 500);
@@ -2401,20 +2410,20 @@ public class ConveyorPage extends BasePage{
     }
     public void filterIconClick()
     {
+        hoverOverElement(thNameColumn);
         waitForElementVisible(nameFilterIcon,20000,500);
         waitForElementToBeClickable(nameFilterIcon);
         waitForElementToBeClickable(nameFilterIcon);
         nameFilterIcon.click();
     }
-    public void verifyFilterFields(String filter)
+    public void verifyFilterFields()
     {
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementVisible(ddlMatchAll,10000,500);
         Validator.assertTrue(ddlMatchAll.isVisible(),"Match all dropdown is not visible","Match all dropdown is visible");
-//        String filterField="//div[contains(@class,'p-column-filter-matchmode-dropdown')]//span[text()='"+filter+"']";
-//        setImplicitWait(20000,TimeUnit.MILLISECONDS);
-
-//        waitForElementVisible(driver.findElement(By.xpath(filterField)),10000,500);
+//      String filterField="//div[contains(@class,'p-column-filter-matchmode-dropdown')]//span[text()='"+filter+"']";
+//      setImplicitWait(20000,TimeUnit.MILLISECONDS);
+//      waitForElementVisible(driver.findElement(By.xpath(filterField)),10000,500);
         Validator.assertTrue(ddlStartsWith.isVisible(),"starts with dropdown is not visible","starts with dropdown is visible");
         Validator.assertTrue(filterSearchTextBox.isVisible(),"search text box  is not visible"," Search text box is visible");
         Validator.assertTrue(addRuleLink.isVisible(),"Add rule link is not visible","Add rule link dropdown is visible");
@@ -2794,6 +2803,8 @@ public class ConveyorPage extends BasePage{
         waitForElementVisible(btCreate, 10000, 500);
         waitForElementToBeClickable(btCreate);
         btCreate.click();
+        waitForElementToInvisible(buttonLoader,40000);
+
     }
 
     public void saveButtonClick()

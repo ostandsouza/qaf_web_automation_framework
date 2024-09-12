@@ -511,7 +511,7 @@ Scenario: Apply and remove 'Start With' filter
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
-    And Click on the filter icon and verify all fields '${StartsWithFilterType}' are visible
+    And Click on the filter icon and verify all fields are visible
     And Select '${StartsWithFilterType}' from filter dropdown and verify it is selected
     And Enter the text in the search text '${SearchText}' box and verify user is able to enter
     And Click on apply button and verify all results with entered text and filter '${StartsWithFilterType}' is visible in list and filter popup is closed
@@ -528,7 +528,7 @@ Scenario: Apply and remove 'Contains' filter
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
-    And Click on the filter icon and verify all fields '${ContainsFilterType}' are visible
+    And Click on the filter icon and verify all fields are visible
     And Select '${ContainsFilterType}' from filter dropdown and verify it is selected
     And Enter the text in the search text '${ContainsSearchText}' box and verify user is able to enter
     And Click on apply button and verify all results with entered text and filter '${ContainsFilterType}' is visible in list and filter popup is closed
@@ -544,7 +544,7 @@ Scenario: Apply and remove ' Equals' filter
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
-    And Click on the filter icon and verify all fields '${ContainsFilterType}' are visible
+    And Click on the filter icon and verify all fields are visible
     And Select '${EqualsFilterType}' from filter dropdown and verify it is selected
     And Enter the text in the search text '${EqualsSearchText}' box and verify user is able to enter
     And Click on apply button and verify all results with entered text and filter '${EqualsFilterType}' is visible in list and filter popup is closed

@@ -96,7 +96,7 @@ Scenario: Verify search functionality
 @key:CoverWear_Item
 Scenario: Verify the functionality of sorting
 
-    And Navigate to cover wear listing screen
+    And Navigate to cover wear listing screen and wait
    Then Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column and verify sorting should be in increasing order
    And Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column again and verify sorting should be in decreasing order
 
