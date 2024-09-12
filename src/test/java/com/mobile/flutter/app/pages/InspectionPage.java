@@ -104,7 +104,7 @@ public class InspectionPage extends FlutterBasePage {
     public CustomFlutterElement frameNumberField;
     @FindBy(locator = "inspection.other.dropdown")
     public CustomFlutterElement otherFiled;
-    @FindBy(locator = "inspection.observation.label")
+    @FindBy(locator = "inspection.observation.field")
     public CustomFlutterElement tbObservation;
 
     @FindBy(locator = "inspection.condition.dropdown")

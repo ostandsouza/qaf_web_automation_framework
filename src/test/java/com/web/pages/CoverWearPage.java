@@ -167,10 +167,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//button//span[text()='Edit']")
     public CustomElement cwEditSpec;
 
-    @FindBy(locator="xpath=//label[text()='Belt Width (']/parent::div//input")
+    @FindBy(locator="xpath=//label[text()='Belt Width']/parent::div//input")
     public CustomElement cwBeltWidth;
 
-    @FindBy(locator="xpath=//label[text()='Belt Length (']/parent::div//input")
+    @FindBy(locator="xpath=//label[text()='Belt Length']/parent::div//input")
     public CustomElement cwBeltLength;
 
     @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal (']/parent::div//input)[2]")

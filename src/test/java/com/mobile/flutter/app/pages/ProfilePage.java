@@ -4,6 +4,7 @@ import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.qmetry.qaf.automation.support.flutter.FlutterElement;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
+import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.LoginPage;
 
 public class ProfilePage extends FlutterBasePage {
@@ -80,6 +81,8 @@ public class ProfilePage extends FlutterBasePage {
 
     @FindBy(locator = "settings.metric.btn")
     public CustomFlutterElement metricBtn;
+    @FindBy(locator = "profile.settings.header")
+    public CustomFlutterElement settingsHeader;
 
     public boolean isMyProfile() {
         return profileName.isVisible();
@@ -121,5 +124,11 @@ public class ProfilePage extends FlutterBasePage {
     public boolean logoutUser(){
         logoutBtn.click("Logout button");
         return LandingPage.getInstance().isContinentalPage();
+    }
+    public void settingsIconClickAndVerifyNav()
+    {
+        settingsBtn.waitForTheElementToBeVisible(10000);
+        settingsBtn.click();
+        Validator.assertTrue(settingsHeader.isDisplayed(),"User is not navigated to Settings page","User is navigated to Settings page");
     }
 }

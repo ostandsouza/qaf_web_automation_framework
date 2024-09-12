@@ -54,6 +54,15 @@ public class CoverWearNativePage extends NativeBasePage {
         return flag;
     }
 
+    public void deleteBtnClick()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        deleteMeasurementBtn.click();
+        switchContext("FLUTTER");
+
+    }
+
+
 
 
 

@@ -9,10 +9,10 @@ Scenario: Verify navigation to add corprate Page
     Given Verify user is on continental login page
     And  Login to the application with '${UserName}' and '${Password}'
     And Click on corporate symbol and verify it navigates to corporate list page
-    Then Navigate to Add Corporate Page
+    Then Navigate to add corporate page via Home and verify navigation
     And Verify default type of company field
     And Go back to conveyor list screen
-    Then Navigate to Add Site Page
+    Then Navigate to add site page via Home and verify navigation
     And Verify default type of company field
 
 
@@ -40,7 +40,7 @@ Scenario: Verify back button functionality
     And   Login to the application with '${UserName}' and '${Password}'
     Then Verify that the corporate symbol is visible in the footer
     And Click on corporate symbol and verify it navigates to corporate list page
-    And Navigate to Add Corporate Page
+    And Navigate to add corporate page via Home and verify navigation
     And Verify back button is visible next to add corporate heading
     And Click on back button and verify it navigates to corporate list page
 

@@ -18,3 +18,4 @@ pwd.success.msg = flutter-text=Password changed successfully
 pwd.save.btn = flutter-text=Save changes
 settings.imperial.btn = flutter-valuekey=Imperial
 settings.metric.btn = flutter-valuekey=Metric
+profile.settings.header = flutter-text= Settings

@@ -2,6 +2,7 @@ package com.mobile.flutter.app.steps;
 
 
 import com.mobile.flutter.app.pages.ContinentalLoginPage;
+import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.flutter.app.pages.LandingPage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
@@ -31,6 +32,37 @@ public class LoginSteps {
     @QAFTestStep(description="verify update user phone number")
     public void verifyUpdateUserPhoneNumber(){
 
+    }
+    @QAFTestStep(description ="Click on the login button and verify error message is displayed" )
+    public void clickLoginAndVerifyErrorMessage()
+    {
+        contiPage.loginBtnClickAndVerifyErrorMessage();
+        Validator.assertTrue(ContinentalLoginPage.getInstance().isContinentalPage(),"Continental login page is not visible","Continental login page is visible");
+    }
+    @QAFTestStep(description ="Login to the application with email-Id {UserName} and blank password" )
+    public void loginWithBlankPassword(String email)
+    {contiPage.loginWithBlankPwd(email);}
+
+    @QAFTestStep(description ="Click on the login button and verify error message is displayed for blank password" )
+    public void clickLoginAndVerifyErrorMessageForBlankPwd()
+    {
+        contiPage.btnLoginClickAndVerifyBlankPwd();
+        Validator.assertTrue(ContinentalLoginPage.getInstance().isContinentalPage(),"Continental login page is not visible","Continental login page is visible");
+    }
+    @QAFTestStep(description ="Click on the terms and conditions and verify user is navigated to terms and conditions page and view the details" )
+    public void clickOnTermsConditionsLinkAndVerify()
+    {
+        contiPage.termsAndConditionsClick();
+        contiPage.verifyTermsAndConditionsPage();
+    }
+    @QAFTestStep(description="Click on site card and verify navigation to site list page")
+    public void clickAndVerifySiteCardNav() {
+        DashboardPage.getInstance().siteTileClick();
+    }
+
+    @QAFTestStep(description="Click on filter functionality and verify user is able to see the popup with header as filter")
+    public void clickAndVerifyFilterFunctionality() {
+        DashboardPage.getInstance().filterBtnClick();
     }
 
 }

@@ -73,6 +73,8 @@ Scenario: Verify with Delete corporate scenario
 @key:Conveyor_Management
 Scenario: Verify the conveyor management
 
+      Given User is at Login page
+        When  Login with normal user '${UserName}' and '${Password}'
     When  Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName2}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName3}' and '${DistShopAusName}' and '${CustSiteNZName}'
@@ -103,6 +105,8 @@ Scenario: Verify the conveyor bulk upload
 @key:Corporate_Card
 Scenario: Verify scenario for corporate card data
 
+
+
     When  Navigate to Corporate details screen for corporate '${CustCorpName}'
     Then  Verify card count in details screen for '${CustCorpName}'
 
@@ -112,6 +116,8 @@ Scenario: Verify scenario for corporate card data
 @key:Conveyor_Edit
 Scenario: Verify the conveyor Edit
 
+  Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     When  Edit Conveyor '${ConveyorName}' from conveyor list screen to '${EditConveyorName}'
     Then  Verify Edited conveyor details with '${EditConveyorName}' for Corporate '${CustSiteName}'
 
@@ -121,6 +127,8 @@ Scenario: Verify the conveyor Edit
 @key:Inspection_Management
 Scenario: Verify Inspection management
 
+Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
     And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
@@ -155,6 +163,8 @@ Scenario: Verify Inspection Delete
 @key:CoverWear_Management
 Scenario: Verify Cover Wear Management
 
+
+
     When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
     Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
     When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'
@@ -172,6 +182,7 @@ Scenario: Verify Cover Wear Management
 @sheetName:Sanity
 @key:File_Manager
 Scenario: Verify File manager
+
 
     When  Add Folder by the name '${FolderName}' under site '${CustSiteName}'
     And   Upload file '${ImgName}' into the folder '${FolderName}'
@@ -198,6 +209,8 @@ Scenario: Verify File manager
 @key:Conveyor_Inspect
 Scenario: Verify Conveyor Inspect
 
+    Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     When  Assign Object detection model '${DetectionModel}' for Corporate '${CustCorpName}' with site '${CustSiteName}' and conveyor '${ConveyorName}'
     And   Upload drone files with '${Side}' '${colorMap}' '${irName}' '${rgbName}'
 

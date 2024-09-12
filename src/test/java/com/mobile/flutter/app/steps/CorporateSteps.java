@@ -233,11 +233,6 @@ public class CorporateSteps {
         dashboardNativePage.verifyCorporateListHeaderFields();
     }
 
-    @QAFTestStep(description="Navigate to Add Corporate Page")
-    public void navigateToTheAddCorporatePage(){
-        CorporatePage.getInstance().addCompanyBtnClick();
-        CorporatePage.getInstance().isAddCompanyPage();
-    }
 
     @QAFTestStep(description = "User navigates to the Add Corporate Page with {DistCorpName}")
     public void addCorporatePageNavigation(String corpName) {

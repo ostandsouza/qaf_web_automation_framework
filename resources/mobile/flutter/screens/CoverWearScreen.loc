@@ -34,18 +34,19 @@ coverWear.position.bottom=flutter-valuekey=position_1_bottom
 coverWear.positionDetails.header=flutter-valuekey=position_details_header
 coverWear.tempAdjusted.header=flutter-text=Temperature Adjusted Measurements
 coverWear.default.installation=flutter-text=Installation
-
-
 coverWear.position.addBtn = flutter-valuekey=AddPosition
 coverWear.addPosition.segementName = flutter-valuekey=Segment Name
 coverWear.addPosition.topBtn = flutter-valuekey=Top
 coverWear.addPosition.bottomBtn = flutter-valuekey=Bottom
 coverWear.addPosition.tonsConveyed = flutter-valuekey=Tons Conveyed
 coverWear.addPosition.shoreADuromater = flutter-valuekey=Shore A Durometer (New)
-coverWear.position.gaugeTile=flutter-valuekey=gauge_tile
-
-coverWear.position.header=flutter-text=Positions
-coverWear.list.header=flutter-text=Summary
-coverWear.specification.header = flutter-text=Specification
 coverWear.addPosition.popHeader = flutter-text=Add Position
+
+CoverWear.button.saveDraft=flutter-text=Save Draft
+CoverWear.installation.deviceInfo=flutter-text=Device Info
+CoverWear.instrument.label=flutter-valuekey=Instrument / Device Type
+CoverWear.velocity.label=flutter-valuekey=Velocity
+CoverWear.surfaceTemp.label=flutter-valuekey=Surface Temperature
+CoverWear.addNewMeasurement.button=flutter-valuekey=addNewMeasurement
+CoverWear.addNewMeasurement.header=flutter-text=Add Measurement
 

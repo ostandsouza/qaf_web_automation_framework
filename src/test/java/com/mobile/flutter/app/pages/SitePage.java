@@ -17,10 +17,10 @@ public class SitePage extends FlutterBasePage {
         return obj;
     }
 
-    @FindBy(locator = "company.add.site")
+    @FindBy(locator = "corporate.add.site")
     public CustomFlutterElement addSiteBtn;
 
-    @FindBy(locator = "company.add.icon")
+    @FindBy(locator = "corporate.add.icon")
     public CustomFlutterElement addCompanyBtn;
 
     @FindBy(locator = "company.addSite.back")
@@ -45,7 +45,7 @@ public class SitePage extends FlutterBasePage {
 
     @FindBy(locator = "conveyor.name.field")
     public CustomFlutterElement conveyorNameField;
-    @FindBy(locator = "company.add.corporate")
+    @FindBy(locator = "corporate.add.corporate")
     public CustomFlutterElement addCorporateBtn;
 
     @FindBy(locator = "dashboard.loading.animation")

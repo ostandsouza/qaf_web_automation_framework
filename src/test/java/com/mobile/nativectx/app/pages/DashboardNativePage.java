@@ -244,6 +244,9 @@ public class DashboardNativePage extends NativeBasePage {
     @FindBy(locator = "dashboard.monitoringDevice.card")
     protected CustomMobileElement monitoringDeviceCard;
 
+    @FindBy(locator = "dashboard.back.button")
+    public CustomMobileElement backBtn;
+
 
     public void refreshPage() {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -908,6 +911,15 @@ public class DashboardNativePage extends NativeBasePage {
         reTypePwdErrMsg.waitForTheElementToBeVisible(3000);
         Validator.assertTrue(reTypePwdErrMsg.isVisible(),"Retype Password Error Message is not visible","Retype Password Error Message is visible");
         switchContext("FLUTTER");
+    }
+    public void backBtnClick()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        SyncUtil.waitFor(3000);
+//        backBtn.waitForTheElementToBeVisible(10000);
+        backBtn.click();
+        switchContext("FLUTTER");
+
     }
 
 

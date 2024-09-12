@@ -3,6 +3,7 @@ package com.mobile.flutter.app.pages;
 import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.component.CustomFlutterElement;
+import com.mobile.nativectx.app.pages.ContinentalLoginNativePage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.util.Validator;
@@ -63,6 +64,18 @@ public class ContinentalLoginPage extends FlutterBasePage {
     @FindBy(locator = "continental.error.message")
     public CustomFlutterElement continentalErrorMsg;
 
+    @FindBy(locator = "continental.authenticationError.message")
+    public CustomFlutterElement emailErrorMsg;
+    @FindBy(locator = "continental.nullPasswordError.message")
+    public CustomFlutterElement emptyPasswordErrorMsg;
+    @FindBy(locator = "continental.welcome.header")
+    public CustomFlutterElement continentalWelcomeHeader;
+
+    @FindBy(locator = "continental.termsAndConditions.link")
+    public CustomFlutterElement termsAndConditionsLink;
+    @FindBy(locator = "continental.termsAndConditions.header")
+    public CustomFlutterElement termsAndConditionsHeader;
+
     public boolean isContinentalPage() {
         return emailField.isPresent();
     }
@@ -97,6 +110,44 @@ public class ContinentalLoginPage extends FlutterBasePage {
 
     public void goBackToContinentalLoginPage() {
         backBtn.click();
+    }
+
+    public void btnLoginClick()
+    {
+        Validator.assertTrue(loginBtn.isVisible(),"Login button is not visible","Login button is visible");
+        loginBtn.click();
+        SyncUtil.waitFor(3000);
+    }
+
+    public void loginBtnClickAndVerifyErrorMessage()
+    {
+        btnLoginClick();
+        emailErrorMsg.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(emailErrorMsg.isVisible(),"User does not get an error message","User gets an error message");
+    }
+    public void loginWithBlankPwd(String email)
+    {
+        apiBase.getLoginAPI(getBundle().getString("env.adminUsername"),getBundle().getString("env.adminPassword"));
+        enterEmail(email);
+    }
+    public void btnLoginClickAndVerifyBlankPwd()
+    {
+        btnLoginClick();
+        emptyPasswordErrorMsg.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(emptyPasswordErrorMsg.isVisible(),"User does not get an error message for blank password","User gets  an error message for blank password");
+    }
+    public void termsAndConditionsClick()
+    {
+        termsAndConditionsLink.waitForTheElementToBeVisible(10000);
+        termsAndConditionsLink.click("termsAndConditionsLink");
+    }
+    public void verifyTermsAndConditionsPage()
+    {
+        SyncUtil.waitFor(10000);
+        termsAndConditionsHeader.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(termsAndConditionsHeader.isVisible(),"User is not navigated to the Terms and Conditions page","User is navigated to the Terms and Conditions page");
+        ContinentalLoginNativePage.getInstance().verifyTermsAndConditionDetails();
+
     }
 
 }

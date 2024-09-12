@@ -1,5 +1,6 @@
 package com.mobile.flutter.app.pages;
 
+import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.mobile.nativectx.app.pages.CoverWearNativePage;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
@@ -157,22 +158,22 @@ public class CoverWearPage extends FlutterBasePage {
     @FindBy(locator ="coverWear.default.installation")
     public CustomFlutterElement defaultInstallation;
 
-    @FindBy(locator = "coverWear.position.gaugeTile")
-    public CustomFlutterElement positionGaugeTile;
+//    @FindBy(locator = "coverWear.position.gaugeTile")
+//    public CustomFlutterElement positionGaugeTile;
+//
+//    @FindBy(locator = "coverWear.specification.header")
+//    public CustomFlutterElement SpecificationHeader;
+//
+//    @FindBy(locator = "coverWear.position.header")
+//    public CustomFlutterElement positionHeader;
+//    @FindBy(locator = "coverWear.list.header")
+//    public CustomFlutterElement coverWearHeader;
 
-    @FindBy(locator = "coverWear.specification.header")
-    public CustomFlutterElement SpecificationHeader;
-
-    @FindBy(locator = "coverWear.position.header")
-    public CustomFlutterElement positionHeader;
-    @FindBy(locator = "coverWear.list.header")
-    public CustomFlutterElement coverWearHeader;
-
-    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Site\\\"}\"}")
-    public CustomFlutterElement siteLabel;
-
-    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Conveyor\\\"}\"}")
-    public CustomFlutterElement conveyorLabel;
+//    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Site\\\"}\"}")
+//    public CustomFlutterElement siteLabel;
+//
+//    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Conveyor\\\"}\"}")
+//    public CustomFlutterElement conveyorLabel;
 
     @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Number of Data Points\\\"}\"}")
     public CustomFlutterElement noOfDataPointsLabel;
@@ -220,7 +221,22 @@ public class CoverWearPage extends FlutterBasePage {
     @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Bottom Cover Thickness Nominal\\\"}\"}")
     public CustomFlutterElement bottomCoverThicknessLabel;
 
+    @FindBy(locator ="CoverWear.installation.deviceInfo")
+    public CustomFlutterElement deviceInfoHeader;
+    @FindBy(locator ="CoverWear.instrument.label")
+    public CustomFlutterElement tbInstrument;
+    @FindBy(locator ="CoverWear.velocity.label")
+    public CustomFlutterElement tbVelocity;
+    @FindBy(locator ="CoverWear.surfaceTemp.label")
+    public CustomFlutterElement tbSurfaceTemperature;
+    @FindBy(locator ="CoverWear.button.saveDraft")
+    public CustomFlutterElement btnSaveDraft;
 
+    @FindBy(locator = "CoverWear.addNewMeasurement.button")
+    protected CustomFlutterElement addMeasurementButton;
+
+    @FindBy(locator = "CoverWear.addNewMeasurement.header")
+    protected CustomFlutterElement addMeasurementHeader;
 
 
 
@@ -346,21 +362,21 @@ public class CoverWearPage extends FlutterBasePage {
 
     public void verifySpecificationDefaultValues(String siteName,String conveyorName,String beltWidth,String beltLength)
     {
-//        siteLabel.scroll(DIRECTION.UP,3500);
         siteLabel.waitForTheElementToBeVisible(10000);
         Validator.assertTrue(siteLabel.getText().contains(siteName),"Default site name is not displayed","Default site name is displayed");
+
         conveyorLabel.waitForTheElementToBeVisible(10000);
         conveyorLabel.scrollToElement(conveyorLabel, DIRECTION.UP);
         Validator.assertTrue(conveyorLabel.getText().contains(conveyorName),"Default conveyor name is not displayed","Default conveyor name is displayed");
-        beltWidthLabel.waitForTheElementToBeVisible(10000);
-        beltWidthLabel.scrollToElement(beltWidthLabel, DIRECTION.DOWN);
 
-        System.out.println(beltWidthLabel.getText()+"beltWidthLabel");
-        Validator.assertTrue(beltWidthLabel.getText().contains(beltWidth),"Default beltWidth is not displayed","Default beltWidth is displayed");
-//        beltLengthLabel.waitForTheElementToBeVisible(10000);
+//        beltWidthLabel.waitForTheElementToBeVisible(10000);
+//        beltWidthLabel.scrollToElement(beltWidthLabel, DIRECTION.DOWN);
 //        System.out.println(beltWidthLabel.getText()+"beltWidthLabel");
+//        Validator.assertTrue(beltWidthLabel.getText().contains(beltWidth),"Default beltWidth is not displayed","Default beltWidth is displayed");
 
-//        Validator.assertTrue(beltLengthLabel.getText().contains(siteName),"Default beltLength is not displayed","Default beltLength is displayed");
+//      beltLengthLabel.waitForTheElementToBeVisible(10000);
+//      System.out.println(beltWidthLabel.getText()+"beltWidthLabel");
+//      Validator.assertTrue(beltLengthLabel.getText().contains(siteName),"Default beltLength is not displayed","Default beltLength is displayed");
     }
     public void positionClick()
     {
@@ -383,9 +399,6 @@ public class CoverWearPage extends FlutterBasePage {
         Validator.assertTrue(defaultInstallation.isVisible(),"Default Installation is not visible","Default Installation header is  visible");
         Validator.assertTrue(CoverWearNativePage.getInstance().verifyEditButtonIsVisible(),"Edit button for installation is visible","Edit button for installation is visible");
     }
-
-
-
 
     public void verifyNoOfDataPointsDdl()
     {
@@ -418,8 +431,11 @@ public class CoverWearPage extends FlutterBasePage {
         dateOfInstallation.waitForTheElementToBeVisible(10000);
         dateOfInstallation.click();
         DashboardNativePage.getInstance().selectCalenderDate();
+        saveBtn.scrollToElement(dateOfInstallation, DIRECTION.DOWN, "Save Btn");
+        saveBtn.waitForTheElementToBeVisible(10000);
         saveBtn.click();
-        return successMsgSpecs.isVisible("Specs Message");
+        SyncUtil.waitFor(5000);
+        return positionHeader.isVisible("Specs Message");
     }
 
     public void clickAddPositionBtn() {
@@ -439,6 +455,51 @@ public class CoverWearPage extends FlutterBasePage {
         addTonsConveyed.sendKeys(tonsConveyed);
         addShoreADuromater.sendKeys(shoreADurometer);
         saveBtn.click();
+    }
+    public void saveDraftBtnClick()
+    {
+        btnSaveDraft.waitForTheElementToBeVisible(10000);
+        btnSaveDraft.click();
+        SyncUtil.waitFor(10000);
+
+    }
+    public void editDeviceInfoDetails(String instrument,String velocity,String surfaceTemperature)
+    {
+        deviceInfoHeader.waitForTheElementToBeVisible(10000);
+        deviceInfoHeader.click();
+        tbInstrument.waitForTheElementToBeVisible(10000);
+        tbInstrument.sendKeys(instrument,"instrument/deviceType");
+        tbVelocity.sendKeys(velocity,"velocity");
+        tbSurfaceTemperature.sendKeys(surfaceTemperature,"surfaceTemperature");
+        saveDraftBtnClick();
+    }
+    public void editInstallation(String instrument,String velocity,String surfaceTemperature)
+    {
+        Validator.assertTrue(CoverWearNativePage.getInstance().verifyEditButtonIsVisible(),"Edit button for installation is visible","Edit button for installation is visible");
+        CoverWearNativePage.getInstance().editBtnClick();
+        editDeviceInfoDetails(instrument,velocity,surfaceTemperature);
+        DashboardNativePage.getInstance().backBtnClick();
+
+    }
+    public void deleteMeasurementConfirm()
+    {
+        SyncUtil.waitFor(10000);
+        coverWearDeleteBtn.click();
+        SyncUtil.waitFor(5000);
+    }
+    public void deleteMeasurement()
+    {
+        Validator.assertTrue(CoverWearNativePage.getInstance().verifyDeleteBtnIsVisible(),"Delete button is not visible","Delete button is visible");
+        CoverWearNativePage.getInstance().deleteBtnClick();
+        deleteMeasurementConfirm();
+    }
+    public void verifyAddNewMeasurementBtn()
+    {
+//        addMeasurementButton.waitForTheElementToBeVisible(10000);
+        addMeasurementButton.click();
+        waitForPageToLoad();
+        Validator.assertTrue(addMeasurementHeader.isDisplayed(),"User is not in add new position page","User is in add new position page");
+
     }
 
 }

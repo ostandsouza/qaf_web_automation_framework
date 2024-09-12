@@ -615,4 +615,22 @@ public class APIBase {
         tearDown();
         return val;
     }
+    public String getUserProfileType(String email) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("profile_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        if(email != null)
+            queryMaps.put("email", email);
+        headersMap.put("usertoken",accessToken);
+        Map<String, String> profilePaths = JsonReader.getMapTestData("path", "profile_controller");
+        restApiHelper.makeGetRequest(profilePaths.get("profile"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        String profileType = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            profileType = jsnPath.getString("data[0].profileType");
+        }
+        tearDown();
+        return profileType;
+    }
 }
