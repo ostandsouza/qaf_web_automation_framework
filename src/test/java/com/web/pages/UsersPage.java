@@ -131,7 +131,7 @@ public class UsersPage extends BasePage{
 	public CustomElement cbAllcheckboxDownload;
 	
 	@FindBy(locator = "xpath=//span[text()='Create']")
-	public CustomElement btSaveandClose;
+	public CustomElement btCreate;
 
 	@FindBy(locator = "xpath=//li[contains(@class,'user-profile')]")
 	public CustomElement btprofile;
@@ -360,7 +360,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="//label[normalize-space()='Upload Image']")
 	public CustomElement btUploadImg;
 
-	@FindBy(locator="//button[@class='p-element p-button p-component ng-star-inserted']//span[normalize-space()='Cancel']")
+	@FindBy(locator="//button[@class='p-element p-button custom-button-cancel p-component ng-star-inserted']//span[normalize-space()='Cancel']")
 	public CustomElement btCancelImg;
 
 	@FindBy(locator="//div[contains(@class,'cropped-frame')]")
@@ -506,6 +506,8 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator="xpath=//span[@id='p-panel-3_header']")
 	public CustomElement txtHomeHeader;
+	@FindBy(locator="//p-splitbutton[@icon='ctp-icon-Add-circle']")
+	public CustomElement btnTempAdd;
 
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
@@ -780,10 +782,10 @@ public class UsersPage extends BasePage{
 
 	public void Clicksaveandclose() {
 		waitForPageLoad(3000);
-		waitForElementVisible(btSaveandClose, 10000,500);
-		waitForElementToBeClickable(btSaveandClose);
-		btSaveandClose.click();
-		waitForElementToBeClickable(btSaveandClose);
+		waitForElementVisible(btCreate, 10000,500);
+		waitForElementToBeClickable(btCreate);
+		btCreate.click();
+		waitForElementToBeClickable(btCreate);
 		SyncUtil.waitFor(15000);
 		waitForElementToDisplay(btSearchinput);
 		Reporter.log("User is created",MessageTypes.Pass);
@@ -1125,7 +1127,7 @@ public class UsersPage extends BasePage{
 		Validator.assertTrue(btUploadImg.isDisplayed(),"Upload button is not visible","Upload button is visible");
 		Validator.assertTrue(imgPreview.isDisplayed(),"Image Preview is not visible","Image Preview is visible");
 		Validator.assertTrue(saveBtn.isDisplayed(),"Save Button is not visible","Save Button is visible");
-		Validator.assertTrue(btCancelImg.isDisplayed(),"Cancel Button is not visible","Cancel Button is visible");
+		Validator.assertTrue(btnCancelUser.isDisplayed(),"Cancel Button is not visible","Cancel Button is visible");
 	}
 
 	public void uploadImageClick()

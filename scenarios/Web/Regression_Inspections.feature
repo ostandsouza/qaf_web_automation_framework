@@ -258,7 +258,7 @@ Scenario: Verify add all new items in inspection and close
 
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
-     And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
+     And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}'
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 @Regression23
@@ -281,7 +281,7 @@ Scenario: Verify success message after saving inspection event
 
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
-     And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
+     And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}'
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
@@ -293,7 +293,7 @@ Scenario: Verify success message after saving inspection event
 
       When  Navigate to site details for site '${CustSiteName}'
       Then  Verify navigation to inspection tile
-      And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
+      And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}'
       And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
@@ -327,7 +327,7 @@ Scenario: Verify success message after saving inspection event
 Scenario: Verify user is able to open the inspections from the corporate level
 
   And Click on corporates and open corperate '${Corporate}'
-  Then Verify Inspection Tile is clickable
+  Then Click on inspections and verify user is able to open inspections
 
 @Regression32 @CTCP-2657
 @dataFile:resources/data/TestData.xls
@@ -338,7 +338,7 @@ Scenario: Verify user is able to see number of inspection items in condition
   Given User is at Login page
   When Login with '${UserName}' and '${Password}'
   And Click on corporates and open corperate '${Corporate}'
-  Then Verify Inspection Tile is clickable
+  Then Click on inspections and verify user is able to open inspections
   And Click on inspection dashboard symbol and verify user is able to click on dashboard
   And Verify number of inpection items for '${Total}' '${Critical}' '${Poor}' '${Fault}' '${Good}'
 
@@ -351,7 +351,7 @@ Scenario: Verify user is able select the multiple sites via drop down
     Given User is at Login page
     When Login with '${UserName}' and '${Password}'
     And Click on corporates and open corperate '${Corporate}'
-    Then Verify Inspection Tile is clickable
+    Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on site dropdown and verify user is able to select multiple site '${SiteName}' '${SiteName2}'
 
@@ -575,7 +575,7 @@ Scenario: Verify all sites are visible under exported PDF When user did not sele
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
-Scenario: Verify user is able to open the inspections from the corporate leve
+Scenario: Verify user is able to open the inspections from the corporate level
 
   And Navigate to Corporate details screen for corporate '${Corporate}'
   Then Click on inspections and verify user is able to open inspections

@@ -1133,7 +1133,22 @@ public class CoverWearSteps {
     public void selectSomeColumnsAndVerifyTable(String corporates){
         conveyorPage.addColumnFilters(corporates);
         Validator.assertTrue(coverWearPage.verifyCoverWearColumnFilters(), "All filters are applied in table ", "All filters were successfully verified");
-
     }
+    @QAFTestStep(description="Add segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
+    public void verifyTheAddSegmentPositionPopUpFields(String segment,String zero,String durometer){
+        coverWearPage.addSegmentField(segment);
+        coverWearPage.addTonsConveyedField(zero);
+        coverWearPage.addDurometerField(durometer);
+    }
+
+    @QAFTestStep(description="Add installed date as {InstallDate} segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
+    public void verifyAddSegmentPositionPopUpFields(String installedDate,String segment,String zero,String durometer){
+        SyncUtil.waitFor(20000);
+        coverWearPage.addInstalledDateField(installedDate);
+        coverWearPage.addSegmentField(segment);
+        coverWearPage.addTonsConveyedField(zero);
+        coverWearPage.addDurometerField(durometer);
+    }
+
 }
 

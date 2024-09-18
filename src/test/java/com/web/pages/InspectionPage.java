@@ -533,11 +533,12 @@ public class InspectionPage extends BasePage {
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
 //		dropdownselectsearch(ddlConveyor, tbInput, conveyorName);
 //		ddlInspectorName.verifyText(fullName,"Inspector Name");
+		Validator.assertTrue(ddlInspectorName.getAttribute("value").equalsIgnoreCase(fullName),"Inspector Name mismatched","Inspector Name matched");
 		Reporter.log("Inspection is created",MessageTypes.Pass);
 	}
 
 	public void addInspection(String inspectionName) {
-		btnAddInspection.click("Add Inspection btn");
+		btnAddInspection.jsClick("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
 		Reporter.log("Inspection is created", MessageTypes.Pass);
 	}
@@ -962,7 +963,7 @@ public class InspectionPage extends BasePage {
 	public void verifyConditionValue() {
 		String expectedValue = getBundle().getProperty("conditionValue").toString().toLowerCase();
 		String actualValue = txtConditionTotalValue.getAttribute("value").toLowerCase();
-		Assert.assertEquals(expectedValue, actualValue, "Condition value matched");
+		Assert.assertEquals(expectedValue, actualValue, "Condition value mismatched");
 	}
 
 	public void verifyDulpicateInspection(String inspectionName) {
@@ -970,7 +971,9 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(cbCheckbox);
 		int noOfCorporates = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
 		waitForPageLoad(5000);
-		Assert.assertEquals(noOfCorporates, 1, "Number of corporates is not 1");
+		boolean value= noOfCorporates>1;
+		System.out.println(value+"value");
+		Validator.assertTrue(value,"Dulpicate cant be created","Dulpicate can be created");
 	}
 
 	public void saveDulpicateInspectionItem() {
@@ -996,7 +999,6 @@ public class InspectionPage extends BasePage {
 		waitForPageLoad(5000);
 		Validator.assertTrue(txtInspectionEvent.isDisplayed(),"Inspection Page is not loaded","Inspection Page is loaded");
 	}
-
 	public void verifyUserBreadCrumb()
 	{
 		waitForElementVisible(inspectionHeader,5000,500);

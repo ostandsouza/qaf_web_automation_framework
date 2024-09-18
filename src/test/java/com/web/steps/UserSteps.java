@@ -166,9 +166,9 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description="Create a Distributor User {FullName} and {Phone} and {EmailDist} and {ProfileTypeDist} and {UserPassword} and {RetypePassword} and {CoporateRole} and {DistCorpName} and {DistShopName} and {CustSiteName}")
 	public void createDistributorUserForIndiaJohnDoe(String FullName,String Phone,String EmailDist, String ProfileTypeDist,String UserPassword,String RetypePassword, String CoporateRole, String DistCorpName, String DistShopName, String CustSiteName) {
-		String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
-		userpage.apiBase.deleteProfileAPI(userid);
-		userpage.apiBase.deleteUserAPI(userid);
+//		String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
+//		userpage.apiBase.deleteProfileAPI(userid);
+//		userpage.apiBase.deleteUserAPI(userid);
 		userpage.usersclick();
 		userpage.addClick();
 		userpage.setfullname(FullName);
@@ -284,7 +284,8 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description="Verify the success message after uploading file with name {file}")
 	public void verifySuccessMsgFileUpload(String fileName){
-		Validator.assertTrue(userpage.userFileUpload(fileName),"User bulk import file upload failed","User bulk import file upload was successful");
+		SyncUtil.waitFor(10000);
+		Validator.assertTrue(userpage.userFileUpload(fileName),"Bulk import file upload failed","Bulk import file upload was successful");
 	}
 
 	@QAFTestStep(description="Verify bulk upload analysis result after uploading file with name {file} having count {count}")

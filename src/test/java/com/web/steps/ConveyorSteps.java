@@ -24,8 +24,8 @@ public class ConveyorSteps {
 
     @QAFTestStep(description="Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
     public void createAConveyor(String conveyorName, String distShopName, String custSiteName){
-        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
-        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+//        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+//        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         conveyorPage.createConveyor(conveyorName, distShopName, custSiteName);
     }
 

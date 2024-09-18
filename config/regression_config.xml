@@ -252,7 +252,7 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_User.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_stg" />-->
+<!--			<parameter name="env.resources" value="resources/env_dev" />-->
 <!--			<groups>-->
 <!--				<run>-->
 <!--					<include name="CTCP-1285" />-->
@@ -261,6 +261,14 @@
 <!--					<include name="CTCP-1318" />-->
 <!--					<include name="CTCP-1321" />-->
 <!--					<include name="CTCP-1294" />-->
+	<!--				<include name="CTCP-1284" />-->
+	<!--                <include name="CTCP-1286" />-->
+	<!--                <include name="CTCP-1296" />-->
+	<!--                <include name="CTCP-1297"/>-->
+	<!--                <include name="CTCP-1305"/>-->
+	<!--                <include name="CTCP-1306"/>-->
+	<!--                <include name="CTCP-1312"/>-->
+	<!--                <include name="CTCP-1314"/>-->
 <!--				</run>-->
 <!--			</groups>-->
 <!--			<classes>-->
@@ -272,7 +280,7 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Corporates.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--						<include name="CTCP-567" />-->
@@ -281,6 +289,10 @@
 <!--						<include name="CTCP-576" />-->
 <!--						<include name="CTCP-2851" />-->
 <!--						<include name="CTCP-2852" />-->
+	<!--				<include name="CTCP-566" />-->
+	<!--                <include name="CTCP-568" />-->
+	<!--                <include name="CTCP-574" />-->
+	<!--                <include name="CTCP-578" />-->
 <!--			</run>-->
 
 <!--		</groups>-->
@@ -293,13 +305,18 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="CTCP-789" />-->
 <!--				<include name="CTCP-790" />-->
 <!--				<include name="CTCP-773" />-->
 <!--				<include name="CTCP-792" />-->
+	<!--				<include name="CTCP-724" />-->
+	<!--                <include name="CTCP-747" />-->
+	<!--                <include name="CTCP-788" />-->
+	<!--                <include name="CTCP-791" />-->
+	<!--                <include name="CTCP-748" />-->
 
 <!--			</run>-->
 <!--		</groups>-->
@@ -312,7 +329,7 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="CTCP-1365" />-->
@@ -323,6 +340,12 @@
 <!--				<include name="CTCP-1384" />-->
 <!--				<include name="CTCP-1380" />-->
 <!--				<include name="CTCP-1381" />-->
+	<!--				<include name="CTCP-1363" />-->
+	<!--                <include name="CTCP-1373" />-->
+	<!--                <include name="CTCP-1374" />-->
+	<!--                <include name="CTCP-1375" />-->
+	<!--                <include name="CTCP-1376" />-->
+	<!--                <include name="CTCP-1364" />-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
@@ -334,7 +357,7 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_stg" />-->
+<!--			<parameter name="env.resources" value="resources/env_dev" />-->
 <!--			<groups>-->
 <!--				<run>-->
 
@@ -344,6 +367,11 @@
 <!--					<include name="CTCP-1429"/>-->
 <!--					<include name="CTCP-1442"/>-->
 <!--					<include name="CTCP-1439"/>-->
+	<!--                <include name="CTCP-1425" />-->
+	<!--                <include name="CTCP-1428" />-->
+	<!--                <include name="CTCP-1445" />-->
+	<!--                <include name="CTCP-1431" />-->
+	<!--                <include name="CTCP-1440" />-->
 
 
 <!--				</run>-->
@@ -353,26 +381,30 @@
 <!--			</classes>-->
 <!--		</test>-->
 
-		<test name="Conveyor CoverWear testcases" enabled="true">
-			<parameter name="step.provider.pkg" value="com.web.steps" />
-			<parameter name="step.provider.pkg" value="com.web.steps" />
-			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />
-			<parameter name="step.provider.sharedinstance" value="false" />
-			<parameter name="env.resources" value="resources/env_stg" />
-			<groups>
-				<run>
+<!--		<test name="Conveyor CoverWear testcases" enabled="true">-->
+<!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
+<!--			<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--			<parameter name="env.resources" value="resources/env_dev" />-->
+<!--			<groups>-->
+<!--				<run>-->
 
 <!--					<include name="CTCP-1388"/>-->
 <!--					<include name="CTCP-1404"/>-->
 <!--					<include name="CTCP-1395"/>-->
-					<include name="CTCP-1402"/>
+<!--					<include name="CTCP-1402"/>-->
+					<!---				<include name="CTCP-1387" />-->
+					<!--                <include name="CTCP-1386" />-->
+					<!--                <include name="CTCP-1396" />-->
+					<!--                <include name="CTCP-1398" />-->
 
-				</run>
-			</groups>
-			<classes>
-				<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
-			</classes>
-		</test>
+<!--				</run>-->
+<!--			</groups>-->
+<!--			<classes>-->
+<!--				<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--			</classes>-->
+<!--		</test>-->
 
 
 
@@ -380,7 +412,7 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="CTCP-1866" />-->
@@ -388,6 +420,12 @@
 <!--				<include name="CTCP-1919" />-->
 <!--				<include name="CTCP-1921" />-->
 <!--				<include name="CTCP-1923" />-->
+	<!--                <include name="CTCP-1865" />-->
+	<!--                <include name="CTCP-1920" />-->
+	<!--                <include name="CTCP-1868" />-->
+	<!--                <include name="CTCP-1924" />-->
+	<!--                <include name="CTCP-1918" />-->
+	<!--                <include name="CTCP-1922" />-->
 
 <!--			</run>-->
 <!--		</groups>-->
@@ -400,24 +438,15 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_stg" />-->
+<!--			<parameter name="env.resources" value="resources/env_dev" />-->
 <!--			<groups>-->
 <!--				<run>-->
 <!--					<include name="CTCP-1997" />-->
 <!--					<include name="CTCP-1998" />-->
 
-<!--					<include name="CTCP-1987"/>-->
-<!--					<include name="CTCP-1970"/>-->
-
-<!--					<include name="CTCP-2007" />-->
-<!--					<include name="CTCP-2009" />-->
-<!--					<include name="CTCP-2011"/>-->
-<!--					<include name="CTCP-2015"/>-->
-
-<!--					<include name="CTCP-1986"/>-->
-<!--					<include name="CTCP-1989"/>-->
-<!--					<include name="CTCP-1990"/>-->
-<!--					<include name="CTCP-1957"/>-->
+	<!--                <include name="CTCP-1994" />-->
+	<!--                <include name="CTCP-1996" />-->
+	<!--                <include name="CTCP-1999" />-->
 
 <!--				</run>-->
 <!--			</groups>-->
@@ -426,15 +455,91 @@
 <!--			</classes>-->
 <!--		</test>-->
 
+	<!--    <test name="User preferences testcases" enabled="true">-->
+	<!--        <parameter name="step.provider.pkg" value="com.web.steps" />-->
+	<!--        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
+	<!--        <parameter name="step.provider.sharedinstance" value="false" />-->
+	<!--        <parameter name="env.resources" value="resources/env_stg" />-->
+	<!--        <groups>-->
+	<!--            <run>-->
+	<!--				<include name="CTCP-2007" />-->
+	<!--				<include name="CTCP-2009" />-->
+	<!--				<include name="CTCP-2011"/>-->
+	<!--				<include name="CTCP-2015"/>-->
+	<!--                	<include name="CTCP-2005" />-->
+	<!--                	<include name="CTCP-2008" />-->
+	<!--               		<include name="CTCP-2010" />-->
+	<!--          	        <include name="CTCP-2014" />-->
+	<!--                	<include name="CTCP-2016" />-->
+	<!--            </run>-->
+	<!--        </groups>-->
+	<!--        <classes>-->
+	<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+	<!--        </classes>-->
+	<!--    </test>-->
+
+	<!--    <test name="Conveyor List testcases" enabled="true">-->
+	<!--        <parameter name="step.provider.pkg" value="com.web.steps" />-->
+	<!--        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
+	<!--        <parameter name="step.provider.sharedinstance" value="false" />-->
+	<!--        <parameter name="env.resources" value="resources/env_stg" />-->
+	<!--        <groups>-->
+	<!--            <run>-->
+	<!--				<include name="CTCP-1987"/>-->
+	<!--				<include name="CTCP-1970"/>-->
+	<!--				<include name="CTCP-1986"/>-->
+	<!--				<include name="CTCP-1989"/>-->
+	<!--				<include name="CTCP-1990"/>-->
+	<!--				<include name="CTCP-1957"/>-->
+	<!--                	<include name="CTCP-1958" />-->
+	<!--                	<include name="CTCP-1959" />-->
+	<!--                	<include name="CTCP-1962" />-->
+	<!--                	<include name="CTCP-1963" />-->
+	<!--                	<include name="CTCP-1967" />-->
+	<!--                	<include name="CTCP-1974" />-->
+	<!--            </run>-->
+	<!--        </groups>-->
+	<!--        <classes>-->
+	<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+	<!--        </classes>-->
+	<!--    </test>-->
+
+	<!--    <test name="Notifications testcases" enabled="true">-->
+	<!--        <parameter name="step.provider.pkg" value="com.web.steps" />-->
+	<!--        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
+	<!--        <parameter name="step.provider.sharedinstance" value="false" />-->
+	<!--        <parameter name="env.resources" value="resources/env_stg" />-->
+	<!--        <groups>-->
+	<!--            <run>-->
+	<!--                <include name="CTCP-1133" />-->
+	<!--                <include name="CTCP-1142" />-->
+	<!--                <include name="CTCP-1135" />-->
+	<!--                <include name="CTCP-1143" />-->
+	<!--                <include name="CTCP-1145" />-->
+	<!--                <include name="CTCP-1146" />-->
+	<!--                <include name="CTCP-1148" />-->
+	<!--                <include name="CTCP-1149" />-->
+	<!--                <include name="CTCP-1151" />-->
+	<!--                <include name="CTCP-1210" />-->
+	<!--            </run>-->
+	<!--        </groups>-->
+	<!--        <classes>-->
+	<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+	<!--        </classes>-->
+	<!--    </test>-->
+
 <!--				<test name="CoverWear Reports testcases" enabled="true">-->
 <!--				<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--				<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--				<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--				<parameter name="env.resources" value="resources/env_stg" />-->
+<!--				<parameter name="env.resources" value="resources/env_dev" />-->
 <!--				<groups>-->
 <!--					<run>-->
 <!--						<include name="CTCP-1453"/>-->
+
+	<!--				<include name="CTCP-1452" />-->
+	<!--                <include name="CTCP-1449" />-->
 <!--					</run>-->
 <!--				</groups>-->
 <!--				<classes>-->
@@ -499,10 +604,49 @@
 <!--						<run>-->
 <!--							<include name="CTCP-2654"/>-->
 <!--							<include name="CTCP-2657"/>-->
-<!--&lt;!&ndash;							<include name="CTCP-2670"/>&ndash;&gt;-->
+<!--							<include name="CTCP-2670"/>-->
+	<!--                <include name="CTCP-2655" />-->
+	<!--                <include name="CTCP-2656" />-->
+	<!--                <include name="CTCP-2669" />-->
+	<!--                <include name="CTCP-2956" />-->
+	<!--                <include name="CTCP-2957" />-->
+	<!--                <include name="CTCP-2958" />-->
+	<!--                <include name="CTCP-2960" />-->
+	<!--                <include name="CTCP-2961" />-->
 <!--						</run>-->
 <!--					</groups>-->
 <!--					<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+
+<!--	<test name="Belt Monitoring Devices testcases" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_MonitoringDevice.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="CTCP-388"/>-->
+<!--				<include name="CTCP-390"/>-->
+<!--				<include name="CTCP-392"/>-->
+<!--				<include name="CTCP-404"/>-->
+<!--				<include name="CTCP-3676"/>-->
+<!--				<include name="CTCP-483"/>-->
+<!--				<include name="CTCP-479"/>-->
+<!--				<include name="CTCP-497"/>-->
+<!--				                <include name="CTCP-2655" />-->
+<!--				                <include name="CTCP-2656" />-->
+<!--				                <include name="CTCP-2669" />-->
+<!--				                <include name="CTCP-2956" />-->
+<!--				                <include name="CTCP-2957" />-->
+<!--				                <include name="CTCP-2958" />-->
+<!--				                <include name="CTCP-2960" />-->
+<!--				                <include name="CTCP-2961" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
 <!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
 <!--		</classes>-->
 <!--	</test>-->

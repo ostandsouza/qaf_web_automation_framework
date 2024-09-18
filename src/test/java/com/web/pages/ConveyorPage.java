@@ -224,7 +224,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Belt Manufacturer')]/..//input)[2]")
     public CustomElement crBeltConfig;
 
-    @FindBy(locator = "xpath=(//label[contains(text(),'Belt Construction')]/..//input)[2]")
+    @FindBy(locator = "xpath=(//label[text()='Belt Construction']/..//input)[2]")
     public CustomElement crBeltConstruction;
 
     @FindBy(locator = "xpath=(//label[contains(text(),'Top Cover Compound')]/..//input)[2]")
@@ -1103,6 +1103,11 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Download Template']")
     public CustomElement btDownloadTemp;
 
+    @FindBy(locator="xpath=//th[@id='site-col'][1]")
+    public CustomElement hdCorporate;
+
+    @FindBy(locator="xpath=//tbody//td[5]")
+    public CustomElement hdCorporateValue;
 
     String[] columnNames={"Name","Site","Corporate","Last Modified","Installed Belt","Remaining Life by Time","Remaining Cover %","Inspection Items",
             "Belt Manufacturer","Number of Plies","Number of Cords","Cord Pitch","Cord Diameter","Length","Splice Type","Splice Quantity","Installation Date","Belt Speed","Tons Per Hour Peak","Material",
@@ -1447,7 +1452,7 @@ public class ConveyorPage extends BasePage{
         waitForElementToDisplay(tbConveyorname);
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
         tbConveyorname.type(newConveyorName);
-        crUpdate.click();
+        crSave.click();
         waitForElementToDisplay(crUpdateMsg);
     }
 
@@ -1463,7 +1468,7 @@ public class ConveyorPage extends BasePage{
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
         tbConveyorname.type(newConveyorName);
         SyncUtil.waitFor(1500);
-        crUpdate.click();
+        crSave.click();
         waitForElementToDisplay(crUpdateMsg);
     }
 
@@ -1825,11 +1830,11 @@ public class ConveyorPage extends BasePage{
     {
         crRemarksTab.click("Remarxks Tab");
         waitForElementVisible(crAdditionalRemarks,5000,1000);
-        crSave.click("Save Click");
+        btCreate.click("Create Click");
         waitForElementToInvisible(buttonLoader,40000);
-        waitForElementVisible(btUpdate,5000,1000);
-        Validator.assertTrue(btUpdate.isDisplayed(),"Save button is displayed","Save is displayed");
-    }
+        waitForElementVisible(conveyorHeader,5000,1000);
+        Validator.assertTrue(conveyorHeader.isDisplayed(),"Conveyor was not created","Conveyor was created");
+   }
 
     public void verifyConveyorBreadCrumb()
     {
@@ -2007,7 +2012,8 @@ public class ConveyorPage extends BasePage{
 
     public void verifyDataHeaderUnitInAddConveyor(String unit)
     {
-        crConveyorLiteTab.click("Conveyor Lite Tab");
+        waitForElementVisible(crConveyorLiteTab,5000,1000);
+        crConveyorLiteTab.jsClick("Conveyor Lite Tab");
         waitForPageLoad(5000);
         waitForElementVisible(unitIconConveyor,5000,1000);
         Validator.assertTrue(unitIconConveyor.getText("Unit Value").contains(unit),"unit is not selected","unit is selected");
@@ -2794,6 +2800,7 @@ public class ConveyorPage extends BasePage{
         waitForElementVisible(btCreate, 10000, 500);
         waitForElementToBeClickable(btCreate);
         btCreate.click();
+        waitForElementToInvisible(buttonLoader,40000);
     }
 
     public void saveButtonClick()

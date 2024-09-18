@@ -66,7 +66,7 @@ public class CorporatePage extends BasePage{
     public CustomElement tbCompanyName;
 
     @FindBy(locator = "xpath=//span[text()='Create']/..")
-    public CustomElement btSaveandclose;
+    public CustomElement btCreate;
 
     @FindBy(locator = "xpath=//button//span[text()='Create']")
     public CustomElement btnCreate;
@@ -266,12 +266,10 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Edit']")
     public CustomElement btEditDetails;
 
-    @FindBy(locator= "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component p-disabled']")
-    public CustomElement btnSaveDisabled;
-
-    @FindBy(locator= "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component']")
-    public CustomElement btnSaveEnabled;
-
+    @FindBy(locator= "//span[text()='Create']/parent::button[@disabled]")
+    public CustomElement btnCreateDisabled;
+    @FindBy(locator= "//span[text()='Create']/parent::button[not(@disabled)]")
+    public CustomElement btnCreateEnabled;
     @FindBy(locator="//div[@class='p-breadcrumb p-component']")
     public CustomElement bcAddUserLink;
 
@@ -444,10 +442,15 @@ public class CorporatePage extends BasePage{
 
     public void saveCorp() {
         scrollPageDown();
-        waitForElementToBeClickable(btSaveandclose);
-        btSaveandclose.click("Save And Close");
+        waitForElementToBeClickable(btCreate);
+        btCreate.click("Create");
     }
-
+    public void updateCorp() {
+        scrollPageDown();
+        btSave.click("Update");
+        waitForElementToInvisible(buttonLoader,10000);
+        btSearchinput.isVisible("Corporate list screen");
+    }
     public void btnSaveClick() {
         scrollPageDown();
         btSave.click("Save");
@@ -702,7 +705,7 @@ public class CorporatePage extends BasePage{
     public void createConveyor(String conveyorName,String custSiteName) {
         tbConveyorname.type(conveyorName,"Conveyor Name");
         dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
-        btSaveandclose.click("Save & Close");
+        btCreate.click("Save & Close");
         waitForElementToInvisible(buttonLoader,10000);
         btSearchinput.isVisible("Conveyor list screen");
         Reporter.log(conveyorName +" conveyor is created", MessageTypes.Pass);
@@ -779,9 +782,9 @@ public class CorporatePage extends BasePage{
     }
 
     public void verifyMandatoryFields(){
-        Validator.assertTrue(btnSaveDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
+        Validator.assertTrue(btnCreateDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
         tbCompanyName.type("");
-        Validator.assertTrue(btnSaveEnabled.isDisplayed(),"Cancel button is not enabled","Cancel button is enabled");
+        Validator.assertTrue(btnCreateEnabled.isDisplayed(),"Cancel button is not enabled","Cancel button is enabled");
     }
 
     public void verifyUserBreadCrumb()
@@ -794,7 +797,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void verifyBlankField(){
-        Validator.assertTrue(btnSaveDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
+        Validator.assertTrue(btnCreateDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
         }
 
 //    public void addBlankCompanyAndAddress(String Address) {
@@ -955,8 +958,8 @@ public class CorporatePage extends BasePage{
     }
     public void clickSaveBtnAndVerify()
     {
-        waitForElementVisible(btSaveandclose,5000,500);
-        btSaveandclose.click();
+        waitForElementVisible(btCreate,5000,500);
+        btCreate.click();
         waitForPageLoad(10000);
         Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(),"company is not created","company is created successfully");
     }

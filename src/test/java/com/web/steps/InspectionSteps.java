@@ -34,20 +34,20 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Add inspection Event for conveyor {ConveyorName} with {InspectionName} {CustSiteName} {FullName}")
 	public void addInspectionEventForConveyorWith(String conveyorName, String inspectionName, String custSiteName, String fullName){
-		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
-		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
-		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
-		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+//		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
+//		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+//		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
+//		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
 		inspectionpage.goToInspection();
 		inspectionpage.addInspection(inspectionName,custSiteName,fullName);
 	}
 
 	@QAFTestStep(description="Add inspection Event for conveyor {ConveyorName} with {InspectionName}")
 	public void createAddInspection(String conveyorName, String inspectionName){
-		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
-		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
-		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
-		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+//		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
+//		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+//		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
+//		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
 		inspectionpage.addInspection(inspectionName);
 	}
 	

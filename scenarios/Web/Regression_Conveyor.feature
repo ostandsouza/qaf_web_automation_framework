@@ -149,6 +149,14 @@ Scenario: Verify a user is able to Delete layout
 @key:Conveyor_Belt_Metric
 Scenario: Verify user is able to edit the belt width for the metric unit Conversions
 
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Verify site and coporate fields are prefilled
+    Then Verify data value in header as metric
+    And Edit Conveyor belt width value '${BeltWidth}'
+    And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
+    Then Add data value in header as imperial
+    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for beltwidth
+
 @Regression17 @CTCP-1865
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -476,7 +484,6 @@ Scenario: Verify heading and column displayed in conveyor list table
 @key:Conveyor_ColumnFilter
 Scenario: ZSelect table column as per column selection filter
 
-
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
@@ -507,7 +514,6 @@ Scenario: Search conveyor in conveyor list
 @sheetName:Regression
 @key:Conveyor_ColumnFilter
 Scenario: Apply and remove 'Start With' filter
-
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed

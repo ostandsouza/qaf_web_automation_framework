@@ -227,7 +227,7 @@ Scenario: Verify Specification details for position
     And Click on conveyor position '${Position}' and navigate to position screen
     Then Verify the Position headings as '${Position}'
     And Verify the Specification format as '${BeltConstruction}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}'
-    And Verify the date of installation format as '${Date}'
+    And Verify the date of installation format as '${InstalledDate}'
     And Verify the durometer value format as '${NewDurometerValue}'
     And Verify date of installation '${Date}' and specification '${BeltConstruction}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' is same in technical data
 
