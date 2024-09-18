@@ -103,4 +103,5 @@ inspection.condition.goodFlag= flutter-valuekey=good
 inspection.observation.field= flutter-valuekey=Observation
 inspection.recommendation.field= flutter-valuekey=Recommendation
 inspection.addNewItem.itemLength= flutter-valuekey=InspectionItemLength
+inspection.add.back= flutter-valuekey=AddInspectionBack
 

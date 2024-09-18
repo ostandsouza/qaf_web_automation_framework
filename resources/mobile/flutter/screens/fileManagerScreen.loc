@@ -1,0 +1,16 @@
+fileManager.header.text=flutter-valuekey=FileManagerHeader
+fileManager.grid.icon = flutter-valuekey=gridIcon
+fileManager.list.icon = flutter-valuekey=listIcon
+
+fileManager.folder.icon = flutter-text=Folders
+fileManager.document.icon = flutter-text=Documents
+fileManager.image.icon = flutter-text=Images
+fileManager.video.icon = flutter-text=Videos
+fileManager.folder.monitoringDevice = flutter-text=Monitoring DeviceS
+fileManager.folder.video = flutter-text=Videos
+fileManager.folder.ultrasonicReport = flutter-text=Ultrasonic reports
+fileManager.folder.technicalDataReport = flutter-text=Technical Data reports
+fileManager.folder.spliceDesign = flutter-text=Splice designs
+fileManager.folder.photo = flutter-text=Photos
+fileManager.folder.minuteManReport = flutter-text=MinuteMan reports
+fileManager.folder.inspectionReport = flutter-text=Inspection reports

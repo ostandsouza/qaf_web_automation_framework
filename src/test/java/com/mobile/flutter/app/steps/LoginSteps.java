@@ -33,4 +33,34 @@ public class LoginSteps {
 
     }
 
+    @QAFTestStep(description="Verify userName and Password field is present")
+    public void verifyTheUserNameAndPasswordFieldsExists(){
+        ContinentalLoginPage.getInstance().verifyUserNameAndPasswordFieldsExists();
+    }
+    @QAFTestStep(description="Click on back button")
+    public void clickOnTheBackBtn(){
+        ContinentalLoginPage.getInstance().clickOnBackBtn();
+    }
+    @QAFTestStep(description="Verify user is in welcome page")
+    public void verifyIsWelcomePage(){
+        LandingPage.getInstance().isWelcomePage();
+    }
+
+    @QAFTestStep(description = "User login to the application with {UserName} and {Password}")
+    public void userLoginToApplication(String userName, String password) {
+        ContinentalLoginPage.getInstance().loginWithEmailAndPassword(userName,password);
+    }
+    @QAFTestStep(description = "Verify Email field error message")
+    public void verifyTheEmailErrorMsg() {
+        ContinentalLoginPage.getInstance().verifyEmailErrorMsg();
+    }
+    @QAFTestStep(description = "Click and Verify Forget Password button")
+    public void clickTheForgotPasswordBtn() {
+        ContinentalLoginPage.getInstance().clickForgotPasswordBtn();
+    }
+    @QAFTestStep(description = "Enter email {ForgottenEmail} for Forgot Password")
+    public void enterTheEmailForForgotPassword(String email) {
+        ContinentalLoginPage.getInstance().enterTheEmailForForgotPassword(email);
+    }
+
 }

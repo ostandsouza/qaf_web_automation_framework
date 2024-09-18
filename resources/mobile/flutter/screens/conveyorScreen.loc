@@ -24,3 +24,10 @@ conveyor.toast.error=flutter-text=Conveyor Name is required
 conveyor.list.header = flutter-text=Conveyor
 conveyor.add.icon = flutter-valuekey=AddConveyorIcon
 conveyor.distributor.fieldtext = flutter-valuekey=Select Distributor Shop
+conveyor.fileManager.storageAmt = flutter-valuekey=StorageAmount
+conveyor.fileManager.tileCount = flutter-valuekey=File Manager Count
+conveyor.add.back= flutter-valuekey=AddConveyorBack
+conveyor.fileManager.header = flutter-valuekey=file_manager_header
+conveyor.file.name = flutter-valuekey=conti-img.jpg
+conveyor.fileName.checkbox = flutter-valuekey=checkbox
+conveyor.action.popup = flutter-valuekey=action_popup

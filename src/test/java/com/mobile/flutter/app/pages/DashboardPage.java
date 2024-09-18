@@ -60,7 +60,7 @@ public class DashboardPage extends FlutterBasePage {
     }
 
     public boolean goToProfilePage() {
-        SyncUtil.waitFor(000);
+        SyncUtil.waitFor(3000);
         profileIcon.click();
         return ProfilePage.getInstance().isMyProfile();
     }
@@ -83,19 +83,19 @@ public class DashboardPage extends FlutterBasePage {
 
 
     public boolean goToSiteShop() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addSiteShop.click();
         return CorporatePage.getInstance().isCompanyPage();
     }
 
     public boolean goToConveyor() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addConveyor.click();
         return ConveyorPage.getInstance().isConveyorPage();
     }
 
     public boolean goToInspection() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addInspection.click();
         return InspectionPage.getInstance().isInspectionPage();
     }
@@ -162,6 +162,12 @@ public class DashboardPage extends FlutterBasePage {
         return CorporatePage.getInstance().isCompanyPage();
     }
 
+    public void fileManagerTileClick()
+    {
+        ConveyorPage.getInstance().fileManagerCardClick();
+        Validator.assertTrue(FileManagerPage.getInstance().isFileManagerPage(),"File Manager Page is not present","File Manager Page is present");
+
+    }
 
 
 

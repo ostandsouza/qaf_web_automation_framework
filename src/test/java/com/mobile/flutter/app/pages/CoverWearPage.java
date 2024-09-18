@@ -157,22 +157,22 @@ public class CoverWearPage extends FlutterBasePage {
     @FindBy(locator ="coverWear.default.installation")
     public CustomFlutterElement defaultInstallation;
 
-    @FindBy(locator = "coverWear.position.gaugeTile")
-    public CustomFlutterElement positionGaugeTile;
-
-    @FindBy(locator = "coverWear.specification.header")
-    public CustomFlutterElement SpecificationHeader;
-
-    @FindBy(locator = "coverWear.position.header")
-    public CustomFlutterElement positionHeader;
-    @FindBy(locator = "coverWear.list.header")
-    public CustomFlutterElement coverWearHeader;
-
-    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Site\\\"}\"}")
-    public CustomFlutterElement siteLabel;
-
-    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Conveyor\\\"}\"}")
-    public CustomFlutterElement conveyorLabel;
+//    @FindBy(locator = "coverWear.position.gaugeTile")
+//    public CustomFlutterElement positionGaugeTile;
+//
+//    @FindBy(locator = "coverWear.specification.header")
+//    public CustomFlutterElement SpecificationHeader;
+//
+//    @FindBy(locator = "coverWear.position.header")
+//    public CustomFlutterElement positionHeader;
+//    @FindBy(locator = "coverWear.list.header")
+//    public CustomFlutterElement coverWearHeader;
+//
+//    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Site\\\"}\"}")
+//    public CustomFlutterElement siteLabel;
+//
+//    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Conveyor\\\"}\"}")
+//    public CustomFlutterElement conveyorLabel;
 
     @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByType\\\",\\\"type\\\": \\\"Text\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Number of Data Points\\\"}\"}")
     public CustomFlutterElement noOfDataPointsLabel;
@@ -440,5 +440,25 @@ public class CoverWearPage extends FlutterBasePage {
         addShoreADuromater.sendKeys(shoreADurometer);
         saveBtn.click();
     }
+    public void editDefaultValuesOfTopBottomThickness()
+    {
+        topCoverThicknessLabel.clear();
+        topCoverThicknessLabel.sendKeys("8","topCoverThicknessNominal");
+        DashboardNativePage.getInstance().selectFirstSearch();
+
+        bottomCoverThicknessLabel.clear();
+        bottomCoverThicknessLabel.sendKeys("7","bottomCoverThicknessNominal");
+        DashboardNativePage.getInstance().selectFirstSearch();
+
+    }
+    public void verifyDefaultValuesOfTopBottomThickness(String topCoverThicknessNominal,String bottomCoverThicknessNominal)
+    {
+        topCoverThicknessLabel.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(topCoverThicknessLabel.getText().contains(topCoverThicknessNominal),"Top Cover Thickness Nominal is not displayed","Top Cover Thickness Nominal name is displayed");
+        bottomCoverThicknessLabel.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(bottomCoverThicknessLabel.getText().contains(bottomCoverThicknessNominal),"Bottom Cover Thickness Nominal is not displayed","Bottom Cover Thickness Nominal name is displayed");
+
+    }
+
 
 }

@@ -166,15 +166,10 @@ public class InspectionPage extends FlutterBasePage {
     public CustomFlutterElement saveAndCloseBtn;
     @FindBy(locator = "inspection.signOff.summaryLabel")
     public CustomFlutterElement summaryLabel;
-
-
     @FindBy(locator = "dashboard.home.title")
     public CustomFlutterElement homeTitle;
-
-
-
-
-
+    @FindBy(locator = "inspection.add.back")
+    public CustomFlutterElement inspectionAddBackBtn;
 
     public boolean isInspectionPage() {
         return inspectionNameField.isPresent();
@@ -496,7 +491,11 @@ public class InspectionPage extends FlutterBasePage {
         Validator.assertTrue(conveyorField.getText().contains(conveyorName),"Conveyor Name field data misMatch","Conveyor Name field data matched");
         Validator.assertTrue(inspectorNameField.getText().contains(inspectorName),"Inspector Name field data misMatch","Inspector Name field data matched");
     }
-
+    public void verifyAddInspBackBtnToHomePage() {
+        inspectionAddBackBtn.waitForTheElementToBeVisible(5000);
+        inspectionAddBackBtn.click("Inspection Back Button");
+        DashboardPage.getInstance().isHomePage();
+    }
 
 }
 

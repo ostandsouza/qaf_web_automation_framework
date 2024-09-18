@@ -116,9 +116,5 @@ inspection.inspLocation.map= xpath=//android.view.View[@content-desc="Google Map
 inspection.signOff.summaryField= xpath=//android.webkit.WebView[1]
 inspection.saveAsDraft.popUp= xpath=//android.view.View[@content-desc='Draft Saved']
 
-coverWear.addPosition.specErrorMsg= xpath=//android.view.View[@content-desc='Complete the Specification page to see/add positions']
-coverWear.addPosition.existingPositionErrorMsg= xpath=//android.view.View[@content-desc='Position already exists']
-
-
 
 

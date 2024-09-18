@@ -223,12 +223,8 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "corporate.add.corporate")
     public CustomFlutterElement addCorporate;
 
-
     @FindBy(locator = "corporate.add.back")
     public CustomFlutterElement corporateAddBackBtn;
-
-
-
 
 
     public boolean isCompanyPage() {
@@ -733,6 +729,10 @@ public class CorporatePage extends FlutterBasePage {
     public void extractCountInCorpList() {
         getBundle().setProperty("CorpListSiteCount",corporateListSiteCount.getText());
     }
-
+    public void verifyAddCorpBackBtnToHomePage() {
+        corporateAddBackBtn.waitForTheElementToBeVisible(5000);
+        corporateAddBackBtn.click("Corporate Back Button");
+        DashboardPage.getInstance().isHomePage();
+    }
 
 }

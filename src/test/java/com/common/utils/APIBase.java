@@ -615,4 +615,52 @@ public class APIBase {
         tearDown();
         return val;
     }
+    public Map<String, Object> getMonitoringDeviceAPI(String monitoringDeviceName) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("monitoring_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        queryMaps.put("limit","200");
+        headersMap.put("user-token",accessToken);
+        Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "monitoring_controller");
+        restApiHelper.makeGetRequest(monitoringPaths.get("list"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+
+            // Get the list of monitoring devices
+            List<Map<String, Object>> devices = jsnPath.getList("data");
+
+            // Iterate through the list to find the device with the matching name
+            for (Map<String, Object> device : devices) {
+                if (monitoringDeviceName.equals(device.get("name"))) {
+                    // Assuming 'monitoringDeviceId' is the value you want to return
+                    val = device;
+                    break; // Exit the loop once the match is found
+                }
+            }
+        }
+        tearDown();
+        return val;
+    }
+
+    public Map<String, Object> getMonitoringDeviceCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("monitoring_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "monitoring_controller");
+        restApiHelper.makeGetRequest(monitoringPaths.get("count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        System.out.println(profileResponse+"profileResponse");
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            System.out.println(jsnPath+"jsnPath");
+
+
+        }
+        tearDown();
+        return val;
+    }
 }

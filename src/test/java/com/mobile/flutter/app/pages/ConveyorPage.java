@@ -81,18 +81,27 @@ public class ConveyorPage extends FlutterBasePage {
     @FindBy(locator = "conveyor.toast.error")
     public CustomFlutterElement addConveyorNameError;
 
-
-
     @FindBy(locator = "dashboard.loading.animation")
     public CustomFlutterElement loadingDashboard;
 
-
-
     @FindBy(locator = "conveyor.distributor.fieldtext")
     public CustomFlutterElement distributorFieldText;
+    @FindBy(locator = "conveyor.add.back")
+    public CustomFlutterElement conveyorAddBackBtn;
 
+    @FindBy(locator = "conveyor.file.name")
+    public CustomFlutterElement fileNameField;
+    @FindBy(locator = "conveyor.fileName.checkbox")
+    public CustomFlutterElement fileNameCheckBox;
 
-
+    @FindBy(locator = "conveyor.action.popup")
+    public CustomFlutterElement actionPopup;
+    @FindBy(locator = "corporate.actionPopup.cancel")
+    public CustomFlutterElement actionPopupCancelBtn;
+    @FindBy(locator = "corporate.actionPopup.delete")
+    public CustomFlutterElement actionPopupDeleteBtn;
+    @FindBy(locator = "corporate.actionPopup.move")
+    public CustomFlutterElement actionPopupMoveBtn;
 
     public boolean isConveyorPage() {
         Validator.assertTrue(conveyorListHeader.isPresent(),"user navigated to conveyor list page","user navigated to conveyor list page");
@@ -295,8 +304,48 @@ public class ConveyorPage extends FlutterBasePage {
         return DashboardNativePage.getInstance().getConveyorSearchResult().contains(company);
     }
     public void fileManagerCardClick() {
+        SyncUtil.waitFor(3000);
         Validator.assertTrue(conveyorFileManagerDetails.isVisible(),"File Manager is not Visible","File Manager is visible");
         conveyorFileManagerDetails.click();
+    }
+    public void verifyAddConvBackBtnToHomePage() {
+        conveyorAddBackBtn.waitForTheElementToBeVisible(5000);
+        conveyorAddBackBtn.click("Conveyor Back Button");
+        DashboardPage.getInstance().isHomePage();
+    }
+
+    public boolean verifyFilesPresent(String fileName)
+    {
+        fileNameField.waitForTheElementToBeVisible(10000,"fileName");
+        System.out.println(fileNameField.isPresent()+"fileNameField");
+        return fileNameField.isPresent();
+    }
+    public void longPressOnFile()
+    {
+        fileNameField.longPress();
+        fileNameCheckBox.waitForTheElementToBeVisible(20000,"checkbox");
+        Validator.assertTrue(fileNameCheckBox.isVisible(),"On long press the file is not getting selected","On long press the file is getting selected");
+    }
+    public boolean verifyActionPopup()
+    {
+        actionPopup.waitForTheElementToBeVisible(10000,"actionPopup");
+        return actionPopup.isPresent();
+    }
+    public void verifyActionPopupButtons()
+    {
+        actionPopupMoveBtn.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(actionPopupMoveBtn.isVisible()&&actionPopupCancelBtn.isVisible()&&actionPopupDeleteBtn.isVisible(),
+                "Move,Delete and Cancel buttons are not visible in action popup","Move,Delete and Cancel buttons are visible in action popup");
+    }
+    public void clickCancelBtnInFileManger()
+    {
+        actionPopupCancelBtn.waitForTheElementToBeVisible(5000,"deleteButton");
+        actionPopupCancelBtn.click("Cancel");
+    }
+    public boolean verifyCancelBtnFuncInFileManager()
+    {
+        fileNameCheckBox.waitForTheElementToBeInvisible(10000,"filename");
+        return fileNameCheckBox.verifyNotPresent();
     }
 
 }

@@ -1,10 +1,12 @@
 package com.mobile.flutter.app.pages;
 
+import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.qmetry.qaf.automation.support.flutter.FlutterElement;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.web.pages.LoginPage;
+import com.qmetry.qaf.automation.util.Validator;
 
 public class ProfilePage extends FlutterBasePage {
 
@@ -80,6 +82,16 @@ public class ProfilePage extends FlutterBasePage {
 
     @FindBy(locator = "settings.metric.btn")
     public CustomFlutterElement metricBtn;
+    @FindBy(locator = "settings.page.header")
+    public CustomFlutterElement settingsPage;
+    @FindBy(locator = "information.page.header")
+    public CustomFlutterElement myInformationPage;
+    @FindBy(locator = "information.current.userName")
+    public CustomFlutterElement currentUserName;
+    @FindBy(locator = "information.current.userProfileType")
+    public CustomFlutterElement currentProfileType;
+    @FindBy(locator = "change.password.retypeErrorMessage")
+    public CustomFlutterElement reTypePwdErrMsg;
 
     public boolean isMyProfile() {
         return profileName.isVisible();
@@ -87,6 +99,7 @@ public class ProfilePage extends FlutterBasePage {
 
     public boolean goToProfileDetails() {
         detailsBtn.click("Details Button");
+        Validator.assertTrue(myInformationPage.isVisible(),"My Information Page is not visible","My Information Page is visible");
         return fullNameField.isVisible("My Information page");
     }
 
@@ -121,5 +134,34 @@ public class ProfilePage extends FlutterBasePage {
     public boolean logoutUser(){
         logoutBtn.click("Logout button");
         return LandingPage.getInstance().isContinentalPage();
+    }
+    public void clickAndVerifyNavigationToSettingPage(){
+        settingsBtn.click();
+        Validator.assertTrue(settingsPage.isVisible(),"Settings Page is not visible","Settings Page is visible");
+
+    }
+    public void verifyFieldsOfMyInformationScreen(){
+        Validator.assertTrue(currentUserName.isVisible(),"Current Users User Name is not visible","Current Users User Name is visible");
+        Validator.assertTrue(currentProfileType.isVisible(),"Current User Profile Type field is not visible","Profile Type field is not visible");
+        Validator.assertTrue(fullNameField.isVisible(),"Full Name field is not visible","Full Name field is visible");
+        Validator.assertTrue(phoneField.isVisible(),"Phone field is not visible","Phone Field Page is visible");
+        Validator.assertTrue(emailField.isVisible(),"Email field is not visible","Email field is visible");
+        Validator.assertTrue(typeField.isVisible(),"Profile Type field is not visible","Profile Type field is visible");
+        Validator.assertTrue(changePwd.isVisible(),"Change Password field is not visible","Change Password field is visible");
+        Validator.assertTrue(saveInfoBtn.isVisible(),"Save Changes field is not visible","Save Changes field is visible");
+    }
+
+    public void changeThePassword(String currentPwd, String newPwd,String reNewPwd) {
+        currentPwdField.sendKeys(currentPwd,"Current Pwd");
+        newPwdField.sendKeys(newPwd,"New Password Pwd");
+        retypePwdField.sendKeys(reNewPwd,"Re-Type Pwd");
+        savePwd.click("Save password");
+        SyncUtil.waitFor(2000);
+    }
+
+    public void verifyRetypePasswordErrorMessage()
+    {
+        reTypePwdErrMsg.waitForTheElementToBeVisible(5000);
+        Validator.assertTrue(reTypePwdErrMsg.isVisible(),"Retype Password Error Message is not visible","Retype Password Error Message is visible");
     }
 }

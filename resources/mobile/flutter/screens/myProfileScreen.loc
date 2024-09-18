@@ -18,3 +18,8 @@ pwd.success.msg = flutter-text=Password changed successfully
 pwd.save.btn = flutter-text=Save changes
 settings.imperial.btn = flutter-valuekey=Imperial
 settings.metric.btn = flutter-valuekey=Metric
+settings.page.header = flutter-text=Settings
+information.page.header = flutter-text=My Information
+information.current.userName = flutter-valuekey=CurrentUserName
+information.current.userProfileType = flutter-valuekey=CurrentUserProfileType
+change.password.retypeErrorMessage= flutter-text=The retype password does not match password

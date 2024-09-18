@@ -85,8 +85,8 @@ public class SitePage extends FlutterBasePage {
     public CustomFlutterElement companyHeading;
     @FindBy(locator = "shop.distributor.field")
     public CustomFlutterElement distributorCorpDropdown;
-
-
+    @FindBy(locator = "site.add.back")
+    public CustomFlutterElement siteAddBackBtn;
 
     public void addSiteBtnClick()
     {
@@ -258,6 +258,10 @@ public class SitePage extends FlutterBasePage {
         Validator.assertTrue(territoryManagerDropdown.getText().contains(manager),"Territory Manager field is not displayed","Territory Manager field is displayed");
         Validator.assertTrue(addressBar.getText().contains(address),"Address field is not displayed","Address field is displayed");
     }
-
+    public void verifyAddSiteBackBtnToHomePage() {
+        siteAddBackBtn.waitForTheElementToBeVisible(5000);
+        siteAddBackBtn.click("Site Back Button");
+        DashboardPage.getInstance().isHomePage();
+    }
 
 }
