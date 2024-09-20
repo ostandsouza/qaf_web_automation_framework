@@ -167,8 +167,8 @@ public class CoverWearPage extends FlutterBasePage {
     }
 
     public boolean isCoverWearPage() {
-        Validator.assertTrue(coverWearHeader.isPresent(),"user navigated to coverWear list page","user navigated to coverWear list page");
-        return coverWearHeader.isPresent();
+        Validator.assertTrue(coverWearHeader.isVisible(),"user navigated to coverWear list page","user navigated to coverWear list page");
+        return coverWearHeader.isVisible();
     }
 
     public boolean fillCoverWearSpecs(){

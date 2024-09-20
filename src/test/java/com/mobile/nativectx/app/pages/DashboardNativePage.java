@@ -90,6 +90,9 @@ public class DashboardNativePage extends NativeBasePage {
     @FindBy(locator = "dashboard.ok.btn")
     protected CustomMobileElement ok;
 
+    @FindBy(locator = "dashboard.cancel.btn")
+    protected CustomMobileElement cancel;
+
     @FindBy(locator = "dashboard.firstSearch.map")
     protected CustomMobileElement firstMapSearch;
 
@@ -201,6 +204,9 @@ public class DashboardNativePage extends NativeBasePage {
     @FindBy(locator = "conveyor.details.FileManager")
     protected CustomMobileElement conveyorFileManagerDetails;
 
+    @FindBy(locator = "conveyor.details.conveyorInspect")
+    protected CustomMobileElement conveyorInspectDetails;
+
     @FindBy(locator = "filter.dropdown.firstSearch")
     protected CustomMobileElement filterDropdownFirstSearch;
 
@@ -237,6 +243,12 @@ public class DashboardNativePage extends NativeBasePage {
     public void refreshPage() {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         refreshScreen();
+        switchContext("FLUTTER");
+    }
+
+    public void swipePage() {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        swipeScreen();
         switchContext("FLUTTER");
     }
 
@@ -277,6 +289,7 @@ public class DashboardNativePage extends NativeBasePage {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         conveyorIcon.click();
         switchContext("FLUTTER");
+        SyncUtil.waitFor(1500);
         ConveyorPage.getInstance().isConveyorPage();
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         searchIcon.click();
@@ -327,7 +340,6 @@ public class DashboardNativePage extends NativeBasePage {
     public void enterSearchQuery(String query){
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         corporateDetailsSearch.sendKeys(query);
-        SyncUtil.waitFor(10000);
         switchContext("FLUTTER");
     }
 
@@ -660,6 +672,13 @@ public class DashboardNativePage extends NativeBasePage {
         ok.click();
         switchContext("FLUTTER");
     }
+
+    public void cancelCalenderDate() {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        cancel.click();
+        switchContext("FLUTTER");
+    }
+
 
     public void verifyPositionCount() {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

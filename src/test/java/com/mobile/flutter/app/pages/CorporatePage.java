@@ -194,7 +194,7 @@ public class CorporatePage extends FlutterBasePage {
 
     public boolean isCompanyPage() {
         waitForPageToLoad();
-        return companyType.isPresent();
+        return companyType.isVisible();
     }
 
     public void selectDistributorCorp() {
@@ -255,13 +255,10 @@ public class CorporatePage extends FlutterBasePage {
 
     public void enterSearchQuery(String query){
         waitForPageToLoad();
-        SyncUtil.waitFor(5000);
         driver.executeScript("flutter:setFrameSync",true, 5000);
-//        SyncUtil.waitFor(2000);
         SyncUtil.waitFor(1000);
         System.out.println(query);
         searchField.sendKeys(query);
-        SyncUtil.waitFor(2000);
         driver.executeScript("flutter:setFrameSync",false, 5000);
     }
 
@@ -554,8 +551,8 @@ public class CorporatePage extends FlutterBasePage {
     }
 
     public boolean isAddCompanyPage() {
-        Validator.assertTrue(addCorporateHeader.isPresent(),"user navigated to add company page","user navigated to add company  page");
-        return addCorporateHeader.isPresent();
+        Validator.assertTrue(addCorporateHeader.isVisible(),"user navigated to add company page","user navigated to add company  page");
+        return addCorporateHeader.isVisible();
     }
 
     public void verifyCorporateSearch(String corpName)
@@ -571,9 +568,9 @@ public class CorporatePage extends FlutterBasePage {
         Validator.assertTrue(corporateMoreBtn.isDisplayed(),"Arrow icon is not displayed","Arrow icon is displayed");
     }
     public boolean isInspectionListPage() {
-        return inspectionListHeader.isPresent();}
+        return inspectionListHeader.isVisible();}
     public boolean isToolListPage() {
-        return toolsListHeader.isPresent();}
+        return toolsListHeader.isVisible();}
 
 
     public void verifyLinksNavigation()

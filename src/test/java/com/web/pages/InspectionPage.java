@@ -59,6 +59,9 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//label[text()='Conveyor']/parent::div//div[@role='button']")
 	public CustomElement ddlConveyor;
 
+	@FindBy(locator = "xpath=//label[text()='Conveyor']/parent::div//input")
+	public CustomElement ddlConveyorView;
+
 	@FindBy(locator = "xpath=//label[text()='Inspector Name']/..//input")
 	public CustomElement ddlInspectorName;
 
@@ -76,14 +79,23 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//label[text()='Asset']/parent::div//div[@role='button']")
 	public CustomElement ddlAsset;
 
+	@FindBy(locator = "xpath=//label[text()='Asset']/parent::div//input")
+	public CustomElement ddlAssetView;
+
 	@FindBy(locator = "xpath=//label[text()='Detail']/parent::div//div[@role='button']")
 	public CustomElement ddlAssetDetail;
 
 	@FindBy(locator = "xpath=//label[text()='Failure Mode']/parent::div//div[@role='button']")
 	public CustomElement ddlFailureMode;
 
+	@FindBy(locator = "xpath=//label[text()='Failure Mode']/parent::div//input")
+	public CustomElement ddlFailureModeView;
+
 	@FindBy(locator = "xpath=//label[text()='Condition']/parent::div//div[@role='button']")
 	public CustomElement ddlCondition;
+
+	@FindBy(locator = "xpath=//label[text()='Condition']/parent::div//input")
+	public CustomElement ddlConditionView;
 
 	@FindBy(locator = "xpath=//label[text()='Status']/parent::div//div[@role='button']")
 	public CustomElement ddlStatus;
@@ -94,8 +106,14 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//textarea[@formcontrolname='observation']")
 	public CustomElement eleObservation;
 
+	@FindBy(locator = "xpath=//label[text()='Observation']/parent::div//textarea")
+	public CustomElement eleObservationView;
+
 	@FindBy(locator = "xpath=//textarea[@formcontrolname='recommendation']")
 	public CustomElement eleRecommendation;
+
+	@FindBy(locator = "xpath=//label[text()='Recommendation']/parent::div//textarea")
+	public CustomElement eleRecommendationView;
 
 	@FindBy(locator = "xpath=//span[text()='Save']")
 	public CustomElement btnSave;
@@ -334,17 +352,33 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//button[contains(@class,'p-dialog-header-icon')]")
 	public CustomElement closePopup;
 
+	@FindBy(locator = "xpath=//div[contains(@class,'p-dialog-header')]/span")
+	public CustomElement popupHeader;
+
 	@FindBy(locator = "xpath=//div[text()='Failed to update inspection: Unauthorized']")
 	public CustomElement inspectionAddErrorMsg;
 
 	@FindBy(locator = "xpath=//timesicon")
 	public CustomElement crossButton;
 
-	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[1]")
+	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[3]")
 	public CustomElement txtInspCount;
 
-	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[2]")
+	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[4]")
 	public CustomElement txtInspCompleteCount;
+
+	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//div[contains(@class,'footer-count')]/div)[5]")
+	public CustomElement txtInspGoodCount;
+
+	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//div[contains(@class,'footer-count')]/div)[6]")
+	public CustomElement txtInspPoorCount;
+
+	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//div[contains(@class,'footer-count')]/div)[7]")
+	public CustomElement txtInspFaultCount;
+
+	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//div[contains(@class,'footer-count')]/div)[8]")
+	public CustomElement txtInspCriticalCount;
+
 	@FindBy(locator = "xpath=//span[@class='sub-table-status ng-star-inserted']")
 	public CustomElement txtStatusValue;
 
@@ -475,6 +509,42 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//button//span[text()='Actions']")
 	public CustomElement btnActions;
 
+	@FindBy(locator="xpath=//div[@title='Bold']")
+	public CustomElement btBold;
+
+	@FindBy(locator="xpath=//div[@title='Italic']")
+	public CustomElement btItalics;
+
+	@FindBy(locator="xpath=//div[@title='Underline']")
+	public CustomElement btUnderline;
+
+	@FindBy(locator="xpath=//div[@title='Bullet List']")
+	public CustomElement btList;
+
+	@FindBy(locator="xpath=//div[contains(@class,'ProseMirror')]/p/strong")
+	public CustomElement boldLetters;
+
+	@FindBy(locator="xpath=//div[contains(@class,'ProseMirror')]/p/em")
+	public CustomElement italicsLetters;
+
+	@FindBy(locator="xpath=//div[contains(@class,'ProseMirror')]/p/u")
+	public CustomElement underlineLetters;
+
+	@FindBy(locator="xpath=//div[contains(@class,'ProseMirror')]/ul")
+	public CustomElement listLetters;
+
+	@FindBy(locator="xpath=//div[@title='Head']")
+	public CustomElement headMapPointer;
+
+	@FindBy(locator="xpath=//div[@title='Tail']")
+	public CustomElement tailMapPointer;
+
+	@FindBy(locator="xpath=//google-map//div[@role='dialog']")
+	public CustomElement mapLocationDialog;
+
+	@FindBy(locator="xpath=//google-map//div[@role='dialog']//button")
+	public CustomElement mapLocationDialogClose;
+
 	public void goToInspection() {
 		if(!lnkInspection.isVisible())
 			lnkHome.click("Home");
@@ -533,6 +603,8 @@ public class InspectionPage extends BasePage {
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
 //		dropdownselectsearch(ddlConveyor, tbInput, conveyorName);
 //		ddlInspectorName.verifyText(fullName,"Inspector Name");
+		ddlInspectorName.clear();
+		ddlInspectorName.sendKeys(fullName);
 		Reporter.log("Inspection is created",MessageTypes.Pass);
 	}
 
@@ -565,6 +637,59 @@ public class InspectionPage extends BasePage {
 		dropdownSelectSearch(ddlFailureMode, tbInput, failureMode);
 		dropdownSelect(ddlCondition, ListItem, condition);
 		dropdownSelect(ddlStatus, ListItem, status);
+	}
+
+	public String getInspectorNameFromItem() {
+		waitForElementToBeClickable(btnAddnew);
+		SyncUtil.waitFor(4000);
+		btnAddnew.click("Add New Inspection");
+		waitForElementToDisplay(ddlAsset);
+		return ddlInspectorName.getText();
+	}
+
+	public String getConveyorHeaderFromItem() {
+		waitForElementToBeClickable(btnAddnew);
+		SyncUtil.waitFor(4000);
+		btnAddnew.click("Add New Inspection");
+		waitForElementToDisplay(ddlAsset);
+		return popupHeader.getText();
+	}
+
+	public boolean isMapHeader() {
+		waitForElementToBeClickable(btnAddnew);
+		SyncUtil.waitFor(4000);
+		btnAddnew.click("Add New Inspection");
+		waitForElementToDisplay(ddlAsset);
+		return headMapPointer.isVisible() && tailMapPointer.isVisible();
+	}
+
+	public boolean isLocationLabel() {
+		waitForElementToBeClickable(btnAddnew);
+		SyncUtil.waitFor(4000);
+		btnAddnew.click("Add New Inspection");
+		waitForElementToDisplay(ddlAsset);
+		new ConveyorPage().clickOnMap();
+		SyncUtil.waitFor(2000);
+		new ConveyorPage().clickOnMap();
+		boolean flag = mapLocationDialog.isVisible();
+		mapLocationDialogClose.click();
+		return flag && !mapLocationDialogClose.isVisible();
+	}
+
+	public void verifyLonLatFromItem() {
+		waitForElementToBeClickable(btnAddnew);
+		SyncUtil.waitFor(4000);
+		btnAddnew.click("Add New Inspection");
+		waitForElementToDisplay(ddlAsset);
+		Validator.assertFalse(tbLat.getAttribute("class").contains("p-filled"),"Latitude field is already prefilled","Latitude field is verified successfully");
+		Validator.assertFalse(tbLong.getAttribute("class").contains("p-filled"),"Longitude field is already prefilled","Longitude field is verified successfully");
+		new ConveyorPage().clickOnMap();
+		Validator.assertTrue(tbLat.getAttribute("class").contains("p-filled"),"Latitude field is not filled after click on map","Latitude field is verified successfully");
+		Validator.assertTrue(tbLong.getAttribute("class").contains("p-filled"),"Longitude field is not filled after click on map","Longitude field is verified successfully");
+		tbLat.sendKeys("123");
+		Validator.assertTrue(tbLat.getText().equalsIgnoreCase("123"),"Latitude field did not enter given value","Latitude field is verified successfully");
+		tbLong.sendKeys("456");
+		Validator.assertTrue(tbLong.getText().equalsIgnoreCase("456"),"Latitude field did not enter given value","Latitude field is verified successfully");;
 	}
 
 	public void addItemOptionalField(String lat, String longitude, String observation, String recommendation, String address, String img) {
@@ -934,6 +1059,19 @@ public class InspectionPage extends BasePage {
 		waitForElementVisible(txtInspCompleteCount,5000,1000);
 		Validator.assertTrue(txtInspCompleteCount.isDisplayed(), "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
 	}
+
+	public void verifyInspectionCounts(int inspCount, int inspComplete, int inspGood, int inspPoor, int inspFault, int inspCritical) {
+		waitForPageLoad(5000);
+//		waitForElementToDisplay(txtInspCompleteCount);
+//		waitForElementVisible(txtInspCompleteCount,5000,1000);
+		Validator.assertTrue(Integer.parseInt(txtInspCount.getText()) == inspCount ,"Inspection Tile Count is not visible", "Inspection Tile Count is visible");
+		Validator.assertTrue(Integer.parseInt(txtInspCompleteCount.getText()) == inspComplete , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
+		Validator.assertTrue(Integer.parseInt(txtInspGoodCount.getText()) == inspGood , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
+		Validator.assertTrue(Integer.parseInt(txtInspPoorCount.getText()) == inspFault , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
+		Validator.assertTrue(Integer.parseInt(txtInspFaultCount.getText()) == inspPoor , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
+		Validator.assertTrue(Integer.parseInt(txtInspCriticalCount.getText()) == inspCritical , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
+	}
+
 
 	public void extractStatusValue(){
 	waitForElementVisible(txtStatusValue,5000,1000);
@@ -1323,6 +1461,32 @@ public class InspectionPage extends BasePage {
 		verifyAddInspectionItemErrorMsg();
 	}
 
+	public void verifyViewAddEditDeleteRights(String inspectionName) {
+		searchInspection(inspectionName);
+		waitForElementToDisplay(cbCheckbox);
+		Validator.assertTrue(cbCheckboxInput.isEnabled(), "Inspection checkbox should not be enabled with only view rights", "Inspection checkbox is disabled with only view rights");
+		Validator.assertTrue(btnAddInspection.isVisible(),"Add inspection is visible with add rights", "Add inspection is not visible with add rights");
+		cbCheckbox.click("checkbox");
+		ddlActions.click("action");
+		Validator.assertTrue(btnEditInspection.isVisible(),"Edit inspection is visible with delete rights", "Edit inspection is not visible with delete rights");
+		Validator.assertTrue(btnDeleteInspection.isVisible(),"Delete inspection is not visible with delete rights", "Delete inspection is visible with delete rights");
+		goToInspectionDetailScreen(inspectionName);
+		Validator.assertTrue(btnAddnew.isVisible(),"Add inspection item should not be visible with view only rights", "Add inspection item is not visible with view only rights");
+		Validator.assertTrue(btnEdit.isVisible(),"Edit inspection item should not be visible with view only rights", "Edit inspection item is not visible with view only rights");
+		Validator.assertTrue(btnDelete.isVisible(),"Delete inspection item should not be visible with view only rights", "Delete inspection item is not visible with view only rights");
+//		addItemMandatoryField(conveyorName, assetName, assetDetail, failureMode, condition, status);
+//		btnSave.click("Save");
+//		waitForElementToDisplay(inspectionUpdateMsg);
+//		btnEdit.click();
+//		btnSave.click("Save");
+//		verifyAddInspectionItemErrorMsg();
+//		SyncUtil.waitFor(3000);
+//		crossButton.click("Cross Button");
+//		SyncUtil.waitFor(3000);
+//		delete();
+//		verifyAddInspectionItemErrorMsg();
+	}
+
 	public void verifyViewAndAddRights(String conveyorName, String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status) {
 		searchInspection(inspectionName);
 		waitForElementToDisplay(cbCheckbox);
@@ -1394,4 +1558,95 @@ public class InspectionPage extends BasePage {
 
 	}
 
+	public boolean isGroupViewSelected(){
+		return inspectionGroupView.isVisible() && !inspectionListView.isVisible();
+	}
+
+	public boolean isListViewSelected(){
+		inspectionGroupView.click();
+		return !inspectionGroupView.isVisible() && inspectionListView.isVisible();
+	}
+
+	public boolean verifyGroupDetailsNav(String inspectionName){
+		searchInspection(inspectionName);
+		if(!inspectionListView.isVisible())
+			inspectionGroupView.click();
+		ddViewicon.click();
+		return inspectionHeader.isVisible();
+	}
+
+	public boolean verifyListDetailsNav(String conveyor){
+		searchInspectionItem(conveyor);
+		if(!inspectionGroupView.isVisible())
+			inspectionListView.click();
+		ddViewicon.click();
+		boolean flag = btnClose.isVisible();
+		btnClose.click();
+		return flag;
+	}
+
+	public boolean verifyListItems() {
+		return ddlConveyorView.isVisible() && ddlAssetView.isVisible() && ddlFailureModeView.isVisible() && ddlConditionView.isVisible() && ddlStatusView.isVisible() && tbLat.isVisible() && tbLong.isVisible() && eleObservationView.isVisible() && eleRecommendationView.isVisible();
+	}
+
+	public boolean verifyBoldSummaryField(){
+		btBold.click();
+		summaryField.clear();
+		summaryField.sendKeys("Abc");
+		return boldLetters.isVisible();
+	}
+
+	public boolean verifyItalicsSummaryField(){
+		btItalics.click();
+		summaryField.clear();
+		summaryField.sendKeys("Abc");
+		return italicsLetters.isVisible();
+	}
+
+	public boolean verifyUnderlineSummaryField(){
+		btUnderline.click();
+		summaryField.clear();
+		summaryField.sendKeys("Abc");
+		return underlineLetters.isVisible();
+	}
+
+	public boolean verifyListSummaryField(){
+		btList.click();
+		return listLetters.isVisible() && !summaryField.isVisible();
+	}
+
+	public void verifyInspectionCountChange(String inspCount, String inspComplete, String inspGood, String inspPoor, String inspFault, String inspCritical) {
+		waitForPageLoad(5000);
+//		waitForElementToDisplay(txtInspCompleteCount);
+//		waitForElementVisible(txtInspCompleteCount,5000,1000);
+		scrollPageup();
+		System.out.println(txtInspCount.getText());
+		System.out.println(txtInspCompleteCount.getText());
+		System.out.println(txtInspGoodCount.getText());
+		System.out.println(txtInspPoorCount.getText());
+		System.out.println(txtInspFaultCount.getText());
+		System.out.println(txtInspCriticalCount.getText());
+		System.out.println("=======");
+		System.out.println(inspCount);
+		System.out.println(inspComplete);
+		System.out.println(inspGood);
+		System.out.println(inspPoor);
+		System.out.println(inspFault);
+		System.out.println(inspCritical);
+		Validator.assertTrue(txtInspCount.getText().equalsIgnoreCase(inspCount) ,"Inspection Tile Count is not matching", "Inspection Tile Count is matching");
+		Validator.assertTrue(txtInspCompleteCount.getText().equalsIgnoreCase(inspComplete) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(txtInspGoodCount.getText().equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(txtInspFaultCount.getText().equalsIgnoreCase(inspPoor) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(txtInspPoorCount.getText().equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(txtInspCriticalCount.getText().equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+	}
+
+	public void verifyInspectionListCount() {
+		goToInspectionScreenAndWait();
+		waitForElementToDisplay(cbCheckbox);
+		Integer inspectionCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		System.out.println(inspectionCount);
+		waitForPageLoad(5000);
+		Validator.assertTrue(inspectionCount.toString().equalsIgnoreCase(txtInspCount.getText()), "Number of inspection in tile and list doesnt match","Inspection count verification was successful");
+	}
 }

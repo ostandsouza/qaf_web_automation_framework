@@ -167,16 +167,16 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//button//span[text()='Edit']")
     public CustomElement cwEditSpec;
 
-    @FindBy(locator="xpath=//label[text()='Belt Width (']/parent::div//input")
+    @FindBy(locator="xpath=//label[text()='Belt Width']/parent::div//input")
     public CustomElement cwBeltWidth;
 
-    @FindBy(locator="xpath=//label[text()='Belt Length (']/parent::div//input")
+    @FindBy(locator="xpath=//label[text()='Belt Length']/parent::div//input")
     public CustomElement cwBeltLength;
 
-    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal (']/parent::div//input)[2]")
+    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal ']/parent::div//input)[2]")
     public CustomElement cwTopCoverThicknessInput;
 
-    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness Nominal (']/parent::div//input)[2]")
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness Nominal ']/parent::div//input)[2]")
     public CustomElement cwBottomCoverThicknessInput;
 
     @FindBy(locator="xpath=(//label[text()='Top Cover Compound']/parent::div//input)[1]/../following-sibling::span")
@@ -185,10 +185,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//label[text()='Bottom Cover Compound']/parent::div//input)[1]/../following-sibling::span")
     public CustomElement cwBottomCoverCompoundInput;
 
-    @FindBy(locator="xpath=//label[text()='Top Cover Thickness Nominal (']/parent::div//div[@role='button']")
+    @FindBy(locator="xpath=//label[text()='Top Cover Thickness Nominal ']/parent::div//div[@role='button']//*[name()='svg']")
     public CustomElement cwTopCoverThickness;
 
-    @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal (']/parent::div//div[@role='button']")
+    @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal ']/parent::div//div[@role='button']//*[name()='svg']")
     public CustomElement cwBottomCoverThickness;
 
     @FindBy(locator="xpath=//label[text()='Durometer (New Belt)']/parent::div//input")

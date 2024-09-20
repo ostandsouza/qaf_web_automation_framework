@@ -1,5 +1,5 @@
 {
-  "name": "C1 Conveyor Inspector",
+  "name": "C1 Conveyor Inspect Mobile",
   "customer": {
     "location": {
       "zipcode": "1050",
@@ -9,18 +9,31 @@
       "latitude": -25.7944583,
       "longitude": 29.7378982
     },
-    "createdDate": 1682409883559,
-    "companyId": "01GYVQ387310NYN8D750Z3BTE9",
+    "createdDate": 1724758781272,
+    "companyId": "01J69T4VMJG1HE1CNY5MBXM1ZG",
     "customerCorporate": {
-      "companyId": "01G6MK06E0M2WRCD51EHAYD4MA",
+      "image": "",
+      "updatedBy": {
+        "image": "",
+        "fullName": "Isolated User",
+        "userId": "00d9c9a1-552c-4133-a057-18a4c4740893"
+      },
+      "associatedDistributor": "",
       "companyType": {
         "name": "Customer Corporate",
-        "category": "Customer",
-        "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX"
+        "sortKey": "CUSTOMER",
+        "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX",
+        "category": "Customer"
       },
-      "street": "152 Marwan Bin Abdul Rahman, Al Mohammadiyyah, ",
-      "conveyorsCount": 25,
-      "name": "Conveyor Inspect Sanity Corp",
+      "customerCorporate": "",
+      "distributorCorporate": "",
+      "updatedDate": 1724758753029,
+      "companyId": "01J69T3ZSBNJ7YXM5A8R8EVH5F",
+      "createdDate": 1724758753029,
+      "isDeleted": false,
+      "territoryManager": "",
+      "street": "Lodhi Rd, Institutional Area, Lodhi Estate, ",
+      "name": "Customer Regression Mobile Corp",
       "location": {
         "zipcode": "21411",
         "country": "Saudi Arabia",
@@ -39,7 +52,8 @@
       "image": ""
     },
     "associatedDistributor": "",
-    "name": "Conveyor Inspect Sanity Site",
+    "isDeleted": false,
+    "name": "Customer Regression Mobile Site",
     "distributorCorporate": "",
     "companyType": {
       "name": "Customer Site",

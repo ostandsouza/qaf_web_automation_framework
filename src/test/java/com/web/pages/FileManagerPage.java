@@ -100,7 +100,7 @@ public class FileManagerPage extends BasePage{
     @FindBy(locator="xpath=//span[contains(@class,'p-carousel-prev-icon pi pi-chevron-left')]")
     public CustomElement btLeftCarousel;
 
-    @FindBy(locator="xpath=//span[text()='Files Manager']")
+    @FindBy(locator="xpath=//span[text()='File Manager']")
     public CustomElement fileManagerHeader;
 
     @FindBy(locator="xpath=//div[text()='Folder created successfully!']")

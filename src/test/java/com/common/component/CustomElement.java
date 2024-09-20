@@ -146,6 +146,25 @@ public class CustomElement extends QAFWebComponent {
     }
 
     /**
+     * Get text from element
+     *
+     * @param objName Name of object for reporting purpose.
+     */
+    public String jsText(String... objName) {
+        String text;
+        try {
+            text = (String) ((JavascriptExecutor) getWrappedDriver()).executeScript("return arguments[0].value;",this);
+
+            Reporter.log("Getting text from " + objName, MessageTypes.Info);
+
+        } catch (Exception e) {
+            Reporter.log("Failed to get text from " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
+        }
+        return text;
+    }
+
+    /**
      * Selects an object if it's not selected already.
      *
      * @param objName Name of object for reporting purpose.

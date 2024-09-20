@@ -9,9 +9,14 @@ import com.web.pages.ConveyorPage;
 import com.web.pages.CorporatePage;
 import com.web.pages.InspectionPage;
 import com.web.pages.UsersPage;
+import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 public class InspectionSteps {
 
@@ -207,7 +212,7 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Verify tile count {TotalCount} for critical poor fault good and completed {Val}")
 	public void verifyInspectionCount(String totalCount, String val){
-//		Validator.assertTrue(inspectionpage.verifyInspectionCount(totalCount, val),"Inspection tile count is incorrect","Inspection tile count verified successfully");
+		Validator.assertTrue(inspectionpage.verifyInspectionCount(totalCount, val),"Inspection tile count is incorrect","Inspection tile count verified successfully");
 	}
 
 	@QAFTestStep(description="Verify the actions button is disabled")
@@ -545,6 +550,127 @@ public class InspectionSteps {
 		inspectionpage.verifyInspectionDashboardContents(siteName,corp);
 		MiscUtils.deleteDownloadedFiles(corp+"-inspection-dashboard.pdf");
 	}
+
+	@QAFTestStep(description = "Verify grouped inspection is selected by default")
+	public void verifyGroupedSelection() {
+		Validator.assertTrue(inspectionpage.isGroupViewSelected(),"Grouped inspection is not selected by default","Grouped inspection verified successfully");
+	}
+
+	@QAFTestStep(description = "Verify list inspection is selected on click")
+	public void verifyListSelection() {
+		Validator.assertTrue(inspectionpage.isListViewSelected(),"List inspection is not selected even after click","List inspection verified successfully");
+	}
+
+	@QAFTestStep(description = "Verify navigation of group inspection {InspectionName}")
+	public void verifyGroupedInspectionNav(String inspection) {
+		Validator.assertTrue(inspectionpage.verifyGroupDetailsNav(inspection),"Grouped inspection navigation failed","Grouped inspection navigation verified successfully");
+	}
+
+	@QAFTestStep(description = "Verify navigation of list inspection {ConveyorName}")
+	public void verifyListInspectionNav(String conveyor) {
+		Validator.assertTrue(inspectionpage.verifyListDetailsNav(conveyor),"List inspection navigation failed","List inspection navigation verified successfully");
+	}
+
+	@QAFTestStep(description = "Verify inspection item detail popup screen")
+	public void verifyInspectionItemDetails() {
+		Validator.assertTrue(inspectionpage.verifyListItems(),"Inspection item detail verification failed","Inspection item detail screen verified successfully");
+	}
+
+	@QAFTestStep(description = "Verify summary field bold letter functionality")
+	public void verifyBoldLetters() {
+		Validator.assertTrue(inspectionpage.verifyBoldSummaryField(),"Summary bold button verification failed","Summary bold button verified successfully");
+	}
+
+	@QAFTestStep(description = "Verify summary field italics letter functionality")
+	public void verifyItalicsLetters() {
+		Validator.assertTrue(inspectionpage.verifyItalicsSummaryField(),"Summary italics button verification failed","Summary italics button verified successfully");
+	}
+
+	@QAFTestStep(description = "Verify summary field underline letter functionality")
+	public void verifyUnderlineLetters() {
+		Validator.assertTrue(inspectionpage.verifyUnderlineSummaryField(),"Summary underline button verification failed","Summary underline button verified successfully");
+	}
+
+	@QAFTestStep(description = "Verify summary field list letter functionality")
+	public void verifyListLetters() {
+		Validator.assertTrue(inspectionpage.verifyListSummaryField(),"Summary list button verification failed","Summary list button verified successfully");
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and verify inspector name {Inspector}")
+	public void verifyInspectorNameItem(String conveyorName, String inspector){
+		Validator.assertTrue(inspectionpage.getInspectorNameFromItem().equalsIgnoreCase(inspector),"Inspector name under item verification failed","Inspector name under item verified successfully");
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and verify Conveyor header name")
+	public void verifyInspectorNameItem(String conveyorName){
+		Validator.assertTrue(inspectionpage.getConveyorHeaderFromItem().equalsIgnoreCase(conveyorName),"Inspector item header verification failed","Inspector item header verified successfully");
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and verify the coordinates")
+	public void verifyLatLongFromItem(String conveyorName){
+		inspectionpage.verifyLonLatFromItem();
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and verify the map header for conveyor with location")
+	public void verifyMapHeaderWithLocationFromItem(String conveyorName){
+		Validator.assertTrue(inspectionpage.isMapHeader(),"Location head and tail is not shown in map","Location head and tail verified successfully");
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and verify the map header for conveyor without location")
+	public void verifyMapHeaderWithoutLocationFromItem(String conveyorName){
+		Validator.assertFalse(inspectionpage.isMapHeader(),"Location head and tail should not be shown in map","Location head and tail verified successfully");
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and and verify the location label")
+	public void verifyLocationLabelFromItem(String conveyorName){
+		Validator.assertFalse(inspectionpage.isLocationLabel(),"Location label is shown in map","Location label verified successfully");
+	}
+
+	@QAFTestStep(description="Verify view add edit delete permission right for {InspectionName}")
+	public void verifyInspectionPermission(String inspectionName){
+		inspectionpage.verifyViewAddEditDeleteRights(inspectionName);
+	}
+
+	@QAFTestStep(description="Verify tile count for total critical poor fault good and to be completed")
+	public void verifyInspectionCounts(){
+		Map<String, Object> response = inspectionpage.apiBase.getConveyorsInspectionCount();
+		int totalInspections = (int) response.get("totalInspections");
+		System.out.println(totalInspections);
+		getBundle().setProperty("totalInspections",totalInspections);
+		int toBeCompleted = (int) response.get("toBeCompleted");
+		System.out.println(toBeCompleted);
+		getBundle().setProperty("toBeCompleted",toBeCompleted);
+		int good = (int) response.get("good");
+		System.out.println(good);
+		getBundle().setProperty("good",good);
+		int poor = (int) response.get("poor");
+		System.out.println(poor);
+		getBundle().setProperty("poor",poor);
+		int fault = (int) response.get("fault");
+		System.out.println(fault);
+		getBundle().setProperty("fault",fault);
+		int critical = (int) response.get("critical");
+		System.out.println(critical);
+		getBundle().setProperty("critical",critical);
+		inspectionpage.verifyInspectionCounts(totalInspections, toBeCompleted, good, poor, fault, critical);
+	}
+
+	@QAFTestStep(description="Verify the incremental tile count changes for {ChangeTotal},{ChangeTobeComplated},{ChangeGood},{ChangePoor},{ChangeFault},{ChangeCritical}")
+	public void verifyInspectionCountChange(String changeTotal, String changeTobeComplated, String changeGood, String changePoor, String changeFault, String changeCritical){
+		String totalInspections = String.valueOf((int) getBundle().getProperty("totalInspections") + Integer.parseInt(changeTotal));
+		String toBeCompleted = String.valueOf((int) getBundle().getProperty("toBeCompleted") + Integer.parseInt(changeTobeComplated));
+		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
+		String poor = String.valueOf((int) getBundle().getProperty("poor") + Integer.parseInt(changePoor));
+		String fault = String.valueOf((int) getBundle().getProperty("fault") + Integer.parseInt(changeFault));
+		String critical = String.valueOf((int) getBundle().getProperty("critical") + Integer.parseInt(changeCritical));
+		inspectionpage.verifyInspectionCountChange(totalInspections, toBeCompleted, good, poor, fault, critical);
+	}
+
+	@QAFTestStep(description="Verify the inspection count with list count")
+	public void verifyTheInspectionCountWithListCount(){
+		inspectionpage.verifyInspectionListCount();
+	}
+
 }
 
 

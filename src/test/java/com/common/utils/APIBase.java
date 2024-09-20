@@ -245,6 +245,19 @@ public class APIBase {
         return val;
     }
 
+    public Map<String, Object> getConveyorsInspectionCount() {
+        configureRestAssured();
+        queryMaps.put("inspectionType", "");
+        String baseUrl = commonPaths.get("conveyor_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> conveyorPaths = JsonReader.getMapTestData("path", "conveyor_controller");
+        restApiHelper.makeGetRequest(conveyorPaths.get("conveyor_inspections_count"),queryMaps, headersMap);
+        Response inspectionResponse = restApiHelper.getResponse();
+        JsonPath jsnPath = inspectionResponse.jsonPath();
+        return jsnPath.getMap("data");
+    }
+
     public void deleteConveyorAPI(String conveyorId) {
         configureRestAssured();
         String baseUrl = commonPaths.get("conveyor_ms");
@@ -612,6 +625,24 @@ public class APIBase {
         JsonPath jsnPath = inspectionResponse.jsonPath();
         if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
             val = (String) jsnPath.getMap("data[0]").get("minutemanId");
+        }
+        tearDown();
+        return val;
+    }
+
+    public String getMonitoringDeviceAPI() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("monitoring_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        queryMaps.put("limit","100");
+        headersMap.put("user-token",accessToken);
+        Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "monitoring_controller");
+        restApiHelper.makeGetRequest(monitoringPaths.get("list"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        String val = null;
+        if(profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = (String) jsnPath.getMap("data[0]").get("userId");
         }
         tearDown();
         return val;

@@ -10,6 +10,7 @@ conveyor.details.technicalData = flutter-text=Technical Data
 conveyor.details.coverWear = flutter-text=Cover Wear
 conveyor.details.inspection = flutter-text=Inspection
 conveyor.details.fileManager = flutter-text=File Manager
+conveyor.details.conveyorInspect = flutter-text=Conveyor Inspect
 conveyor.list.download = flutter-valuekey=conveyor_download
 conveyor.list.upload = flutter-valuekey=conveyor_upload
 conveyor.list.more = flutter-valuekey=conveyor_more

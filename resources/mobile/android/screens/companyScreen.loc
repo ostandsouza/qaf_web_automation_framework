@@ -8,7 +8,7 @@ dashboard.gallery.btn = accessibility id=Gallery
 dashboard.alert.popup = xpath=//android.widget.TextView[@resource-id='merchant-name']
 dashboard.permission.dismiss = xpath=//android.widget.TextView[@resource-id='merchant-name']
 dashboard.ok.btn = accessibility id=OK
-
+dashboard.cancel.btn = accessibility id=CANCEL
 dashboard.firstSearch.map = xpath=//android.widget.ScrollView/../..//android.widget.ScrollView/android.view.View[4]
 
 
@@ -51,8 +51,8 @@ corporate.details.search = xpath=//android.widget.EditText
 corporate.details.name = xpath=//android.widget.HorizontalScrollView/android.view.View/android.view.View[1]
 conveyor.delete.btn = accessibility id=Delete
 conveyor.delete.txt = xpath=//android.widget.Button[contains(@content-desc,"Are you sure you want to delete this conveyor?")]
-conveyor.details.TechnicalData = xpath=//android.widget.ImageView[contains(@content-desc,'Technical Data')]
-conveyor.details.CoverWear = xpath=//android.view.View[contains(@content-desc,'Cover Wear')]
+conveyor.details.TechnicalData = xpath=//android.view.View[contains(@content-desc,'Technical Data')]
+conveyor.details.CoverWear = xpath=//android.widget.ImageView[contains(@content-desc,'Cover Wear')]
 conveyor.details.Inspection = xpath=//android.widget.ImageView[contains(@content-desc,'Inspections')]
 conveyor.details.FileManager = xpath=//android.widget.ImageView[contains(@content-desc,'File Manager')]
 filter.dropdown.firstSearch = xpath=(//android.widget.CheckBox[@content-desc])[1]

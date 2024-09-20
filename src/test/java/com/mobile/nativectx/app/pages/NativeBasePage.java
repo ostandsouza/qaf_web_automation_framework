@@ -1,5 +1,6 @@
 package com.mobile.nativectx.app.pages;
 
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.ConfigurationManager;
 import com.qmetry.qaf.automation.core.MessageTypes;
@@ -20,14 +21,21 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Pause;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
+
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 public class NativeBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
@@ -67,11 +75,34 @@ public class NativeBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         int midX = (deviceWidth / 2);
         int midY = (deviceHeight / 2);
         int bottomEdge = (int) (deviceHeight * 0.85f);
-        new TouchAction(getAppiumDriver() instanceof AndroidDriver ? (AndroidDriver)getAppiumDriver()  :(IOSDriver)getAppiumDriver())
-                .press(PointOption.point(midX, midY))
-                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
-                .moveTo(PointOption.point(midX, bottomEdge))
-                .release().perform();
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,"finger");
+        Sequence act = new Sequence(finger,1)
+                .addAction(finger.createPointerMove(Duration.ofMillis(0),PointerInput.Origin.viewport(),midX,midY))
+                .addAction(finger.createPointerDown(0))
+                .addAction(new Pause(finger,Duration.ofMillis(500)))
+                .addAction(finger.createPointerMove(Duration.ofMillis(500),PointerInput.Origin.viewport(),midX,bottomEdge))
+                .addAction(finger.createPointerUp(0));
+
+        getAppiumDriver().perform(Collections.singletonList(act));
+        Reporter.log("Refreshed screen", MessageTypes.Info);
+    }
+
+    public void swipeScreen() {
+        Dimension currentWindow = driver.manage().window().getSize();
+        int deviceWidth = currentWindow.getWidth();
+        int deviceHeight = currentWindow.getHeight();
+        int endx = (int)(deviceWidth * 0.3f);
+        int midY = (int)(deviceHeight * 0.25f);
+        int startx = (int) (deviceWidth * 0.85f);
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,"finger");
+        Sequence act = new Sequence(finger,1)
+                .addAction(finger.createPointerMove(Duration.ofMillis(0),PointerInput.Origin.viewport(),startx,midY))
+                .addAction(finger.createPointerDown(0))
+                .addAction(new Pause(finger,Duration.ofMillis(500)))
+                .addAction(finger.createPointerMove(Duration.ofMillis(500),PointerInput.Origin.viewport(),endx,midY))
+                .addAction(finger.createPointerUp(0));
+
+        getAppiumDriver().perform(Collections.singletonList(act));
         Reporter.log("Refreshed screen", MessageTypes.Info);
     }
 
@@ -402,5 +433,21 @@ public class NativeBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
             return ((AndroidDriver) getAppiumDriver()).getContextHandles();
         else
             return ((IOSDriver) getAppiumDriver()).getContextHandles();
+    }
+
+    public void pushFile(String fileName, String srcPath) {
+        try {
+            if (getAppiumDriver() instanceof AndroidDriver) {
+                System.out.println(srcPath);
+                ((AndroidDriver) getAppiumDriver()).pushFile("/sdcard/Pictures/"+fileName, new File(srcPath));
+                System.out.println(MiscUtils.executeCommand("adb shell 'am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/Pictures/'"));
+            } else {
+                ((IOSDriver) getAppiumDriver()).pushFile("@" + getBundle().getString("aut.appName") + ":documents", new File(srcPath));
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 }

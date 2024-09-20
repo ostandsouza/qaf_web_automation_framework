@@ -534,7 +534,7 @@ public class CorporatePage extends BasePage{
 
 
     public void editCustomerSite(String siteName, String editSiteName, String corp) {
-        SyncUtil.waitFor(4000);
+        SyncUtil.waitFor(6000);
         goToCorporateDetails(corp);
         SyncUtil.waitFor(6000);
         btSearchinput.type(siteName, "Site name");
@@ -546,7 +546,7 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
         typeOfCompanyLoader.waitForText("Customer Site");
-        SyncUtil.waitFor(4000);
+        SyncUtil.waitFor(10000);
         tbCompanyName.type(editSiteName);
         SyncUtil.waitFor(2000);
         scrollPageup();

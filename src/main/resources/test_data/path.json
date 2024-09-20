@@ -54,5 +54,8 @@
   },
   "findings_controller": {
     "finding": "/finding"
+  },
+  "monitoring_controller": {
+    "list": "/monitoring-devices"
   }
 }
