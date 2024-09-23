@@ -35,6 +35,9 @@ public class GmailHelper {
 
     public static Gmail getGmailService(String email) {
         Gmail service = null;
+        Properties systemProperties = System.getProperties();
+        systemProperties.setProperty("http.proxyHost","cias.geoaws.com");
+        systemProperties.setProperty("http.proxyPort","8080");
         try {
             val = JsonReader.getMap(email + "_credentials", "web", "gmail_data");
             filePath = ClasspathResourceHelper.getPropertyFileByLocale(email + "_credentials", ClasspathResourceHelper.FileType.JSON, "gmail_data");
