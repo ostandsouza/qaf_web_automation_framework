@@ -43,7 +43,7 @@ pipeline {
                     sh( script: 'sudo apt-get update')
                     sh( script: 'sudo apt-get install ./google-chrome*.deb')
 //                     sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test')
-                    sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test "-Dchrome.additional.capabilities=\"{\"goog:chromeOptions\":{\"args\":[\"--headless\",\"--remote-allow-origins=*\",\"--disable-gpu\",\"--no-sandbox\",\"--disable-extensions\",\"--disable-dev-shm-usage\"],\"extensions\":[],\"prefs\":{\"download.default_directory\":\"${WORKSPACE}/ctp-contiplus-web-qa-automation-java/target/downloads\"}}}\""')
+                    sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test "-Dchrome.additional.capabilities={\"goog:chromeOptions\":{\"args\":[\"--headless\",\"--remote-allow-origins=*\",\"--disable-gpu\",\"--no-sandbox\",\"--disable-extensions\",\"--disable-dev-shm-usage\"],\"extensions\":[],\"prefs\":{\"download.default_directory\":\"${WORKSPACE}/ctp-contiplus-web-qa-automation-java/target/downloads\"}}}"')
                 }
             }
         }
