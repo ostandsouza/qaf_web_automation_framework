@@ -25,6 +25,8 @@ import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+
 public class GmailHelper {
 
     private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
@@ -36,10 +38,12 @@ public class GmailHelper {
     public static Gmail getGmailService(String email) {
         Gmail service = null;
         Properties systemProperties = System.getProperties();
-        systemProperties.setProperty("http.proxyHost","cias.geoaws.com");
-        systemProperties.setProperty("http.proxyPort","8080");
-        systemProperties.setProperty("https.proxyHost","cias.geoaws.com");
-        systemProperties.setProperty("https.proxyPort","8080");
+        if(getBundle().getString("jenkins.execution").equalsIgnoreCase("true")) {
+            systemProperties.setProperty("http.proxyHost", "cias.geoaws.com");
+            systemProperties.setProperty("http.proxyPort", "8080");
+            systemProperties.setProperty("https.proxyHost", "cias.geoaws.com");
+            systemProperties.setProperty("https.proxyPort", "8080");
+        }
         try {
             val = JsonReader.getMap(email + "_credentials", "web", "gmail_data");
             filePath = ClasspathResourceHelper.getPropertyFileByLocale(email + "_credentials", ClasspathResourceHelper.FileType.JSON, "gmail_data");
