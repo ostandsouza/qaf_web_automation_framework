@@ -3,6 +3,7 @@ package com.web.pages;
 import com.common.component.CustomElement;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,7 @@ import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.lang.Integer.parseInt;
 
 public class SitePage  extends BasePage {
+    InspectionPage inspectionpage = new InspectionPage();
 
     @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
     public CustomElement home;
@@ -127,6 +129,20 @@ public class SitePage  extends BasePage {
 
     @FindBy(locator = "xpath=//div[contains(@class,'p-panel-content')]//div//p-skeleton")
     public CustomElement notificationListRefresh;
+    @FindBy(locator = "xpath=(//span[text()='New']/../../../div/div[2])[1]")
+    public CustomElement notificationListNewFirstEntry;
+    @FindBy(locator = "xpath=(//i[contains(@class,'ctp-icon-Arrow-Right')])[1]")
+    public CustomElement notificationListViewIcon;
+    @FindBy(locator = "xpath=//app-notification-item//div[text()=' Mark all as Read ']")
+    public CustomElement markAllAsReadText;
+
+    @FindBy(locator = "xpath=//div//button//span[text()='Actions']/..//following-sibling::button//chevrondownicon")
+    public CustomElement btnNotificationAction;
+
+    @FindBy(locator = "xpath=//p-tieredmenusub//li//a[.//span[contains(@class, 'pi-eye')] and .//span[text()=\"Mark all as Read\"]]")
+    public CustomElement btnNotificationActionDropDwn;
+    @FindBy(locator = "xpath=(//span[text()='New'])[1]")
+    public CustomElement notificationListNewEntry;
 
 
     public void goToSiteListScreen() {
@@ -212,11 +228,10 @@ public class SitePage  extends BasePage {
 
     public void unSubscribe(String siteName) {
         btSearchinput.type(siteName, "site Search");
-        waitForElementVisible(subscribedPinIcon, 10000, 500);
+        waitForElementVisible(subscribedPinIcon, 50000, 500);
         subscribedPinIcon.click();
         waitForElementToDisplay(subscribePinIcon);
         Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed", "subscription is removed");
-
     }
 
     public void searchSiteAndNavigate(String siteName) {
@@ -236,7 +251,9 @@ public class SitePage  extends BasePage {
     }
 
     public void searchConveyorAndEdit(String conveyorName) {
+//        inspectionpage.clickClickFilter();
         searchConveyorSiteLevel(conveyorName);
+        waitForElementVisible(crCheckbox,30000,1000);
         crCheckbox.check("Conveyor Checkbox");
 //        crActions.click("Actions");
 //        crEdit.jsClick("Edit");
@@ -247,21 +264,28 @@ public class SitePage  extends BasePage {
         waitForElementVisible(bellIcon, 10000, 500);
         bellIcon.click();
         Validator.assertTrue(notificationPopup.isDisplayed(), "Notification popup is not displayed", "Notification popup is displayed");
-
+        Validator.assertTrue(markAllAsReadText.isVisible(10000,"Mark all as Read"),"Mark all as Read is not visible under notification menu!",        "Mark all as Read is visible under notification menu!");
     }
 
-    public void verifyNotificationOrder() {
-        String updatedSite1 = "(//app-notification-item//div[contains(@class,\"notification\")])[4]//div[text()='C1 Common Automation Conveyor']";
-        String updatedSite2 = "(//app-notification-item//div[contains(@class,\"notification\")])[2]//div[text()='CVA Common Regression']";
-        Validator.assertTrue(driver.findElement(By.xpath(updatedSite1)).isDisplayed() && driver.findElement(By.xpath(updatedSite2)).isDisplayed(), "notificatio is not  in last in first out format", "notification in last in first out format");
+    public void verifyNotificationSiteOrder(String value1,String value2) {
+        String updatedSite1 = "(//app-notification-item//div[contains(@class,\"notification\")])[4]//div[text()='"+value2+"']";
+        String updatedSite2 = "(//app-notification-item//div[contains(@class,\"notification\")])[2]//div[text()='"+value1+"']";
+        Validator.assertTrue(driver.findElement(By.xpath(updatedSite1)).isDisplayed() && driver.findElement(By.xpath(updatedSite2)).isDisplayed(), "notification is not  in last in first out format", "notification in last in first out format");
     }
 
     public int extractNotificationCount() {
-        waitForElementVisible(notificationsCount, 20000, 500);
-        int notificationCount = parseInt(notificationsCount.getText());
-        System.out.println(notificationCount + "notificationCount");
+        int notificationCount=0;
+        if(notificationsCount.isNotVisible(10000))
+        {
+            Reporter.log("No new notification");
+        }
+        else if(notificationsCount.isVisible(10000,"notification count")){
+            notificationCount = parseInt(notificationsCount.getText());
+            System.out.println(notificationCount + "notificationCount");
 //        getBundle().setProperty("notificationCnt",notificationCount);
+        }
         return notificationCount;
+
     }
 
     public void extractNotificationCountBefore() {
@@ -393,4 +417,58 @@ public class SitePage  extends BasePage {
         Validator.assertTrue(notificationListRefresh.isDisplayed(),"Notification list is not getting refreshed","Notification List is getting refreshed");
 
     }
+    public void verifyUserNotificationCountAfterUpdate(){
+        int notificationCountBefore = Integer.parseInt(getBundle().getProperty("notificationCntBefore").toString());
+        notificationCountBefore+=1;
+        extractNotificationCountAfter();
+        Validator.assertTrue(getBundle().getProperty("notificationCntAfter").equals(notificationCountBefore), "User has not received new notification", "User received new notification");
+    }
+    public void verifyNewLinkInNotificationList(String site1)
+    {
+        waitForElementToDisplay(notificationListNewFirstEntry);
+        Validator.assertTrue(notificationListNewFirstEntry.getText().contains(site1),"New notification is not visible","New notification is visible");
+    }
+    public void clickOnViewForNewNotification()
+    {
+        waitForElementToDisplay(notificationListViewIcon);
+        Validator.assertTrue(notificationListViewIcon.isDisplayed(),"View Icon is not visible","View Icon is visible");
+        notificationListViewIcon.jsClick();
+    }
+    public void verifyNotificationCountIsPresent()
+    {
+        Validator.assertTrue(bellIcon.isDisplayed(),"Notification Icon is not present","Notification Icon is present");
+        Validator.assertTrue(extractNotificationCount()>0,"Notification is not present","Notification is present");
+    }
+     public void verifyNotificationCountIsZero()
+    {
+        waitForPageLoad(5000);
+        Validator.assertTrue(bellIcon.isDisplayed(),"Notification Icon is not present","Notification Icon is present");
+        Validator.assertTrue(extractNotificationCount()==0,"Notification is not present","Notification is present");
+
+    }
+    public void clickMarkAsRead()
+    {
+        Validator.assertTrue(markAllAsReadText.isDisplayed(),"Mark All As Read Icon is not present","Mark All As Read Icon is present");
+        markAllAsReadText.click();
+    }
+    public void verifyNotificationsActionBtn(){
+        Validator.assertTrue(btnNotificationAction.isVisible(10000,"Action Button"),"Action button is not visible in the notification list page!","Action button is  visible in the notification list page!" );
+    }
+    public void actionBtnClickAndVerifySymbol(){
+        scrollPageup();
+        verifyNotificationsActionBtn();
+        btnNotificationAction.click("Action");
+        Validator.assertTrue(btnNotificationActionDropDwn.isVisible(10000,"Action DropDown"),"User is not able to see the Mark all as read along with eye symbol!","User is  able to see the Mark all as read text along with eye symbol!");
+    }
+    public void clickActionBtnMarkAllRead(){
+      Validator.assertTrue(btnNotificationActionDropDwn.isVisible(10000,"Action DropDown"),"User is not able to see the Mark all as read along with eye symbol!","User is  able to see the Mark all as read text along with eye symbol!");
+        btnNotificationActionDropDwn.click();
+    }
+    public void verifyAllNotificationAreRead(){
+      waitForPageLoad(5000);
+      Validator.assertTrue(notificationListNewEntry.isNotVisible(5000),"New Notification is found","New Notification is not found");
+    }
+
+
+
 }

@@ -29,6 +29,16 @@ public class LoginPage extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Login']")
     public CustomElement btnLogIn;
 
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"oldPassword\"]//div//input")
+	public CustomElement tbOldPassword;
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"password\"]//div//input")
+	public CustomElement tbNewPassword;
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"confirmPassword\"]//div//input")
+	public CustomElement tbConfirmPassword;
+	@FindBy(locator = "xpath=//span[text()='Save']")
+	public CustomElement btnSave;
+
+
 	public boolean verifyUserOnLoginPage()  {
 		waitForElementToDisplay(tbUserName);
 		return tbUserName.isDisplayed();
@@ -65,6 +75,15 @@ public class LoginPage extends BasePage {
 	private QAFExtendedWebDriver ChromeDriver(DesiredCapabilities desiredcapabilities) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public void changePassword(String password,String newPassword,String confirmPassword){
+		tbOldPassword.isVisible(10000,"Current password");
+		tbOldPassword.type(password,"Current password");
+		tbNewPassword.type(newPassword,"New Password");
+		tbConfirmPassword.type(confirmPassword,"Confirm Password");
+		btnSave.click("Save");
+		waitForElementToInvisible(btnSave,75000);
+		SyncUtil.waitFor(30000);
 	}
 
 }

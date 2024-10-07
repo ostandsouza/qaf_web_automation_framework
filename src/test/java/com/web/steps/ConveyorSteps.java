@@ -4,10 +4,7 @@ import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
-import com.web.pages.ConveyorPage;
-import com.web.pages.CorporatePage;
-import com.web.pages.UsersPage;
-import com.web.pages.CoverWearPage;
+import com.web.pages.*;
 import groovyjarjarantlr4.v4.codegen.model.Sync;
 
 import java.util.List;
@@ -19,6 +16,7 @@ public class ConveyorSteps {
     ConveyorPage conveyorPage = new ConveyorPage();
     CorporatePage corporatePage = new CorporatePage();
     CoverWearPage coverWearPage=new CoverWearPage();
+    SitePage sitePage = new SitePage();
 
     UsersPage userpage = new UsersPage();
 
@@ -825,4 +823,69 @@ public class ConveyorSteps {
     public void addConveyorHistoryViewRights() {
         Validator.assertTrue(conveyorPage.verifyaddConveyorHistoryViewRights(), "Add Conveyor history option enabled for view rights", "Add Conveyor history option disabled for view rights");
     }
+    @QAFTestStep(description = "Verify that conveyor card is displayed in home page")
+    public void verifyConveyorCardDisplay () {
+        conveyorPage.clickConveyorCard();
+    }
+    @QAFTestStep(description = "Click on the conveyor card and verify it navigates to conveyor list screen")
+    public void verifyNavigationToConveyorListPage () {
+        conveyorPage.verifyConveyorListPageNaviagtion();
+    }
+    @QAFTestStep(description = "subscribe one conveyor {ConveyorName1} for the user")
+    public void searchAndSubscribeConveyor (String conveyorName) {
+//        SyncUtil.waitFor(20000);
+        conveyorPage.searchConveyor(conveyorName);
+        sitePage.subscribeSite(conveyorName);
+    }
+    @QAFTestStep(description = "Navigate to conveyorListPage and click on bellIcon")
+    public void navigateToConveyorPageAndBellIconClick()
+    {
+        conveyorPage.goToConveyorListScreenAndWait();
+        sitePage.bellIconClick();
+    }
+    @QAFTestStep(description = "Subscribe the conveyors {ConveyorName1} and {ConveyorName2}")
+    public void searchAndSubscribeTwoConveyors(String ConveyorName1,String ConveyorName2) {
+//        SyncUtil.waitFor(20000);
+        conveyorPage.searchConveyor(ConveyorName1);
+        sitePage.subscribeSite(ConveyorName1);
+        conveyorPage.searchConveyor(ConveyorName2);
+        sitePage.subscribeSite(ConveyorName2);
+    }
+    @QAFTestStep(description="Verify Conveyor History navigation bar fields")
+    public void verifyTheConveyorHistoryHeaderFields(){
+        conveyorPage.verifyConveyorHistoryHeaderFields();
+    }
+
+    @QAFTestStep(description = "Verify user is getting conveyor notification in last in first out format for {Value1} {Value2}")
+    public void clickAndVerifyNotificationConveyorOrder(String value1,String value2)
+    {
+        sitePage.bellIconClick();
+        conveyorPage.verifyNotificationConveyorOrder(value1,value2);
+    }
+    @QAFTestStep(description = "Verify user is getting inspection notification for {ConveyorName} with {CustSiteName} by {UserName}")
+    public void verifyTheInspNotification(String conveyorName,String siteName,String userName)
+    {
+        sitePage.bellIconClick();
+        conveyorPage.verifyInspNotification(conveyorName,siteName,userName);
+    }
+    @QAFTestStep(description = "Verify the pinned subscription list {Value}")
+    public void verifyThePinSubList(String value)
+    {
+        conveyorPage.verifyPinnedSubList(value);
+    }
+    @QAFTestStep(description = "Verify the unPinned subscription list {Value}")
+    public void verifyTheUnPinSubList(String value)
+    {
+        conveyorPage.verifyUnPinnedSubList(value);
+    }
+    @QAFTestStep(description = "Verify user can only see conveyor history of the particular subscribed conveyor {ConveyorName1} notification")
+    public void verifyConveyorHistoryForParticularConveyor(String conveyorName){
+        conveyorPage.verifyConveyorHistoryNav(conveyorName);
+    }
+    @QAFTestStep(description = "Verify Conveyor card details")
+    public void verifyTheConveyorCardDetails() {
+        conveyorPage.verifyConveyorCardDetails();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
@@ -191,6 +192,23 @@ public class MonitoringDevicePage extends BasePage {
 	public CustomElement disabledLinkIcon;
 	@FindBy(locator = "xpath=//button[@icon='ctp-icon-link']")
 	public CustomElement enabledLinkIcon;
+	@FindBy(locator = "xpath=(//button[@disabled]//span[text()='Actions'])[1]")
+	public CustomElement actionBtnDisabled;
+	@FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+	public CustomElement forwardNavBtn;
+	@FindBy(locator="xpath=//angledoublerighticon")
+	public CustomElement btPgDoubleForwardBtn;
+	@FindBy(locator="xpath=//angledoublelefticon")
+	public CustomElement btPgDoubleBackwardBtn;
+	@FindBy(locator="xpath=//p-dropdown//span")
+	public CustomElement paginationDropDownValue;
+
+	@FindBy(locator="xpath=//p-paginator//button[contains(@class,'p-highlight')]")
+	public CustomElement btPgHighlightedValue;
+	@FindBy(locator="xpath=(//th[@psortablecolumn][3]//div)[1]")
+	public CustomElement btxValue;
+	@FindBy(locator="xpath=//div[@class='p-multiselect-label']")
+	public CustomElement btyValue;
 
 	public void clickCarouselLeftIcon(){
 		waitForElementVisible(carouselLeftIcon,5000,500);
@@ -200,11 +218,11 @@ public class MonitoringDevicePage extends BasePage {
 		waitForElementVisible(carouselRightIcon,5000,500);
 		carouselRightIcon.click("Carsouel Right");
 	}
-	public void verifyBeltMonitoringDetails(){
+	public void verifyBeltMonitoringCardDetails(){
 		waitForElementVisible(monitoringDeviceCardHeader,5000,500);
 		Validator.assertTrue(monitoringDeviceCardHeader.isDisplayed(),"Monitoring Device Card is not visible","Monitoring Device Card is visible");
 		Validator.assertTrue(monitoringDeviceCardLogo.isDisplayed(),"Monitoring Device Logo is not visible","Monitoring Device Logo is visible");
-		Validator.assertTrue(DashboardPage.getInstance().apiBase.getMonitoringDeviceCount().get("count").toString().equals(monitoringDeviceCardCount.getText()),"Monitoring Device Card Count does not match","Monitoring Device Card Count matches");
+		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("count").toString().equals(monitoringDeviceCardCount.getText()),"Monitoring Device Card Count does not match","Monitoring Device Card Count matches");
 	}
 
 	public void goToMonitoringDeviceListScreen(){
@@ -553,5 +571,44 @@ public class MonitoringDevicePage extends BasePage {
 		waitForElementVisible(disabledLinkIcon,5000,1000);
 		Validator.assertTrue(disabledLinkIcon.isDisplayed(),"Link Icon is enabled","Link Icon is disabled");
 	}
+	public boolean verifyActionBtnIsEnabled(){
+		Validator.assertTrue(actionBtnDisabled.isNotVisible(5000),"Action button is disabled","Action button is enabled");
+		return actionBtnDisabled.isNotVisible(10000);
+	}
+	public boolean verifyActionBtnIsDisabled(){
+		Validator.assertTrue(actionBtnDisabled.isVisible(5000),"Action button is enabled","Action button is disabled");
+		return actionBtnDisabled.isVisible(10000);
+	}
+	public void validateForwardNavInEachRow(){
+		Validator.assertTrue(forwardNavBtn.isVisible(5000),"Forward button is not displayed","Forward button is displayed");
+		int noOfViewIcon = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?=\\s+of)"));
+
+		for (int i = 1; i <= noOfViewIcon; i++) {
+			Validator.assertTrue(driver.findElement(By.xpath("(//button[@icon='ctp-icon-Arrow-Right'])[" + i + "]")).isDisplayed(),
+					"Forward button at position " + i + " is not displayed",
+					"Forward button at position " + i + " is displayed");
+		}
+	}
+	public void validateCountWrtPagination(){
+		int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("count").equals(deviceCount),"Monitoring Device Count does not match","Monitoring Device  Count matches");
+	}
+	public void verifyPaginationDoubleForwardArrowButton(){
+		waitForElementVisible(btPgDoubleForwardBtn,5000,1000);
+		waitForElementToBeClickable(btPgDoubleForwardBtn);
+		btPgDoubleForwardBtn.jsClick();
+		int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		int multiple = Integer.parseInt(paginationDropDownValue.getText());
+		double result = (double) deviceCount / multiple;
+		int finalResult = (result % 1 > 0) ? (int) result + 1 : (int) result;
+		Validator.assertTrue(btPgHighlightedValue.getText().contains(String.valueOf(finalResult)),"Pagination is not present at end","Pagination is present at end");
+	}
+	public void verifyPaginationDoubleBackwardArrowButton(){
+		waitForElementVisible(btPgDoubleBackwardBtn,5000,1000);
+		waitForElementToBeClickable(btPgDoubleBackwardBtn);
+		btPgDoubleBackwardBtn.jsClick();
+		Validator.assertTrue(btPgHighlightedValue.getText().contains("1"),"Pagination is not present at start","Pagination is present at start");
+	}
+
 
 }

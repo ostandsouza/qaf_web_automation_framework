@@ -651,7 +651,135 @@ Scenario: Verify update functionality for Conveyor lite page
     And Update the fields of Conveyor-Lite page and verify user is able to update the fields
     And Click on update button and verify all changes are saved and navigated to conveyor list page
 
+@CTCP-1208
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Company_Navigation
+Scenario: Navigate to Conveyors List table from home page with specific User
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    Then  Verify that conveyor card is displayed in home page
+    And Click on the conveyor card and verify it navigates to conveyor list screen
 
+@CTCP-1217
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify notification order after login with other user and try to update the data on multiple subscribed sites
 
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Subscribe the conveyors '${ConveyorName1}' and '${ConveyorName2}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And Edit Conveyor belt width value '${BeltWidth1}'
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName2}'
+    And Edit Conveyor belt width value '${BeltWidth2}'
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify user is getting conveyor notification in last in first out format for '${ConveyorName2}' '${ConveyorName1}'
+    And Navigate to conveyor list screen
+    And wait for conveyors to load
+    And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
+
+@Regression29 @CTCP-1220
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the page after Click on 'View more' from Notification bell icon.
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyorListPage and click on bellIcon
+    Then Click on View more button and verify the fields in notification list page
+
+@Regression29 @CTCP-1223
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the result after providing dates under fromDate toDate
+
+    Given User is at Login page
+    When Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyorListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Verify user is unable to add toDate '${ToDate}' less than fromDate '${FromDate}'
+
+@Regression29 @CTCP-1231
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the fields on the page after Click on 'Conveyor History' from specific site.
+
+    Given User is at Login page
+    When Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And User clicks on Conveyor History
+    And Verify Conveyor History navigation bar fields
+
+@Regression29 @CTCP-1232
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the functionality after performing any Inspection on subscribed Conveyor
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe one conveyor '${ConveyorName1}' for the user
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Add the inspection Event for conveyor '${ConveyorName1}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    And Navigate to inspection list screen
+    And Search and verify the '${InspectionName}' is present
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify user is getting inspection notification for '${ConveyorName1}' with '${CustSiteName}' by '${FullName}'
+    And Navigate to conveyor list screen
+    And wait for conveyors to load
+    And Unsubscribe the site '${ConveyorName1}'
+
+@CTCP-1236
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Subscribe multiple conveyors while click on pin location icon and verify the subsc
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Subscribe the conveyors '${ConveyorName1}' and '${ConveyorName2}'
+    And Click on Clear filter Icon
+    And wait for conveyors to load
+    Then Verify the pinned subscription list '${ConveyorName1}'
+    And Verify the pinned subscription list '${ConveyorName2}'
+    And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
+
+@CTCP-1239
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the functionality for Login with other user at Account level contains sam
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Subscribe the conveyors '${ConveyorName1}' and '${ConveyorName2}'
+    And Click on Clear filter Icon
+    And wait for conveyors to load
+    Then Verify the pinned subscription list '${ConveyorName1}'
+    And Verify the pinned subscription list '${ConveyorName2}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Navigate to conveyor list screen
+    And wait for conveyors to load
+    And Search and verify the '${ConveyorName1}' is present
+    Then Verify the unPinned subscription list '${ConveyorName1}'
+    And Search and verify the '${ConveyorName2}' is present
+    And Verify the unPinned subscription list '${ConveyorName2}'
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Navigate to conveyor list screen
+    And wait for conveyors to load
+    And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
 

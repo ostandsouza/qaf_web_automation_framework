@@ -29,7 +29,7 @@ Feature: Beltforms
     And Click the checkbox in the row table
     And Verify Action button is enabled without delete edit and scan option
 
-  @CTCP-392
+  @CTCP-392 @CTCP-527
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Monitoring_Device_Details
@@ -41,6 +41,7 @@ Feature: Beltforms
     When Apply sorting or filter on column name '${cloumnName}' '${filterName}' '${filter}'
     Then Verify that the filter is applied for '${cloumnName}' '${filter}'
     And Click on clear filter and verify filter '${cloumnName}' is removed
+    And Verify the monitoring device count with respect to pagination
 
   @CTCP-398
   @dataFile:resources/data/TestData.xls
@@ -138,3 +139,39 @@ Feature: Beltforms
     And Add the non-mandatory fields for device with '${Brand}' '${SerialNumber}' '${RemoteConnection}' '${CommisioningDate}' and '${BeltConveyorSaves}' and '${FirmWareVersion}' and '${SystemLink}'
     And Click on save button and verify device '${DeviceName}' is created successfully
     And Validate Access Link Icon is disabled for Monitoring Device
+
+  @Regression8 @CTCP-413
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Monitoring_Device_AddDevice
+  Scenario: Verify the forward navigation symbol present in each row
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    Then  Navigate to Belt Monitoring List screen
+    And Validate the forward navigation symbol in each row
+
+  @CTCP-521
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Monitoring_Device_AddDevice
+  Scenario: Verify the card of conveyor Home page
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    Then Verify user is on the home page of the application
+    And Verify Conveyor card details
+
+  @CTCP-551
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Monitoring_Device_AddDevice
+  Scenario: Verify the forward and backward navigation symbol present in the bottom of the table
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    Then Navigate to Belt Monitoring List screen
+    And Verify pagination forward arrow button
+    And Verify pagination backward arrow button
+    And Verify pagination double forward arrow button
+    And Verify pagination double backward arrow button

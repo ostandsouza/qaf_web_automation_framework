@@ -474,6 +474,8 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator="xpath=//button//span[text()='Actions']")
 	public CustomElement btnActions;
+	@FindBy(locator = "xpath=//span[text()='Clear Filters']")
+	public CustomElement clearFilterBtn;
 
 	public void goToInspection() {
 		if(!lnkInspection.isVisible())
@@ -701,6 +703,7 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(tbInspectionName);
 		SyncUtil.waitFor(1500);
 		tbInspectionName.type(newInspName);
+		SyncUtil.waitFor(2000);
 		saveInspectionEvent();
 	}
 
@@ -1394,6 +1397,19 @@ public class InspectionPage extends BasePage {
 		waitForElementVisible(btnExportInspection, 10000,500);
 		Validator.assertTrue(btnExportInspection.isVisible() && btnExportPDFIcon.isVisible(),"User is not able to see Export PDF along with PDF Symbol","User is able to see Export PDF along with PDF Symbol");
 
+	}
+	public void searchResult(String search) {
+		waitForPageLoad(10000);
+		SyncUtil.waitFor(10000);
+		btSearchinput.type(search, "Inspection Search");
+		waitForElementToDisplay(cbCheckbox);
+		Validator.assertTrue(cbCheckbox.isDisplayed(), "Result is not found", "Result is found");
+	}
+	public void clickClickFilter() {
+		waitForElementVisible(clearFilterBtn,5000,1000);
+		Validator.assertTrue(clearFilterBtn.isDisplayed(), "Clear Button is not found", "Clear Button is found");
+		clearFilterBtn.click();
+		waitForPageLoad(10000);
 	}
 
 }

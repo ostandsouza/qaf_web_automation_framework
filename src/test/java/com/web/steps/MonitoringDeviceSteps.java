@@ -25,8 +25,8 @@ public class MonitoringDeviceSteps {
         monitoringDevicePage.clickCarouselRightIcon();
     }
     @QAFTestStep(description = "Verify Belt Monitoring card details")
-    public void verifyTheBeltMonitoringDetails() {
-        monitoringDevicePage.verifyBeltMonitoringDetails();
+    public void verifyTheBeltMonitoringCardDetails() {
+        monitoringDevicePage.verifyBeltMonitoringCardDetails();
     }
 
     @QAFTestStep(description = "Navigate to Belt Monitoring List screen")
@@ -51,21 +51,20 @@ public class MonitoringDeviceSteps {
     }
     ///
     @QAFTestStep(description="Verify that the filter is applied for {cloumnName} {filter}")
-    public void verifyFilterOrSorting(String cloumnName,String filter){
+    public void verifyTheFilterOrSorting(String cloumnName,String filter){
         SyncUtil.waitFor(40000);
         int noOfCoverWears = Integer.parseInt(MiscUtils.regexExtractor(monitoringDevicePage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-        System.out.println("calling before verifyColumnFilterClick "+noOfCoverWears);
         monitoringDevicePage.verifyColumnFilterClick(noOfCoverWears,cloumnName,filter);
     }
 
     @QAFTestStep(description="Click on clear filter and verify filter {cloumnName} is removed")
-    public void clearFilterAndVerify(String cloumnName){
+    public void clearTheFilterAndVerify(String cloumnName){
         monitoringDevicePage.clearFilterClick();
         monitoringDevicePage.verifyFilterIsRemoved(cloumnName);
     }
 
     @QAFTestStep(description="Apply sorting or filter on column name {cloumnName} {filterName} {filter}")
-    public void applyFilterOrSorting(String cloumnName,String filterName,String filter){
+    public void applyTheFilterOrSorting(String cloumnName,String filterName,String filter){
         System.out.println(cloumnName+filterName+filter);
         monitoringDevicePage.applyColumnFilterClick(cloumnName,filterName,filter);
     }
@@ -159,6 +158,25 @@ public class MonitoringDeviceSteps {
     public void validateAccessLinkDisabled()
     {
         monitoringDevicePage.validateLinkIsDisabledInMonDev();
+    }
+    @QAFTestStep(description = "Validate the forward navigation symbol in each row")
+    public void validateTheForwardNavInEachRow()
+    {
+        monitoringDevicePage.validateForwardNavInEachRow();
+    }
+ @QAFTestStep(description = "Verify the monitoring device count with respect to pagination")
+    public void validateTheCountWrtPagination()
+    {
+        monitoringDevicePage.validateCountWrtPagination();
+    }
+
+    @QAFTestStep(description="Verify pagination double forward arrow button")
+    public void verifyThePaginationForwardDoubleBtn(){
+        monitoringDevicePage.verifyPaginationDoubleForwardArrowButton();
+    }
+    @QAFTestStep(description="Verify pagination double backward arrow button")
+    public void verifyThePaginationBackwardDoubleBtn(){
+        monitoringDevicePage.verifyPaginationDoubleBackwardArrowButton();
     }
 
 }

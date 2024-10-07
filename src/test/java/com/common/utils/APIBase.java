@@ -83,6 +83,24 @@ public class APIBase {
         tearDown();
         return val;
     }
+    public boolean isFirstSignIn(String email) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("profile_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        if(email != null)
+            queryMaps.put("email", email);
+        headersMap.put("usertoken",accessToken);
+        Map<String, String> profilePaths = JsonReader.getMapTestData("path", "profile_controller");
+        restApiHelper.makeGetRequest(profilePaths.get("profile"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Boolean val = null;
+        if(profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = (boolean) jsnPath.getMap("data[0]").get("isFirstSignIn");
+        }
+        tearDown();
+        return val;
+    }
 
     public void deleteProfileAPI(String userId) {
         configureRestAssured();
@@ -656,9 +674,24 @@ public class APIBase {
         Map<String, Object> val = null;
         if (profileResponse.getStatusCode() == 200) {
             JsonPath jsnPath = profileResponse.jsonPath();
-            System.out.println(jsnPath+"jsnPath");
-
-
+            val = jsnPath.getMap("$"); // This extracts the full JSON response into a Map
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getConveyorCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("conveyor_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "conveyor_controller");
+        restApiHelper.makeGetRequest(monitoringPaths.get("conveyor_count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        System.out.println(profileResponse+"profileResponse");
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$"); // This extracts the full JSON response into a Map
         }
         tearDown();
         return val;

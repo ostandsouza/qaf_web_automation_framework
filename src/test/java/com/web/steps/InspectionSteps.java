@@ -539,6 +539,14 @@ public class InspectionSteps {
 		inspectionpage.verifyInspectionDashboardContents(siteName,corp);
 		MiscUtils.deleteDownloadedFiles(corp+"-inspection-dashboard.pdf");
 	}
+	@QAFTestStep(description = "Search and verify the {Value} is present")
+	public void searchTheResult(String value) {
+		inspectionpage.searchResult(value);
+	}
+	@QAFTestStep(description = "Click on Clear filter Icon")
+	public void clickTheClickFilter() {
+		inspectionpage.clickClickFilter();
+	}
 }
 
 

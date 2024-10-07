@@ -167,16 +167,16 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//button//span[text()='Edit']")
     public CustomElement cwEditSpec;
 
-    @FindBy(locator="xpath=//label[text()='Belt Width (']/parent::div//input")
+    @FindBy(locator="xpath=//label[text()='Belt Width']/parent::div//input")
     public CustomElement cwBeltWidth;
 
-    @FindBy(locator="xpath=//label[text()='Belt Length (']/parent::div//input")
+    @FindBy(locator="xpath=//label[text()='Belt Length']/parent::div//input")
     public CustomElement cwBeltLength;
 
-    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal (']/parent::div//input)[2]")
+    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal']/parent::div//input)[2]")
     public CustomElement cwTopCoverThicknessInput;
 
-    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness Nominal (']/parent::div//input)[2]")
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness Nominal']/parent::div//input)[2]")
     public CustomElement cwBottomCoverThicknessInput;
 
     @FindBy(locator="xpath=(//label[text()='Top Cover Compound']/parent::div//input)[1]/../following-sibling::span")
@@ -185,10 +185,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//label[text()='Bottom Cover Compound']/parent::div//input)[1]/../following-sibling::span")
     public CustomElement cwBottomCoverCompoundInput;
 
-    @FindBy(locator="xpath=//label[text()='Top Cover Thickness Nominal (']/parent::div//div[@role='button']")
+    @FindBy(locator="xpath=//label[text()='Top Cover Thickness Nominal ']/parent::div//div[@role='button']//*[name()='svg']")
     public CustomElement cwTopCoverThickness;
 
-    @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal (']/parent::div//div[@role='button']")
+    @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal ']/parent::div//div[@role='button']//*[name()='svg']")
     public CustomElement cwBottomCoverThickness;
 
     @FindBy(locator="xpath=//label[text()='Durometer (New Belt)']/parent::div//input")
@@ -508,7 +508,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//anglerighticon")
     public CustomElement btPgNext;
 
-    @FindBy(locator="xpath=//button[@class='p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted p-highlight']")
+    @FindBy(locator="xpath=//p-paginator//button[contains(@class,'p-highlight')]")
     public CustomElement btPgHighlightedValue;
 
     @FindBy(locator="//div[@role='dialog']")
@@ -1998,8 +1998,10 @@ public class CoverWearPage extends BasePage{
     public void verifyPaginationForwardArrowButton(){
         waitForElementVisible(btPgNext,5000,1000);
         waitForElementToBeClickable(btPgNext);
+        int highlightedValue= Integer.parseInt(btPgHighlightedValue.getText());
         btPgNext.jsClick();
-        Validator.assertTrue(btPgHighlightedValue.getText().contains("2"),"Pagination is not present at 2","Pagination is present at 2");
+        int expectHighlightedValue= highlightedValue+1;
+        Validator.assertTrue(btPgHighlightedValue.getText().contains(String.valueOf(expectHighlightedValue)),"Pagination is not present at 2","Pagination is present at 2");
     }
 
     public void clickAdd(){

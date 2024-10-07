@@ -83,7 +83,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
     public CustomElement tbAssociatedSitedropdown;
 
-    @FindBy(locator= "xpath=//p-dropdown[@datakey='companyId']/div/div[2]")
+    @FindBy(locator= "xpath=//p-dropdown[@datakey='companyId']/div/div")
     public CustomElement drDistShopdropdown;
 
     @FindBy(locator = "xpath=//span[@class='p-menuitem-text ng-star-inserted'][text()='Home']")
@@ -1066,7 +1066,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//anglelefticon")
     public CustomElement btPgPrev;
 
-    @FindBy(locator="xpath=//button[@class='p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted p-highlight']")
+    @FindBy(locator="xpath=//p-paginator//button[contains(@class,'p-highlight')]")
     public CustomElement btPgHighlightedValue;
 
     @FindBy(locator = "xpath=//span[text()='Bulk Import']")
@@ -1108,6 +1108,45 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator="xpath=//tbody//td[5]")
     public CustomElement hdCorporateValue;
+
+    @FindBy(locator="xpath=(//app-card//div[text()='Conveyors'])[1]")
+    public CustomElement conveyorCardHeader;
+    @FindBy(locator="xpath=//p-multiselect//div[text()=' By Author ']")
+    public CustomElement chHeaderByAuthor;
+
+    @FindBy(locator="xpath=//p-multiselect//div[text()=' By Event ']")
+    public CustomElement chHeaderByEvent;
+
+    @FindBy(locator = "xpath=(//p-calendar[@placeholder='MM/DD/YYYY']//input)[1]")
+    public CustomElement tbFromDate;
+
+    @FindBy(locator = "xpath=(//p-calendar[@placeholder='MM/DD/YYYY']//input)[2]")
+    public CustomElement tbToDate;
+
+    @FindBy(locator = "xpath=//span[@class='p-button-icon pi pi-refresh']")
+    public CustomElement btnRefresh;
+
+    @FindBy(locator="xpath=//span[contains(@class,'ctp-icon-sort-icon-down')]")
+    public CustomElement btnSort;
+
+    @FindBy(locator = "xpath=//button[@icon='ctp-icon-Clear-Filters']")
+    public CustomElement btnFilter;
+    @FindBy(locator = "xpath=//button[@aria-label='collapse button']")
+    public CustomElement btnCollapse;
+    @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//i[@class='ctp-icon-Open-Inspections-Items']")
+    public CustomElement inspNotification;
+    @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[1]")
+    public CustomElement notificationSiteName;
+    @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[2]")
+    public CustomElement notificationConveyorName;
+    @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[3]")
+    public CustomElement notificationUserName;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyors'])[1]/../div/div/div/div/i")
+    public CustomElement conveyorCardLogo;
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyors'])[1]/../div/div/div/span")
+    public CustomElement conveyorCardCount;
+
 
     String[] columnNames={"Name","Site","Corporate","Last Modified","Installed Belt","Remaining Life by Time","Remaining Cover %","Inspection Items",
             "Belt Manufacturer","Number of Plies","Number of Cords","Cord Pitch","Cord Diameter","Length","Splice Type","Splice Quantity","Installation Date","Belt Speed","Tons Per Hour Peak","Material",
@@ -1251,6 +1290,7 @@ public class ConveyorPage extends BasePage{
 
 
     public void goToConveyorDetailScreen(String conveyorName) {
+
         searchConveyor(conveyorName);
         waitForElementToDisplay(crviewicon);
         crviewicon.click("Conveyor Detail");
@@ -2678,8 +2718,10 @@ public class ConveyorPage extends BasePage{
     public void verifyPaginationBackwardArrowButton(){
         waitForElementVisible(btPgPrev,5000,1000);
         waitForElementToBeClickable(btPgPrev);
+        int highlightedValue= Integer.parseInt(btPgHighlightedValue.getText());
         btPgPrev.jsClick();
-        Validator.assertTrue(btPgHighlightedValue.getText().contains("1"),"Pagination is not present at 2","Pagination is present at 2");
+        int expectHighlightedValue= highlightedValue-1;
+        Validator.assertTrue(btPgHighlightedValue.getText().contains(String.valueOf(expectHighlightedValue)),"Pagination is not present at 1","Pagination is present at 1");
     }
     public void verifyPaginationFormat(){
         waitForElementVisible(pagination,5000,1000);
@@ -2809,6 +2851,82 @@ public class ConveyorPage extends BasePage{
         crSave.click();
         waitForPageLoad(10000);
     }
+    public void clickConveyorCard() {
+        waitForPageLoad(20000);
+        waitForElementVisible(conveyorCardHeader, 20000, 500);
+        waitForElementToBeClickable(conveyorCardHeader);
+        conveyorCardHeader.jsClick();
+        waitForPageLoad(20000);
+    }
+    public void verifyConveyorListPageNaviagtion() {
+        waitForPageLoad(20000);
+        waitForElementVisible(conveyorHeader, 20000, 500);
+        Validator.assertTrue(conveyorHeader.isVisible(), "user is not navigated to conveyor list page", "user is  navigated to conveyor list page");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/secure/dashboard/conveyors"), "User is not navigated to conveyor list page", "User is  navigated to conveyor list page");
+    }
+
+    public void verifyNotificationConveyorOrder(String value1,String value2) {
+        String updatedConveyor1 = "(//app-notification-item//div[contains(@class,\"notification\")])[2]//div[2]//div[text()='"+value1+"']";
+        String updatedConveyor2 = "(//app-notification-item//div[contains(@class,\"notification\")])[4]//div[2]//div[text()='"+value2+"']";
+        System.out.println(updatedConveyor2+updatedConveyor1);
+        Validator.assertTrue(driver.findElement(By.xpath(updatedConveyor1)).isDisplayed() && driver.findElement(By.xpath(updatedConveyor2)).isDisplayed(), "notification is not  in last in first out format", "notification in last in first out format");
+    }
+
+    public void verifyConveyorHistoryHeaderFields() {
+        setImplicitWait(10000, TimeUnit.MILLISECONDS);
+        waitForElementVisible(chHeaderByAuthor, 20000, 500);
+        Validator.assertTrue(chHeaderByAuthor.isDisplayed(), "By Author Field is not visible", "By Author Field is visible");
+        Validator.assertTrue(chHeaderByEvent.isDisplayed(), "By Event Field is not visible", "By Event Field is visible");
+        Validator.assertTrue(tbFromDate.isDisplayed() && tbToDate.isDisplayed(), "From date and To date fields are not visible", "From date and To Date fields are  visible");
+        Validator.assertTrue(btnSort.isDisplayed(), "Sort button is not displayed", "Sort button is displayed");
+        Validator.assertTrue(btnFilter.isDisplayed(), "Sort button is not displayed", "Sort button is displayed");
+        Validator.assertTrue(btAddConveyorHistory.isDisplayed(), "Sort button is not displayed", "Sort button is displayed");
+        Validator.assertTrue(btnRefresh.isDisplayed(), "Refresh button is not displayed", "Refresh button is displayed");
+        Validator.assertTrue(btnCollapse.isDisplayed(), "Notifications List is not displayed", "Notifications List is displayed");
+
+    }
+    public void verifyInspNotification(String conveyorName,String siteName,String userName) {
+        setImplicitWait(10000, TimeUnit.MILLISECONDS);
+        Validator.assertTrue(inspNotification.isDisplayed(), "Inspection Notifications is not displayed", "Inspection Notifications is displayed");
+        Validator.assertTrue(notificationSiteName.getText().equalsIgnoreCase(siteName), "Inspection Site value misMatch", "Inspection Site value matched");
+        Validator.assertTrue(notificationConveyorName.getText().equalsIgnoreCase(conveyorName), "Inspection Conveyor value misMatch", "Inspection Conveyor value matched");
+        Validator.assertTrue(notificationUserName.getText().contains(userName), "Inspection User value misMatch", "Inspection User value matched");
+    }
+ public void verifyPinnedSubList(String value) {
+     String pinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-red')]";
+     Validator.assertTrue(driver.findElement(By.xpath(pinnedValue)).isDisplayed(), "Pinned Value is not displayed", "Pinned Value is displayed");
+    }
+public void verifyUnPinnedSubList(String value) {
+     String unPinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-gray')]";
+     Validator.assertTrue(driver.findElement(By.xpath(unPinnedValue)).isDisplayed(), "UnPinned Value is not displayed", "UnPinned Value is displayed");
+    }
+    public void verifyConveyorHistoryNav(String conveyorName){
+        SyncUtil.waitFor(5000);
+        waitForPageLoad(10000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("/conveyor-history"),"User is not navigated to conveyor history page","User is navigated to conveyor history page");
+        Validator.assertTrue(driver.findElement(By.xpath("//app-conveyor-history//div//h4[text()='"+conveyorName+"']")).isDisplayed(),"User is not navigated to conveyor history!","User is navigated to conveyor-history on clicking the new link");
+    }
+    public void verifyConveyorCardDetails(){
+        waitUntilConveyorCountLoads();
+        waitForElementVisible(conveyorCardHeader,5000,500);
+        Validator.assertTrue(conveyorCardHeader.isDisplayed(),"Conveyor Card is not visible","Conveyor Card is visible");
+        Validator.assertTrue(conveyorCardLogo.isVisible(),"Conveyor Logo is not visible","Conveyor Logo is visible");
+        Validator.assertTrue(apiBase.getConveyorCount().get("count").toString().equals(conveyorCardCount.getText()),"Conveyor Card Count does not match","Conveyor Card Count matches");
+    }
+    public void waitUntilConveyorCountLoads(){
+        int apiCount = Integer.parseInt(apiBase.getConveyorCount().get("count").toString());
+        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime();) {
+            int elementCount = Integer.parseInt(conveyorCardCount.getText());
+            if (elementCount == apiCount) {
+                System.out.println("Counts match! Exiting loop.");
+                break;
+            }
+            System.out.println("Waiting for counts to match. Current element count: " + elementCount + ", API count: " + apiCount);
+
+            SyncUtil.waitFor(5000);
+        }
+
+         }
 
 
 }

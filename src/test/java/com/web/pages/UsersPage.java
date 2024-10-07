@@ -98,16 +98,13 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//div[@aria-label='All']//div[contains(@class,'p-checkbox')]")
 	public CustomElement eleCheckboxMT;
 
-	@FindBy(locator = "xpath=//div[@aria-label='APAC']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//li[@aria-label='APAC']")
 	public CustomElement cbCheckboxAPAC;
-
-	@FindBy(locator = "xpath=//div[@aria-label='EMEA']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//li[@aria-label='EMEA']")
 	public CustomElement cbCheckboxEMEA;
-
-	@FindBy(locator = "xpath=//div[@aria-label='South America']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//li[@aria-label='South America']")
 	public CustomElement cbCheckboxSA;
-
-	@FindBy(locator = "xpath=//div[@aria-label='North America']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//li[@aria-label='North America']")
 	public CustomElement cbCheckboxNA;
 
 	@FindBy(locator = "xpath=//span[text()='Australia']")
@@ -228,10 +225,9 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//input[@class='p-tree-filter p-inputtext p-component']")
 	public CustomElement tbSearch;
 
-	@FindBy(locator="xpath=(//div[@aria-label='ALL']/div)[1]")
+	@FindBy(locator="xpath=(//li[@aria-label='ALL']/div)[1]")
 	public CustomElement distShopCheckbox;
-
-	@FindBy(locator="xpath=(//div[@aria-label='ALL']/div)[2]")
+	@FindBy(locator="xpath=(//li[@aria-label='ALL']/div)[2]")
 	public CustomElement custShopCheckbox;
 
 	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
