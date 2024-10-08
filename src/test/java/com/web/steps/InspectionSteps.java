@@ -539,6 +539,9 @@ public class InspectionSteps {
 		inspectionpage.verifyInspectionDashboardContents(siteName,corp);
 		MiscUtils.deleteDownloadedFiles(corp+"-inspection-dashboard.pdf");
 	}
+	@QAFTestStep(description = "Click on Clear filter Icon")
+	public void clickTheClickFilter()
+	{inspectionpage.clickClickFilter();}
 }
 
 

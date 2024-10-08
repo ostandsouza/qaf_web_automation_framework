@@ -3,6 +3,7 @@ package com.web.pages;
 import com.common.component.CustomElement;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -127,6 +128,12 @@ public class SitePage  extends BasePage {
 
     @FindBy(locator = "xpath=//div[contains(@class,'p-panel-content')]//div//p-skeleton")
     public CustomElement notificationListRefresh;
+    @FindBy(locator = "xpath=//app-notification-item//div[text()=' Mark all as Read ']")
+    public CustomElement markAllAsReadText;
+    @FindBy(locator = "//div//button//span[text()=\"Actions\"]/..//following-sibling::button//chevrondownicon")
+    public CustomElement btnNotificationAction;
+    @FindBy(locator = "//p-tieredmenusub//li//a[.//span[contains(@class, 'pi-eye')] and .//span[text()=\"Mark all as Read\"]]")
+    public CustomElement btnNotificationActionDropDwn;
 
 
     public void goToSiteListScreen() {
@@ -203,8 +210,10 @@ public class SitePage  extends BasePage {
 //    }
     public void subscribeSite(String siteName) {
         waitForElementVisible(subscribePinIcon, 10000, 500);
-        subscribePinIcon.click();
-        setImplicitWait(20000, TimeUnit.MILLISECONDS);
+        waitForElementToBeClickable(subscribePinIcon);
+        subscribePinIcon.click("conveyor");
+        SyncUtil.waitFor(6000);
+        setImplicitWait(30000, TimeUnit.MILLISECONDS);
         waitForElementToDisplay(subscribedPinIcon);
         Validator.assertTrue(subscribedPinIcon.isDisplayed(), "The site is not subscribed", "The site is subscribed");
 
@@ -212,12 +221,13 @@ public class SitePage  extends BasePage {
 
     public void unSubscribe(String siteName) {
         btSearchinput.type(siteName, "site Search");
-        waitForElementVisible(subscribedPinIcon, 10000, 500);
+        waitForElementVisible(subscribedPinIcon, 50000, 500);
         subscribedPinIcon.click();
+        SyncUtil.waitFor(6000);
+        setImplicitWait(30000, TimeUnit.MILLISECONDS);
         waitForElementToDisplay(subscribePinIcon);
-        Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed", "subscription is removed");
-
-    }
+        Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed",
+                "subscription is removed");}
 
     public void searchSiteAndNavigate(String siteName) {
         searchSite(siteName);
@@ -246,7 +256,10 @@ public class SitePage  extends BasePage {
     public void bellIconClick() {
         waitForElementVisible(bellIcon, 10000, 500);
         bellIcon.click();
+        notificationPopup.isVisible(10000,"Notification popup");
         Validator.assertTrue(notificationPopup.isDisplayed(), "Notification popup is not displayed", "Notification popup is displayed");
+        Validator.assertTrue(markAllAsReadText.isVisible(10000,"Mark all as Read"),"Mark all as Read is not visible under notification menu!",
+                "Mark all as Read is visible under notification menu!");
 
     }
 
@@ -257,25 +270,38 @@ public class SitePage  extends BasePage {
     }
 
     public int extractNotificationCount() {
-        waitForElementVisible(notificationsCount, 20000, 500);
-        int notificationCount = parseInt(notificationsCount.getText());
-        System.out.println(notificationCount + "notificationCount");
+        int notificationCount=0;
+        if(notificationsCount.isNotVisible(10000))
+        {
+            Reporter.log("No new notification");
+        }
+        else if(notificationsCount.isVisible(10000,"notification count")){
+            notificationCount = parseInt(notificationsCount.getText());
+            System.out.println(notificationCount + "notificationCount");
 //        getBundle().setProperty("notificationCnt",notificationCount);
+        }
         return notificationCount;
+
     }
 
     public void extractNotificationCountBefore() {
         int beforeSubscriptionCount = extractNotificationCount();
-        System.out.println(beforeSubscriptionCount + "beforeSubscriptionCount");
+        Reporter.log("Initial notification count is-'"+beforeSubscriptionCount);
         getBundle().setProperty("notificationCntBefore", beforeSubscriptionCount);
 
     }
 
     public void extractNotificationCountAfter() {
         int afterSubscriptionCount = extractNotificationCount();
-        System.out.println(afterSubscriptionCount + "afterSubscriptionCount");
+        Reporter.log("Notification count after update is-'"+afterSubscriptionCount);
         getBundle().setProperty("notificationCntAfter", afterSubscriptionCount);
-
+    }
+    public void verifyUserNotificationCountAfterUpdate()
+    {
+        int notificationCountBefore = Integer.parseInt(getBundle().getProperty("notificationCntBefore").toString());
+        notificationCountBefore+=1;
+        extractNotificationCountAfter();
+        Validator.assertTrue(getBundle().getProperty("notificationCntAfter").equals(notificationCountBefore), "User has not received new notification", "User received new notification");
     }
 
     public void verifyUserNotificationCount() {
@@ -393,4 +419,25 @@ public class SitePage  extends BasePage {
         Validator.assertTrue(notificationListRefresh.isDisplayed(),"Notification list is not getting refreshed","Notification List is getting refreshed");
 
     }
+    public void verifyNotificationsActionBtn()
+    {
+        Validator.assertTrue(btnNotificationAction.isVisible(10000,"Action Button"),"Action button is not visible in the notification list page!",
+                "Action button is  visible in the notification list page!" );
+    }
+    public void markAllAsReadLnkClick()
+    {
+        waitForElementToBeClickable(markAllAsReadText);
+        markAllAsReadText.click("Mark All As Read");
+    }
+    public void actionBtnClickAndVerifySymbol()
+    {
+        scrollPageup();
+        verifyNotificationsActionBtn();
+        btnNotificationAction.click("Action");
+        Validator.assertTrue(btnNotificationActionDropDwn.isVisible(10000,"Action DropDown"),"User is not able to see the Mark all as read along with eye symbol!",
+                "User is  able to see the Mark all as read text along with eye symbol!");
+
+
+    }
+
 }

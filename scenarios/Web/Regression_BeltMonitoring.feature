@@ -65,7 +65,7 @@ Scenario: Verify the filter functionality in DeviceName
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     Then  Navigate to Belt Monitoring List screen
-    And Click on the filter icon and verify all fields are visible
+    And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
 
 @Regression5 @CTCP-412
 @dataFile:resources/data/TestData.xls
@@ -321,6 +321,33 @@ Scenario: Verify the device type names space is removed between the names
     And Click on cancel button and verify navigation to monitoring device list page
     And Search for the device '${DeviceName}' and navigate to view device page
     And Verify the deviceType '${DeviceType}' in monitoring device view page
+
+@Regression8 @CTCP-394 @CTCP-396 @CTCP-397
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:BeltMonitoring_EditDevice
+Scenario: verify the functionality of column selection filter button
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    Then  Navigate to Belt Monitoring List screen
+    And Verify column selection filter is visible
+    And Click on the column name filter and verify searchBar all columnNames with checkbox and cross button is visible
+    And Verify user is able to see the column names selected by default
+    And Select only two columns and verify the selected columns are visible in the table
+
+
+ @Regression8 @CTCP-402
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:BeltMonitoring_EditDevice
+ Scenario: Click and verify the filter Icon in all default columns
+
+     Given User is at Login page
+     When  Login with '${UserName}' and '${Password}'
+     Then  Navigate to Belt Monitoring List screen
+     And Click on each column header and verify filter icon fields
+
 
 
 

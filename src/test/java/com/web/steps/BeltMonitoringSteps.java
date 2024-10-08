@@ -207,6 +207,18 @@ public class BeltMonitoringSteps {
     {
         monitoringDevicePage.verifyDeviceTypeInViewMode(deviceType);
     }
+    @QAFTestStep(description = "Verify user is able to see the column names selected by default")
+    public void verifyDefaultCbxSelectedInMonitoringDeviceFilter()
+    {
+        conveyorPage.verifyCheckedColumnNames();
+    }
+    @QAFTestStep(description = "Select only two columns and verify the selected columns are visible in the table")
+    public void selectTwoColumnsAndVerifyTable()
+    {
+        conveyorPage.selectTwoColumnsAndVerify();
+        conveyorPage.verifySelectedColumnDisplay("multiple");
+        conveyorPage.verifySelectedColumnDisplay("single");
+    }
 
 
 

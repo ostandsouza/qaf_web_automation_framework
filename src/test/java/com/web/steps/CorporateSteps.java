@@ -5,12 +5,14 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
 import com.web.pages.CorporatePage;
+import com.web.pages.MonitoringDevicePage;
 import com.web.pages.UsersPage;
 
 public class CorporateSteps {
 
     CorporatePage corpPage = new CorporatePage();
     ConveyorPage conveyorPage = new ConveyorPage();
+    MonitoringDevicePage monitoringDevicePage=new MonitoringDevicePage();
 
 
 
@@ -437,4 +439,21 @@ public class CorporateSteps {
         corpPage.clickCreateBtn();
         corpPage.deleteCorporate(CompanyName);
     }
+
+    @QAFTestStep(description = "Verify action button is enabled when user has new notification")
+    public void verifyActionStatus()
+    {
+       Validator.assertTrue(monitoringDevicePage.verifyActionBtnIsEnabled(),"Action button is not enabled when user has new notification!","Action button is enabled when user has new notification!");
+    }
+    @QAFTestStep(description = "Verify action button is disabled when user has no new notification")
+    public void verifyActionButtonDisabled()
+    {
+        Validator.assertTrue(monitoringDevicePage.verifyActionBtnIsDisabled(),"Action button is not enabled when user has new notification!","Action button is disabled when user has no new notification!");
+    }
+    @QAFTestStep(description = "Verify the pinned subscription list {Value}")
+    public void verifyThePinSubList(String value){  corpPage.verifyPinnedSubList(value);}
+
+
+
 }
+

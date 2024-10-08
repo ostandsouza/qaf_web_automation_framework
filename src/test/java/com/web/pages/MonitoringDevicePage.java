@@ -188,9 +188,15 @@ public class MonitoringDevicePage extends BasePage {
             SyncUtil.waitFor(10000);
         }
     }
-    public void verifyActionBtnIsEnabled()
+    public boolean verifyActionBtnIsEnabled()
     {
-        Validator.assertTrue(actionBtnDisabled.isNotVisible(5000),"Action button is disabled by default","Action button is enabled by default");
+        Validator.assertTrue(actionBtnDisabled.isNotVisible(5000),"Action button is disabled","Action button is enabled");
+        return actionBtnDisabled.isNotVisible(10000);
+    }
+    public boolean verifyActionBtnIsDisabled()
+    {
+        Validator.assertTrue(actionBtnDisabled.isVisible(5000),"Action button is enabled","Action button is disabled");
+        return actionBtnDisabled.isVisible(10000);
     }
     public void verifyActionDropdownForSingleSelection()
     {
