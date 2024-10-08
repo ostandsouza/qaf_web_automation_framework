@@ -435,8 +435,6 @@ Scenario: Verify delete button functionality in add files section
 @key:Inspection_ExportFunction
 Scenario: Verify Export functionality under Inspection details screen.
 
-
-
     And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
     And Search for the InspectionItem '${ConveyorName}'
     Then Click on Export Button of InspectionItem and verify user is able to download pdf
@@ -585,8 +583,10 @@ Scenario: Verify inspection details screen for grouped view
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Download
-Scenario: Verify inspection details screen for list view
+Scenario: Verify zinspection details screen for list view
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When Navigate to inspection list screen and wait for data load
     Then Verify list inspection is selected on click
     And  Verify navigation of list inspection '${ConveyorName}'
@@ -700,29 +700,25 @@ Scenario: Verify inspection item map for conveyor does have location
 @key:Inspection_Navigation
 Scenario: Verify Inspection tile on home screen
 
-    And   Navigate to inspection list screen and wait for data load
+    And  Navigate to inspection list screen and wait for data load
     Then Verify inspection total count is displayed
     Then Verify number of the to be completed inspection is displayed
 
 @Regression43 @CTCP-774
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Inspection_Navigation
+@key:Inspection_Location
 Scenario: Verify permission for inspection module with specific user type
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to inspection list screen and wait for data load
     Then  Verify view add edit delete permission right for '${InspectionName}'
 
 @Regression44 @CTCP-775
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Inspection_Navigation
+@key:Inspection_Location
 Scenario: Verify permission for inspection module with master user type
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to inspection list screen and wait for data load
     Then  Verify view add edit delete permission right for '${InspectionName}'
 
@@ -732,8 +728,6 @@ Scenario: Verify permission for inspection module with master user type
 @key:Inspection_ListCount
 Scenario: Verify the inspection count
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     Then  Verify tile count for total critical poor fault good and to be completed
     When  Navigate to inspection list screen and wait for data load
     And   Verify the inspection count with list count
@@ -744,14 +738,15 @@ Scenario: Verify the inspection count
     And   Add inspection Item for conveyor '${ConveyorName3}' for '${InspectionName}' with '${AssetName4}' '${AssetDetail4}' '${FailureMode4}' '${Condition4}' '${Status}'
     When  Navigate to inspection list screen and wait for data load
     And   Verify the inspection count with list count
+    Then  Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${ChangeGood}','${ChangePoor}','${ChangeFault}','${ChangeCritical}'
     When  Add inspection Event for conveyor '${ConveyorName3}' with '${InspectionName1}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName3}' for '${InspectionName1}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status2}'
     And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName1}' with '${AssetName3}' '${AssetDetail3}' '${FailureMode3}' '${Condition3}' '${Status}'
     And   Add inspection Item for conveyor '${ConveyorName2}' for '${InspectionName1}' with '${AssetName4}' '${AssetDetail4}' '${FailureMode4}' '${Condition4}' '${Status}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName1}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status2}'
     When  Navigate to inspection list screen and wait for data load
-    Then  Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${ChangeGood}','${ChangePoor}','${ChangeFault}','${ChangeCritical}'
     And   Verify the inspection count with list count
+    Then  Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${ChangeGood}','${ChangePoor}','${ChangeFault}','${ChangeCritical}'
     When  Edit inspection Item status for '${ConveyorName1}' to '${EditStatus}'
     And   Edit inspection Item status for '${ConveyorName2}' to '${EditStatus}'
     And   Edit inspection Item status for '${ConveyorName3}' to '${EditStatus}'
@@ -762,3 +757,95 @@ Scenario: Verify the inspection count
     And   Delete inspection Item for '${ConveyorName3}'
     Then  Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${ChangeGood}','${ChangePoor}','${ChangeFault}','${ChangeCritical}'
     And   Verify the inspection count with list count
+
+@Regression46 @CTCP-778
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Location
+Scenario: Verify add new button functionality when no inspection name is given
+
+    And   Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    Then  Verify navigation to inspection tile
+    And   Navigate to Add Inspection screen from list screen
+    Then  Verify the add new button functionality
+    Then  Verify inspection item without mandatory fields
+
+@Regression47 @CTCP-779
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Location
+Scenario: Verify inspection item save functionality without mandatory fields
+
+    And   Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    Then  Verify navigation to inspection tile
+    And   Navigate to Add Inspection screen from list screen
+    Then  Verify inspection item without mandatory fields
+
+
+@Regression48 @CTCP-780
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Location
+Scenario: Verify download and view icons are visible in list screen
+
+    And   Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    Then  Verify navigation to inspection tile
+    Then  Verify download and view icons in list screen
+
+@Regression49 @CTCP-780
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Location
+Scenario: Verify download and view icons are visible in list screen
+
+    And   Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    Then  Verify navigation to inspection tile
+    Then  Verify download and view icons in list screen
+
+@Regression50 @CTCP-783
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Location
+Scenario: Verify image upload for inspection item
+
+    And   Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    Then  Verify navigation to inspection tile
+    Then  Verify image upload for inspection item '${img}'
+
+@Regression51 @CTCP-785
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Location
+Scenario: Verify delete uploaded image for inspection item
+
+    And   Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    Then  Verify navigation to inspection tile
+    Then  Verify image upload for inspection item '${img}'
+    Then  Verify delete uploaded image
+
+@Regression52 @CTCP-793
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Location
+Scenario: Verify inspection item list
+
+    When  Navigate to inspection list screen and wait for data load
+    And   Verify the inspection count with list count
+    Then  Verify count from inspection item list
+
+@Regression53 @CTCP-3651
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Temp
+Scenario: Verify inspection event for deleted conveyor
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    When Create a conveyor with '${ConveyorName}' and '${CustSiteName}'
+    When Navigate to site details for site '${CustSiteName}'
+    Then Verify navigation to inspection tile
+    And  Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}'
+    And  Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    And  Delete Conveyor from Conveyor list screen '${ConveyorName}'
+    Then Verify whether the inspection event '${InspectionName}' is deleted from list view
+

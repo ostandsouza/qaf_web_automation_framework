@@ -663,6 +663,12 @@ public class InspectionSteps {
 		String poor = String.valueOf((int) getBundle().getProperty("poor") + Integer.parseInt(changePoor));
 		String fault = String.valueOf((int) getBundle().getProperty("fault") + Integer.parseInt(changeFault));
 		String critical = String.valueOf((int) getBundle().getProperty("critical") + Integer.parseInt(changeCritical));
+		getBundle().setProperty("totalInspections",totalInspections);
+		getBundle().setProperty("toBeCompleted",toBeCompleted);
+		getBundle().setProperty("good",good);
+		getBundle().setProperty("poor",poor);
+		getBundle().setProperty("fault",fault);
+		getBundle().setProperty("critical",critical);
 		inspectionpage.verifyInspectionCountChange(totalInspections, toBeCompleted, good, poor, fault, critical);
 	}
 
@@ -671,6 +677,45 @@ public class InspectionSteps {
 		inspectionpage.verifyInspectionListCount();
 	}
 
+	@QAFTestStep(description="Verify the add new button functionality")
+	public void verifyAddNewBtnFunctionality(){
+		inspectionpage.verifyAddNewBtn();
+	}
+
+	@QAFTestStep(description="Verify inspection item without mandatory fields")
+	public void verifyAddItemWithoutMandatoryFields(){
+		inspectionpage.verifyAddItemWithoutMandatoryFields();
+	}
+
+	@QAFTestStep(description="Verify download and view icons in list screen")
+	public void verifyDownloadViewIcons(){
+		Validator.assertTrue(inspectionpage.verifyDownloadViewIcons(),"Download and view icons are not properly visible under list screen","Download and view icons are verified successfully");
+	}
+
+	@QAFTestStep(description="Verify image upload for inspection item {img}")
+	public void verifyImgUploadInspectionItem(String img){
+		Validator.assertTrue(inspectionpage.verifyImgUploadInspectionItem(img),"Uploaded images are not properly visible under inspection item","Uploaded images are verified successfully");
+	}
+
+	@QAFTestStep(description="Verify delete uploaded image")
+	public void verifyDeleteUploadedImg(){
+		Validator.assertTrue(inspectionpage.verifyDeleteUploadedImg(),"Images are not deleted properly under inspection item","Images deleted are verified successfully");
+	}
+
+	@QAFTestStep(description="Verify count from inspection item list")
+	public void verifyInspectionItemCount() {
+		Map<String, Object> response = inspectionpage.apiBase.getConveyorsInspectionCount();
+		String totalInspectionItems = String.valueOf((int)response.get("totalInspectionItems"));
+		System.out.println(totalInspectionItems);
+		inspectionpage.verifySwitchView();
+		inspectionpage.inspectionItemsListCount(totalInspectionItems);
+	}
+
+	@QAFTestStep(description="Verify whether the inspection event {InspectionName} is deleted from list view")
+	public void inspectionEvent(String inspectionName) {
+		inspectionpage.browserRefresh();
+		Validator.assertFalse(inspectionpage.searchInspection(inspectionName),"Inspection event is present in inspection event list","Inspection event is deleted from inspection list");
+	}
 }
 
 

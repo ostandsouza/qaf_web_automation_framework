@@ -229,19 +229,19 @@ public class APIBase {
 
     public String getConveyorsAPI(String conveyorName) {
         configureRestAssured();
-//        if(conveyorName != null)
-//            queryMaps.put("name", conveyorName);
-//        String baseUrl = commonPaths.get("conveyor_ms");
-//        restApiHelper.setBaseURI(baseUrl);
-//        headersMap.put("user-token",accessToken);
-//        Map<String, String> conveyorPaths = JsonReader.getMapTestData("path", "conveyor_controller");
-//        restApiHelper.makeGetRequest(conveyorPaths.get("conveyor"),queryMaps, headersMap);
-//        Response companyResponse = restApiHelper.getResponse();
+        if(conveyorName != null)
+            queryMaps.put("limit", "10000");
+        String baseUrl = commonPaths.get("conveyor_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> conveyorPaths = JsonReader.getMapTestData("path", "conveyor_controller");
+        restApiHelper.makeGetRequest(conveyorPaths.get("conveyor"),queryMaps, headersMap);
+        Response companyResponse = restApiHelper.getResponse();
         String val = null;
-//        JsonPath jsnPath = companyResponse.jsonPath();
-//        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
-//            val = (String) jsnPath.getMap("data[0]").get("conveyorId");
-//        }
+        JsonPath jsnPath = companyResponse.jsonPath();
+        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
+            val = (String) jsnPath.getMap("$.data[?(@.name == '"+conveyorName+"')]").get("conveyorId");
+        }
         tearDown();
         return val;
     }

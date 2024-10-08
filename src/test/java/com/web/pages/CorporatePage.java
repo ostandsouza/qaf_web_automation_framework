@@ -254,6 +254,9 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Conveyor Trails']")
     public CustomElement conveyorTrailsHeader;
 
+    @FindBy(locator = "xpath=//span[text()='Add Conveyor']")
+    public CustomElement addConveyors;
+
     @FindBy(locator = "xpath=//input[@id='firstname1']")
     public CustomElement tbConveyorname;
 
@@ -689,9 +692,11 @@ public class CorporatePage extends BasePage{
 
     public void goToAddConveyor() {
         scrollPageup();
-        waitForElementToDisplay(btAddCorp);
-        btAddCorp.click("Add Corp");
-        waitForElementToDisplay(tbConveyorname);
+        waitForElementVisible(addConveyors,10000,500);
+        waitForElementToBeClickable(addConveyors);
+        addConveyors.click("Add Conveyors");
+        waitForPageLoad(10000);
+        tbConveyorname.isVisible("Conveyor Name");
     }
 
     public void createConveyor(String conveyorName,String custSiteName) {
