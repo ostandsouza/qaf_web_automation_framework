@@ -113,7 +113,7 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "corporate.details.back")
     public CustomFlutterElement corporateBackBtn;
 
-    @FindBy(locator = "company.add.back")
+    @FindBy(locator = "corporate.add.back")
     public CustomFlutterElement addCorporateBackBtn;
 
 
@@ -165,7 +165,7 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "corporate.frame.screen")
     public CustomFlutterElement corporateFrame;
 
-    @FindBy(locator = "corporate.corporateList.header")
+    @FindBy(locator = "corporate.list.header")
     public CustomFlutterElement corporateHeader;
 
     @FindBy(locator = "corporate.view.header")
@@ -177,17 +177,17 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "corporate.name.field")
     public CustomFlutterElement tbCompanyName;
 
-    @FindBy(locator = "company.add.icon")
+    @FindBy(locator = "corporate.add.icon")
     public CustomFlutterElement addCompanyBtn;
 
-    @FindBy(locator = "company.add.corporate")
+    @FindBy(locator = "corporate.add.corporate")
     public CustomFlutterElement addCorporateBtn;
 
-    @FindBy(locator = "company.add.site")
+    @FindBy(locator = "corporate.add.site")
     public CustomFlutterElement addSiteShop;
 
 
-    @FindBy(locator = "company.add.header")
+    @FindBy(locator = "corporate.add.header")
     public CustomFlutterElement addCorporateHeader;
     @FindBy(locator = "corporate.inspection.header")
     public CustomFlutterElement inspectionListHeader;
@@ -579,17 +579,7 @@ public class CorporatePage extends FlutterBasePage {
         tbCompanyName.waitForTheElementToBeVisible(45);
         Validator.assertTrue(tbCompanyName.getText().equalsIgnoreCase(companyName),"company name is not same as user filled value", "company name is same as user filled valu");
     }
-    public void addCompanyBtnClick()
-    {
-        addCompanyBtn.click();
-        addCorporateBtn.click();
 
-    }
-
-    public boolean isAddCompanyPage() {
-        Validator.assertTrue(addCorporateHeader.isPresent(),"user navigated to add company page","user navigated to add company  page");
-        return addCorporateHeader.isPresent();
-    }
 
     public void verifyCorporateSearch(String corpName)
     {

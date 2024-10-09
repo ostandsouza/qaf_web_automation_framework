@@ -144,7 +144,6 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=(//span[text()='New'])[1]")
     public CustomElement notificationListNewEntry;
 
-
     public void goToSiteListScreen() {
         if (!sites.isVisible())
             home.click("Home");
@@ -228,10 +227,11 @@ public class SitePage  extends BasePage {
 
     public void unSubscribe(String siteName) {
         btSearchinput.type(siteName, "site Search");
-        waitForElementVisible(subscribedPinIcon, 50000, 500);
+        waitForElementVisible(subscribedPinIcon, 10000, 500);
         subscribedPinIcon.click();
         waitForElementToDisplay(subscribePinIcon);
         Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed", "subscription is removed");
+
     }
 
     public void searchSiteAndNavigate(String siteName) {
@@ -251,7 +251,6 @@ public class SitePage  extends BasePage {
     }
 
     public void searchConveyorAndEdit(String conveyorName) {
-//        inspectionpage.clickClickFilter();
         searchConveyorSiteLevel(conveyorName);
         waitForElementVisible(crCheckbox,30000,1000);
         crCheckbox.check("Conveyor Checkbox");
@@ -263,8 +262,11 @@ public class SitePage  extends BasePage {
     public void bellIconClick() {
         waitForElementVisible(bellIcon, 10000, 500);
         bellIcon.click();
+        notificationPopup.isVisible(10000,"Notification popup");
         Validator.assertTrue(notificationPopup.isDisplayed(), "Notification popup is not displayed", "Notification popup is displayed");
-        Validator.assertTrue(markAllAsReadText.isVisible(10000,"Mark all as Read"),"Mark all as Read is not visible under notification menu!",        "Mark all as Read is visible under notification menu!");
+        Validator.assertTrue(markAllAsReadText.isVisible(10000,"Mark all as Read"),"Mark all as Read is not visible under notification menu!",
+                "Mark all as Read is visible under notification menu!");
+
     }
 
     public void verifyNotificationSiteOrder(String value1,String value2) {
@@ -290,16 +292,22 @@ public class SitePage  extends BasePage {
 
     public void extractNotificationCountBefore() {
         int beforeSubscriptionCount = extractNotificationCount();
-        System.out.println(beforeSubscriptionCount + "beforeSubscriptionCount");
+        Reporter.log("Initial notification count is-'"+beforeSubscriptionCount);
         getBundle().setProperty("notificationCntBefore", beforeSubscriptionCount);
 
     }
 
     public void extractNotificationCountAfter() {
         int afterSubscriptionCount = extractNotificationCount();
-        System.out.println(afterSubscriptionCount + "afterSubscriptionCount");
+        Reporter.log("Notification count after update is-'"+afterSubscriptionCount);
         getBundle().setProperty("notificationCntAfter", afterSubscriptionCount);
-
+    }
+    public void verifyUserNotificationCountAfterUpdate()
+    {
+        int notificationCountBefore = Integer.parseInt(getBundle().getProperty("notificationCntBefore").toString());
+        notificationCountBefore+=1;
+        extractNotificationCountAfter();
+        Validator.assertTrue(getBundle().getProperty("notificationCntAfter").equals(notificationCountBefore), "User has not received new notification", "User received new notification");
     }
 
     public void verifyUserNotificationCount() {
@@ -417,12 +425,7 @@ public class SitePage  extends BasePage {
         Validator.assertTrue(notificationListRefresh.isDisplayed(),"Notification list is not getting refreshed","Notification List is getting refreshed");
 
     }
-    public void verifyUserNotificationCountAfterUpdate(){
-        int notificationCountBefore = Integer.parseInt(getBundle().getProperty("notificationCntBefore").toString());
-        notificationCountBefore+=1;
-        extractNotificationCountAfter();
-        Validator.assertTrue(getBundle().getProperty("notificationCntAfter").equals(notificationCountBefore), "User has not received new notification", "User received new notification");
-    }
+
     public void verifyNewLinkInNotificationList(String site1)
     {
         waitForElementToDisplay(notificationListNewFirstEntry);
@@ -469,6 +472,10 @@ public class SitePage  extends BasePage {
       Validator.assertTrue(notificationListNewEntry.isNotVisible(5000),"New Notification is found","New Notification is not found");
     }
 
-
+    public void markAllAsReadLnkClick()
+    {
+        waitForElementToBeClickable(markAllAsReadText);
+        markAllAsReadText.click("Mark All As Read");
+    }
 
 }

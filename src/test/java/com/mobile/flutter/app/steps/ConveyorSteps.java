@@ -147,6 +147,39 @@ public class ConveyorSteps {
     public void verifyTheConveyorIsPresent(String conveyorName) {
         Validator.assertTrue(ConveyorPage.getInstance().verifyConveyorIsPresent(conveyorName),"Conveyor is not visible","Conveyor is visible");
     }
+    @QAFTestStep(description = "Navigate to file manager for the conveyor {ConveyorName}")
+    public void navigationToFileManager(String conveyorName) {
+        Validator.assertTrue(ConveyorPage.getInstance().navigateToFileManager(conveyorName),"User is not navigated to file manager for the respective conveyor","User is navigated to file manager for the respective conveyor");
+    }
+    @QAFTestStep(description = "Look for files/folders and long press on a file and very it is selected")
+    public void clickOnFileOrFolder() {
+        Validator.assertTrue(ConveyorPage.getInstance().verifyFilesPresent("conti-img"),"File is not present","File is present");
+        ConveyorPage.getInstance().longPressOnFile();
+    }
+    @QAFTestStep(description = "Look for the popup displayed in footer and verify share move delete and cancel buttons are visible")
+    public void verifyTheActionPopup() {
+        Validator.assertTrue(ConveyorPage.getInstance().verifyActionPopup(),"Action popup is not visible","Action popup is visible");
+        ConveyorPage.getInstance().verifyActionPopupButtons();
+    }
+    @QAFTestStep(description = "Delete the file/folder {fileName} for the conveyor {ConveyorName} and verify it is deleted")
+    public void deleteFileOrFolderAndVerify(String fileName,String conveyorName) {
+        ConveyorPage.getInstance().deleteFileOrFolder();
+        Validator.assertTrue(ConveyorPage.getInstance().verifyDeletion(),"getting deleted","getting deleted");
+    }
+    @QAFTestStep(description = "Click on move option and verify the popup with paste and cancel options are visible")
+    public void clickMoveBtnAndVerifyPopup() {
+        ConveyorPage.getInstance().moveBtnClickAndVerifyPopup();
+    }
+
+    @QAFTestStep(description = "Navigate to the file/folder where you want to paste the file/folder")
+    public void navigateToFileOrFolder() {
+        ConveyorPage.getInstance().goToFolder();
+    }
+
+    @QAFTestStep(description = "Click on paste button and verify the selected file/folder is moved to the destination folder")
+    public void moveBtnClickAndVerify() {
+        ConveyorPage.getInstance().clickMoveBtnAndVerify();
+    }
 
 }
 

@@ -2195,24 +2195,30 @@ public class CoverWearPage extends BasePage{
     }
 
     private List<String> getColumnData(int columnNumber) {
+        SyncUtil.waitFor(5000);
         List<WebElement> rows = driver.findElements(By.xpath("//tbody/tr"));
+        System.out.println(rows + " rows");
         List<String> columnData = new ArrayList<>();
         for (WebElement row : rows) {
             WebElement cell = row.findElement(By.xpath("./td[" + columnNumber + "]"));
-            columnData.add(cell.getText().trim());
+            String cellText = cell.getText().trim();
+            System.out.println("Cell ID: " + cell.getAttribute("id"));
+            System.out.println("Cell Text: " + cellText);
+            columnData.add(cellText);
         }
+        System.out.println(columnData + " columnData");
         return columnData;
     }
 
     public void verifyIncreasingOrderSorting(int columnNumber)
     {
-//        int columnNumber = 5; // Example: retrieve data from the 5th column
         List<String> columnDataAfterSortingIncreasing = getColumnData(columnNumber);
         List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
         expectedSortedDataIncreasing.sort(null);
         Validator.assertTrue(columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing), "Sorting in increasing order is not applied correctly","sorting is applied in increasing order");
 
     }
+
 
     public void verifyDecreasingOrderSorting(int columnNumber)
     {

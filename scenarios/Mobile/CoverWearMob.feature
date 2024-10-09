@@ -49,6 +49,7 @@ Scenario: Verify position screen in case measurement already done
     And Verify the gauge tile is present at the top and all the details are displayed in the tile
     And Verify top/bottom position status and values displayed along the position
 
+
 @Regression5 @CTCP-2445
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -61,6 +62,12 @@ Scenario: Verify cover wear specification in case conveyor technical data presen
     And Search for a conveyor '${ConveyorName}' and click on it and verify it navigates to position listing screen
     And Click on the gauge tile in the position screen and navigate to specification screen
     And Verify that siteName '${SiteName}' conveyor '${ConveyorName}' beltWidth '${BeltWidth}' BeltLength '${BeltLength}' comes with default values and are non editable
+    And Verify that top cover thickness nominal '${TopCoverThicknessNominal}' and bottom cover thickness '${BottomCoverThicknessNominal}' nominal comes with default values and are editable
+    And Verify the dropdown values of Number of data points field
+    And Add the durometer value '${Durometer}' and price of the belt '${PriceOfTheBelt}' values
+    And Verify topCoverCompound '${TopCoverCompound}' and bottomCoverCompound '${BottomCoverCompound}' comes with default values and are non editable
+    And Enter the date of installation field and save the specification
+
 
 @Regression6 @CTCP-2456
 @dataFile:resources/data/TestData.xls
@@ -75,6 +82,25 @@ Scenario: Verify position detail screen
     And Click on any of the position '${position}' and verify it navigates to position details screen and verify the heading
     And Verify temperature adjusted measurements header and default installation field with measurement date and edit link are visible
     And Click on the edit button and verify user is able is edit installation '${Instrument}' '${Velocity}' '${SurfaceTension}' and verify user can delete measurement
+    And Verify add button is displayed to add new measurement
+
+@Regression5 @CTCP-2446
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:CoverWear_SpecDetails
+Scenario: Add new position in case conveyor technical data present
+
+    Given Verify user is on continental login page
+    And   Login to the application with '${UserName}' and '${Password}'
+    And Click on coverWear card in the home page
+    And Search for a conveyor '${ConveyorName}' and click on it and verify it navigates to position listing screen
+    And Click on the gauge tile in the position screen and navigate to specification screen
+    And Verify that siteName '${SiteName}' conveyor '${ConveyorName}' beltWidth '${BeltWidth}' BeltLength '${BeltLength}' comes with default values and are non editable
+    And Verify that top cover thickness nominal '${TopCoverThicknessNominal}' and bottom cover thickness '${BottomCoverThicknessNominal}' nominal comes with default values and are editable
+    And Verify the dropdown values of Number of data points field
+    And Add the durometer value '${Durometer}' and price of the belt '${PriceOfTheBelt}' values
+    And Verify topCoverCompound '${TopCoverCompound}' and bottomCoverCompound '${BottomCoverCompound}' comes with default values and are non editable
+    And Enter the date of installation field and save the specification
 
 @CTCP-2441
 @dataFile:resources/data/TestData.xls

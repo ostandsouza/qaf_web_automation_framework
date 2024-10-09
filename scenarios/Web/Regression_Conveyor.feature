@@ -484,6 +484,7 @@ Scenario: Verify heading and column displayed in conveyor list table
 @key:Conveyor_ColumnFilter
 Scenario: ZSelect table column as per column selection filter
 
+
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
@@ -514,6 +515,7 @@ Scenario: Search conveyor in conveyor list
 @sheetName:Regression
 @key:Conveyor_ColumnFilter
 Scenario: Apply and remove 'Start With' filter
+
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
@@ -651,6 +653,161 @@ Scenario: Verify update functionality for Conveyor lite page
     And Update the fields of Conveyor-Lite page and verify user is able to update the fields
     And Click on update button and verify all changes are saved and navigated to conveyor list page
 
+ @Regression34 @CTCP-1210
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:Notification_Conveyor
+ Scenario: Verify user to get the notification under bell icon on top right corner of the page
+
+     Given User is at Login page
+     When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+     Then Verify the notification count in bellIcon
+     And Subscribe the conveyors '${ConveyorName1}' and '${ConveyorName2}'
+     And Verify the notification count in bellIcon after subscription and verify user is not getting any notification
+     And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
+
+
+ @Regression35 @CTCP-1218
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Regression
+ @key:Notification_AdminUserDel
+ Scenario: ZVerify the functionality for login with admin and delete the conveyor that is subscribed
+
+     Given User is at Login page
+     When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+     And subscribe one conveyor '${ConveyorName1}' for the user
+     Then Verify the notification count in bellIcon
+     And Logout from the current user
+     And Login with '${UserName}' and '${Password}'
+     And Delete Conveyor from Conveyor list screen '${ConveyorName1}'
+     And Logout from the current user
+     And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+     And Verify Deleted Conveyor '${ConveyorName1}' from Conveyor list screen
+     And Verify the notification count in bellIcon after subscription and verify user is not getting any notification
+
+
+@Regression36 @CTCP-1221
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the page after click on view more from Notification bell icon
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyorListPage and click on bellIcon
+    Then Navigate to notifications List page
+    And Verify the result after providing notification list value as conveyor/site '${NotificationFilter}'
+
+
+@Regression37 @CTCP-1224
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the result after click on sort button from notification List page
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyorListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Click on sort button and verify that user is able to get notification in ascending/descending order
+
+@Regression38 @CTCP-1226
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AdminUser
+Scenario: Verify the result after click on refresh button from notification List page
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyorListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Click on refresh button and verify that data is getting refreshed
+
+@Regression38 @CTCP-1227
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_ConveyorUpdate
+Scenario: Verify result after click on 'New' link for latest Notification under Notifications list page.
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe one conveyor '${ConveyorName1}' for the user
+    Then Verify the notification count in bellIcon
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And Edit Conveyor belt width value '${BeltWidth}'
+    And Click on home link in breadCrumb and verify it navigates to home page
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyorListPage and click on bellIcon
+    And Click on the new link of the recent conveyor notification for '${ConveyorName1}' and verify it navigates conveyor history page
+    And wait for conveyors to load
+    And Unsubscribe the site '${ConveyorName1}'
+
+@Regression39 @CTCP-1238
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_ConveyorUpdate
+Scenario: Verify result after click on 'New' link for latest Notification under Notifications list page.
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe one conveyor '${ConveyorName1}' for the user
+    Then Verify the notification count in bellIcon
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And Edit Conveyor belt width value '${BeltWidth}'
+    And Click on home link in breadCrumb and verify it navigates to home page
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And User clicks on Conveyor History
+    And Verify user can only see conveyor history of the particular subscribed conveyor '${ConveyorName1}' notification
+    And wait for conveyors to load
+    And Unsubscribe the site '${ConveyorName1}'
+
+
+@Regression39 @CTCP-1240
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_ConveyorUpdate
+Scenario: Verify the functionality for Login with other user at Account level contains sam
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe one conveyor '${ConveyorName1}' for the user
+    Then Verify the notification count in bellIcon
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And Edit Conveyor belt width value '${BeltWidth}'
+    And Click on home link in breadCrumb and verify it navigates to home page
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify the notification count in bellIcon after subscription and verify user is getting any notification
+    And wait for conveyors to load
+    And Unsubscribe the site '${ConveyorName1}'
+
+@Regression39 @CTCP-3664
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_AddBeltScan
+Scenario: Verify user is able to get the notifications on belt scan for master user
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    Then Verify the notification count in bellIcon
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to Add Belt Scan Page and verify navigation
+    And Add Belt Scan details with '${DateOfScan}' '${DeviceType}' '${ReasonForScan}' '${SiteName}' '${ConveyorName}' '${NotifyCCM}' '${File1}' and '${File2}'
+    And Logout from the current user
+    When Login with '${UserName}' and '${Password}'
+    Then Verify the notification count in bellIcon after subscription and verify user is getting any notification
+    And Click on the new link of the recent Belt Scan notification and verify it navigates Add Belt Scan page
+
 @CTCP-1208
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -782,4 +939,9 @@ Scenario: Verify the functionality for Login with other user at Account level co
     And Navigate to conveyor list screen
     And wait for conveyors to load
     And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
+
+
+
+
+
 

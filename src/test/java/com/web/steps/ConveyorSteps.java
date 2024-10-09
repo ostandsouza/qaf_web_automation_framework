@@ -17,6 +17,7 @@ public class ConveyorSteps {
     CorporatePage corporatePage = new CorporatePage();
     CoverWearPage coverWearPage=new CoverWearPage();
     SitePage sitePage = new SitePage();
+//    BeltScanPage beltScanPage=new BeltScanPage();
 
     UsersPage userpage = new UsersPage();
 
@@ -445,10 +446,10 @@ public class ConveyorSteps {
     }
 
 
-    @QAFTestStep(description = "Click on the filter icon and verify all fields {filterType} are visible")
-    public void clickOnFilterIconAndVerifyFields(String filterType) {
+    @QAFTestStep(description = "Click on the filter icon and verify all fields are visible for columnName {ColName}")
+    public void clickOnFilterIconAndVerifyFields(String colName) {
         conveyorPage.filterIconClick();
-        conveyorPage.verifyFilterFields(filterType);
+        conveyorPage.verifyFilterFields(colName);
     }
     @QAFTestStep(description = "Select {filterType} from filter dropdown and verify it is selected")
     public void clickAndVerifyStartsWithFilter(String filterType) {
@@ -878,14 +879,48 @@ public class ConveyorSteps {
     {
         conveyorPage.verifyUnPinnedSubList(value);
     }
-    @QAFTestStep(description = "Verify user can only see conveyor history of the particular subscribed conveyor {ConveyorName1} notification")
-    public void verifyConveyorHistoryForParticularConveyor(String conveyorName){
-        conveyorPage.verifyConveyorHistoryNav(conveyorName);
-    }
+
     @QAFTestStep(description = "Verify Conveyor card details")
     public void verifyTheConveyorCardDetails() {
         conveyorPage.verifyConveyorCardDetails();
     }
 
+    @QAFTestStep(description = "Click on the new link of the recent conveyor notification for {ConveyorName1} and verify it navigates conveyor history page")
+    public void clickNewLinkAndVerifyNavigation(String conveyorName)
+    {
+        conveyorPage.newLinkClick();
+        conveyorPage.verifyConveyorHistoryNav(conveyorName);
+    }
+    @QAFTestStep(description = "Verify user can only see conveyor history of the particular subscribed conveyor {ConveyorName1} notification")
+    public void verifyConveyorHistoryForParticularConveyor(String conveyorName)
+    {
+        conveyorPage.verifyConveyorHistoryNav(conveyorName);
+    }
+    @QAFTestStep(description = "Verify the notification count in bellIcon after subscription and verify user is getting any notification")
+    public void verifyNotificationCountAfterSubscriptionForConveyor()
+    {
 
+        sitePage.extractNotificationCountAfter();
+        sitePage.verifyUserNotificationCountAfterUpdate();
+    }
+//    @QAFTestStep(description = "Click on the new link of the recent Belt Scan notification and verify it navigates Add Belt Scan page")
+//    public void clickNewLinkAndVerifyBeltScanNavigation()
+//    {
+//        sitePage.bellIconClick();
+//        conveyorPage.newLinkClick();
+//        SyncUtil.waitFor(3000);
+//        Validator.assertTrue(beltScanPage.getCurrentURL().contains("/secure/belt-scans/detail/"),"User is not navigated to  Belt Scan Detail page!",
+//                "User is  navigated to  Belt Scan Detail page!");
+//    }
+
+    @QAFTestStep(description = "Verify user can see the updates done to the conveyor {ConveyorName} in the conveyor history under the subscribed site")
+    public void verifyConveyorUpdateHistory(String conveyorName)
+    {
+        Validator.assertTrue(conveyorPage.getCurrentURL().contains("/conveyor-history"),"User is not navigated to conveyor history page","User is navigated to conveyor history page");
+        conveyorPage.verifyConveyorHistoryForConveyor(conveyorName);
+    }
+    @QAFTestStep(description = "Click on each column header and verify filter icon fields")
+    public void clickOnEachFilterIconAndVerifyFilterFields() {
+        conveyorPage.columnNameFilterBtnClick();
+    }
 }

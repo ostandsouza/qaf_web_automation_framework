@@ -31,3 +31,14 @@ conveyor.fileManager.header = flutter-valuekey=file_manager_header
 conveyor.file.name = flutter-valuekey=conti-img.jpg
 conveyor.fileName.checkbox = flutter-valuekey=checkbox
 conveyor.action.popup = flutter-valuekey=action_popup
+conveyor.fileManager.header = flutter-valuekey=file_manager_header
+conveyor.folder.name = flutter-valuekey=test-Photos
+conveyor.fileName.checkbox = flutter-valuekey=checkbox
+conveyor.action.popup = flutter-valuekey=action_popup
+conveyor.folder.name = flutter-valuekey=test-Photos
+
+
+conveyor.actionPopup.move = flutter-text=Move
+conveyor.actionPopup.delete = flutter-text=Delete
+conveyor.actionPopup.cancel = flutter-text=Cancel
+conveyor.actionPopup.paste = flutter-text=Paste

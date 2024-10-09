@@ -12,19 +12,11 @@ public class DashboardSteps {
         DashboardPage.getInstance().goToProfilePage();
     }
 
-    @QAFTestStep(description="Navigate to user My Profile screen")
-    public void navigateToUserMyProfileScreen(){
-        DashboardPage.getInstance().goToProfilePage();
-    }
-    @QAFTestStep(description="Navigate to Add Corporate Page")
-    public void navigateToTheAddCorporatePage(){
-        DashboardPage.getInstance().goToAddCorp();
-    }
+//    @QAFTestStep(description="Navigate to user My Profile screen")
+//    public void navigateToUserMyProfileScreen(){
+//        DashboardPage.getInstance().goToProfilePage();
+//    }
 
-    @QAFTestStep(description="Navigate to Add Site Page")
-    public void navigateToTheAddSitePage(){
-        DashboardPage.getInstance().goToSiteShop();
-    }
 
     @QAFTestStep(description="Verify user present in home screen")
     public void verifyTheHomeScreen(){

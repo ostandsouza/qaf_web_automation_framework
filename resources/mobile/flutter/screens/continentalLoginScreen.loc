@@ -1,5 +1,6 @@
 continental.email.field = flutter-valuekey=email
 continental.pwd.field = flutter-valuekey=pwd
+continental.welcome.header = flutter-text=Welcome!
 continental.login.btn = flutter-text=Login
 continental.forgot.btn = flutter-text=Forgot password
 continental.activate.btn = flutter-text=Activate Account
@@ -11,6 +12,15 @@ forgot.email.field = flutter-valuekey=email_f
 forgot.submit.btn = flutter-text=Submit
 continental.back.btn = flutter-text=Back
 continental.error.message = flutter-text=Ooops, something went wrong
+continental.authenticationError.message = flutter-text=Authentication failed
+continental.passwordError.message = flutter-text=Please enter valid password
+continental.emailError.message = flutter-text=Please enter valid email
+continental.nullPasswordError.message = flutter-text=Please enter password
+
+continental.termsAndConditions.link = flutter-valuekey=termsAndConditions
+continental.termsAndConditions.header = flutter-valuekey=termsAndConditionsHeader
+continental.privacySettings.header = flutter-text=Privacy Settings
+continental.imprintTab.header = flutter-text=Imprint
 
 continental.email.errorMessage= flutter-text=Please enter valid email
 continental.forgot.page = flutter-text=Forgot your password?

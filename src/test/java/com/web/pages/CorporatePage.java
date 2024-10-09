@@ -95,7 +95,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//li[text()=' No results found ']")
     public CustomElement drTerritoryLoader;
 
-    @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div")
+    @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[1]")
     public CustomElement drTerritorybutton;
 
     @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
@@ -268,8 +268,10 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator= "//span[text()='Create']/parent::button[@disabled]")
     public CustomElement btnCreateDisabled;
+
     @FindBy(locator= "//span[text()='Create']/parent::button[not(@disabled)]")
     public CustomElement btnCreateEnabled;
+
     @FindBy(locator="//div[@class='p-breadcrumb p-component']")
     public CustomElement bcAddUserLink;
 
@@ -451,6 +453,7 @@ public class CorporatePage extends BasePage{
         waitForElementToInvisible(buttonLoader,10000);
         btSearchinput.isVisible("Corporate list screen");
     }
+
     public void btnSaveClick() {
         scrollPageDown();
         btSave.click("Save");
@@ -990,6 +993,11 @@ public class CorporatePage extends BasePage{
 //        Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not created successfully","the company is created successfully");
 //
 //    }
+
+    public void verifyPinnedSubList(String value) {
+        String pinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-red')]";
+        Validator.assertTrue(driver.findElement(By.xpath(pinnedValue)).isDisplayed(), "Pinned Value is not displayed", "Pinned Value is displayed");   }
+
 
 
 }

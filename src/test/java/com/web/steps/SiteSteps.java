@@ -78,6 +78,11 @@ public class SiteSteps  {
         sitePage.unSubscribe(site2);
 
     }
+    @QAFTestStep(description = "Unsubscribe the site {Site1}")
+    public void unsubscribeSite(String site1)
+    {
+        sitePage.unSubscribe(site1);
+    }
 
     @QAFTestStep(description = "Verify the notification count in bellIcon")
     public void verifyNotificationCount()
@@ -93,11 +98,18 @@ public class SiteSteps  {
         sitePage.extractNotificationCountAfter();
         sitePage.verifyUserNotificationCount();
     }
+
     @QAFTestStep(description = "Navigate to siteListPage and click on bellIcon")
     public void navigateToSitePageAndBellIconClick()
     {
         sitePage.goToSiteListScreenAndWait();
         sitePage.bellIconClick();
+    }
+
+    @QAFTestStep(description = "Navigate to siteListPage and wait")
+    public void navigateToSitePageAndWait()
+    {
+        sitePage.goToSiteListScreenAndWait();
     }
 
     @QAFTestStep(description = "Click on View more button and verify the fields in notification list page")
@@ -127,7 +139,7 @@ public class SiteSteps  {
     @QAFTestStep(description="Click on sort button and verify that user is able to get notification in ascending/descending order")
     public void clickAndVerifySorting(){
         sitePage.sortBtnClick();
-        sitePage.verifyIncreasingOrderSorting(3);
+        sitePage.verifyIncreasingOrderSorting(2);
     }
 
     @QAFTestStep(description="Click on refresh button and verify that data is getting refreshed")
@@ -136,13 +148,6 @@ public class SiteSteps  {
         sitePage.verifyPageRefreshed();
     }
 
-    @QAFTestStep(description = "Unsubscribe the site {Site1}")
-    public void unsubscribeSite(String site1)
-    {
-        SyncUtil.waitFor(10000);
-        sitePage.unSubscribe(site1);
-
-    }
     @QAFTestStep(description = "Verify new link is avaiable for the latest updated site/conveyor {Site1}")
     public void verifyTheNewLinkInNotificationList(String site1)
     {
@@ -207,6 +212,13 @@ public class SiteSteps  {
     public void verifyAllTheNotificationAreRead(){
         sitePage.verifyAllNotificationAreRead();
 
+    }
+
+    @QAFTestStep(description = "Click on bellIcon and click on mark all as read")
+    public void clickBellIconAndMarkAllRead()
+    {
+        sitePage.bellIconClick();
+        sitePage.markAllAsReadLnkClick();
     }
 
 }

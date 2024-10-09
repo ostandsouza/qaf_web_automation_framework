@@ -76,15 +76,17 @@ site.additionalinfo.header = flutter-text=Additional Details
 site.company.existingerror = flutter-text=Site already exist
 site.company.successMsg= flutter-text= Company successfully created
 corporate.edit.success = flutter-text=Site already exist
+corporate.default.company= flutter-text=Customer Corporate
+corporate.name.field=flutter-valuekey=company_Name
+company.company.card=flutter-valuekey=company-card
+company.addSite.header = flutter-text=Add Site
+company.addSite.back=flutter-valuekey=AddSiteBack
+company.search.placeholder=flutter-text=Search in corporates
 corporate.actionPopup.move = flutter-text=Move
 corporate.actionPopup.delete = flutter-text=Delete
 corporate.actionPopup.cancel = flutter-text=Cancel
 
-
 fileManager.folder.breadCrumb=xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]
-
-
-
 
 
 

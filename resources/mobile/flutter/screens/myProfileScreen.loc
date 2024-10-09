@@ -23,3 +23,4 @@ information.page.header = flutter-text=My Information
 information.current.userName = flutter-valuekey=CurrentUserName
 information.current.userProfileType = flutter-valuekey=CurrentUserProfileType
 change.password.retypeErrorMessage= flutter-text=The retype password does not match password
+profile.settings.header = flutter-text= Settings

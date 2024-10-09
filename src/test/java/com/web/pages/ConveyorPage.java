@@ -83,7 +83,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
     public CustomElement tbAssociatedSitedropdown;
 
-    @FindBy(locator= "xpath=//p-dropdown[@datakey='companyId']/div/div")
+    @FindBy(locator= "xpath=//p-dropdown[@datakey='companyId']/div/div[1]")
     public CustomElement drDistShopdropdown;
 
     @FindBy(locator = "xpath=//span[@class='p-menuitem-text ng-star-inserted'][text()='Home']")
@@ -224,7 +224,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Belt Manufacturer')]/..//input)[2]")
     public CustomElement crBeltConfig;
 
-    @FindBy(locator = "xpath=(//label[text()='Belt Construction'])")
+    @FindBy(locator = "xpath=(//label[contains(text(),'Belt Construction')]/..//input)[2]")
     public CustomElement crBeltConstruction;
 
     @FindBy(locator = "xpath=(//label[contains(text(),'Top Cover Compound')]/..//input)[2]")
@@ -236,7 +236,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Carcass')]/..//input)[2]")
     public CustomElement crCarcass;
 
-    @FindBy(locator = "xpath=(//label[contains(text(),'Width')]/..//input)[2]")
+    @FindBy(locator = "xpath=(//label[contains(text(),'Width')]/..//input)[1]")
     public CustomElement crWidth;
 
     @FindBy(locator = "xpath=//input[@value='Rating']")
@@ -943,11 +943,16 @@ public class ConveyorPage extends BasePage{
     public CustomElement ddlMatchAll;
     @FindBy(locator = "//div[contains(@class,\"p-column-filter-matchmode-dropdown\")]//span[text()=\"Contains\"]")
     public CustomElement ddlContains;
+
+    @FindBy(locator = "//p-columnfilterformelement//p-dropdown//span[text()=\"Any\"]")
+    public CustomElement ddlAny;
     @FindBy(locator = "//div[contains(@class,\"p-column-filter-matchmode-dropdown\")]//span[text()='Starts with']")
     public CustomElement ddlStartsWith;
+    @FindBy(locator = "//div[contains(@class,\"p-column-filter-constraints\")]//p-dropdown//div//span[text()=\"Date is\"]")
+    public CustomElement ddlDateIs;
     @FindBy(locator = "//div[contains(@class,'p-column-filter-matchmode-dropdown')]//li[@aria-selected='true']//span[text()='Starts with']")
     public CustomElement ddlStartsWithSelected;
-    @FindBy(locator = "//p-columnfilterformelement//input[@pinputtext]")
+    @FindBy(locator = "//p-columnfilterformelement//input[contains(@class,\"p-inputtext\")]")
     public CustomElement filterSearchTextBox;
 
     @FindBy(locator = "//input[contains(@class,'p-filled')]")
@@ -1147,11 +1152,35 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//app-card//div[text()='Conveyors'])[1]/../div/div/div/span")
     public CustomElement conveyorCardCount;
 
+    @FindBy(locator="xpath=(//app-notification-item//div[contains(@class,\"notification\")])[2]//div[contains(@class,\"notification-time\")]//div[text()=\" New \"]")
+    public CustomElement newLink;
+    @FindBy(locator="xpath=//th[contains(@id,\"monitoringLocation-col\")]")
+    public CustomElement thMonitoringLocation;
+
+    @FindBy(locator="xpath=//th[@id='beltConveyorSaves-col']")
+    public CustomElement thBeltConveyorSaves;
+
+    @FindBy(locator="xpath=//th[@id='lastServiceDate-col']")
+    public CustomElement thLastServiceDate;
+    @FindBy(locator="xpath=//div[@class=\"p-multiselect-label\"]")
+    public CustomElement selectedColumnFilters;
+
+    @FindBy(locator="xpath=//th[@psortablecolumn]")
+    public CustomElement noOfselectedColumnFilters;
+
 
     String[] columnNames={"Name","Site","Corporate","Last Modified","Installed Belt","Remaining Life by Time","Remaining Cover %","Inspection Items",
             "Belt Manufacturer","Number of Plies","Number of Cords","Cord Pitch","Cord Diameter","Length","Splice Type","Splice Quantity","Installation Date","Belt Speed","Tons Per Hour Peak","Material",
             "Angle of Idlers","Carry Side Idler Spacing","Drive Wrap Angle","Take-up Tension","Surcharge Angle",
             "Idler Offset type","Drive Details","Take-up type","Stations","Belt Construction","Top Cover Component","Bottom Cover Component","Carcass","Rating","Belt Width","Top Cover Thickness","Bottom Cover Thickness","Material Density","Friction Factor"};
+
+    String[] DevicesColumnNames={"Name","Device Type","Site","Conveyor","Carcass","Belt Width","Region","Territory","Location",
+            "Status","Installation Date","Last Service Date","Belt/Conveyor Saves"};
+
+    String[] checkedDevicesColumnNames={"Name","Device Type","Site","Conveyor","Carcass","Territory","Location",
+            "Status","Installation Date","Last Service Date","Belt/Conveyor Saves"};
+    String[] monitoringDeviceColName={"name","deviceType","site","conveyor","territory","carcass","status","installedDate","location","lastServiceDate","beltConveyorSaves"};
+
 
     public void goToConveyorListScreen(){
         if(!conveyorList.isVisible())
@@ -1235,7 +1264,7 @@ public class ConveyorPage extends BasePage{
 
     public boolean searchConveyor(String conveyorName){
         goToConveyorListScreenAndWait();
-        waitForPageLoad(20000);
+        waitForPageLoad(10000);
         btSearchinput.type(conveyorName, "Conveyor Search");
 //        SyncUtil.waitFor(10000);
         waitForElementVisible(crCheckbox,20000,1000);
@@ -1290,7 +1319,6 @@ public class ConveyorPage extends BasePage{
 
 
     public void goToConveyorDetailScreen(String conveyorName) {
-
         searchConveyor(conveyorName);
         waitForElementToDisplay(crviewicon);
         crviewicon.click("Conveyor Detail");
@@ -2082,7 +2110,7 @@ public class ConveyorPage extends BasePage{
     public void editBeltWidth(String beltWidth)
     {
         waitForElementToBeClickable(editConveyor);
-        editConveyor.click();
+        editConveyor.jsClick();
         waitForPageLoad(10000);
         waitForElementToDisplay(tbConveyorname);
         crInstalledBeltTab.click("Installed Belt Tab");
@@ -2355,8 +2383,13 @@ public class ConveyorPage extends BasePage{
 
     public void verifyColumnNamesArray()
     {
-
-        for (String columnName : columnNames) {
+        String[] columnNamesArray;
+        if(this.getCurrentURL().contains("/secure/dashboard/devices")) {
+            columnNamesArray = DevicesColumnNames;
+        }
+        else
+            columnNamesArray=columnNames;
+        for (String columnName : columnNamesArray) {
             setImplicitWait(20000, TimeUnit.MILLISECONDS);
             System.out.println(columnName);
             waitForElementVisible(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + columnName + "') and .//div[contains(@class, 'p-checkbox')]]")), 20000, 500);
@@ -2366,13 +2399,54 @@ public class ConveyorPage extends BasePage{
 
     public void verifyCheckedColumnNames()
     {
-        waitForPageLoad(10000);
+        String[] checkedColumnNamesArray;
+        if(this.getCurrentURL().contains("/secure/dashboard/devices")) {
+            checkedColumnNamesArray = checkedDevicesColumnNames;
+        }
+        else
+            checkedColumnNamesArray=columnNames;
+//        waitForPageLoad(10000);
         setImplicitWait(20000,TimeUnit.MILLISECONDS);
-        for (String columnName : columnNames) {
+        for (String checkedColumnName : checkedColumnNamesArray) {
             setImplicitWait(20000, TimeUnit.MILLISECONDS);
-            System.out.println(columnName);
-            waitForElementVisible(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + columnName + "') and .//div[contains(@class, 'p-checkbox')]//div//checkicon]")), 20000, 500);
-            Validator.assertTrue(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + columnName + "') and .//div[contains(@class, 'p-checkbox')]//div//checkicon]")).isDisplayed(), "column name '" + columnName + "' is not checked", "column name '" + columnName + "' is checked");
+            System.out.println(checkedColumnName);
+            waitForElementVisible(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + checkedColumnName + "') and .//div[contains(@class, 'p-checkbox')]//div//checkicon]")), 20000, 500);
+            Validator.assertTrue(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + checkedColumnName + "') and .//div[contains(@class, 'p-checkbox')]//div//checkicon]")).isDisplayed(), "column name '" + checkedColumnName + "' is not checked", "column name '" + checkedColumnName + "' is checked");
+        }
+
+    }
+    public void selectTwoColumnsAndVerify()
+    {
+        String[] trimmedArray = Arrays.copyOf(checkedDevicesColumnNames, 9);
+        for(String colName:trimmedArray)
+        {
+            waitForElementVisible(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + colName + "') and .//div[contains(@class, 'p-checkbox')]]")), 20000, 500);
+            driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + colName + "') and .//div[contains(@class, 'p-checkbox')]]")).click();
+//            Validator.assertTrue(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + colName + "') and .//div[contains(@class, 'p-checkbox')]//div//checkicon]")).verifyNotPresent(),"'"+colName+"'is not unchecked","'"+colName+"'is unchecked");
+        }
+
+    }
+    public void verifySelectedColumns()
+    {
+        waitForElementVisible(selectedColumnFilters,10000,500);
+        String columFilteredNames=selectedColumnFilters.getText();
+        List<WebElement> elements = driver.findElements(By.xpath("//th[@psortablecolumn]"));
+        int noOfColumns=elements.size();
+        for(int i=1;i<=noOfColumns;i++)
+        {
+            Validator.assertTrue(columFilteredNames.contains(driver.findElement(By.xpath("(//th[@psortablecolumn]['"+i+"']//div)[1]")).getText()),
+                    "Columns other than filtered columns are visible","Only Selected columns are present in the table");
+        }
+    }
+    public void verifySelectedColumnDisplay(String value)
+    {
+        if(value.equalsIgnoreCase("multiple"))
+            verifySelectedColumns();
+        else if(value.equalsIgnoreCase("single"))
+        {
+            driver.findElement(By.xpath("//p-multiselectitem//li[contains(., ' Belt/Conveyor Saves ') and .//div[contains(@class, 'p-checkbox')]]")).click();
+            Reporter.log("Single column Installed Date is checked");
+            verifySelectedColumns();
         }
 
     }
@@ -2447,25 +2521,73 @@ public class ConveyorPage extends BasePage{
     }
     public void filterIconClick()
     {
+        hoverOverElement(thNameColumn);
         waitForElementVisible(nameFilterIcon,20000,500);
         waitForElementToBeClickable(nameFilterIcon);
         waitForElementToBeClickable(nameFilterIcon);
         nameFilterIcon.click();
     }
-    public void verifyFilterFields(String filter)
+    public void columnNameFilterBtnClick()
+    {
+        for(String colName:monitoringDeviceColName)
+        {
+            if(colName.equalsIgnoreCase("location"))
+            {
+                hoverOverElement(thMonitoringLocation);
+                Reporter.log("No filter Icon is visible for monitoring location");
+                break;
+            }
+            hoverOverElement(driver.findElement(By.xpath("//th[@id='"+colName+"-col']")));
+            waitForElementVisible(driver.findElement(By.xpath("//p-columnfilter[contains(@field,'"+colName+"')]")),10000,500);
+            waitForElementToBeClickable(driver.findElement(By.xpath("//p-columnfilter[contains(@field,'"+colName+"')]")));
+            driver.findElement(By.xpath("//p-columnfilter[contains(@field,'"+colName+"')]")).click();
+            if(colName.equalsIgnoreCase("status"))
+            {
+                verifyStatusFilterIcon(colName);
+            }
+            else if(colName.equalsIgnoreCase("installedDate")||colName.equalsIgnoreCase("lastServiceDate"))
+            {
+                verifyDateFilterIconFields(colName);
+            }
+            else
+                verifyFilterFields(colName);
+
+        }
+
+
+    }
+    public void verifyFilterFields(String ColumnName)
     {
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementVisible(ddlMatchAll,10000,500);
-        Validator.assertTrue(ddlMatchAll.isVisible(),"Match all dropdown is not visible","Match all dropdown is visible");
-//        String filterField="//div[contains(@class,'p-column-filter-matchmode-dropdown')]//span[text()='"+filter+"']";
-//        setImplicitWait(20000,TimeUnit.MILLISECONDS);
+        Validator.assertTrue(ddlMatchAll.isVisible(),"Match all dropdown is not visible '"+ColumnName+"'","Match all dropdown is visible for '"+ColumnName+"'");
+        Validator.assertTrue(ddlStartsWith.isVisible(10000,"Starts with"),"starts with dropdown is not visible for '"+ColumnName+"'","starts with dropdown is visible for '"+ColumnName+"'");
+        Validator.assertTrue(filterSearchTextBox.isVisible(),"search text box  is not visible for '"+ColumnName+"'"," Search text box is visible for '"+ColumnName+"'");
+//        Validator.assertTrue(addRuleLink.isVisible(),"Add rule link is not visible","Add rule link dropdown is visible");
+        Validator.assertTrue(btnFilterClear.isVisible(10000,"clear"),"clear button is not visible for '"+ColumnName+"'","clear button is visible for '"+ColumnName+"'");
+        Validator.assertTrue(btnFilterApply.isVisible(),"Apply button is not visible for '"+ColumnName+"'","Apply button is visible for '"+ColumnName+"'");
+    }
 
-//        waitForElementVisible(driver.findElement(By.xpath(filterField)),10000,500);
-        Validator.assertTrue(ddlStartsWith.isVisible(),"starts with dropdown is not visible","starts with dropdown is visible");
-        Validator.assertTrue(filterSearchTextBox.isVisible(),"search text box  is not visible"," Search text box is visible");
-        Validator.assertTrue(addRuleLink.isVisible(),"Add rule link is not visible","Add rule link dropdown is visible");
-        Validator.assertTrue(btnFilterClear.isVisible(),"clear button is not visible","clear button is visible");
-        Validator.assertTrue(btnFilterApply.isVisible(),"Apply button is not visible","Apply button is visible");
+    public void verifyStatusFilterIcon(String ColumnName)
+    {
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        waitForElementVisible(ddlAny,10000,500);
+        Validator.assertTrue(ddlAny.isVisible(),"Any dropdown is not visible '"+ColumnName+"'","Any dropdown is visible for '"+ColumnName+"'");
+//        Validator.assertTrue(addRuleLink.isVisible(),"Add rule link is not visible","Add rule link dropdown is visible");
+        Validator.assertTrue(btnFilterClear.isVisible(),"clear button is not visible for '"+ColumnName+"'","clear button is visible for '"+ColumnName+"'");
+        Validator.assertTrue(btnFilterApply.isVisible(),"Apply button is not visible for '"+ColumnName+"'","Apply button is visible for '"+ColumnName+"'");
+    }
+
+    public void verifyDateFilterIconFields(String ColumnName)
+    {
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        waitForElementVisible(ddlMatchAll,10000,500);
+        Validator.assertTrue(ddlMatchAll.isVisible(),"Match all dropdown is not visible '"+ColumnName+"'","Match all dropdown is visible for '"+ColumnName+"'");
+        Validator.assertTrue(ddlDateIs.isVisible(),"Date dropdown is not visible for '"+ColumnName+"'","Date dropdown is visible for '"+ColumnName+"'");
+        Validator.assertTrue(filterSearchTextBox.isVisible(),"search text box  is not visible for '"+ColumnName+"'"," Search text box is visible for '"+ColumnName+"'");
+//        Validator.assertTrue(addRuleLink.isVisible(),"Add rule link is not visible","Add rule link dropdown is visible");
+        Validator.assertTrue(btnFilterClear.isVisible(),"clear button is not visible for '"+ColumnName+"'","clear button is visible for '"+ColumnName+"'");
+        Validator.assertTrue(btnFilterApply.isVisible(),"Apply button is not visible for '"+ColumnName+"'","Apply button is visible for '"+ColumnName+"'");
     }
 
     public void StartsWithFilterClick() {
@@ -2928,5 +3050,17 @@ public void verifyUnPinnedSubList(String value) {
 
          }
 
+    public void newLinkClick()
+    {
+        waitForElementVisible(newLink,10000,500);
+        newLink.isVisible(10000,"New");
+        newLink.click("New link");
+    }
 
+    public void verifyConveyorHistoryForConveyor(String conveyorName)
+    {
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(driver.findElement(By.xpath("//div[contains(@class,\"p-scroller-content\")]//div[2]//div//h6[contains(@class,\"conveyor-name\") and text()='"+conveyorName+"']")).isDisplayed(),"Subscribed user  unable to see updates under Conveyor History!",
+                "Subscribed user is able to see updates under Conveyor History!");
+    }
 }

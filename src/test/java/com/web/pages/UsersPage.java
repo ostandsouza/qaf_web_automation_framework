@@ -1188,7 +1188,7 @@ public class UsersPage extends BasePage{
 	public void cancelBtnClick()
 	{
 		waitForElementVisible(btnCancel,10000,500);
-		btnCancel.jsClick();
+		btnCancel.jsClick("Cancel");
 	}
 
 	public void verifyNavigationToUserListPage()
