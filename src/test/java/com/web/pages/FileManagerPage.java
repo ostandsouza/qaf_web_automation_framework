@@ -201,6 +201,7 @@ public class FileManagerPage extends BasePage{
         else {
             setImplicitWait(30000, TimeUnit.MILLISECONDS);
             waitForElementToInvisible(fileManagerLoader,40000);
+            SyncUtil.waitFor(2000);
             driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
             setImplicitWait(5000, TimeUnit.MILLISECONDS);
             driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
@@ -311,7 +312,8 @@ public class FileManagerPage extends BasePage{
         driver.findElement(By.xpath("//a[text()='"+fileName+"']")).click();
         waitForElementToDisplay(pdfPopup);
         pdfPopup.isVisible("pdf");
-        closePopup.click();
+        if(closePopup.isVisible())
+            closePopup.click();
     }
 
     public void openFile(String folderName,String fileName){

@@ -83,7 +83,6 @@ public class LoginPage extends BasePage {
 		tbConfirmPassword.type(confirmPassword,"Confirm Password");
 		btnSave.click("Save");
 		waitForElementToInvisible(btnSave,75000);
-		SyncUtil.waitFor(30000);
 	}
 
 }

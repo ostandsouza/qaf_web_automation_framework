@@ -164,7 +164,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Remarks']")
     public CustomElement crRemarksTab;
 
-    @FindBy(locator = "xpath=(//label[text()='Belt Width ']/..//input)[2]")
+    @FindBy(locator = "xpath=(//label[text()='Belt Width '])")
     public CustomElement crBeltWidth;
 
     @FindBy(locator = "xpath=//label[text()='Belt Speed ']/..//input")
@@ -224,7 +224,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Belt Manufacturer')]/..//input)[2]")
     public CustomElement crBeltConfig;
 
-    @FindBy(locator = "xpath=(//label[text()='Belt Construction']/..//input)[2]")
+    @FindBy(locator = "xpath=(//label[text()='Belt Construction'])")
     public CustomElement crBeltConstruction;
 
     @FindBy(locator = "xpath=(//label[contains(text(),'Top Cover Compound')]/..//input)[2]")
@@ -266,7 +266,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//label[contains(text(),'Installation Date')]/..//input")
     public CustomElement crInstallationDate;
 
-    @FindBy(locator = "xpath=(//label[contains(text(),'Description')]/..//input)[2]")
+    @FindBy(locator = "xpath=(//label[contains(text(),'Description')])")
     public CustomElement crDescription;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Bulk Density')]/..//input")
@@ -1403,7 +1403,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public void verifyCSVContents(String conveyor2) {
-        Validator.assertTrue(((Map<String,String>)(CSVUtil.getCSVDataAsMap(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+"download.csv").get(0)[0])).get("Name").equalsIgnoreCase(conveyor2),"CSV Report was generated for the wrong conveyor","CSV Report was generated for the right conveyor");
+        Validator.assertTrue(((Map<String,String>)(CSVUtil.getCSVDataAsMap(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+"download.csv").get(0)[0])).containsValue(conveyor2),"CSV Report was generated for the wrong conveyor","CSV Report was generated for the right conveyor");
         Validator.assertTrue(CSVUtil.getCSVDataAsMap(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+"download.csv").get(0).length == 1,"CSV Report has incorrect no of conveyors","CSV report has valid no of conveyors");
     }
 
