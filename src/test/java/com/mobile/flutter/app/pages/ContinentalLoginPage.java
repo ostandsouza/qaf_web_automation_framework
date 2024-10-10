@@ -3,6 +3,7 @@ package com.mobile.flutter.app.pages;
 import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.component.CustomFlutterElement;
+import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.mobile.nativectx.app.pages.ContinentalLoginNativePage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
@@ -64,6 +65,9 @@ public class ContinentalLoginPage extends FlutterBasePage {
     @FindBy(locator = "continental.error.message")
     public CustomFlutterElement continentalErrorMsg;
 
+    @FindBy(locator = "dashboard.loading.animation")
+    public CustomFlutterElement loadingDashboard;
+
     @FindBy(locator = "continental.authenticationError.message")
     public CustomFlutterElement emailErrorMsg;
     @FindBy(locator = "continental.nullPasswordError.message")
@@ -101,7 +105,12 @@ public class ContinentalLoginPage extends FlutterBasePage {
         Validator.assertTrue(forgotPwdBtn.isVisible(),"Forgot Password button is not visible","Forgot Password  button is visible");
         Validator.assertTrue(activateAcctBtn.isVisible(),"Activate Account button is not visible","Activate Account button is visible");
         loginBtn.click();
-        return DashboardPage.getInstance().isHomePage();
+        boolean flag =  DashboardPage.getInstance().isHomePage();
+////        driver.executeScript("flutter:setFrameSync", true, 5);
+//        if(flag)
+            loadingDashboard.waitForTheElementToBeVisible(30);
+        loadingDashboard.waitForTheElementToBeInvisible(70);
+        return flag;
     }
 
     public boolean verifyUser(String email) {

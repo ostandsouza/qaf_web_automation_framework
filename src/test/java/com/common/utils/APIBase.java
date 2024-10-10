@@ -36,6 +36,8 @@ public class APIBase {
     public void configureRestAssured() {
         System.out.println("Configuring RestAssured");
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        if(getBundle().getString("jenkins.execution").equalsIgnoreCase("true"))
+            RestAssured.proxy("cias.geoaws.com", 8080);
         RestAPIHelper.configure();
         headersMap.put("appclientid",getBundle().getString("env.appId"));
 //      queryMaps.put(CoreConnectionPNames.CONNECTION_TIMEOUT, 1000)
@@ -260,6 +262,19 @@ public class APIBase {
 //        }
         tearDown();
         return val;
+    }
+
+    public Map<String, Object> getConveyorsInspectionCount() {
+        configureRestAssured();
+        queryMaps.put("inspectionType", "");
+        String baseUrl = commonPaths.get("conveyor_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> conveyorPaths = JsonReader.getMapTestData("path", "conveyor_controller");
+        restApiHelper.makeGetRequest(conveyorPaths.get("conveyor_inspections_count"),queryMaps, headersMap);
+        Response inspectionResponse = restApiHelper.getResponse();
+        JsonPath jsnPath = inspectionResponse.jsonPath();
+        return jsnPath.getMap("data");
     }
 
     public void deleteConveyorAPI(String conveyorId) {
@@ -633,6 +648,7 @@ public class APIBase {
         tearDown();
         return val;
     }
+
     public Map<String, Object> getMonitoringDeviceAPI(String monitoringDeviceName) {
         configureRestAssured();
         String baseUrl = commonPaths.get("monitoring_ms");
@@ -715,5 +731,23 @@ public class APIBase {
         }
         tearDown();
         return profileType;
+    }
+
+    public String getMonitoringDeviceAPI() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("monitoring_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        queryMaps.put("limit","100");
+        headersMap.put("user-token",accessToken);
+        Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "monitoring_controller");
+        restApiHelper.makeGetRequest(monitoringPaths.get("list"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        String val = null;
+        if(profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = (String) jsnPath.getMap("data[0]").get("userId");
+        }
+        tearDown();
+        return val;
     }
 }

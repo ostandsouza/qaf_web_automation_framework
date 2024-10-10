@@ -1,10 +1,12 @@
 package com.mobile.flutter.app.steps;
 
 
+import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.mobile.flutter.app.pages.ContinentalLoginPage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.flutter.app.pages.LandingPage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
+import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Validator;
 import org.testng.Assert;
 
@@ -14,9 +16,8 @@ public class LoginSteps {
     @QAFTestStep(description = "Login to the application with {UserName} and {Password}")
     public void loginToApplication(String userName, String password) {
 //        ContinentalLoginPage.getInstance().login(userName,password);
-        contiPage.login(userName,password);
-
         Validator.assertTrue(ContinentalLoginPage.getInstance().isContinentalPage(),"Continental login page is not visible","Continental login page is visible");
+        contiPage.login(userName,password);
     }
 
     @QAFTestStep(description="Verify user is on continental login page")

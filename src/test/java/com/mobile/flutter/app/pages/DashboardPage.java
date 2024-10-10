@@ -59,8 +59,9 @@ public class DashboardPage extends FlutterBasePage {
 
 
     public boolean isHomePage() {
-        Validator.assertTrue(homeTitle.isPresent(),"User is not navigated Home Page","User is navigated Home Page");
-        return homeTitle.isPresent();
+        homeTitle.waitForTheElementToBeVisible(70);
+        Validator.assertTrue(homeTitle.isVisible(),"User is not navigated Home Page","User is navigated Home Page");
+        return homeTitle.isVisible();
     }
 
     public boolean goToProfilePage() {

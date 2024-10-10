@@ -16,6 +16,7 @@ dashboard.gallery.btn = -ios class chain=**/XCUIElementTypeStaticText[`label == 
 dashboard.alert.popup = -ios class chain=**/XCUIElementTypeStaticText[`label == "“Conti+ 2.0” Would Like to Access the Camera"`]
 dashboard.permission.dismiss = accessibility id=Don’t Allow
 dashboard.ok.btn = accessibility id=OK
+dashboard.cancel.btn = accessibility id=CANCEL
 dashboard.firstSearch.map = xpath=(//XCUIElementTypeScrollView/following-sibling:: XCUIElementTypeStaticText[1])[2]
 dashboard.firstSearch.dropdown = xpath=//XCUIElementTypeTextField[@name="Search"]/following-sibling:: XCUIElementTypeOther/XCUIElementTypeScrollView/following-sibling:: XCUIElementTypeStaticText[1]
 dashboard.search.txt = -ios class chain=**/XCUIElementTypeStaticText[`label CONTAINS "results found"`]

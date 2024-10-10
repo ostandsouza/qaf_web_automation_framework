@@ -2,11 +2,14 @@ package com.mobile.flutter.app.pages;
 
 import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.component.CustomFlutterElement;
+import com.mobile.nativectx.app.component.CustomMobileElement;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.mobile.utils.DIRECTION;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Validator;
 import org.testng.Assert;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class ConveyorPage extends FlutterBasePage {
 
@@ -17,6 +20,9 @@ public class ConveyorPage extends FlutterBasePage {
             obj = new ConveyorPage();
         return obj;
     }
+
+    @FindBy(locator = "dashboard.loading.animation")
+    public CustomFlutterElement loadingDashboard;
 
     @FindBy(locator = "conveyor.name.field")
     public CustomFlutterElement conveyorNameField;
@@ -54,6 +60,9 @@ public class ConveyorPage extends FlutterBasePage {
     @FindBy(locator = "conveyor.details.fileManager")
     public CustomFlutterElement conveyorFileManagerDetails;
 
+    @FindBy(locator = "conveyor.details.conveyorInspect")
+    protected CustomMobileElement conveyorInspectDetails;
+
     @FindBy(locator = "conveyor.list.download")
     public CustomFlutterElement conveyorDownloadBtn;
 
@@ -80,13 +89,6 @@ public class ConveyorPage extends FlutterBasePage {
 
     @FindBy(locator = "conveyor.toast.error")
     public CustomFlutterElement addConveyorNameError;
-
-
-
-    @FindBy(locator = "dashboard.loading.animation")
-    public CustomFlutterElement loadingDashboard;
-
-
 
     @FindBy(locator = "conveyor.distributor.fieldtext")
     public CustomFlutterElement distributorFieldText;
@@ -119,13 +121,14 @@ public class ConveyorPage extends FlutterBasePage {
     public CustomFlutterElement folderBreadCrumb;
 
     public boolean isConveyorPage() {
-        Validator.assertTrue(conveyorListHeader.isPresent(),"user navigated to conveyor list page","user navigated to conveyor list page");
-        return conveyorListHeader.isPresent();
+        conveyorListHeader.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(conveyorListHeader.isVisible(),"user navigated to conveyor list page","user navigated to conveyor list page");
+        return conveyorListHeader.isVisible();
     }
 
     public boolean isAddConveyorPage() {
-        Validator.assertTrue(addConveyorHeader.isPresent(),"user navigated to add conveyor page","user navigated to add conveyor  page");
-        return addConveyorHeader.isPresent();
+        Validator.assertTrue(addConveyorHeader.isVisible(),"user navigated to add conveyor page","user navigated to add conveyor  page");
+        return addConveyorHeader.isVisible();
     }
 
     public boolean addConveyor(String conveyorName, String custSiteName, String distShopName) {
@@ -209,8 +212,8 @@ public class ConveyorPage extends FlutterBasePage {
 
     public boolean conveyorDetailsNav(String company) {
         DashboardNativePage.getInstance().goToConveyorSearch();
-        SyncUtil.waitFor(5000);
         DashboardNativePage.getInstance().enterSearchQuery(company);
+        SyncUtil.waitFor(1500);
         return goToConveyorDetails();
     }
 

@@ -173,10 +173,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Belt Length']/parent::div//input")
     public CustomElement cwBeltLength;
 
-    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal']/parent::div//input)[2]")
+    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal ']/parent::div//input)[2]")
     public CustomElement cwTopCoverThicknessInput;
 
-    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness Nominal']/parent::div//input)[2]")
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness Nominal ']/parent::div//input)[2]")
     public CustomElement cwBottomCoverThicknessInput;
 
     @FindBy(locator="xpath=(//label[text()='Top Cover Compound']/parent::div//input)[1]/../following-sibling::span")
@@ -1126,6 +1126,11 @@ public class CoverWearPage extends BasePage{
         crCoverWearCard.isEnable("Cover Wear Data");
     }
 
+    public void goToThePositionDetailScreen(String positionName) {
+        searchPosition(positionName);
+        waitForElementToDisplay(cwViewIcon);
+        cwViewIcon.click("Position Detail");
+    }
 
     public void verifyDeletePosition(String segmentName) {
         cwSearchInput.type(segmentName, "Position Search");
@@ -1300,7 +1305,7 @@ public class CoverWearPage extends BasePage{
         waitForElementToBeClickable(cwSave);
         cwSave.click("Save");
         waitForElementToInvisible(cwSpecsLoader,40000);
-//        Validator.assertTrue(!(tonsConveyedCurrent.isVisible()),"Add Measurement window was not closed after save","Add measurement window was closed successfully");
+        Validator.assertTrue(!(tonsConveyedCurrent.isVisible()),"Add Measurement window was not closed after save","Add measurement window was closed successfully");
     }
 
     public void verifyPreviousMeasurementTable(String installationDate, String previousMeasurementDate, String previousThickness){
@@ -1558,7 +1563,6 @@ public class CoverWearPage extends BasePage{
         cwTableView.click("View Icon");
         positionHeader.isVisible("Position Header");
     }
-
     public void positionDetailsClick()
     {
         cwTableView.click("View Icon");
@@ -2047,6 +2051,15 @@ public class CoverWearPage extends BasePage{
         waitForPageLoad(20000);
 
     }
+    public void verifyCoverWearNavigation()
+    {
+//        SyncUtil.waitFor(10000);
+        waitForPageLoad(20000);
+        waitForElementVisible(headerSpecification,20000,500);
+        Validator.assertTrue(headerSpecification.isVisible(),"user is not navigated to coverWear list page","user is  navigated to coverWear list page");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/cover-wear"),"URL mismatch","URL matches");
+
+    }
 
     public void verifyCoverWearListPageNavigation()
     {
@@ -2212,13 +2225,13 @@ public class CoverWearPage extends BasePage{
 
     public void verifyIncreasingOrderSorting(int columnNumber)
     {
+//        int columnNumber = 5; // Example: retrieve data from the 5th column
         List<String> columnDataAfterSortingIncreasing = getColumnData(columnNumber);
         List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
         expectedSortedDataIncreasing.sort(null);
         Validator.assertTrue(columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing), "Sorting in increasing order is not applied correctly","sorting is applied in increasing order");
 
     }
-
 
     public void verifyDecreasingOrderSorting(int columnNumber)
     {
@@ -2392,6 +2405,7 @@ public class CoverWearPage extends BasePage{
         waitForElementVisible(imgGaugeMeter,10000,1000);
         Validator.assertTrue(imgGaugeMeter.isDisplayed(),"Gauge meter is not displayed","Gauge meter is displayed");
     }
+
 
 
     public void extractPositionData()
@@ -2594,7 +2608,11 @@ public class CoverWearPage extends BasePage{
         Validator.assertTrue(dialogBox.isDisplayed(),"Dialogbox is not displayed","Dialogbox is displayed");
     }
 
-
+    public void verifyGuazeImageInSpec(){
+        waitForPageLoad(5000);
+        waitForElementVisible(imgGuazeMeter,10000,1000);
+        Validator.assertTrue(imgGuazeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
+        }
 
     public void verifyGuazeEmptyData(){
         waitForElementVisible(getCwRemainingCoverPercent,10000,1000);
@@ -3127,6 +3145,7 @@ public class CoverWearPage extends BasePage{
         return corporateColumnHeader.isEnable() && siteColumn.isEnable() && tablePositionHeader.isEnable() && remainingLifePercentageHeader.isEnable()
                 && remainingLifeHeader.isEnable() && durometerShoreHeader.isEnable() && coverGradeHeader.isEnable();
     }
+
     public void verifyCoverWearReportData(String conveyorName, String siteName) {
         PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + conveyorName + "_" + siteName + ".pdf");
         try {

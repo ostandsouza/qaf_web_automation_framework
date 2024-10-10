@@ -9,16 +9,18 @@ def prod_account  = "${CTP_PROD_AWS_ACCOUNT_NUMBER}"
 
 pipeline {
     agent { label "IBDGenericAgent" }
-    tools {
-        maven 'maven3.8.6'
-        jdk 'jdk1.8'
-    }
+//     tools {
+//         maven 'maven3.8.6'
+//         jdk 'jdk17'
+//     }
     environment {
         CREDS = credentials('CTP_DEV_CREDS')
        
         IBD_CLIENT_GITHUB_TOKEN = credentials('IBD_CLIENT_GITHUB_TOKEN')
         IBD_CLIENT_GITHUB_API = "https://github.geo.conti.de"
         IBD_CLIENT_GITHUB_KEY_TITLE = "IBD CLI Jenkins SSH Manager"
+        http_proxy="http://cias.geoaws.com:8080"
+        https_proxy="http://cias.geoaws.com:8080"
     }
 
     stages {
@@ -36,7 +38,12 @@ pipeline {
                     sh( script: 'printenv')
                     sh( script: 'mvn -v')
                     sh( script: 'java -version')
-                    sh ( script: 'mvn clean test')
+//                     sh( script: 'apt-get install libxss1 libappindicator1 libindicator7')
+                    sh( script: 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
+                    sh( script: 'sudo apt-get update')
+                    sh( script: 'sudo apt-get install ./google-chrome*.deb')
+//                     sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test')
+                    sh ( script: 'mvn -s ${WORKSPACE}/settings.xml clean test "-Dchrome.additional.capabilities={\\"goog:chromeOptions\\":{\\"args\\":[\\"--headless\\",\\"--remote-allow-origins=*\\",\\"--disable-gpu\\",\\"--no-sandbox\\",\\"--disable-extensions\\",\\"--disable-dev-shm-usage\\"],\\"extensions\\":[],\\"prefs\\":{\\"download.default_directory\\":\\"${WORKSPACE}/target/downloads\\"}}}"')
                 }
             }
         }
@@ -55,17 +62,16 @@ pipeline {
 //             }
 //         }
         stage ('publish_HTML') {
-            when {
-                expression {
-                    return currentBuild.result == 'FAILURE'||currentBuild.result == 'SUCCESS'||currentBuild.result == 'UNSTABLE';
-                }
-            }
+//             when {
+//                 expression {
+//                     return currentBuild.result == 'FAILURE'||currentBuild.result == 'SUCCESS'||currentBuild.result == 'UNSTABLE';
+//                 }
+//             }
           steps {
                script{
                     env.FAILURE_STAGE = 'publish_HTML'
-
                     publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/customized-emailable-report.html', keepAll: true, reportDir: 'target/surefire-reports', reportFiles: 'customized-emailable-report.html', reportName: 'htmlReport', reportTitles: 'htmlReport'])
-
+                    println("${currentBuild.result}")
                 }
             }
         }

@@ -1,0 +1,50 @@
+conveyorInspect.card.txt = flutter-text=Conveyor Inspect
+conveyorInspect.card.count=flutter-valuekey=Conveyor Inspect Count
+conveyorInspect.dashboard.tab = flutter-text=Company Site Dashboard
+conveyorInspect.inspection.tab= flutter-text=Inspections
+conveyorInspect.dashboard.conveyorStatus = flutter-text=Conveyor Status
+conveyorInspect.conveyorStatus.lastUpdate = flutter-valuekey=last update
+conveyorInspect.conveyorStatus.critical = flutter-valuekey=Critical
+conveyorInspect.conveyorStatus.poor = flutter-valuekey=Poor
+conveyorInspect.conveyorStatus.fault = flutter-valuekey=Fault
+conveyorInspect.conveyorStatus.good = flutter-valuekey=Good
+conveyorInspect.conveyorStatus.piechart = flutter-valuekey=chart
+conveyorInspect.conveyorStatus.criticalTemp = flutter-valuekey=critical temp
+conveyorInspect.conveyorStatus.poorTemp = flutter-valuekey=poor temp
+conveyorInspect.conveyorStatus.faultTemp = flutter-valuekey=fault temp
+conveyorInspect.conveyorStatus.goodTemp = flutter-valuekey=good temp
+conveyorInspect.dashboard.trendAnalysis = flutter-text=Trend Analysis
+conveyorInspect.trendAnalysis.critical = flutter-text=Critical
+conveyorInspect.trendAnalysis.poor = flutter-text=Poor
+conveyorInspect.trendAnalysis.fault = flutter-text=Fault
+conveyorInspect.trendAnalysis.good = flutter-text=Good
+conveyorInspect.trendAnalysis.echart = flutter-valuekey=echarts
+conveyorInspect.dashboard.maintenanceAction = flutter-text=Maintenance Action
+conveyorInspect.dashboard.upload = flutter-text=Upload Files
+conveyorInspect.uploadFile.uploadBtn = flutter-valuekey=upload_file
+conveyorInspect.uploadFile.site = flutter-valuekey=Select Site Name
+conveyorInspect.uploadFile.conveyor = flutter-valuekey=Select Conveyor
+conveyorInspect.uploadFile.date = flutter-valuekey=ContiplusDatePicker
+conveyorInspect.uploadFile.time = flutter-valuekey=ContiplusTimePicker
+conveyorInspect.uploadFile.colorHot= flutter-text=Hot
+conveyorInspect.uploadFile.upload = flutter-text=Upload
+conveyorInspect.uploadFile.cancel = flutter-text=Cancel
+conveyorInspect.uploadFile.close = flutter-valuekey=close_btn
+conveyorInspect.uploadFile.cancelImageUpload = flutter-valuekey=Cancel
+conveyorInspect.uploadFile.proceedUpload = flutter-text=Proceed
+conveyorInspect.uploadFile.imgFailed = flutter-text=Please select atleast a pair of JPEGs & R-JPEGs to proceed.
+conveyorInspect.uploadFile.uploadFailed = flutter-text=Complete the form to upload files
+conveyorInspect.uploadFile.imageStatus = flutter-valuekey=image_status
+conveyorInspect.siteLevel.InspectionTab = flutter-text=Inspection Details
+conveyorInspect.InspectionTab.header = flutter-text=Conveyor Inspection Details
+conveyorInspect.InspectionTab.kmTab = flutter-text=km
+conveyorInspect.InspectionTab.100mTab = flutter-text=100m
+conveyorInspect.InspectionTab.10mTab = flutter-text=10m
+conveyorInspect.InspectionTab.critical = flutter-valuekey=Critical count
+conveyorInspect.InspectionTab.poor = flutter-valuekey=Poor count
+conveyorInspect.InspectionTab.fault = flutter-valuekey=Fault count
+conveyorInspect.InspectionTab.good = flutter-valuekey=Good count
+conveyorInspect.InspectionTab.map = flutter-type=ContiMap
+conveyorInspect.list.firstRow = flutter-valuekey=conveyorInspect_0
+conveyorInspect.maintenance.loader = flutter-type=CircularProgressIndicator
+conveyorInspect.maintenance.finding = flutter-valuekey=findings_0
