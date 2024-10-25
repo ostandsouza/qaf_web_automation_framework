@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.lang.Integer.parseInt;
 
-public class SitePage  extends BasePage {
+public class SitePage extends BasePage {
 
     @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
     public CustomElement home;
@@ -164,7 +164,7 @@ public class SitePage  extends BasePage {
     public void goToSiteDetails(String siteName) {
         searchSite(siteName);
         waitForElementToDisplay(btCheckbox);
-        btViewIcon.click("Site Details");
+        btViewIcon.jsClick("Site Details");
         waitForElementToDisplay(siteHeader);
         siteHeader.isEnable("File Manager");
     }
@@ -227,7 +227,8 @@ public class SitePage  extends BasePage {
         setImplicitWait(30000, TimeUnit.MILLISECONDS);
         waitForElementToDisplay(subscribePinIcon);
         Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed",
-                "subscription is removed");}
+                "subscription is removed");
+    }
 
     public void searchSiteAndNavigate(String siteName) {
         searchSite(siteName);
@@ -256,26 +257,26 @@ public class SitePage  extends BasePage {
     public void bellIconClick() {
         waitForElementVisible(bellIcon, 10000, 500);
         bellIcon.click();
-        notificationPopup.isVisible(10000,"Notification popup");
+        notificationPopup.isVisible(10000, "Notification popup");
         Validator.assertTrue(notificationPopup.isDisplayed(), "Notification popup is not displayed", "Notification popup is displayed");
-        Validator.assertTrue(markAllAsReadText.isVisible(10000,"Mark all as Read"),"Mark all as Read is not visible under notification menu!",
+        Validator.assertTrue(markAllAsReadText.isVisible(10000, "Mark all as Read"), "Mark all as Read is not visible under notification menu!",
                 "Mark all as Read is visible under notification menu!");
 
     }
 
-    public void verifyNotificationOrder() {
-        String updatedSite1 = "(//app-notification-item//div[contains(@class,\"notification\")])[4]//div[text()='C1 Common Automation Conveyor']";
-        String updatedSite2 = "(//app-notification-item//div[contains(@class,\"notification\")])[2]//div[text()='CVA Common Regression']";
-        Validator.assertTrue(driver.findElement(By.xpath(updatedSite1)).isDisplayed() && driver.findElement(By.xpath(updatedSite2)).isDisplayed(), "notificatio is not  in last in first out format", "notification in last in first out format");
+
+    public void verifyNotificationSiteOrder(String value1, String value2) {
+        String updatedSite1 = "(//app-notification-item//div[contains(@class,\"notification\")])[4]//div[text()='" + value2 + "']";
+        String updatedSite2 = "(//app-notification-item//div[contains(@class,\"notification\")])[2]//div[text()='" + value1 + "']";
+        Validator.assertTrue(driver.findElement(By.xpath(updatedSite1)).isDisplayed() && driver.findElement(By.xpath(updatedSite2)).isDisplayed(), "notification is not  in last in first out format", "notification in last in first out format");
     }
 
+
     public int extractNotificationCount() {
-        int notificationCount=0;
-        if(notificationsCount.isNotVisible(10000))
-        {
+        int notificationCount = 0;
+        if (notificationsCount.isNotVisible(10000)) {
             Reporter.log("No new notification");
-        }
-        else if(notificationsCount.isVisible(10000,"notification count")){
+        } else if (notificationsCount.isVisible(10000, "notification count")) {
             notificationCount = parseInt(notificationsCount.getText());
             System.out.println(notificationCount + "notificationCount");
 //        getBundle().setProperty("notificationCnt",notificationCount);
@@ -286,20 +287,20 @@ public class SitePage  extends BasePage {
 
     public void extractNotificationCountBefore() {
         int beforeSubscriptionCount = extractNotificationCount();
-        Reporter.log("Initial notification count is-'"+beforeSubscriptionCount);
+        Reporter.log("Initial notification count is-'" + beforeSubscriptionCount);
         getBundle().setProperty("notificationCntBefore", beforeSubscriptionCount);
 
     }
 
     public void extractNotificationCountAfter() {
         int afterSubscriptionCount = extractNotificationCount();
-        Reporter.log("Notification count after update is-'"+afterSubscriptionCount);
+        Reporter.log("Notification count after update is-'" + afterSubscriptionCount);
         getBundle().setProperty("notificationCntAfter", afterSubscriptionCount);
     }
-    public void verifyUserNotificationCountAfterUpdate()
-    {
+
+    public void verifyUserNotificationCountAfterUpdate() {
         int notificationCountBefore = Integer.parseInt(getBundle().getProperty("notificationCntBefore").toString());
-        notificationCountBefore+=1;
+        notificationCountBefore += 1;
         extractNotificationCountAfter();
         Validator.assertTrue(getBundle().getProperty("notificationCntAfter").equals(notificationCountBefore), "User has not received new notification", "User received new notification");
     }
@@ -387,6 +388,7 @@ public class SitePage  extends BasePage {
         waitForElementToDisplay(btnSort);
         btnSort.click("sortBtn Click");
     }
+
     public void refreshBtnClick() {
         scrollPageup();
         waitForElementToDisplay(btnRefresh);
@@ -413,28 +415,28 @@ public class SitePage  extends BasePage {
                 "Sorting is applied in increasing order"
         );
     }
-    public void verifyPageRefreshed()
-    {
+
+    public void verifyPageRefreshed() {
         waitForElementToDisplay(notificationListRefresh);
-        Validator.assertTrue(notificationListRefresh.isDisplayed(),"Notification list is not getting refreshed","Notification List is getting refreshed");
+        Validator.assertTrue(notificationListRefresh.isDisplayed(), "Notification list is not getting refreshed", "Notification List is getting refreshed");
 
     }
-    public void verifyNotificationsActionBtn()
-    {
-        Validator.assertTrue(btnNotificationAction.isVisible(10000,"Action Button"),"Action button is not visible in the notification list page!",
-                "Action button is  visible in the notification list page!" );
+
+    public void verifyNotificationsActionBtn() {
+        Validator.assertTrue(btnNotificationAction.isVisible(10000, "Action Button"), "Action button is not visible in the notification list page!",
+                "Action button is  visible in the notification list page!");
     }
-    public void markAllAsReadLnkClick()
-    {
+
+    public void markAllAsReadLnkClick() {
         waitForElementToBeClickable(markAllAsReadText);
         markAllAsReadText.click("Mark All As Read");
     }
-    public void actionBtnClickAndVerifySymbol()
-    {
+
+    public void actionBtnClickAndVerifySymbol() {
         scrollPageup();
         verifyNotificationsActionBtn();
         btnNotificationAction.click("Action");
-        Validator.assertTrue(btnNotificationActionDropDwn.isVisible(10000,"Action DropDown"),"User is not able to see the Mark all as read along with eye symbol!",
+        Validator.assertTrue(btnNotificationActionDropDwn.isVisible(10000, "Action DropDown"), "User is not able to see the Mark all as read along with eye symbol!",
                 "User is  able to see the Mark all as read text along with eye symbol!");
 
 

@@ -49,12 +49,15 @@ Scenario: Verify with create corporate scenario
 @key:CorporateMangement_Edit
 Scenario: Verify with Edit corporate scenario
 
+ Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     When  Edit Customer Corporate with '${CustCorpName}' and '${EditCustCorpName}'
-    And   Add '${CorpImageName}' image to Corporate and save changes
-    Then  Verify the Distributor Corp details with '${EditCustCorpName}' and '${CorpImageName}'
-    When  Edit Customer site with '${CustSiteName}' and '${EditCustSiteName}' using corporate '${EditCustCorpName}'
-    And   Add '${CustSiteImageName}' image to Corporate and save changes
-    Then  Verify the Customer site details with '${EditCustSiteName}' and '${CustSiteImageName}' using corporate '${EditCustCorpName}'
+   And   Add '${CorpImageName}' image to Corporate and save changes
+   Then  Verify the Distributor Corp details with '${EditCustCorpName}' and '${CorpImageName}'
+   When  Edit Customer site with '${CustSiteName}' and '${EditCustSiteName}' using corporate '${EditCustCorpName}'
+   And   Add '${CustSiteImageName}' image to Corporate and save changes
+   Then  Verify the Customer site details with '${EditCustSiteName}' and '${CustSiteImageName}' using corporate '${EditCustCorpName}'
+
 
 @Sanity5
 @dataFile:resources/data/TestData.xls
@@ -95,6 +98,8 @@ Scenario: Verify the conveyor management
 @key:Conveyor_BulkUpload
 Scenario: Verify the conveyor bulk upload
 
+
+
     When  Download bulk upload template for distributor '${DistCorpName}' and with sites '${CustSiteName}' and '${CustSite2Name}'
     And   Add two conveyor via bulk upload in site '${CustSiteName}' with file '${FileName}'
     Then  Validate conveyor '${CustSiteName}' should display in list with same data as filled in exel sheet '${FileName}'
@@ -103,10 +108,11 @@ Scenario: Verify the conveyor bulk upload
 @dataFile:resources/data/TestData.xls
 @sheetName:Sanity
 @key:Corporate_Card
-Scenario: Verify scenario for corporate card data
+Scenario: ZVerify scenario for corporate card data
 
 
-
+ Given User is at Login page
+            When  Login with normal user '${UserName}' and '${Password}'
     When  Navigate to Corporate details screen for corporate '${CustCorpName}'
     Then  Verify card count in details screen for '${CustCorpName}'
 
@@ -116,8 +122,7 @@ Scenario: Verify scenario for corporate card data
 @key:Conveyor_Edit
 Scenario: Verify the conveyor Edit
 
-  Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
+
     When  Edit Conveyor '${ConveyorName}' from conveyor list screen to '${EditConveyorName}'
     Then  Verify Edited conveyor details with '${EditConveyorName}' for Corporate '${CustSiteName}'
 
@@ -127,7 +132,7 @@ Scenario: Verify the conveyor Edit
 @key:Inspection_Management
 Scenario: Verify Inspection management
 
-Given User is at Login page
+    Given User is at Login page
     When  Login with normal user '${UserName}' and '${Password}'
     When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
@@ -144,6 +149,8 @@ Given User is at Login page
 @key:Inspection_Report
 Scenario: Verify Inspection Report
 
+   Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     When  Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
     Then  Verify data displayed in report for '${FullName}' '${CustSiteName}' '${ConveyorName}' '${InspectionName}'
 
@@ -164,43 +171,48 @@ Scenario: Verify Inspection Delete
 Scenario: Verify Cover Wear Management
 
 
+       Given User is at Login page
+       When  Login with normal user '${UserName}' and '${Password}'
+       When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
+       Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
+       When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'
+       Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${SegmentName}' with durometer as '${PositionDurometer}'
+       When  Edit Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' to '${EditSegmentName}'
+       Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}' with durometer as '${PositionDurometer}'
+       When  Delete Cover wear position for conveyor '${ConveyorName}' with data '${EditSegmentName}'
+       Then  Verify Delete Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}'
+       When  Edit Cover wear measurement for conveyor '${ConveyorName}'
+       When  Delete Cover wear measurement for conveyor '${ConveyorName}'
+       Then  Verify Delete Cover wear measurement for conveyor '${ConveyorName}'
 
-    When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
-    Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
-    When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'
-    Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${SegmentName}' with durometer as '${PositionDurometer}'
-    When  Edit Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' to '${EditSegmentName}'
-    Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}' with durometer as '${PositionDurometer}'
-    When  Delete Cover wear position for conveyor '${ConveyorName}' with data '${EditSegmentName}'
-    Then  Verify Delete Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}'
-    When  Edit Cover wear measurement for conveyor '${ConveyorName}'
-    When  Delete Cover wear measurement for conveyor '${ConveyorName}'
-    Then  Verify Delete Cover wear measurement for conveyor '${ConveyorName}'
 
 @Sanity14
 @dataFile:resources/data/TestData.xls
 @sheetName:Sanity
 @key:File_Manager
-Scenario: Verify File manager
+Scenario: ZVerify File manager
 
 
-    When  Add Folder by the name '${FolderName}' under site '${CustSiteName}'
-    And   Upload file '${ImgName}' into the folder '${FolderName}'
-    Then  Verify folder '${FolderName}' and file '${ImgName}'
-    When  Upload file '${pdfFile}' into the folder "root"
-    And   Move the file with '${pdfFile}' inside folder '${FolderName}'
-    Then  Verify folder '${FolderName}' and file '${pdfFile}'
-    When  Upload file '${videoFile}' into the folder '${FolderName}'
-    Then  Verify folder '${FolderName}' and file '${videoFile}'
-    When  Open image with name '${ImgName}' inside folder '${FolderName}'
-    And   Open pdf with name '${pdfFile}' inside folder '${FolderName}'
-    And   Open file with name '${videoFile}' inside folder '${FolderName}'
-    And   Delete file with name '${ImgName}' inside folder '${FolderName}'
-    And   Delete file with name '${pdfFile}' inside folder '${FolderName}'
-    And   Delete file with name '${videoFile}' inside folder '${FolderName}'
-    Then  Verify the deleted file '${ImgName}' '${pdfFile}' '${videoFile}' inside folder '${FolderName}'
-    When  Delete the folder '${FolderName}'
-    Then  Verify the deleted folder '${FolderName}'
+       Given User is at Login page
+       When  Login with '${UserName}' and '${Password}'
+       When  Add Folder by the name '${FolderName}' under site '${CustSiteName}'
+           And   Upload file '${ImgName}' into the folder '${FolderName}'
+           Then  Verify folder '${FolderName}' and file '${ImgName}'
+           When  Upload file '${pdfFile}' into the folder "root"
+           And   Move the file with '${pdfFile}' inside folder '${FolderName}'
+           Then  Verify folder '${FolderName}' and file '${pdfFile}'
+           When  Upload file '${videoFile}' into the folder '${FolderName}'
+           Then  Verify folder '${FolderName}' and file '${videoFile}'
+           When  Open image with name '${ImgName}' inside folder '${FolderName}'
+           And   Open file with name '${videoFile}' inside folder '${FolderName}'
+           And   Delete file with name '${ImgName}' inside folder '${FolderName}'
+           And   Delete file with name '${pdfFile}' inside folder '${FolderName}'
+           And   Delete file with name '${videoFile}' inside folder '${FolderName}'
+           Then  Verify the deleted file '${ImgName}' '${pdfFile}' '${videoFile}' inside folder '${FolderName}'
+           When  Delete the folder '${FolderName}'
+           Then  Verify the deleted folder '${FolderName}'
+
+
 
 
 @Sanity15
@@ -209,8 +221,9 @@ Scenario: Verify File manager
 @key:Conveyor_Inspect
 Scenario: Verify Conveyor Inspect
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
+
+Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
     When  Assign Object detection model '${DetectionModel}' for Corporate '${CustCorpName}' with site '${CustSiteName}' and conveyor '${ConveyorName}'
     And   Upload drone files with '${Side}' '${colorMap}' '${irName}' '${rgbName}'
 

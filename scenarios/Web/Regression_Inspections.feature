@@ -7,7 +7,7 @@ Launch the application through '/'
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
-Scenario: Verify with inspection navigation
+Scenario: ZVerify with inspection navigation
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -18,7 +18,7 @@ Scenario: Verify with inspection navigation
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
-Scenario: Verify the view type in inspection list
+Scenario: YVerify the view type in inspection list
 
     When  Navigate to inspection list screen
     Then  Verify default view type is grouped view
@@ -30,7 +30,7 @@ Scenario: Verify the view type in inspection list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_AddEvent
-Scenario: Verify the add button functionality
+Scenario: XVerify the add button functionality
 
     When  Navigate to inspection list screen
     And   Navigate to Add Inspection screen from list screen
@@ -47,7 +47,7 @@ Scenario: Verify the add button functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Create
-Scenario: Verify the add button functionality with save
+Scenario: WVerify the add button functionality with save
 
     When  Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
@@ -60,7 +60,7 @@ Scenario: Verify the add button functionality with save
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Count
-Scenario: Verify count functionality at tiles
+Scenario: VVerify count functionality at tiles
 
     When  Navigate to the inspection details screen for '${InspectionName}'
     Then  Verify tile count '${TotalCount}' for critical poor fault good and completed '${Val}'
@@ -69,7 +69,7 @@ Scenario: Verify count functionality at tiles
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Download
-Scenario: Verify download report from grouped inspection view
+Scenario: UVerify download report from grouped inspection view
 
     When  Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
     Then  Verify data displayed in report for '${FullName}' '${CustSiteName}' '${ConveyorName}' '${InspectionName}'
@@ -78,7 +78,7 @@ Scenario: Verify download report from grouped inspection view
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Create
-Scenario: Verify image upload functionality
+Scenario: TVerify image upload functionality
 
     When  Verify the uploaded image in inspection grouped view for '${InspectionName}'
     Then  Verify the uploaded image in inspection list view for '${ConveyorName}'
@@ -87,7 +87,7 @@ Scenario: Verify image upload functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Edit
-Scenario: Verify Inspection Event edit functionality
+Scenario:SVerify Inspection Event edit functionality
 
     When  Verify the actions button is disabled
     Then  Verify after select inspection '${InspectionName}' action button is enabled
@@ -100,7 +100,7 @@ Scenario: Verify Inspection Event edit functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:InspectionItem_Edit
-Scenario: Verify Inspection Item edit functionality
+Scenario: RVerify Inspection Item edit functionality
 
     And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}' from list view
     Then  Verify the status changes '${EditStatus}' for '${ConveyorName}'
@@ -109,7 +109,7 @@ Scenario: Verify Inspection Item edit functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Edit
-Scenario: Verify Delete inspection item
+Scenario: QVerify Delete inspection item
 
    When  Delete inspection item '${ConveyorName}' from inspection list
    Then  Verify inspection item '${ConveyorName}' is deleted from inspection list
@@ -120,6 +120,8 @@ Scenario: Verify Delete inspection item
 @key:Inspection_Edit
 Scenario: Verify Delete inspection event
 
+Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
    When  Delete inspection '${EditInspectionName}' from inspection list
    Then  Verify inspection '${EditInspectionName}' is deleted from inspection list
 
@@ -348,8 +350,7 @@ Scenario: Verify user is able to see number of inspection items in condition
 @key:Inspection_Dashboard
 Scenario: Verify user is able select the multiple sites via drop down
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
+
     And Click on corporates and open corperate '${Corporate}'
     Then Verify Inspection Tile is clickable
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -387,6 +388,8 @@ Scenario: Verify delete button functionality in add files section
 @key:Inspection_BreadCrumb
 Scenario: Verify breadcrumb of inspection
 
+       Given User is at Login page
+       When  Login with '${UserName}' and '${Password}'
        And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
        Then Click on conveyor '${ConveyorName}' name in breadcrumb anf verify it navigates to conveyor technical data screen
        And Click on Inspection tile and verify it displays only corresponding conveyor '${ConveyorName}' inspections
@@ -412,9 +415,11 @@ Scenario: Verify breadcrumb of inspection
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ExportFunction
-Scenario: Verify Export functionality under Inspection details screen.
+Scenario: ZVerify Export functionality under Inspection details screen.
 
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
     And Search for the InspectionItem '${ConveyorName}'
     Then Click on Export Button of InspectionItem and verify user is able to download pdf
@@ -444,7 +449,7 @@ Scenario: Verify Export functionality under Inspection details screen.
 @Regression29 @CTCP-791
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Inspection_ImageFunctionality
+@key:Inspection_ExportFunction
 Scenario: Verify uploaded image under inspection item
 
        And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'

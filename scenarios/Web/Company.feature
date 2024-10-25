@@ -12,7 +12,7 @@ Scenario: ZLook for the breadcrumb of the page
          Given User is at Login page
          When Login with '${UserName}' and '${Password}'
          And User navigates to Add Company page
-         Then Verify the Company bread crumb
+         Then Verify the corporate bread crumb
          And Click on Corporates Link to redirect to corporate list page
          And User navigates to Add Company page
          And Click on Home Link to redirect to home page
@@ -22,6 +22,7 @@ Scenario: ZLook for the breadcrumb of the page
 @sheetName:Company
 @key:Company_ImageUpload
 Scenario: Verify closing of Image viewer panel
+
 
          And User navigates to Add Company page
          Then Verify the default image is displayed and on hover camera icon is displayed
@@ -38,6 +39,7 @@ Scenario: Verify closing of Image viewer panel
 @key:Company_map
 Scenario: Verify Address autoSuggest functionality should working as expected after maximizing the map.
 
+
          Then Verify user is on home page of the application
          And Verify add company Link should be visible in the left navigation bar
          And Verify user navigates to Add Company page on clicking the Add Company link in navigation bar
@@ -51,7 +53,8 @@ Scenario: Verify Address autoSuggest functionality should working as expected af
 @key:Company_Location
 Scenario: Verify Add location when address not displayed in auto suggest.
 
-
+         Given User is at Login page
+         When Login with '${UserName}' and '${Password}'
          And User navigates to Add Company page
          And Verify image upload functionality with '${imageName}'
          And Select on Distributor corporate radio button and verify that distributor corporate is selected as default option

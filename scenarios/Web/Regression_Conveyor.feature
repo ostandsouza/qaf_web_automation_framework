@@ -176,9 +176,10 @@ Scenario: ZeVerify with add conveyor navigation
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_coordinates
-Scenario: Selection of head and tail coordinates
+Scenario: ASelection of head and tail coordinates
 
-
+       Given User is at Login page
+         When  Login with '${UserName}' and '${Password}'
      And  Navigate to Add Conveyor screen
      Then Verify that  GPS Coordinates Head and GPS Coordinates Tail with lat and long is visible
      When User selects a site '${SiteName}' from the dropdown and enter conveyorName '${ConveyorName1}'
@@ -211,6 +212,7 @@ Scenario: ZdVerify closing of image viewer panel
 @key:Conveyor_createDetails
 Scenario: Verify the save and close button on remarks tab
 
+          And Close the warning popup
           And  Navigate to Add Conveyor screen
           When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
           And Click on remarks radio button and click on save and close
@@ -232,6 +234,7 @@ Scenario: ZbVerify the save as draft button on remarks tab
 @key:Conveyor_createDetails
 Scenario: Verify user is able to click the previous button
 
+          And Close the warning popup
           And  Navigate to Add Conveyor screen
           When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
           And Click on remarks radio button and click on previous button
@@ -258,7 +261,7 @@ Scenario: ZcVerify user is able to get the count after deleting the conveyor
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_createDetails
-Scenario: Verify user is able to see the imperial data when imperial radio button is selected
+Scenario: YVerify user is able to see the imperial data when imperial radio button is selected
 
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
@@ -314,6 +317,9 @@ Scenario: ZFields displayed under Conveyor name
 Scenario: Verify conveyor location displayed in map
 
 
+
+  Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
     And Verify Conveyor Name '${ConveyorName}' is displayed as heading of the page
     Then Verify that map is displayed in the Conveyor Trail
@@ -345,6 +351,9 @@ Scenario: ZVerify user is able to edit the belt width for the Imperial unit Conv
 @key:Conveyor_Belt_Metric
 Scenario: Verify user is able to edit the tons per hour peak for the metric unit Conversions
 
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
     And Verify site and coporate fields are prefilled
     Then Verify data value in header as metric
@@ -360,7 +369,8 @@ Scenario: Verify user is able to edit the tons per hour peak for the metric unit
 @key:Conveyor_LayoutCreate
 Scenario: Verify the table layout picker
 
-
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Verify user is able to open the popup
@@ -385,6 +395,8 @@ Scenario: ZVerify user is able to add the layout name
 Scenario: Verify the user should get the add button enable
 
 
+  Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Click on text box and verify user is able to enter the layout name '${LayoutName}'
@@ -405,12 +417,10 @@ Scenario: Verify user is able to click the back button
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Layout
-Scenario: ZVerify user is able to see the newly added layout
+Scenario: Verify user is able to see the newly added layout
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-    Then  verify user '${UserName}' is able to add new layout for '${Corporates}' '${BeltWidth}' '${Rating}' '${Length}' with '${Layout_UserName}'
-    And Click on profile and select logout button
+
     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Verify user is able to see newly added layout
@@ -453,7 +463,8 @@ Scenario: Verify user is able to click the back button
 @key:Conveyor_LayoutCreate
 Scenario: User should able to drag and drop the table Layout settings popup
 
-
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Verify user is able to open the popup
@@ -495,7 +506,10 @@ Scenario: ZSelect table column as per column selection filter
 Scenario: Search conveyor in conveyor list
 
 
-    When  Navigate to conveyor list screen
+   Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    When  wait for conveyors to load
+    And Click on Clear filter Icon
     Then Look for the searchBar in the table and verify search icon and search placeholder is visible
     When Enter the text '${ConveyorName}' to search
     And Verify the matching result is displayed or No record found message should display
@@ -506,9 +520,11 @@ Scenario: Search conveyor in conveyor list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_ColumnFilter
-Scenario: Apply and remove 'Start With' filter
+Scenario: ZApply and remove 'Start With' filter
 
 
+    Given User is at Login page
+     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
     And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
@@ -526,6 +542,8 @@ Scenario: Apply and remove 'Start With' filter
 Scenario: Apply and remove 'Contains' filter
 
 
+   Given User is at Login page
+     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
     And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
@@ -542,6 +560,8 @@ Scenario: Apply and remove 'Contains' filter
 Scenario: Apply and remove ' Equals' filter
 
 
+ Given User is at Login page
+     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
     And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
@@ -636,7 +656,11 @@ Scenario: Verify pagination functionality
 @key:Conveyor_update
 Scenario: Verify update functionality for Conveyor lite page
 
+
+ Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
+    And Click on Clear filter Icon
     And Search for the conveyor '${ConveyorName}' and select the checkbox to edit and verify user is able to select checkbox
     Then Click on Action button and select edit option and verify user is navigated to conveyor detail page
     And Click on map to set position of head and verify prefilled value for lat and long is displayed

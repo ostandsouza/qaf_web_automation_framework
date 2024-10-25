@@ -28,9 +28,20 @@ public class LoginPage extends BasePage {
 
     @FindBy(locator = "xpath=//span[text()='Login']")
     public CustomElement btnLogIn;
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"oldPassword\"]//div//input")
+	public CustomElement tbOldPassword;
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"password\"]//div//input")
+	public CustomElement tbNewPassword;
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"confirmPassword\"]//div//input")
+	public CustomElement tbConfirmPassword;
+	@FindBy(locator = "xpath=//span[text()='Save']")
+	public CustomElement btnSave;
+
+
 
 	public boolean verifyUserOnLoginPage()  {
 		waitForElementToDisplay(tbUserName);
+		tbUserName.isVisible(10000,"UserName");
 		return tbUserName.isDisplayed();
 	}
 
@@ -54,12 +65,27 @@ public class LoginPage extends BasePage {
 		 * 
 		 * driver = ChromeDriver(desiredcapabilities);
 		 */
+		System.out.println("entered login to app");
 
-		tbUserName.type(userName, "UserName"); 
+		waitForElementVisible(tbUserName,20000,500);
+		tbUserName.type(userName, "UserName");
         tbPassword.type(password, "Password");
         btnLogIn.click("LOGIN");
 		waitForElementToInvisible(btnLogIn,15000);
     }
+	public void changePassword(String password,String newPassword,String confirmPassword)
+	{
+		tbOldPassword.isVisible(10000,"Current password");
+		tbOldPassword.type(password,"Current password");
+		tbNewPassword.type(newPassword,"New Password");
+		tbConfirmPassword.type(confirmPassword,"Confirm Password");
+		btnSave.click("Save");
+		waitForElementToInvisible(btnSave,75000);
+		System.out.println("after change password");
+		SyncUtil.waitFor(30000);
+		System.out.println("waited for 30 sec");
+
+	}
 
 
 	private QAFExtendedWebDriver ChromeDriver(DesiredCapabilities desiredcapabilities) {

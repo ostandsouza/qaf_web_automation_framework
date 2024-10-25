@@ -358,11 +358,12 @@ Scenario: Verify notification order after login with other user and try to updat
     And subscribe the sites for the user '${Site1}' and '${Site2}'
     And Logout from the current user
     And Login with '${UserName}' and '${Password}'
+    And Navigate to siteListPage and wait
     Then Edit the subscribed sites '${Site1}' and '${ConveyorName}'
     And Edit the subscribed sites '${Site2}' and '${ConveyorName2}'
     And Logout from the current user
     And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
-    And Verify user is getting notification in last in first out format
+    And Verify user is getting site notification in last in first out format for '${Site1}' '${Site1}'
     And Unsubscribe the sites '${Site1}' and '${Site2}'
 
 @Regression37 @CTCP-1135

@@ -5,9 +5,7 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
-import groovyjarjarantlr4.v4.codegen.model.Sync;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -15,15 +13,15 @@ public class ConveyorSteps {
 
     ConveyorPage conveyorPage = new ConveyorPage();
     CorporatePage corporatePage = new CorporatePage();
-    CoverWearPage coverWearPage=new CoverWearPage();
-    SitePage sitePage=new SitePage();
-    BeltScanPage beltScanPage=new BeltScanPage();
+    CoverWearPage coverWearPage = new CoverWearPage();
+    SitePage sitePage = new SitePage();
+    CordInspect beltScanPage = new CordInspect();
 
 
     UsersPage userpage = new UsersPage();
 
-    @QAFTestStep(description="Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
-    public void createAConveyor(String conveyorName, String distShopName, String custSiteName){
+    @QAFTestStep(description = "Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
+    public void createAConveyor(String conveyorName, String distShopName, String custSiteName) {
         String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
         conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         conveyorPage.createConveyor(conveyorName, distShopName, custSiteName);
@@ -193,9 +191,9 @@ public class ConveyorSteps {
         String userId = conveyorPage.apiBase.getUserProfileAPI(email);
         String prefId = conveyorPage.apiBase.getPreferenceAPI(userId, layoutName);
         conveyorPage.apiBase.deletePreferencesAPI(userId, prefId);
-        conveyorPage.goToConveyorListScreen();
+        conveyorPage.goToConveyorListScreenAndWait();
         conveyorPage.addLayout(corporates, beltWidth, rating, length, layoutName);
-        Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
+        Validator.assertTrue(conveyorPage.verifyColFilters(), "All filters are applied in table layout", "All filters were successfully verified");
     }
 
     @QAFTestStep(description = "verify user is able to delete layout for {Layout_Name}")
@@ -210,8 +208,8 @@ public class ConveyorSteps {
         Validator.assertTrue(conveyorPage.verifyFilters(), "All saved filters are not available in layout", "All filters were successfully verified");
     }
 
-    @QAFTestStep(description="Verify Conveyor horizontal navigation bar")
-    public void verifyTheConveyorHorizontalNavBar(){
+    @QAFTestStep(description = "Verify Conveyor horizontal navigation bar")
+    public void verifyTheConveyorHorizontalNavBar() {
         conveyorPage.verifyConveyorHorizontalNavBar();
     }
 
@@ -226,7 +224,7 @@ public class ConveyorSteps {
     }
 
     @QAFTestStep(description = "User selects a site {SiteName} from the dropdown and enter conveyorName {ConveyorName1}")
-    public void selectSiteNameFromDropDown(String siteName,String conveyorName) {
+    public void selectSiteNameFromDropDown(String siteName, String conveyorName) {
         conveyorPage.enterConveyorName(conveyorName);
         conveyorPage.clickSiteDropDown();
         conveyorPage.selectSiteName(siteName);
@@ -370,11 +368,11 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Verify user is able to see newly added layout")
     public void verifyNewlyAddedLayoutVisible() {
-        Validator.assertTrue(conveyorPage.verifyFilters(), "User cannot see the newly added layout", "User can see the newly added layout");
+        Validator.assertTrue(conveyorPage.verifyColFilters(), "User cannot see the newly added layout", "User can see the newly added layout");
     }
 
     @QAFTestStep(description = "Create a duplicate layout {Corporates} {BeltWidth} {Rating} {Length} with {Layout_Name}")
-    public void createDuplicateLayout(String corporates,String beltWidth,String rating,String length,String layoutName) {
+    public void createDuplicateLayout(String corporates, String beltWidth, String rating, String length, String layoutName) {
         conveyorPage.goToConveyorListScreen();
         conveyorPage.addDuplicateLayout(corporates, beltWidth, rating, length, layoutName);
     }
@@ -384,6 +382,7 @@ public class ConveyorSteps {
         conveyorPage.verifyDuplicateLayoutError();
 
     }
+
     @QAFTestStep(description = "Verify column selection filter is visible")
     public void verifyColumnNameFilter() {
         conveyorPage.verifyColumnNameFilterIsVisible();
@@ -396,6 +395,7 @@ public class ConveyorSteps {
         conveyorPage.verifyColumnNameFields();
 
     }
+
     @QAFTestStep(description = "Enter the columnName {ColumnName} in searchBar and verify all columnName with search text is displayed")
     public void searchAndVerifyColumnName(String columnName) {
         conveyorPage.searchColumnName(columnName);
@@ -416,6 +416,7 @@ public class ConveyorSteps {
         conveyorPage.setImplicitWait(30000, TimeUnit.MILLISECONDS);
         conveyorPage.verifyColumnNamesArray();
     }
+
     @QAFTestStep(description = "Select the parent checkbox and verify all child column checkbox and all selected column is visible in the table")
     public void selectParentCheckboxAndVerify() {
         conveyorPage.checkboxClick();
@@ -452,12 +453,14 @@ public class ConveyorSteps {
         conveyorPage.filterIconClick();
         conveyorPage.verifyFilterFields(colName);
     }
+
     @QAFTestStep(description = "Select {filterType} from filter dropdown and verify it is selected")
     public void clickAndVerifyStartsWithFilter(String filterType) {
 //        conveyorPage.StartsWithFilterClick();
 //        conveyorPage.verifyFilterSelected();
         conveyorPage.verifyFilter(filterType);
     }
+
     @QAFTestStep(description = "Enter the text in the search text {searchText} box and verify user is able to enter")
     public void enterSearchTextAndVerify(String searchText) {
         conveyorPage.enterSearchText(searchText);
@@ -468,9 +471,10 @@ public class ConveyorSteps {
     public void applyAndVerifyFilterAppliedAndPopupClosure(String filterType) {
         conveyorPage.applyBtnClick();
         int noOfConveyors = Integer.parseInt(MiscUtils.regexExtractor(conveyorPage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-        conveyorPage.verifyFilterApplied(noOfConveyors,filterType);
+        conveyorPage.verifyFilterApplied(noOfConveyors, filterType);
         conveyorPage.verifyFilterPopupClosed();
     }
+
     @QAFTestStep(description = "Click on clear button in popup and verify filter is removed")
     public void clearBtnClickAndVerifyFilterRemoved() {
         conveyorPage.filterIconClick();
@@ -513,74 +517,86 @@ public class ConveyorSteps {
 
     }
 
-    @QAFTestStep(description="Verify data value in header as metric")
-    public void verifyTheDataInHeaderUnitAsMetric(){
+    @QAFTestStep(description = "Verify data value in header as metric")
+    public void verifyTheDataInHeaderUnitAsMetric() {
         conveyorPage.verifyDataHeaderUnitAsMetric();
     }
-    @QAFTestStep(description="Verify data value in header as imperial")
-    public void verifyTheDataInHeaderUnitAsImperial(){
+
+    @QAFTestStep(description = "Verify data value in header as imperial")
+    public void verifyTheDataInHeaderUnitAsImperial() {
         conveyorPage.verifyDataHeaderUnitAsImperial();
     }
 
-    @QAFTestStep(description="Edit Conveyor tons per hour value {TonsPerHour}")
-    public void editConveyorTonsHourValue(String tonsPerHour){
+    @QAFTestStep(description = "Edit Conveyor tons per hour value {TonsPerHour}")
+    public void editConveyorTonsHourValue(String tonsPerHour) {
         conveyorPage.editTonsPerHour(tonsPerHour);
     }
-    @QAFTestStep(description="Verify data value unit as {MetricUnit} in Add Conveyor for TonsPerHour")
-    public void verifyTheDataUnitInAddConveyorForTonsPerHour(String unit){
+
+    @QAFTestStep(description = "Verify data value unit as {MetricUnit} in Add Conveyor for TonsPerHour")
+    public void verifyTheDataUnitInAddConveyorForTonsPerHour(String unit) {
         conveyorPage.verifyDataUnitInAddConveyorForTonsPerHour(unit);
+
+
     }
 
-    @QAFTestStep(description="Verify on click of conveyor nagivation bar nagivates to respective pages")
-    public void verifyTheConveyorNavigationOnClick(){
+    @QAFTestStep(description = "Close the warning popup")
+    public void closeWarning() {
+        SyncUtil.waitFor(2000);
+        conveyorPage.closeDialog();
+
+    }
+
+    @QAFTestStep(description = "Verify on click of conveyor nagivation bar nagivates to respective pages")
+    public void verifyTheConveyorNavigationOnClick() {
         conveyorPage.verifyConveyorNavigationOnClick();
     }
+
     @QAFTestStep(description = "Verify that the image viewer panel is closed and image is not uploaded")
-    public void verifyImageViewPanel () {
+    public void verifyImageViewPanel() {
         conveyorPage.verifyImageViewPanelClosed();
     }
 
 
-    @QAFTestStep(description="Create a conveyor with {ConveyorName} and {DistShopName} and {CustShopName} with mandatory field")
-    public void createTheConveyorWithMan(String conveyorName, String distShopName, String custSiteName){
+    @QAFTestStep(description = "Create a conveyor with {ConveyorName} and {DistShopName} and {CustShopName} with mandatory field")
+    public void createTheConveyorWithMan(String conveyorName, String distShopName, String custSiteName) {
 //        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
 //        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         conveyorPage.createConveyorWithMan(conveyorName, distShopName, custSiteName);
     }
 
-    @QAFTestStep(description="Go to remarks and click on save as button")
-    public void clickTheRemarkAndSave(){
+    @QAFTestStep(description = "Go to remarks and click on save as button")
+    public void clickTheRemarkAndSave() {
         conveyorPage.clickRemarkAndSave();
     }
 
-    @QAFTestStep(description="Verify data value in header as {Unit} in Add Conveyor")
-    public void verifyTheDataInHeaderUnitInAddConveyor(String unit){
+    @QAFTestStep(description = "Verify data value in header as {Unit} in Add Conveyor")
+    public void verifyTheDataInHeaderUnitInAddConveyor(String unit) {
         conveyorPage.verifyDataHeaderUnitInAddConveyor(unit);
     }
 
-    @QAFTestStep(description="Extract the conveyor count from conveyor list page")
-    public void extractConveyorCountInConveyorListPage(){
+    @QAFTestStep(description = "Extract the conveyor count from conveyor list page")
+    public void extractConveyorCountInConveyorListPage() {
         conveyorPage.goToConveyorListScreenAndWait();
         conveyorPage.extractConveyorCount();
     }
 
-    @QAFTestStep(description="Verify the conveyor count from conveyor list page")
-    public void verifyConveyorCountInConveyorListPage(){
+    @QAFTestStep(description = "Verify the conveyor count from conveyor list page")
+    public void verifyConveyorCountInConveyorListPage() {
         conveyorPage.verifyConveyorCount();
     }
 
-    @QAFTestStep(description="Verify site and coporate fields are prefilled")
-    public void verifyTheSiteAndConveyorPreFilled(){
+    @QAFTestStep(description = "Verify site and coporate fields are prefilled")
+    public void verifyTheSiteAndConveyorPreFilled() {
         conveyorPage.verifySiteAndConveyorPreFilled();
     }
 
-    @QAFTestStep(description="Edit Conveyor belt width value {BeltWidth}")
-    public void editTheBeltWidth(String beltWidth){
+    @QAFTestStep(description = "Edit Conveyor belt width value {BeltWidth}")
+    public void editTheBeltWidth(String beltWidth) {
         conveyorPage.editBeltWidth(beltWidth);
     }
 
-    @QAFTestStep(description="Verify data value unit as {Unit} in Add Conveyor for beltwidth")
-    public void verifyTheDataUnitInAddConveyorForBeltWidth(String unit){
+    @QAFTestStep(description = "Verify data value unit as {Unit} in Add Conveyor for beltwidth")
+    public void verifyTheDataUnitInAddConveyorForBeltWidth(String unit) {
         conveyorPage.verifyDataUnitInAddConveyorForBeltWidth(unit);
     }
 
@@ -596,123 +612,134 @@ public class ConveyorSteps {
         conveyorPage.verifySetLayoutName(layoutName);
 
     }
+
     @QAFTestStep(description = "Click on back button and verify user lands on table layout settings")
     public void clickBackBtnVerifyTableLayout() {
         conveyorPage.clickBackBtn();
 
     }
+
     @QAFTestStep(description = "Click on layout and verify safe set preference button")
     public void clickOnLayoutAndVerifyTheSafeSet() {
         conveyorPage.clickOnLayoutAndVerifySafeSetPreference();
 
     }
+
     @QAFTestStep(description = "Click on cross button in layout setting popUp")
     public void clickOnTheCloseLayoutSetting() {
         conveyorPage.clickOnCloseLayoutSetting();
 
     }
-    @QAFTestStep(description="Edit Conveyor top cover thickness value {TopCoverThickness}")
-    public void editTheConveyorTopCoverThickness(String topCoverThickness){
+
+    @QAFTestStep(description = "Edit Conveyor top cover thickness value {TopCoverThickness}")
+    public void editTheConveyorTopCoverThickness(String topCoverThickness) {
         conveyorPage.editConveyorTopCoverThickness(topCoverThickness);
     }
-    @QAFTestStep(description="Add filter for header with {FilterName}")
-    public void editTheConveyorTopCoverThickess(String filterName){
+
+    @QAFTestStep(description = "Add filter for header with {FilterName}")
+    public void editTheConveyorTopCoverThickess(String filterName) {
         conveyorPage.addColumnFilters(filterName);
     }
-    @QAFTestStep(description="Verify header field {Header} is present in unit {Unit}")
-    public void verifyTheHeaderFieldUnit(String field,String unit){
-        conveyorPage.verifyHeaderDataFieldUnit(field,unit);
+
+    @QAFTestStep(description = "Verify header field {Header} is present in unit {Unit}")
+    public void verifyTheHeaderFieldUnit(String field, String unit) {
+        conveyorPage.verifyHeaderDataFieldUnit(field, unit);
     }
 
-    @QAFTestStep(description="Edit Conveyor bottom cover thickness value {BottomCoverThickness}")
-    public void editTheConveyorBottomCoverThickness(String bottomCoverThickness){
+    @QAFTestStep(description = "Edit Conveyor bottom cover thickness value {BottomCoverThickness}")
+    public void editTheConveyorBottomCoverThickness(String bottomCoverThickness) {
         conveyorPage.editConveyorBottomCoverThickness(bottomCoverThickness);
     }
 
-    @QAFTestStep(description="Edit Conveyor speed value {Speed}")
-    public void editTheConveyorSpeed(String speed){
+    @QAFTestStep(description = "Edit Conveyor speed value {Speed}")
+    public void editTheConveyorSpeed(String speed) {
         conveyorPage.editConveyorSpeed(speed);
     }
 
-    @QAFTestStep(description="Verify Conveyor list page header as Conveyor")
-    public void verifyTheCoveyorListPageHeader(){  conveyorPage.verifyCoveyorListPageHeader();}
+    @QAFTestStep(description = "Verify Conveyor list page header as Conveyor")
+    public void verifyTheCoveyorListPageHeader() {
+        conveyorPage.verifyCoveyorListPageHeader();
+    }
 
-    @QAFTestStep(description="Verify Conveyor column name")
-    public void verifyTheConveyorCoulmnName(){
+    @QAFTestStep(description = "Verify Conveyor column name")
+    public void verifyTheConveyorCoulmnName() {
         conveyorPage.verifyConveyorCoulmnName();
     }
 
-    @QAFTestStep(description="Verify Conveyor column data {Name} {Site} {LastModified} {InstallBelt} {RemainingTime} {RemainingPer}")
-    public void verifyTheConveyorColumnData(String name,String site,String lastModified,String installBelt,String remainingTime,String remainingPer){
-        conveyorPage.verifyConveyorCoulmnData(name,site,lastModified,installBelt,remainingTime,remainingPer);
+    @QAFTestStep(description = "Verify Conveyor column data {Name} {Site} {LastModified} {InstallBelt} {RemainingTime} {RemainingPer}")
+    public void verifyTheConveyorColumnData(String name, String site, String lastModified, String installBelt, String remainingTime, String remainingPer) {
+        conveyorPage.verifyConveyorCoulmnData(name, site, lastModified, installBelt, remainingTime, remainingPer);
     }
 
-    @QAFTestStep(description="Verify pagination backward arrow button")
-    public void verifyThePaginationBackwardArrowButton(){
+    @QAFTestStep(description = "Verify pagination backward arrow button")
+    public void verifyThePaginationBackwardArrowButton() {
         conveyorPage.verifyPaginationBackwardArrowButton();
     }
 
-    @QAFTestStep(description="Verify pagination format")
-    public void verifyThePaginationFormat(){
+    @QAFTestStep(description = "Verify pagination format")
+    public void verifyThePaginationFormat() {
         conveyorPage.verifyPaginationFormat();
     }
 
 
-    @QAFTestStep(description="Navigate to Conveyor Bulk Upload")
-    public void verifyConveyorBulkImportNavigation(){
-        Validator.assertTrue(conveyorPage.goToBulkImport(),"Conveyor bulk import navigation failed","Conveyor bulk import navigation was successful");
+    @QAFTestStep(description = "Navigate to Conveyor Bulk Upload")
+    public void verifyConveyorBulkImportNavigation() {
+        Validator.assertTrue(conveyorPage.goToBulkImport(), "Conveyor bulk import navigation failed", "Conveyor bulk import navigation was successful");
     }
 
-    @QAFTestStep(description="Verify the failure message after uploading wrong format file with name {file}")
-    public void verifyFailureMsgFileUpload(String fileName){
-        Validator.assertTrue(userpage.userWrongFileUpload(fileName),"Bulk import file upload failed","Bulk import file upload was successful");
+    @QAFTestStep(description = "Verify the failure message after uploading wrong format file with name {file}")
+    public void verifyFailureMsgFileUpload(String fileName) {
+        Validator.assertTrue(userpage.userWrongFileUpload(fileName), "Bulk import file upload failed", "Bulk import file upload was successful");
     }
 
-    @QAFTestStep(description="Verify conveyor analysis bar is displayed uploading file with name {file}")
-    public void verifyTheAnalysisBar(String fileName){
+    @QAFTestStep(description = "Verify conveyor analysis bar is displayed uploading file with name {file}")
+    public void verifyTheAnalysisBar(String fileName) {
         conveyorPage.conveyorFileImport(fileName);
 
     }
 
-    @QAFTestStep(description="Verify import Report page data")
-    public void verifyTheImportReportPageData(){
+    @QAFTestStep(description = "Verify import Report page data")
+    public void verifyTheImportReportPageData() {
         conveyorPage.verifyImportReportPageData();
     }
-    @QAFTestStep(description="Click on site dropdown and select sites with {Site1} {Site2}")
-    public void selectSiteForConveyorBulkUpload(String site1,String site2){
-        conveyorPage.selectSiteForUpload(site1,site2);
+
+    @QAFTestStep(description = "Click on site dropdown and select sites with {Site1} {Site2}")
+    public void selectSiteForConveyorBulkUpload(String site1, String site2) {
+        conveyorPage.selectSiteForUpload(site1, site2);
     }
-    @QAFTestStep(description="Verify the excel data for {Site1} {Site2} with file {FileName}")
-    public void verifyTheExcelDataForConveyor(String site1,String site2,String fileName){
-        conveyorPage.verifySheetNames(fileName,site1,site2);
-        conveyorPage.verifyConveyorSheetData(fileName,site1);
-        conveyorPage.verifyConveyorSheetData(fileName,site2);
+
+    @QAFTestStep(description = "Verify the excel data for {Site1} {Site2} with file {FileName}")
+    public void verifyTheExcelDataForConveyor(String site1, String site2, String fileName) {
+        conveyorPage.verifySheetNames(fileName, site1, site2);
+        conveyorPage.verifyConveyorSheetData(fileName, site1);
+        conveyorPage.verifyConveyorSheetData(fileName, site2);
 
     }
 
-    @QAFTestStep(description="Navigate to Conveyor bulk import screen")
-    public void verifyBulkImportNavigation(){
-        Validator.assertTrue(conveyorPage.goToBulkImport(),"User is not in bulk import screen","Bulk import screen was successfully verified");
+    @QAFTestStep(description = "Navigate to Conveyor bulk import screen")
+    public void verifyBulkImportNavigation() {
+        Validator.assertTrue(conveyorPage.goToBulkImport(), "User is not in bulk import screen", "Bulk import screen was successfully verified");
     }
 
-    @QAFTestStep(description="Verify add conveyor permission")
-    public void verifyAddConveyorPermission(){
-        Validator.assertTrue(!conveyorPage.verifyAddConveyorPermission(),"Add conveyor is enabled","Add Conveyor should be disabled is successfully verified");
+    @QAFTestStep(description = "Verify add conveyor permission")
+    public void verifyAddConveyorPermission() {
+        Validator.assertTrue(!conveyorPage.verifyAddConveyorPermission(), "Add conveyor is enabled", "Add Conveyor should be disabled is successfully verified");
     }
 
-    @QAFTestStep(description="Verify different sections from bulk import screen")
-    public void verifySectionsFromBulkImport(){
-        Validator.assertTrue(conveyorPage.verifySectionsFromBulkImport(),"All Section in bulk import are not available","All sections in conveyor bulk import are successfully verified");
+    @QAFTestStep(description = "Verify different sections from bulk import screen")
+    public void verifySectionsFromBulkImport() {
+        Validator.assertTrue(conveyorPage.verifySectionsFromBulkImport(), "All Section in bulk import are not available", "All sections in conveyor bulk import are successfully verified");
     }
 
-    @QAFTestStep(description="Verify download bulk upload template for distributor {DistCorpName} and with site {CustSiteName}")
-    public void verifyDownloadTemplateForSingleSite(String distCorpName, String custSiteName){
-        conveyorPage.checkDownloadTemplateForOneSite(distCorpName,custSiteName);
+    @QAFTestStep(description = "Verify download bulk upload template for distributor {DistCorpName} and with site {CustSiteName}")
+    public void verifyDownloadTemplateForSingleSite(String distCorpName, String custSiteName) {
+        conveyorPage.checkDownloadTemplateForOneSite(distCorpName, custSiteName);
         SyncUtil.waitFor(20000);
-        Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"),"Conveyor bulk upload template for single site was not found","Conveyor bulk upload template for single site was downloaded successfully");
-        MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");    }
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"), "Conveyor bulk upload template for single site was not found", "Conveyor bulk upload template for single site was downloaded successfully");
+        MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");
+    }
 
-    @QAFTestStep(description="Verify download bulk upload template for distributor {0} and with multisite {1} and with site {2}")
+    @QAFTestStep(description = "Verify download bulk upload template for distributor {0} and with multisite {1} and with site {2}")
     public void verifyDownloadTemplateForMultipleSite(String distCorpName, String custSiteName, String custSite2Name) {
         conveyorPage.checkDownloadTemplateForMultipleSite(distCorpName, custSiteName, custSite2Name);
         SyncUtil.waitFor(20000);
@@ -720,166 +747,167 @@ public class ConveyorSteps {
         MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");
     }
 
-    @QAFTestStep(description="Verify bulk upload file format with file {FileName}")
+    @QAFTestStep(description = "Verify bulk upload file format with file {FileName}")
     public void verifyBulkUploadFileFormat(String fileName) {
         conveyorPage.conveyorFileImportWithoutWait(fileName);
 //        Validator.assertTrue(conveyorPage.conveyorFileImport(fileName).contains("2"),"Not all conveyors were imported successfully","All conveyors imported successfully");
 
     }
 
-    @QAFTestStep(description="Verify acknowledge import screen for site {CustSiteName} with file {FileName}")
+    @QAFTestStep(description = "Verify acknowledge import screen for site {CustSiteName} with file {FileName}")
     public void verifyAcknowledgeImportScreen(String custSiteName, String fileName) {
-        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
-        conveyorPage.acknowledgeImport(obj.length-1);
+        Object[][] obj = MiscUtils.getExcelData(fileName, custSiteName);
+        conveyorPage.acknowledgeImport(obj.length - 1);
     }
 
-    @QAFTestStep(description="Verify bulk import report screen")
+    @QAFTestStep(description = "Verify bulk import report screen")
     public void verifyBulkImportReportScreen() {
         conveyorPage.verifyImportReport();
     }
 
-    @QAFTestStep(description="Verify skip radio button functionality for site {CustSiteName} with file {FileName}")
+    @QAFTestStep(description = "Verify skip radio button functionality for site {CustSiteName} with file {FileName}")
     public void verifySkipRadioFunctionality(String custSiteName, String fileName) {
-        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
-        conveyorPage.verifySkipRadioBtn(obj.length-1);
+        Object[][] obj = MiscUtils.getExcelData(fileName, custSiteName);
+        conveyorPage.verifySkipRadioBtn(obj.length - 1);
     }
 
-    @QAFTestStep(description="Verify update radio button functionality for site {CustSiteName} with file {FileName}")
+    @QAFTestStep(description = "Verify update radio button functionality for site {CustSiteName} with file {FileName}")
     public void verifyUpdateRadioFunctionality(String custSiteName, String fileName) {
-        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
-        conveyorPage.verifyUpdateRadioBtn(obj.length-1);
+        Object[][] obj = MiscUtils.getExcelData(fileName, custSiteName);
+        conveyorPage.verifyUpdateRadioBtn(obj.length - 1);
     }
 
-    @QAFTestStep(description="Verify copy radio button functionality for site {CustSiteName} with file {FileName}")
+    @QAFTestStep(description = "Verify copy radio button functionality for site {CustSiteName} with file {FileName}")
     public void verifyCopyRadioFunctionality(String custSiteName, String fileName) {
-        Object[][] obj = MiscUtils.getExcelData(fileName,custSiteName);
-        conveyorPage.verifyCopyRadioBtn(obj.length-1);
+        Object[][] obj = MiscUtils.getExcelData(fileName, custSiteName);
+        conveyorPage.verifyCopyRadioBtn(obj.length - 1);
     }
 
-    @QAFTestStep(description="Go Back to bulk import report")
+    @QAFTestStep(description = "Go Back to bulk import report")
     public void verifyBackNavigation() {
         conveyorPage.goBackToImportReport();
     }
 
-    @QAFTestStep(description="Verify bulk import review messages")
+    @QAFTestStep(description = "Verify bulk import review messages")
     public void verifyReviewMessages() {
         conveyorPage.verifyMessages();
     }
 
-    @QAFTestStep(description="Verify file analysis success message")
+    @QAFTestStep(description = "Verify file analysis success message")
     public void verifyFileAnalysisMessages() {
         conveyorPage.verifyFileAnalyseMessages();
     }
 
-    @QAFTestStep(description="Click on the import conveyor")
+    @QAFTestStep(description = "Click on the import conveyor")
     public void clickOnImportConveyor() {
         conveyorPage.conveyorUpload();
     }
 
-    @QAFTestStep(description="Verify Edit button is visible on details screen")
-    public void verifyEditBtnDisplayed(){
+    @QAFTestStep(description = "Verify Edit button is visible on details screen")
+    public void verifyEditBtnDisplayed() {
         conveyorPage.editButtonVisiblityOnConveyorDetailsPage();
     }
 
-    @QAFTestStep(description="Verify only view permission right for conveyors {ConveyorName}")
+    @QAFTestStep(description = "Verify only view permission right for conveyors {ConveyorName}")
     public void verifyOnlyViewPermissionRightForConveyors(String ConveyorName) {
         Validator.assertTrue(conveyorPage.verifyViewPermissionRights(ConveyorName), "View Permission for conveyor is failing", "View permission for conveyor is verified successfully");
     }
 
-    @QAFTestStep(description="Verify only view and edit permission right for conveyors {ConveyorName}")
+    @QAFTestStep(description = "Verify only view and edit permission right for conveyors {ConveyorName}")
     public void verifyOnlyViewAndEditPermissionRightForConveyors(String ConveyorName) {
         Validator.assertTrue(conveyorPage.verifyViewAndEditRights(ConveyorName), "Edit And view Permission for conveyor is failing", "Edit and view permission for conveyor is verified successfully");
     }
 
-    @QAFTestStep(description="Verify only view and Delete permission right for conveyor {ConveyorName}")
+    @QAFTestStep(description = "Verify only view and Delete permission right for conveyor {ConveyorName}")
     public void verifyViewAndDeletePermissionRightForConveyor(String ConveyorName) {
         Validator.assertTrue(conveyorPage.verifyViewAndDeleteRights(ConveyorName), "Delete and view Permission for conveyor is failing", "Delete and view permission for conveyor is verified successfully");
     }
 
-    @QAFTestStep(description="Verify only view and add permission right for conveyor {ConveyorName}")
+    @QAFTestStep(description = "Verify only view and add permission right for conveyor {ConveyorName}")
     public void verifyViewAndAddPermissionRightForConveyor(String ConveyorName) {
         Validator.assertTrue(conveyorPage.verifyViewAndAddRights(ConveyorName), "Add And view Permission for conveyor is failing", "Add and view permission for conveyor is verified successfully");
     }
 
-    @QAFTestStep(description="Verify only view and download permission right for conveyor {ConveyorName}")
+    @QAFTestStep(description = "Verify only view and download permission right for conveyor {ConveyorName}")
     public void verifyViewAndDownloadPermissionRightForConveyor(String ConveyorName) {
         Validator.assertTrue(conveyorPage.verifyViewAndDownloadRights(ConveyorName), "Download And view Permission for conveyor is failing", "Download and view permission for conveyor is verified successfully");
     }
 
-    @QAFTestStep(description="wait for conveyors to load")
+    @QAFTestStep(description = "wait for conveyors to load")
     public void conveyorLoad() {
         conveyorPage.goToConveyorListScreenAndWait();
     }
 
-    @QAFTestStep(description="Verify conveyor detail screen card display")
+    @QAFTestStep(description = "Verify conveyor detail screen card display")
     public void conveyorDetailsCardDisplay() {
         Validator.assertTrue(conveyorPage.verifyConveyorDetailCardsDisplayForBasics(), "After setting view rights for basics the card display showing other cards too", "After setting view right card display for basics, showing only 3 cards");
     }
 
-    @QAFTestStep(description="User clicks on Conveyor History")
+    @QAFTestStep(description = "User clicks on Conveyor History")
     public void navigateToConveyorHistory() {
-        Validator.assertTrue(conveyorPage.navigateToConveyorHistoryFromDetails(),"User Conveyor history navigation failed", "User Conveyor history navigation was successful");
+        Validator.assertTrue(conveyorPage.navigateToConveyorHistoryFromDetails(), "User Conveyor history navigation failed", "User Conveyor history navigation was successful");
     }
 
-    @QAFTestStep(description="User should not see dropdown with belt failure options for view rights")
+    @QAFTestStep(description = "User should not see dropdown with belt failure options for view rights")
     public void addConveyorHistoryViewRights() {
         Validator.assertTrue(conveyorPage.verifyaddConveyorHistoryViewRights(), "Add Conveyor history option enabled for view rights", "Add Conveyor history option disabled for view rights");
     }
 
     @QAFTestStep(description = "Subscribe the conveyors {ConveyorName1} and {ConveyorName2}")
-    public void searchAndSubscribeTwoConveyors (String ConveyorName1,String ConveyorName2) {
+    public void searchAndSubscribeTwoConveyors(String ConveyorName1, String ConveyorName2) {
 //        SyncUtil.waitFor(20000);
         conveyorPage.searchConveyor(ConveyorName1);
         sitePage.subscribeSite(ConveyorName1);
         conveyorPage.searchConveyor(ConveyorName2);
         sitePage.subscribeSite(ConveyorName2);
     }
+
     @QAFTestStep(description = "subscribe one conveyor {ConveyorName1} for the user")
-    public void searchAndSubscribeConveyor (String conveyorName) {
+    public void searchAndSubscribeConveyor(String conveyorName) {
 //        SyncUtil.waitFor(20000);
         conveyorPage.searchConveyor(conveyorName);
         sitePage.subscribeSite(conveyorName);
     }
+
     @QAFTestStep(description = "Navigate to conveyorListPage and click on bellIcon")
-    public void navigateToConveyorPageAndBellIconClick()
-    {
+    public void navigateToConveyorPageAndBellIconClick() {
         conveyorPage.goToConveyorListScreenAndWait();
         sitePage.bellIconClick();
     }
+
     @QAFTestStep(description = "Click on the new link of the recent conveyor notification for {ConveyorName1} and verify it navigates conveyor history page")
-    public void clickNewLinkAndVerifyNavigation(String conveyorName)
-    {
+    public void clickNewLinkAndVerifyNavigation(String conveyorName) {
         conveyorPage.newLinkClick();
         conveyorPage.verifyConveyorHistoryNav(conveyorName);
     }
+
     @QAFTestStep(description = "Verify user can only see conveyor history of the particular subscribed conveyor {ConveyorName1} notification")
-    public void verifyConveyorHistoryForParticularConveyor(String conveyorName)
-    {
+    public void verifyConveyorHistoryForParticularConveyor(String conveyorName) {
         conveyorPage.verifyConveyorHistoryNav(conveyorName);
     }
+
     @QAFTestStep(description = "Verify the notification count in bellIcon after subscription and verify user is getting any notification")
-    public void verifyNotificationCountAfterSubscriptionForConveyor()
-    {
+    public void verifyNotificationCountAfterSubscriptionForConveyor() {
 
         sitePage.extractNotificationCountAfter();
         sitePage.verifyUserNotificationCountAfterUpdate();
     }
+
     @QAFTestStep(description = "Click on the new link of the recent Belt Scan notification and verify it navigates Add Belt Scan page")
-    public void clickNewLinkAndVerifyBeltScanNavigation()
-    {
+    public void clickNewLinkAndVerifyBeltScanNavigation() {
         sitePage.bellIconClick();
         conveyorPage.newLinkClick();
         SyncUtil.waitFor(3000);
-        Validator.assertTrue(beltScanPage.getCurrentURL().contains("/secure/belt-scans/detail/"),"User is not navigated to  Belt Scan Detail page!",
+        Validator.assertTrue(beltScanPage.getCurrentURL().contains("/secure/belt-scans/detail/"), "User is not navigated to  Belt Scan Detail page!",
                 "User is  navigated to  Belt Scan Detail page!");
     }
 
     @QAFTestStep(description = "Verify user can see the updates done to the conveyor {ConveyorName} in the conveyor history under the subscribed site")
-    public void verifyConveyorUpdateHistory(String conveyorName)
-    {
-        Validator.assertTrue(conveyorPage.getCurrentURL().contains("/conveyor-history"),"User is not navigated to conveyor history page","User is navigated to conveyor history page");
+    public void verifyConveyorUpdateHistory(String conveyorName) {
+        Validator.assertTrue(conveyorPage.getCurrentURL().contains("/conveyor-history"), "User is not navigated to conveyor history page", "User is navigated to conveyor history page");
         conveyorPage.verifyConveyorHistoryForConveyor(conveyorName);
     }
+
     @QAFTestStep(description = "Click on each column header and verify filter icon fields")
     public void clickOnEachFilterIconAndVerifyFilterFields() {
         conveyorPage.columnNameFilterBtnClick();
