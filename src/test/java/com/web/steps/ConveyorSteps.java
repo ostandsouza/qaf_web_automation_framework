@@ -15,7 +15,7 @@ public class ConveyorSteps {
     CorporatePage corporatePage = new CorporatePage();
     CoverWearPage coverWearPage = new CoverWearPage();
     SitePage sitePage = new SitePage();
-    CordInspect beltScanPage = new CordInspect();
+    CordInspectPage cordInspectPage=new CordInspectPage();
 
 
     UsersPage userpage = new UsersPage();
@@ -898,7 +898,7 @@ public class ConveyorSteps {
         sitePage.bellIconClick();
         conveyorPage.newLinkClick();
         SyncUtil.waitFor(3000);
-        Validator.assertTrue(beltScanPage.getCurrentURL().contains("/secure/belt-scans/detail/"), "User is not navigated to  Belt Scan Detail page!",
+        Validator.assertTrue(cordInspectPage.getCurrentURL().contains("/secure/belt-scans/detail/"), "User is not navigated to  Belt Scan Detail page!",
                 "User is  navigated to  Belt Scan Detail page!");
     }
 

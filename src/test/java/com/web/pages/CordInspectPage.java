@@ -8,7 +8,7 @@ import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.openqa.selenium.By;
 
-public class CordInspect extends BasePage {
+public class CordInspectPage extends BasePage {
 
     @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
     public CustomElement home;
@@ -57,7 +57,7 @@ public class CordInspect extends BasePage {
     @FindBy(locator = "xpath=//div[@class=\"p-carousel-items-content\"]/following-sibling::button[contains(@class,\"p-carousel-next \")]\n")
     public CustomElement carouselNextBtn;
 
-    @FindBy(locator = "xpath=(//div[@class=\"p-carousel-items-content\"]//div[contains(@class, \"p-carousel-item\")]//app-card//div[contains(@class, \"header\") and normalize-space(text())=\"Belt Scans\"])[2]")
+    @FindBy(locator = "xpath=//div[@class=\"p-carousel-items-content\"]//div[contains(@class, \"p-carousel-item\")]//app-card//div/*//div[text()=\"Belt Scans\"]")
     public CustomElement beltScanCard;
 
     @FindBy(locator = "xpath=(//div//span//button[@icon=\"ctp-icon-Add-circle\"])[2]")
@@ -109,6 +109,7 @@ public class CordInspect extends BasePage {
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_data").getAbsolutePath();
         crFileUpload.sendKeys(file_path, "File Path");
         waitForElementToInvisible(btFileUploadingProgress, 10000);
+        crDeleteFileUpload.isVisible(10000,"Delte file upload");
         crDeleteFileUpload.assertVisible("Delete File upload");
         Reporter.log("User is able to upload the file");
         crUploadedFileName.assertVisible("File Uploaded Name");
