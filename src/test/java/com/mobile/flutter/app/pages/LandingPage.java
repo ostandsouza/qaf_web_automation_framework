@@ -6,7 +6,7 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
+import com.qmetry.qaf.automation.util.Validator;
 
 public class LandingPage extends FlutterBasePage {
 
@@ -34,6 +34,8 @@ public class LandingPage extends FlutterBasePage {
     @FindBy(locator = "landing.continental.img")
     public CustomFlutterElement continentalImg;
 
+    @FindBy(locator = "landing.welcome.page")
+    public CustomFlutterElement welcomePage;
 
     public boolean isContinentalPage() {
         continentalAcct.click();
@@ -42,6 +44,8 @@ public class LandingPage extends FlutterBasePage {
 
     public boolean goToContinentalAcct() {
         continentalAcct.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(welcomePage.isVisible(),"Welcome Page is not visible","Welcome Page button is visible");
+        Validator.assertTrue(continentalAcct.isVisible(),"ContinentalAcct button is not visible","ContinentalAcct button is visible");
         continentalAcct.click();
         return continentalLoginPage.isContinentalPage();
     }
@@ -49,6 +53,12 @@ public class LandingPage extends FlutterBasePage {
     public boolean goToGuestAcct() {
         guestAcct.click();
         return guestLoginPage.isGuestLoginPage();
+    }
+    public boolean isWelcomePage() {
+        Validator.assertTrue(welcomePage.isVisible(),"Welcome Page is not visible","Welcome Page is visible");
+        Validator.assertTrue(continentalImg.isVisible(),"Login Page is not visible","Login Page is visible");
+        Validator.assertTrue(continentalAcct.isVisible(),"ContinentalAcct button is not visible","ContinentalAcct button is visible");
+        return welcomePage.isVisible();
     }
 
 }

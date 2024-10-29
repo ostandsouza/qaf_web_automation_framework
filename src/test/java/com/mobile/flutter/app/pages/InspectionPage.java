@@ -104,7 +104,7 @@ public class InspectionPage extends FlutterBasePage {
     public CustomFlutterElement frameNumberField;
     @FindBy(locator = "inspection.other.dropdown")
     public CustomFlutterElement otherFiled;
-    @FindBy(locator = "inspection.observation.label")
+    @FindBy(locator = "inspection.observation.field")
     public CustomFlutterElement tbObservation;
 
     @FindBy(locator = "inspection.condition.dropdown")
@@ -138,10 +138,38 @@ public class InspectionPage extends FlutterBasePage {
     @FindBy(locator = "inspection.type.single")
     public CustomFlutterElement inspectionTypeSingle;
 
+    @FindBy(locator = "inspection.previous.btn")
+    public CustomFlutterElement prevBtn;
+
+    @FindBy(locator = "inspection.detail.dropdown")
+    public CustomFlutterElement detailDropDown;
+    @FindBy(locator = "inspection.completed.button")
+    public CustomFlutterElement completedStatusBtn;
+    @FindBy(locator = "inspection.failure.dropdown")
+    public CustomFlutterElement failureModeDropDown;
 
 
 
+    @FindBy(locator = "inspection.datePicker.dropdown")
+    public CustomFlutterElement datePickerDropDown;
 
+
+    @FindBy(locator = "inspection.status.dropDown")
+    public CustomFlutterElement statusDropDown;
+
+
+    @FindBy(locator = "inspection.observation.field")
+    public CustomFlutterElement observationField;
+    @FindBy(locator = "inspection.recommendation.field")
+    public CustomFlutterElement recommendationField;
+    @FindBy(locator = "inspection.saveAndClose.btn")
+    public CustomFlutterElement saveAndCloseBtn;
+    @FindBy(locator = "inspection.signOff.summaryLabel")
+    public CustomFlutterElement summaryLabel;
+    @FindBy(locator = "dashboard.home.title")
+    public CustomFlutterElement homeTitle;
+    @FindBy(locator = "inspection.add.back")
+    public CustomFlutterElement inspectionAddBackBtn;
 
     public boolean isInspectionPage() {
         return inspectionNameField.isPresent();
@@ -367,6 +395,106 @@ public class InspectionPage extends FlutterBasePage {
         Validator.assertTrue(inspectionNameField.isVisible(),"Inspection Name field is not visible","Inspection Name field is visible");
         inspectionTypeSingle.waitForTheElementToBeVisible(10000);
         Validator.assertTrue(inspectionTypeSingle.isVisible() && inspectionTypeMultiple.isVisible(),"Single and Multiple Inspection type is not visible","Single and Multiple Inspection type is not visible");
+    }
+
+
+    public void verifyAddInspectionItemsFields(){
+        Validator.assertTrue(addNewItemBtn.isVisible(),"Add New Item Button is not visible","Add New Item Button is visible");
+        Validator.assertTrue(nextBtn.isVisible(),"Next Button is not visible","Next Button is visible");
+        Validator.assertTrue(prevBtn.isVisible(),"Previous Button is not visible","Previous Button is visible");
+    }
+    public void verifyConditionFlagsInAddInspectionItems(){
+        Validator.assertTrue(conditionDropDown.isVisible(),"Condition DropDown is not visible","Condition DropDown is visible");
+        Validator.assertTrue(goodFlag.isVisible(),"Good Flag is not visible","Good Flag is visible");
+        goodFlag.click();
+
+        Validator.assertTrue(criticalFlag.isVisible(),"Critical Flag is not visible","Critical Flag is visible");
+        Validator.assertTrue(faultFlag.isVisible(),"Fault Flag is not visible","Fault Flag is visible");
+        Validator.assertTrue(poorFlag.isVisible(),"Poor Flag is not visible","Poor Flag is visible");
+        Validator.assertTrue(goodFlag.isVisible(),"Good Flag is not visible","Good Flag is visible");
+
+        faultFlag.click();
+    }
+    public void verifyStatusInAddInspectionItems(){
+        Validator.assertTrue(statusDropDown.isDisplayed(),"Status DropDown is not visible","Status DropDown is visible");
+        Validator.assertTrue(toBeCompletedStatusBtn.isVisible(),"To Be Completed Status is not visible","To Be Completed Status is visible");
+        Validator.assertTrue(completedStatusBtn.isVisible(),"Completed Status is not visible","Completed Status is visible");
+    }
+
+    public void addInspectionAddNewItemPageDetails(String asset,String detail,String failure,String observation,String recommendation,String length) {
+        System.out.println(asset+detail+failure+observation+recommendation+length);
+        addNewItemBtn.click();
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(addNewItemHeader.isVisible(),"Add New Item Page is not visible","Add New item page is visible");
+
+        assetDropDown.waitForTheElementToBeVisible(5000);
+        assetDropDown.click();
+        searchArea.waitForTheElementToBeVisible(10000);
+        searchArea.sendKeys(asset, "Asset");
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+
+        detailDropDown.click();
+        searchArea.waitForTheElementToBeVisible(10000);
+        searchArea.sendKeys(detail, "Detail");
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+
+        failureModeDropDown.click();
+        searchArea.waitForTheElementToBeVisible(10000);
+        searchArea.sendKeys(failure, "Detail");
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+
+        toBeCompletedStatusBtn.click();
+
+        observationField.waitForTheElementToBeVisible(5000);
+        observationField.sendKeys(observation);
+        recommendationField.sendKeys(recommendation);
+
+        saveAndCloseBtn.click();
+
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(addNewItemBtn.isVisible(),"Add New Item Button is not visible","Add New Item Button is visible");
+        addItemLength.waitForTheElementToBeVisible(5000);
+        Validator.assertTrue(addItemLength.isVisible(),"Add New Item Count is not visible","Add New Item Count is visible");
+        Validator.assertTrue(addItemLength.getText().contains(length),"New Item Count mismatch","New Item matched");
+    }
+
+    public void addInspectionSignOffPageDetails(String summary) {
+        signOffHeader.waitForTheElementToBeVisible(5000);
+        Validator.assertTrue(signOffHeader.isVisible(),"Sign off is not visible","Sign off is visible");
+        Validator.assertTrue(summaryLabel.isVisible(),"Summary Label is not visible","Summary Label is visible");
+//        InspectionNativePage.getInstance().verifyInspectionSummaryField(summary);
+        saveAndCloseBtn.click();
+        homeTitle.waitForTheElementToBeVisible(5000);
+        Validator.assertTrue(homeTitle.isDisplayed(),"New Inspection is not created","New Inspection is created");
+    }
+    //    public void validateAddMultipleInspItems(String ItemValue) {
+//        SyncUtil.waitFor(3000);
+//        Validator.assertTrue(addNewItemBtn.isVisible(),"Add New Item Button is not visible","Add New Item Button is visible");
+//        addItemLength.waitForTheElementToBeVisible(5000);
+//        Validator.assertTrue(addItemLength.isVisible(),"Add New Item Count is not visible","Add New Item Count is visible");
+//        Validator.assertTrue(addItemLength.getText().contains(ItemValue),"New Item Count mismatch","New Item matched");
+////        saveAndCloseBtn.click();
+//    }
+    public void clickAndVerifySaveDraftBtn() {
+        saveAsDraftBtn.waitForTheElementToBeVisible(5000);
+        saveAsDraftBtn.click();
+        InspectionNativePage.getInstance().verifySaveAsDraftPopUp();
+    }
+    public void addDataInInspectionInfo(String inspectionName, String conveyorName, String custSiteName,String inspectorName) {
+        inspectionInfoHeader.click();
+        SyncUtil.waitFor(4000);
+//        System.out.println(inspectionNameField.getText()+"inspectionNameField.getText()");
+        System.out.println(inspectionNameField.getText()+"name in the site");
+        System.out.println(inspectionNameField.getAttribute("value")+"inspectionNameField.getAttribute()");
+        Validator.assertTrue(inspectionNameField.getText().contains(inspectionName),"Inspection Name field data misMatch","Inspection Name field data matched");
+        Validator.assertTrue(siteField.getText().contains(custSiteName),"Site Name field data misMatch","Site Name field data matched");
+        Validator.assertTrue(conveyorField.getText().contains(conveyorName),"Conveyor Name field data misMatch","Conveyor Name field data matched");
+        Validator.assertTrue(inspectorNameField.getText().contains(inspectorName),"Inspector Name field data misMatch","Inspector Name field data matched");
+    }
+    public void verifyAddInspBackBtnToHomePage() {
+        inspectionAddBackBtn.waitForTheElementToBeVisible(5000);
+        inspectionAddBackBtn.click("Inspection Back Button");
+        DashboardPage.getInstance().isHomePage();
     }
 
 }

@@ -190,7 +190,7 @@ public class FileManagerPage extends BasePage{
         newFolder.click("New Folder");
         folderHeader.isVisible("Folder Dialog");
         folderInputName.type(folderName);
-        save.click("Save");
+        save.jsClick("Save");
         waitForElementToInvisible(btSaveLoader,30000);
         waitForElementToDisplay(folderSuccessMessage);
     }
@@ -201,9 +201,11 @@ public class FileManagerPage extends BasePage{
         else {
             setImplicitWait(30000, TimeUnit.MILLISECONDS);
             waitForElementToInvisible(fileManagerLoader,40000);
-            driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+            SyncUtil.waitFor(2000);
+            driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
             setImplicitWait(5000, TimeUnit.MILLISECONDS);
-            driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+            SyncUtil.waitFor(1000);
+            driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']/div")).click();
         }
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         upload.sendKeys(file_path, "img_upload");
@@ -219,9 +221,9 @@ public class FileManagerPage extends BasePage{
             homeIcon.click("Root Icon");
         else {
             waitForElementToInvisible(fileManagerLoader, 40000);
-            Validator.assertTrue(driver.findElement(By.xpath("//li/div[@aria-label='" + folderName + "']")).isDisplayed(), "Folder created is not present", "Folder was created successfully");
+            Validator.assertTrue(driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).isDisplayed(), "Folder created is not present", "Folder was created successfully");
         }
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         Validator.assertTrue(verifyFilePresent(fileName),"File uploaded is not present","File was successfully uploaded");
     }
 
@@ -272,7 +274,7 @@ public class FileManagerPage extends BasePage{
 
     public void deleteFolder(String folderName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         driver.findElement(By.xpath("//div[contains(text(),'"+folderName+"')]/../../..//i[contains(@class,'pi-ellipsis-v')]")).click();
         btMoreDelete.click("Delete");
         btDeleteDialog.isEnable("Delete Confirmation Dialog");
@@ -286,8 +288,8 @@ public class FileManagerPage extends BasePage{
         btCheckbox.click(fileName);
         btCut.click("Cut");
         waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         btPaste.click("Paste");
         btMoveDialog.isEnable("Move Confirmation Dialog");
         btMoveConfirm.click("Confirm Move");
@@ -296,7 +298,7 @@ public class FileManagerPage extends BasePage{
 
     public void openImage(String folderName,String fileName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         verifyFilePresent(fileName);
         driver.findElement(By.xpath("//a[text()='"+fileName+"']")).click();
         waitForElementToDisplay(imgPopup);
@@ -306,7 +308,7 @@ public class FileManagerPage extends BasePage{
 
     public void openPdf(String folderName,String fileName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         verifyFilePresent(fileName);
         driver.findElement(By.xpath("//a[text()='"+fileName+"']")).click();
         waitForElementToDisplay(pdfPopup);
@@ -317,7 +319,7 @@ public class FileManagerPage extends BasePage{
 
     public void openFile(String folderName,String fileName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         verifyFilePresent(fileName);
         driver.findElement(By.xpath("//a[text()='"+fileName+"']")).click();
         downloadingMsg.isEnable("Downloading Msg");
@@ -332,7 +334,7 @@ public class FileManagerPage extends BasePage{
 
     public boolean verifyFolder(String folderName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        return driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).isDisplayed();
+        return driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).isDisplayed();
     }
 
     public void renameFile(String folder, String fileName, String newFileName){
@@ -351,7 +353,7 @@ public class FileManagerPage extends BasePage{
 
     public void downloadFolder(String folderName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']//i[contains(@class,'pi-ellipsis-v')]")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']//i[contains(@class,'pi-ellipsis-v')]")).click();
         btMoreDownload.click("download folder");
         SyncUtil.waitFor(5000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(folderName+".zip"),"Downloaded file was not found","File was downloaded successfully");
@@ -359,8 +361,8 @@ public class FileManagerPage extends BasePage{
 
     public void downloadFile(String folderName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         waitForElementToBeClickable(btCheckboxHeader);
         btCheckboxHeader.check("all files");
         btDownload.click("Download");
@@ -377,8 +379,8 @@ public class FileManagerPage extends BasePage{
 
     public void deleteAllFile(String folderName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
-        driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         waitForElementToBeClickable(btCheckboxHeader);
         btCheckboxHeader.check("all files");
         btDelete.click("Delete");
@@ -389,7 +391,7 @@ public class FileManagerPage extends BasePage{
 
     public String getFolderMemory(String folderName){
         waitForElementToInvisible(fileManagerLoader,40000);
-        String memory = driver.findElement(By.xpath("//li/div[@aria-label='"+folderName+"']//span[@class='file-details']")).getText();
+        String memory = driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']//span[@class='file-details']")).getText();
         System.out.println(MiscUtils.regexExtractor(memory, "(|[^|]*)$").trim());
         return MiscUtils.regexExtractor(memory, "(|[^|]*)$").trim();
     }

@@ -508,7 +508,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//anglerighticon")
     public CustomElement btPgNext;
 
-    @FindBy(locator="xpath=//button[@class='p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted p-highlight']")
+    @FindBy(locator="xpath=//p-paginator//button[contains(@class,'p-highlight')]")
     public CustomElement btPgHighlightedValue;
 
     @FindBy(locator="//div[@role='dialog']")
@@ -755,7 +755,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//div[@class='col-6 durometer']")
     public CustomElement hdNewDurometerValue;
 
-    @FindBy(locator="xpath=//span[text()='CV Common Regression']")
+    @FindBy(locator="xpath=//span[text()='VCV Common Regression']")
     public CustomElement hdCoverWearBreadCrumb;
 
     @FindBy(locator="xpath=//span[text()='Installed Belt']")
@@ -825,6 +825,9 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=//input[@value='top']//../../div[2]")
     public CustomElement rbtTop;
+
+    @FindBy(locator="xpath=//p-calendar[@formcontrolname='installedDate']")
+    public CustomElement tbInstalledDate;
 
     @FindBy(locator = "xpath=//p-dialog//span[text()='Save']")
     public CustomElement btSave;
@@ -1003,6 +1006,8 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=//input[@placeholder='Search']")
     public CustomElement btSearchinput;
+    @FindBy(locator="xpath=//span[text()='Add New Position']")
+    public CustomElement hdAddNewPositionPopUp;
 
     public void goToCoverWearScreen(){
         if(!coverWearList.isVisible())
@@ -1997,8 +2002,10 @@ public class CoverWearPage extends BasePage{
     public void verifyPaginationForwardArrowButton(){
         waitForElementVisible(btPgNext,5000,1000);
         waitForElementToBeClickable(btPgNext);
+        int highlightedValue= Integer.parseInt(btPgHighlightedValue.getText());
         btPgNext.jsClick();
-        Validator.assertTrue(btPgHighlightedValue.getText().contains("2"),"Pagination is not present at 2","Pagination is present at 2");
+        int expectHighlightedValue= highlightedValue+1;
+        Validator.assertTrue(btPgHighlightedValue.getText().contains(String.valueOf(expectHighlightedValue)),"Pagination is not present at 2","Pagination is present at 2");
     }
 
     public void clickAdd(){
@@ -2201,12 +2208,18 @@ public class CoverWearPage extends BasePage{
     }
 
     private List<String> getColumnData(int columnNumber) {
+        SyncUtil.waitFor(5000);
         List<WebElement> rows = driver.findElements(By.xpath("//tbody/tr"));
+        System.out.println(rows + " rows");
         List<String> columnData = new ArrayList<>();
         for (WebElement row : rows) {
             WebElement cell = row.findElement(By.xpath("./td[" + columnNumber + "]"));
-            columnData.add(cell.getText().trim());
+            String cellText = cell.getText().trim();
+            System.out.println("Cell ID: " + cell.getAttribute("id"));
+            System.out.println("Cell Text: " + cellText);
+            columnData.add(cellText);
         }
+        System.out.println(columnData + " columnData");
         return columnData;
     }
 
@@ -2390,7 +2403,7 @@ public class CoverWearPage extends BasePage{
         waitForPageLoad(5000);
         scrollPageup();
         waitForElementVisible(imgGaugeMeter,10000,1000);
-        Validator.assertTrue(imgGaugeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
+        Validator.assertTrue(imgGaugeMeter.isDisplayed(),"Gauge meter is not displayed","Gauge meter is displayed");
     }
 
 
@@ -2730,6 +2743,10 @@ public class CoverWearPage extends BasePage{
          rbtTop.click();
         Validator.assertTrue(tbTop.getAttribute("aria-checked").equalsIgnoreCase("true"),"Top is not selected","Top is selected");
      }
+    public void addInstalledDateField(String installDate){
+        waitForElementToBeClickable(tbInstalledDate);
+        tbInstalledDate.type(installDate);
+    }
 
     public void clickOnSave(){
         waitForElementToBeClickable(btSave);
@@ -3128,6 +3145,40 @@ public class CoverWearPage extends BasePage{
         return corporateColumnHeader.isEnable() && siteColumn.isEnable() && tablePositionHeader.isEnable() && remainingLifePercentageHeader.isEnable()
                 && remainingLifeHeader.isEnable() && durometerShoreHeader.isEnable() && coverGradeHeader.isEnable();
     }
+
+    public void verifyCoverWearReportData(String conveyorName, String siteName) {
+        PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + conveyorName + "_" + siteName + ".pdf");
+        try {
+            String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+            System.out.println(val);
+            Validator.assertTrue(val.contains(getBundle().getProperty("cwConveyorValue").toString()), "Conveyor in PDF Report does not match", "Conveyor in PDF Report match");
+            Validator.assertTrue(val.contains(getBundle().getProperty("cwSiteValue").toString()), "Site in PDF Report does not match", "Site in PDF Report match");
+//            Validator.assertTrue(val.contains(getBundle().getProperty("cwInstallDateValue").toString()), "Installed date in PDF Report does not match", "Installed date in PDF Report match");
+//            Validator.assertTrue(val.contains(getBundle().getProperty("cwCoverGradeValue").toString()), "Grade value in PDF Report does not match", "Grade value in PDF Report match");
+            Validator.assertTrue(val.contains(getBundle().getProperty("cwDurometerValue").toString()), "Durometer in PDF Report does not match", "Durometer in PDF Report match");
+//            Validator.assertTrue(val.contains(getBundle().getProperty("cwRemainingTimeValue").toString()), "Remaining Life in PDF Report does not match", "Remaining Life in PDF Report match");
+            Validator.assertTrue(val.contains(getBundle().getProperty("cwRemainingPerValue").toString()), "Remaining Conveyor in PDF Report does not match", "Remaining Conveyor in PDF Report match");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public void verifyCoverWearReport(String conveyorName, String siteName) {
+//        PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + conveyorName + "_" + siteName + ".pdf");
+//        try {
+//            String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+//            System.out.println(val);
+//            Validator.assertTrue(val.matches("2024 ContiTech AG, ALL RIGHTS RESERVED Page \\d+ of \\d+"), "Footer does not match", "Footer matches");
+//            Validator.assertTrue(val.contains("Segment Installed Date Tons Conveyed Cover Grade Age to date Last Recording Lowest Reading (Top) Durometer Shore A Remaining Life by %"), "Column header does not match", "Column header matchs");
+////            Validator.assertTrue(val.contains(getBundle().getProperty("cwInstallDateValue").toString()), "Installed date in PDF Report does not match", "Installed date in PDF Report match");
+//////            Validator.assertTrue(val.contains(getBundle().getProperty("cwCoverGradeValue").toString()), "Grade value in PDF Report does not match", "Grade value in PDF Report match");
+////            Validator.assertTrue(val.contains(getBundle().getProperty("cwDurometerValue").toString()), "Durometer in PDF Report does not match", "Durometer in PDF Report match");
+//////            Validator.assertTrue(val.contains(getBundle().getProperty("cwRemainingTimeValue").toString()), "Remaining Life in PDF Report does not match", "Remaining Life in PDF Report match");
+////            Validator.assertTrue(val.contains(getBundle().getProperty("cwRemainingPerValue").toString()), "Remaining Conveyor in PDF Report does not match", "Remaining Conveyor in PDF Report match");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 }

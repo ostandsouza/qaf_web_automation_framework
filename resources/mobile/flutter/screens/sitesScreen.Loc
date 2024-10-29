@@ -1,3 +1,22 @@
 sites.siteList.header = flutter-text=Sites
 sites.more.btn = flutter-valuekey=siteMoreBtn
+site.company.existingerror = flutter-text=Site already exist
+site.company.successMsg= flutter-text= Company successfully created
 
+site.name.field = flutter-valuekey=Site Name
+site.customer.dropdown = flutter-valuekey=Customer Corporate
+site.shop.dropdown = flutter-valuekey=Associated Distributor Shop
+site.dropdown.search = flutter-valuekey=Search
+site.territory.dropdown = flutter-valuekey=Territory
+site.manager.dropdown = flutter-valuekey=Territory Manager
+shop.name.field = flutter-valuekey=Shop Name
+shop.distributor.field = flutter-valuekey=Distributor Corporate
+site.search.field = flutter-valuekey=site_search
+site.conveyor.action=flutter-valuekey=conveyor_more
+sites.conveyor.edit = flutter-text=Edit
+sites.conveyor.delete = flutter-text=Delete
+site.default.company= flutter-text=Customer Site
+site.add.header = flutter-text=Add Site
+site.companyinfo.header= flutter-text=Company Information
+site.territoryinfo.header = flutter-text=Territory Information
+site.additionalinfo.header = flutter-text=Additional Details

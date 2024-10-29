@@ -239,6 +239,20 @@ public class DashboardNativePage extends NativeBasePage {
     @FindBy(locator = "coverWear.position.header")
     public CustomFlutterElement positionHeader;
 
+    @FindBy(locator = "address.auto.suggestion")
+    protected CustomMobileElement addressAutoSuggestion;
+
+    @FindBy(locator = "change.password.retypeErrorMessage")
+    public CustomFlutterElement reTypePwdErrMsg;
+
+    @FindBy(locator = "dashboard.conveyorInspect.card")
+    protected CustomMobileElement conveyorInspectCard;
+    @FindBy(locator = "dashboard.monitoringDevice.card")
+    protected CustomMobileElement monitoringDeviceCard;
+
+    @FindBy(locator = "dashboard.back.button")
+    public CustomMobileElement backBtn;
+
 
     public void refreshPage() {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -460,6 +474,7 @@ public class DashboardNativePage extends NativeBasePage {
 
     public void clickEditBtn() {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        Validator.assertTrue(corpEditBtn.getText().contains("Edit"),"Edit not is visible","Edit is visble");
         corpEditBtn.click("Corporate Edit");
         switchContext("FLUTTER");
     }
@@ -596,7 +611,6 @@ public class DashboardNativePage extends NativeBasePage {
     {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         SyncUtil.waitFor(30000);
-        System.out.println(conveyorsCard.isDisplayed()+"conveyor tile");
         Validator.assertTrue(conveyorsCard.isDisplayed(),"Conveyor tile is not visible in the home page","Conveyor tile is  visible in the home page");
         conveyorsCard.click();
         switchContext("FLUTTER");
@@ -657,12 +671,15 @@ public class DashboardNativePage extends NativeBasePage {
     public void selectFirstSearchSiteScreen() {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         SyncUtil.waitFor(2000);
+        Validator.assertTrue(siteFirstSearchDropdown.isVisible(),"Value is not visible","Value is visible");
         siteFirstSearchDropdown.click("First result");
         switchContext("FLUTTER");
     }
 
     public void selectFirstSearchTerritorySiteScreen() {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(territoryFirstSearchDropdown.isDisplayed(),"Value is not visible","Value is visible");
         territoryFirstSearchDropdown.click("First territory result");
         switchContext("FLUTTER");
     }
@@ -745,13 +762,6 @@ public class DashboardNativePage extends NativeBasePage {
         switchContext("FLUTTER");
     }
 
-    public void corporateSymbolClick()
-    {
-        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        corporateIcon.click();
-        switchContext("FLUTTER");
-
-    }
     public void inspectionSymbolClick()
     {
         switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -875,4 +885,63 @@ public class DashboardNativePage extends NativeBasePage {
         Validator.assertTrue(coverWearCard.isDisplayed(),"coverWearCard  is not visible in the home page"," coverWearCard is  visible in the home page");
         switchContext("FLUTTER");
     }
+    //    public void goToCorporatePage() {
+//        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//        corporateIcon.click();
+//        switchContext("FLUTTER");
+//    }
+
+    public void corporateSymbolClick()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        corporateIcon.click();
+        switchContext("FLUTTER");
+    }
+    public void conveyorSymbolClick()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        conveyorIcon.click();
+        switchContext("FLUTTER");
+    }
+    public void autoAddressSelection() {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        addressAutoSuggestion.click();
+        switchContext("FLUTTER");
+    }
+    public void verifyHomeScreenDetailsNative() {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        SyncUtil.waitFor(40000);
+        Validator.assertTrue(sitesCard.isDisplayed(),"Site is not Visible","Site is Visible");
+        Validator.assertTrue(conveyorsCard.isDisplayed(),"Conveyor is not Visible","Conveyor is Visible");
+        Validator.assertTrue(coverWearCard.isDisplayed(),"CoverWear is not Visible","CoverWear is Visible");
+        Validator.assertTrue(inspectionsCard.isDisplayed(),"Inspection is not Visible","Inspection is Visible");
+        Validator.assertTrue(conveyorInspectCard.isDisplayed(),"Conveyor Inspect is not Visible","Conveyor Inspect is Visible");
+        Validator.assertTrue(monitoringDeviceCard.isDisplayed(),"Monitoring Devices is not Visible","Monitoring Devices is Visible");
+        Validator.assertTrue(searchIcon.isDisplayed(),"Search Button is not Visible","Search Button is Visible");
+        Validator.assertTrue(filterIcon.isDisplayed(),"Filter Button is not Visible","Filter Button is Visible");
+        Validator.assertTrue(refreshIcon.isDisplayed(),"Refresh Icon  is not Visible","Refresh Icon is Visible");
+        Validator.assertTrue(profileIcon.isDisplayed(),"Profile Icon is not Visible","Profile Icon is Visible");
+        switchContext("FLUTTER");
+    }
+
+    public void verifyRetypePasswordErrorMessage()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        reTypePwdErrMsg.waitForTheElementToBeVisible(3000);
+        Validator.assertTrue(reTypePwdErrMsg.isVisible(),"Retype Password Error Message is not visible","Retype Password Error Message is visible");
+        switchContext("FLUTTER");
+    }
+    public void backBtnClick()
+    {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        SyncUtil.waitFor(3000);
+//        backBtn.waitForTheElementToBeVisible(10000);
+        backBtn.click();
+        switchContext("FLUTTER");
+
+    }
+
+
+
+
 }

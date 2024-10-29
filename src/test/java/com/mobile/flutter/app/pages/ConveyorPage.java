@@ -90,8 +90,35 @@ public class ConveyorPage extends FlutterBasePage {
     @FindBy(locator = "conveyor.toast.error")
     public CustomFlutterElement addConveyorNameError;
 
+    @FindBy(locator = "conveyor.distributor.fieldtext")
+    public CustomFlutterElement distributorFieldText;
+    @FindBy(locator = "conveyor.add.back")
+    public CustomFlutterElement conveyorAddBackBtn;
 
+    @FindBy(locator = "conveyor.file.name")
+    public CustomFlutterElement fileNameField;
+    @FindBy(locator = "conveyor.fileName.checkbox")
+    public CustomFlutterElement fileNameCheckBox;
 
+    @FindBy(locator = "conveyor.action.popup")
+    public CustomFlutterElement actionPopup;
+    @FindBy(locator = "corporate.actionPopup.cancel")
+    public CustomFlutterElement actionPopupCancelBtn;
+    @FindBy(locator = "corporate.actionPopup.delete")
+    public CustomFlutterElement actionPopupDeleteBtn;
+    @FindBy(locator = "corporate.actionPopup.move")
+    public CustomFlutterElement actionPopupMoveBtn;
+
+    @FindBy(locator = "conveyor.fileManager.header")
+    public CustomFlutterElement fileManagerHeader;
+
+    @FindBy(locator = "conveyor.actionPopup.paste")
+    public CustomFlutterElement actionPopupPasteBtn;
+
+    @FindBy(locator = "conveyor.folder.name")
+    public CustomFlutterElement folderName;
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"test-Photos\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"breadcrumb\\\"}\"}")
+    public CustomFlutterElement folderBreadCrumb;
 
     public boolean isConveyorPage() {
         conveyorListHeader.waitForTheElementToBeVisible(30);
@@ -252,10 +279,140 @@ public class ConveyorPage extends FlutterBasePage {
 
     public void addBtnClick()
     {
-//        System.out.println(getRenderTree());
-//        SyncUtil.waitFor(30000);
-//        addIcon.waitForTheElementToBeVisible(85);
         addIcon.click();
+    }
+
+    public void verifyConveyorListPageNavigation()
+    {
+        SyncUtil.waitFor(40000);
+        Validator.assertTrue(conveyorListHeader.isDisplayed(),"User is not navigated to conveyor list screen","User is not navigated to conveyor list screen");
+//        SyncUtil.waitFor(5000);
+    }
+    public boolean goToAddConveyorViaConvList() {
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        addIcon.waitForTheElementToBeVisible(30);
+        addIcon.click();
+        return ConveyorPage.getInstance().isConveyorPage();
+    }
+    public void clickDistShopAndVerifySearch() {
+        SyncUtil.waitFor(8000);
+        distributorField.waitForTheElementToBeVisible(45);
+        distributorField.click("Distributor dropdown");
+        Validator.assertTrue(searchDropdown.isDisplayed(),"Search option is not displayed","Search option is displayed");
+    }
+    public void searchSelectDistributorShop(String distShop) {
+        searchDropdown.sendKeys(distShop, "Distributor");
+        SyncUtil.waitFor(10000);
+        DashboardNativePage.getInstance().selectFirstSearchSiteScreen();
+        System.out.println("until here");
+        SyncUtil.waitFor(5000);
+        System.out.println(distributorFieldText.getText());
+        System.out.println("until here2");
+        System.out.println(distributorFieldText.getText()+"   distribuorField   "+distShop);
+        Validator.assertTrue(distributorFieldText.getText().contains(distShop),"Distributor Shop is not selected properly","Distributor Shop is selected properly");
+    }
+
+    public boolean verifyConveyorIsPresent(String company) {
+        DashboardNativePage.getInstance().goToSearch();
+        SyncUtil.waitFor(5000);
+        DashboardNativePage.getInstance().enterSearchQuery(company);
+        System.out.println(DashboardNativePage.getInstance().getSearchCount());
+        System.out.println(DashboardNativePage.getInstance().getConveyorSearchResult());
+        Assert.assertTrue(DashboardNativePage.getInstance().getSearchCount().equals("1"),"Search Result Count");
+        return DashboardNativePage.getInstance().getConveyorSearchResult().contains(company);
+    }
+    public void fileManagerCardClick() {
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(conveyorFileManagerDetails.isVisible(),"File Manager is not Visible","File Manager is visible");
+        conveyorFileManagerDetails.click();
+    }
+
+    public void verifyAddConvBackBtnToHomePage() {
+        conveyorAddBackBtn.waitForTheElementToBeVisible(5000);
+        conveyorAddBackBtn.click("Conveyor Back Button");
+        DashboardPage.getInstance().isHomePage();
+    }
+
+    public void clickCancelBtnInFileManger()
+    {
+        actionPopupCancelBtn.waitForTheElementToBeVisible(5000,"deleteButton");
+        actionPopupCancelBtn.click("Cancel");
+    }
+    public boolean verifyCancelBtnFuncInFileManager()
+    {
+        fileNameCheckBox.waitForTheElementToBeInvisible(10000,"filename");
+        return fileNameCheckBox.verifyNotPresent();
+    }
+
+    public boolean navigateToFileManager(String conveyorName)
+    {
+        conveyorFileManagerDetails.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(conveyorFileManagerDetails.isDisplayed(),"File Manager tile is not visible","File Manager tile is visible");
+        conveyorFileManagerDetails.click();
+        fileManagerHeader.waitForTheElementToBeVisible(10000);
+        return fileManagerHeader.getText().contains(conveyorName+" - File Manager");
+    }
+    public boolean verifyFilesPresent(String fileName)
+    {
+        fileNameField.waitForTheElementToBeVisible(10000,"fileName");
+        System.out.println(fileNameField.isPresent()+"fileNameField");
+        return fileNameField.isPresent();
+    }
+    public void longPressOnFile()
+    {
+        fileNameField.longPress();
+        fileNameCheckBox.waitForTheElementToBeVisible(20000,"checkbox");
+        Validator.assertTrue(fileNameCheckBox.isVisible(),"On long press the file is not getting selected","On long press the file is getting selected");
+    }
+    public boolean verifyActionPopup()
+    {
+        actionPopup.waitForTheElementToBeVisible(10000,"actionPopup");
+        return actionPopup.isPresent();
+    }
+    public void verifyActionPopupButtons()
+    {
+        actionPopupMoveBtn.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(actionPopupMoveBtn.isVisible()&&actionPopupCancelBtn.isVisible()&&actionPopupDeleteBtn.isVisible(),
+                "Move,Delete and Cancel buttons are not visible in action popup","Move,Delete and Cancel buttons are visible in action popup");
+
+    }
+    public void deleteFileOrFolder()
+    {
+        actionPopupDeleteBtn.waitForTheElementToBeVisible(5000,"deleteButton");
+        actionPopupDeleteBtn.click("delete");
+    }
+    public boolean verifyDeletion()
+    {
+        fileNameField.waitForTheElementToBeInvisible(10000,"filename");
+        return fileNameField.verifyNotPresent();
+    }
+    public void moveBtnClickAndVerifyPopup()
+    {
+        actionPopupMoveBtn.waitForTheElementToBeVisible(10000,"moveBtn");
+        actionPopupMoveBtn.click("Action");
+        actionPopup.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(actionPopupCancelBtn.isVisible()&&actionPopupPasteBtn.isVisible(),
+                "Paste and Cancel buttons are not visible in move action popup","Paste and Cancel buttons are  visible in move action popup");
+
+    }
+
+    public void goToFolder()
+    {
+        folderName.waitForTheElementToBeVisible(10000,"folderName");
+        folderName.click("folderName");
+        waitForPageToLoad();
+        folderBreadCrumb.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(folderBreadCrumb.isVisible(),"User is not navigated to the selected folder","User is navigated to the selected folder");
+    }
+    public void clickMoveBtnAndVerify()
+    {
+        actionPopupPasteBtn.waitForTheElementToBeVisible(10000);
+        actionPopupPasteBtn.click("paste");
+        waitForPageToLoad();
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(fileNameField.isVisible(),"The file/folder is not moved successfully to the destination folder","The file/folder is moved successfully to the destination folder");
+
     }
 
 }

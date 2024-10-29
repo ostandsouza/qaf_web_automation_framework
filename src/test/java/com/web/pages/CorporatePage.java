@@ -66,7 +66,10 @@ public class CorporatePage extends BasePage{
     public CustomElement tbCompanyName;
 
     @FindBy(locator = "xpath=//span[text()='Create']/..")
-    public CustomElement btSaveandclose;
+    public CustomElement btCreate;
+
+    @FindBy(locator = "xpath=//button//span[text()='Create']")
+    public CustomElement btnCreate;
 
     @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
     public CustomElement drCompanyDropdownLoader;
@@ -92,7 +95,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//li[text()=' No results found ']")
     public CustomElement drTerritoryLoader;
 
-    @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[2]")
+    @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[1]")
     public CustomElement drTerritorybutton;
 
     @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
@@ -236,7 +239,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//td[contains(text(),'No')]")
     public CustomElement noList;
 
-    @FindBy(locator = "xpath=(//label[text()='Type of Company']/../div//p-dropdown//span)[1]")
+    @FindBy(locator = "xpath=(//label[text()='Type of Company']/../div//input)[1]")
     public CustomElement typeOfCompanyLoader;
 
     @FindBy(locator = "xpath=(//div[contains(@id,'titlebar')]/span)[1]")
@@ -266,11 +269,11 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Edit']")
     public CustomElement btEditDetails;
 
-    @FindBy(locator= "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component p-disabled']")
-    public CustomElement btnSaveDisabled;
+    @FindBy(locator= "//span[text()='Create']/parent::button[@disabled]")
+    public CustomElement btnCreateDisabled;
 
-    @FindBy(locator= "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component']")
-    public CustomElement btnSaveEnabled;
+    @FindBy(locator= "//span[text()='Create']/parent::button[not(@disabled)]")
+    public CustomElement btnCreateEnabled;
 
     @FindBy(locator="//div[@class='p-breadcrumb p-component']")
     public CustomElement bcAddUserLink;
@@ -391,7 +394,7 @@ public class CorporatePage extends BasePage{
         scrollPageup();
         selectDistributorShop();
         dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,distCorp);
-        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, territory);
+        dropdownSelectSearch(drTerritorybutton, tbSitedropdown, territory);
         drTerritoryManagerbutton.type(manager, "Territory");
         addCorporateDetails(companyName, address);
         saveCorp();
@@ -416,7 +419,7 @@ public class CorporatePage extends BasePage{
         selectCustomerSite();
         dropdownSelectSearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
         dropdownSelectSearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopIndName);
-        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, DistCorpIndTerritory);
+        dropdownSelectSearch(drTerritorybutton, tbSitedropdown, DistCorpIndTerritory);
         drTerritoryManagerbutton.type(manager);
         addCorporateDetails(companyName, address);
         saveCorp();
@@ -444,15 +447,32 @@ public class CorporatePage extends BasePage{
 
     public void saveCorp() {
         scrollPageDown();
-        waitForElementToBeClickable(btSaveandclose);
-        btSaveandclose.click("Save And Close");
+        waitForElementToBeClickable(btCreate);
+        btCreate.click("Create");
     }
 
     public void updateCorp() {
         scrollPageDown();
-        btUpdate.click("Update");
+        btSave.click("Update");
         waitForElementToInvisible(buttonLoader,10000);
         btSearchinput.isVisible("Corporate list screen");
+    }
+
+    public void btnSaveClick() {
+        scrollPageDown();
+        btSave.click("Save");
+        waitForElementToInvisible(buttonLoader,10000);
+        btSearchinput.isVisible("Corporate list screen");
+    }
+
+    public void clickCreateBtn()
+    {
+        waitForElementVisible(btnCreate,10000,500);
+        waitForElementToBeClickable(btnCreate);
+        btnCreate.click();
+        waitForPageLoad(10000);
+        Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(),"company is not created","company is created successfully");
+
     }
 
     public void selectDistributorShop() {
@@ -496,11 +516,14 @@ public class CorporatePage extends BasePage{
         goToCorporate();
         SyncUtil.waitFor(6000);
         goToCorporateEditScreen(corpName);
-        SyncUtil.waitFor(6000);
-        setImplicitWait(10000, TimeUnit.MILLISECONDS);
-        typeOfCompanyLoader.waitForText("Customer Corporate");
+        SyncUtil.waitFor(8000);
+        setImplicitWait(20000, TimeUnit.MILLISECONDS);
+        waitForElementVisible(typeOfCompanyLoader, 10000, 500);
+//        typeOfCompanyLoader.waitForText("Customer Corporate");
+        Validator.assertTrue(typeOfCompanyLoader.getAttribute("value").equalsIgnoreCase("Customer Corporate"),"Company dropdown selection deosnt match","Company dropdown selection verification successful");
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
         tbCompanyName.type(editCorpName, "Edit_companyName");
+        SyncUtil.waitFor(4000);
     }
 
     public void corporateImgUpload(String fileName) {
@@ -548,19 +571,19 @@ public class CorporatePage extends BasePage{
         btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-        typeOfCompanyLoader.waitForText("Customer Site");
+//        typeOfCompanyLoader.waitForText("Customer Site");
+        Validator.assertTrue(typeOfCompanyLoader.getAttribute("value").equalsIgnoreCase("Customer Site"),"Company dropdown selection deosnt match","Company dropdown selection verification successful");
         SyncUtil.waitFor(10000);
         tbCompanyName.type(editSiteName);
         SyncUtil.waitFor(2000);
         scrollPageup();
-        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
+        dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
         drTerritoryManagerbutton.type("Territory India Automation", "Territory");
         scrollPageDown();
     }
 
     public void deleteSiteOrShop(String custCorp, String custSite) {
         goToDistCorporateDetails(custCorp);
-        SyncUtil.waitFor(4000);
         btSearchinput.type(custSite, "Site/Shop name");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         btCheckbox.check("Site/Shop Checkbox");
@@ -569,7 +592,6 @@ public class CorporatePage extends BasePage{
         waitForElementVisible(btDelete, 10000,500);
         btDelete.jsClick("Delete");
         yesConfirmation.click("Confirm");
-        SyncUtil.waitFor(2000);
     }
 
     public void searchCorporate(String corpName) {
@@ -667,9 +689,10 @@ public class CorporatePage extends BasePage{
         btActions.click("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-        typeOfCompanyLoader.waitForText("Distributor Shop");
+        Validator.assertTrue(typeOfCompanyLoader.getAttribute("value").equalsIgnoreCase("Distributor Shop"),"Company dropdown selection deosnt match","Company dropdown selection verification successful");
+//        typeOfCompanyLoader.waitForText("Distributor Shop");
         tbCompanyName.type(editSiteName);
-        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
+        dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
         drTerritoryManagerbutton.type("Market India Automation", "Territory");
     }
 
@@ -702,7 +725,7 @@ public class CorporatePage extends BasePage{
     public void createConveyor(String conveyorName,String custSiteName) {
         tbConveyorname.type(conveyorName,"Conveyor Name");
         dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
-        btSaveandclose.click("Save & Close");
+        btCreate.click("Save & Close");
         waitForElementToInvisible(buttonLoader,10000);
         btSearchinput.isVisible("Conveyor list screen");
         Reporter.log(conveyorName +" conveyor is created", MessageTypes.Pass);
@@ -779,9 +802,9 @@ public class CorporatePage extends BasePage{
     }
 
     public void verifyMandatoryFields(){
-        Validator.assertTrue(btnSaveDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
+        Validator.assertTrue(btnCreateDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
         tbCompanyName.type("");
-        Validator.assertTrue(btnSaveEnabled.isDisplayed(),"Cancel button is not enabled","Cancel button is enabled");
+        Validator.assertTrue(btnCreateEnabled.isDisplayed(),"Cancel button is not enabled","Cancel button is enabled");
     }
 
     public void verifyUserBreadCrumb()
@@ -794,7 +817,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void verifyBlankField(){
-        Validator.assertTrue(btnSaveDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
+        Validator.assertTrue(btnCreateDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
         }
 
 //    public void addBlankCompanyAndAddress(String Address) {
@@ -955,8 +978,8 @@ public class CorporatePage extends BasePage{
     }
     public void clickSaveBtnAndVerify()
     {
-        waitForElementVisible(btSaveandclose,5000,500);
-        btSaveandclose.click();
+        waitForElementVisible(btCreate,5000,500);
+        btCreate.click();
         waitForPageLoad(10000);
         Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(),"company is not created","company is created successfully");
     }
@@ -978,6 +1001,11 @@ public class CorporatePage extends BasePage{
 //        Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not created successfully","the company is created successfully");
 //
 //    }
+
+    public void verifyPinnedSubList(String value) {
+        String pinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-red')]";
+        Validator.assertTrue(driver.findElement(By.xpath(pinnedValue)).isDisplayed(), "Pinned Value is not displayed", "Pinned Value is displayed");   }
+
 
 
 }

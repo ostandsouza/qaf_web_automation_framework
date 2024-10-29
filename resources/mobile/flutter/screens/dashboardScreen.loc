@@ -5,6 +5,7 @@ dashboard.add.conveyor = flutter-text=ADD CONVEYOR
 dashboard.add.site = flutter-text=ADD SITE/SHOP
 dashboard.add.corporate = flutter-text=ADD CORPORATE
 dashboard.add.inspection = flutter-text=ADD INSPECTION
-dashboard.loading.animation = flutter-valuekey=loader
+dashboard.loading.animation = flutter-type=LinearProgressIndicator
 dashboard.card.conveyor=flutter-valuekey=conveyor_tile
-conveyor.details.conveyorInspect=xpath=//android.widget.ImageView[contains(@content-desc,'Conveyor Inspect')]
+dashboard.filter.button=flutter-valuekey=filter_Icon
+dashboard.filter.header=flutter-valuekey=filter_header

@@ -4,10 +4,7 @@ import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
-import com.web.pages.ConveyorPage;
-import com.web.pages.CorporatePage;
-import com.web.pages.UsersPage;
-import com.web.pages.CoverWearPage;
+import com.web.pages.*;
 import groovyjarjarantlr4.v4.codegen.model.Sync;
 
 import java.util.List;
@@ -19,13 +16,15 @@ public class ConveyorSteps {
     ConveyorPage conveyorPage = new ConveyorPage();
     CorporatePage corporatePage = new CorporatePage();
     CoverWearPage coverWearPage=new CoverWearPage();
+    SitePage sitePage = new SitePage();
+//    BeltScanPage beltScanPage=new BeltScanPage();
 
     UsersPage userpage = new UsersPage();
 
     @QAFTestStep(description="Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
     public void createAConveyor(String conveyorName, String distShopName, String custSiteName){
-        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
-        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+//        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+//        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         conveyorPage.createConveyor(conveyorName, distShopName, custSiteName);
     }
 
@@ -36,7 +35,7 @@ public class ConveyorSteps {
         System.out.println("after delete apiBase");
 
         conveyorPage.createConveyorWithRequiredField(conveyorName, distShopName, custSiteName);
-        conveyorPage.clickSaveBtn();
+        conveyorPage.clickCreateBtn();
     }
 
 
@@ -198,22 +197,11 @@ public class ConveyorSteps {
         Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
     }
 
-
     @QAFTestStep(description = "verify user is able to delete layout for {Layout_Name}")
     public void verifyDeleteLayout(String layoutName) {
         conveyorPage.goToConveyorListScreen();
         conveyorPage.deleteLayout(layoutName);
         Validator.assertFalse(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
-    }
-
-    @QAFTestStep(description = "verify user {Email} is able to add new layout for {Corporates} {BeltWidth} {Rating} {Length} with {Layout_Name}")
-    public void verifyUserPreference(String email, String corporates, String beltWidth, String rating, String length, String layoutName) {
-        String userId = conveyorPage.apiBase.getUserProfileAPI(email);
-        String prefId = conveyorPage.apiBase.getPreferenceAPI(userId, layoutName);
-        conveyorPage.apiBase.deletePreferencesAPI(userId, prefId);
-        conveyorPage.goToConveyorListScreen();
-        conveyorPage.addLayout(corporates, beltWidth, rating, length, layoutName);
-        Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are not applied in table layout", "All filters were successfully verified");
     }
 
     @QAFTestStep(description = "Verify user is able see saved preference")
@@ -236,8 +224,9 @@ public class ConveyorSteps {
         conveyorPage.verifyGPSCoordinatesVisibility();
     }
 
-    @QAFTestStep(description = "User selects a site {SiteName} from the dropdown")
-    public void selectSiteNameFromDropDown(String siteName) {
+    @QAFTestStep(description = "User selects a site {SiteName} from the dropdown and enter conveyorName {ConveyorName1}")
+    public void selectSiteNameFromDropDown(String siteName,String conveyorName) {
+        conveyorPage.enterConveyorName(conveyorName);
         conveyorPage.clickSiteDropDown();
         conveyorPage.selectSiteName(siteName);
     }
@@ -287,6 +276,8 @@ public class ConveyorSteps {
     public void addMarkerClickAndVerifyTailCoordinates() {
         conveyorPage.addMarkerBtnClick();
         conveyorPage.verifyUpdatedGPSTail();
+        conveyorPage.clickCreateBtn();
+
     }
 
 
@@ -298,7 +289,9 @@ public class ConveyorSteps {
     @QAFTestStep(description = "Click on remarks radio button and click on save and close")
     public void clickRemarksBtnAndClickSaveAndClose() {
         conveyorPage.remarksBtnClick();
-        conveyorPage.clickOnSaveAndCloseBtn();
+        conveyorPage.clickCreateBtn();
+        conveyorPage.verifyNavigationToConveyorSiteCard();
+
     }
 
     @QAFTestStep(description = "Verify that user should get conveyor site card")
@@ -453,10 +446,10 @@ public class ConveyorSteps {
     }
 
 
-    @QAFTestStep(description = "Click on the filter icon and verify all fields {filterType} are visible")
-    public void clickOnFilterIconAndVerifyFields(String filterType) {
+    @QAFTestStep(description = "Click on the filter icon and verify all fields are visible for columnName {ColName}")
+    public void clickOnFilterIconAndVerifyFields(String colName) {
         conveyorPage.filterIconClick();
-        conveyorPage.verifyFilterFields(filterType);
+        conveyorPage.verifyFilterFields(colName);
     }
     @QAFTestStep(description = "Select {filterType} from filter dropdown and verify it is selected")
     public void clickAndVerifyStartsWithFilter(String filterType) {
@@ -506,7 +499,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Click on update button and verify all changes are saved and navigated to conveyor list page")
     public void clickUpdateBtnAndVerify() {
-        conveyorPage.updateBtnClick();
+        conveyorPage.saveButtonClick();
         conveyorPage.verifyConveyorUpdation();
     }
 
@@ -545,10 +538,7 @@ public class ConveyorSteps {
     public void verifyImageViewPanel () {
         conveyorPage.verifyImageViewPanelClosed();
     }
-    @QAFTestStep(description = "User clicks on cancel button")
-    public void clickOnCancelBtn () {
-        conveyorPage.cancelBtnClick();
-    }
+
 
     @QAFTestStep(description="Create a conveyor with {ConveyorName} and {DistShopName} and {CustShopName} with mandatory field")
     public void createTheConveyorWithMan(String conveyorName, String distShopName, String custSiteName){
@@ -833,5 +823,104 @@ public class ConveyorSteps {
     @QAFTestStep(description="User should not see dropdown with belt failure options for view rights")
     public void addConveyorHistoryViewRights() {
         Validator.assertTrue(conveyorPage.verifyaddConveyorHistoryViewRights(), "Add Conveyor history option enabled for view rights", "Add Conveyor history option disabled for view rights");
+    }
+    @QAFTestStep(description = "Verify that conveyor card is displayed in home page")
+    public void verifyConveyorCardDisplay () {
+        conveyorPage.clickConveyorCard();
+    }
+    @QAFTestStep(description = "Click on the conveyor card and verify it navigates to conveyor list screen")
+    public void verifyNavigationToConveyorListPage () {
+        conveyorPage.verifyConveyorListPageNaviagtion();
+    }
+    @QAFTestStep(description = "subscribe one conveyor {ConveyorName1} for the user")
+    public void searchAndSubscribeConveyor (String conveyorName) {
+//        SyncUtil.waitFor(20000);
+        conveyorPage.searchConveyor(conveyorName);
+        sitePage.subscribeSite(conveyorName);
+    }
+    @QAFTestStep(description = "Navigate to conveyorListPage and click on bellIcon")
+    public void navigateToConveyorPageAndBellIconClick()
+    {
+        conveyorPage.goToConveyorListScreenAndWait();
+        sitePage.bellIconClick();
+    }
+    @QAFTestStep(description = "Subscribe the conveyors {ConveyorName1} and {ConveyorName2}")
+    public void searchAndSubscribeTwoConveyors(String ConveyorName1,String ConveyorName2) {
+//        SyncUtil.waitFor(20000);
+        conveyorPage.searchConveyor(ConveyorName1);
+        sitePage.subscribeSite(ConveyorName1);
+        conveyorPage.searchConveyor(ConveyorName2);
+        sitePage.subscribeSite(ConveyorName2);
+    }
+    @QAFTestStep(description="Verify Conveyor History navigation bar fields")
+    public void verifyTheConveyorHistoryHeaderFields(){
+        conveyorPage.verifyConveyorHistoryHeaderFields();
+    }
+
+    @QAFTestStep(description = "Verify user is getting conveyor notification in last in first out format for {Value1} {Value2}")
+    public void clickAndVerifyNotificationConveyorOrder(String value1,String value2)
+    {
+        sitePage.bellIconClick();
+        conveyorPage.verifyNotificationConveyorOrder(value1,value2);
+    }
+    @QAFTestStep(description = "Verify user is getting inspection notification for {ConveyorName} with {CustSiteName} by {UserName}")
+    public void verifyTheInspNotification(String conveyorName,String siteName,String userName)
+    {
+        sitePage.bellIconClick();
+        conveyorPage.verifyInspNotification(conveyorName,siteName,userName);
+    }
+    @QAFTestStep(description = "Verify the pinned subscription list {Value}")
+    public void verifyThePinSubList(String value)
+    {
+        conveyorPage.verifyPinnedSubList(value);
+    }
+    @QAFTestStep(description = "Verify the unPinned subscription list {Value}")
+    public void verifyTheUnPinSubList(String value)
+    {
+        conveyorPage.verifyUnPinnedSubList(value);
+    }
+
+    @QAFTestStep(description = "Verify Conveyor card details")
+    public void verifyTheConveyorCardDetails() {
+        conveyorPage.verifyConveyorCardDetails();
+    }
+
+    @QAFTestStep(description = "Click on the new link of the recent conveyor notification for {ConveyorName1} and verify it navigates conveyor history page")
+    public void clickNewLinkAndVerifyNavigation(String conveyorName)
+    {
+        conveyorPage.newLinkClick();
+        conveyorPage.verifyConveyorHistoryNav(conveyorName);
+    }
+    @QAFTestStep(description = "Verify user can only see conveyor history of the particular subscribed conveyor {ConveyorName1} notification")
+    public void verifyConveyorHistoryForParticularConveyor(String conveyorName)
+    {
+        conveyorPage.verifyConveyorHistoryNav(conveyorName);
+    }
+    @QAFTestStep(description = "Verify the notification count in bellIcon after subscription and verify user is getting any notification")
+    public void verifyNotificationCountAfterSubscriptionForConveyor()
+    {
+
+        sitePage.extractNotificationCountAfter();
+        sitePage.verifyUserNotificationCountAfterUpdate();
+    }
+//    @QAFTestStep(description = "Click on the new link of the recent Belt Scan notification and verify it navigates Add Belt Scan page")
+//    public void clickNewLinkAndVerifyBeltScanNavigation()
+//    {
+//        sitePage.bellIconClick();
+//        conveyorPage.newLinkClick();
+//        SyncUtil.waitFor(3000);
+//        Validator.assertTrue(beltScanPage.getCurrentURL().contains("/secure/belt-scans/detail/"),"User is not navigated to  Belt Scan Detail page!",
+//                "User is  navigated to  Belt Scan Detail page!");
+//    }
+
+    @QAFTestStep(description = "Verify user can see the updates done to the conveyor {ConveyorName} in the conveyor history under the subscribed site")
+    public void verifyConveyorUpdateHistory(String conveyorName)
+    {
+        Validator.assertTrue(conveyorPage.getCurrentURL().contains("/conveyor-history"),"User is not navigated to conveyor history page","User is navigated to conveyor history page");
+        conveyorPage.verifyConveyorHistoryForConveyor(conveyorName);
+    }
+    @QAFTestStep(description = "Click on each column header and verify filter icon fields")
+    public void clickOnEachFilterIconAndVerifyFilterFields() {
+        conveyorPage.columnNameFilterBtnClick();
     }
 }

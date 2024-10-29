@@ -1,3 +1,5 @@
 landing.continentalAcct.btn = flutter-text=Continental Account
 landing.guestAcct.btn = flutter-valuekey=loginGuestBtn
 landing.continental.img = flutter-text=Login with:
+
+landing.welcome.page =flutter-valuekey=Welcome!

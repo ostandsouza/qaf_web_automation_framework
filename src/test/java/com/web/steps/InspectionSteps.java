@@ -39,20 +39,20 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Add inspection Event for conveyor {ConveyorName} with {InspectionName} {CustSiteName} {FullName}")
 	public void addInspectionEventForConveyorWith(String conveyorName, String inspectionName, String custSiteName, String fullName){
-		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
-		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
-		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
-		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+//		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
+//		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+//		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
+//		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
 		inspectionpage.goToInspection();
 		inspectionpage.addInspection(inspectionName,custSiteName,fullName);
 	}
 
 	@QAFTestStep(description="Add inspection Event for conveyor {ConveyorName} with {InspectionName}")
 	public void createAddInspection(String conveyorName, String inspectionName){
-		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
-		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
-		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
-		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+//		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
+//		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+//		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
+//		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
 		inspectionpage.addInspection(inspectionName);
 	}
 	
@@ -311,7 +311,7 @@ public class InspectionSteps {
 		inspectionpage.extractStatusValue();
 	}
 
-	@QAFTestStep(description="Click on view button")
+	@QAFTestStep(description="Click on the view button")
 	public void clickOnViewButton(){
 		inspectionpage.clickOnViewBtn();
 	}
@@ -357,7 +357,7 @@ public class InspectionSteps {
 		inspectionpage.viewAndVerifyCorporatePage();
 	}
 
-	@QAFTestStep(description = "Verify Inspection Tile is clickable")
+	@QAFTestStep(description = "Click on inspections and verify user is able to open inspections")
 	public void verifyTheInspectionCardClick() {
 		inspectionpage.verifyInspectionCardClick();
 	}
@@ -715,6 +715,15 @@ public class InspectionSteps {
 	public void inspectionEvent(String inspectionName) {
 		inspectionpage.browserRefresh();
 		Validator.assertFalse(inspectionpage.searchInspection(inspectionName),"Inspection event is present in inspection event list","Inspection event is deleted from inspection list");
+	}
+
+	@QAFTestStep(description = "Search and verify the {Value} is present")
+	public void searchTheResult(String value) {
+		inspectionpage.searchResult(value);
+	}
+	@QAFTestStep(description = "Click on Clear filter Icon")
+	public void clickTheClickFilter() {
+		inspectionpage.clickClickFilter();
 	}
 }
 

@@ -313,6 +313,20 @@ Scenario: Verify the user is able to update the password
   When Login with '${UserName}' and '${UserPassword}'
   Then Verify Home page is displayed
 
+@UserRegression28 @CTCP-1284
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_ImageUpload
+Scenario: Verify the breadCrumb of add user page
+
+ Given User is at Login page
+ When Login with '${UserName}' and '${Password}'
+ And User navigates to Add user page
+ Then Verify the user bread crumb
+ And Click on User Link to redirect to user page
+ And Click on Add user icon
+ And Click on Home Link to redirect to home page
+
 @UserRegression29 @Regression @CTCP-1285
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -329,20 +343,6 @@ Scenario: ZzVerify the image upload functionality
   When Crop the Image using the dots
   Then Click on Save and Verify the image is displayed
 
-@UserRegression28 @CTCP-1284
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:UserManagement_ImageUpload
-
-Scenario: Verify the breadCrumb of add user page
-
- Given User is at Login page
- When Login with '${UserName}' and '${Password}'
- And User navigates to Add user page
- Then Verify the user bread crumb
- And Click on User Link to redirect to user page
- And Click on Add user icon
- And Click on Home Link to redirect to home page
 
 @UserRegression29 @CTCP-1286
 @dataFile:resources/data/TestData.xls
@@ -350,35 +350,47 @@ Scenario: Verify the breadCrumb of add user page
 @key:UserManagement_ImageUpload
 Scenario: Verify closing of Image viewer panel
 
-         Given User is at Login page
-         When Login with '${UserName}' and '${Password}'
-         And User navigates to Add user page
-         Then Verify the default image is displayed and on hover camera icon is displayed
-         And  Verify that Image Viewer panel is displayed on clicking the camera icon
-         When User clicks on Upload Image
-         Then Verify that the user is able to upload the image '${imgName}' from the system
-         And Verify that selected image is getting displayed in the image viewer panel
-         When User clicks on cancel button
-         Then Verify that the image viewer panel is closed and image is not uploaded
+     Given User is at Login page
+     When Login with '${UserName}' and '${Password}'
+     And User navigates to Add user page
+     Then Verify the default image is displayed and on hover camera icon is displayed
+     And  Verify that Image Viewer panel is displayed on clicking the camera icon
+     When User clicks on Upload Image
+     Then Verify that the user is able to upload the image '${imgName}' from the system
+     And Verify that selected image is getting displayed in the image viewer panel
+     When User clicks on cancel button
+     Then Verify that the image viewer panel is closed and image is not uploaded
+
+@UserRegression30 @Regression @CTCP-1294
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master_Edit_Template
+Scenario: ZuVerify create template edit functionality
+
+  And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+  And  Add territory as '${Region}' for the user
+  And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create template '${templateName}'
+  Then Verify template is created
+  Then Apply custom permission template '${templateName}'
+  And  Edit template '${templateName}' for permission rights with '${EditAdd}' '${EditEdit}' '${EditDelete}' '${EditView}' '${EditDownload}' and verify
 
 
+@UserRegression30 @CTCP-1296
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master_Template
+Scenario: Verify delete template functionality via no or close image button
 
- @UserRegression30 @CTCP-1296
- @dataFile:resources/data/TestData.xls
- @sheetName:Regression
- @key:UserManagement_Master_Template
- Scenario: Verify delete template functionality via no or close image button
-
-              Given User is at Login page
-              When Login with '${UserName}' and '${Password}'
-              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
-              And  Add territory as '${Region}' for the user
-              And Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create template '${templateName}'
-              And Verify template is created
-              And Apply custom permission template '${templateName}'
-              And Click on delete button and verify that delete popup is displayed
-              And Click on no or close image button and verify that delete popup is closed
-              And Look for the created template '${templateName}' in the dropdown and verify it is visible
+   Given User is at Login page
+   When Login with '${UserName}' and '${Password}'
+   And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+   And  Add territory as '${Region}' for the user
+   And Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create template '${templateName}'
+   And Verify template is created
+   And Apply custom permission template '${templateName}'
+   And Click on delete button and verify that delete popup is displayed
+   And Click on no or close image button and verify that delete popup is closed
+   And Look for the created template '${templateName}' in the dropdown and verify it is visible
 
 
 @UserRegression31 @CTCP-1297
@@ -389,7 +401,7 @@ Scenario: AVerify the user login with profile type [Any]
 
               Given User is at Login page
               When Login with '${UserName}' and '${Password}'
-              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
               And  Add territory as '${Region}' for the user
               Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
               And Logout from the current user
@@ -407,7 +419,7 @@ Scenario: Verify search assignment for master
 
               Given User is at Login page
               When Login with '${UserName}' and '${Password}'
-              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
               And  Add territory as '${Region}' for the user
               Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
               And Logout from the current user
@@ -426,7 +438,7 @@ Scenario: Verify search assignment for marketManager
 
               Given User is at Login page
               When Login with '${UserName}' and '${Password}'
-              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
               And  Add territory as '${Region}' for the user
               Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
               And Logout from the current user
@@ -435,6 +447,15 @@ Scenario: Verify search assignment for marketManager
               When Click on corporate link in navigation bar
               And Verify the assignments '${Region}' for the current user
 
+@UserRegression31 @Regression @CTCP-1311
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:UserManagement_Master_Upload
+Scenario: ZvVerify cancel button functionality
+
+  And User navigates to Add user page
+  Then Verify Cancel button in the footer and click
+  And Verify it redirects to user table page
 
 @UserRegression34 @CTCP-1312
 @dataFile:resources/data/TestData.xls
@@ -444,7 +465,7 @@ Scenario: Verify the permissions of admin module [User management]
 
                Given User is at Login page
                When Login with '${UserName}' and '${Password}'
-               When  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+               When  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
                When  Add territory as '${Region}' for the user
                Then Verify that user is able to select '${Region}' checkbox
                And Add permission rights with '${Module}' '${SubModule}' '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
@@ -462,7 +483,7 @@ Scenario: AVerify master user can create another master user
 
               Given User is at Login page
               When Login with '${UserName}' and '${Password}'
-              And  Create a User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
+              And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
               And   Add territory as '${Region}' for the user
               And   Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
               Then Verify that new master user '${FullName}' is created and redirected to userList page
@@ -470,28 +491,8 @@ Scenario: AVerify master user can create another master user
               Then Login with normal user '${Email}' and '${UserPassword}'
 
 
-@UserRegression30 @Regression @CTCP-1294
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:UserManagement_Master_Edit_Template
-Scenario: ZuVerify create template edit functionality
 
-  And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
-  And  Add territory as '${Region}' for the user
-  And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create template '${templateName}'
-  Then Verify template is created
-  Then Apply custom permission template '${templateName}'
-  And  Edit template '${templateName}' for permission rights with '${EditAdd}' '${EditEdit}' '${EditDelete}' '${EditView}' '${EditDownload}' and verify
 
-@UserRegression31 @Regression @CTCP-1311
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:UserManagement_Master_Upload
-Scenario: ZvVerify cancel button functionality
-
-  And User navigates to Add user page
-  Then Verify Cancel button in the footer and click
-  And Verify it redirects to user table page
 
 @UserRegression32 @Regression @CTCP-1318
 @dataFile:resources/data/TestData.xls

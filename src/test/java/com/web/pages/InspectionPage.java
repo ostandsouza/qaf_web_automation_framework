@@ -45,10 +45,10 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//input[@formcontrolname='inspectionName']")
 	public CustomElement tbInspectionName;
 
-	@FindBy(locator = "xpath=//label[text()='Site/Customer Name']/parent::div//div[@role='button']")
+	@FindBy(locator = "xpath=//label[text()='Site']/parent::div//div[@role='button']")
 	public CustomElement ddlSiteCustomername;
 
-	@FindBy(locator = "xpath=//label[text()='Site/Customer Name']/..//input")
+	@FindBy(locator = "xpath=//label[text()='Site']/..//input")
 	public CustomElement ddlSiteCustomerInput;
 
 	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
@@ -63,7 +63,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//label[text()='Conveyor']/parent::div//input")
 	public CustomElement ddlConveyorView;
 
-	@FindBy(locator = "xpath=//label[text()='Inspector Name']/..//input")
+	@FindBy(locator = "xpath=//label[text()='Inspector']/..//input")
 	public CustomElement ddlInspectorName;
 
 	@FindBy(locator = "xpath=//p-multiselect[@optionlabel='name']//chevrondownicon")
@@ -118,6 +118,9 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator = "xpath=//span[text()='Save']")
 	public CustomElement btnSave;
+
+	@FindBy(locator = "xpath=//div[contains(@class,'p-dialog-footer')]//span[text()='Save']")
+	public CustomElement btnSaveItem;
 
 	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Edit']")
 	public CustomElement btnEdit;
@@ -510,6 +513,9 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//button//span[text()='Actions']")
 	public CustomElement btnActions;
 
+	@FindBy(locator = "xpath=//span[text()='Clear Filters']")
+	public CustomElement clearFilterBtn;
+
 	@FindBy(locator="xpath=//div[@title='Bold']")
 	public CustomElement btBold;
 
@@ -610,14 +616,14 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void addInspection(String inspectionName) {
-		btnAddInspection.click("Add Inspection btn");
+		btnAddInspection.jsClick("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
 		Reporter.log("Inspection is created", MessageTypes.Pass);
 	}
 
 	public void saveInspectionItem() {
-		waitForElementToBeClickable(btnSave);
-		btnSave.click("Save");
+		waitForElementToBeClickable(btnSaveItem);
+		btnSaveItem.click("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
 		Reporter.log("Inspection Item is created", MessageTypes.Pass);
 	}
@@ -781,6 +787,7 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
 		inspectionHeader.verifyText(inspectionName, "Inspection Header");
+		SyncUtil.waitFor(1500);
 		Validator.assertTrue(pagination.getText("Inspection Item").contains(itemCount), "All Inspections Items are not listed", "All Inspections Items are listed");
 	}
 
@@ -821,7 +828,7 @@ public class InspectionPage extends BasePage {
 		ddlActions.click("Actions");
 		waitForElementVisible(btnEditInspection, 10000, 500);
 		btnEditInspection.click("Edit");
-		ddlSave.isVisible("Edit save");
+		btnSave.isVisible("Edit save");
 	}
 
 	public void editInspectionName(String inspectionName, String newInspName) {
@@ -838,7 +845,7 @@ public class InspectionPage extends BasePage {
 		btnEdit.click("Edit Inspection Item");
 		waitForElementToDisplay(ddlStatus);
 		dropdownSelect(ddlStatus, ListItem, newStatus);
-		btnSave.click("Save");
+		btnSaveItem.click("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
 		Reporter.log("Inspection Item is Updated", MessageTypes.Pass);
 	}
@@ -858,8 +865,8 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void saveInspectionEvent() {
-		waitForElementToBeClickable(ddlSave);
-		ddlSave.jsClick("Save Inspection Event");
+		waitForElementToBeClickable(btnSave);
+		btnSave.jsClick("Save Inspection Event");
 //		waitForElementToDisplay(inspectionUpdated);
 		SyncUtil.waitFor(1000);
 		inspectionUpdated.isEnable("Inspection Update Toast");
@@ -890,7 +897,6 @@ public class InspectionPage extends BasePage {
 	}
 
 	public boolean verifyAddInspectionFromList() {
-		scrollPageup();
 		waitForElementVisible(btAddInspection,10000,500);
 		waitForElementToBeClickable(btAddInspection);
 		btAddInspection.click("Add Inspection Icon");
@@ -1105,7 +1111,7 @@ public class InspectionPage extends BasePage {
 	public void verifyConditionValue() {
 		String expectedValue = getBundle().getProperty("conditionValue").toString().toLowerCase();
 		String actualValue = txtConditionTotalValue.getAttribute("value").toLowerCase();
-		Assert.assertEquals(expectedValue, actualValue, "Condition value matched");
+		Assert.assertEquals(expectedValue, actualValue, "Condition value mismatched");
 	}
 
 	public void verifyDulpicateInspection(String inspectionName) {
@@ -1113,7 +1119,9 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(cbCheckbox);
 		int noOfCorporates = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
 		waitForPageLoad(5000);
-		Assert.assertEquals(noOfCorporates, 1, "Number of corporates is not 1");
+		boolean value= noOfCorporates>1;
+		System.out.println(value+"value");
+		Validator.assertTrue(value,"Dulpicate cant be created","Dulpicate can be created");
 	}
 
 	public void saveDulpicateInspectionItem() {
@@ -1708,5 +1716,20 @@ public class InspectionPage extends BasePage {
 		System.out.println(inspectionCount);
 		waitForPageLoad(5000);
 		Validator.assertTrue(inspectionCount.toString().equalsIgnoreCase(insp), "Number of inspection in pagination list doesnt match","Inspection count for inspection item verification was successful");
+	}
+
+	public void searchResult(String search) {
+		waitForPageLoad(10000);
+		SyncUtil.waitFor(10000);
+		btSearchinput.type(search, "Inspection Search");
+		waitForElementToDisplay(cbCheckbox);
+		Validator.assertTrue(cbCheckbox.isDisplayed(), "Result is not found", "Result is found");
+	}
+
+	public void clickClickFilter() {
+		waitForElementVisible(clearFilterBtn,5000,1000);
+		Validator.assertTrue(clearFilterBtn.isDisplayed(), "Clear Button is not found", "Clear Button is found");
+		clearFilterBtn.click();
+		waitForPageLoad(10000);
 	}
 }

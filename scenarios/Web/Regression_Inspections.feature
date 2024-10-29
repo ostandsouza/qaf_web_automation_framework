@@ -258,7 +258,7 @@ Scenario: Verify add all new items in inspection and close
 
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
-     And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
+     And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}'
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 @Regression23
@@ -281,7 +281,7 @@ Scenario: Verify success message after saving inspection event
 
      When  Navigate to site details for site '${CustSiteName}'
      Then  Verify navigation to inspection tile
-     And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
+     And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}'
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
@@ -293,7 +293,7 @@ Scenario: Verify success message after saving inspection event
 
       When  Navigate to site details for site '${CustSiteName}'
       Then  Verify navigation to inspection tile
-      And   Add inspection Event for conveyor '${InspectionName}' with '${InspectionName}'
+      And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}'
       And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
@@ -375,7 +375,7 @@ Scenario: Verify success message after saving inspection event
 Scenario: Verify user is able to open the inspections from the corporate level
 
   And Click on corporates and open corperate '${Corporate}'
-  Then Verify Inspection Tile is clickable
+  Then Click on inspections and verify user is able to open inspections
 
 @Regression32 @CTCP-2657
 @dataFile:resources/data/TestData.xls
@@ -386,7 +386,7 @@ Scenario: Verify user is able to see number of inspection items in condition
   Given User is at Login page
   When Login with '${UserName}' and '${Password}'
   And Click on corporates and open corperate '${Corporate}'
-  Then Verify Inspection Tile is clickable
+  Then Click on inspections and verify user is able to open inspections
   And Click on inspection dashboard symbol and verify user is able to click on dashboard
   And Verify number of inpection items for '${Total}' '${Critical}' '${Poor}' '${Fault}' '${Good}'
 
@@ -399,7 +399,7 @@ Scenario: Verify user is able select the multiple sites via drop down
     Given User is at Login page
     When Login with '${UserName}' and '${Password}'
     And Click on corporates and open corperate '${Corporate}'
-    Then Verify Inspection Tile is clickable
+    Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on site dropdown and verify user is able to select multiple site '${SiteName}' '${SiteName2}'
 
@@ -411,7 +411,7 @@ Scenario: ZVerify the breadcrumb of the page
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    And Navigate to inspection list page and wait
+    And Navigate to inspection list screen and wait for data load
     Then Verify the breadcrumb of the page
 
 
@@ -429,27 +429,6 @@ Scenario: Verify delete button functionality in add files section
     And Verify delete button is visible and click on delete button
     And Verify that selected image is deleted
 
-@Regression28 @CTCP-788
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:Inspection_ExportFunction
-Scenario: Verify Export functionality under Inspection details screen.
-
-    And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
-    And Search for the InspectionItem '${ConveyorName}'
-    Then Click on Export Button of InspectionItem and verify user is able to download pdf
-
-@Regression29 @CTCP-791
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:Inspection_ExportFunction
-Scenario: Verify uploaded image under inspection item
-
-       And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
-       And Search for the InspectionItem '${ConveyorName}'
-       Then Click on view icon and verify the uploaded image is visible
-
-
 @Regression30 @CTCP-748
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -465,16 +444,88 @@ Scenario: Verify breadcrumb of inspection
        And Click on Inspection tile and verify it displays only corresponding corporate '${CustCorp}' inspections
        And Click on corporates breadcrumb and verify it navigates to corporate page
 
+ @Regression26 @CTCP-773
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_Navigation
+  Scenario: ZVerify Inspection tile on home screen
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to inspection list screen and wait for data load
+    Then Verify inspection total count is displayed
+    Then Verify number of the to be completed inspection is displayed
+
+@Regression28 @CTCP-788
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ExportFunction
+Scenario: Verify Export functionality under Inspection details screen.
+
+
+
+    And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
+    And Search for the InspectionItem '${ConveyorName}'
+    Then Click on Export Button of InspectionItem and verify user is able to download pdf
+
+@Regression26 @CTCP-789
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_Navigation_Status
+  Scenario: Verify inspection item status value after view button is clicked
+
+    And   Navigate to inspection list screen and wait for data load
+    Then Extract inspection item status value for '${Inspection}'
+    And Click on the view button
+    Then Verify the inspection item status value
+
+  @Regression26 @CTCP-790
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_Navigation_Status
+  Scenario: Verify inspection item condition value after view button is clicked
+
+    And   Navigate to inspection list screen and wait for data load
+    Then Extract inspection item condition value for '${Inspection}'
+    And Click on the view button
+    Then Verify the inspection item condition value
+
+@Regression29 @CTCP-791
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ImageFunctionality
+Scenario: Verify uploaded image under inspection item
+
+       And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
+       And Search for the InspectionItem '${ConveyorName}'
+       Then Click on view icon and verify the uploaded image is visible
+
+
+  @Regression26 @CTCP-792
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_AddEvent_SiteInspection
+  Scenario: Verify Duplicate inspections under inspection list
+
+    And   Navigate to inspection list screen and wait for data load
+    And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    Then  Navigate to inspection list screen and wait for data load
+    And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    Then  Navigate to inspection list screen and wait for data load
+    Then Verify duplicate inspection event for '${InspectionName}'
+
 
 @Regression32 @CTCP-2655
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
-Scenario: verify user is able click on the dashboard symbol
+Scenario: Zverify user is able click on the dashboard symbol
 
     Given User is at Login page
     When Login with '${UserName}' and '${Password}'
-    And Click on corporates and open corporate '${Corporate}'
+    And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
 
@@ -484,7 +535,7 @@ Scenario: verify user is able click on the dashboard symbol
 @key:Inspection_Dashboard
 Scenario: Verify user is able to see the cards conditions
 
-    And Click on corporates and open corporate '${Corporate}'
+    And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Verify user is able to see the cards
@@ -493,11 +544,10 @@ Scenario: Verify user is able to see the cards conditions
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
-Scenario: verify user is able select the site via dropdown
+Scenario: Verify user is able select the site via dropdown
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
-    And Click on corporates and open corporate '${Corporate}'
+
+    And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on site dropdown and verify user is able to select a site '${SiteName}'
@@ -511,7 +561,7 @@ Scenario: Verify the Actions button by default under inspection dashboard page
 
     Given User is at Login page
     When Login with '${UserName}' and '${Password}'
-    And Click on corporates and open corporate '${Corporate}'
+    And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Verify actions button is present and is enabled by default
@@ -522,9 +572,8 @@ Scenario: Verify the Actions button by default under inspection dashboard page
 @key:Inspection_Dashboard
 Scenario: Verify the values under Actions dropdown button.
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
-    And Click on corporates and open corporate '${Corporate}'
+
+    And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on actions dropdown button and verify 'export button' with PDF symbol is visible
@@ -533,11 +582,11 @@ Scenario: Verify the values under Actions dropdown button.
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
-Scenario: Click on 'Export PDF' value from Actions button and verify the functionality.
+Scenario: ZClick on 'Export PDF' value from Actions button and verify the functionality.
 
     Given User is at Login page
     When Login with '${UserName}' and '${Password}'
-    And Click on corporates and open corporate '${Corporate}'
+    And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on Export PDF button and verify PDF is downloaded for company '${Corporate}'
@@ -550,7 +599,7 @@ Scenario: ZVerify that the particular selected site is visible under Exported PD
 
     Given User is at Login page
     When Login with '${UserName}' and '${Password}'
-    And Click on corporates and open corporate '${Corporate}'
+    And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on site dropdown and verify user is able to select a site '${SiteName}'
@@ -563,7 +612,9 @@ Scenario: ZVerify that the particular selected site is visible under Exported PD
 @key:Inspection_Dashboard
 Scenario: Verify all sites are visible under exported PDF When user did not select any particular site under site selection
 
-    And Click on corporates and open corporate '${Corporate}'
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And  Click on Export PDF button and verify PDF is downloaded for company '${Corporate}'
@@ -700,25 +751,29 @@ Scenario: Verify inspection item map for conveyor does have location
 @key:Inspection_Navigation
 Scenario: Verify Inspection tile on home screen
 
-    And  Navigate to inspection list screen and wait for data load
+    And   Navigate to inspection list screen and wait for data load
     Then Verify inspection total count is displayed
     Then Verify number of the to be completed inspection is displayed
 
 @Regression43 @CTCP-774
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Inspection_Location
+@key:Inspection_Navigation
 Scenario: Verify permission for inspection module with specific user type
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And   Navigate to inspection list screen and wait for data load
     Then  Verify view add edit delete permission right for '${InspectionName}'
 
 @Regression44 @CTCP-775
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Inspection_Location
+@key:Inspection_Navigation
 Scenario: Verify permission for inspection module with master user type
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And   Navigate to inspection list screen and wait for data load
     Then  Verify view add edit delete permission right for '${InspectionName}'
 
@@ -728,6 +783,8 @@ Scenario: Verify permission for inspection module with master user type
 @key:Inspection_ListCount
 Scenario: Verify the inspection count
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     Then  Verify tile count for total critical poor fault good and to be completed
     When  Navigate to inspection list screen and wait for data load
     And   Verify the inspection count with list count
@@ -747,6 +804,7 @@ Scenario: Verify the inspection count
     When  Navigate to inspection list screen and wait for data load
     And   Verify the inspection count with list count
     Then  Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${ChangeGood}','${ChangePoor}','${ChangeFault}','${ChangeCritical}'
+    And   Verify the inspection count with list count
     When  Edit inspection Item status for '${ConveyorName1}' to '${EditStatus}'
     And   Edit inspection Item status for '${ConveyorName2}' to '${EditStatus}'
     And   Edit inspection Item status for '${ConveyorName3}' to '${EditStatus}'
@@ -757,6 +815,40 @@ Scenario: Verify the inspection count
     And   Delete inspection Item for '${ConveyorName3}'
     Then  Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${ChangeGood}','${ChangePoor}','${ChangeFault}','${ChangeCritical}'
     And   Verify the inspection count with list count
+
+@CTCP-2654
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Dashboard
+Scenario: Verify user is able to open the inspections from the corporate level
+
+  And Navigate to Corporate details screen for corporate '${Corporate}'
+  Then Click on inspections and verify user is able to open inspections
+
+@CTCP-2657
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Dashboard
+Scenario: Verify user is able to see number of inspection items in condition
+
+  Given User is at Login page
+  When Login with '${UserName}' and '${Password}'
+  And Navigate to Corporate details screen for corporate '${Corporate}'
+  Then Click on inspections and verify user is able to open inspections
+  And Click on inspection dashboard symbol and verify user is able to click on dashboard
+  And Verify number of inpection items for '${Total}' '${Critical}' '${Poor}' '${Fault}' '${Good}'
+
+@CTCP-2670
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Dashboard
+Scenario: Verify user is able select the multiple sites via drop down
+
+    And Navigate to Corporate details screen for corporate '${Corporate}'
+    Then Click on inspections and verify user is able to open inspections
+    And Click on inspection dashboard symbol and verify user is able to click on dashboard
+    And Click on site dropdown and verify user is able to select multiple site '${SiteName}' '${SiteName2}'
+
 
 @Regression46 @CTCP-778
 @dataFile:resources/data/TestData.xls
@@ -848,4 +940,3 @@ Scenario: Verify inspection event for deleted conveyor
     And  Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
     And  Delete Conveyor from Conveyor list screen '${ConveyorName}'
     Then Verify whether the inspection event '${InspectionName}' is deleted from list view
-

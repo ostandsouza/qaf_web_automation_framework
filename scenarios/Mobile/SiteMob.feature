@@ -1,3 +1,5 @@
+Feature: Regression Flow for Mob
+
 @Regression1 @CTCP-2227
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -74,6 +76,74 @@ Scenario: Verify edit Conveyor Functionality of conveyor listed on site details 
          And Click on edit button and verify it navigates to edit conveyor page
          And Change the conveyor name '${EditConveyorName}' and save then verify user navigates to '${CustSiteName}' site details page
          And Verify updated conveyor name '${EditConveyorName}' is present in the list
+
+@CTCP-2226
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Navigate to Add site via Home page
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And Verify user present in home screen
+    Then Navigate to add site page via Home and verify navigation
+    And Verify default type of company field for Site
+    And Verify add site heading
+
+@CTCP-2228
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Verify fields displayed in add site screen
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    Then Navigate to add site page via Home and verify navigation
+    And Verify add site heading
+    And Verify add site fields
+
+@CTCP-2230
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Verify duplicate corporate check
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    Then Navigate to add site page via Home and verify navigation
+    And Add a customer site with '${CustSiteName}' '${CustSiteAddress}' '${CustCorpName}' '${DistShopName}' '${Territory}' '${Manager}'
+    And Verify duplicate site creation
+
+@CTCP-2231
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Add distributor Shop
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And  Click on corporate symbol and verify it navigates to corporate list page
+    Then Navigate to add site page from Corporate list page
+    And Add a distributor shop with '${DistShopName}' '${CustSiteAddress}' '${CustCorpName}' '${Territory}' '${Manager}'
+    And Verify company creation success message and navigation to corporate lisiting page
+    And Navigate to corporate list and verify '${CustCorpName}' is present
+    And Navigate to corporate details screen and verify shop name '${DistShopName}' is present
+    And Navigate to site details screen and verify header of shop name '${DistShopName}' is present
+    Then Verify data '${DistShopName}' '${CustSiteAddress}' '${Manager}' in site details screen
+
+@CTCP-2242
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_List_Data
+Scenario: Verify duplicate check in edit site
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And Navigate to corporate list and verify '${CorpName}' is present
+    And Navigate to corporate details screen and verify shop name '${DistShopName}' is present
+    And Navigate to site details screen and verify header of shop name '${DistShopName}' is present
+    Then Verify site details fields are disabled
+    And Verify user is unable to edit duplicate corporate name from '${DistShopName}' to '${EditDistShopName}'
 
 
 

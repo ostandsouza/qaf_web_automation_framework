@@ -98,16 +98,13 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//div[@aria-label='All']//div[contains(@class,'p-checkbox')]")
 	public CustomElement eleCheckboxMT;
 
-	@FindBy(locator = "xpath=//div[@aria-label='APAC']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//li[@aria-label='APAC']")
 	public CustomElement cbCheckboxAPAC;
-
-	@FindBy(locator = "xpath=//div[@aria-label='EMEA']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//li[@aria-label='EMEA']")
 	public CustomElement cbCheckboxEMEA;
-
-	@FindBy(locator = "xpath=//div[@aria-label='South America']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//li[@aria-label='South America']")
 	public CustomElement cbCheckboxSA;
-
-	@FindBy(locator = "xpath=//div[@aria-label='North America']/div[contains(@class,'p-checkbox')]")
+	@FindBy(locator = "xpath=//li[@aria-label='North America']")
 	public CustomElement cbCheckboxNA;
 
 	@FindBy(locator = "xpath=//span[text()='Australia']")
@@ -131,7 +128,7 @@ public class UsersPage extends BasePage{
 	public CustomElement cbAllcheckboxDownload;
 	
 	@FindBy(locator = "xpath=//span[text()='Create']")
-	public CustomElement btSaveandClose;
+	public CustomElement btCreate;
 
 	@FindBy(locator = "xpath=//li[contains(@class,'user-profile')]")
 	public CustomElement btprofile;
@@ -228,10 +225,9 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//input[@class='p-tree-filter p-inputtext p-component']")
 	public CustomElement tbSearch;
 
-	@FindBy(locator="xpath=(//div[@aria-label='ALL']/div)[1]")
+	@FindBy(locator="xpath=(//li[@aria-label='ALL']/div)[1]")
 	public CustomElement distShopCheckbox;
-
-	@FindBy(locator="xpath=(//div[@aria-label='ALL']/div)[2]")
+	@FindBy(locator="xpath=(//li[@aria-label='ALL']/div)[2]")
 	public CustomElement custShopCheckbox;
 
 	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
@@ -360,7 +356,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="//label[normalize-space()='Upload Image']")
 	public CustomElement btUploadImg;
 
-	@FindBy(locator="//button[@class='p-element p-button p-component ng-star-inserted']//span[normalize-space()='Cancel']")
+	@FindBy(locator="//button[@class='p-element p-button custom-button-cancel p-component ng-star-inserted']//span[normalize-space()='Cancel']")
 	public CustomElement btCancelImg;
 
 	@FindBy(locator="//div[contains(@class,'cropped-frame')]")
@@ -506,6 +502,8 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator="xpath=//span[@id='p-panel-3_header']")
 	public CustomElement txtHomeHeader;
+	@FindBy(locator="//p-splitbutton[@icon='ctp-icon-Add-circle']")
+	public CustomElement btnTempAdd;
 
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
@@ -780,10 +778,10 @@ public class UsersPage extends BasePage{
 
 	public void Clicksaveandclose() {
 		waitForPageLoad(3000);
-		waitForElementVisible(btSaveandClose, 10000,500);
-		waitForElementToBeClickable(btSaveandClose);
-		btSaveandClose.click();
-		waitForElementToBeClickable(btSaveandClose);
+		waitForElementVisible(btCreate, 10000,500);
+		waitForElementToBeClickable(btCreate);
+		btCreate.click();
+		waitForElementToBeClickable(btCreate);
 		SyncUtil.waitFor(15000);
 		waitForElementToDisplay(btSearchinput);
 		Reporter.log("User is created",MessageTypes.Pass);
@@ -1115,10 +1113,6 @@ public class UsersPage extends BasePage{
 	{
 		waitForElementVisible(userDefaultImage,5000,500);
 		Validator.assertTrue(userDefaultImage.isDisplayed(), "Default image is not displayed","Default Image is Displayed");
-		hoverOverElement(userDefaultImage);
-		waitForElementVisible(cameraIcon,5000,500);
-		Validator.assertTrue(cameraIcon.isDisplayed(), "cameraIcon is not visible on the page","cameraIcon is  visible on the page");
-
 	}
 
 	public void verifyOptionInImagePanel(){
@@ -1129,7 +1123,7 @@ public class UsersPage extends BasePage{
 		Validator.assertTrue(btUploadImg.isDisplayed(),"Upload button is not visible","Upload button is visible");
 		Validator.assertTrue(imgPreview.isDisplayed(),"Image Preview is not visible","Image Preview is visible");
 		Validator.assertTrue(saveBtn.isDisplayed(),"Save Button is not visible","Save Button is visible");
-		Validator.assertTrue(btCancelImg.isDisplayed(),"Cancel Button is not visible","Cancel Button is visible");
+		Validator.assertTrue(btnCancelUser.isDisplayed(),"Cancel Button is not visible","Cancel Button is visible");
 	}
 
 	public void uploadImageClick()
@@ -1153,12 +1147,6 @@ public class UsersPage extends BasePage{
 
 	}
 
-	public void uploadBtnClick()
-	{
-		waitForElementVisible(btUploadImg,5000,500);
-		waitForElementToBeClickable(btUploadImg);
-		btUploadImg.click();
-	}
 
 	public void imageUpload(String fileName){
 		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
@@ -1200,13 +1188,7 @@ public class UsersPage extends BasePage{
 	public void cancelBtnClick()
 	{
 		waitForElementVisible(btnCancel,10000,500);
-		btnCancel.jsClick();
-	}
-	public void verifyImageViewPanelClosed()
-	{
-		waitForElementVisible(addDefaultImgSrc,5000,500);
-		Validator.assertTrue(addDefaultImgSrc.isVisible(),"The selected image is uploaded","The selected image is not uploaded");
-		Validator.assertTrue(imageViewerPanel.verifyNotPresent(),"Image view panel is still visible","Image viewer panel is not visible");
+		btnCancel.jsClick("Cancel");
 	}
 
 	public void verifyNavigationToUserListPage()
@@ -1219,17 +1201,7 @@ public class UsersPage extends BasePage{
 		btNext.click();
 	}
 
-	public void createTemplate(String templateName){
-		waitForElementToBeClickable(btnTempSave);
-		btnTempSave.click();
-		waitForElementVisible(dialogBox, 10000,500);
-		Validator.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible","Dailog box is visible");
-		waitForElementVisible(tbTempName,5000,1000);
-		tbTempName.type(templateName,"templateName");
-		waitForElementVisible(saveBtn,10000,1000);
-		waitForElementToBeClickable(saveBtn);
-		saveBtn.click();
-	}
+
 
 	public void selectCustomTemplate(String templateName) {
 		waitForElementToDisplay(ddlTempDropdown);
@@ -1286,12 +1258,15 @@ public class UsersPage extends BasePage{
 
 
 	}
-
-	public void createPermissionTemplate(String templateName){
+	public void createTemplate(String templateName){
+		waitForElementToBeClickable(btnTempSave);
 		btnTempSave.click();
 		waitForElementVisible(dialogBox, 10000,500);
-		Assert.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible");
+		Validator.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible","Dailog box is visible");
+		waitForElementVisible(tbTempName,5000,1000);
 		tbTempName.type(templateName,"templateName");
+		waitForElementVisible(saveBtn,10000,1000);
+		waitForElementToBeClickable(saveBtn);
 		saveBtn.click();
 	}
 

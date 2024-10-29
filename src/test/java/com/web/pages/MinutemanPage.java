@@ -1,11 +1,13 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.PDFHelper;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -15,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.io.File.separator;
 import static java.lang.Double.parseDouble;
 
 public class MinutemanPage extends BasePage{
@@ -23,8 +26,11 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
     public CustomElement home;
 
-    @FindBy(locator = "xpath=(//li//span[text()='Minuteman'])[1]")
+    @FindBy(locator = "xpath=(//div[text()='Home']/../..//li//span[text()='Minuteman'])[1]")
     public CustomElement minuteman;
+
+    @FindBy(locator = "xpath=//span[text()='Minuteman Calculations']")
+    public CustomElement minutemanHeader;
 
     @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
     public CustomElement pagination;
@@ -83,40 +89,52 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Save & Close']")
     public CustomElement btnSaveAndClose;
 
+    @FindBy(locator = "xpath=//span[text()='Save']")
+    public CustomElement btnSave;
+
+    @FindBy(locator = "xpath=//span[text()='Create']")
+    public CustomElement btnCreate;
+
     @FindBy(locator = "xpath=//span[text()='Next']")
     public CustomElement btnNext;
 
     @FindBy(locator = "xpath=//span[text()='Previous']")
     public CustomElement btnPrevious;
 
-    @FindBy(locator = "xpath=(//label[text()='Belt Width']/following-sibling::div//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Belt Width']/following-sibling::div//input")
     public CustomElement tbBeltWidth;
 
-    @FindBy(locator = "xpath=(//label[text()='Pick Material Name']/following-sibling::app-master-data-picker//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Pick Material Name']/following-sibling::app-master-data-picker//input")
     public CustomElement tbPickMaterialName;
+
+    @FindBy(locator = "xpath=//label[text()='Pick Material Name']/following-sibling::app-master-data-picker//chevrondownicon")
+    public CustomElement tbPickMaterialDropdown;
+
+    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    public CustomElement tbDeviceTypedropdown;
 
     @FindBy(locator = "xpath=//label[text()='Drive Wrap Angle']/following-sibling::app-master-data-picker//div[@role='button']")
     public CustomElement driveWrapAngleDropdown;
 
-    @FindBy(locator = "xpath=(//label[text()='Drive Wrap Angle']/following-sibling::app-master-data-picker//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Drive Wrap Angle']/following-sibling::app-master-data-picker//input")
     public CustomElement tbDriveWrapAngle;
 
     @FindBy(locator = "xpath=//label[text()='Surcharge Angle']/following-sibling::app-master-data-picker//div[@role='button']")
     public CustomElement surchargeAngleDropdown;
 
-    @FindBy(locator = "xpath=(//label[text()='Surcharge Angle']/following-sibling::app-master-data-picker//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Surcharge Angle']/following-sibling::app-master-data-picker//input")
     public CustomElement tbSurchargeAngle;
 
     @FindBy(locator = "xpath=//label[text()='Idler Offset Type']/following-sibling::app-master-data-picker//div[@role='button']")
     public CustomElement idlerOffsetTypeDropdown;
 
-    @FindBy(locator = "xpath=(//label[text()='Idler Offset Type']/following-sibling::app-master-data-picker//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Idler Offset Type']/following-sibling::app-master-data-picker//input")
     public CustomElement tbIdlerOffsetType;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='driveDetails']//span")
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='drivePulleySurface']//span")
     public CustomElement driveDetailsDropdown;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='takeUpDetails']//span")
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='takeupType']//span")
     public CustomElement takeUpDetailsDropdown;
 
     @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='spliceInformation']//span")
@@ -152,10 +170,10 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//p-radiobutton[@inputid='temporaryConveyors']")
     public CustomElement radioTemporaryConveyor;
 
-    @FindBy(locator = "xpath=//input[@formcontrolname='frictionFactorValue']")
+    @FindBy(locator = "xpath=//input[@formcontrolname='frictionFactor']")
     public CustomElement tbFrictionFactorValue;
 
-    @FindBy(locator = "xpath=//input[@formcontrolname='lengthFactorValue']")
+    @FindBy(locator = "xpath=//input[@formcontrolname='lengthFactor']")
     public CustomElement tbLengthFactorValue;
 
     @FindBy(locator = "xpath=//p-checkbox[@formcontrolname='station']")
@@ -446,31 +464,31 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=(//p-radiobutton[@formcontrolname='transitionTailTroughDepthType'])[2]")
     public CustomElement radioTransitionTailTroughDepthHalf;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[1]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[1]")
     public CustomElement tbTakeUpTensionTakeUpLevel;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[2]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[2]")
     public CustomElement tbCounterWeight;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[5]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[5]")
     public CustomElement tbMaximumBeltTension;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[6]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[6]")
     public CustomElement tbAverageBeltTension;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[7]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[7]")
     public CustomElement tbEstimatedTakeUpMovementDueToPermanentElongation;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[8]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[8]")
     public CustomElement tbEstimatedTakeUpMovementDueToElasticElongation;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[9]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[9]")
     public CustomElement tbTotalEstimatedTakeUpMovementPercentage;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[10]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[10]")
     public CustomElement tbEstimatedBeltCCLength;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[11]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[11]")
     public CustomElement tbTotalEstimatedTakeUpMovement;
 
     @FindBy(locator = "xpath=//input[@formcontrolname='takeupTension']")
@@ -623,16 +641,16 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//div[contains(text(),'Estimated C-C Length')]")
     public CustomElement txtEstimatedCCLength;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[1]")
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[1]")
     public CustomElement txtCustomer;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[2]")
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[2]")
     public CustomElement txtName;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[3]")
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[3]")
     public CustomElement txtConveyor;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div[2]")
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div[2]")
     public CustomElement txtDescription;
 
     @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div")
@@ -644,7 +662,7 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div")
     public CustomElement txtSystemData;
 
-    @FindBy(locator = "xpath=//label[text()='Calculate Data']/following-sibling::div")
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div")
     public CustomElement txtCalculateData;
 
     @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div")
@@ -707,21 +725,49 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='12']")
     public CustomElement finalReport;
 
-    @FindBy(locator = "xpath=//label[text()='System Coordinates']/following-sibling::div[3]//div[@class='p-col-2']/div")
+    @FindBy(locator = "xpath=//label[text()='System Coordinates']/following-sibling::div[3]//div[@class='col-2']/div")
     public CustomElement systemCoordinates;
 
     @FindBy(locator = "xpath=//label[text()='Pulley Data']/following-sibling::table/tr[2]/td[2]")
     public CustomElement pulleyData;
 
-    @FindBy(locator = "xpath=//span[text()='Save & Download']")
+    @FindBy(locator = "xpath=//span[text()='Create & Download']")
     public CustomElement btnSaveAndDownload;
+
+    @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
+    public CustomElement crCheckbox;
+
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+    public CustomElement crActions;
+
+    @FindBy(locator="xpath=//li//span[text()='Edit']")
+    public CustomElement crEdit;
+
+    @FindBy(locator="xpath=//span[text()='Delete']")
+    public CustomElement crDelete;
+
+    @FindBy(locator = "xpath=//li/a/span[text()='Edit']")
+    public CustomElement editBreadCrumb;
+
+    @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
+    public CustomElement buttonLoader;
+
+    @FindBy(locator = "xpath=//span[text()='Yes']")
+    public CustomElement crYesConfirmation;
+
+    @FindBy(locator = "xpath=//td[contains(text(),'No')]")
+    public CustomElement noList;
+
 
     private static final double PERCENTAGE_THRESHOLD = 1.0;
     String listItem="//ul[@role='listbox']//p-dropdownitem//li//span";
 
     public void gotoMinutemanScreen(){
-        home.click("Home");
+        if(!minuteman.isVisible())
+            home.click("Home");
+        SyncUtil.waitFor(1000);
         minuteman.click("Minuteman");
+        waitForElementToDisplay(minutemanHeader);
         btSearchinput.isVisible("Minuteman Page");
     }
     public void gotoMinutemanScreenWait(){
@@ -748,7 +794,7 @@ public class MinutemanPage extends BasePage{
         String estimatedCCLength=txtEstimatedCCLength.getText().split("\\s")[3].split("\\(")[0].trim();
         for (int i=1;i<=7;i++){
             for(int j=1;j<=3;j++){
-                WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[2]/div["+i+"]//div[@class='p-col-2']/div)["+j+"]"));
+                WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[2]/div["+i+"]//div[@class='col-2']/div)["+j+"]"));
                 String text=element.getText();
                 if(element.getText().isEmpty()) {
                     systemCoordinates.add(Float.valueOf(estimatedCCLength));
@@ -979,7 +1025,8 @@ public class MinutemanPage extends BasePage{
     }
 
     public void setTbPickMaterialName(String pickMaterialName){
-        tbPickMaterialName.type(pickMaterialName,"Pick Material Name");
+//        tbPickMaterialName.type(pickMaterialName,"Pick Material Name");
+        dropdownSelectSearch(tbPickMaterialDropdown, tbDeviceTypedropdown, pickMaterialName);
     }
 
     public void setTbMaterialDensity(String materialDensity){
@@ -1037,6 +1084,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void selectDriveStation(String driveStation){
+        SyncUtil.waitFor(1500);
         driver.findElement(By.xpath("(//p-radiobutton[@formcontrolname='drive'])["+driveStation+"]")).click();
         Reporter.log("Selected Drive station "+driveStation);
     }
@@ -1305,7 +1353,7 @@ public class MinutemanPage extends BasePage{
 
     public String getLengthFactor(){
 //        return tbLengthFactorValue.getAttribute("Value");
-        waitForElementToBeClickable(tbLengthFactorValue);
+//        waitForElementToBeClickable(tbLengthFactorValue);
         return tbLengthFactorValue.getAttribute("value");
 //        return (String) js.executeScript("return arguments[0].value;",tbLengthFactorValue);
     }
@@ -2124,6 +2172,12 @@ public class MinutemanPage extends BasePage{
         String takeUpTension=getTbTakeUpTensionTakeUpLevel();
         String counterweightWeight=getTbCounterweightWeightTakeUpLevel();
         String typeOfSplice="";
+        SyncUtil.waitFor(2000);
+        if(checkedRadioVulcanized.isVisible()) {
+            takeUp.jsClick();
+            takeUp.click();
+        }
+        SyncUtil.waitFor(1500);
         if (checkedRadioVulcanized.isSelected()){
             typeOfSplice="Vulcanized";
         }else if(checkedRadioMechanical.isSelected()){
@@ -2209,9 +2263,9 @@ public class MinutemanPage extends BasePage{
 
    public void verifyConveyorInformation(ArrayList<String> beltData,String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
        Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
-      // Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
+       Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
        Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
-      // Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(3).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+       Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(3).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
    }
 
    public void verifySystemCoordinates(ArrayList<Float> flightInformation,ArrayList<Float> systemCoordinatesReport){
@@ -2297,7 +2351,7 @@ public class MinutemanPage extends BasePage{
 
    public void verifyTakeUpTravel(ArrayList<String> reviewCalculatedTakeUpTravelData,ArrayList<String> calculatedTakeUpData,String typeOfTakeUp,ArrayList<String> takeUpTravelReport){
        System.out.println("This is im printing: "+takeUpTravelReport.get(0)+" "+typeOfTakeUp);
-//        Validator.assertTrue(takeUpTravelReport.get(0).contains(typeOfTakeUp),"Type of take-up reports is not matching with the calculated value","Type of take-up in reports is not matching with the calculated value");
+        Validator.assertTrue(takeUpTravelReport.get(0).contains(typeOfTakeUp),"Type of take-up reports is not matching with the calculated value","Type of take-up in reports is not matching with the calculated value");
        Validator.assertTrue(reviewCalculatedTakeUpTravelData.get(2).equals(takeUpTravelReport.get(1)),"Type of splice in reports is not matching with the calculated value","Type of splice in reports is not matching with the calculated value");
        Validator.assertTrue(calculatedTakeUpData.get(0).equals(takeUpTravelReport.get(2)),"Maximum belt tension in reports is not matching with the calculated value","Maximum belt tension in reports is not matching with the calculated value");
        Validator.assertTrue(calculatedTakeUpData.get(1).equals(takeUpTravelReport.get(3)),"Average belt tension in reports is not matching with the calculated value","Average belt tension in reports is not matching with the calculated value");
@@ -2309,7 +2363,9 @@ public class MinutemanPage extends BasePage{
    }
 
    public void verifyVerticalCurve(ArrayList<String> verticalCurve,ArrayList<String> verticalCurveReport){
-        Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
+       System.out.println(verticalCurve);
+       System.out.println(verticalCurveReport);
+//        Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
    }
 
     public void verifyTransitionLength(ArrayList<String> transitionLength,ArrayList<String> transitionLengthReport){
@@ -2322,4 +2378,73 @@ public class MinutemanPage extends BasePage{
         btnSaveAndDownload.click("Save & Download");
     }
 
+    public void clickOnCreateCalc(){
+        btnCreate.click("Create");
+    }
+
+    public void verifyPDFContents(String calc){
+        PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+calc+".pdf");
+        try {
+            Validator.assertTrue(PDFHelper.getPageCount(doc) ==2,"PDF Report has incorrect no of pages","PDF report has valid no of pages");
+            System.out.println(PDFHelper.getPDFImagesCount(doc));
+//            Validator.assertTrue(PDFHelper.getPDFImagesCount(doc) == 2,"PDF Report has unaccepted no of images","PDF report has valid images");
+            String val = PDFHelper.getPageContent(doc);
+            Validator.assertTrue(val.replaceAll("\r\n", " ").replaceAll("\n", " ").trim().contains(calc),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
+            PDFHelper.PDFBoxExtractImages(doc);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public boolean goToEditMinutemanCalc(String calc){
+        searchMinuteman(calc);
+        SyncUtil.waitFor(1000);
+        crCheckbox.check("Conveyor Checkbox");
+        crActions.click("Actions");
+        waitForElementVisible(crEdit, 20000,500);
+        crEdit.click("Edit");
+        return editBreadCrumb.isVisible("Edit breadcrumb");
+    }
+
+    public void editMinutemanCalc(String calc, String newCalc){
+        goToEditMinutemanCalc(calc);
+        setTbCalculationName(newCalc);
+        finalReport.jsClick();
+        waitForElementToDisplay(txtName);
+        Validator.assertTrue(newCalc.equals(txtName.getText().trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+        waitForElementToInvisible(spinner,7000);
+        scrollPageDown();
+        btnSave.click();
+        waitForElementToInvisible(buttonLoader,10000);
+    }
+
+    public boolean searchMinuteman(String calc){
+        gotoMinutemanScreenWait();
+        waitForPageLoad(10000);
+        btSearchinput.type(calc, "Calc Search");
+//        SyncUtil.waitFor(10000);
+        waitForElementVisible(crCheckbox,20000,1000);
+        waitForElementToDisplay(crCheckbox);
+        return crCheckbox.isVisible("Conveyor Found");
+    }
+
+    public boolean deleteMinutemanCalc(String calc){
+        searchMinuteman(calc);
+        SyncUtil.waitFor(1000);
+        crCheckbox.check("Conveyor Checkbox");
+        crActions.click("Actions");
+        waitForElementVisible(crDelete, 20000,500);
+        crDelete.click("Delete");
+        crYesConfirmation.click("Confirm");
+        waitForElementToDisplay(noList);
+        SyncUtil.waitFor(2000);
+        return noList.isVisible();
+    }
+
+    public void verifyDeletedCalc(String calc) {
+        gotoMinutemanScreenWait();
+        waitForPageLoad(10000);
+        btSearchinput.type(calc, "Calc Search");
+        Validator.assertTrue(noList.isVisible(),"Delete Calculation was still found in Conveyor list screen","Calculation deleted successfully");
+    }
 }

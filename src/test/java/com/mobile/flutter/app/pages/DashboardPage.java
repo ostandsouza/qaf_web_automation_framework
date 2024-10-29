@@ -52,6 +52,10 @@ public class DashboardPage extends FlutterBasePage {
 
     @FindBy(locator = "corporate.conveyorList.header")
     public CustomFlutterElement conveyorListHeader;
+    @FindBy(locator = "dashboard.filter.header")
+    public CustomFlutterElement filterHeader;
+    @FindBy(locator = "dashboard.filter.button")
+    public CustomFlutterElement filterBtn;
 
 
     public boolean isHomePage() {
@@ -61,7 +65,7 @@ public class DashboardPage extends FlutterBasePage {
     }
 
     public boolean goToProfilePage() {
-        SyncUtil.waitFor(000);
+        SyncUtil.waitFor(3000);
         profileIcon.click();
         return ProfilePage.getInstance().isMyProfile();
     }
@@ -81,27 +85,22 @@ public class DashboardPage extends FlutterBasePage {
         Validator.assertTrue(addSiteShop.isDisplayed(),"Add Site is not Visible","Add Site is Visible");
     }
 
-    public boolean goToAddCorp() {
-        SyncUtil.waitFor(20000);
-        addIconClick();
-        addCorporate.click();
-        return CorporatePage.getInstance().isCompanyPage();
-    }
+
 
     public boolean goToSiteShop() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addSiteShop.click();
         return CorporatePage.getInstance().isCompanyPage();
     }
 
     public boolean goToConveyor() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addConveyor.click();
         return ConveyorPage.getInstance().isConveyorPage();
     }
 
     public boolean goToInspection() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addInspection.click();
         return InspectionPage.getInstance().isInspectionPage();
     }
@@ -145,6 +144,44 @@ public class DashboardPage extends FlutterBasePage {
                "Add Inspection Add Conveyor Add Site/Shop Add Corporate buttons are not visible","Add Inspection Add Conveyor Add Site/Shop Add Corporate buttons are not visible");
 
    }
+    public void verifyHomeScreenDetails() {
+        DashboardNativePage.getInstance().verifyHomeScreenDetailsNative();
+        Validator.assertTrue(addIcon.isDisplayed(),"Add Icon is not Visible","Add Icon is Visible");
+    }
+
+    public boolean verifyHomePageAddIcon() {
+        loadingDashboard.waitForTheElementToBeInvisible(15);
+        addIcon.waitForTheElementToBeVisible(15);
+        Validator.assertTrue(addIcon.isDisplayed(),"Add Icon is not Visible","Add Icon is Visible");
+        addIcon.click();
+        Validator.assertTrue(addCorporate.isDisplayed(),"Add Corporate is not Visible","Add Corporate is Visible");
+        Validator.assertTrue(addSiteShop.isDisplayed(),"Add Site is not Visible","Add Site is Visible");
+        Validator.assertTrue(addConveyor.isDisplayed(),"Add Conveyor is not Visible","Add Conveyor is Visible");
+        Validator.assertTrue(addInspection.isDisplayed(),"Add Inspection is not Visible","Add Inspection is Visible");
+        return addCorporate.isDisplayed();
+    }
+
+    public boolean goToAddCorp() {
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
+        addCorporate.click();
+        return CorporatePage.getInstance().isCompanyPage();
+    }
+    public void filterBtnClick()
+    {
+        filterBtn.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(filterBtn.isVisible(),"The filter icon is not visible","The filter icon is visible");
+        filterBtn.click();
+        filterHeader.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(filterHeader.isVisible(),"The Filter header is not visible","The Filter header is visible");
+    }
+
+    public void fileManagerTileClick()
+    {
+        ConveyorPage.getInstance().fileManagerCardClick();
+        Validator.assertTrue(FileManagerPage.getInstance().isFileManagerPage(),"File Manager Page is not present","File Manager Page is present");
+
+    }
+
 
 
 

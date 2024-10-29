@@ -1,4 +1,4 @@
-Feature: Rehression Flow for Mob
+Feature: Regression Flow for Mob
 
 @CTCP-2171
 @dataFile:resources/data/TestData.xls
@@ -9,22 +9,12 @@ Scenario: Verify navigation to add corprate Page
     Given Verify user is on continental login page
     And  Login to the application with '${UserName}' and '${Password}'
     And Click on corporate symbol and verify it navigates to corporate list page
-    Then Navigate to Add Corporate Page
+    Then Navigate to add corporate page via Home and verify navigation
     And Verify default type of company field
     And Go back to conveyor list screen
-    Then Navigate to Add Site Page
+    Then Navigate to add site page via Home and verify navigation
     And Verify default type of company field
 
-#@CTCP-2171 downoaddddd
-#@dataFile:resources/data/TestData.xls
-#@sheetName:Regression
-#@key:Company_Mandatory_Field
-#Scenario: Verify navigation to add corprate Page
-#
-#    Given Verify user is on continental login page
-#    And  Login to the application with '${UserName}' and '${Password}'
-#    And  Click on corporate symbol and verify it navigates to corporate list page
-#    Then Navigate to Add Corporate Page
 
 @Regression1 @CTCP-2164
 @dataFile:resources/data/TestData.xls
@@ -50,7 +40,7 @@ Scenario: Verify back button functionality
     And   Login to the application with '${UserName}' and '${Password}'
     Then Verify that the corporate symbol is visible in the footer
     And Click on corporate symbol and verify it navigates to corporate list page
-    And Navigate to Add Corporate Page
+    And Navigate to add corporate page via Home and verify navigation
     And Verify back button is visible next to add corporate heading
     And Click on back button and verify it navigates to corporate list page
 
@@ -146,3 +136,94 @@ Scenario: Verify filter when all fields are selected
     And Click on the filter Icon and select the corporate type and territory '${Territory}' from the dropdown
     And Select the corporates '${CustCorp}' and '${CustCorp2}'  via checkbox and save and verify redirection to Corporate list page
     And Look for the data in Corporate List page and verify it shows only filtered data '${CustCorp}' and '${CustCorp2}'
+
+@CTCP-2181
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Verify fields displayed in add corporate screen
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And  Click on corporate symbol and verify it navigates to corporate list page
+    Then Navigate to add corporate page from Corporate list page
+    And Verify add corporate heading
+    And Verify add corporate fields
+
+@CTCP-2183
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Verify duplicate corporate check
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And  Click on corporate symbol and verify it navigates to corporate list page
+    Then Navigate to add corporate page from Corporate list page
+    And Add a Distributor corporate with '${CorpName}' '${Address}'
+    And Verify duplicate corporate creation
+
+@CTCP-2167
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_List_Data
+Scenario: Verify data displayed in corporate list screen
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And  Click on corporate symbol and verify it navigates to corporate list page
+    And Verify data displayed in the Corporate list screen
+    Then Verify navigation to corporate details screen for '${CorpName}'
+
+@CTCP-2169
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_List_Data
+Scenario: Verify count of site/shop displayed on corporate list
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And  Click on corporate symbol and verify it navigates to corporate list page
+    And Navigate to corporate list and verify '${CorpName}' is present
+    And Extract the site count from corporate list page
+    Then Navigate to '${CorpName}' detail Page and verify the site count in the corporate detail page
+
+@CTCP-2173
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Verify filter functionality
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And  Click on corporate symbol and verify it navigates to corporate list page
+    And Click on filter icon
+    And Verify fields in the filter pop up for corporate list
+
+@CTCP-2179
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Navigate to add corporate page from Home Page
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And  Navigate to add corporate page via Home and verify navigation
+    And Verify add corporate heading
+    And Verify default type of company field for Corporate
+
+@CTCP-2176
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Corporate_Mandatory_Field
+Scenario: Remove filter functionality check
+
+    Given Verify user is on continental login page
+    And  Login to the application with '${UserName}' and '${Password}'
+    And  Click on corporate symbol and verify it navigates to corporate list page
+    And Click on filter icon
+    And Add descending order filter
+    And Click on filter icon
+#    And Verify filter is applied
+    And Click clear filter
+    And Verify clear filter

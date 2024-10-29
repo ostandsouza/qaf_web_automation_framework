@@ -52,6 +52,10 @@
   "minuteman_controller": {
     "minuteman": "/minuteman"
   },
+  "monitoring_controller": {
+  "list": "/monitoring-devices",
+  "count": "/devices-count"
+},
   "findings_controller": {
     "finding": "/finding"
   },

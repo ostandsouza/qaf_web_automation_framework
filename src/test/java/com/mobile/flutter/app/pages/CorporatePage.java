@@ -11,6 +11,8 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+
 public class CorporatePage extends FlutterBasePage {
 
     private static CorporatePage obj;
@@ -163,7 +165,7 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "corporate.frame.screen")
     public CustomFlutterElement corporateFrame;
 
-    @FindBy(locator = "corporate.corporateList.header")
+    @FindBy(locator = "corporate.list.header")
     public CustomFlutterElement corporateHeader;
 
     @FindBy(locator = "corporate.view.header")
@@ -175,26 +177,59 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "corporate.name.field")
     public CustomFlutterElement tbCompanyName;
 
-    @FindBy(locator = "company.add.icon")
+    @FindBy(locator = "corporate.add.icon")
     public CustomFlutterElement addCompanyBtn;
 
-    @FindBy(locator = "company.add.corporate")
+    @FindBy(locator = "corporate.add.corporate")
     public CustomFlutterElement addCorporateBtn;
 
-    @FindBy(locator = "company.add.header")
+    @FindBy(locator = "corporate.add.site")
+    public CustomFlutterElement addSiteShop;
+
+
+    @FindBy(locator = "corporate.add.header")
     public CustomFlutterElement addCorporateHeader;
     @FindBy(locator = "corporate.inspection.header")
     public CustomFlutterElement inspectionListHeader;
 
     @FindBy(locator = "corporate.tools.header")
     public CustomFlutterElement toolsListHeader;
+    @FindBy(locator = "corporate.default.company")
+    public CustomFlutterElement inpCorpTypeOfCompany;
 
+    @FindBy(locator = "site.default.company")
+    public CustomFlutterElement inpSiteTypeOfCompany;
 
+    @FindBy(locator = "corporate.company.existingerror")
+    public CustomFlutterElement msgAlreadyExist;
+    @FindBy(locator = "dashboard.loading.animation")
+    public CustomFlutterElement loadingDashboard;
+
+    @FindBy(locator = "corporate.edit.failure")
+    public CustomFlutterElement corporateEditFailureMsg;
+
+    @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"list_card_count\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"Search\\\"}\"}")
+    public CustomFlutterElement corporateListSiteCount;
+
+    @FindBy(locator = "corporate.add.header")
+    public CustomFlutterElement addCorpHeader;
+
+    @FindBy(locator = "corporate.list.header")
+    public CustomFlutterElement corpListHeader;
+
+    @FindBy(locator ="corporate.add.icon")
+    public CustomFlutterElement addIcon;
+
+    @FindBy(locator = "corporate.add.corporate")
+    public CustomFlutterElement addCorporate;
+
+    @FindBy(locator = "corporate.add.back")
+    public CustomFlutterElement corporateAddBackBtn;
 
 
     public boolean isCompanyPage() {
         waitForPageToLoad();
-        return companyType.isVisible();
+        return companyType.isPresent();
     }
 
     public void selectDistributorCorp() {
@@ -212,12 +247,16 @@ public class CorporatePage extends FlutterBasePage {
     public void selectCustomerSite() {
         companyType.waitForTheElementToBeVisible(30);
         companyType.click();
+        Validator.assertTrue(customerSite.isVisible(),"Customer Site is not visible","Customer Site is visible");
+        Validator.assertTrue(distributorShop.isVisible(),"Distributor Shop is not visible","Distributor Shop is visible");
         customerSite.click();
     }
 
     public void selectDistributorShop() {
         companyType.waitForTheElementToBeVisible(30);
         companyType.click();
+        Validator.assertTrue(customerSite.isVisible(),"Customer Site is not visible","Customer Site is visible");
+        Validator.assertTrue(distributorShop.isVisible(),"Distributor Shop is not visible","Distributor Shop is visible");
         distributorShop.click();
     }
 
@@ -273,9 +312,11 @@ public class CorporatePage extends FlutterBasePage {
     }
 
     public boolean goToCorporateEditScreen(String distShopName){
+        Validator.assertTrue(corporateMoreBtn.isVisible(),"More button is not visible","More button is visible");
         corporateMoreBtn.click("More Button");
         DashboardNativePage.getInstance().clickEditBtn();
         SyncUtil.waitFor(1000);
+        Validator.assertTrue(corporateDetailsHeader.getText().contains("Edit "+distShopName),"Edit not is visible","Edit is visble");
         return corporateDetailsHeader.getText().contains("Edit-"+distShopName);
     }
 
@@ -551,8 +592,8 @@ public class CorporatePage extends FlutterBasePage {
     }
 
     public boolean isAddCompanyPage() {
-        Validator.assertTrue(addCorporateHeader.isVisible(),"user navigated to add company page","user navigated to add company  page");
-        return addCorporateHeader.isVisible();
+        Validator.assertTrue(addCorporateHeader.isPresent(),"user navigated to add company page","user navigated to add company  page");
+        return addCorporateHeader.isPresent();
     }
 
     public void verifyCorporateSearch(String corpName)
@@ -568,9 +609,9 @@ public class CorporatePage extends FlutterBasePage {
         Validator.assertTrue(corporateMoreBtn.isDisplayed(),"Arrow icon is not displayed","Arrow icon is displayed");
     }
     public boolean isInspectionListPage() {
-        return inspectionListHeader.isVisible();}
+        return inspectionListHeader.isPresent();}
     public boolean isToolListPage() {
-        return toolsListHeader.isVisible();}
+        return toolsListHeader.isPresent();}
 
 
     public void verifyLinksNavigation()
@@ -591,5 +632,102 @@ public class CorporatePage extends FlutterBasePage {
         Validator.assertTrue(corporateSiteListCount.getText().equalsIgnoreCase("0"),"Count of sites/Shops is not displayed","Count of sites/Shops is  displayed");
     }
 
+    public void verifyDefaultSiteField(){
+        SyncUtil.waitFor(3000);
+        inpSiteTypeOfCompany.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(inpSiteTypeOfCompany.getText().contains("Customer Site"),"Default Value mismatch","Default Value matched");
+    }
+
+    public boolean verifyAddCorporateHeading(){
+        addCorporateHeader.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(addCorporateHeader.getText().contains("Add Corporate"),"Header Add Corporate is not present","Header Add Corporate is present");
+        return addCorporateHeader.getText().contains("Add Corporate");
+    }
+    public void verifyAddCorporateFields(){
+        Validator.assertTrue(companyType.isDisplayed(),"Type of Company is not present","Type of Company is present");
+//        Validator.assertTrue(companyType.isDisplayed(),"Image Field is not present","Image Field is present");
+        Validator.assertTrue(companyName.isDisplayed(),"Company Name is not present","Company Name is present");
+        Validator.assertTrue(addressBar.isDisplayed(),"Address is not present","Address is present");
+        Validator.assertTrue(saveBtn.isDisplayed(),"Save button is not present","Save button is present");
+    }
+
+    public void addCorporateDetails(String company, String address) {
+        companyName.sendKeys(company);
+        addressBar.sendKeys(address);
+        addressBar.clear();
+        addressBar.click();
+        DashboardNativePage.getInstance().autoAddressSelection();
+//        DashboardNativePage.getInstance().gMapSelection();
+//        SyncUtil.waitFor(5000);
+        saveBtn.click();
+        SyncUtil.waitFor(5000);
+    }
+
+    public void addDistributorCorporateDetails(String company, String address) {
+        selectDistributorCorp();
+        addCorporateDetails(company,address);
+    }
+
+    public void verifyDuplicateCorporateCreation() {
+        System.out.println(msgAlreadyExist.getText()+"Error message");
+        Validator.assertTrue(msgAlreadyExist.isDisplayed(),"Error message not found","Error message found");
+    }
+
+    public boolean goToAddCorpFromCorpList() {
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        addCompanyBtn.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(addCompanyBtn.isDisplayed(),"Add Icon is not Visible","Add Icon is Visible");
+        addCompanyBtn.click();
+        Validator.assertTrue(addCorporateBtn.isDisplayed(),"Add Corporate is not Visible","Add Corporate is Visible");
+        Validator.assertTrue(addSiteShop.isDisplayed(),"Add Site is not Visible","Add Site is Visible");
+        addCorporateBtn.click();
+        return CorporatePage.getInstance().isCompanyPage();
+    }
+
+    public boolean goToAddSiteFromCorpList() {
+        loadingDashboard.waitForTheElementToBeInvisible(45);
+        addCorporateBtn.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(addCorporateBtn.isDisplayed(),"Add Icon is not Visible","Add Icon is Visible");
+        addCorporateBtn.click();
+        Validator.assertTrue(addCompanyBtn.isDisplayed(),"Add Corporate is not Visible","Add Corporate is Visible");
+        Validator.assertTrue(addSiteShop.isDisplayed(),"Add Site is not Visible","Add Site is Visible");
+        addSiteShop.click();
+        return CorporatePage.getInstance().isCompanyPage();
+    }
+    public boolean goBackToCorporateListScreenfromAddScreen(){
+        addCorporateBackBtn.click("Corporate Back Button");
+        return DashboardNativePage.getInstance().isCorporateList();
+    }
+
+    public boolean searchCorpAndVerifyCreation(String company) {
+        DashboardNativePage.getInstance().goToSearch();
+        SyncUtil.waitFor(5000);
+        enterSearchQuery(company);
+        SyncUtil.waitFor(2000);
+        Validator.assertTrue(DashboardNativePage.getInstance().getSearchCount().equals("1"),"Search Result Count","Search count ");
+        return DashboardNativePage.getInstance().getSearchResult().equalsIgnoreCase(company);
+    }
+
+    public boolean updateDulpicateCorporateName(String name){
+        corporateDetailsName.sendKeys(name);
+        saveEditBtn.scrollIntoView("Save changes");
+        SyncUtil.waitFor(4000);
+        saveEditBtn.click("save button");
+        return corporateEditFailureMsg.waitForTheElementToBeVisible(30);
+    }
+
+    public void verifyCountInCorpDetailPage() {
+        String expectedSiteValue= getBundle().getProperty("CorpListSiteCount").toString();
+        Validator.assertTrue(corporateCardCount.getText().equals(expectedSiteValue),"Site value did not match","Site value matched");
+    }
+
+    public void extractCountInCorpList() {
+        getBundle().setProperty("CorpListSiteCount",corporateListSiteCount.getText());
+    }
+    public void verifyAddCorpBackBtnToHomePage() {
+        corporateAddBackBtn.waitForTheElementToBeVisible(5000);
+        corporateAddBackBtn.click("Corporate Back Button");
+        DashboardPage.getInstance().isHomePage();
+    }
 
 }
