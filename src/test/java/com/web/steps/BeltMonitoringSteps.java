@@ -6,6 +6,9 @@ import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
 
+import java.util.Map;
+
+
 public class BeltMonitoringSteps {
 
     LoginPage loginPage = new LoginPage();
@@ -19,10 +22,20 @@ public class BeltMonitoringSteps {
     public void verifyNavigationToMonitoringDeviceListScreen() {
         monitoringDevicePage.goToMonitoringDeviceListScreenAndWait();
     }
+
     @QAFTestStep(description = "Navigate to Belt Monitoring List page")
     public void verifyNavigationToMonitoringDeviceListPage() {
         monitoringDevicePage.goToMonitoringDeviceListScreen();
     }
+
+    @QAFTestStep(description = "Navigate to Belt Monitoring List page for {Device}")
+    public void verifyNavigationToMonitoringDeviceListPageWithDelete(String monitoringDevice) {
+        Map<String, Object> obj = monitoringDevicePage.apiBase.getMonitoringDeviceAPI(monitoringDevice);
+        if(obj != null)
+            monitoringDevicePage.apiBase.deleteMonitoringDeviceAPI((String) obj.get("monitoringDeviceId"));
+        monitoringDevicePage.goToMonitoringDeviceListScreen();
+    }
+
     @QAFTestStep(description = "Search for the MonitoringDevice {Device} and select the checkbox")
     public void searchAndSelectMonitoringDevice(String device) {
         monitoringDevicePage.searchMonitoringDevice(device);
@@ -67,8 +80,10 @@ public class BeltMonitoringSteps {
     @QAFTestStep(description ="Navigate to Add monitoring device screen")
     public void navigateToAddMonitoringDevice()
     {
+
         monitoringDevicePage.goToAddMonitoringDevice();
     }
+
     @QAFTestStep(description = "Verify the bread crumb of add monitoring device page")
     public void verifyBreadCrumbOfMonitoringDevice() {
         monitoringDevicePage.verifyMonitoringDeviceBreadCrumb();
@@ -171,8 +186,8 @@ public class BeltMonitoringSteps {
     {
         Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"),"User is navigated to monitoring device list page",
                 "User is navigated to monitoring device list page");
-        monitoringDevicePage.searchMonitoringDevice(deviceName);
-        monitoringDevicePage.goToCorporateEditScreen();
+//        monitoringDevicePage.searchMonitoringDevice(deviceName);
+        monitoringDevicePage.goToMonitoringDeviceEditScreen(deviceName);
     }
 
     @QAFTestStep(description = "Verify save and cancel buttons are displayed")
@@ -218,6 +233,29 @@ public class BeltMonitoringSteps {
         conveyorPage.selectTwoColumnsAndVerify();
         conveyorPage.verifySelectedColumnDisplay("multiple");
         conveyorPage.verifySelectedColumnDisplay("single");
+    }
+
+    @QAFTestStep(description="Verify the monitoring device {Device} in list screen")
+    public void searchMonitoringDevice(String device){
+        Map<String, Object> obj = monitoringDevicePage.apiBase.getMonitoringDeviceAPI(device);
+        if(obj != null)
+            obj = monitoringDevicePage.apiBase.getMonitoringDeviceDetailsAPI((String) obj.get("monitoringDeviceId"));
+        Validator.assertTrue(monitoringDevicePage.searchMonitoringDevice(device),"Monitoring Device was not found","Monitoring Device was found and verified successfully");
+    }
+
+    @QAFTestStep(description="Edit monitoring device {Device} to {NewDevice}")
+    public void editMonitoringDeviceTo(String device, String newdevice){
+        monitoringDevicePage.editMonitoringDevice(device, newdevice);
+    }
+
+    @QAFTestStep(description="Delete monitoring device {Device}")
+    public void deleteMonitoringDevice(String device){
+        Validator.assertTrue(monitoringDevicePage.deleteMonitoringDevice(device),"Monitoring device was found after delete","Monitoring device was found and verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the deleted monitoring device {Device} in list screen")
+    public void verifyTheDeletedMonitoringDeviceInListScreen(String device){
+        monitoringDevicePage.verifyDeletedMonitoringDevice(device);
     }
 
 

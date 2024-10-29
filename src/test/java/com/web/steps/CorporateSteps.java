@@ -222,6 +222,9 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Create a conveyor with {ConveyorName} and {CustSiteName}")
     public void verifyNavigationFromSiteToConveyor(String conveyorName, String custSiteName){
+        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+        System.out.println(conveyorId);
+        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         corpPage.goToAddConveyor();
         corpPage.createConveyor(conveyorName,custSiteName);
     }

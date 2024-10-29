@@ -9,6 +9,9 @@ import com.web.pages.CoverWearPage;
 import com.web.pages.MonitoringDevicePage;
 import com.web.pages.UsersPage;
 
+import java.util.Map;
+import java.util.Optional;
+
 public class MonitoringDeviceSteps {
 
     MonitoringDevicePage monitoringDevicePage = new MonitoringDevicePage();
@@ -179,4 +182,13 @@ public class MonitoringDeviceSteps {
         monitoringDevicePage.verifyPaginationDoubleBackwardArrowButton();
     }
 
+    @QAFTestStep(description="Navigate to cord protect iot window")
+    public void verifyCordProtectWindow(){
+        Validator.assertTrue(monitoringDevicePage.navigateToCordProtect(),"IOT dashboard verification failed", "Iot dashboard verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the cord protect details page")
+    public void verifyCordProtectDetails(){
+        Validator.assertTrue(monitoringDevicePage.verifyCordProtect(),"IOT dashboard verification failed", "Iot dashboard verified successfully");
+    }
 }

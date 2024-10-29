@@ -10,7 +10,7 @@ public class DashboardPage extends BasePage {
 
 
 
-    @FindBy(locator = "xpath=//span[contains(text(),'We value your privacy!')]")
+    @FindBy(locator = "xpath=//span[contains(text(),'We value your privacy!')]/..")
     public CustomElement popupHeader;
 
     @FindBy(locator = "xpath=//span[contains(text(),'Reject All')]")
@@ -22,6 +22,7 @@ public class DashboardPage extends BasePage {
 
     public void handleCookiePopup()  {
         SyncUtil.waitFor(5000);
+        waitForElementToDisplay(popupHeader);
         if(popupHeader.isVisible()){
             acceptBtn.click();
         }

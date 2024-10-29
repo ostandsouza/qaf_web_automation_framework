@@ -235,9 +235,69 @@ Scenario: Verify the Delete functionality across the application
     When  Delete User with name '${FullName1}'
     Then  Verify user '${FullName1}' is deleted
 
+ @Sanity17
+ @dataFile:resources/data/LegacyMetricSanity.json
+ Scenario: Verify Complete minuteman functionality
+
+     And   User is at add minuteman conveyor page '${CalculationName}'
+     When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+     And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
+     And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
+     And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
+     And   User enters select belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+     And   User should see all the calculated data of capacity page and click on next
+     And   User should see all the calculated data of Roll data page and click on next
+     And   User should see all the calculated data of pulleys page and click on next
+     And   User should see all the calculated data Add '${TransitionLengthHead}' '${TransitionLengthTail}' of transition page and click on next
+     And   User should see all the calculated data Add '${TakeUpTensionIfKnown}' of take up page and click on next
+     And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
+     Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+     Then  Verify download report option on final report '${CalculationName}'
+     When  Click on create button for minuteman calculation
+     Then  Verify the minuteman calculation '${CalculationName}' in list screen
+     When  Edit minuteman calculation '${CalculationName}' to '${NewCalculationName}'
+     Then  Verify the minuteman calculation '${NewCalculationName}' in list screen
+     When  Delete minuteman calculation '${NewCalculationName}'
+     Then  Verify the deleted minuteman calculation '${NewCalculationName}' in list screen
+
+ @Sanity18
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Sanity
+ @key:BeltMonitoring
+ Scenario: Verify Complete monitoring device functionality
+
+    Then  Navigate to Belt Monitoring List page for '${DeviceName}'
+    And   Navigate to Add monitoring device screen
+    And   Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
+    And   Click on save button and verify device '${DeviceName}' is created successfully
+    When  Edit monitoring device '${DeviceName}' to '${NewDeviceName}'
+    Then  Verify the monitoring device '${NewDeviceName}' in list screen
+    When  Delete monitoring device '${NewDeviceName}'
+    Then  Verify the deleted monitoring device '${NewDeviceName}' in list screen
 
 
+ @Sanity19
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Sanity
+ @key:CordProtect
+ Scenario: Verify Cord protect functionality
 
+    And   Navigate to Belt Monitoring List screen
+    Then  Verify the monitoring device '${DeviceName}' in list screen
+    When  Navigate to cord protect iot window
+    Then  Verify the cord protect details page
 
+ @Sanity20
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Sanity
+ @key:BeltScan
+ Scenario: Verify Belt Scan functionality
 
-
+    And   Navigate to Belt Scan List page
+    Then  Navigate to Add Belt Scan Page and verify navigation
+    When  Add Belt Scan general Info with '${DateOfScan}' '${ScanReason}' '${CustSiteAusName}' '${ConveyorName}' '${NotifyCCM}' '${File1}' and '${File2}'
+    When  Submit the belt scan form
+    Then  Verify the belt scan for '${ConveyorName}' is present in list screen
+    When  Edit belt scan '${ConveyorName}' date scan to '${NewScanReason}'
+    And   Delete belt scan '${ConveyorName}'
+    Then  Verify the deleted Belt Scan '${ConveyorName}' in list screen

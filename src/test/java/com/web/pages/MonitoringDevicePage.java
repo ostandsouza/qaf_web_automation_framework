@@ -42,7 +42,6 @@ public class MonitoringDevicePage extends BasePage {
 
 	@FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
 	public CustomElement home;
-	@FindBy(locator = "xpath=(//li//span[text()='Monitoring Devices'])[1]")
 	public CustomElement monitoringDeviceList;
 	@FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
 	public CustomElement crCheckbox;
@@ -193,6 +192,19 @@ public class MonitoringDevicePage extends BasePage {
 	public CustomElement disabledLinkIcon;
 	@FindBy(locator = "xpath=//button[@icon='ctp-icon-link']")
 	public CustomElement enabledLinkIcon;
+
+	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Instaloled-Devices']")
+	public CustomElement iotIcon;
+
+	@FindBy(locator = "xpath=(//div[@id='chartArea'])[1]")
+	public CustomElement iotChart1;
+
+	@FindBy(locator = "xpath=(//div[@id='chartArea'])[2]")
+	public CustomElement iotChart2;
+
+	@FindBy(locator = "xpath=(//div[@id='chartArea'])[3]")
+	public CustomElement iotChart3;
+
 	@FindBy(locator = "xpath=(//button[@disabled]//span[text()='Actions'])[1]")
 	public CustomElement actionBtnDisabled;
 	@FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
@@ -308,6 +320,16 @@ public class MonitoringDevicePage extends BasePage {
 	@FindBy(locator="xpath=(//p-dropdown//div[contains(@class,\"master-data-dropdown\")])[1]//span")
 	public CustomElement deviceTypeField;
 
+	@FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
+	public CustomElement buttonLoader;
+
+	@FindBy(locator = "xpath=//span[text()='Yes']")
+	public CustomElement crYesConfirmation;
+
+	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
+	public CustomElement noList;
+
+
 	public void clickCarouselLeftIcon(){
 		waitForElementVisible(carouselLeftIcon,5000,500);
 		carouselLeftIcon.click("Carsouel Left");
@@ -326,8 +348,9 @@ public class MonitoringDevicePage extends BasePage {
 	public void goToMonitoringDeviceListScreen(){
 		if(!monitoringDeviceList.isVisible())
 			home.click("Home");
-		monitoringDeviceList.jsClick("Conveyor List");
-		btSearchinput.isVisible("Conveyor List Page");
+		waitForElementToDisplay(monitoringDeviceList);
+		monitoringDeviceList.jsClick("Monitoring Device List");
+		btSearchinput.isVisible("Monitoring List Page");
 	}
 	public void goToMonitoringDeviceListScreenAndWait() {
 		goToMonitoringDeviceListScreen();
@@ -338,17 +361,42 @@ public class MonitoringDevicePage extends BasePage {
 				break;
 			}
 			val = pagination.getText();
-			SyncUtil.waitFor(30000);
+			SyncUtil.waitFor(5000);
 		}
 	}
 	public boolean searchMonitoringDevice(String monitoringDeviceName){
 		goToMonitoringDeviceListScreenAndWait();
 		btSearchinput.type(monitoringDeviceName, "Monitoring Device Name Search");
 		waitForElementToDisplay(crCheckbox);
-		Map<String, Object> val = DashboardPage.getInstance().apiBase.getMonitoringDeviceAPI(monitoringDeviceName);
-		System.out.println(val+"TD");
 		return crCheckbox.isVisible("Conveyor Found");
 	}
+
+	public void editMonitoringDevice(String device, String newdevice){
+		goToMonitoringDeviceEditScreen(device);
+		waitForElementToDisplay(tbDeviceName);
+		tbDeviceName.type(newdevice,"Device name");
+		btSave.click();
+		waitForElementToInvisible(buttonLoader,10000);
+	}
+
+	public boolean deleteMonitoringDevice(String calc){
+		searchMonitoringDevice(calc);
+		crCheckbox.check("Monitoring Checkbox");
+		btActions.click("Actions");
+		waitForElementVisible(deleteBtn, 20000,500);
+		deleteBtn.click("Delete");
+		crYesConfirmation.click("Confirm");
+		waitForElementToDisplay(noList);
+		return noList.isVisible();
+	}
+
+	public void verifyDeletedMonitoringDevice(String calc) {
+		goToMonitoringDeviceListScreen();
+		waitForPageLoad(10000);
+		btSearchinput.type(calc, "Calc Search");
+		Validator.assertTrue(noList.isVisible(),"Delete Monitoring Device was still found in list screen","Monitoring Device deleted successfully");
+	}
+
 	public void clickCheckBox(){
 		waitForElementToDisplay(crCheckbox);
 		crCheckbox.click();
@@ -548,11 +596,11 @@ public class MonitoringDevicePage extends BasePage {
 
 	public void goToAddMonitoringDevice()
 	{
-		waitForElementVisible(btAddMonitoringDevice,20000,500);
-		waitForElementToBeClickable(btAddMonitoringDevice);
-		btAddMonitoringDevice.jsClick("Add icon");
 		SyncUtil.waitFor(5000);
+		waitForElementVisible(btAddMonitoringDevice,20000,500);
+		btAddMonitoringDevice.jsClick("Add icon");
 		waitForPageLoad(15000);
+		SyncUtil.waitFor(2000);
 		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/device/add/basic-info"), "User is not navigated to Add monitoring device page", "User is navigated to Add monitoring device page");
 	}
 	public void addDeviceDetailsWithMandatoryFields(String deviceName,String deviceType)
@@ -980,7 +1028,8 @@ public class MonitoringDevicePage extends BasePage {
 
 	}
 
-	public boolean goToCorporateEditScreen() {
+	public boolean goToMonitoringDeviceEditScreen(String device) {
+		searchMonitoringDevice(device);
 		waitForElementToDisplay(crCheckbox);
 		crCheckbox.check("Select Device");
 		btActions.click("Actions");
@@ -1002,4 +1051,19 @@ public class MonitoringDevicePage extends BasePage {
 		Validator.assertTrue(deviceTypeField.getText("device type").equalsIgnoreCase(deviceType),"The device type dropdown value is incorrect!","The device type dropdown value is correct!");
 	}
 
+	public boolean navigateToCordProtect(){
+		iotIcon.isEnable("IoT icon");
+		iotIcon.click("cord Protect");
+		return iotChart1.isVisible();
+	}
+
+	public boolean verifyCordProtect(){
+		waitForElementToDisplay(iotChart1);
+		waitForElementToDisplay(iotChart2);
+		waitForElementToDisplay(iotChart3);
+		SyncUtil.waitFor(3000);
+		scrollPageDown();
+		SyncUtil.waitFor(2000);
+		return iotChart1.isVisible() && iotChart2.isVisible() && iotChart3.isVisible();
+	}
 }

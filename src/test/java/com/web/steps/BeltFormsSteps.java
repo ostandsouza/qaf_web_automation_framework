@@ -1,14 +1,13 @@
 package com.web.steps;
 
 import com.qmetry.qaf.automation.step.QAFTestStep;
-import com.web.pages.Beltformspage;
+import com.web.pages.BeltFormsPge;
 import com.web.pages.LoginPage;
-import com.web.pages.UsersPage;
 
-public class BeltformsSteps {
+public class BeltFormsSteps {
 	
 	LoginPage loginPage = new LoginPage();
-	Beltformspage beltpage = new Beltformspage();
+	BeltFormsPge beltpage = new BeltFormsPge();
 	
 	 @QAFTestStep(description = "User is at Login page")
 	    public void verifyUserIsAtLoginPage() {

@@ -46,7 +46,27 @@
 <!--				<include name="Regression30" />-->
 <!--				<include name="Regression31" />-->
 <!--				<include name="Regression32" />-->
-				<include name="Regression45" />
+<!--				<include name="Regression33" />-->
+<!--				<include name="Regression34" />-->
+<!--				<include name="Regression35" />-->
+<!--				<include name="Regression36" />-->
+<!--				<include name="Regression37" />-->
+<!--				<include name="Regression38" />-->
+<!--				<include name="Regression39" />-->
+<!--				<include name="Regression40" />-->
+<!--				<include name="Regression41" />-->
+<!--				<include name="Regression42" />-->
+<!--				<include name="Regression43" />-->
+<!--				<include name="Regression44" />-->
+<!--				<include name="Regression45" />-->
+<!--				<include name="Regression46" />-->
+<!--				<include name="Regression47" />-->
+<!--				<include name="Regression48" />-->
+<!--				<include name="Regression49" />-->
+<!--				<include name="Regression50" />-->
+<!--				<include name="Regression51" />-->
+<!--				<include name="Regression52" />-->
+				<include name="Regression53" />
 			</run>
 		</groups>
 		<classes>

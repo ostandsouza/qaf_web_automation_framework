@@ -257,6 +257,9 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Conveyor Trails']")
     public CustomElement conveyorTrailsHeader;
 
+    @FindBy(locator = "xpath=//span[text()='Add Conveyor']")
+    public CustomElement addConveyors;
+
     @FindBy(locator = "xpath=//input[@id='firstname1']")
     public CustomElement tbConveyorname;
 
@@ -513,12 +516,14 @@ public class CorporatePage extends BasePage{
         goToCorporate();
         SyncUtil.waitFor(6000);
         goToCorporateEditScreen(corpName);
-        SyncUtil.waitFor(6000);
-        setImplicitWait(10000, TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(8000);
+        setImplicitWait(20000, TimeUnit.MILLISECONDS);
+        waitForElementVisible(typeOfCompanyLoader, 10000, 500);
 //        typeOfCompanyLoader.waitForText("Customer Corporate");
         Validator.assertTrue(typeOfCompanyLoader.getAttribute("value").equalsIgnoreCase("Customer Corporate"),"Company dropdown selection deosnt match","Company dropdown selection verification successful");
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
         tbCompanyName.type(editCorpName, "Edit_companyName");
+        SyncUtil.waitFor(4000);
     }
 
     public void corporateImgUpload(String fileName) {
@@ -710,9 +715,11 @@ public class CorporatePage extends BasePage{
 
     public void goToAddConveyor() {
         scrollPageup();
-        waitForElementToDisplay(btAddCorp);
-        btAddCorp.click("Add Corp");
-        waitForElementToDisplay(tbConveyorname);
+        waitForElementVisible(addConveyors,10000,500);
+        waitForElementToBeClickable(addConveyors);
+        addConveyors.click("Add Conveyors");
+        waitForPageLoad(10000);
+        tbConveyorname.isVisible("Conveyor Name");
     }
 
     public void createConveyor(String conveyorName,String custSiteName) {

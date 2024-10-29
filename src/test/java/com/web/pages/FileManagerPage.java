@@ -190,7 +190,7 @@ public class FileManagerPage extends BasePage{
         newFolder.click("New Folder");
         folderHeader.isVisible("Folder Dialog");
         folderInputName.type(folderName);
-        save.click("Save");
+        save.jsClick("Save");
         waitForElementToInvisible(btSaveLoader,30000);
         waitForElementToDisplay(folderSuccessMessage);
     }
@@ -204,7 +204,8 @@ public class FileManagerPage extends BasePage{
             SyncUtil.waitFor(2000);
             driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
             setImplicitWait(5000, TimeUnit.MILLISECONDS);
-            driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
+            SyncUtil.waitFor(1000);
+            driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']/div")).click();
         }
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         upload.sendKeys(file_path, "img_upload");

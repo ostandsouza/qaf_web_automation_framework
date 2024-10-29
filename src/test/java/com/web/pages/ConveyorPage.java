@@ -224,7 +224,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Belt Manufacturer')]/..//input)[2]")
     public CustomElement crBeltConfig;
 
-    @FindBy(locator = "xpath=(//label[contains(text(),'Belt Construction')]/..//input)[2]")
+    @FindBy(locator = "xpath=//label[contains(text(),'Belt Construction')]")
     public CustomElement crBeltConstruction;
 
     @FindBy(locator = "xpath=(//label[contains(text(),'Top Cover Compound')]/..//input)[2]")
@@ -1496,6 +1496,8 @@ public class ConveyorPage extends BasePage{
 
     public void acknowledgeImport(int count){
         waitForElementToDisplay(crImport);
+        waitForElementToDisplay(fileUploadSummary);
+        SyncUtil.waitFor(1000);
         Validator.assertTrue(fileUploadSummary.getText().split("\\r?\\n")[1].contains(String.valueOf(count)),"Total Imported conveyors incorrect","All conveyors imported successfully");
         crImport.click("Import");
         waitForElementToInvisible(spinner,10000);
@@ -2962,9 +2964,8 @@ public class ConveyorPage extends BasePage{
     }
     public void clickCreateBtn() {
         waitForElementVisible(btCreate, 10000, 500);
-        waitForElementToBeClickable(btCreate);
         btCreate.click();
-        waitForElementToInvisible(buttonLoader,40000);
+        waitForElementToInvisible(buttonLoader,10000);
     }
 
     public void saveButtonClick()
