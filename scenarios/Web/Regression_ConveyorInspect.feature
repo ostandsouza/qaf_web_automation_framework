@@ -7,7 +7,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect user navigation
+ Scenario: ZzVerify conveyor inspect user navigation
 
      Given User is at Login page
      When  Login with '${UserName}' and '${Password}'
@@ -17,7 +17,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect screen
+ Scenario: ZxVerify conveyor inspect screen
 
      When  Navigate to Conveyor inspect screen
      Then  Verify the conveyor inspect list headers
@@ -26,7 +26,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect upload functionality
+ Scenario: ZwVerify conveyor inspect upload functionality
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Upload drone files with '${Side}' '${colorMap}' '${irName}' '${rgbName}'
@@ -35,7 +35,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect user default radio upload option
+ Scenario: ZvVerify conveyor inspect user default radio upload option
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}' for Corporate '${CustCorpName}' with site '${CustSiteName}' with fileNames '${CorpFileName}' '${SiteFileName}' '${ConvFileName}'
      Then  verify default upload option in upload files
@@ -44,7 +44,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect upload images functionality
+ Scenario: ZuVerify conveyor inspect upload images functionality
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      And   Open upload files dialog window
@@ -63,7 +63,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_video
- Scenario: Verify conveyor inspect upload video functionality
+ Scenario: ZtVerify conveyor inspect upload video functionality
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}' for Corporate '${CustCorpName}' with site '${CustSiteName}' with fileNames '${CorpFileName}' '${SiteFileName}' '${ConvFileName}'
      And   Open upload files dialog window
@@ -104,7 +104,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect edit functionality
+ Scenario: ZsVerify conveyor inspect edit functionality
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Verify edit functionality at conveyor level
@@ -113,7 +113,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect edit functionality
+ Scenario: ZrVerify conveyor inspect edit functionality
 
      When  Go to conveyor inspect for site '${CustSiteName}'
      Then  Verify edit functionality at site level
@@ -122,7 +122,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect temperature range
+ Scenario: ZqVerify conveyor inspect temperature range
 
      When  Go to conveyor inspect for site '${CustSiteName}'
      Then  Open temperature range dialog window
@@ -134,7 +134,8 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect
- Scenario: Verify conveyor inspect user assign object detection model panel
+ Scenario: ZpVerify conveyor inspect user assign object detection model panel
+
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      And   Open assign object detection model window
@@ -148,7 +149,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect conveyor status
+ Scenario: ZoVerify conveyor inspect conveyor status
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Verify conveyor status is selected by default
@@ -159,7 +160,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect trend analysis
+ Scenario: ZnVerify conveyor inspect trend analysis
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to trend analysis tab
@@ -169,7 +170,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect maintenance action
+ Scenario: ZmVerify conveyor inspect maintenance action
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
@@ -179,7 +180,7 @@ Launch the application through '/'
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Conveyor_Inspect_CI
-  Scenario: Verify conveyor inspect finding maintenance table
+  Scenario: ZVerify conveyor inspect finding maintenance table
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
@@ -189,7 +190,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect finding go fixed that
+ Scenario: ZkVerify conveyor inspect finding go fixed that
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
@@ -200,7 +201,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect finding save as PDF
+ Scenario: ZjVerify conveyor inspect finding save as PDF
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
@@ -210,7 +211,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect findings range
+ Scenario: ZiVerify conveyor inspect findings range
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
@@ -220,8 +221,10 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect findings observation
+ Scenario: ZhVerify conveyor inspect findings observation
 
+   Given User is at Login page
+   When  Login with '${UserName}' and '${Password}'
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
      And   Verify findings observations
@@ -230,7 +233,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect finding image functionality
+ Scenario: ZgVerify conveyor inspect finding image functionality
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
@@ -240,7 +243,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_CI
- Scenario: Verify conveyor inspect button got that fixed finding
+ Scenario: ZfVerify conveyor inspect button got that fixed finding
 
       When  Go to conveyor inspect for conveyor '${ConveyorName}'
       Then  Go to maintenance action tab
@@ -251,7 +254,7 @@ Launch the application through '/'
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Conveyor_Inspect_flir
- Scenario: Verify conveyor inspect for flir images
+ Scenario: ZeVerify conveyor inspect for flir images
 
      When  Go to conveyor inspect for conveyor '${ConveyorName}' for Corporate '${CustCorpName}' with site '${CustSiteName}' with fileNames '${CorpFileName}' '${SiteFileName}' '${ConvFileName}'
      And   Open upload files dialog window
@@ -270,7 +273,7 @@ Launch the application through '/'
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Conveyor_Inspect
-  Scenario: Verify conveyor inspect for RGB single image
+  Scenario: ZdVerify conveyor inspect for RGB single image
 
       When  Go to conveyor inspect for conveyor '${ConveyorName}'
       And   Open upload files dialog window
@@ -289,7 +292,7 @@ Launch the application through '/'
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Conveyor_Inspect
-  Scenario: Verify conveyor inspect for RGB double images
+  Scenario: ZcVerify conveyor inspect for RGB double images
 
       When  Go to conveyor inspect for conveyor '${ConveyorName}'
       And   Open upload files dialog window
@@ -309,7 +312,7 @@ Launch the application through '/'
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Conveyor_Inspect
-  Scenario: Verify conveyor inspect for IR single image
+  Scenario: ZbVerify conveyor inspect for IR single image
 
       When  Go to conveyor inspect for conveyor '${ConveyorName}'
       And   Open upload files dialog window
@@ -328,7 +331,7 @@ Launch the application through '/'
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Conveyor_Inspect
-  Scenario: Verify conveyor inspect for IR double images
+  Scenario: ZaVerify conveyor inspect for IR double images
 
       When  Go to conveyor inspect for conveyor '${ConveyorName}'
       And   Open upload files dialog window

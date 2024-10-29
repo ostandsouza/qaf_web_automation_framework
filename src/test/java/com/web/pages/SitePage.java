@@ -219,6 +219,7 @@ public class SitePage  extends BasePage {
 //    }
     public void subscribeSite(String siteName) {
         waitForElementVisible(subscribePinIcon, 10000, 500);
+        SyncUtil.waitFor(7000);
         subscribePinIcon.click();
         setImplicitWait(20000, TimeUnit.MILLISECONDS);
         waitForElementToDisplay(subscribedPinIcon);
@@ -230,6 +231,7 @@ public class SitePage  extends BasePage {
         btSearchinput.type(siteName, "site Search");
         waitForElementVisible(subscribedPinIcon, 50000, 500);
         subscribedPinIcon.click();
+        SyncUtil.waitFor(8000);
         waitForElementToDisplay(subscribePinIcon);
         Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed", "subscription is removed");
     }

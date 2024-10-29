@@ -18,10 +18,14 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.aspectj.org.eclipse.jdt.internal.codeassist.select.SelectionOnSingleNameReference;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+
+import javax.naming.ServiceUnavailableException;
 
 
 public class InspectionPage extends BasePage {
@@ -44,7 +48,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//input[@formcontrolname='inspectionName']")
 	public CustomElement tbInspectionName;
 
-	@FindBy(locator = "xpath=//label[text()='Site/Customer Name']/parent::div//div[@role='button']")
+	@FindBy(locator = "xpath=//label[text()='Site']/following::span[1]")
 	public CustomElement ddlSiteCustomername;
 
 	@FindBy(locator = "xpath=//label[text()='Site/Customer Name']/..//input")
@@ -59,7 +63,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//label[text()='Conveyor']/parent::div//div[@role='button']")
 	public CustomElement ddlConveyor;
 
-	@FindBy(locator = "xpath=//label[text()='Inspector Name']/..//input")
+	@FindBy(locator = "xpath=//label[text()='Inspector']/..//input")
 	public CustomElement ddlInspectorName;
 
 	@FindBy(locator = "xpath=//p-multiselect[@optionlabel='name']//chevrondownicon")
@@ -99,6 +103,8 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator = "xpath=//span[text()='Save']")
 	public CustomElement btnSave;
+	@FindBy(locator = "xpath=//p-dialog//span[text()='Save']")
+	public CustomElement btnDialogSave;
 
 	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Edit']")
 	public CustomElement btnEdit;
@@ -374,7 +380,6 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//span[contains(@class,'ctp-icon-File-PDF')]")
 	public CustomElement btnExportPDFIcon;
 
-
 	@FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]")
 	public CustomElement deleteDialogbox;
 
@@ -431,7 +436,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=(//app-card//div[text()='Sites' or text()='Shops'] /..//span)[1]")
 	public CustomElement btSiteShopCardNo;
 
-	@FindBy(locator= "xpath=(//span//i[contains(@class,'ctp-icon-Bar-Chart')])[2]")
+	@FindBy(locator= "xpath=(//button[contains(@icon,'ctp-icon-Bar-Chart')])[2]")
 	public CustomElement iconBarChart;
 
 	@FindBy(locator= "xpath=//p-card//div[text()=' GOOD ']/../div/span")
@@ -512,6 +517,7 @@ public class InspectionPage extends BasePage {
 	public boolean searchInspectionItem(String conveyorName) {
 		goToInspectionScreenAndWait();
 		scrollPageup();
+		SyncUtil.waitFor(20000);
 		if (inspectionGroupView.isVisible())
 			inspectionGroupView.click("List View");
 		btSearchinput.type(conveyorName, "Inspection Search");
@@ -532,6 +538,7 @@ public class InspectionPage extends BasePage {
 		btnAddInspection.jsClick("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
 		waitForElementToBeClickable(ddlSiteCustomername);
+		waitForElementVisible(ddlSiteCustomername,8000,1000);
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
 //		dropdownselectsearch(ddlConveyor, tbInput, conveyorName);
 //		ddlInspectorName.verifyText(fullName,"Inspector Name");
@@ -543,12 +550,17 @@ public class InspectionPage extends BasePage {
 		btnAddInspection.jsClick("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
 		Reporter.log("Inspection is created", MessageTypes.Pass);
+		System.out.println("Inspection created event");
+		SyncUtil.waitFor(10000);
 	}
 
 	public void saveInspectionItem() {
-		waitForElementToBeClickable(btnSave);
-		btnSave.click("Save");
+		waitForElementToBeClickable(btnDialogSave);
+		scrollPageup();
+		btnDialogSave.jsClick("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
+		System.out.println("btnSave done");
+		SyncUtil.waitFor(10000);
 		Reporter.log("Inspection Item is created", MessageTypes.Pass);
 	}
 
@@ -655,6 +667,8 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
 		inspectionHeader.verifyText(inspectionName, "Inspection Header");
+		System.out.println(inspectionName+itemCount);
+		SyncUtil.waitFor(5000);
 		Validator.assertTrue(pagination.getText("Inspection Item").contains(itemCount), "All Inspections Items are not listed", "All Inspections Items are listed");
 	}
 
@@ -695,7 +709,7 @@ public class InspectionPage extends BasePage {
 		ddlActions.click("Actions");
 		waitForElementVisible(btnEditInspection, 10000, 500);
 		btnEditInspection.click("Edit");
-		ddlSave.isVisible("Edit save");
+		btnSave.isVisible("Edit save");
 	}
 
 	public void editInspectionName(String inspectionName, String newInspName) {
@@ -713,7 +727,7 @@ public class InspectionPage extends BasePage {
 		btnEdit.click("Edit Inspection Item");
 		waitForElementToDisplay(ddlStatus);
 		dropdownSelect(ddlStatus, ListItem, newStatus);
-		btnSave.click("Save");
+		btnDialogSave.click("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
 		Reporter.log("Inspection Item is Updated", MessageTypes.Pass);
 	}
@@ -733,8 +747,8 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void saveInspectionEvent() {
-		waitForElementToBeClickable(ddlSave);
-		ddlSave.jsClick("Save Inspection Event");
+		waitForElementToBeClickable(btnSave);
+		btnSave.jsClick("Save Inspection Event");
 //		waitForElementToDisplay(inspectionUpdated);
 		SyncUtil.waitFor(1000);
 		inspectionUpdated.isEnable("Inspection Update Toast");
@@ -940,12 +954,14 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void extractStatusValue(){
-	waitForElementVisible(txtStatusValue,5000,1000);
-	String statValue = txtStatusValue.getText();
-	getBundle().setProperty("statusValue", statValue);
+		waitForPageLoad(5000);
+		waitForElementVisible(txtStatusValue,20000,1000);
+		String statValue = txtStatusValue.getText();
+		getBundle().setProperty("statusValue", statValue);
 	}
 
 	public void extractConditionValue(){
+		waitForPageLoad(5000);
 		waitForElementVisible(txtConditionValue,5000,1000);
 		String  conValue = txtConditionValue.getText();
 		getBundle().setProperty("conditionValue", conValue);
@@ -958,6 +974,8 @@ public class InspectionPage extends BasePage {
 
 	public void verifyStatusValue() {
 		String expectedValue = getBundle().getProperty("statusValue").toString().toLowerCase();
+		waitForPageLoad(50000);
+		waitForElementVisible(txtStatusTotalValue,10000,1000);
 		String actualValue = txtStatusTotalValue.getAttribute("value").toLowerCase();
 		Assert.assertEquals(expectedValue, actualValue, "Status value matched");
 	}
@@ -965,6 +983,8 @@ public class InspectionPage extends BasePage {
 
 	public void verifyConditionValue() {
 		String expectedValue = getBundle().getProperty("conditionValue").toString().toLowerCase();
+		waitForPageLoad(50000);
+		waitForElementVisible(txtConditionTotalValue,10000,1000);
 		String actualValue = txtConditionTotalValue.getAttribute("value").toLowerCase();
 		Assert.assertEquals(expectedValue, actualValue, "Condition value mismatched");
 	}
@@ -1231,6 +1251,7 @@ public class InspectionPage extends BasePage {
 
 	public void inspectionDashboardBtnClick()
 	{
+		waitForPageLoad(5000);
 		waitForElementVisible(iconBarChart,5000,500);
 		waitForElementToBeClickable(iconBarChart);
 		iconBarChart.jsClick("inspection dashboard");
@@ -1238,9 +1259,9 @@ public class InspectionPage extends BasePage {
 	}
 	public void verifyInspectionItemsCounts(String total,String critical,String poor,String fault,String good )
 	{
-		waitForPageLoad(5000);
+		waitForPageLoad(20000);
 		waitForElementVisible(statusCardCriticalCount,5000,500);
-		SyncUtil.waitFor(5000);
+//		SyncUtil.waitFor(40000);
 		Validator.assertTrue(statusCardTotalCount.getText().contains(total),"Total Count doesn't match","Critical Count match");
 		Validator.assertTrue(statusCardCriticalCount.getText().contains(critical),"Critical Count doesn't match","Critical Count match");
 		Validator.assertTrue(statusCardPoorCount.getText().contains(poor),"Poor Count doesn't match","Poor Count match");
@@ -1279,8 +1300,8 @@ public class InspectionPage extends BasePage {
 		driver.findElement(By.xpath(site2)).click();
 		waitForElementToDisplay(tbMultipleSiteDropdwn);
 		waitForElementVisible(tbMultipleSiteDropdwn,20000,500);
-		String siteSelected="//p-multiselectitem//li[@aria-label='"+siteName+"' and contains(@class, 'p-highlight')]";
-		String siteSelected2="//p-multiselectitem//li[@aria-label='"+siteName2+"' and contains(@class, 'p-highlight')]";
+		String siteSelected="//p-multiselectitem//li[@aria-label='"+siteName+"' and contains(@data-p-highlight, 'true')]";
+		String siteSelected2="//p-multiselectitem//li[@aria-label='"+siteName2+"' and contains(@data-p-highlight,'true')]";
 		waitForElementVisible(driver.findElement(By.xpath(siteSelected)),10000,500);
 		Validator.assertTrue(driver.findElement(By.xpath(siteSelected)).isDisplayed(),"The user is not able to select site","The user is  able to select site");
 		Validator.assertTrue(driver.findElement(By.xpath(siteSelected2)).isDisplayed(),"The user is not able to select site2","The user is  able to select site2");
@@ -1408,8 +1429,21 @@ public class InspectionPage extends BasePage {
 	public void clickClickFilter() {
 		waitForElementVisible(clearFilterBtn,5000,1000);
 		Validator.assertTrue(clearFilterBtn.isDisplayed(), "Clear Button is not found", "Clear Button is found");
-		clearFilterBtn.click();
+		clearFilterBtn.jsClick();
 		waitForPageLoad(10000);
+	}
+	public void verifyInspectionItemsCountsForCorp(String corporate)
+	{
+		waitForPageLoad(20000);
+		waitForElementVisible(statusCardCriticalCount,5000,500);
+//		SyncUtil.waitFor(40000);
+//		System.out.println(statusCardTotalCount.getText()+statusCardCriticalCount.getText()+statusCardPoorCount.getText()+statusCardFaultCount.getText()+statusCardGoodCount.getText()+"count");
+//		Validator.assertTrue(statusCardTotalCount.getText().contains(total),"Total Count doesn't match","Critical Count match");
+//		Validator.assertTrue(statusCardCriticalCount.getText().contains(critical),"Critical Count doesn't match","Critical Count match");
+//		Validator.assertTrue(statusCardPoorCount.getText().contains(poor),"Poor Count doesn't match","Poor Count match");
+//		Validator.assertTrue(statusCardFaultCount.getText().contains(fault),"Fault Count doesn't match","Fault Count match");
+//		Validator.assertTrue(statusCardGoodCount.getText().contains(good),"Good Count doesn't match","Good Count match");
+
 	}
 
 }

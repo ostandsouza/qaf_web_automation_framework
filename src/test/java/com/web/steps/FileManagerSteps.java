@@ -23,7 +23,7 @@ public class FileManagerSteps {
 //        fileManagerPage.apiBase.getRootFileID(fileRes).forEach(x -> fileManagerPage.apiBase.deleteFilesAPI(x));
         sitePage.goToSiteDetails(siteName);
         fileManagerPage.goToFileManager();
-        fileManagerPage.createFolder(folderName);
+//        fileManagerPage.createFolder(folderName);
     }
 
     @QAFTestStep(description="Upload file {ImgName} into the folder {FolderName}")

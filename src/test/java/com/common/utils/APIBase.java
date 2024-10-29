@@ -637,7 +637,8 @@ public class APIBase {
         configureRestAssured();
         String baseUrl = commonPaths.get("monitoring_ms");
         restApiHelper.setBaseURI(baseUrl);
-        queryMaps.put("limit","200");
+        queryMaps.put("limit","100");
+        queryMaps.put("next","20");
         headersMap.put("user-token",accessToken);
         Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "monitoring_controller");
         restApiHelper.makeGetRequest(monitoringPaths.get("list"),queryMaps,headersMap);
@@ -686,6 +687,23 @@ public class APIBase {
         headersMap.put("user-token",accessToken);
         Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "conveyor_controller");
         restApiHelper.makeGetRequest(monitoringPaths.get("conveyor_count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        System.out.println(profileResponse+"profileResponse");
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$"); // This extracts the full JSON response into a Map
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getCordInspectCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("cordInspect_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "cordInspect_controller");
+        restApiHelper.makeGetRequest(monitoringPaths.get("count"),queryMaps,headersMap);
         Response profileResponse = restApiHelper.getResponse();
         System.out.println(profileResponse+"profileResponse");
         Map<String, Object> val = null;

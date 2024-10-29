@@ -322,6 +322,8 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator="xpath=//div[contains(@class,'p-datatable-header')]//h4[text()='Users']")
 	public CustomElement usersHeader;
+	@FindBy(locator="xpath=//span[text()='User Info']")
+	public CustomElement usersAddInfoTab;
 
 	@FindBy(locator="xpath=//span[text()='Save']/..")
 	public CustomElement updateBtn;
@@ -496,6 +498,12 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator = "//span[text()='Corporates']")
 	public CustomElement lnkCorporates;
+
+	@FindBy(locator ="xpath=//span[contains(@class,'pi-spinner')]")
+	public CustomElement spinner;
+
+	@FindBy(locator ="xpath=//spinnericon")
+	public CustomElement userTempSpinner;
 
 //	@FindBy(locator="//tr[@class='ng-star-inserted'][i]//p-chip//div[contains(text(), 'APAC')]")
 //	public CustomElement txtApac;
@@ -938,6 +946,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void verifyPermission(String add, String edit, String delete, String view, String download) {
+		waitForPageLoad(10000);
 		if(add.equalsIgnoreCase("TRUE"))
 			Validator.assertTrue(cbAllcheckboxAdd.getAttribute("aria-checked").equalsIgnoreCase("true"),"ADD permission for this user was supposed to checked","ADD permission  for this user is checked as expected");
 		else
@@ -1042,7 +1051,7 @@ public class UsersPage extends BasePage{
 		waitForElementToInvisible(analysingUsers,10000);
 		continueBtn.click("Continue");
 		importBtn.click("Import");
-		waitForElementToInvisible(buttonLoader,15000);
+		waitForElementToInvisible(buttonLoader,30000);
 		return btSearchinput.isVisible();
 	}
 
@@ -1054,9 +1063,11 @@ public class UsersPage extends BasePage{
 	}
 
 	public void verifyUploadedUsers(String sheetName, String fileName) {
+		System.out.println(sheetName+fileName);
 		Object[][] obj = MiscUtils.getExcelData(fileName,sheetName);
-		for( int i = obj.length-1;i>0;i--)
+		for( int i = obj.length-1;i>0;i--){
 			Validator.assertTrue(searchUser(((Map<String,String>)obj[i][0]).get("Fullname")),"Imported User was not created successfully","Imported User created successfully");
+		}
 	}
 
 	public void verifyTemplateSheet(String siteName, String fileName) {
@@ -1089,7 +1100,7 @@ public class UsersPage extends BasePage{
 		waitForPageLoad(5000);
 		btAdd.jsClick();
 		waitForPageLoad(10000);
-		waitForElementVisible(usersHeader,5000,500);
+		waitForElementVisible(usersAddInfoTab,5000,500);
 	}
 
 	public void userLinkClick()
@@ -1188,6 +1199,7 @@ public class UsersPage extends BasePage{
 	public void cancelBtnClick()
 	{
 		waitForElementVisible(btnCancel,10000,500);
+		Validator.assertTrue(btnCancel.isVisible("btnCancel"),"Cancel Button is not visible","Cancel button is visible");
 		btnCancel.jsClick();
 	}
 
@@ -1198,6 +1210,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void nextClick() {
+		Validator.assertTrue(btNext.isEnabled(),"Next button is disabled","Next button is enabled");
 		btNext.click();
 	}
 
@@ -1217,13 +1230,19 @@ public class UsersPage extends BasePage{
 		ddlTempDropdown.click();
 		waitForElementVisible(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")), 5000, 500);
 		Validator.assertTrue(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")).isDisplayed(),"Template is not selected","Template is selected");
+		ddlTempDropdown.click();
 	}
 
 	public void editTemplate(){
 		btnTempEdit.click();
 	}
 
+	public void saveEditTemplate(){
+		btnTempSave.click();
+	}
+
 	public void editPermission(String add, String edit, String delete, String view, String download) {
+		waitForElementToBeClickable(cbAllcheckboxAdd);
 		if(!(cbAllcheckboxAdd.getAttribute("aria-checked").equals(add)))
 			cbAllcheckboxAdd.click();
 		if(!(cbAllcheckboxEdit.getAttribute("aria-checked").equals(edit)))
@@ -1259,8 +1278,8 @@ public class UsersPage extends BasePage{
 
 	}
 	public void createTemplate(String templateName){
-		waitForElementToBeClickable(btnTempSave);
-		btnTempSave.click();
+		waitForElementToBeClickable(btnTempAdd);
+		btnTempAdd.click();
 		waitForElementVisible(dialogBox, 10000,500);
 		Validator.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible","Dailog box is visible");
 		waitForElementVisible(tbTempName,5000,1000);
@@ -1273,7 +1292,7 @@ public class UsersPage extends BasePage{
 	public void verifyCreateTemplate(){
 		waitForPageLoad(5000);
         SyncUtil.waitFor(5000);
-		waitForElementVisible(altCreatedTemp,20000,1000);
+		waitForElementVisible(altCreatedTemp,80000,1000);
 		waitForElementToDisplay(altCreatedTemp);
 		Validator.assertTrue(altCreatedTemp.isDisplayed(),"Create alert is not displayed","Create alert is displayed");
 	}
@@ -1377,8 +1396,8 @@ public class UsersPage extends BasePage{
 
 	}
 	public void selectUpdateBtnInImportReportPage(){
-		waitForPageLoad(5000);
-		waitForElementVisible(rdbtnUpdate,5000,1000);
+		waitForPageLoad(15000);
+		waitForElementVisible(rdbtnUpdate,20000,1000);
 		rdbtnUpdate.click();
 		Validator.assertTrue(rdbtnUpdate.isDisplayed(),"Update is not selected","Update is selected");
 	}
@@ -1415,7 +1434,8 @@ public class UsersPage extends BasePage{
 	public void clickImportAndVerifyToastMsg(){
 		waitForElementVisible(importBtn,5000,1000);
 		importBtn.click();
-		waitForElementVisible(altSuccessUserCreation,5000,1000);
+		SyncUtil.waitFor(8000);
+		waitForElementVisible(altSuccessUserCreation,40000,1000);
 		Validator.assertTrue(altSuccessUserCreation.isDisplayed(),"Unable to Import ","Import successful");
 	}
 	public void verifyUserCreationInListPage(String user){

@@ -4,11 +4,8 @@ import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
-import com.web.pages.ConveyorPage;
-
-import com.web.pages.CorporatePage;
-import com.web.pages.InspectionPage;
-import com.web.pages.UsersPage;
+import com.web.pages.*;
+import groovyjarjarantlr4.v4.codegen.model.Sync;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +18,7 @@ public class InspectionSteps {
 	UsersPage userPage=new UsersPage();
 	CorporatePage corporatePage=new CorporatePage();
 	ConveyorPage conveyorPage=new ConveyorPage();
+	CoverWearPage coverWearPage = new CoverWearPage();
 
 	@QAFTestStep(description="Select Inspection on the Navigation Pane")
 	public void selectInspectionOnTheNavigationPane(){
@@ -301,13 +299,13 @@ public class InspectionSteps {
 	@QAFTestStep(description="Extract inspection item status value for {Inspection}")
 	public void extractInspStatusValue(String inspection){
 		inspectionpage.waitForPageLoad(10000);
-		inspectionpage.searchInspectionItem(inspection);
+		coverWearPage.searchForItem(inspection);
 //		inspectionpage.clickOnViewBtn();
 		inspectionpage.extractStatusValue();
 	}
 
 	@QAFTestStep(description="Click on the view button")
-	public void clickOnViewButton(){
+	public void clickTheOnViewButton(){
 		inspectionpage.clickOnViewBtn();
 	}
 
@@ -319,7 +317,7 @@ public class InspectionSteps {
 	@QAFTestStep(description="Extract inspection item condition value for {Inspection}")
 	public void extractInspConditionValue(String inspection){
 		inspectionpage.waitForPageLoad(10000);
-		inspectionpage.searchInspectionItem(inspection);
+		coverWearPage.searchForItem(inspection);
 		inspectionpage.extractConditionValue();
 	}
 

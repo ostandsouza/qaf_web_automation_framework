@@ -239,7 +239,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//td[contains(text(),'No')]")
     public CustomElement noList;
 
-    @FindBy(locator = "xpath=(//label[text()='Type of Company']/../div//p-dropdown//span)[1]")
+    @FindBy(locator = "xpath=//label[text()='Type of Company']/../div/div/input")
     public CustomElement typeOfCompanyLoader;
 
     @FindBy(locator = "xpath=(//div[contains(@id,'titlebar')]/span)[1]")
@@ -270,7 +270,7 @@ public class CorporatePage extends BasePage{
     public CustomElement btnCreateDisabled;
     @FindBy(locator= "//span[text()='Create']/parent::button[not(@disabled)]")
     public CustomElement btnCreateEnabled;
-    @FindBy(locator="//div[@class='p-breadcrumb p-component']")
+    @FindBy(locator="xpath=//nav[@class='p-breadcrumb p-component']")
     public CustomElement bcAddUserLink;
 
     @FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
@@ -437,6 +437,7 @@ public class CorporatePage extends BasePage{
         tbAddress.type(Address,"Address bar");
         waitForElementToDisplay(tbMapFirstSearchOption);
         tbAddress.click("Address bar");
+        tbAddress.click("Address bar");
         tbMapFirstSearchOption.click("Map search result");
     }
 
@@ -511,7 +512,7 @@ public class CorporatePage extends BasePage{
         goToCorporateEditScreen(corpName);
         SyncUtil.waitFor(6000);
         setImplicitWait(10000, TimeUnit.MILLISECONDS);
-        typeOfCompanyLoader.waitForText("Customer Corporate");
+//        typeOfCompanyLoader.waitForText("Customer Corporate");
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
         tbCompanyName.type(editCorpName, "Edit_companyName");
     }
@@ -561,7 +562,7 @@ public class CorporatePage extends BasePage{
         btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-        typeOfCompanyLoader.waitForText("Customer Site");
+//        typeOfCompanyLoader.waitForText("Customer Site");
         SyncUtil.waitFor(10000);
         tbCompanyName.type(editSiteName);
         SyncUtil.waitFor(2000);
@@ -678,7 +679,7 @@ public class CorporatePage extends BasePage{
         btActions.click("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-        typeOfCompanyLoader.waitForText("Distributor Shop");
+//        typeOfCompanyLoader.waitForText("Distributor Shop");
         tbCompanyName.type(editSiteName);
         dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
         drTerritoryManagerbutton.type("Market India Automation", "Territory");

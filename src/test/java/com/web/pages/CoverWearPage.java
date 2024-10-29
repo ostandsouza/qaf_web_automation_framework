@@ -1041,6 +1041,7 @@ public class CoverWearPage extends BasePage{
 
     public void addNewMeasurement(String conveyorName, String siteName, String position, String topCoverThickness, String bottomCoverThickness, String positionDurometer, String topCoverCompound, String bottomCoverCompound) {
         cwAddNew.click("Add New Measurement");
+        SyncUtil.waitFor(5000);
         waitForElementToDisplay(cwSiteDropDown);
         dropdownSelectSearch(cwSiteDropDown, cwInput, siteName);
         dropdownSelectSearch(cwConveyorDropDown, cwInput, conveyorName);
@@ -1051,18 +1052,21 @@ public class CoverWearPage extends BasePage{
         cwCheckbox.isVisible("Position");
     }
 
-    public void editSpecifications(String topCoverThickness, String bottomCoverThickness, String topCoverCompound, String bottomCoverCompound, String positionDurometer){
-        cwEditSpec.click("Edit");
-        SyncUtil.waitFor(2000);
+    public void editSpecifications(String topCoverThickness, String bottomCoverThickness, String topCoverCompound, String bottomCoverCompound, String positionDurometer) {
+        waitForElementVisible(cwEditSpec, 10000, 500);
+        waitForElementToBeClickable(cwEditSpec);
+        cwEditSpec.jsClick("Edit");
+        SyncUtil.waitFor(20000);
         cwBeltWidth.sendKeys("600");
         cwBeltLength.sendKeys("400");
-        dropdownSelectSearch(cwTopCoverThickness, cwInput, topCoverThickness);
-        dropdownSelectSearch(cwBottomCoverThickness, cwInput, bottomCoverThickness);
+        SyncUtil.waitFor(3000);
+        dropdownSearch(cwTopCoverThickness, cwInput, topCoverThickness);
+        dropdownSearch(cwBottomCoverThickness, cwInput, bottomCoverThickness);
         cwSpecDurometer.sendKeys(positionDurometer, "Durometer");
-        dropdownSelectSearch(cwTopCoverCompound, cwInput, topCoverCompound);
-        dropdownSelectSearch(cwBottomCoverCompound, cwInput, bottomCoverCompound);
+        dropdownSearch(cwTopCoverCompound, cwInput, topCoverCompound);
+        dropdownSearch(cwBottomCoverCompound, cwInput, bottomCoverCompound);
         cwSave.click("Save Specs");
-        waitForElementToInvisible(cwSpecsLoader,15000);
+        waitForElementToInvisible(cwSpecsLoader, 15000);
     }
 
     public void addPosition(String segment, boolean top, String tons, String durameter){

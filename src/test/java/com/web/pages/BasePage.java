@@ -284,7 +284,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
     
     public void dropdownSelectSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
-		dropDownButton.click();
+		dropDownButton.jsClick();
         waitForElementToBeClickable(dropDownButton);
         SyncUtil.waitFor(100);
 		Search.type(itemstosearch);
@@ -335,5 +335,16 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 //                + "var source = arguments[0];\n" + "var destination = arguments[1];\n"
 //                + "simulateHTML5DragAndDrop(source,destination);", ElementFrom, ElementTo);
 //    }
-
+    public void dropdownSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
+        dropDownButton.click();
+        waitForElementToBeClickable(dropDownButton);
+        SyncUtil.waitFor(100);
+        Search.type(itemstosearch);
+        setImplicitWait(70000, TimeUnit.MILLISECONDS);
+        setImplicitWait(150000, TimeUnit.MILLISECONDS);
+        waitForPresenceOfElement(By.xpath("//span[text()='" + itemstosearch + "']"));
+        driver.findElement("//span[text()='" + itemstosearch + "']").click();
+        setImplicitWait(1000, TimeUnit.MILLISECONDS);
+        Reporter.log(itemstosearch + " is selected", MessageTypes.Pass);
+    }
 }

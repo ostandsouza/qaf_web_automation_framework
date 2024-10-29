@@ -71,8 +71,6 @@ Scenario: Verify back button
     Then  Navigate to Conveyor Bulk Upload
     And Verify upload back button functionality after uploading file with name '${File}'
 
-
-
 @CTCP-159
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression

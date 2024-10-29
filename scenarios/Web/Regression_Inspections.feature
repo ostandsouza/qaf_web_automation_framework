@@ -320,7 +320,7 @@ Scenario: Verify success message after saving inspection event
     Then  Verify the status changes '${EditStatus}' for '${ConveyorName}'
 
 
-@Regression32 @CTCP-2654
+@Regression32 @CTCP-26546
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -329,7 +329,7 @@ Scenario: Verify user is able to open the inspections from the corporate level
   And Click on corporates and open corperate '${Corporate}'
   Then Click on inspections and verify user is able to open inspections
 
-@Regression32 @CTCP-2657
+@Regression32 @CTCP-26576
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -342,14 +342,12 @@ Scenario: Verify user is able to see number of inspection items in condition
   And Click on inspection dashboard symbol and verify user is able to click on dashboard
   And Verify number of inpection items for '${Total}' '${Critical}' '${Poor}' '${Fault}' '${Good}'
 
-@Regression32 @CTCP-2670
+@Regression32 @CTCP-26706
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
 Scenario: Verify user is able select the multiple sites via drop down
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
     And Click on corporates and open corperate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -419,14 +417,15 @@ Scenario: Verify Export functionality under Inspection details screen.
     And Search for the InspectionItem '${ConveyorName}'
     Then Click on Export Button of InspectionItem and verify user is able to download pdf
 
-@Regression26 @CTCP-789
+  @Regression26 @CTCP-789
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Inspection_Navigation_Status
   Scenario: Verify inspection item status value after view button is clicked
 
     And   Navigate to inspection list screen and wait for data load
-    Then Extract inspection item status value for '${Inspection}'
+    When  Navigate to the inspection details screen for '${Inspection}'
+    Then Extract inspection item status value for '${Conveyor}'
     And Click on the view button
     Then Verify the inspection item status value
 
@@ -437,7 +436,8 @@ Scenario: Verify Export functionality under Inspection details screen.
   Scenario: Verify inspection item condition value after view button is clicked
 
     And   Navigate to inspection list screen and wait for data load
-    Then Extract inspection item condition value for '${Inspection}'
+    When  Navigate to the inspection details screen for '${Inspection}'
+    Then Extract inspection item condition value for '${Conveyor}'
     And Click on the view button
     Then Verify the inspection item condition value
 
@@ -458,6 +458,8 @@ Scenario: Verify uploaded image under inspection item
   @key:Inspection_AddEvent_SiteInspection
   Scenario: Verify Duplicate inspections under inspection list
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And   Navigate to inspection list screen and wait for data load
     And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
@@ -466,6 +468,9 @@ Scenario: Verify uploaded image under inspection item
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
     Then  Navigate to inspection list screen and wait for data load
     Then Verify duplicate inspection event for '${InspectionName}'
+    When  Delete inspection item '${InspectionName}' from inspection list
+    When  Delete inspection item '${InspectionName}' from inspection list
+    Then  Verify inspection item '${InspectionName}' is deleted from inspection list
 
 
 @Regression32 @CTCP-2655

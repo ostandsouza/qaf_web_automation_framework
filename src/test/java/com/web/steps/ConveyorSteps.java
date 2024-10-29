@@ -17,7 +17,6 @@ public class ConveyorSteps {
     CorporatePage corporatePage = new CorporatePage();
     CoverWearPage coverWearPage=new CoverWearPage();
     SitePage sitePage = new SitePage();
-
     UsersPage userpage = new UsersPage();
 
     @QAFTestStep(description="Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
@@ -205,6 +204,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Verify user is able see saved preference")
     public void verifySavedPreference() {
+        SyncUtil.waitFor(50000);
         Validator.assertTrue(conveyorPage.verifyFilters(), "All saved filters are not available in layout", "All filters were successfully verified");
     }
 
@@ -614,7 +614,7 @@ public class ConveyorSteps {
         conveyorPage.editConveyorTopCoverThickness(topCoverThickness);
     }
     @QAFTestStep(description="Add filter for header with {FilterName}")
-    public void editTheConveyorTopCoverThickess(String filterName){
+    public void addTheColumnFilters(String filterName){
         conveyorPage.addColumnFilters(filterName);
     }
     @QAFTestStep(description="Verify header field {Header} is present in unit {Unit}")
@@ -886,6 +886,10 @@ public class ConveyorSteps {
     public void verifyTheConveyorCardDetails() {
         conveyorPage.verifyConveyorCardDetails();
     }
-
+    @QAFTestStep(description = "Close the warning popup")
+    public void closeWarning(){
+        SyncUtil.waitFor(2000);
+        conveyorPage.closeDialog();
+    }
 
 }
