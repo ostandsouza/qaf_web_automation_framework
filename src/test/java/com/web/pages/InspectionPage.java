@@ -245,8 +245,8 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
 	public CustomElement noList;
 
-	@FindBy(locator = "xpath=//span[contains(@class,'ctp-icon-Save')]")
-	public CustomElement ddlSave;
+    @FindBy(locator = "xpath=//button//span[text()=\"Save\"]")
+    public CustomElement ddlSave;
 
 	@FindBy(locator = "xpath=//div[text()='Inspection updated.']")
 	public CustomElement inspectionUpdated;
@@ -254,14 +254,14 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[3]")
 	public CustomElement crInspections;
 
-	@FindBy(locator = "xpath=//span[text()='Inspection Event']")
-	public CustomElement inspectionEventHeader;
+    @FindBy(locator = "xpath=//p-panel[@header=\"Inspections\"]//span[text()='Inspections']")
+    public CustomElement inspectionEventHeader;
 
-	@FindBy(locator = "xpath=(//span[@class='clickable']/i[contains(@class,'ctp-icon-Inspection-Items-List')])[2]")
-	public CustomElement inspectionGroupView;
+    @FindBy(locator = "xpath=(//div//button//span[contains(@class,'ctp-icon-Technical-Data')])[2]")
+    public CustomElement inspectionGroupView;
 
-	@FindBy(locator = "xpath=(//span[@class='clickable']/i[contains(@class,'ctp-icon-Inspection-Reports-List')])[2]")
-	public CustomElement inspectionListView;
+    @FindBy(locator = "xpath=(//div//button//span[contains(@class,'ctp-icon-detail-report')])[2]")
+    public CustomElement inspectionListView;
 
 	@FindBy(locator = "xpath=//th/div[text()=' Name of Inspection ']")
 	public CustomElement nameOfInspectionCol;
@@ -398,8 +398,8 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
 	public CustomElement inspectionsBreadcrumb;
 
-	@FindBy(locator="xpath=//div[@role=\"alert\"]")
-	public CustomElement imageLoader;
+    @FindBy(locator = "xpath=//p-progressspinner//div[@role=\"progressbar\"]")
+    public CustomElement imageLoader;
 
 	@FindBy(locator="xpath=//app-image-viewer[@cssclassname=\"wrapper-image\"]")
 	public CustomElement uploadedImage;
@@ -1119,9 +1119,7 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(cbCheckbox);
 		int noOfCorporates = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
 		waitForPageLoad(5000);
-		boolean value= noOfCorporates>1;
-		System.out.println(value+"value");
-		Validator.assertTrue(value,"Dulpicate cant be created","Dulpicate can be created");
+		Assert.assertEquals(noOfCorporates, 1, "Number of corporates is not 1");
 	}
 
 	public void saveDulpicateInspectionItem() {

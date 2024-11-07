@@ -219,6 +219,7 @@ Scenario: ZdVerify closing of image viewer panel
 @key:Conveyor_createDetails
 Scenario: Verify the save and close button on remarks tab
 
+          And Close the warning popup
           And  Navigate to Add Conveyor screen
           When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
           And Click on remarks radio button and click on save and close
@@ -240,6 +241,7 @@ Scenario: ZbVerify the save as draft button on remarks tab
 @key:Conveyor_createDetails
 Scenario: Verify user is able to click the previous button
 
+          And Close the warning popup
           And  Navigate to Add Conveyor screen
           When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
           And Click on remarks radio button and click on previous button
@@ -718,8 +720,10 @@ Scenario: ZSelect table column as per column selection filter
 Scenario: Search conveyor in conveyor list
 
 
-
-    When  Navigate to conveyor list screen
+   Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    When  wait for conveyors to load
+    And Click on Clear filter Icon
     Then Look for the searchBar in the table and verify search icon and search placeholder is visible
     When Enter the text '${ConveyorName}' to search
     And Verify the matching result is displayed or No record found message should display
@@ -735,7 +739,7 @@ Scenario: Apply and remove 'Start With' filter
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
-    And Click on the filter icon and verify all fields '${StartsWithFilterType}' are visible
+    And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
     And Select '${StartsWithFilterType}' from filter dropdown and verify it is selected
     And Enter the text in the search text '${SearchText}' box and verify user is able to enter
     And Click on apply button and verify all results with entered text and filter '${StartsWithFilterType}' is visible in list and filter popup is closed
@@ -752,7 +756,7 @@ Scenario: Apply and remove 'Contains' filter
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
-    And Click on the filter icon and verify all fields '${ContainsFilterType}' are visible
+    And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
     And Select '${ContainsFilterType}' from filter dropdown and verify it is selected
     And Enter the text in the search text '${ContainsSearchText}' box and verify user is able to enter
     And Click on apply button and verify all results with entered text and filter '${ContainsFilterType}' is visible in list and filter popup is closed
@@ -768,7 +772,7 @@ Scenario: Apply and remove ' Equals' filter
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
-    And Click on the filter icon and verify all fields '${ContainsFilterType}' are visible
+    And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
     And Select '${EqualsFilterType}' from filter dropdown and verify it is selected
     And Enter the text in the search text '${EqualsSearchText}' box and verify user is able to enter
     And Click on apply button and verify all results with entered text and filter '${EqualsFilterType}' is visible in list and filter popup is closed
@@ -861,6 +865,7 @@ Scenario: Verify pagination functionality
 Scenario: Verify update functionality for Conveyor lite page
 
     When  Navigate to conveyor list screen
+    And Click on Clear filter Icon
     And Search for the conveyor '${ConveyorName}' and select the checkbox to edit and verify user is able to select checkbox
     Then Click on Action button and select edit option and verify user is navigated to conveyor detail page
     And Click on map to set position of head and verify prefilled value for lat and long is displayed

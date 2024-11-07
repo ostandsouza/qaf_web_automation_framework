@@ -275,7 +275,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator= "//span[text()='Create']/parent::button[not(@disabled)]")
     public CustomElement btnCreateEnabled;
 
-    @FindBy(locator="//div[@class='p-breadcrumb p-component']")
+    @FindBy(locator = "//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement bcAddUserLink;
 
     @FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
@@ -283,7 +283,7 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator="//img[@src='/assets/img/upload_default.png']")
     public CustomElement addCompanyDefaultImage;
-    @FindBy(locator="//div[@class='p-breadcrumb p-component']")
+    @FindBy(locator = "//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement bcAddCompanyLink;
 
     @FindBy(locator="xpath=(//span[text()='Corporates'])[2]")
@@ -310,8 +310,11 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "//button[contains(@aria-pressed, 'true') and @title='Toggle fullscreen view']")
     public CustomElement iconMaximized;
 
-    @FindBy(locator = "//li[@id='p-highlighted-option' and @aria-label=\"Distributor Corporate\"]")
+    @FindBy(locator = "//div[contains(text(),' Distributor Corporate ')]//p-radiobutton[@formcontrolname=\"companyType\"]")
     public CustomElement rdbDistributorCorporate;
+
+    @FindBy(locator = "//li[contains(@class,'p-highlight') and @aria-label=\"Customer Site\"]")
+    public CustomElement rdbCustomerSite;
 
     @FindBy(locator = "//div[contains(@class, 'pac-item')]")
     public CustomElement autoSuggest;
@@ -352,6 +355,7 @@ public class CorporatePage extends BasePage{
 //    public CustomElement siteCard ;
     @FindBy(locator = "//span[contains(@class,'p-panel-title') and text()='Sites']")
     public CustomElement sitesHeader ;
+
 
 
     public void goToAddCompany() {
@@ -512,19 +516,7 @@ public class CorporatePage extends BasePage{
         btEdit.click("Edit");
     }
 
-    public void editCorporateName(String corpName, String editCorpName) {
-        goToCorporate();
-        SyncUtil.waitFor(6000);
-        goToCorporateEditScreen(corpName);
-        SyncUtil.waitFor(8000);
-        setImplicitWait(20000, TimeUnit.MILLISECONDS);
-        waitForElementVisible(typeOfCompanyLoader, 10000, 500);
-//        typeOfCompanyLoader.waitForText("Customer Corporate");
-        Validator.assertTrue(typeOfCompanyLoader.getAttribute("value").equalsIgnoreCase("Customer Corporate"),"Company dropdown selection deosnt match","Company dropdown selection verification successful");
-        setImplicitWait(5000, TimeUnit.MILLISECONDS);
-        tbCompanyName.type(editCorpName, "Edit_companyName");
-        SyncUtil.waitFor(4000);
-    }
+
 
     public void corporateImgUpload(String fileName) {
         imageIcon.jsClick("Img_Icon");
@@ -559,6 +551,17 @@ public class CorporatePage extends BasePage{
     }
 
 
+    public void editCorporateName(String corpName, String editCorpName) {
+        goToCorporate();
+        SyncUtil.waitFor(6000);
+        goToCorporateEditScreen(corpName);
+        SyncUtil.waitFor(6000);
+        setImplicitWait(10000, TimeUnit.MILLISECONDS);
+        typeOfCompanyLoader.waitForText("Customer Corporate");
+        setImplicitWait(5000, TimeUnit.MILLISECONDS);
+        tbCompanyName.type(editCorpName, "Edit_companyName");
+    }
+
     public void editCustomerSite(String siteName, String editSiteName, String corp) {
         SyncUtil.waitFor(6000);
         goToCorporateDetails(corp);
@@ -571,16 +574,17 @@ public class CorporatePage extends BasePage{
         btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-//        typeOfCompanyLoader.waitForText("Customer Site");
-        Validator.assertTrue(typeOfCompanyLoader.getAttribute("value").equalsIgnoreCase("Customer Site"),"Company dropdown selection deosnt match","Company dropdown selection verification successful");
+        typeOfCompanyLoader.waitForText("Customer Site");
         SyncUtil.waitFor(10000);
         tbCompanyName.type(editSiteName);
-        SyncUtil.waitFor(2000);
+        SyncUtil.waitFor(4000);
         scrollPageup();
         dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
         drTerritoryManagerbutton.type("Territory India Automation", "Territory");
         scrollPageDown();
     }
+
+
 
     public void deleteSiteOrShop(String custCorp, String custSite) {
         goToDistCorporateDetails(custCorp);
@@ -689,10 +693,9 @@ public class CorporatePage extends BasePage{
         btActions.click("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-        Validator.assertTrue(typeOfCompanyLoader.getAttribute("value").equalsIgnoreCase("Distributor Shop"),"Company dropdown selection deosnt match","Company dropdown selection verification successful");
-//        typeOfCompanyLoader.waitForText("Distributor Shop");
+        typeOfCompanyLoader.waitForText("Distributor Shop");
         tbCompanyName.type(editSiteName);
-        dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
+        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
         drTerritoryManagerbutton.type("Market India Automation", "Territory");
     }
 

@@ -28,6 +28,7 @@ public class SiteSteps  {
     public void verifySiteCardDisplay () {
         sitePage.clickSiteCard();
     }
+
     @QAFTestStep(description = "Click on the site card and verify it navigates to site list screen")
     public void verifyNavigationToSiteListPage () {
         sitePage.verifySiteListPageNaviagtion();
@@ -41,6 +42,7 @@ public class SiteSteps  {
         sitePage.searchSite(site2);
         sitePage.subscribeSite(site2);
     }
+
     @QAFTestStep(description = "subscribe one site {Site1} for the user")
     public void searchAndSubscribeSite (String site1) {
         SyncUtil.waitFor(20000);
@@ -67,13 +69,13 @@ public class SiteSteps  {
         sitePage.bellIconClick();
         sitePage.verifyNotificationSiteOrder(value1,value2);
     }
+
     @QAFTestStep(description = "Unsubscribe the sites {Site1} and {Site2}")
     public void unsubscribeSites(String site1,String site2)
     {
         SyncUtil.waitFor(10000);
 //        sitePage.searchSite(site1);
         sitePage.unSubscribe(site1);
-//        SyncUtil.waitFor(10000);
 //        sitePage.searchSite(site2);
         sitePage.unSubscribe(site2);
 
@@ -125,6 +127,7 @@ public class SiteSteps  {
         sitePage.viewMoreBtnClick();
         sitePage.verifyNotificationListPageNavigation();
     }
+
     @QAFTestStep(description = "Verify the result after providing notification list value as conveyor/site {notificationFilter}")
     public void verifyNotificationListAfterSelectingListFilter(String filter)
     {
@@ -220,5 +223,4 @@ public class SiteSteps  {
         sitePage.bellIconClick();
         sitePage.markAllAsReadLnkClick();
     }
-
 }

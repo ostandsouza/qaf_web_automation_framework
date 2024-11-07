@@ -28,7 +28,6 @@ public class LoginPage extends BasePage {
 
     @FindBy(locator = "xpath=//span[text()='Login']")
     public CustomElement btnLogIn;
-
 	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"oldPassword\"]//div//input")
 	public CustomElement tbOldPassword;
 	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"password\"]//div//input")
@@ -41,6 +40,7 @@ public class LoginPage extends BasePage {
 
 	public boolean verifyUserOnLoginPage()  {
 		waitForElementToDisplay(tbUserName);
+		tbUserName.isVisible(10000,"UserName");
 		return tbUserName.isDisplayed();
 	}
 
@@ -64,8 +64,10 @@ public class LoginPage extends BasePage {
 		 * 
 		 * driver = ChromeDriver(desiredcapabilities);
 		 */
+		System.out.println("entered login to app");
 
-		tbUserName.type(userName, "UserName"); 
+		waitForElementVisible(tbUserName,20000,500);
+		tbUserName.type(userName, "UserName");
         tbPassword.type(password, "Password");
         btnLogIn.click("LOGIN");
 		waitForElementToInvisible(btnLogIn,15000);

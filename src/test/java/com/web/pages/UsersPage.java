@@ -356,7 +356,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="//label[normalize-space()='Upload Image']")
 	public CustomElement btUploadImg;
 
-	@FindBy(locator="//button[@class='p-element p-button custom-button-cancel p-component ng-star-inserted']//span[normalize-space()='Cancel']")
+	@FindBy(locator="//button[@class='p-element p-button p-component ng-star-inserted']//span[normalize-space()='Cancel']")
 	public CustomElement btCancelImg;
 
 	@FindBy(locator="//div[contains(@class,'cropped-frame')]")

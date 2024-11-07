@@ -118,9 +118,9 @@ public class FileManagerSteps {
 
     @QAFTestStep(description="Add Folder by the name {FolderName} under conveyor {conveyorName}")
     public void createNewFolderConveyor(String folderName, String conveyorName){
-        String conveyorID = fileManagerPage.apiBase.getConveyorsAPI(conveyorName);
-        Response fileRes= fileManagerPage.apiBase.getFilesListAPI("conveyor",conveyorID);
-        fileManagerPage.apiBase.getRootFileID(fileRes).forEach(x -> fileManagerPage.apiBase.deleteFilesAPI(x));
+//        String conveyorID = fileManagerPage.apiBase.getConveyorsAPI(conveyorName);
+//        Response fileRes= fileManagerPage.apiBase.getFilesListAPI("conveyor",conveyorID);
+//        fileManagerPage.apiBase.getRootFileID(fileRes).forEach(x -> fileManagerPage.apiBase.deleteFilesAPI(x));
         conveyorPage.goToConveyorDetailScreen(conveyorName);
         fileManagerPage.goToFileManager();
         fileManagerPage.createFolder(folderName);

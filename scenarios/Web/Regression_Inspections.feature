@@ -463,10 +463,31 @@ Scenario: Verify breadcrumb of inspection
 Scenario: Verify Export functionality under Inspection details screen.
 
 
-
     And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
     And Search for the InspectionItem '${ConveyorName}'
     Then Click on Export Button of InspectionItem and verify user is able to download pdf
+
+@Regression26 @CTCP-789
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_Navigation_Status
+  Scenario: Verify inspection item status value after view button is clicked
+
+    And   Navigate to inspection list screen and wait for data load
+    Then Extract inspection item status value for '${Inspection}'
+    And Click on the view button
+    Then Verify the inspection item status value
+
+  @Regression26 @CTCP-790
+  @dataFile:resources/data/TestData.xls
+  @sheetName:Regression
+  @key:Inspection_Navigation_Status
+  Scenario: Verify inspection item condition value after view button is clicked
+
+    And   Navigate to inspection list screen and wait for data load
+    Then Extract inspection item condition value for '${Inspection}'
+    And Click on the view button
+    Then Verify the inspection item condition value
 
 @Regression29 @CTCP-791
 @dataFile:resources/data/TestData.xls

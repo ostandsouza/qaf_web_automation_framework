@@ -3,9 +3,10 @@ package com.web.steps;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.web.pages.BeltFormsPge;
 import com.web.pages.LoginPage;
+import com.web.pages.UsersPage;
 
 public class BeltFormsSteps {
-	
+
 	LoginPage loginPage = new LoginPage();
 	BeltFormsPge beltpage = new BeltFormsPge();
 	

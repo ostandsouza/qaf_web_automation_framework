@@ -17,7 +17,6 @@ import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.lang.Integer.parseInt;
 
 public class SitePage  extends BasePage {
-    InspectionPage inspectionpage = new InspectionPage();
 
     @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
     public CustomElement home;
@@ -172,7 +171,7 @@ public class SitePage  extends BasePage {
     public void goToSiteDetails(String siteName) {
         searchSite(siteName);
         waitForElementToDisplay(btCheckbox);
-        btViewIcon.click("Site Details");
+        btViewIcon.jsClick("Site Details");
         waitForElementToDisplay(siteHeader);
         siteHeader.isEnable("File Manager");
     }
@@ -230,9 +229,8 @@ public class SitePage  extends BasePage {
         waitForElementVisible(subscribedPinIcon, 10000, 500);
         subscribedPinIcon.click();
         waitForElementToDisplay(subscribePinIcon);
-        Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed", "subscription is removed");
-
-    }
+        Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed",
+                "subscription is removed");}
 
     public void searchSiteAndNavigate(String siteName) {
         searchSite(siteName);

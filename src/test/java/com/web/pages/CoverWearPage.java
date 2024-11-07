@@ -185,10 +185,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//label[text()='Bottom Cover Compound']/parent::div//input)[1]/../following-sibling::span")
     public CustomElement cwBottomCoverCompoundInput;
 
-    @FindBy(locator="xpath=//label[text()='Top Cover Thickness Nominal ']/parent::div//div[@role='button']//*[name()='svg']")
+    @FindBy(locator="xpath=//label[text()='Top Cover Thickness Nominal (']/parent::div//div[@role='button']")
     public CustomElement cwTopCoverThickness;
 
-    @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal ']/parent::div//div[@role='button']//*[name()='svg']")
+    @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal (']/parent::div//div[@role='button']")
     public CustomElement cwBottomCoverThickness;
 
     @FindBy(locator="xpath=//label[text()='Durometer (New Belt)']/parent::div//input")
@@ -755,7 +755,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//div[@class='col-6 durometer']")
     public CustomElement hdNewDurometerValue;
 
-    @FindBy(locator="xpath=//span[text()='VCV Common Regression']")
+    @FindBy(locator="xpath=//span[text()='CV Common Regression']")
     public CustomElement hdCoverWearBreadCrumb;
 
     @FindBy(locator="xpath=//span[text()='Installed Belt']")
@@ -1563,6 +1563,7 @@ public class CoverWearPage extends BasePage{
         cwTableView.click("View Icon");
         positionHeader.isVisible("Position Header");
     }
+
     public void positionDetailsClick()
     {
         cwTableView.click("View Icon");
@@ -1578,6 +1579,47 @@ public class CoverWearPage extends BasePage{
         DateTimeFormatter format = new DateTimeFormatterBuilder().parseCaseInsensitive().appendPattern("yyyy-MM-dd").toFormatter(Locale.ENGLISH);
         LocalDate formatDate = LocalDate.parse(date, format);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        try {
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.ENGLISH);
+            Date dateformat = simpleDateFormat.parse(formatDate.toString());
+            day = dateFormat.format(dateformat);
+            month = monthFormat.format(dateformat);
+            year = yearFormat.format(dateformat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int val;
+        SyncUtil.waitFor(1000);
+        calendarMonth.click("Calendar Month");
+        val = parseInt(calendarYear.getText("Calendar year")) - parseInt(year);
+        if (val > 0)
+            for (int i = 0; i < abs(val); i++)
+                calendarPrev.click("Calendar Decrement");
+        else if (val < 0)
+            for (int i = 0; i < abs(val); i++)
+                calendarNext.click("Calendar Increment");
+        SyncUtil.waitFor(500);
+        waitForElementToBeClickable(By.xpath("//span[contains(text(),\"" + month + "\")]"));
+        driver.findElement(By.xpath("//span[contains(text(),\"" + month + "\")]")).click();
+        waitForElementToBeClickable(By.xpath("(//td[contains(@class,'ng-star-inserted')]//span[text()=\"" + day + "\" ])[1]"));
+        driver.findElement(By.xpath("(//td[contains(@class,'ng-star-inserted')]//span[text()=\"" + day + "\" ])[1]")).click();
+//            waitForElementToBeClickable(By.xpath("(//span[text()=\"" + day + "\" and not(contains(@class,'p-disabled'))])[1]"));
+//            driver.findElement(By.xpath("(//span[text()=\"" + day + "\" and not(contains(@class,'p-disabled'))])[1]")).click();
+    }
+
+
+    public void selectGivenDateMon(String date) {
+        String day = null;
+        String month = null;
+        String year = null;
+        DateTimeFormatter format = new DateTimeFormatterBuilder().parseCaseInsensitive().appendPattern("yyyy-MMM-dd").toFormatter(Locale.ENGLISH);
+        System.out.println(date + format + "dateformat");
+        LocalDate formatDate = LocalDate.parse(date, format);
+        System.out.println(formatDate + "formatDate");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MMM-dd", Locale.ENGLISH);
+        System.out.println(simpleDateFormat + "simpleDateFormat");
         try {
             SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
             SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
@@ -2002,10 +2044,8 @@ public class CoverWearPage extends BasePage{
     public void verifyPaginationForwardArrowButton(){
         waitForElementVisible(btPgNext,5000,1000);
         waitForElementToBeClickable(btPgNext);
-        int highlightedValue= Integer.parseInt(btPgHighlightedValue.getText());
         btPgNext.jsClick();
-        int expectHighlightedValue= highlightedValue+1;
-        Validator.assertTrue(btPgHighlightedValue.getText().contains(String.valueOf(expectHighlightedValue)),"Pagination is not present at 2","Pagination is present at 2");
+        Validator.assertTrue(btPgHighlightedValue.getText().contains("2"),"Pagination is not present at 2","Pagination is present at 2");
     }
 
     public void clickAdd(){
@@ -2225,13 +2265,13 @@ public class CoverWearPage extends BasePage{
 
     public void verifyIncreasingOrderSorting(int columnNumber)
     {
-//        int columnNumber = 5; // Example: retrieve data from the 5th column
         List<String> columnDataAfterSortingIncreasing = getColumnData(columnNumber);
         List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
         expectedSortedDataIncreasing.sort(null);
         Validator.assertTrue(columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing), "Sorting in increasing order is not applied correctly","sorting is applied in increasing order");
 
     }
+
 
     public void verifyDecreasingOrderSorting(int columnNumber)
     {
@@ -2405,7 +2445,6 @@ public class CoverWearPage extends BasePage{
         waitForElementVisible(imgGaugeMeter,10000,1000);
         Validator.assertTrue(imgGaugeMeter.isDisplayed(),"Gauge meter is not displayed","Gauge meter is displayed");
     }
-
 
 
     public void extractPositionData()

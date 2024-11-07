@@ -48,7 +48,8 @@ Scenario: Verify the device name associated conveyor test field in the table
 @key:BeltMonitoring_Navigation
 Scenario: AVerify the update and delete options in the Actions dropdown
 
-
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     Then  Navigate to Belt Monitoring List screen
     And Verify user is able to find the action button and is enabled by default
     And Search for the MonitoringDevice '${Device1}' and select the checkbox
@@ -106,14 +107,15 @@ Scenario: Verify the breadcrumb of the page
 @Regression8 @CTCP-483 @CTCP-484
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:BeltMonitoring_AddDevice
+@key:BeltMonitoring_AddDeviceNonMandatory
 Scenario: Verify the Device Name, Device Type
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     Then  Navigate to Belt Monitoring List screen
     And Navigate to Add monitoring device screen
-    And Add the device with mandatory field '${DeviceName}' '${DeviceType}' and '${InstallationDate}'
+    And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
+
 
 @Regression8 @CTCP-485 @CTCP-486 @CTCP-487 @CTCP-488 @CTCP-482
 @dataFile:resources/data/TestData.xls
@@ -188,7 +190,8 @@ Scenario: Verify the installation date text field
 @key:BeltMonitoring_AddDeviceNonMandatory
 Scenario: AVerify the mandatory elements
 
-
+ Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     Then  Navigate to Belt Monitoring List screen
     And Navigate to Add monitoring device screen
     And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
@@ -240,8 +243,8 @@ Scenario:  Verify user is able to add the monitoring device on territory manager
 @Regression8 @CTCP-3671
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:BeltMonitoring_AddDeviceTerritory_MarketUser
-Scenario: Verify user is bale to add the monitoring device on market manager
+@key:BeltMonitoring_AddDevice_MarketUser
+Scenario: Verify user is able to add the monitoring device on market manager
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'

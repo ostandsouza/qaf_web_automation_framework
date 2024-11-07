@@ -41,15 +41,18 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.searchMonitoringDevice(device);
         conveyorPage.selectConveyor();
     }
+
     @QAFTestStep(description = "Verify user is able to find the action button and is enabled by default")
     public void verifyActionBtn() {
         monitoringDevicePage.verifyActionBtnIsEnabled();
     }
+
     @QAFTestStep(description = "Click on action dropdown and verify edit and delete options are visible")
     public void clickActionBtnAndVerifyDropDown() {
         conveyorPage.actionBtnClick();
         monitoringDevicePage.verifyActionDropdownForSingleSelection();
     }
+
     @QAFTestStep(description = "Click on action dropdown and verify only delete option is visible")
     public void clickActionBtnAndVerifyDropDownForMultiple() {
         conveyorPage.actionBtnClick();
@@ -61,26 +64,29 @@ public class BeltMonitoringSteps {
         conveyorPage.searchColumnName(columnName);
         monitoringDevicePage.verifySearchedColumnNames();
     }
+
     @QAFTestStep(description = "Click on action dropdown and verify Scan QR is visible")
     public void clickActionBtnAndVerifyScanQR() {
         conveyorPage.actionBtnClick();
         monitoringDevicePage.verifyScanQRIsVisibleAndClick();
     }
+
     @QAFTestStep(description = "Click on the scanner symbol and verify fields {DeviceName}")
     public void clickScanQRAndVerifyFields(String deviceName) {
         conveyorPage.actionBtnClick();
         monitoringDevicePage.clickScanQRAndVerify(deviceName);
     }
+
     @QAFTestStep(description = "Click on the download button and verify QR is downloaded with the proper name {Device1}")
     public void verifyQRDownloadFunctionality(String deviceName) {
         monitoringDevicePage.downloadButtonClick();
         SyncUtil.waitFor(5000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(deviceName+"_QR_Code.png"),"QR Code was not found","QR Code was downloaded successfully");
     }
+
     @QAFTestStep(description ="Navigate to Add monitoring device screen")
     public void navigateToAddMonitoringDevice()
     {
-
         monitoringDevicePage.goToAddMonitoringDevice();
     }
 
@@ -88,6 +94,7 @@ public class BeltMonitoringSteps {
     public void verifyBreadCrumbOfMonitoringDevice() {
         monitoringDevicePage.verifyMonitoringDeviceBreadCrumb();
     }
+
     @QAFTestStep(description = "Add the device details with mandatory field {DeviceName} {DeviceType} {InstallationDate} and {ConveyorName}")
     public void addDeviceDetailsWithMan(String deviceName,String deviceType,String date,String conveyorName)
     {
@@ -98,15 +105,19 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.navigateToAddLocation();
         monitoringDevicePage.selectConveyor(conveyorName);
     }
+
     @QAFTestStep(description = "Add the non-mandatory fields for device with {Brand} {SerialNumber} {RemoteConnection} {CommisioningDate} and {BeltConveyorSaves} and {FirmWareVersion}")
-    public void addNonMandatoryDeviceDetails(String brand,String serialNo,String remoteConnection,String comminsionDate,String beltConveyorSave,String firmwareVersion)
-    {monitoringDevicePage.addDeviceDetailsWithNonMandatoryFields(brand,serialNo,remoteConnection,comminsionDate,beltConveyorSave,firmwareVersion);}
+    public void addNonMandatoryDeviceDetails(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion) {
+        conveyorPage.previousBtnClick();
+        monitoringDevicePage.addDeviceDetailsWithNonMandatoryFields(brand, serialNo, remoteConnection, comminsionDate, beltConveyorSave, firmwareVersion);
+    }
 
     @QAFTestStep(description = "Verify save button is enabled")
     public void verifySaveBtnEnabledForMandFields()
     {
         monitoringDevicePage.verifySaveBtnIsEnabled();
     }
+
     @QAFTestStep(description = "Click on Cancel button and verify warning popup is displayed and click on yes button")
     public void clickCancelBtnAndVerifyPopup()
     {
@@ -114,6 +125,7 @@ public class BeltMonitoringSteps {
         SyncUtil.waitFor(10000);
         monitoringDevicePage.verifyWarningPopupAndExit();
     }
+
     @QAFTestStep(description = "Verify user is navigated to monitoring device listing page")
     public void verifyMonitoringDeviceListPageNavigation()
     {
@@ -121,6 +133,7 @@ public class BeltMonitoringSteps {
         Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"),"User is navigated to monitoring device list page",
                 "User is navigated to monitoring device list page");
     }
+
     @QAFTestStep(description = "Click on save button and verify device {DeviceName} is created successfully")
     public void verifyMonitoringDeviceCreation(String deviceName)
     {
@@ -131,11 +144,13 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.searchMonitoringDevice(deviceName);
 
     }
+
     @QAFTestStep(description = "Click on next button and verify navigation to Add Location page")
     public void clickNxtBtnAndVerifyNavigation()
     {
         monitoringDevicePage.clickOnNextBtn();
     }
+
     @QAFTestStep(description = "Click on the status dropdown and verify the dropdown values")
     public void statusDropDownClickAndVerify()
     {monitoringDevicePage.clickAndVerifyStatusDropDown();}
@@ -153,6 +168,7 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.clickAndVerifyMonthChart();
         monitoringDevicePage.verifyYearBtnFunctionality();
     }
+
     @QAFTestStep(description = "Click on the year in calender and verify year chart is displayed and next and verify previous buttons functionality")
     public void clickOnYearAndVerifyYearChart()
     {
@@ -172,11 +188,13 @@ public class BeltMonitoringSteps {
     {
         monitoringDevicePage.verifyBeltConveyorSave();
     }
+
     @QAFTestStep(description = "Verify create and cancel buttons are displayed")
     public void verifyCreateCancelBtnDisplay()
     {
         monitoringDevicePage.verifyCreateAndCancelBtn();
     }
+
     @QAFTestStep(description = "Verify create and cancel button colors")
     public void verifyBtnStyles()
     {monitoringDevicePage.verifyBtnColors();}
@@ -222,11 +240,13 @@ public class BeltMonitoringSteps {
     {
         monitoringDevicePage.verifyDeviceTypeInViewMode(deviceType);
     }
+
     @QAFTestStep(description = "Verify user is able to see the column names selected by default")
     public void verifyDefaultCbxSelectedInMonitoringDeviceFilter()
     {
         conveyorPage.verifyCheckedColumnNames();
     }
+
     @QAFTestStep(description = "Select only two columns and verify the selected columns are visible in the table")
     public void selectTwoColumnsAndVerifyTable()
     {

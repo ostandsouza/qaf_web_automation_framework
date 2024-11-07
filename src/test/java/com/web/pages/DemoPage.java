@@ -594,6 +594,7 @@ import com.qmetry.qaf.automation.util.Reporter;
 	public LoginPage logoutUser() {
 		waitForElementVisible(profileIcon, 15000,500);
 		waitForPageLoad(4000);
+		SyncUtil.waitFor(5000);
 		profileIcon.click();
 		logoutOption.click();
 		return new LoginPage();
