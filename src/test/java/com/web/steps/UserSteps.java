@@ -384,13 +384,13 @@ public class UserSteps extends BasePage {
 	}
 
 	@QAFTestStep(description="Add permission rights with {Add} {Edit} {Delete} {View} {Download} and create template {templateName}")
-	public void addPermissionTemplate(String add, String edit, String delete, String view, String download, String templateName) {
+	public void addThePermissionTemplate(String add, String edit, String delete, String view, String download, String templateName) {
 		userpage.setPermission(add, edit, delete, view, download);
 		userpage.createTemplate(templateName);
 	}
 
 	@QAFTestStep(description="Add territory as {Region} and create template {templateName}")
-	public void addTerritoryTemplate(String region, String templateName) {
+	public void addTheTerritoryTemplate(String region, String templateName) {
 		userpage.setTerritory(region);
 		userpage.createTemplate(templateName);
 	}
@@ -403,9 +403,9 @@ public class UserSteps extends BasePage {
 
 	@QAFTestStep(description="Edit template {templateName} for permission rights with {EditAdd} {EditEdit} {EditDelete} {EditView} {EditDownload} and verify")
 	public void editTemplatePermission(String templateName, String add, String edit, String delete, String view, String download) {
-		userpage.editTemplate();
+//		userpage.editTemplate();
 		userpage.editPermission(add, edit, delete, view, download);
-		userpage.editTemplate();
+		userpage.saveEditTemplate();
 		userpage.verifyUpdateTemplate();
 		userpage.selectCustomTemplate(templateName);
 		userpage.verifyPermission(add, edit, delete, view, download);

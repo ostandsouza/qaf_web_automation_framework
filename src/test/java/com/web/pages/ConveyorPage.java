@@ -72,19 +72,19 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//input[@id='firstname1']")
     public CustomElement tbConveyorname;
 
-    @FindBy(locator = "xpath=//label[text()='Site']/following::span[1]")
+    @FindBy(locator= "xpath=//label[text()='Site']/following::span[1]")
     public CustomElement drSitedropdown;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
     public CustomElement tbSitedropdown;
 
-    @FindBy(locator = "xpath=//div[contains(@class,'p-multiselect-filter-container')]//input[contains(@class,'p-multiselect-filter')]")
+    @FindBy(locator= "xpath=//div[contains(@class,'p-multiselect-filter-container')]//input[contains(@class,'p-multiselect-filter')]")
     public CustomElement tbMultipleSiteDropdown;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
     public CustomElement tbAssociatedSitedropdown;
 
-    @FindBy(locator = "xpath=(//p-dropdown[@datakey='companyId']/div/div)[1]")
+    @FindBy(locator= "xpath=//p-dropdown[@datakey='companyId']/div/div")
     public CustomElement drDistShopdropdown;
 
     @FindBy(locator = "xpath=//span[@class='p-menuitem-text ng-star-inserted'][text()='Home']")
@@ -93,25 +93,25 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//span[@class='p-button-icon pi pi-refresh'])[2]")
     public CustomElement btRefresh;
 
-    @FindBy(locator = "xpath=(//td//img)[1]")
+    @FindBy(locator="xpath=(//td//img)[1]")
     public CustomElement crImg;
 
-    @FindBy(locator = "xpath=(//td//i)[1]")
+    @FindBy(locator="xpath=(//td//i)[1]")
     public CustomElement crPin;
 
-    @FindBy(locator = "xpath=(//td[4])[1]")
+    @FindBy(locator="xpath=(//td[4])[1]")
     public CustomElement crName;
 
-    @FindBy(locator = "xpath=(//td[5])[1]")
+    @FindBy(locator="xpath=(//td[5])[1]")
     public CustomElement crSite;
 
-    @FindBy(locator = "xpath=//input[@placeholder='Search']")
+    @FindBy(locator="xpath=//input[@placeholder='Search']")
     public CustomElement btSearchinput;
 
     @FindBy(locator = "xpath=//span[text()='Create']")
     public CustomElement btCreate;
 
-    @FindBy(locator = "xpath=//button[contains(@class,'p-button-loading')]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
     public CustomElement buttonLoader;
 
     @FindBy(locator = "xpath=(//div[text()='Minuteman Calc.']/..//div[contains(@class,'text-area')]/span)[2]")
@@ -237,7 +237,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Carcass')]/..//input)[2]")
     public CustomElement crCarcass;
 
-    @FindBy(locator = "xpath=(//label[contains(text(),'Width')]/..//input)[1]")
+    @FindBy(locator = "xpath=(//label[contains(text(),'Width')]/..//input)[2]")
     public CustomElement crWidth;
 
     @FindBy(locator = "xpath=//input[@value='Rating']")
@@ -510,26 +510,26 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
     public CustomElement pagination;
 
-    @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
+    @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement crCheckbox;
 
-    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement crActions;
 
-    @FindBy(locator = "xpath=//li//span[text()='Edit']")
+    @FindBy(locator="xpath=//li//span[text()='Edit']")
     public CustomElement crEdit;
 
-    @FindBy(locator = "xpath=//span[text()='Delete']")
+    @FindBy(locator="xpath=//span[text()='Delete']")
     public CustomElement crDelete;
 
-    @FindBy(locator = "xpath=//span[text()='Export CSV']")
+    @FindBy(locator="xpath=//span[text()='Export CSV']")
     public CustomElement crExportCSV;
 
-    @FindBy(locator = "xpath=//span[text()='Export PDF']")
+    @FindBy(locator="xpath=//span[text()='Export PDF']")
     public CustomElement crExportPDF;
 
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
     public CustomElement crviewicon;
 
     @FindBy(locator = "xpath=//span[text()='Save']")
@@ -598,26 +598,26 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//div[contains(text(),'Total Records:')]")
     public CustomElement crTotalImportedRecords;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyors are successfully imported']")
+    @FindBy(locator="xpath=//div[text()='Conveyors are successfully imported']")
     public CustomElement crImportSuccessful;
 
-    @FindBy(locator = "xpath=//button[@icon='pi pi-pencil']//span[2]")
+    @FindBy(locator="xpath=//button[@icon='pi pi-pencil']//span[2]")
     public CustomElement editConveyor;
 
     @FindBy(locator = "xpath=//div[text()='Conveyor Updated Successfully.']")
     public CustomElement crUpdateMsg;
 
-    @FindBy(locator = "xpath=(//div[contains(@class,'p-panel-header')]/span)[1]")
+    @FindBy(locator="xpath=(//div[contains(@class,'p-panel-header')]/span)[1]")
     public CustomElement conveyorTitle;
 
-    @FindBy(locator = "xpath=//div[text()='The file has been analysed. Please review the results below before performing the import.']")
+    @FindBy(locator="xpath=//div[text()='The file has been analysed. Please review the results below before performing the import.']")
     public CustomElement fileAnalysedMsg;
 
-    @FindBy(locator = "xpath=//div[@class='records-bulk']/div[contains(@class,'font-bold')]")
+    @FindBy(locator="xpath=//div[@class='records-bulk']/div[contains(@class,'font-bold')]")
 //    @FindBy(locator="xpath=//div[contains(@class,'p-text-bol')]")
     public CustomElement fileUploadSummary;
 
-    @FindBy(locator = "xpath=//p-inputswitch")
+    @FindBy(locator="xpath=//p-inputswitch")
     public CustomElement enableWeatherSync;
 
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
@@ -762,29 +762,26 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Cancel']")
     public CustomElement btnCancel;
 
-    @FindBy(locator = "//img[@src='/assets/img/upload_default.png']")
+    @FindBy(locator="//img[@src='/assets/img/upload_default.png']")
     public CustomElement addDefaultImgSrc;
 
-    @FindBy(locator = "//div[@role='dialog']")
+    @FindBy(locator="//div[@role='dialog']")
     public CustomElement imageViewerPanel;
 
-//    @FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component' and contains(., \"Conveyors\")]")
-//    public CustomElement conveyorBreadCrumb;
-
-    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"  and contains(., \"Conveyors\")]")
+    @FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component' and contains(., \"Conveyors\")]")
     public CustomElement conveyorBreadCrumb;
 
     @FindBy(locator = "xpath=(//label[@for='firstname2 '])[1]")
     public CustomElement txtGPSHead;
 
     @FindBy(locator = "xpath=(//div[@class='p-inputgroup']//input[@formcontrolname='longitude'])[1]")
-    public CustomElement tbHeadLong;
+    public CustomElement tbHeadLong ;
 
     @FindBy(locator = "xpath=(//div[@class=\"p-inputgroup\"]//input[@formcontrolname=\"latitude\"]\n)[1]")
     public CustomElement tbHeadLat;
 
     @FindBy(locator = "xpath=(//div[@class='p-inputgroup']//input[@formcontrolname='longitude'])[2]")
-    public CustomElement tbTailLong;
+    public CustomElement tbTailLong ;
 
     @FindBy(locator = "xpath=(//div[@class=\"p-inputgroup\"]//input[@formcontrolname=\"latitude\"]\n)[2]")
     public CustomElement tbTailLat;
@@ -803,7 +800,7 @@ public class ConveyorPage extends BasePage{
 //    @FindBy(locator = "//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
 //    public CustomElement mapArea;
 
-    @FindBy(locator = "//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
+    @FindBy(locator ="//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
     public CustomElement mapLocation;
     @FindBy(locator = "//div[@title='Head']")
     public CustomElement headMapLocation;
@@ -848,48 +845,48 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "//div[contains(@class, \"p-toast-detail\") and contains(text(), \"Failed to create conveyor: Conveyor already exists\")]")
     public CustomElement conveyorErrorMsg;
 
-    @FindBy(locator = "xpath=//div[contains(@class,'p-panel-header') and .//span[contains(text(),'Cust Automation Common India')]]")
+    @FindBy(locator="xpath=//div[contains(@class,'p-panel-header') and .//span[contains(text(),'Cust Automation Common India')]]")
     public CustomElement siteHeader;
 
     @FindBy(locator = "//button[@icon=\"pi pi-angle-left\"]")
     public CustomElement btnPrevious;
 
-    @FindBy(locator = "xpath=//li[@class='topbar-item scale']")
+    @FindBy(locator="xpath=//li[@class='topbar-item scale']")
     public CustomElement unitIcon;
 
-    @FindBy(locator = "xpath=//h6[text()='Metric']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
+    @FindBy(locator="xpath=//h6[text()='Metric']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
     public CustomElement cbMetricUnit;
 
-    @FindBy(locator = "xpath=//h6[text()='Imperial']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
+    @FindBy(locator="xpath=//h6[text()='Imperial']/../..//div[@class='p-radiobutton p-component p-radiobutton-checked']")
     public CustomElement cbImperialUnit;
 
-    @FindBy(locator = "xpath=//h6[text()='Imperial']")
+    @FindBy(locator="xpath=//h6[text()='Imperial']")
     public CustomElement btImperialUnit;
 
-    @FindBy(locator = "//label[@for='firstname2']/../div//app-master-data-picker/../span")
+    @FindBy(locator="//label[@for='firstname2']/../div//app-master-data-picker/../span")
     public CustomElement unitIconConveyor;
 
     @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
     public CustomElement paginationEntry;
 
-    @FindBy(locator = "xpath=//span[text()='Update']")
+    @FindBy(locator="xpath=//span[text()='Update']")
     public CustomElement btUpdate;
 
-    @FindBy(locator = "xpath=//label[text()='Corporate Name']/../div[1]//input[contains(@class,'p-filled')]")
+    @FindBy(locator="xpath=//label[text()='Corporate Name']/../div[1]//input[contains(@class,'p-filled')]")
     public CustomElement tbCorporateName;
 
-    @FindBy(locator = "//label[text()='Corporate Name']/../div[1]//input[contains(@class,\"p-filled\")]")
+    @FindBy(locator="//label[text()='Corporate Name']/../div[1]//input[contains(@class,\"p-filled\")]")
     public CustomElement tbFilledCorporateName;
-    @FindBy(locator = "//label[text()='Site']/../div[2]//input[contains(@class,\"p-filled\")]")
+    @FindBy(locator="//label[text()='Site']/../div[2]//input[contains(@class,\"p-filled\")]")
     public CustomElement tbFilledSite;
-    @FindBy(locator = "//label[text()='Distributor']/../div[1]//input[contains(@class,\"p-filled\")]")
+    @FindBy(locator="//label[text()='Distributor']/../div[1]//input[contains(@class,\"p-filled\")]")
     public CustomElement tbFilledDistributor;
-    @FindBy(locator = "//label[text()='Location']/../div[2]//input[contains(@class,\"p-filled\")]")
+    @FindBy(locator="//label[text()='Location']/../div[2]//input[contains(@class,\"p-filled\")]")
     public CustomElement tbFilledLocation;
 
-    @FindBy(locator = "//label[text()='Territory']/../div[1]//input[contains(@class,\"p-filled\")]")
+    @FindBy(locator="//label[text()='Territory']/../div[1]//input[contains(@class,\"p-filled\")]")
     public CustomElement tbFilledTerritory;
-    @FindBy(locator = "//label[text()='Territory Manager']/../div[2]//input[contains(@class,\"p-filled\")]")
+    @FindBy(locator="//label[text()='Territory Manager']/../div[2]//input[contains(@class,\"p-filled\")]")
     public CustomElement tbFilledTerritoryManager;
 
     @FindBy(locator = "//div[@role=\"dialog\"]//div[text()=\"Head\"]")
@@ -920,28 +917,28 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator = "//div[contains(@class,\"p-multiselect-header\")]//div[@role=\"checkbox\"]")
     public CustomElement cbAllColumnNames;
-    @FindBy(locator = "//th[@id=\"beltInfo\"]")
+    @FindBy(locator = "//th[@id=\"install-col\"]")
     public CustomElement thInstalledBelt;
-    @FindBy(locator = "//th[@id=\"beltManufacturer.name\"]")
+    @FindBy(locator = "//th[@id=\"beltManufacturer_name\"]")
     public CustomElement thbeltManufacturer;
-    @FindBy(locator = "//th[@id=\"beltContraction.name\"]")
+    @FindBy(locator = "//th[@id=\"beltContraction_name\"]")
     public CustomElement thBeltContraction;
 
-    @FindBy(locator = "//th[@id=\"beltWidth\"]")
+    @FindBy(locator = "//th[@id=\"beltWidth-col\"]")
     public CustomElement thBeltWidth;
 
-    @FindBy(locator = "//th[@id=\"belt-col\"]")
+    @FindBy(locator = "//th[@id=\"beltSpeed-col\"]")
     public CustomElement thBeltSpeed;
 
     @FindBy(locator = "//div[contains(@class,\"p-multiselect-panel\")]")
     public CustomElement columnFilterPanel;
 
-    @FindBy(locator = "//th//div[text()=\" Name \"]")
+    @FindBy(locator = "//th[@id=\"name-col\"]")
     public CustomElement thNameColumn;
-    @FindBy(locator = "//th//div[text()=\" Name \"]//p-columnfilter")
+    @FindBy(locator = "//p-columnfilter[@field='name']")
     public CustomElement nameFilterIcon;
 
-    @FindBy(locator = "//th[@id=\"name\"]//p-columnfilter//button[contains(@class,\"p-column-filter-menu-button-active\")]")
+    @FindBy(locator = "//p-columnfilter[@field='name']//button[contains(@class,\"p-column-filter-menu-button-active\")]")
     public CustomElement nameFilterIconHighlighted;
     @FindBy(locator = "//div[contains(@class,\"p-column-filter-operator-dropdown\")]//span[text()=\"Match All\"]")
     public CustomElement ddlMatchAll;
@@ -956,11 +953,11 @@ public class ConveyorPage extends BasePage{
     public CustomElement ddlDateIs;
     @FindBy(locator = "//div[contains(@class,'p-column-filter-matchmode-dropdown')]//li[@aria-selected='true']//span[text()='Starts with']")
     public CustomElement ddlStartsWithSelected;
-    @FindBy(locator = "//p-columnfilterformelement//input[contains(@class,\"p-inputtext\")]")
+    @FindBy(locator = "//p-columnfilterformelement//input[@pinputtext]")
     public CustomElement filterSearchTextBox;
 
     @FindBy(locator = "//input[contains(@class,'p-filled')]")
-    public CustomElement filterSearchTextBoxFilled;
+    public CustomElement filterSearchTextBoxFilled ;
     @FindBy(locator = "//button//span[text()=\"Add Rule\"]")
     public CustomElement addRuleLink;
 
@@ -981,15 +978,15 @@ public class ConveyorPage extends BasePage{
     public CustomElement tbPrefilledBeltSpeed;
     @FindBy(locator = "xpath=//div//label[text()='Material Density ']/..//div//input[contains(@class,\"p-filled\") and @disabled]")
     public CustomElement tbMaterialDensity;
-    @FindBy(locator = "xpath=//div//label[text()='Belt Manufacturer']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div[contains(@class,\"p-disabled\")]")
+    @FindBy(locator = "xpath=//div//label[text()='Belt Manufacturer']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
     public CustomElement tbPrefilledBeltManufacturer;
-    @FindBy(locator = "xpath=//div//label[text()='Belt Construction']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div[contains(@class,\"p-disabled\")]")
+    @FindBy(locator = "xpath=//div//label[text()='Belt Construction']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
     public CustomElement tbPrefilledBeltConstruction;
-    @FindBy(locator = "xpath=//div//label[text()='Description']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div[contains(@class,\"p-disabled\")]")
+    @FindBy(locator = "xpath=//div//label[text()='Description']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
     public CustomElement tbPrefilledDescription;
     @FindBy(locator = "xpath=//div//label[text()='Bulk Density']/..//div//input[contains(@class,\"p-filled\") and @disabled]")
     public CustomElement tbPrefilledBulkDensity;
-    @FindBy(locator = "xpath=(//div//label[text()='Conveying Length']/..//div//input[contains(@class,\"p-filled\") and @disabled])[1]")
+    @FindBy(locator = "xpath=//div//label[text()='Conveying Length']/..//div//input[contains(@class,\"p-filled\") and @disabled]")
     public CustomElement tbPrefilledConveyingLength;
     @FindBy(locator = "xpath=//div//label[text()='Lift']/..//div//input[contains(@class,\"p-filled\") and @disabled]")
     public CustomElement tbPrefilledLift;
@@ -1000,82 +997,82 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//div[@class=\"p-tabview-nav-container\"]//span[text()='Conveyor']")
     public CustomElement tabConveyor;
 
-    @FindBy(locator = "xpath=//label[text()='Corporate Name']/../div[2]//input[contains(@class,'p-filled')]")
+    @FindBy(locator="xpath=//label[text()='Corporate Name']/../div[2]//input[contains(@class,'p-filled')]")
     public CustomElement tbSite;
 
-    @FindBy(locator = "xpath=//label[contains(text(),'Width')]/../div/span")
+    @FindBy(locator="xpath=//label[contains(text(),'Width')]/../div/span")
     public CustomElement crWidthUnit;
 
-    @FindBy(locator = "xpath=//label[text()='Tons per Hour Peak']/../div/span")
+    @FindBy(locator="xpath=//label[text()='Tons per Hour Peak']/../div/span")
     public CustomElement crTonsPerHrUnit;
 
-    @FindBy(locator = "xpath=//button[text()='Back']")
+    @FindBy(locator="xpath=//button[text()='Back']")
     public CustomElement btnBack;
 
-    @FindBy(locator = "xpath=//div[text()=' Common Regression Layout ']//p-radiobutton")
+    @FindBy(locator="xpath=//div[text()=' Common Regression Layout ']//p-radiobutton")
     public CustomElement rdBtnCommonLayout;
 
-    @FindBy(locator = "xpath=//button[text()='Save Set Preference']")
+    @FindBy(locator="xpath=//button[text()='Save Set Preference']")
     public CustomElement btnSaveSetPreference;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-multiselect-filter')]/../../button")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-multiselect-filter')]/../../button")
     public CustomElement tbMultipleSiteDropdownCancel;
 
-    @FindBy(locator = "xpath=//th[@id='topCoverThickness']//div")
+    @FindBy(locator= "xpath=//th[@id='topCoverThickness']//div")
     public CustomElement thTopCoverThickness;
 
     @FindBy(locator = "xpath=//div/span[text()='Conveyors']")
     public CustomElement conveyorHeader;
 
-    @FindBy(locator = "xpath=//th[@id='img-column']")
+    @FindBy(locator="xpath=//th[@id='img-column']")
     public CustomElement hdImage;
 
-    @FindBy(locator = "xpath=//th[@id='name-col']")
+    @FindBy(locator="xpath=//th[@id='name-col']")
     public CustomElement hdName;
 
-    @FindBy(locator = "xpath=//th[@id='site-col']")
+    @FindBy(locator="xpath=//th[@id='site-col']")
     public CustomElement hdSite;
 
-    @FindBy(locator = "xpath=//th[@id='lastmodified-col']")
+    @FindBy(locator="xpath=//th[@id='lastmodified-col']")
     public CustomElement hdLastMod;
 
-    @FindBy(locator = "xpath=//th[@id='install-col']")
+    @FindBy(locator="xpath=//th[@id='install-col']")
     public CustomElement hdInstallBelt;
 
-    @FindBy(locator = "xpath=//th[@psortablecolumn='beltLife']")
+    @FindBy(locator="xpath=//th[@psortablecolumn='beltLife']")
     public CustomElement hdRemainingLife;
 
-    @FindBy(locator = "xpath=//th[@psortablecolumn='percentage']")
+    @FindBy(locator="xpath=//th[@psortablecolumn='percentage']")
     public CustomElement hdRemainingCover;
 
-    @FindBy(locator = "xpath=//th[@id='inspec-col']")
+    @FindBy(locator="xpath=//th[@id='inspec-col']")
     public CustomElement hdInspectionItem;
 
-    @FindBy(locator = "xpath=//th[@id='more-col']")
+    @FindBy(locator="xpath=//th[@id='more-col']")
     public CustomElement hdMore;
 
-    @FindBy(locator = "xpath=//tbody//td[4]")
+    @FindBy(locator="xpath=//tbody//td[4]")
     public CustomElement hdNameValue;
 
-    @FindBy(locator = "xpath=//tbody//td[5]")
+    @FindBy(locator="xpath=//tbody//td[5]")
     public CustomElement hdSiteValue;
 
-    @FindBy(locator = "xpath=//tbody//td[6]")
+    @FindBy(locator="xpath=//tbody//td[6]")
     public CustomElement hdLastModValue;
 
-    @FindBy(locator = "xpath=//tbody//td[7]")
+    @FindBy(locator="xpath=//tbody//td[7]")
     public CustomElement hdInstallBeltValue;
 
-    @FindBy(locator = "xpath=//tbody//td[8]")
+    @FindBy(locator="xpath=//tbody//td[8]")
     public CustomElement hdRemainingLifeValue;
 
-    @FindBy(locator = "xpath=//tbody//td[9]")
+    @FindBy(locator="xpath=//tbody//td[9]")
     public CustomElement hdRemainingCoverValue;
 
-    @FindBy(locator = "xpath=//anglelefticon")
+    @FindBy(locator="xpath=//anglelefticon")
     public CustomElement btPgPrev;
 
-    @FindBy(locator="xpath=//button[@class='p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted p-highlight']")
+    @FindBy(locator="xpath=//p-paginator//button[contains(@class,'p-highlight')]")
     public CustomElement btPgHighlightedValue;
 
     @FindBy(locator = "xpath=//span[text()='Bulk Import']")
@@ -1100,16 +1097,16 @@ public class ConveyorPage extends BasePage{
     public CustomElement drpDownDistributor;
     @FindBy(locator = "xpath=//div[contains(@class,'p-dropdown-panel')]")
     public CustomElement drpDownDistPopUp;
-    @FindBy(locator = "xpath=//div[contains(@class,'p-dropdown-filter-container')]//input")
+    @FindBy(locator="xpath=//div[contains(@class,'p-dropdown-filter-container')]//input")
     public CustomElement drpDownSearchInput;
-    @FindBy(locator = "xpath=//label[text()='Yes']/../p-radiobutton")
+    @FindBy(locator="xpath=//label[text()='Yes']/../p-radiobutton")
     public CustomElement rdBtnYes;
 
-    @FindBy(locator = "xpath=//span[text()='Select']")
+    @FindBy(locator="xpath=//span[text()='Select']")
     public CustomElement btSelectInput;
-    @FindBy(locator = "xpath=//p-multiselectitem")
+    @FindBy(locator="xpath=//p-multiselectitem")
     public CustomElement multiSelectSite;
-    @FindBy(locator = "xpath=//span[text()='Download Template']")
+    @FindBy(locator="xpath=//span[text()='Download Template']")
     public CustomElement btDownloadTemp;
 
     @FindBy(locator="xpath=//th[@id='site-col'][1]")
@@ -1217,7 +1214,7 @@ public class ConveyorPage extends BasePage{
         goToConveyorListScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(230); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(180); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
@@ -1532,13 +1529,14 @@ public class ConveyorPage extends BasePage{
         waitForElementToDisplay(tbConveyorname);
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
         tbConveyorname.type(newConveyorName);
-        crUpdate.click();
+        crSave.click();
         waitForElementToDisplay(crUpdateMsg);
     }
 
     public void editConveyor(String oldConveyorName, String newConveyorName) {
         btSearchinput.type(oldConveyorName);
         crviewicon.click();
+        waitForElementVisible(conveyorNameLoader,10000,1000);
         conveyorNameLoader.waitForPartialText(oldConveyorName, 15000);
         waitForElementToDisplay(conveyorTitle);
         waitForElementToBeClickable(editConveyor);
@@ -1624,6 +1622,7 @@ public class ConveyorPage extends BasePage{
         SyncUtil.waitFor(10000);
         filterDropdown.click();
         waitForElementToDisplay(tbMultipleSiteDropdown);
+        waitForElementVisible(tbMultipleSiteDropdown,10000,1000);
         tbMultipleSiteDropdown.type(corporates);
         waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'" + corporates + "')]"));
         driver.findElement("//li/div[contains(text(),'" + corporates + "')]").click();
@@ -1912,7 +1911,7 @@ public class ConveyorPage extends BasePage{
 
     public void clickRemarkAndSave()
     {
-        crRemarksTab.click("Remarxks Tab");
+        crRemarksTab.click("Remarks Tab");
         waitForElementVisible(crAdditionalRemarks,5000,1000);
         btCreate.click("Create Click");
         waitForElementToInvisible(buttonLoader,40000);
@@ -2131,7 +2130,6 @@ public class ConveyorPage extends BasePage{
         waitForElementToDisplay(tbConveyorname);
         crInstalledBeltTab.click("Installed Belt Tab");
         waitForPageLoad(5000);
-        SyncUtil.waitFor(6000);
         Validator.assertTrue(crBeltConstruction.isVisible(),"Installed Belt page is not loaded","Installed Belt page is loaded");
         waitForElementToBeClickable(crWidth);
         crWidth.clear();
@@ -2243,7 +2241,7 @@ public class ConveyorPage extends BasePage{
     public void addNewLayoutBtnClick()
     {
         waitForElementVisible(addNewLayout,10000,500);
-        addNewLayout.click("Add New Layout");
+        addNewLayout.jsClick("Add New Layout");
     }
 
     public void verifySetLayoutName(String layoutName)
@@ -2308,8 +2306,8 @@ public class ConveyorPage extends BasePage{
 
     public void verifyHeaderDataFieldUnit(String field,String unit)
     {
-        waitForElementVisible(driver.findElement("//th[@id='"+field+"']//div"),10000,1000);
-        Validator.assertTrue(driver.findElement("//th[@id='"+field+"']//div").getText().contains(unit),"unit is not selected Correctly","unit is selected Correctly");
+        waitForElementVisible(driver.findElement("//div[contains(text(),'"+field+"')]"),10000,1000);
+        Validator.assertTrue(driver.findElement("//div[normalize-space(.)='"+field+" ("+unit+")']").getText().contains(unit),"unit is not selected Correctly","unit is selected Correctly");
     }
 
     public void editConveyorTopCoverThickness(String topCoverThickness)
@@ -2327,6 +2325,8 @@ public class ConveyorPage extends BasePage{
         waitForElementToBeClickable(crUpdate);
         crUpdate.click();
         waitForElementToDisplay(crUpdateMsg);
+        Validator.assertTrue(crUpdateMsg.isVisible(),"Update Message is not visible","Update Message is visible");
+        System.out.println("save clicked");
         SyncUtil.waitFor(3000);
         scrollPageup();
     }
@@ -2849,7 +2849,7 @@ public class ConveyorPage extends BasePage{
        Validator.assertTrue(hdNameValue.getText().contains(name),"Name is not visible","Name is visible");
        Validator.assertTrue(hdSiteValue.getText().contains(site),"Site is not visible","Site is visible");
        Validator.assertTrue(hdLastModValue.getText().contains(lastModified),"Last Modified is not visible","Last Modified is visible");
-//       Validator.assertTrue(hdInstallBeltValue.getText().contains(installBelt),"Installed Belt is not visible","Installed Belt is visible");
+       Validator.assertTrue(hdInstallBeltValue.getText().contains(installBelt),"Installed Belt is not visible","Installed Belt is visible");
        Validator.assertTrue(hdRemainingLifeValue.getText().contains(remainingTime),"Remaining Life by Time is not visible","Remaining Life by Time is visible");
        Validator.assertTrue(hdRemainingCoverValue.getText().contains(remainingPer),"Remaining Cover % is not visible","Remaining Cover % is visible");
     }
@@ -2857,8 +2857,10 @@ public class ConveyorPage extends BasePage{
     public void verifyPaginationBackwardArrowButton(){
         waitForElementVisible(btPgPrev,5000,1000);
         waitForElementToBeClickable(btPgPrev);
+        int highlightedValue= Integer.parseInt(btPgHighlightedValue.getText());
         btPgPrev.jsClick();
-        Validator.assertTrue(btPgHighlightedValue.getText().contains("1"),"Pagination is not present at 2","Pagination is present at 2");
+        int expectHighlightedValue= highlightedValue-1;
+        Validator.assertTrue(btPgHighlightedValue.getText().contains(String.valueOf(expectHighlightedValue)),"Pagination is not present at 1","Pagination is present at 1");
     }
     public void verifyPaginationFormat(){
         waitForElementVisible(pagination,5000,1000);
@@ -3003,8 +3005,8 @@ public class ConveyorPage extends BasePage{
     }
 
     public void verifyNotificationConveyorOrder(String value1,String value2) {
-        String updatedConveyor1 = "(//app-notification-item//div[contains(@class,\"notification\")])[2]//div[2]//div[text()='"+value1+"']";
-        String updatedConveyor2 = "(//app-notification-item//div[contains(@class,\"notification\")])[4]//div[2]//div[text()='"+value2+"']";
+        String updatedConveyor1 = "(//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[text()='"+value1+"']";
+        String updatedConveyor2 = "(//app-notification-item//div[contains(@class,'notification')])[4]//div[2]//div[text()='"+value2+"']";
         System.out.println(updatedConveyor2+updatedConveyor1);
         Validator.assertTrue(driver.findElement(By.xpath(updatedConveyor1)).isDisplayed() && driver.findElement(By.xpath(updatedConveyor2)).isDisplayed(), "notification is not  in last in first out format", "notification in last in first out format");
     }
@@ -3029,17 +3031,20 @@ public class ConveyorPage extends BasePage{
         Validator.assertTrue(notificationConveyorName.getText().equalsIgnoreCase(conveyorName), "Inspection Conveyor value misMatch", "Inspection Conveyor value matched");
         Validator.assertTrue(notificationUserName.getText().contains(userName), "Inspection User value misMatch", "Inspection User value matched");
     }
-
-    public void verifyPinnedSubList(String value) {
-         String pinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-red')]";
-         Validator.assertTrue(driver.findElement(By.xpath(pinnedValue)).isDisplayed(), "Pinned Value is not displayed", "Pinned Value is displayed");
+ public void verifyPinnedSubList(String value) {
+     String pinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-red')]";
+     Validator.assertTrue(driver.findElement(By.xpath(pinnedValue)).isDisplayed(), "Pinned Value is not displayed", "Pinned Value is displayed");
     }
-
-    public void verifyUnPinnedSubList(String value) {
-         String unPinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-gray')]";
-         Validator.assertTrue(driver.findElement(By.xpath(unPinnedValue)).isDisplayed(), "UnPinned Value is not displayed", "UnPinned Value is displayed");
+public void verifyUnPinnedSubList(String value) {
+     String unPinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-gray')]";
+     Validator.assertTrue(driver.findElement(By.xpath(unPinnedValue)).isDisplayed(), "UnPinned Value is not displayed", "UnPinned Value is displayed");
     }
-
+    public void verifyConveyorHistoryNav(String conveyorName){
+        SyncUtil.waitFor(5000);
+        waitForPageLoad(10000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("/conveyor-history"),"User is not navigated to conveyor history page","User is navigated to conveyor history page");
+        Validator.assertTrue(driver.findElement(By.xpath("//app-conveyor-history//div//h4[text()='"+conveyorName+"']")).isDisplayed(),"User is not navigated to conveyor history!","User is navigated to conveyor-history on clicking the new link");
+    }
     public void verifyConveyorCardDetails(){
         waitUntilConveyorCountLoads();
         waitForElementVisible(conveyorCardHeader,5000,500);
@@ -3069,14 +3074,7 @@ public class ConveyorPage extends BasePage{
         newLink.isVisible(10000,"New");
         newLink.click("New link");
     }
-    public void verifyConveyorHistoryNav(String conveyorName)
-    {
-        SyncUtil.waitFor(5000);
-        waitForPageLoad(10000);
-        Validator.assertTrue(driver.getCurrentUrl().contains("/conveyor-history"),"User is not navigated to conveyor history page","User is navigated to conveyor history page");
-        Validator.assertTrue(driver.findElement(By.xpath("//app-conveyor-history//div//h4[text()='"+conveyorName+"']")).isDisplayed(),"User is not navigated to conveyor history!","User is navigated to conveyor-history on clicking the new link");
 
-    }
     public void verifyConveyorHistoryForConveyor(String conveyorName)
     {
         SyncUtil.waitFor(5000);

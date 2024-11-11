@@ -323,6 +323,9 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//div[contains(@class,'p-datatable-header')]//h4[text()='Users']")
 	public CustomElement usersHeader;
 
+	@FindBy(locator="xpath=//span[text()='User Info']")
+	public CustomElement usersAddInfoTab;
+
 	@FindBy(locator="xpath=//span[text()='Save']/..")
 	public CustomElement updateBtn;
 
@@ -356,7 +359,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="//label[normalize-space()='Upload Image']")
 	public CustomElement btUploadImg;
 
-	@FindBy(locator="//button[@class='p-element p-button p-component ng-star-inserted']//span[normalize-space()='Cancel']")
+	@FindBy(locator="//button[@class='p-element p-button custom-button-cancel p-component ng-star-inserted']//span[normalize-space()='Cancel']")
 	public CustomElement btCancelImg;
 
 	@FindBy(locator="//div[contains(@class,'cropped-frame')]")
@@ -496,6 +499,12 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator = "//span[text()='Corporates']")
 	public CustomElement lnkCorporates;
+
+	@FindBy(locator ="xpath=//span[contains(@class,'pi-spinner')]")
+	public CustomElement spinner;
+
+	@FindBy(locator ="xpath=//spinnericon")
+	public CustomElement userTempSpinner;
 
 //	@FindBy(locator="//tr[@class='ng-star-inserted'][i]//p-chip//div[contains(text(), 'APAC')]")
 //	public CustomElement txtApac;
@@ -938,6 +947,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void verifyPermission(String add, String edit, String delete, String view, String download) {
+		waitForPageLoad(10000);
 		if(add.equalsIgnoreCase("TRUE"))
 			Validator.assertTrue(cbAllcheckboxAdd.getAttribute("aria-checked").equalsIgnoreCase("true"),"ADD permission for this user was supposed to checked","ADD permission  for this user is checked as expected");
 		else
@@ -1188,7 +1198,8 @@ public class UsersPage extends BasePage{
 	public void cancelBtnClick()
 	{
 		waitForElementVisible(btnCancel,10000,500);
-		btnCancel.jsClick("Cancel");
+		Validator.assertTrue(btnCancel.isVisible("btnCancel"),"Cancel Button is not visible","Cancel button is visible");
+		btnCancel.jsClick();
 	}
 
 	public void verifyNavigationToUserListPage()
@@ -1198,6 +1209,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void nextClick() {
+		Validator.assertTrue(btNext.isEnabled(),"Next button is disabled","Next button is enabled");
 		btNext.click();
 	}
 
@@ -1217,13 +1229,19 @@ public class UsersPage extends BasePage{
 		ddlTempDropdown.click();
 		waitForElementVisible(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")), 5000, 500);
 		Validator.assertTrue(driver.findElement(By.xpath("//li[@aria-label='"+templateName+"'][@aria-selected='true']")).isDisplayed(),"Template is not selected","Template is selected");
+		ddlTempDropdown.click();
 	}
 
 	public void editTemplate(){
 		btnTempEdit.click();
 	}
 
+	public void saveEditTemplate(){
+		btnTempSave.click();
+	}
+
 	public void editPermission(String add, String edit, String delete, String view, String download) {
+		waitForElementToBeClickable(cbAllcheckboxAdd);
 		if(!(cbAllcheckboxAdd.getAttribute("aria-checked").equals(add)))
 			cbAllcheckboxAdd.click();
 		if(!(cbAllcheckboxEdit.getAttribute("aria-checked").equals(edit)))

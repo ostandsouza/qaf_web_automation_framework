@@ -452,6 +452,8 @@ Scenario: Verify user is able to add Tons conveyed with values as '0'
     And Add segment as '${Segment}' tons conveyed as '${Zero}' durometer as '${DurometerValue}'
     And Click Top/Bottom radio button and verify selection
     And Click save and verify segment '${PositionName}' creation
+    And Navigate to coverWear list screen and wait for data load
+    And Delete Cover wear measurement for conveyor '${ConveyorName}'
 
 @Regression14 @CTCP-1404
 @dataFile:resources/data/TestData.xls

@@ -143,16 +143,16 @@ public class ConveyorInspectPage extends BasePage{
     @FindBy(locator="xpath=//button[contains(@class,'p-link')]/timesicon")
     public CustomElement modelClose;
 
-    @FindBy(locator="xpath=//label[text()='Select company']/following-sibling::div//input")
+    @FindBy(locator="xpath=//label[text()='Select company']/following-sibling::div//p-dropdown")
     public CustomElement companyDropdown;
 
-    @FindBy(locator="xpath=//label[text()='Select Site']/following-sibling::div//input")
+    @FindBy(locator="xpath=//label[text()='Select Site']/following-sibling::div//p-dropdown")
     public CustomElement siteDropdown;
 
-    @FindBy(locator="xpath=//label[text()='Select Conveyor']/following-sibling::div//input")
+    @FindBy(locator="xpath=//label[text()='Select Conveyor']/following-sibling::div//p-dropdown")
     public CustomElement conveyorDropdown;
 
-    @FindBy(locator="xpath=//label[text()='Model Name']/parent::div//input")
+    @FindBy(locator="xpath=//label[text()='Model Name']/parent::div//p-dropdown//div[@role='button']")
     public CustomElement modelDropdown;
 
     @FindBy(locator="xpath=//div[text()='Critical']/../following-sibling::ngx-slider")
@@ -434,6 +434,7 @@ public class ConveyorInspectPage extends BasePage{
     }
 
     public boolean companyDropdownStatus(){
+        System.out.println(companyDropdown.isEnabled()+"companyDropdown.isEnabled()");
         return companyDropdown.isEnabled();
     }
 

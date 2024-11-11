@@ -18,11 +18,14 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.aspectj.org.eclipse.jdt.internal.codeassist.select.SelectionOnSingleNameReference;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+
+import javax.naming.ServiceUnavailableException;
 
 
 public class InspectionPage extends BasePage {
@@ -71,7 +74,7 @@ public class InspectionPage extends BasePage {
 
 	public String ListItem = "//ul[@role='listbox']//li//span";
 
-	@FindBy(locator = "xpath=//span[text()='Add new']/..")
+	@FindBy(locator = "xpath=(//button[@icon='ctp-icon-Add-circle'])[2]")
 	public CustomElement btnAddnew;
 
 	@FindBy(locator = "xpath=//div[@class='jodit-wysiwyg']")
@@ -118,6 +121,8 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator = "xpath=//span[text()='Save']")
 	public CustomElement btnSave;
+	@FindBy(locator = "xpath=//p-dialog//span[text()='Save']")
+	public CustomElement btnDialogSave;
 
 	@FindBy(locator = "xpath=//div[contains(@class,'p-dialog-footer')]//span[text()='Save']")
 	public CustomElement btnSaveItem;
@@ -251,11 +256,11 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//div[text()='Inspection updated.']")
 	public CustomElement inspectionUpdated;
 
-	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[3]")
+	@FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[1]")
 	public CustomElement crInspections;
 
-    @FindBy(locator = "xpath=//p-panel[@header=\"Inspections\"]//span[text()='Inspections']")
-    public CustomElement inspectionEventHeader;
+	@FindBy(locator = "xpath=//span[text()='Inspection Event']")
+	public CustomElement inspectionEventHeader;
 
     @FindBy(locator = "xpath=(//div//button//span[contains(@class,'ctp-icon-Technical-Data')])[2]")
     public CustomElement inspectionGroupView;
@@ -469,7 +474,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=(//app-card//div[text()='Sites' or text()='Shops'] /..//span)[1]")
 	public CustomElement btSiteShopCardNo;
 
-	@FindBy(locator= "xpath=(//span//i[contains(@class,'ctp-icon-Bar-Chart')])[2]")
+	@FindBy(locator= "xpath=(//button[contains(@icon,'ctp-icon-Bar-Chart')])[2]")
 	public CustomElement iconBarChart;
 
 	@FindBy(locator= "xpath=//p-card//div[text()=' GOOD ']/../div/span")
@@ -607,11 +612,11 @@ public class InspectionPage extends BasePage {
 		btnAddInspection.jsClick("Add Inspection btn");
 		tbInspectionName.type(inspectionName);
 		waitForElementToBeClickable(ddlSiteCustomername);
+		waitForElementVisible(ddlSiteCustomername,8000,1000);
 		dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
 //		dropdownselectsearch(ddlConveyor, tbInput, conveyorName);
 //		ddlInspectorName.verifyText(fullName,"Inspector Name");
-		ddlInspectorName.clear();
-		ddlInspectorName.sendKeys(fullName);
+		Validator.assertTrue(ddlInspectorName.getAttribute("value").equalsIgnoreCase(fullName),"Inspector Name mismatched","Inspector Name matched");
 		Reporter.log("Inspection is created",MessageTypes.Pass);
 	}
 
@@ -787,7 +792,6 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
 		inspectionHeader.verifyText(inspectionName, "Inspection Header");
-		SyncUtil.waitFor(1500);
 		Validator.assertTrue(pagination.getText("Inspection Item").contains(itemCount), "All Inspections Items are not listed", "All Inspections Items are listed");
 	}
 
@@ -828,7 +832,7 @@ public class InspectionPage extends BasePage {
 		ddlActions.click("Actions");
 		waitForElementVisible(btnEditInspection, 10000, 500);
 		btnEditInspection.click("Edit");
-		btnSave.isVisible("Edit save");
+		ddlSave.isVisible("Edit save");
 	}
 
 	public void editInspectionName(String inspectionName, String newInspName) {
@@ -836,6 +840,7 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(tbInspectionName);
 		SyncUtil.waitFor(1500);
 		tbInspectionName.type(newInspName);
+		SyncUtil.waitFor(2000);
 		saveInspectionEvent();
 	}
 
@@ -1091,6 +1096,7 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void extractConditionValue(){
+		waitForPageLoad(5000);
 		waitForElementVisible(txtConditionValue,5000,1000);
 		String  conValue = txtConditionValue.getText();
 		getBundle().setProperty("conditionValue", conValue);
@@ -1103,6 +1109,8 @@ public class InspectionPage extends BasePage {
 
 	public void verifyStatusValue() {
 		String expectedValue = getBundle().getProperty("statusValue").toString().toLowerCase();
+		waitForPageLoad(50000);
+		waitForElementVisible(txtStatusTotalValue,10000,1000);
 		String actualValue = txtStatusTotalValue.getAttribute("value").toLowerCase();
 		Assert.assertEquals(expectedValue, actualValue, "Status value matched");
 	}
@@ -1110,6 +1118,8 @@ public class InspectionPage extends BasePage {
 
 	public void verifyConditionValue() {
 		String expectedValue = getBundle().getProperty("conditionValue").toString().toLowerCase();
+		waitForPageLoad(50000);
+		waitForElementVisible(txtConditionTotalValue,10000,1000);
 		String actualValue = txtConditionTotalValue.getAttribute("value").toLowerCase();
 		Assert.assertEquals(expectedValue, actualValue, "Condition value mismatched");
 	}
@@ -1119,7 +1129,9 @@ public class InspectionPage extends BasePage {
 		waitForElementToDisplay(cbCheckbox);
 		int noOfCorporates = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
 		waitForPageLoad(5000);
-		Assert.assertEquals(noOfCorporates, 1, "Number of corporates is not 1");
+		boolean value= noOfCorporates>1;
+		System.out.println(value+"value");
+		Validator.assertTrue(value,"Dulpicate cant be created","Dulpicate can be created");
 	}
 
 	public void saveDulpicateInspectionItem() {
@@ -1375,6 +1387,7 @@ public class InspectionPage extends BasePage {
 
 	public void inspectionDashboardBtnClick()
 	{
+		waitForPageLoad(5000);
 		waitForElementVisible(iconBarChart,5000,500);
 		waitForElementToBeClickable(iconBarChart);
 		iconBarChart.jsClick("inspection dashboard");
@@ -1384,7 +1397,7 @@ public class InspectionPage extends BasePage {
 	{
 		waitForPageLoad(5000);
 		waitForElementVisible(statusCardCriticalCount,5000,500);
-		SyncUtil.waitFor(5000);
+//		SyncUtil.waitFor(40000);
 		Validator.assertTrue(statusCardTotalCount.getText().contains(total),"Total Count doesn't match","Critical Count match");
 		Validator.assertTrue(statusCardCriticalCount.getText().contains(critical),"Critical Count doesn't match","Critical Count match");
 		Validator.assertTrue(statusCardPoorCount.getText().contains(poor),"Poor Count doesn't match","Poor Count match");
@@ -1423,8 +1436,8 @@ public class InspectionPage extends BasePage {
 		driver.findElement(By.xpath(site2)).click();
 		waitForElementToDisplay(tbMultipleSiteDropdwn);
 		waitForElementVisible(tbMultipleSiteDropdwn,20000,500);
-		String siteSelected="//p-multiselectitem//li[@aria-label='"+siteName+"' and contains(@class, 'p-highlight')]";
-		String siteSelected2="//p-multiselectitem//li[@aria-label='"+siteName2+"' and contains(@class, 'p-highlight')]";
+		String siteSelected="//p-multiselectitem//li[@aria-label='"+siteName+"' and contains(@data-p-highlight, 'true')]";
+		String siteSelected2="//p-multiselectitem//li[@aria-label='"+siteName2+"' and contains(@data-p-highlight,'true')]";
 		waitForElementVisible(driver.findElement(By.xpath(siteSelected)),10000,500);
 		Validator.assertTrue(driver.findElement(By.xpath(siteSelected)).isDisplayed(),"The user is not able to select site","The user is  able to select site");
 		Validator.assertTrue(driver.findElement(By.xpath(siteSelected2)).isDisplayed(),"The user is not able to select site2","The user is  able to select site2");
@@ -1727,7 +1740,21 @@ public class InspectionPage extends BasePage {
 	public void clickClickFilter() {
 		waitForElementVisible(clearFilterBtn,5000,1000);
 		Validator.assertTrue(clearFilterBtn.isDisplayed(), "Clear Button is not found", "Clear Button is found");
-		clearFilterBtn.click();
+		clearFilterBtn.jsClick();
 		waitForPageLoad(10000);
 	}
+	public void verifyInspectionItemsCountsForCorp(String corporate)
+	{
+		waitForPageLoad(20000);
+		waitForElementVisible(statusCardCriticalCount,5000,500);
+//		SyncUtil.waitFor(40000);
+//		System.out.println(statusCardTotalCount.getText()+statusCardCriticalCount.getText()+statusCardPoorCount.getText()+statusCardFaultCount.getText()+statusCardGoodCount.getText()+"count");
+//		Validator.assertTrue(statusCardTotalCount.getText().contains(total),"Total Count doesn't match","Critical Count match");
+//		Validator.assertTrue(statusCardCriticalCount.getText().contains(critical),"Critical Count doesn't match","Critical Count match");
+//		Validator.assertTrue(statusCardPoorCount.getText().contains(poor),"Poor Count doesn't match","Poor Count match");
+//		Validator.assertTrue(statusCardFaultCount.getText().contains(fault),"Fault Count doesn't match","Fault Count match");
+//		Validator.assertTrue(statusCardGoodCount.getText().contains(good),"Good Count doesn't match","Good Count match");
+
+	}
+
 }

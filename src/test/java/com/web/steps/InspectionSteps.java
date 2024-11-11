@@ -4,11 +4,8 @@ import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
-import com.web.pages.ConveyorPage;
+import com.web.pages.*;
 
-import com.web.pages.CorporatePage;
-import com.web.pages.InspectionPage;
-import com.web.pages.UsersPage;
 import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
@@ -26,6 +23,7 @@ public class InspectionSteps {
 	UsersPage userPage=new UsersPage();
 	CorporatePage corporatePage=new CorporatePage();
 	ConveyorPage conveyorPage=new ConveyorPage();
+	CoverWearPage coverWearPage = new CoverWearPage();
 
 	@QAFTestStep(description="Select Inspection on the Navigation Pane")
 	public void selectInspectionOnTheNavigationPane(){

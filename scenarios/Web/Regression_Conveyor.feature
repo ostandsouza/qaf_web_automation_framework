@@ -210,7 +210,7 @@ Scenario: ZdVerify closing of image viewer panel
     And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
     When User clicks on Upload Image
     Then Verify that the user is able to upload the image '${imgName}' from the system
-    And User clicks on cancel button
+    And Click on cancel button
     And Verify that the image viewer panel is closed and image is not uploaded
 
 @Regression20 @CTCP-1918
@@ -234,6 +234,8 @@ Scenario: ZbVerify the save as draft button on remarks tab
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorName}' and '${DistShopName}' and '${CustShopName}' with mandatory field
     Then Go to remarks and click on save as button
+    When  Delete Conveyor from Conveyor list screen '${ConveyorName}'
+    Then  Verify Deleted Conveyor '${ConveyorName}' from Conveyor list screen
 
 @Regression21 @CTCP-1920
 @dataFile:resources/data/TestData.xls
@@ -701,7 +703,6 @@ Scenario: Verify heading and column displayed in conveyor list table
 @key:Conveyor_ColumnFilter
 Scenario: ZSelect table column as per column selection filter
 
-
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
@@ -720,10 +721,7 @@ Scenario: ZSelect table column as per column selection filter
 Scenario: Search conveyor in conveyor list
 
 
-   Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-    When  wait for conveyors to load
-    And Click on Clear filter Icon
+    When  Navigate to conveyor list screen
     Then Look for the searchBar in the table and verify search icon and search placeholder is visible
     When Enter the text '${ConveyorName}' to search
     And Verify the matching result is displayed or No record found message should display
@@ -735,7 +733,6 @@ Scenario: Search conveyor in conveyor list
 @sheetName:Regression
 @key:Conveyor_ColumnFilter
 Scenario: Apply and remove 'Start With' filter
-
 
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
@@ -1055,6 +1052,7 @@ Scenario: Verify notification order after login with other user and try to updat
     And Edit Conveyor belt width value '${BeltWidth1}'
     And  Navigate to conveyor details screen for conveyor '${ConveyorName2}'
     And Edit Conveyor belt width value '${BeltWidth2}'
+    And Click on home link in breadCrumb and verify it navigates to home page
     And Logout from the current user
     And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
     And Verify user is getting conveyor notification in last in first out format for '${ConveyorName2}' '${ConveyorName1}'
@@ -1160,9 +1158,4 @@ Scenario: Verify the functionality for Login with other user at Account level co
     And Navigate to conveyor list screen
     And wait for conveyors to load
     And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
-
-
-
-
-
 

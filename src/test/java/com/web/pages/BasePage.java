@@ -303,13 +303,13 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(70000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(5000);
         setImplicitWait(150000,TimeUnit.MILLISECONDS);
         waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
-        driver.findElement("//span[text()='"+itemstosearch+"']").click();
+		driver.findElement("//span[text()='"+itemstosearch+"']").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);
-        Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
-    }
-
+		Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
+	}
 
     public void browserRefresh() {
         driver.navigate().refresh();
@@ -349,7 +349,5 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 //                + "var source = arguments[0];\n" + "var destination = arguments[1];\n"
 //                + "simulateHTML5DragAndDrop(source,destination);", ElementFrom, ElementTo);
 //    }
-
-
 
 }

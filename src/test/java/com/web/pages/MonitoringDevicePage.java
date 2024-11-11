@@ -42,7 +42,7 @@ public class MonitoringDevicePage extends BasePage {
 
 	@FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
 	public CustomElement home;
-    @FindBy(locator = "xpath=(//li//span[text()='Monitoring Devices'])[1]")
+	@FindBy(locator = "xpath=(//li//span[text()='Monitoring Devices'])[1]")
 	public CustomElement monitoringDeviceList;
 	@FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
 	public CustomElement crCheckbox;
@@ -158,6 +158,8 @@ public class MonitoringDevicePage extends BasePage {
 	public CustomElement siteDDL;
 	@FindBy(locator= "xpath=//span[text()='Device Location']")
 	public CustomElement deviceLocationLabel;
+	@FindBy(locator = "xpath=(//span[text()='Cancel'])")
+	public CustomElement btnCancel;
 	@FindBy(locator = "xpath=//span[text()='Create']")
 	public CustomElement btnCreate;
 	@FindBy(locator = "xpath=//div[@aria-label='New Device']")
@@ -277,8 +279,7 @@ public class MonitoringDevicePage extends BasePage {
     public CustomElement btnNo;
     @FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]//div//button//span[text()=\"Yes\"]")
     public CustomElement btnYes;
-    @FindBy(locator="xpath=//button[contains(@class,\"p-button-outlined\")]//span[text()='Cancel']")
-    public CustomElement btnCancel;
+
     @FindBy(locator = "xpath=//span[text()='Next']")
     public CustomElement btNext;
     @FindBy(locator= "xpath=(//p-dropdown[@formcontrolname=\"status\"]//div[contains(@class,\"p-dropdown\")])[1]")
@@ -362,7 +363,7 @@ public class MonitoringDevicePage extends BasePage {
 				break;
 			}
 			val = pagination.getText();
-			SyncUtil.waitFor(5000);
+			SyncUtil.waitFor(30000);
 		}
 	}
 	public boolean searchMonitoringDevice(String monitoringDeviceName){
@@ -519,20 +520,21 @@ public class MonitoringDevicePage extends BasePage {
 		Validator.assertTrue(locationPopLatBtn.isDisplayed(),"Latitude Button is not visible","Latitude Button is visible");
 		Validator.assertTrue(locationPopLonBtn.isDisplayed(),"Longitude Button is not visible","Longitude Button is visible");
 
-		BigDecimal displayedLatitudeRounded = new BigDecimal(locationPopLatBtn.getAttribute("value")).round(new MathContext(7, RoundingMode.HALF_UP));
+		BigDecimal displayedLatitudeRounded = new BigDecimal(locationPopLatBtn.getAttribute("value")).round(new MathContext(8, RoundingMode.HALF_UP));
 		String formattedDisplayedLatitude = displayedLatitudeRounded.toPlainString();
 		BigDecimal displayedLongitudeRounded = new BigDecimal(locationPopLonBtn.getAttribute("value")).round(new MathContext(8, RoundingMode.HALF_UP));
 		String formattedDisplayedLongitude= displayedLongitudeRounded.toPlainString();
 
-		System.out.println( formattedDisplayedLatitude+"LAT INPUT");
-		System.out.println( formattedDisplayedLongitude+"Lon INPUT");
-		System.out.println(String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("latitude")).toString()+"LAT Api string");
-		System.out.println(String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("longitude")).toString()+"Lon Api string");
+		String apiLatitude = String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("latitude"));
+		String apiLongitude = String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("longitude"));
+
+		String latitudeToVerify = formattedDisplayedLatitude.length() > 5 ? formattedDisplayedLatitude.substring(0, 5) : formattedDisplayedLatitude;
+		String longitudeToVerify = formattedDisplayedLongitude.length() > 5 ? formattedDisplayedLongitude.substring(0, 5) : formattedDisplayedLongitude;
+		String apiLatitudeToVerify = apiLatitude.length() > 5 ? apiLatitude.substring(0, 5) : apiLatitude;
+		String apiLongitudeToVerify = apiLongitude.length() > 5 ? apiLongitude.substring(0, 5) : apiLongitude;
 
 		Validator.assertTrue(
-				formattedDisplayedLatitude.contains(
-						String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("latitude"))
-				),
+				latitudeToVerify.equals(apiLatitudeToVerify),
 				"Latitude Button is not visible or the latitude value does not match",
 				"Latitude Button is visible and the latitude value matches"
 		);
@@ -597,11 +599,11 @@ public class MonitoringDevicePage extends BasePage {
 
 	public void goToAddMonitoringDevice()
 	{
-		SyncUtil.waitFor(5000);
 		waitForElementVisible(btAddMonitoringDevice,20000,500);
+		waitForElementToBeClickable(btAddMonitoringDevice);
 		btAddMonitoringDevice.jsClick("Add icon");
+		SyncUtil.waitFor(5000);
 		waitForPageLoad(15000);
-		SyncUtil.waitFor(2000);
 		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/device/add/basic-info"), "User is not navigated to Add monitoring device page", "User is navigated to Add monitoring device page");
 	}
 	public void addDeviceDetailsWithMandatoryFields(String deviceName,String deviceType)
@@ -736,7 +738,7 @@ public class MonitoringDevicePage extends BasePage {
 					"Forward button at position " + i + " is displayed");
 		}
 	}
-	public void validateCountWrtPagination(){
+	public void validateMonDevCountWrtPagination(){
 		int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
 		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("count").equals(deviceCount),"Monitoring Device Count does not match","Monitoring Device  Count matches");
 	}

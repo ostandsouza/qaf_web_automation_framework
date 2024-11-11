@@ -170,7 +170,7 @@ public class MonitoringDeviceSteps {
  @QAFTestStep(description = "Verify the monitoring device count with respect to pagination")
     public void validateTheCountWrtPagination()
     {
-        monitoringDevicePage.validateCountWrtPagination();
+        monitoringDevicePage.validateMonDevCountWrtPagination();
     }
 
     @QAFTestStep(description="Verify pagination double forward arrow button")

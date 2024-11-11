@@ -384,7 +384,6 @@ public class ConveyorSteps {
         conveyorPage.verifyDuplicateLayoutError();
 
     }
-
     @QAFTestStep(description = "Verify column selection filter is visible")
     public void verifyColumnNameFilter() {
         conveyorPage.verifyColumnNameFilterIsVisible();
@@ -632,7 +631,7 @@ public class ConveyorSteps {
         conveyorPage.editConveyorTopCoverThickness(topCoverThickness);
     }
     @QAFTestStep(description="Add filter for header with {FilterName}")
-    public void editTheConveyorTopCoverThickess(String filterName){
+    public void addTheColumnFilters(String filterName){
         conveyorPage.addColumnFilters(filterName);
     }
     @QAFTestStep(description="Verify header field {Header} is present in unit {Unit}")

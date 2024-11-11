@@ -318,6 +318,9 @@ Scenario: WVerify the Territory and markets in ascending order
     And Login with normal user '${Email}' and '${UserPassword}'
     Then Verify territorys are in ascending order for '${FullName}'
     And Logout from the current user
+    When Login with '${UserName}' and '${Password}'
+    When  Delete User with name '${FullName}'
+    Then  Verify user '${FullName}' is deleted
 
 
 @Regression34 @CTCP-2852
@@ -326,8 +329,6 @@ Scenario: WVerify the Territory and markets in ascending order
 @key:Usermanagement_User_Creation
 Scenario: Verify the Territory and markets in ascending order after Edit
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
     And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
     And  Add territory as '${Region}' for the user
     And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
@@ -335,6 +336,10 @@ Scenario: Verify the Territory and markets in ascending order after Edit
     And  Logout from the current user
     And  Login with normal user '${Email}' and '${UserPassword}'
     Then Verify territorys are in ascending order for '${FullName}'
+    And Logout from the current user
+    When Login with '${UserName}' and '${Password}'
+    When  Delete User with name '${FullName}'
+    Then  Verify user '${FullName}' is deleted
 
 @Regression35 @CTCP-1133
 @dataFile:resources/data/TestData.xls

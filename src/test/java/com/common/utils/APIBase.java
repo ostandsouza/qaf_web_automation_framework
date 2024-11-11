@@ -805,4 +805,22 @@ public class APIBase {
         tearDown();
         return val;
     }
+
+    public Map<String, Object> getCordInspectCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("cordInspect_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "cordInspect_controller");
+        restApiHelper.makeGetRequest(monitoringPaths.get("count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        System.out.println(profileResponse+"profileResponse");
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$"); // This extracts the full JSON response into a Map
+        }
+        tearDown();
+        return val;
+    }
 }
