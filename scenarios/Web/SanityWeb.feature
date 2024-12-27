@@ -22,6 +22,8 @@ Scenario: Verify the create market manager with all permission
 @key:Usermanagement_DistributorUser
 Scenario: Verify the create Distributor user with limited permission
 
+ Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Create a Distributor User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}' and '${CoporateRole}' and '${DistCorpName}' and '${DistShopName}' and '${CustSiteName}'
     And   Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
     Then  Verify '${FullName}' user with distributor user for market as '${Region}' and permission rights as '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}'
@@ -33,7 +35,7 @@ Scenario: Verify the create Distributor user with limited permission
 Scenario: Verify with create corporate scenario
 
     Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
+    When  Login with '${UserName}' and '${Password}'
     And   Create a Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
     And   Create a Distributor shop with '${DistShopIndName}' and '${DistShopIndAddress}' and '${DistCorpName}' and '${FullName}' and '${TerritoryInd}'
     And   Create a Distributor shop with '${DistShopAusName}' and '${DistShopAusAddress}' and '${DistCorpName}' and '${FullName}' and '${TerritoryAus}'
@@ -49,8 +51,6 @@ Scenario: Verify with create corporate scenario
 @key:CorporateMangement_Edit
 Scenario: Verify with Edit corporate scenario
 
- Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
     When  Edit Customer Corporate with '${CustCorpName}' and '${EditCustCorpName}'
    And   Add '${CorpImageName}' image to Corporate and save changes
    Then  Verify the Distributor Corp details with '${EditCustCorpName}' and '${CorpImageName}'
@@ -77,14 +77,13 @@ Scenario: Verify with Delete corporate scenario
 Scenario: Verify the conveyor management
 
       Given User is at Login page
-        When  Login with normal user '${UserName}' and '${Password}'
+      When  Login with '${UserName}' and '${Password}'
     When  Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName2}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName3}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName4}' and '${DistShopAusName}' and '${CustSiteAusName}'
     And   Create a conveyor with '${ConveyorName5}' and '${DistShopAusName}' and '${CustSiteAusName}'
     And   Create a conveyor with '${ConveyorName6}' and '${DistShopAusName}' and '${CustSiteAusName}'
-    Then  Verify conveyor technical data with '${ConveyorName1}'
     When  Delete Conveyor from Conveyor list screen '${ConveyorName1}'
     Then  Verify Deleted Conveyor '${ConveyorName1}' from Conveyor list screen
     When  Delete Conveyor from Conveyor list screen '${ConveyorName4}'
@@ -99,6 +98,8 @@ Scenario: Verify the conveyor management
 Scenario: Verify the conveyor bulk upload
 
 
+ Given User is at Login page
+      When  Login with '${UserName}' and '${Password}'
 
     When  Download bulk upload template for distributor '${DistCorpName}' and with sites '${CustSiteName}' and '${CustSite2Name}'
     And   Add two conveyor via bulk upload in site '${CustSiteName}' with file '${FileName}'
@@ -111,8 +112,8 @@ Scenario: Verify the conveyor bulk upload
 Scenario: ZVerify scenario for corporate card data
 
 
- Given User is at Login page
-            When  Login with normal user '${UserName}' and '${Password}'
+  Given User is at Login page
+      When  Login with '${UserName}' and '${Password}'
     When  Navigate to Corporate details screen for corporate '${CustCorpName}'
     Then  Verify card count in details screen for '${CustCorpName}'
 
@@ -132,8 +133,9 @@ Scenario: Verify the conveyor Edit
 @key:Inspection_Management
 Scenario: Verify Inspection management
 
-    Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
+
+     Given User is at Login page
+     When  Login with '${UserName}' and '${Password}'
     When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
     And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
@@ -149,8 +151,7 @@ Scenario: Verify Inspection management
 @key:Inspection_Report
 Scenario: Verify Inspection Report
 
-   Given User is at Login page
-    When  Login with normal user '${UserName}' and '${Password}'
+
     When  Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
     Then  Verify data displayed in report for '${FullName}' '${CustSiteName}' '${ConveyorName}' '${InspectionName}'
 
@@ -172,7 +173,7 @@ Scenario: Verify Cover Wear Management
 
 
        Given User is at Login page
-       When  Login with normal user '${UserName}' and '${Password}'
+       When  Login with '${UserName}' and '${Password}'
        When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
        Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
        When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'
@@ -260,6 +261,88 @@ Scenario: Verify the Delete functionality across the application
     Then  Verify user '${FullName}' is deleted
     When  Delete User with name '${FullName1}'
     Then  Verify user '${FullName1}' is deleted
+
+
+@Sanity21
+@dataFile:resources/data/FabricSpliceSanity.json
+Scenario: Verify the Delete functionality across the application
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    Then User is at Add Fabric splice Screen
+    And Add a design with '${DesignerName}' '${Market}' '${SpliceKit}' '${CustomerName}' '${ConveyorName}' '${ApproverName}' '${BeltConstruction}'
+    And Add the design details '${BeltWidth}' '${BeltType}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' '${OverAllBeltThickness}' '${BiasAngle}'
+    And Select Splice Type '${SpliceType}'
+    And Click on calculate button and verify preview tab is displayed
+    And Verify the Preview Design tab with calculations '${NoOfSteps}' '${BeltWidth}' '${OverAllBeltThickness}' '${StepLength}' '${SpliceLength}' '${CoverStripeTop}' '${CoverStripeBottom}' '${BiasLength}' '${CoatedBreakerStrip}' '${BeltType}' '${TopCoverThickness}' '${BottomCoverThickness}' '${TopCoverCompoundName}'
+    And Verify the Preview Design Notes with calculations '${CureTemperature}' '${CurePressure}' '${CureTime}' '${DimensionUnit}'
+    And Click on Splice kit BOM tab and verify
+    And Click on Comments log and save as draft
+    And Search for fabric-splice design and verify the status of the design '${DraftStatus}'
+    And Navigate to edit the fabric splice design
+    And Click on Comments Log tab and add comments '${Comments}' and send For Review
+    And Search for fabric-splice design and verify the status of the design '${InReviewStatus}'
+    And Logout from the current user
+    When Login with '${MarketUserName}' and '${MarketPassword}'
+    And Search for fabric-splice design and verify the status of the design '${ToReviewStatus}'
+    And Click on view icon
+    And Click on Comments Log tab and add approve comments '${ApproveComments}' and approve
+    And Search for fabric-splice design and verify the status of the design '${ApprovedStatus}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Search for fabric-splice design and verify the status of the design '${ApprovedStatus}'
+    And Verify pdf download functionality for Splice Design with '${CustomerName}' '${ConveyorName}'
+    Then Verify delete functionality for Splice Design
+
+@Sanity23
+@dataFile:resources/data/TestData.xls
+@sheetName:Sanity
+@key:Heavy_Equipment
+Scenario: Verify the Heavy Equipment Calculation functionality across the application
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    And Navigate to the Heavy Equipment list page
+    And Navigate to the Heavy Equipment add page
+    And Create a heavy equipment with '${HeavyEquipmentName}' '${Category}' '${Model}' '${Year}' '${SerialNumber}' '${DistShopName}' '${ImageName}'
+    And Search for the heavy equipment '${HeavyEquipmentName}'
+    And Navigate to edit heavy equipment page
+    And Edit the Heavy Equipment '${EditHeavyEquipmentName}' '${Category}'
+    And Click on add Icon and upload the file '${ImageName}'
+    And Click on add Icon and upload the file '${PdfFile}'
+    And Click on save button and verify the Heavy Equipment '${EditHeavyEquipmentName}' is edited
+    And Click on view more icon
+    And Verify and view the image uploaded '${ImageName}'
+    And Verify file download functionality for '${ImageName}'
+    And Verify and view the pdf file uploaded '${PdfFile}'
+    And Verify file download functionality for '${PdfFile}'
+    And Verify search and delete document '${ImageName}' functionality
+    And Navigate to the Heavy Equipment list page
+    And Verify search and delete '${EditHeavyEquipmentName}' functionality
+
+
+
+@Sanity24
+@dataFile:resources/data/BeltFormTextileSanity.json
+Scenario: Verify the Belt-Info Textile functionality
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    And Navigate to the Belt Info Steel list page
+    And Navigate to the Belt Info Textile sheet
+    And Enter the Belt Form data '${Market}' '${STDReqByCustomer}' '${BeltConstruction}' '${CarcassConstruction}' '${TopCoverCompound}' '${TopCoverGauge}' '${BottomCoverCompound}' '${BottomCoverGauge}' '${BeltWidth}' '${BreakerItems}' '${BreakerItems}' '${Overallbeltthickness}' '${Comment}'
+    And Export PDF and verify the PDF is downloaded
+
+
+
+
+
+
+
+
+
+
+
 
 
 

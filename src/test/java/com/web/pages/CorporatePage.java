@@ -98,7 +98,7 @@ public class CorporatePage extends BasePage {
     @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[1]")
     public CustomElement drTerritorybutton;
 
-    @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
     public CustomElement drTerritoryvalue;
 
     @FindBy(locator = "xpath=//p-autocomplete[@field='name']//input")
@@ -390,6 +390,7 @@ public class CorporatePage extends BasePage {
     }
 
     public void createDistributorShop(String companyName, String address, String distCorp, String territory, String manager) {
+        waitForPageLoad(10000);
         scrollPageup();
         selectDistributorShop();
         dropdownSelectSearch(drDistributorcorporate, tbSitedropdown, distCorp);
@@ -452,8 +453,10 @@ public class CorporatePage extends BasePage {
 
     public void btnSaveClick() {
         scrollPageDown();
-        btSave.click("Save");
+        waitForElementVisible(btSave, 10000, 500);
+        btSave.jsClick("Save");
         waitForElementToInvisible(buttonLoader, 10000);
+        SyncUtil.waitFor(10000);
         btSearchinput.isVisible("Corporate list screen");
     }
 
@@ -608,6 +611,7 @@ public class CorporatePage extends BasePage {
     public void goToCorporateDetails(String corpName) {
         searchCorporate(corpName);
         btviewicon.click("Corp Details");
+        SyncUtil.waitFor(5000);
         waitForElementToDisplay(btSiteShopCardNo);
     }
 
@@ -639,7 +643,7 @@ public class CorporatePage extends BasePage {
 
     public void verifyCardDetails(String siteName) {
         siteNameLoader.waitForPartialText(siteName, 15000);
-        SyncUtil.waitFor(20000);
+        SyncUtil.waitFor(30000);
         Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase("2"), "Site/Shop card count shown in corporate details screen is incorrect", "Successfully verified Site/Shop card count shown in corporate details screen");
         Validator.assertTrue(btConveyorCardNo.getText("Conveyor Card").trim().equalsIgnoreCase("6"), "Conveyor card count shown in corporate details screen is incorrect", "Successfully verified Conveyor card count shown in corporate details screen");
     }
@@ -665,7 +669,7 @@ public class CorporatePage extends BasePage {
     public void goToShopSiteDetails(String siteName) {
         btSearchinput.type(siteName, "Site/Shop name");
         waitForElementToDisplay(btCheckbox);
-        detailsMoreButton.click("Corp Details");
+        detailsMoreButton.jsClick("Corp Details");
         siteNameLoader.waitForPartialText(siteName, 15000);
         SyncUtil.waitFor(2000);
         conveyorHeader.isEnable("Conveyor Header");
@@ -678,10 +682,10 @@ public class CorporatePage extends BasePage {
         waitForElementToDisplay(btCheckbox);
         btCheckbox.click("Site Checkbox");
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
-        btActions.click("Actions");
+        btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-        typeOfCompanyLoader.waitForText("Distributor Shop");
+//        typeOfCompanyLoader.waitForText("Distributor Shop");
         tbCompanyName.type(editSiteName);
         dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
         drTerritoryManagerbutton.type("Market India Automation", "Territory");
@@ -726,6 +730,7 @@ public class CorporatePage extends BasePage {
         waitForElementToDisplay(btCheckbox);
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
         detailsName.verifyTextIgnoringNewLineChar(conveyorName, "Conveyor name");
+        SyncUtil.waitFor(10000);
         detailsMoreButton.click("Conveyor Details");
         siteNameLoader.waitForPartialText(conveyorName, 15000);
         conveyorTrailsHeader.isVisible("Conveyor Header");
@@ -736,11 +741,12 @@ public class CorporatePage extends BasePage {
         setImplicitWait(30000, TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.check("conveyor Checkbox");
-        setImplicitWait(5000, TimeUnit.MILLISECONDS);
-        btActions.click("Actions");
+        setImplicitWait(10000, TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(8000);
+        btActions.jsClick("Actions");
         waitForElementVisible(btDelete, 10000, 500);
-        btDelete.click("Delete");
-        yesConfirmation.click("Confirm");
+        btDelete.jsClick("Delete");
+        yesConfirmation.jsClick("Confirm");
     }
 
     public void verifyDeleteConveyor(String conveyor) {

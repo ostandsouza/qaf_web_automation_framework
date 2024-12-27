@@ -176,10 +176,9 @@ Scenario: ZeVerify with add conveyor navigation
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_coordinates
-Scenario: ASelection of head and tail coordinates
+Scenario: Selection of head and tail coordinates
 
-       Given User is at Login page
-         When  Login with '${UserName}' and '${Password}'
+
      And  Navigate to Add Conveyor screen
      Then Verify that  GPS Coordinates Head and GPS Coordinates Tail with lat and long is visible
      When User selects a site '${SiteName}' from the dropdown and enter conveyorName '${ConveyorName1}'
@@ -210,9 +209,8 @@ Scenario: ZdVerify closing of image viewer panel
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_createDetails
-Scenario: Verify the save and close button on remarks tab
+Scenario: YVerify the save and close button on remarks tab
 
-          And Close the warning popup
           And  Navigate to Add Conveyor screen
           When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
           And Click on remarks radio button and click on save and close
@@ -232,9 +230,8 @@ Scenario: ZbVerify the save as draft button on remarks tab
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_createDetails
-Scenario: Verify user is able to click the previous button
+Scenario: AVerify user is able to click the previous button
 
-          And Close the warning popup
           And  Navigate to Add Conveyor screen
           When Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
           And Click on remarks radio button and click on previous button
@@ -261,7 +258,7 @@ Scenario: ZcVerify user is able to get the count after deleting the conveyor
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_createDetails
-Scenario: YVerify user is able to see the imperial data when imperial radio button is selected
+Scenario: XVerify user is able to see the imperial data when imperial radio button is selected
 
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}' with mandatory field
@@ -286,8 +283,7 @@ Scenario: ZaVerify user is able to see the metric data when metric radio button 
 @key:Conveyor_Duplicate
 Scenario: Validation duplicate on Conveyor Name
 
-          Given User is at Login page
-          When Login with '${UserName}' and '${Password}'
+
           And  Navigate to Add Conveyor screen
           When Create a new conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
           And Logout from the current user
@@ -367,7 +363,7 @@ Scenario: Verify user is able to edit the tons per hour peak for the metric unit
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_LayoutCreate
-Scenario: Verify the table layout picker
+Scenario: ZVerify the table layout picker
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -442,7 +438,8 @@ Scenario: AVerify user is able to click the save set preferrence
 @key:Conveyor_DuplicateLayout
 Scenario: Verify duplicate name of the layout
 
-
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     Then  verify user '${UserName}' is able to add new layout for '${Corporates}' '${BeltWidth}' '${Rating}' '${Length}' with '${Layout_Name}'
     And Create a duplicate layout '${Corporates}' '${BeltWidth}' '${Rating}' '${Length}' with '${Layout_Name}'
     And Verify user should get an error message saying layout exists
@@ -494,7 +491,7 @@ Scenario: ZSelect table column as per column selection filter
     Then Verify column selection filter is visible
     And Click on the column name filter and verify searchBar all columnNames with checkbox and cross button is visible
     And Enter the columnName '${ColumnName}' in searchBar and verify all columnName with search text is displayed
-    And Select the checkbox of searched column and verify only selected column is displayed in the table and column filter text box
+    And Select the checkbox of searched column and verify only selected column '${ColumnName}' is displayed in the table and column filter text box
     And Remove the entered text from the searchBar and verify all columns are displayed in the dropdown
     And Select the parent checkbox and verify all child column checkbox and all selected column is visible in the table
     And Click on cross button and verify column filter is closed

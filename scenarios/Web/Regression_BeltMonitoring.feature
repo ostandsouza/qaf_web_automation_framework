@@ -42,7 +42,7 @@ Scenario: Verify the device name associated conveyor test field in the table
     And Click on the column name filter and verify searchBar all columnNames with checkbox and cross button is visible
     And Enter the columnName '${ColumnName}' in searchBar and verify all columnName with search text is displayed in monitoring device
 
-@Regression6 @CTCP-405
+@Regression4 @CTCP-405
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_Navigation
@@ -57,7 +57,7 @@ Scenario: AVerify the update and delete options in the Actions dropdown
     And Click on the scanner symbol and verify fields '${Device1}'
     And Click on the download button and verify QR is downloaded with the proper name '${Device1}'
 
-@Regression4 @CTCP-401
+@Regression5 @CTCP-401
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_Navigation
@@ -68,7 +68,7 @@ Scenario: Verify the filter functionality in DeviceName
     Then  Navigate to Belt Monitoring List screen
     And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
 
-@Regression5 @CTCP-412
+@Regression6 @CTCP-412
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_Filter
@@ -104,7 +104,7 @@ Scenario: Verify the breadcrumb of the page
     And Navigate to Add monitoring device screen
     And Verify the bread crumb of add monitoring device page
 
-@Regression8 @CTCP-483 @CTCP-484
+@Regression9 @CTCP-483 @CTCP-484
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -117,7 +117,7 @@ Scenario: Verify the Device Name, Device Type
     And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
 
 
-@Regression8 @CTCP-485 @CTCP-486 @CTCP-487 @CTCP-488 @CTCP-482
+@Regression10 @CTCP-485 @CTCP-486 @CTCP-487 @CTCP-488 @CTCP-482
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -131,7 +131,7 @@ Scenario: Verify all fields in the Add Device
     And Add the non-mandatory fields for device with '${Brand}' '${SerialNumber}' '${RemoteConnection}' '${CommisioningDate}' and '${BeltConveyorSaves}' and '${FirmWareVersion}'
 
 
-@Regression8 @CTCP-494 @517 @506
+@Regression11 @CTCP-494 @517 @506
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -145,7 +145,7 @@ Scenario: Verify the cancel button
     And Click on Cancel button and verify warning popup is displayed and click on yes button
     And Verify user is navigated to monitoring device listing page
 
-@Regression8 @CTCP-495
+@Regression12 @CTCP-495
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -158,7 +158,7 @@ Scenario: Verify the save button
     And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
     And Click on save button and verify device '${DeviceName}' is created successfully
 
-@Regression8 @CTCP-493
+@Regression13 @CTCP-493
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -170,7 +170,7 @@ Scenario: Verify the status dropdown
     And Navigate to Add monitoring device screen
     And Click on the status dropdown and verify the dropdown values
 
-@Regression8 @CTCP-489
+@Regression14 @CTCP-489
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -178,13 +178,13 @@ Scenario: Verify the installation date text field
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    Then  Navigate to Belt Monitoring List page
+    Then  Navigate to Belt Monitoring List screen
     And Navigate to Add monitoring device screen
     And Verify the format of the installation date field and click on it and verify calendar popup is displayed
     And Click on the month in calender and verify month chart is displayed and next and verify previous buttons functionality
     And Click on the year in calender and verify year chart is displayed and next and verify previous buttons functionality
 
-@Regression8 @CTCP-492
+@Regression15 @CTCP-492
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -197,7 +197,7 @@ Scenario: AVerify the mandatory elements
     And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
     And Verify save button is enabled
 
-@Regression8 @CTCP-490
+@Regression16 @CTCP-490
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -205,7 +205,7 @@ Scenario: Verify the commissioning date text field
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    Then  Navigate to Belt Monitoring List page
+    Then  Navigate to Belt Monitoring List screen
     And Navigate to Add monitoring device screen
     And Verify the format of the commissioning date field and click on it and verify calendar popup is displayed
     And Click on the month in calender and verify month chart is displayed and next and verify previous buttons functionality
@@ -213,7 +213,7 @@ Scenario: Verify the commissioning date text field
     And Click on any past commissioning date user should be able to select only past date
 
 
-@Regression8 @CTCP-491
+@Regression17 @CTCP-491
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -226,7 +226,7 @@ Scenario: Verify the Belt/Conveyor Saves text field
     And Click on the belt/conveyor saves text field and verify the upward and downward functionality
 
 
-@Regression8 @CTCP-3672
+@Regression18 @CTCP-3672
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceTerritory_TerritoryUser
@@ -240,7 +240,7 @@ Scenario:  Verify user is able to add the monitoring device on territory manager
     And Click on save button and verify device '${DeviceName}' is created successfully
 
 
-@Regression8 @CTCP-3671
+@Regression19 @CTCP-3671
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDevice_MarketUser
@@ -253,7 +253,7 @@ Scenario: Verify user is able to add the monitoring device on market manager
     And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
     And Click on save button and verify device '${DeviceName}' is created successfully
 
-@Regression8 @CTCP-3673
+@Regression20 @CTCP-3673
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDevice_CustomerUser
@@ -266,7 +266,7 @@ Scenario: Verify user is able to add the monitoring device on customer user
     And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
     And Click on save button and verify device '${DeviceName}' is created successfully
 
-@Regression8 @CTCP-3674
+@Regression21 @CTCP-3674
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDevice_DistributorUser
@@ -279,7 +279,7 @@ Scenario: Verify user is able to add the monitoring device on distributor user
     And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
     And Click on save button and verify device '${DeviceName}' is created successfully
 
-@Regression8 @CTCP-3977
+@Regression22 @CTCP-3977
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_AddDeviceNonMandatory
@@ -293,7 +293,7 @@ Scenario: Verify the labels and colors for buttons of Add Monitoring Device page
     And Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
     And Verify create and cancel button colors
 
-@Regression8 @CTCP-3978
+@Regression23 @CTCP-3978
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_EditDevice
@@ -307,7 +307,7 @@ Scenario: Verify the labels and colors for buttons of Edit Monitoring Device pag
     And Verify save and cancel buttons are displayed
     And Verify create and cancel button colors
 
-@Regression8 @CTCP-4022
+@Regression24 @CTCP-4022
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_EditDevice
@@ -325,7 +325,7 @@ Scenario: Verify the device type names space is removed between the names
     And Search for the device '${DeviceName}' and navigate to view device page
     And Verify the deviceType '${DeviceType}' in monitoring device view page
 
-@Regression8 @CTCP-394 @CTCP-396 @CTCP-397
+@Regression25 @CTCP-394 @CTCP-396 @CTCP-397
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:BeltMonitoring_EditDevice
@@ -340,7 +340,7 @@ Scenario: verify the functionality of column selection filter button
     And Select only two columns and verify the selected columns are visible in the table
 
 
- @Regression8 @CTCP-402
+ @Regression26 @CTCP-402
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:BeltMonitoring_EditDevice

@@ -175,6 +175,9 @@ public class FileManagerPage extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Rename Folder/File']")
     public CustomElement btRenameDialog;
 
+    @FindBy(locator = "xpath=//tr//td//i[@class=\"ctp-icon-Visibility_On\"]")
+    public CustomElement documentViewIcon;
+
     public void goToFileManager() {
         if (fileManager.isEnable())
             fileManager.jsClick("File Manager");
@@ -308,7 +311,7 @@ public class FileManagerPage extends BasePage {
         btMoveDialog.isEnable("Move Confirmation Dialog");
         btMoveConfirm.isVisible(10000,"Move");
         SyncUtil.waitFor(3000);
-        btMoveConfirm.jsClick("Confirm Move");
+        btMoveConfirm.click("Confirm Move");
         waitForElementToInvisible(btMoveDialog, 45000);
     }
 
@@ -380,6 +383,7 @@ public class FileManagerPage extends BasePage {
         waitForElementToInvisible(fileManagerLoader, 40000);
         driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
         driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
         waitForElementToBeClickable(btCheckboxHeader);
         btCheckboxHeader.check("all files");
         btDownload.click("Download");
@@ -414,5 +418,22 @@ public class FileManagerPage extends BasePage {
         String memory = driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']//span[@class='file-details']")).getText();
         System.out.println(MiscUtils.regexExtractor(memory, "(|[^|]*)$").trim());
         return MiscUtils.regexExtractor(memory, "(|[^|]*)$").trim();
+    }
+    public void openImageDocument(String fileName){
+        SyncUtil.waitFor(4000);
+        documentViewIcon.isVisible(10000,"View Icon");
+        documentViewIcon.click();
+        waitForElementToDisplay(imgPopup);
+        imgPopup.isVisible("Image");
+        closePopup.click();
+    }
+    public void openPdfDocument(String fileName)
+    {
+        SyncUtil.waitFor(4000);
+        documentViewIcon.isVisible(10000,"View Icon");
+        documentViewIcon.click();
+        waitForElementToDisplay(pdfPopup);
+        pdfPopup.isVisible("pdf");
+        closePopup.click();
     }
 }

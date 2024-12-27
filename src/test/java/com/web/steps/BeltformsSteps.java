@@ -27,10 +27,10 @@ public class BeltformsSteps {
         beltpage.SelectTextile();
     }
 
-    @QAFTestStep(description = "Input Data")
-    public void inputData() {
-        beltpage.Input();
-    }
+//    @QAFTestStep(description = "Input Data")
+//    public void inputData() {
+//        beltpage.Input();
+//    }
 
     @QAFTestStep(description = "Generate PDF")
     public void generatePDF() {

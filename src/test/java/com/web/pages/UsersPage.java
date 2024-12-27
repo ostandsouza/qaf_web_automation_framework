@@ -503,6 +503,9 @@ public class UsersPage extends BasePage {
 //	@FindBy(locator="//tr[@class='ng-star-inserted'][i]//p-chip//div[contains(text(), 'APAC')]")
 //	public CustomElement txtApac;
 
+    @FindBy(locator = "//tr//td//span[contains(text(),\"Internal tools\")]")
+    public CustomElement tbInternalTools;
+
     @FindBy(locator = "xpath=//span[@id='p-panel-3_header']")
     public CustomElement txtHomeHeader;
 
@@ -616,6 +619,8 @@ public class UsersPage extends BasePage {
     }
 
     public void Nextclick() {
+        btNext.isVisible(10000, "Next");
+
         btNext.click();
     }
 
@@ -1216,6 +1221,12 @@ public class UsersPage extends BasePage {
             cbAllcheckboxView.click();
         if (!(cbAllcheckboxDownload.getAttribute("aria-checked").equals(download)))
             cbAllcheckboxDownload.click();
+    }
+
+    public void editInternalToolsPermission(String add, String edit, String delete, String view, String download) {
+        tbInternalTools.isVisible(10000, "Internal Tools");
+        waitForElementToBeClickable(tbInternalTools);
+        editPermission(add, edit, delete, view, download);
     }
 
     public void deleteTemplate() {

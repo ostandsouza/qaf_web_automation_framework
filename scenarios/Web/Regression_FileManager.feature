@@ -20,8 +20,6 @@ Scenario: Verify Conveyor level with file manager navigation
 @key:FileManager_DefaultFolder
 Scenario: Verify Conveyor level the file manager default folders
 
- Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to file manager for conveyor '${ConveyorName}'
     Then  Verify default folder for conveyor level
 
@@ -54,8 +52,7 @@ Scenario: Verify Conveyor level the file manager image upload
 @key:FileManager_Navigation
 Scenario: Verify Conveyor level the file manager video upload
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+
     And   Navigate to file manager for conveyor '${ConveyorName}'
     When  Upload file '${videoFile}' into the folder '${FolderName}'
     Then  Verify folder '${FolderName}' and file '${videoFile}'
@@ -79,8 +76,7 @@ Scenario: Verify Conveyor level the file manager document upload
 @key:FileManager_Navigation
 Scenario: Verify Conveyor level for file manager rename functionality
 
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
+
     And   Navigate to file manager for conveyor '${ConveyorName}'
     And   Rename file with name '${ImgName}' to '${ImgNewName}' inside folder '${FolderName}'
     Then  Verify folder '${FolderName}' and file '${ImgNewName}'
@@ -112,8 +108,7 @@ Scenario: Verify Conveyor level for file manager multiple files download functio
 Scenario: Verify Conveyor level for file manager files move functionality
 
 
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
+
     And   Navigate to file manager for conveyor '${ConveyorName}'
     And   Upload file '${ImgName}' into the folder "root"
     And   Move the file with '${ImgName}' inside folder '${FolderName}'
@@ -149,8 +144,7 @@ Scenario: Verify Conveyor level delete single file manager functionality
 @key:FileManager_Navigation
 Scenario: Verify Conveyor level delete multi files file manager manager functionality
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+
     And   Navigate to file manager for conveyor '${ConveyorName}'
     And   Delete multiple file inside folder '${FolderName}'
     Then  Verify the deleted file '${pdfFile}' inside folder '${FolderName}'
@@ -186,8 +180,7 @@ Scenario: Verify Conveyor level an file manager file upload root level
 @key:FileManager_Navigation
 Scenario: Verify Conveyor level an file manager file delete root level
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+
     And   Navigate to file manager for conveyor '${ConveyorName}'
     When  Delete file with name '${pdfFile}' inside folder "root"
     Then  Verify the deleted file '${pdfFile}' inside folder "root"
@@ -198,8 +191,7 @@ Scenario: Verify Conveyor level an file manager file delete root level
 @key:FileManager_Navigation
 Scenario: Verify Conveyor level a file manager duplicate file check
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+
     And   Navigate to file manager for conveyor '${ConveyorName}'
     When  Upload file '${ImgName}' into the folder "root"
     Then  Move the file with '${ImgName}' inside folder '${FolderName}'
@@ -296,10 +288,8 @@ Scenario: Verify site level the file manager document upload
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:FileManager_Navigation
-Scenario: ZVerify site level for file manager rename functionality
+Scenario: Verify site level for file manager rename functionality
 
-       Given User is at Login page
-                 When  Login with '${UserName}' and '${Password}'
     And   Navigate to file manager for site '${CustSiteName}'
     And   Rename file with name '${ImgName}' to '${ImgNewName}' inside folder '${FolderName}'
     Then  Verify folder '${FolderName}' and file '${ImgNewName}'
@@ -321,6 +311,7 @@ Scenario: Verify site level for file manager download folder functionality
 @key:FileManager_Navigation
 Scenario: Verify site level for file manager multiple files download functionality
 
+
     And   Navigate to file manager for site '${CustSiteName}'
     Then  Verify the multi files download folder '${FolderName}'
 
@@ -328,8 +319,12 @@ Scenario: Verify site level for file manager multiple files download functionali
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:FileManager_Navigation
-Scenario: ZVerify site level for file manager files move functionality
+Scenario: Verify site level for file manager files move functionality
 
+
+
+
+     And   Navigate to file manager for site '${CustSiteName}'
     And   Upload file '${ImgName}' into the folder "root"
     And   Move the file with '${ImgName}' inside folder '${FolderName}'
     Then  Verify folder '${FolderName}' and file '${ImgName}'
@@ -340,6 +335,8 @@ Scenario: ZVerify site level for file manager files move functionality
 @sheetName:Regression
 @key:FileManager_Navigation
 Scenario: Verify site level for file manager count
+
+
 
     And   Navigate to file manager for site '${CustSiteName}'
     And   Navigate to file manager for site '${CustSiteName}'

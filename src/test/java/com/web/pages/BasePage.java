@@ -306,7 +306,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         setImplicitWait(150000,TimeUnit.MILLISECONDS);
         waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
         driver.findElement("//span[text()='"+itemstosearch+"']").click();
-        setImplicitWait(1000,TimeUnit.MILLISECONDS);
+        driver.findElement("//span[text()='"+itemstosearch+"']").click();
+        setImplicitWait(3000,TimeUnit.MILLISECONDS);
         Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
     }
 

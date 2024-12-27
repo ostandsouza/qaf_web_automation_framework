@@ -65,4 +65,42 @@ Scenario: Vverify user is able to enter data in general details page and move to
     And Click on previous button and verify user is on Add Scan details page
     And Click on previous button and verify user is on General Info details page
 
+@Regression5 @CTCP-3555
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:BeltScan_ColumnSort
+Scenario: Verify sort filter and clear functionality for belt scan listing page
+
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    Then Navigate to Belt Scan List screen and wait
+    And Click on column header and verify sorting functionality
+    And Click on clear filter button and verify filter is removed
+    And Click on each column header and verify filter functionality
+
+@Regression6 @CTCP-3556
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:BeltScan_ColumnSort
+Scenario: Verify column selection search and refresh functionality
+
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    Then Navigate to Belt Scan List screen and wait
+    And Look for the searchBar in the table and verify search icon and search placeholder is visible
+    And Enter the text '${DeviceName}' to search
+    And Verify the matching result is displayed or No record found message should display
+    And Verify column selection filter is visible
+    And Click on the column name filter and verify searchBar all columnNames with checkbox and cross button is visible
+    And Verify user is able to see the column names selected by default
+    And Enter the columnName '${ColumnName}' in searchBar and verify all columnName with search text is displayed
+    And Select the checkbox of searched column and verify only selected column '${ColumnName}' is displayed in the table and column filter text box
+
+
+
+
+
+
 

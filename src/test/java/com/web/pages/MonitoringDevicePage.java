@@ -110,12 +110,12 @@ public class MonitoringDevicePage extends BasePage {
     public CustomElement tbBeltConveyorSaves;
     @FindBy(locator = "xpath=(//app-conveyor-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
     public CustomElement conveyorDDL;
-    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\"Add Location\"]")
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Add Location\"]")
     public CustomElement addLocationTitle;
-    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\"Add Device\"]")
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Add Device\"]")
     public CustomElement addDeviceTitle;
 
-    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\"Update Device\"]")
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Update Device\"]")
     public CustomElement updateDeviceTitle;
     @FindBy(locator = "xpath=//button[@disabled]//span[text()=\"Create\"]")
     public CustomElement createBtnDisabled;
@@ -183,7 +183,7 @@ public class MonitoringDevicePage extends BasePage {
         goToMonitoringDeviceListScreen();
         scrollPageDown();
         String val = "";
-        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(100); stop > System.nanoTime(); ) {
+        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(180); stop > System.nanoTime(); ) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
@@ -226,7 +226,7 @@ public class MonitoringDevicePage extends BasePage {
     public boolean searchMonitoringDevice(String device) {
         waitForPageLoad(20000);
         btSearchinput.type(device, "Monitoring Device Search");
-//        SyncUtil.waitFor(10000);
+        SyncUtil.waitFor(10000);
         waitForElementVisible(crCheckbox, 20000, 1000);
         waitForElementToDisplay(crCheckbox);
         return crCheckbox.isVisible("Monitoring Device Found");
@@ -280,10 +280,10 @@ public class MonitoringDevicePage extends BasePage {
     }
 
     public void verifyDeviceTypeDDL() {
-        deviceTypeDropDown.click("Device Type");
+        deviceTypeDropDown.jsClick("Device Type");
         Validator.assertTrue(ddlSelectLoadSense.isVisible(10000, "LoadSense option") && ddlSelectCordProtect.isVisible(10000, "CordProtect option") && ddlSelectRipProtect.isVisible(10000, "RipProtect option") &&
                 ddlSelectMultiProtect.isVisible(10000, "MultiProtect option") && ddlSelectOther.isVisible(10000, "Other option"), "All the options of device type are not visible", "All the options of device type are visible");
-        deviceTypeDropDown.click("Device Type");
+        deviceTypeDropDown.jsClick("Device Type");
         SyncUtil.waitFor(3000);
     }
 
@@ -298,7 +298,7 @@ public class MonitoringDevicePage extends BasePage {
     }
 
     public void verifyRemoteConnectionDDL() {
-        remoteConnectionDropDown.click("Remote Connection");
+        remoteConnectionDropDown.jsClick("Remote Connection");
         Validator.assertTrue(ddlSelectLocalOnly.isVisible(10000, "local only option") && ddlSelect3G4GRouter.isVisible(10000, "3G/4G Router option") &&
                 ddlSelectVPNMineSite.isVisible(10000, "VPN Mine Site option"), "All the options of remote connection dropdown are not visible", "All the options of remote connection dropdown are visible");
         remoteConnectionDropDown.click("Remote Connection");
@@ -319,7 +319,7 @@ public class MonitoringDevicePage extends BasePage {
 
     public void navigateToAddLocation() {
         waitForElementVisible(addLocationTitle, 10000, 500);
-        addLocationTitle.click("Add Location");
+        addLocationTitle.jsClick("Add Location");
         Validator.assertTrue(driver.getCurrentUrl().contains("/secure/device/add/location"), "User is not navigated to add location page", "User is navigated to add location page");
 
     }
@@ -367,7 +367,7 @@ public class MonitoringDevicePage extends BasePage {
 
         waitForElementVisible(tbInstallationDate, 10000, 500);
         Validator.assertTrue(tbInstallationDateFormat.isVisible("installation date format"), "The installation date is not in the format MM/DD/YYYY", "The installation date is in the format MM/DD/YYYY");
-        tbInstallationDate.click("installation date");
+        tbInstallationDate.jsClick("installation date");
         calendarPopup.isVisible(10000, "Calendar Popup");
 
     }
@@ -376,7 +376,7 @@ public class MonitoringDevicePage extends BasePage {
 
         waitForElementVisible(tbcommisioningDate, 10000, 500);
         Validator.assertTrue(tbCommissioningDateFormat.isVisible("installation date format"), "The installation date is not in the format MM/DD/YYYY", "The installation date is in the format MM/DD/YYYY");
-        tbCommissioningDateFormat.click("installation date");
+        tbCommissioningDateFormat.jsClick("installation date");
         calendarPopup.isVisible(10000, "Calendar Popup");
 
     }
