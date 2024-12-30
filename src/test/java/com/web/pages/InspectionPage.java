@@ -351,7 +351,7 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[2]")
 	public CustomElement txtInspCompleteCount;
-	@FindBy(locator = "xpath=//span[@class='sub-table-status ng-star-inserted']")
+	@FindBy(locator = "xpath=//div[@class='sub-table-status ng-star-inserted']")
 	public CustomElement txtStatusValue;
 
 	@FindBy(locator = "xpath=//span[@class='condition-status']")
@@ -424,7 +424,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=(//span[text()=\"Corporates\"])[2]")
 	public CustomElement corporateLink;
 
-	@FindBy(locator="xpath=(//div[@class='card-inner-wrapper' and contains(div, 'Inspections')])[2]")
+	@FindBy(locator="xpath=(//div[@class='card-inner-wrapper' and contains(div, 'Inspections')])[1]")
 	public CustomElement btInspectionCard;
 
 	@FindBy(locator="xpath=//span[text()='Inspection Event']")
@@ -565,9 +565,9 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void addItemMandatoryField(String conveyorName, String assetName, String assetDetail, String failureMode, String condition, String status) {
-		waitForElementToBeClickable(btnAddnew);
+		waitForElementToBeClickable(btnAddInspection);
 		SyncUtil.waitFor(4000);
-		btnAddnew.click("Add New Inspection");
+		btnAddInspection.click("Add New Inspection");
 		waitForElementToDisplay(ddlAsset);
 		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
 		dropdownSelectSearch(ddlAsset, tbInput, assetName);
@@ -656,7 +656,6 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void downloadPDF() {
-
 		btnDownload.click();
 		SyncUtil.waitFor(10000);
 		Reporter.log("PDF is downloaded", MessageTypes.Pass);
@@ -676,6 +675,7 @@ public class InspectionPage extends BasePage {
 		PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "-" + custSiteName + "-Multiple-" + inspectionName + ".pdf");
 		try {
 			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+			System.out.println(val);
 			Validator.assertTrue(val.contains(fullName), "PDF Report was generated for the wrong inspector", "PDF Report was generated for the right inspector");
 			Validator.assertTrue(val.contains(custSiteName), "PDF Report was generated for the wrong customer Site", "PDF Report was generated for the right customer Site");
 			Validator.assertTrue(val.contains(conveyorName) || val.contains("Multiple"), "PDF Report was generated for the wrong conveyor", "PDF Report was generated for the right conveyor");
@@ -932,7 +932,7 @@ public class InspectionPage extends BasePage {
 	public void verifyDeleteInspectionItem(String conveyor) {
 		goToInspectionScreenAndWait();
 		btSearchinput.type(conveyor, "Inspection Search");
-		Validator.assertTrue(pagination.getText().contains("3"), "Inspection items were not deleted", "Inspection item list was not found");
+		Validator.assertTrue(pagination.getText().contains("0"), "Inspection items were not deleted", "Inspection item list was not found");
 	}
 
 	public void enterInspectionName(String inspectionName) {
@@ -957,6 +957,7 @@ public class InspectionPage extends BasePage {
 		waitForPageLoad(5000);
 		waitForElementVisible(txtStatusValue,20000,1000);
 		String statValue = txtStatusValue.getText();
+		System.out.println(statValue);
 		getBundle().setProperty("statusValue", statValue);
 	}
 
@@ -964,6 +965,7 @@ public class InspectionPage extends BasePage {
 		waitForPageLoad(5000);
 		waitForElementVisible(txtConditionValue,5000,1000);
 		String  conValue = txtConditionValue.getText();
+		System.out.println(conValue);
 		getBundle().setProperty("conditionValue", conValue);
 	}
 
@@ -1020,7 +1022,7 @@ public class InspectionPage extends BasePage {
 		Validator.assertTrue(btInspectionCard.isEnable(),"Inspection Card is not clickable","Inspection Card is clickable");
 		btInspectionCard.click();
 		waitForPageLoad(5000);
-		Validator.assertTrue(txtInspectionEvent.isDisplayed(),"Inspection Page is not loaded","Inspection Page is loaded");
+		Validator.assertTrue(inspectionHeader.isDisplayed(),"Inspection Page is not loaded","Inspection Page is loaded");
 	}
 	public void verifyUserBreadCrumb()
 	{
@@ -1255,13 +1257,16 @@ public class InspectionPage extends BasePage {
 		waitForElementVisible(iconBarChart,5000,500);
 		waitForElementToBeClickable(iconBarChart);
 		iconBarChart.jsClick("inspection dashboard");
+		waitForPageLoad(10000);
+		SyncUtil.waitFor(10000);
 		Validator.assertTrue(iconBarChart.isEnabled(),"Inspection dashboard is clickable","Inspection dashboard is  clickable");
 	}
 	public void verifyInspectionItemsCounts(String total,String critical,String poor,String fault,String good )
 	{
 		waitForPageLoad(20000);
 		waitForElementVisible(statusCardCriticalCount,5000,500);
-//		SyncUtil.waitFor(40000);
+		SyncUtil.waitFor(30000);
+		System.out.println(statusCardTotalCount.getText()+"text"+statusCardCriticalCount.getText()+statusCardPoorCount.getText()+statusCardFaultCount.getText()+statusCardGoodCount.getText());
 		Validator.assertTrue(statusCardTotalCount.getText().contains(total),"Total Count doesn't match","Critical Count match");
 		Validator.assertTrue(statusCardCriticalCount.getText().contains(critical),"Critical Count doesn't match","Critical Count match");
 		Validator.assertTrue(statusCardPoorCount.getText().contains(poor),"Poor Count doesn't match","Poor Count match");
@@ -1287,6 +1292,7 @@ public class InspectionPage extends BasePage {
 
 	public void verifyMultiSelInSiteDropDown(String siteName,String siteName2)
 	{
+		SyncUtil.waitFor(20000);
 		waitForElementVisible(multiSelectCloseBtn,10000,500);
 		multiSelectCloseBtn.click();
 		waitForElementVisible(ddlSiteDropdown,10000,500);

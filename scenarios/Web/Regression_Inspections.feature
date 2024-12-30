@@ -458,8 +458,6 @@ Scenario: Verify uploaded image under inspection item
   @key:Inspection_AddEvent_SiteInspection
   Scenario: Verify Duplicate inspections under inspection list
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to inspection list screen and wait for data load
     And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
@@ -582,6 +580,8 @@ Scenario: Verify all sites are visible under exported PDF When user did not sele
 @key:Inspection_Dashboard
 Scenario: Verify user is able to open the inspections from the corporate level
 
+  Given User is at Login page
+  When Login with '${UserName}' and '${Password}'
   And Navigate to Corporate details screen for corporate '${Corporate}'
   Then Click on inspections and verify user is able to open inspections
 
@@ -604,6 +604,8 @@ Scenario: Verify user is able to see number of inspection items in condition
 @key:Inspection_Dashboard
 Scenario: Verify user is able select the multiple sites via drop down
 
+    Given User is at Login page
+     When Login with '${UserName}' and '${Password}'
     And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard

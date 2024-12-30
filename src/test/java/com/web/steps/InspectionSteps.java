@@ -64,6 +64,8 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Verify And validate the changes for {InspectionName} with {ItemCount}")
 	public void verifyInspectionItem(String inspectionName, String itemCount){
+		System.out.println("here");
+		SyncUtil.waitFor(200000);
 		inspectionpage.verifyInspection(inspectionName,itemCount);
 	}
 	

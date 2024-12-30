@@ -113,19 +113,19 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
     public CustomElement buttonLoader;
 
-    @FindBy(locator = "xpath=(//div[text()='Minuteman Calc.']/..//div[contains(@class,'text-area')]/span)[2]")
+    @FindBy(locator = "xpath=(//div[text()='Minuteman Calc.']/..//div[contains(@class,'text-area')]/span)[1]")
     public CustomElement crMinutemanCalc;
 
-    @FindBy(locator = "xpath=(//div[text()='Monitoring Devices']/..//div[contains(@class,'text-area')]/span)[2]")
+    @FindBy(locator = "xpath=(//div[text()='Monitoring Devices']/..//div[contains(@class,'text-area')]/span)[1]")
     public CustomElement crMonitoringDevices;
 
-    @FindBy(locator = "xpath=(//div[text()='Conveyor Inspect']/..//div[contains(@class,'text-area')]/span)[2]")
+    @FindBy(locator = "xpath=(//div[text()='Conveyor Inspect']/..//div[contains(@class,'text-area')]/span)[1]")
     public CustomElement crConveyorInspect;
 
     @FindBy(locator = "xpath=(//div[text()='Inspections']/..//div[contains(@class,'text-area')]/span)[2]")
     public CustomElement crInspections;
 
-    @FindBy(locator = "xpath=(//div[text()='Cover Wear']/..//div[contains(@class,'text-area')]/span)[2]")
+    @FindBy(locator = "xpath=(//div[text()='Cover Wear']/..//div[contains(@class,'text-area')]/span)[1]")
     public CustomElement crCoverWear;
 
     @FindBy(locator = "xpath=(//div[text()='File Manager']/..//div[contains(@class,'text-area')]/span)[1]")
@@ -137,31 +137,31 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//div[text()='Technical Data']/..//div[contains(@class,'text-area')]/span)[1]")
     public CustomElement crTechnicalDataCard;
 
-    @FindBy(locator = "xpath=//span[text()='Conveyor-Lite']")
+    @FindBy(locator = "xpath=//span[text()=' Conveyor-Lite']")
     public CustomElement crConveyorLiteTab;
 
-    @FindBy(locator = "xpath=//span[text()='Installed Belt']")
+    @FindBy(locator = "xpath=//span[text()=' Installed Belt']")
     public CustomElement crInstalledBeltTab;
 
-    @FindBy(locator = "xpath=//span[text()='Material']")
+    @FindBy(locator = "xpath=//span[text()=' Material']")
     public CustomElement crMaterialTab;
 
-    @FindBy(locator = "xpath=//span[text()='Conveyor']")
+    @FindBy(locator = "xpath=//span[text()=' Conveyor']")
     public CustomElement crConveyorTab;
 
-    @FindBy(locator = "xpath=//span[text()='Wear Life']")
+    @FindBy(locator = "xpath=//span[text()=' Wear Life']")
     public CustomElement crWearLifeTab;
 
-    @FindBy(locator = "xpath=//span[text()='Idlers']")
+    @FindBy(locator = "xpath=//span[text()=' Idlers']")
     public CustomElement crIdlersTab;
 
-    @FindBy(locator = "xpath=//span[text()='Pulleys']")
+    @FindBy(locator = "xpath=//span[text()=' Pulleys']")
     public CustomElement crPulleysTab;
 
-    @FindBy(locator = "xpath=//span[text()='Transition Zone']")
+    @FindBy(locator = "xpath=//span[text()=' Transition Zone']")
     public CustomElement crTransitionZoneTab;
 
-    @FindBy(locator = "xpath=//span[text()='Remarks']")
+    @FindBy(locator = "xpath=//span[contains(text(),'Remarks')]")
     public CustomElement crRemarksTab;
 
     @FindBy(locator = "xpath=//label[text()='Belt Width ']/..//input")
@@ -600,7 +600,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//div[text()='Conveyors are successfully imported']")
     public CustomElement crImportSuccessful;
 
-    @FindBy(locator="xpath=//button[@icon='pi pi-pencil']//span[2]")
+    @FindBy(locator="xpath=//button[@icon='ctp-icon-Edit']//span[2]")
     public CustomElement editConveyor;
 
     @FindBy(locator = "xpath=//div[text()='Conveyor Updated Successfully.']")
@@ -752,10 +752,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Custom Event']")
     public CustomElement conveyorHistoryCustomEvent;
 
-    @FindBy(locator = "xpath=//span[text()='Details']")
+    @FindBy(locator = "xpath=//span[text()=' Details']")
     public CustomElement crDetailsTab;
 
-    @FindBy(locator = "xpath=//span[text()='Transitions']")
+    @FindBy(locator = "xpath=//span[text()=' Transitions']")
     public CustomElement crTransitionTab;
 
     @FindBy(locator = "xpath=//span[text()='Cancel']")
@@ -1003,7 +1003,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//button[text()='Back']")
     public CustomElement btnBack;
 
-    @FindBy(locator="xpath=//div[text()=' Automation Layout duplicate ']//p-radiobutton")
+    @FindBy(locator="xpath=//div[text()=' Automation Regression Layout ']//p-radiobutton")
     public CustomElement rdBtnCommonLayout;
 
     @FindBy(locator="xpath=//button[text()='Save Set Preference']")
@@ -1243,7 +1243,7 @@ public class ConveyorPage extends BasePage{
         inspectionpage.clickClickFilter();
         waitForPageLoad(20000);
         btSearchinput.type(conveyorName, "Conveyor Search");
-        SyncUtil.waitFor(10000);
+        SyncUtil.waitFor(20000);
         waitForElementVisible(crCheckbox,20000,1000);
         waitForElementToDisplay(crCheckbox);
         return crCheckbox.isVisible("Conveyor Found");
@@ -1364,6 +1364,8 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyWearLife() {
+        SyncUtil.waitFor(4000);
+//        waitForElementVisible(crWearLifeTab,5000,1000);
         crWearLifeTab.click("Wear Life Tab");
         return crTonsPerYear.isVisible("Tons Per year") && crFeedAngle.isVisible("Feed Angle") && crChuteAngle.isVisible("Chute Angle") && crBeltInclineAngle.isVisible("Belt Incline angle in Load Zone");
     }
@@ -1386,7 +1388,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyTransitionZone() {
-        crTransitionZoneTab.click("Transition Zone Tab");
+        crTransitionTab.click("Transition Zone Tab");
         return crHeadTransitionLength.isVisible("Flat-to-trough Transition Length") && crHeadPulleyLift.isVisible("Pulley Lift") && crTailTransitionLength.isVisible("Trough-to-flat Transition Length") && crTailPulleyLift.isVisible("Tail Pulley Lift") &&
                 !crHeadTransitionTypeFull.isEnable() && !crHeadTransitionTypeHalf.isEnable() && !crTailTransitionTypeFull.isEnable() && !crTailTransitionTypeHalf.isEnable() &&
                 !crMaterialGuidanceNo.isEnable() && !crMaterialGuidanceYes.isEnable() && !crConditionYes.isEnable() && !crConditionNo.isEnable();
@@ -1428,6 +1430,7 @@ public class ConveyorPage extends BasePage{
 
     public boolean goToBulkImport() {
         addConveyors.click("Add Conveyor");
+        SyncUtil.waitFor(3000);
         crBulkImport.click("Bulk Import");
         return crFileUpload.isEnable("File Upload");
     }
@@ -1443,9 +1446,10 @@ public class ConveyorPage extends BasePage{
     public void checkDownloadTemplateForMultipleSite(String distributor, String site,String site2) {
         goToBulkImport();
 //        dropdownselectsearch(crDistributorDropdown,tbSitedropdown, distributor);
+        SyncUtil.waitFor(3000);
         crMultipleSitesRadio.click("Multiple Site Radio");
         dropdownSelectSearch(crSiteDropdown, tbMultipleSiteDropdown, site);
-        crSiteDropdown.click();
+        crSiteDropdown.jsClick();
         tbMultipleSiteDropdown.clear();
         SyncUtil.waitFor(1000);
         dropdownSelectSearch(crSiteDropdown, tbMultipleSiteDropdown, site2);
@@ -1520,6 +1524,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyTile() {
+        System.out.println(crTechnicalDataCard.isEnable("Technical Card")+"" + crConveyorHistory.isEnable("Conveyor History") + crFileManager.isEnable("File Manager") + crCoverWear.isEnable("Cover Wear") +"" + crInspections.isEnable("Inspections") + crConveyorInspect.isEnable("Conveyor Inspect") + crMonitoringDevices.isEnable("Monitoring Devices") +" "+crMinutemanCalc.isEnable("Minuteman Calc"));
         return crTechnicalDataCard.isEnable("Technical Card") && crConveyorHistory.isEnable("Conveyor History") && crFileManager.isEnable("File Manager") && crCoverWear.isEnable("Cover Wear") && crInspections.isEnable("Inspections") && crConveyorInspect.isEnable("Conveyor Inspect") && crMonitoringDevices.isEnable("Monitoring Devices") && crMinutemanCalc.isEnable("Minuteman Calc");
     }
 
@@ -1616,7 +1621,9 @@ public class ConveyorPage extends BasePage{
         waitForElementVisible(defaultLayout,10000,500);
         waitForElementToBeClickable(defaultLayout);
         defaultLayout.jsClick("Default Radio");
+        System.out.println("clicked default ");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(10000);
         waitForElementVisible(driver.findElement(By.xpath("//div[contains(text(),'"+layoutName+"')]/following-sibling::div//span[contains(@class,'ctp-icon-Delete')]")),20000,500);
         driver.findElement(By.xpath("//div[contains(text(),'"+layoutName+"')]/following-sibling::div//span[contains(@class,'ctp-icon-Delete')]")).click();
         waitForElementVisible(deleteLayoutHeader,10000,500);
@@ -1874,7 +1881,7 @@ public class ConveyorPage extends BasePage{
 
     public void clickRemarkAndSave()
     {
-        crRemarksTab.click("Remarks Tab");
+        crRemarksTab.jsClick("Remarks Tab");
         waitForElementVisible(crAdditionalRemarks,5000,1000);
         btCreate.click("Create Click");
         waitForElementToInvisible(buttonLoader,40000);
@@ -2089,9 +2096,11 @@ public class ConveyorPage extends BasePage{
     public void editBeltWidth(String beltWidth)
     {
         waitForElementToBeClickable(editConveyor);
+        SyncUtil.waitFor(10000);
         editConveyor.jsClick();
         waitForPageLoad(10000);
         waitForElementToDisplay(tbConveyorname);
+        waitForElementToDisplay(crInstalledBeltTab);
         crInstalledBeltTab.click("Installed Belt Tab");
         waitForPageLoad(10000);
         Validator.assertTrue(crBeltConstruction.isVisible(),"Installed Belt page is not loaded","Installed Belt page is loaded");
@@ -2221,7 +2230,7 @@ public class ConveyorPage extends BasePage{
         waitForElementVisible(tableLayoutHeader,10000,1000);
         Validator.assertTrue(tableLayoutHeader.isVisible(),"Table Layout Settings is not visible","Table Layout Settings is visble");
     }
-    public void clickOnLayoutAndVerifySafeSetPreference()
+    public void clickOnLayoutAndVerifySaveSetPreference()
     {
         waitForElementVisible(rdBtnCommonLayout,10000,500);
         rdBtnCommonLayout.click();
@@ -2396,7 +2405,7 @@ public class ConveyorPage extends BasePage{
         waitForElementVisible(cbInstalledBeltColumn,10000,500);
         Validator.assertTrue(cbInstalledBeltColumn.isVisible() && cbBeltManufacturerColumn.isVisible() &&cbBeltSpeedColumn.isVisible() &&cbBeltConstructionColumn.isVisible() && cbBeltWidthColumn.isVisible() ,"The column names with searched text  is not visible","The column names with searched text is  visible");
     }
-    public void checkboxClick()
+    public void columnSelectionCheckboxClick()
     {
         waitForElementVisible(cbAllColumnNames,10000,500);
         cbAllColumnNames.jsClick("checkbox checked");
@@ -2605,6 +2614,7 @@ public class ConveyorPage extends BasePage{
     public void actionBtnClick()
     {
         waitForElementVisible(crActions,10000,500);
+        Validator.assertTrue(crActions.isEnable("Action Enable"),"Action button is not enabled","Action button is enabled");
         crActions.jsClick("Actions");
 
     }
@@ -2749,7 +2759,8 @@ public class ConveyorPage extends BasePage{
     public void selectSiteForUpload(String site1,String site2){
         crMultipleSitesRadio.click("Multiple Site Radio");
         dropdownSelectSearch(crSiteDropdown, tbMultipleSiteDropdown, site1);
-        crSiteDropdown.click();
+        SyncUtil.waitFor(5000);
+        crSiteDropdown.jsClick();
         tbMultipleSiteDropdown.clear();
         SyncUtil.waitFor(1000);
         dropdownSelectSearch(crSiteDropdown, tbMultipleSiteDropdown, site2);

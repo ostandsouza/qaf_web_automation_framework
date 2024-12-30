@@ -668,6 +668,7 @@ public class APIBase {
         String baseUrl = commonPaths.get("monitoring_ms");
         restApiHelper.setBaseURI(baseUrl);
         headersMap.put("user-token",accessToken);
+        System.out.println(accessToken+"monitoring");
         Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "monitoring_controller");
         restApiHelper.makeGetRequest(monitoringPaths.get("count"),queryMaps,headersMap);
         Response profileResponse = restApiHelper.getResponse();
@@ -685,6 +686,7 @@ public class APIBase {
         String baseUrl = commonPaths.get("conveyor_ms");
         restApiHelper.setBaseURI(baseUrl);
         headersMap.put("user-token",accessToken);
+        System.out.println(accessToken+"conveyor");
         Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "conveyor_controller");
         restApiHelper.makeGetRequest(monitoringPaths.get("conveyor_count"),queryMaps,headersMap);
         Response profileResponse = restApiHelper.getResponse();

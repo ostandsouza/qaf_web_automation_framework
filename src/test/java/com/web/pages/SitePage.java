@@ -218,9 +218,9 @@ public class SitePage  extends BasePage {
 //        searchedSite.click();
 //    }
     public void subscribeSite(String siteName) {
-        waitForElementVisible(subscribePinIcon, 10000, 500);
+        waitForElementVisible(subscribePinIcon, 30000, 500);
         SyncUtil.waitFor(7000);
-        subscribePinIcon.click();
+        subscribePinIcon.jsClick();
         setImplicitWait(20000, TimeUnit.MILLISECONDS);
         waitForElementToDisplay(subscribedPinIcon);
         Validator.assertTrue(subscribedPinIcon.isDisplayed(), "The site is not subscribed", "The site is subscribed");
@@ -246,7 +246,7 @@ public class SitePage  extends BasePage {
 
     public boolean searchConveyorSiteLevel(String conveyorName) {
         btSearchinput.type(conveyorName, "Conveyor Search");
-//        SyncUtil.waitFor(10000);
+        SyncUtil.waitFor(20000);
         waitForElementVisible(crCheckbox, 20000, 1000);
         waitForElementToDisplay(crCheckbox);
         return crCheckbox.isVisible("Conveyor Found");

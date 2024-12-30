@@ -1,0 +1,62 @@
+[
+  {
+    "UserName": "contiplus_admin@maildrop.cc",
+    "Password": "Abc@123456",
+    "Market": "APAC",
+    "SpliceKit": "Bayswater",
+    "CustomerName": "AB1 Automation Site",
+    "ConveyorName": "BY1 Automation Conveyor",
+    "ApproverName": "VSMaster",
+    "BeltRating": "ST 5000",
+    "BeltWidth": "1500",
+    "TopCoverCompound": "Monster Hide Plus",
+    "BottomCoverCompound": "AS-S",
+    "TopCoverThickness": "20",
+    "BottomCoverThickness": "9",
+    "OverAllBeltThickness": "42.5",
+    "CordDiameter": "12.4",
+    "CordPitch": "20.9",
+    "NumberOfCords": "69",
+    "NoOfSteps": "5",
+    "SplicePattern": "5 Stage - See R&D",
+    "SpliceType":"(N-11)/6",
+    "NumberOfRepeatsA":"0",
+    "NumberOfRepeatsB":"0",
+    "CoverCut":"20",
+    "CordButtGap":"50",
+    "TransitionLength":"250",
+    "BiasLength":"600",
+    "BiasAngle":"22",
+    "StepLength":"900",
+    "SpliceLength":"5240",
+    "OverAllSpliceLength":"5840",
+
+    "CordDiameterBelt":"12.4",
+    "CordDiameterSplice":"12.4",
+    "NoOfCordsBelt":"69",
+    "NoOfCordsSplice":"0",
+    "CordSpacingBelt":"8.5",
+    "CordSpacingSplice":"-1,454.5",
+    "CordPitchBelt":"20.9",
+    "CordPitchSplice":"-1,442.1",
+
+    "AllDimension":"mm",
+    "Temperature":"145°C ± 3°C",
+    "Pressure":"150 - 200 psi / 12 - 14 bar / 1030 - 1379 kPA",
+    "VulcanizationTime":"70",
+    "DraftStatus":"Draft",
+    "InReviewStatus":"In Review",
+    "ToReviewStatus":"To Review",
+    "ApprovedStatus":"Approved",
+    "Comments": "For review",
+    "ApproveComments": "Approved Review",
+    "ApproverUserName": "Marketmaster@yopmail.com",
+    "ApproverPassword": "Abc@123456"
+
+
+
+
+
+
+  }
+]

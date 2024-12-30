@@ -62,8 +62,8 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Create a Customer site {0} and {1} and {2} and {3} and {4} and {5}")
     public void createACustomerSiteAndAndAndAndAnd(String CustShopGerName,String CustShopGerAddress,String CustCorpName,String DistShopGerName,String FullNameGer, String territory){
-        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustShopGerName));
-        corpPage.apiBase.deleteCompanyAPI(companyId);
+//        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustShopGerName));
+//        corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.clickCorporates();
         corpPage.goToAddCorp();
         corpPage.createCustomerSite(CustShopGerName, CustShopGerAddress,CustCorpName,DistShopGerName,territory,FullNameGer);

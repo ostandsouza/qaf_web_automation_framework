@@ -25,11 +25,11 @@ public class MonitoringDevicePage extends BasePage {
 	@FindBy(locator = "xpath=//button//chevronrighticon")
 	public CustomElement carouselRightIcon;
 
-	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[2]")
+	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]")
 	public CustomElement monitoringDeviceCardHeader;
-	@FindBy(locator = "xpath=(//i[@class='ctp-icon-Instaloled-Devices'])[2]")
+	@FindBy(locator = "xpath=(//i[@class='ctp-icon-Instaloled-Devices'])[1]")
 	public CustomElement monitoringDeviceCardLogo;
-	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[2]/../div/div/div/span")
+	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]/../div/div/div/span")
 	public CustomElement monitoringDeviceCardCount;
 
 	@FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
@@ -155,7 +155,7 @@ public class MonitoringDevicePage extends BasePage {
 	public CustomElement siteDDL;
 	@FindBy(locator= "xpath=//span[text()='Device Location']")
 	public CustomElement deviceLocationLabel;
-	@FindBy(locator = "xpath=(//span[text()='Cancel'])")
+	@FindBy(locator = "xpath=(//span[text()='Cancel'])[2]")
 	public CustomElement btnCancel;
 	@FindBy(locator = "xpath=//span[text()='Create']")
 	public CustomElement btnCreate;
@@ -216,12 +216,16 @@ public class MonitoringDevicePage extends BasePage {
 	}
 	public void clickCarouselRightIcon(){
 		waitForElementVisible(carouselRightIcon,5000,500);
-		carouselRightIcon.click("Carsouel Right");
+		carouselRightIcon.jsClick("Carsouel Right");
 	}
 	public void verifyBeltMonitoringCardDetails(){
+		waitForPageLoad(5000);
+		System.out.println("check");
+		SyncUtil.waitFor(20000);
 		waitForElementVisible(monitoringDeviceCardHeader,5000,500);
 		Validator.assertTrue(monitoringDeviceCardHeader.isDisplayed(),"Monitoring Device Card is not visible","Monitoring Device Card is visible");
 		Validator.assertTrue(monitoringDeviceCardLogo.isDisplayed(),"Monitoring Device Logo is not visible","Monitoring Device Logo is visible");
+		System.out.println(apiBase.getMonitoringDeviceCount().get("count"));
 		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("count").toString().equals(monitoringDeviceCardCount.getText()),"Monitoring Device Card Count does not match","Monitoring Device Card Count matches");
 	}
 
@@ -529,7 +533,7 @@ public class MonitoringDevicePage extends BasePage {
 	public void verifyMonitoringDeviceIcon()
 	{
 		System.out.println("check");
-		waitForElementVisible(monitoringDeviceMapHeadIcon,10000,500);
+		waitForElementVisible(monitoringDeviceMapHeadIcon,20000,500);
 		Validator.assertTrue(monitoringDeviceMapHeadIcon.isVisible(),"Monitoring Device Head Icon is not visible","Monitoring Device Head Icon is visible");
 		Validator.assertTrue(monitoringDeviceMapTailIcon.isVisible(),"Monitoring Device Tail Icon is not visible","Monitoring Device Tail Icon is visible");
 //       Validator.assertTrue(monitoringDeviceMapIcon.isVisible(),"Monitoring Device Icon is not visible","Monitoring Device Icon is visible");

@@ -57,18 +57,18 @@
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="Regression1" />-->
-<!--				<include name="Regression2" />-->
-<!--				<include name="Regression3" />-->
-<!--				<include name="Regression4" />-->
-<!--				<include name="Regression5" />-->
-<!--				<include name="Regression6" />-->
-<!--				<include name="Regression7" />-->
-<!--				<include name="Regression8" />-->
-<!--				<include name="Regression9" />-->
-<!--				<include name="Regression10" />-->
-<!--				<include name="Regression11" />-->
-<!--				<include name="Regression12" />-->
-<!--				<include name="Regression13" />-->
+<!--&lt;!&ndash;				<include name="Regression2" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression3" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression4" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression6" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression7" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression8" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression9" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression10" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression11" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression12" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression13" />&ndash;&gt;-->
 <!--				<include name="Regression14" />-->
 <!--				<include name="Regression15" />-->
 <!--				<include name="Regression16" />-->
@@ -83,7 +83,7 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="Regression1" />-->
@@ -143,17 +143,17 @@
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="Regression1" />-->
-<!--				<include name="Regression2" />-->
-<!--				<include name="Regression3" />-->
-<!--				<include name="Regression4" />-->
-<!--				<include name="Regression5" />-->
-<!--				<include name="Regression6" />-->
-<!--				<include name="Regression7" />-->
-<!--				<include name="Regression8" />-->
-<!--				<include name="Regression9" />-->
-<!--				<include name="Regression10" />-->
-<!--				<include name="Regression11" />-->
-<!--				<include name="Regression12" />-->
+<!--&lt;!&ndash;				<include name="Regression2" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression3" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression4" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression6" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression7" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression8" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression9" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression10" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression11" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression12" />&ndash;&gt;-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
@@ -182,21 +182,21 @@
 <!--				<include name="Regression11" />-->
 <!--				<include name="Regression12" />-->
 <!--				<include name="Regression13" />-->
-<!--&lt;!&ndash;				<include name="Regression14" />&ndash;&gt;-->
+<!--				<include name="Regression14" />-->
 <!--				<include name="Regression15" />-->
 <!--				<include name="Regression16" />-->
 <!--				<include name="Regression17" />-->
 <!--				<include name="Regression18" />-->
 <!--				<include name="Regression19" />-->
 <!--				<include name="Regression20" />-->
-<!--&lt;!&ndash;				<include name="Regression21" />&ndash;&gt;-->
+<!--				<include name="Regression21" />-->
 <!--				<include name="Regression22" />-->
 <!--				<include name="Regression23" />-->
 <!--				<include name="Regression24" />-->
-<!--&lt;!&ndash;				<include name="Regression25" />&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression26" />&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression27" />&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression28" />&ndash;&gt;-->
+<!--				<include name="Regression25" />-->
+<!--				<include name="Regression26" />-->
+<!--				<include name="Regression27" />-->
+<!--				<include name="Regression28" />-->
 <!--				<include name="Regression29" />-->
 <!--				<include name="Regression30" />-->
 <!--				<include name="Regression31" />-->
@@ -252,24 +252,24 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_User.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_dev" />-->
+<!--			<parameter name="env.resources" value="resources/env_stg" />-->
 <!--			<groups>-->
 <!--				<run>-->
-<!--					<include name="CTCP-1285" />-->
-<!--					<include name="CTCP-1324" />-->
-<!--					<include name="CTCP-1311" />-->
-<!--					<include name="CTCP-1318" />-->
-<!--					<include name="CTCP-1321" />-->
-<!--					<include name="CTCP-1294" />-->
+<!--&lt;!&ndash;					<include name="CTCP-1285" />&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1324" />&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1311" />&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1318" />&ndash;&gt;-->
+<!--							<include name="CTCP-1321" />-->
+<!--&lt;!&ndash;					<include name="CTCP-1294" />&ndash;&gt;-->
 
-<!--					<include name="CTCP-1284" />-->
-<!--	                <include name="CTCP-1286" />-->
-<!--	                <include name="CTCP-1296" />-->
-<!--	                <include name="CTCP-1297"/>-->
-<!--	                <include name="CTCP-1305"/>-->
-<!--	                <include name="CTCP-1306"/>-->
-<!--	                <include name="CTCP-1312"/>-->
-<!--	                <include name="CTCP-1314"/>-->
+<!--&lt;!&ndash;					<include name="CTCP-1284" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1286" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1296" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1297"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1305"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1306"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1312"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1314"/>&ndash;&gt;-->
 <!--				</run>-->
 <!--			</groups>-->
 <!--			<classes>-->
@@ -281,19 +281,19 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Corporates.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
 <!--		<groups>-->
 <!--			<run>-->
-<!--						<include name="CTCP-567" />-->
-<!--						<include name="CTCP-573" />-->
-<!--						<include name="CTCP-575" />-->
-<!--						<include name="CTCP-576" />-->
+<!--&lt;!&ndash;						<include name="CTCP-567" />&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-573" />&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-575" />&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-576" />&ndash;&gt;-->
 <!--						<include name="CTCP-2851" />-->
 <!--						<include name="CTCP-2852" />-->
-<!--					<include name="CTCP-566" />-->
-<!--	                <include name="CTCP-568" />-->
-<!--	                <include name="CTCP-574" />-->
-<!--	                <include name="CTCP-578" />-->
+<!--&lt;!&ndash;					<include name="CTCP-566" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-568" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-574" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-578" />&ndash;&gt;-->
 <!--			</run>-->
 
 <!--		</groups>-->
@@ -306,18 +306,18 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="CTCP-789" />-->
 <!--				<include name="CTCP-790" />-->
 <!--				<include name="CTCP-773" />-->
 <!--				<include name="CTCP-792" />-->
-<!--					<include name="CTCP-724" />-->
-<!--	                <include name="CTCP-747" />-->
-<!--	                <include name="CTCP-788" />-->
-<!--	                <include name="CTCP-791" />-->
-<!--	                <include name="CTCP-748" />-->
+<!--&lt;!&ndash;					<include name="CTCP-724" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-747" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-788" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-791" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-748" />&ndash;&gt;-->
 
 <!--			</run>-->
 <!--		</groups>-->
@@ -330,7 +330,7 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="CTCP-1365" />-->
@@ -341,12 +341,13 @@
 <!--				<include name="CTCP-1384" />-->
 <!--				<include name="CTCP-1380" />-->
 <!--				<include name="CTCP-1381" />-->
-	<!--				<include name="CTCP-1363" />-->
-	<!--                <include name="CTCP-1373" />-->
-	<!--                <include name="CTCP-1374" />-->
-	<!--                <include name="CTCP-1375" />-->
-	<!--                <include name="CTCP-1376" />-->
-	<!--                <include name="CTCP-1364" />-->
+
+<!--&lt;!&ndash;					<include name="CTCP-1363" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1373" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1374" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1375" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1376" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1364" />&ndash;&gt;-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
@@ -358,7 +359,7 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_dev" />-->
+<!--			<parameter name="env.resources" value="resources/env_stg" />-->
 <!--			<groups>-->
 <!--				<run>-->
 
@@ -368,11 +369,12 @@
 <!--					<include name="CTCP-1429"/>-->
 <!--					<include name="CTCP-1442"/>-->
 <!--					<include name="CTCP-1439"/>-->
-	<!--                <include name="CTCP-1425" />-->
-	<!--                <include name="CTCP-1428" />-->
-	<!--                <include name="CTCP-1445" />-->
-	<!--                <include name="CTCP-1431" />-->
-	<!--                <include name="CTCP-1440" />-->
+
+<!--&lt;!&ndash;	               		 <include name="CTCP-1425" />&ndash;&gt;-->
+<!--&lt;!&ndash;	          	         <include name="CTCP-1428" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                     <include name="CTCP-1445" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                     <include name="CTCP-1431" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                     <include name="CTCP-1440" />&ndash;&gt;-->
 
 
 <!--				</run>-->
@@ -387,18 +389,18 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_dev" />-->
+<!--			<parameter name="env.resources" value="resources/env_stg" />-->
 <!--			<groups>-->
 <!--				<run>-->
 
-<!--					<include name="CTCP-1388"/>-->
-<!--					<include name="CTCP-1404"/>-->
-<!--					<include name="CTCP-1395"/>-->
-<!--					<include name="CTCP-1402"/>-->
-<!--					-				<include name="CTCP-1387" />-->
-<!--					                <include name="CTCP-1386" />-->
-<!--					                <include name="CTCP-1396" />-->
-<!--					                <include name="CTCP-1398" />-->
+<!--&lt;!&ndash;				<include name="CTCP-1388"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1404"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1395"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1402"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					-				<include name="CTCP-1387" />&ndash;&gt;-->
+<!--&lt;!&ndash;					                <include name="CTCP-1386" />&ndash;&gt;-->
+<!--&lt;!&ndash;					                <include name="CTCP-1396" />&ndash;&gt;-->
+<!--&lt;!&ndash;					                <include name="CTCP-1398" />&ndash;&gt;-->
 
 <!--				</run>-->
 <!--			</groups>-->
@@ -413,7 +415,7 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="CTCP-1866" />-->
@@ -421,12 +423,12 @@
 <!--				<include name="CTCP-1919" />-->
 <!--				<include name="CTCP-1921" />-->
 <!--				<include name="CTCP-1923" />-->
-<!--	                <include name="CTCP-1865" />-->
-<!--	                <include name="CTCP-1920" />-->
-<!--	                <include name="CTCP-1868" />-->
-<!--	                <include name="CTCP-1924" />-->
-<!--	                <include name="CTCP-1918" />-->
-<!--	                <include name="CTCP-1922" />-->
+<!--&lt;!&ndash;	                <include name="CTCP-1865" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1920" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1868" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1924" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1918" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1922" />&ndash;&gt;-->
 
 <!--			</run>-->
 <!--		</groups>-->
@@ -439,15 +441,15 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_dev" />-->
+<!--			<parameter name="env.resources" value="resources/env_stg" />-->
 <!--			<groups>-->
 <!--				<run>-->
 <!--					<include name="CTCP-1997" />-->
 <!--					<include name="CTCP-1998" />-->
 
-<!--	                <include name="CTCP-1994" />-->
-<!--	                <include name="CTCP-1996" />-->
-<!--	                <include name="CTCP-1999" />-->
+<!--&lt;!&ndash;	                <include name="CTCP-1994" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1996" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1999" />&ndash;&gt;-->
 
 <!--				</run>-->
 <!--			</groups>-->
@@ -460,18 +462,18 @@
 <!--	        <parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--	        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--	        <parameter name="step.provider.sharedinstance" value="false" />-->
-<!--	        <parameter name="env.resources" value="resources/env_dev" />-->
+<!--	        <parameter name="env.resources" value="resources/env_stg" />-->
 <!--	        <groups>-->
 <!--	            <run>-->
 <!--					<include name="CTCP-2007" />-->
 <!--					<include name="CTCP-2009" />-->
 <!--					<include name="CTCP-2011"/>-->
 <!--					<include name="CTCP-2015"/>-->
-<!--	                	<include name="CTCP-2005" />-->
-<!--	                	<include name="CTCP-2008" />-->
-<!--	               		<include name="CTCP-2010" />-->
-<!--	          	        <include name="CTCP-2014" />-->
-<!--	                	<include name="CTCP-2016" />-->
+<!--&lt;!&ndash;	                	<include name="CTCP-2005" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                	<include name="CTCP-2008" />&ndash;&gt;-->
+<!--&lt;!&ndash;	               		<include name="CTCP-2010" />&ndash;&gt;-->
+<!--&lt;!&ndash;	          	        <include name="CTCP-2014" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                	<include name="CTCP-2016" />&ndash;&gt;-->
 <!--	            </run>-->
 <!--	        </groups>-->
 <!--	        <classes>-->
@@ -483,21 +485,21 @@
 <!--	        <parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--	        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--	        <parameter name="step.provider.sharedinstance" value="false" />-->
-<!--	        <parameter name="env.resources" value="resources/env_dev" />-->
+<!--	        <parameter name="env.resources" value="resources/env_stg" />-->
 <!--	        <groups>-->
 <!--	            <run>-->
-<!--					<include name="CTCP-1987"/>-->
-<!--					<include name="CTCP-1970"/>-->
-<!--					<include name="CTCP-1986"/>-->
-<!--					<include name="CTCP-1989"/>-->
-<!--					<include name="CTCP-1990"/>-->
-<!--					<include name="CTCP-1957"/>-->
-<!--	                	<include name="CTCP-1958" />-->
-<!--	                	<include name="CTCP-1959" />-->
-<!--	                	<include name="CTCP-1962" />-->
-<!--	                	<include name="CTCP-1963" />-->
-<!--	                	<include name="CTCP-1967" />-->
-<!--	                	<include name="CTCP-1974" />-->
+<!--&lt;!&ndash;					<include name="CTCP-1987"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1970"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1986"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1989"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1990"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1957"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	                	<include name="CTCP-1958" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                	<include name="CTCP-1959" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                	<include name="CTCP-1962" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                	<include name="CTCP-1963" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                	<include name="CTCP-1967" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                	<include name="CTCP-1974" />&ndash;&gt;-->
 <!--	            </run>-->
 <!--	        </groups>-->
 <!--	        <classes>-->
@@ -509,31 +511,31 @@
 <!--	        <parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--	        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Corporates.feature" />-->
 <!--	        <parameter name="step.provider.sharedinstance" value="false" />-->
-<!--	        <parameter name="env.resources" value="resources/env_dev" />-->
+<!--	        <parameter name="env.resources" value="resources/env_stg" />-->
 <!--	        <groups>-->
 <!--	            <run>-->
-<!--	                <include name="CTCP-1133" />-->
-<!--	                <include name="CTCP-1142" />-->
-<!--	                <include name="CTCP-1135" />-->
-<!--	                <include name="CTCP-1143" />-->
-<!--	                <include name="CTCP-1145" />-->
-<!--	                <include name="CTCP-1146" />-->
-<!--	                <include name="CTCP-1148" />-->
-<!--	                <include name="CTCP-1149" />-->
-<!--	                <include name="CTCP-1151" />-->
+<!--&lt;!&ndash;	                <include name="CTCP-1133" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1142" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1135" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1143" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1145" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1146" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1148" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1149" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1151" />&ndash;&gt;-->
 
-<!--&lt;!&ndash;	                <include name="CTCP-1152" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-1164" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-1203" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-2637" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-2639" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-2641" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-2645" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-2647" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-2643" />&ndash;&gt;-->
-<!--&lt;!&ndash;	                <include name="CTCP-2651" />&ndash;&gt;-->
-<!--	                <include name="CTCP-2653" />-->
-<!--&lt;!&ndash;	                <include name="CTCP-2649" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                  <include name="CTCP-1152" />&ndash;&gt;-->
+<!--&lt;!&ndash;					  <include name="CTCP-1164" />&ndash;&gt;-->
+<!--&lt;!&ndash;	              	  <include name="CTCP-1203" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                	  <include name="CTCP-2637" />&ndash;&gt;-->
+<!--&lt;!&ndash;						  <include name="CTCP-2643" />&ndash;&gt;-->
+<!--&lt;!&ndash;	              	  <include name="CTCP-2639" />&ndash;&gt;-->
+<!--&lt;!&ndash;	               		  <include name="CTCP-2641" />&ndash;&gt;-->
+<!--&lt;!&ndash;	             		  <include name="CTCP-2645" />&ndash;&gt;-->
+<!--&lt;!&ndash;	             		  <include name="CTCP-2647" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                 <include name="CTCP-2651" />&ndash;&gt;-->
+<!--&lt;!&ndash;	              		  <include name="CTCP-2653" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                 <include name="CTCP-2649" />&ndash;&gt;-->
 
 
 <!--	            </run>-->
@@ -547,18 +549,18 @@
 <!--	        <parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--	        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--	        <parameter name="step.provider.sharedinstance" value="false" />-->
-<!--	        <parameter name="env.resources" value="resources/env_dev" />-->
+<!--	        <parameter name="env.resources" value="resources/env_stg" />-->
 <!--	        <groups>-->
 <!--	            <run>-->
 
-<!--	                <include name="CTCP-1208" />-->
-<!--	                <include name="CTCP-1217" />-->
-<!--	                <include name="CTCP-1220" />-->
-<!--	                <include name="CTCP-1223" />-->
-<!--	                <include name="CTCP-1231" />-->
-<!--	                <include name="CTCP-1232" />-->
-<!--	                <include name="CTCP-1236" />-->
-<!--	                <include name="CTCP-1239" />-->
+<!--&lt;!&ndash;	                <include name="CTCP-1208" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1217" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1220" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1223" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1231" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1232" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1236" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-1239" />&ndash;&gt;-->
 
 
 <!--	            </run>-->
@@ -592,18 +594,18 @@
 <!--				<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_UserBulkUpload.feature" />-->
 <!--				<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--				<parameter name="env.resources" value="resources/env_dev" />-->
+<!--				<parameter name="env.resources" value="resources/env_stg" />-->
 <!--				<groups>-->
 <!--					<run>-->
-<!--						<include name="CTCP-108"/>-->
-<!--						<include name="CTCP-115"/>-->
-<!--						<include name="CTCP-122"/>-->
-<!--						<include name="CTCP-117"/>-->
-<!--						<include name="CTCP-119"/>-->
-<!--						<include name="CTCP-121"/>-->
-<!--						<include name="CTCP-125"/>-->
-<!--						<include name="CTCP-128"/>-->
-<!--						<include name="CTCP-129"/>-->
+<!--&lt;!&ndash;						<include name="CTCP-108"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-115"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-122"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-117"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-119"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-121"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-125"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-128"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-129"/>&ndash;&gt;-->
 <!--					</run>-->
 <!--				</groups>-->
 <!--				<classes>-->
@@ -616,17 +618,17 @@
 <!--				<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_ConveyorBulkUpload.feature" />-->
 <!--				<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--				<parameter name="env.resources" value="resources/env_dev" />-->
+<!--				<parameter name="env.resources" value="resources/env_stg" />-->
 <!--				<groups>-->
 <!--					<run>-->
-<!--						<include name="CTCP-155"/>-->
-<!--						<include name="CTCP-156"/>-->
-<!--						<include name="CTCP-162"/>-->
-<!--						<include name="CTCP-169"/>-->
-<!--						<include name="CTCP-163"/>-->
-<!--						<include name="CTCP-164"/>-->
-<!--						<include name="CTCP-159"/>-->
-<!--						<include name="CTCP-153"/>-->
+<!--&lt;!&ndash;						<include name="CTCP-155"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-156"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-162"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-169"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-163"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-164"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-159"/>&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-153"/>&ndash;&gt;-->
 <!--					</run>-->
 <!--				</groups>-->
 <!--				<classes>-->
@@ -639,20 +641,20 @@
 <!--				<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Inspections.feature" />-->
 <!--				<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--				<parameter name="env.resources" value="resources/env_dev" />-->
+<!--				<parameter name="env.resources" value="resources/env_stg" />-->
 <!--					<groups>-->
 <!--						<run>-->
-<!--							<include name="CTCP-2654"/>-->
-<!--							<include name="CTCP-2657"/>-->
-<!--							<include name="CTCP-2670"/>-->
-<!--	                <include name="CTCP-2655" />-->
-<!--	                <include name="CTCP-2656" />-->
-<!--	                <include name="CTCP-2669" />-->
-<!--	                <include name="CTCP-2956" />-->
-<!--	                <include name="CTCP-2957" />-->
-<!--	                <include name="CTCP-2958" />-->
-<!--	                <include name="CTCP-2960" />-->
-<!--	                <include name="CTCP-2961" />-->
+<!--&lt;!&ndash;							<include name="CTCP-2654"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="CTCP-2657"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="CTCP-2670"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-2655" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-2656" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-2669" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-2956" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-2957" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-2958" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-2960" />&ndash;&gt;-->
+<!--&lt;!&ndash;	                <include name="CTCP-2961" />&ndash;&gt;-->
 <!--						</run>-->
 <!--					</groups>-->
 <!--					<classes>-->
@@ -665,30 +667,22 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_MonitoringDevice.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
 <!--		<groups>-->
 <!--			<run>-->
-<!--				<include name="CTCP-388"/>-->
-<!--				<include name="CTCP-390"/>-->
-<!--				<include name="CTCP-392"/>-->
-<!--				<include name="CTCP-404"/>-->
-<!--				<include name="CTCP-3676"/>-->
-<!--				<include name="CTCP-483"/>-->
-<!--				<include name="CTCP-479"/>-->
-<!--				<include name="CTCP-497"/>-->
-<!--				                <include name="CTCP-2655" />-->
-<!--				                <include name="CTCP-2656" />-->
-<!--				                <include name="CTCP-2669" />-->
-<!--				                <include name="CTCP-2956" />-->
-<!--				                <include name="CTCP-2957" />-->
-<!--				                <include name="CTCP-2958" />-->
-<!--				                <include name="CTCP-2960" />-->
-<!--				                <include name="CTCP-2961" />-->
-
-<!--				                <include name="CTCP-413" />-->
-<!--				                <include name="CTCP-521" />-->
-<!--				                <include name="CTCP-527" />-->
-<!--				                <include name="CTCP-551" />-->
+<!--&lt;!&ndash;				<include name="CTCP-388"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-390"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-392"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-398"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-406"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-3676"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-479"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-497"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-2809"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-2808"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-413" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-521" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-551" />&ndash;&gt;-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
@@ -710,7 +704,25 @@
 <!--				<include name="CTCP-3530"/>-->
 <!--				<include name="CTCP-3534"/>-->
 <!--				<include name="CTCP-3548"/>-->
-				<include name="CTCP-3551"/>
+<!--				<include name="CTCP-3551"/>-->
+<!--				<include name="CTCP-3552"/>-->
+
+<!--				<include name="CTCP-3537"/>-->
+<!--				<include name="CTCP-3535"/>-->
+
+<!--				<include name="CTCP-3988"/>-->
+<!--				<include name="CTCP-3992"/>-->
+<!--				<include name="CTCP-3993"/>-->
+<!--				<include name="CTCP-3560"/>-->
+
+<!--				<include name="CTCP-4055"/>-->
+<!--				<include name="CTCP-3561"/>-->
+<!--				<include name="CTCP-3562"/>-->
+<!--				<include name="CTCP-3563"/>-->
+<!--				<include name="CTCP-3564"/>-->
+<!--				<include name="CTCP-3600"/>-->
+
+
 
 			</run>
 		</groups>

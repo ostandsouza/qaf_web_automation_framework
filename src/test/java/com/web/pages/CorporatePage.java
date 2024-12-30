@@ -437,8 +437,7 @@ public class CorporatePage extends BasePage{
         tbAddress.type(Address,"Address bar");
         waitForElementToDisplay(tbMapFirstSearchOption);
         tbAddress.click("Address bar");
-        tbAddress.click("Address bar");
-        tbMapFirstSearchOption.click("Map search result");
+        tbMapFirstSearchOption.click(" search result");
     }
 
     public void saveCorp() {

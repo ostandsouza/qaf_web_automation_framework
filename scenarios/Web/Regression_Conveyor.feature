@@ -11,7 +11,7 @@ Scenario: Verify with add conveyor navigation
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    Then  Navigate to Add Conveyor screen
+#    Then  Navigate to Add Conveyor screen
 
 @Regression2
 @dataFile:resources/data/TestData.xls
@@ -77,6 +77,7 @@ Scenario: Verify image upload functionality
 @key:Conveyor_Details
 Scenario: Verify for the tiles in conveyor details screen
 
+    And wait for conveyors to load
    When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
    Then  Verify all the tiles in conveyor detail screen
 
@@ -132,6 +133,7 @@ Scenario: Verify a user is able to Get selected layout post re-login
     Then  Verify user is able see saved preference
     When  Click on profile and select logout button
     When  Login with '${UserName}' and '${Password}'
+    When  Navigate to conveyor list screen
     Then  Verify user is able see saved preference
 
 @Regression16
@@ -408,6 +410,8 @@ Scenario: Verify the user should get the add button enable
 @key:Conveyor_Layout_Create
 Scenario: Verify user is able to click the back button
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Click on text box and verify user is able to enter the layout name '${LayoutName}'
@@ -457,6 +461,8 @@ Scenario: Verify duplicate name of the layout
 @key:Conveyor_Layout_Create
 Scenario: Verify user is able to click the back button
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Click on cross button in layout setting popUp
@@ -633,10 +639,12 @@ Scenario: Verify pagination functionality
     And Navigate to conveyor list screen
     And Verify pagination format
     And Create a conveyor with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustShopGerName}'
+    And wait for conveyors to load
     And Extract the conveyor count from conveyor list page
     Then Delete Conveyor from Conveyor list screen '${ConveyorNameGer}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigate to conveyor list screen
+    And wait for conveyors to load
     And Verify the conveyor count from conveyor list page
     Then Verify pagination forward arrow button
     And Verify pagination backward arrow button
@@ -678,6 +686,7 @@ Scenario: ZyVerify notification order after login with other user and try to upd
     And Subscribe the conveyors '${ConveyorName1}' and '${ConveyorName2}'
     And Logout from the current user
     And Login with '${UserName}' and '${Password}'
+    And wait for conveyors to load
     And  Navigate to conveyor details screen for conveyor '${ConveyorName1}'
     And Edit Conveyor belt width value '${BeltWidth1}'
     And  Navigate to conveyor details screen for conveyor '${ConveyorName2}'

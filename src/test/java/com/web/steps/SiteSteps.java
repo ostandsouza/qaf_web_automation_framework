@@ -51,7 +51,6 @@ public class SiteSteps  {
     @QAFTestStep(description = "Edit the subscribed sites {Site1} and {ConveyorName}")
     public void editSubscribedSites(String site1,String conveyor1)
     {
-
         sitePage.searchSiteAndNavigate(site1);
         sitePage.searchConveyorAndEdit(conveyor1);
         conveyorPage.actionBtnClick();

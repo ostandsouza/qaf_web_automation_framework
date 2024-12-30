@@ -82,6 +82,10 @@ public class CoverWearSteps {
     public void verifyDeleteCoverWearMeasurement(String conveyorName){
         coverWearPage.verifyCoverWearDelete(conveyorName);
     }
+    @QAFTestStep(description="Verify Delete Cover wear measurement position {Position}")
+    public void verifyDeleteCoverWearMeasurementPosition(String position){
+        coverWearPage.verifyCoverWearDeletePosition(position);
+    }
 
     @QAFTestStep(description="Navigate to cover wear listing screen and wait")
     public void verifyNavigationToCoverWearListingAndWait(){
@@ -357,9 +361,9 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Verify whether the specifications is populated when no technical data is present for {ConveyorName} {CustSiteName}")
     public void verifySpecsWithNoTechnicalData(String conveyorName, String custSiteName){
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
-        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
+//        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+//        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+//        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
         conveyorPage.goToConveyorDetailScreen(conveyorName);
         coverWearPage.verifyCoverWearViaConveyor();
         Validator.assertTrue(coverWearPage.verifyCoverWearSpecs(conveyorName,custSiteName),"Incorrect default values are prefilled in specification screen","Correct default values are pre populated in specification page");
@@ -824,6 +828,7 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Click on Add New Position")
     public void clickOnTheAddNewPosition(){
+     SyncUtil.waitFor(5000);
      userpage.addIconClick();
      coverWearPage.verifyAddNewPositionPopUp();
     }
@@ -835,12 +840,12 @@ public class CoverWearSteps {
     coverWearPage.verifyWidthField(width);
     }
 
-    @QAFTestStep(description="Add segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
-    public void verifyAddSegmentPositionPopUpFields(String segment,String zero,String durometer){
-    coverWearPage.addSegmentField(segment);
-    coverWearPage.addTonsConveyedField(zero);
-    coverWearPage.addDurometerField(durometer);
-    }
+//    @QAFTestStep(description="Add segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
+//    public void verifyAddSegmentPositionPopUpFields(String segment,String zero,String durometer){
+//    coverWearPage.addSegmentField(segment);
+//    coverWearPage.addTonsConveyedField(zero);
+//    coverWearPage.addDurometerField(durometer);
+//    }
     @QAFTestStep(description="Click Top/Bottom radio button and verify selection")
     public void addTheTopBottomValue(){
     coverWearPage.addTopBottomValue();
@@ -1143,11 +1148,15 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Add installed date as {InstallDate} segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
     public void verifyAddSegmentPositionPopUpFields(String installedDate,String segment,String zero,String durometer){
-        SyncUtil.waitFor(20000);
+        SyncUtil.waitFor(5000);
         coverWearPage.addInstalledDateField(installedDate);
         coverWearPage.addSegmentField(segment);
         coverWearPage.addTonsConveyedField(zero);
         coverWearPage.addDurometerField(durometer);
+    }
+    @QAFTestStep(description = "Click on dialog box close button")
+    public void clickOnTheDialogClose() {
+        coverWearPage.clickOnDialogClose();
     }
 
 }
