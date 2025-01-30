@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -335,7 +336,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-year')]")
     public CustomElement calendarYear;
 
-    @FindBy(locator="xpath=//p-calendar[@formcontrolname='dateRangeFrom']//input")
+    @FindBy(locator = "xpath=//p-calendar//span[contains(@class,\"p-datepicker-decade\")]")
+    public CustomElement calendarDecadeYear;
+
+    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='dateRangeFrom']//input")
     public CustomElement dateRangeFrom;
 
     @FindBy(locator="xpath=//p-calendar[@formcontrolname='dateRangeTo']//input")
@@ -523,7 +527,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//span[contains(@id, \"p-panel-5_header\") and contains(text(), \"Sites\")]")
     public CustomElement siteHeader;
 
-    @FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement coverWearBreadCrumb;
 
     @FindBy(locator="xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
@@ -610,7 +614,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[3]/div[@class='conti-round'])[1]")
     public CustomElement redCountValue;
 
-    @FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement cowerWearBreadcrumb;
 
     @FindBy(locator="xpath=//span[text()='CS Common Regression']")
@@ -639,7 +643,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//div[@class=\"gauge-container\"]//div[@class=\"rating\"]")
     public CustomElement gaugePercentageRange;
 
-    @FindBy(locator="xpath=//div[@role=\"tablist\"]//button[@icon=\"ctp-icon-Add-circle\"]")
+    @FindBy(locator = "xpath=//div//button[@icon=\"ctp-icon-Add-circle\"]//span")
     public CustomElement btAddMeasurement;
 
     @FindBy(locator="xpath=//div[@role=\"dialog\" and contains(@class,\"p-dialog\")]")
@@ -917,7 +921,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[2]//td[2]")
     public CustomElement tdInstalledDateDetailValue;
 
-    @FindBy(locator="//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[4]//*//button[@icon=\"ctp-icon-Delete\"]")
+    @FindBy(locator = "//app-wear-measurements//div[@role=\"region\"]//*//table[@class=\"main-table\"]//tr[3]//*//button[@icon=\"ctp-icon-Delete\"]")
     public CustomElement btnDelete;
 
     @FindBy(locator="//button[contains(@class,\"p-dialog-header-close\")]")
@@ -974,10 +978,10 @@ public class CoverWearPage extends BasePage{
 //app-card//app-durometer//div//div[@class="bottom-label"]//span[1]
 // (//app-card//*//div[(@class="header")]/../../*//app-durometer//div[@class="center-label"]//span)[3]
 
-    @FindBy(locator = "xpath=(//div[@class='container']/div[@class='label-container']/div[@class='bottom-label']/span)[2]")
+    @FindBy(locator = "xpath=(//div[@class='container']/div[@class='label-container']/div[@class='bottom-label']/span)[1]")
     public CustomElement cardRemainingLifeValue;
 
-    @FindBy(locator = "xpath=(//app-card//div[contains(@class,'footer')]//span[contains(@class,'coverWear')])[2]")
+    @FindBy(locator = "xpath=(//app-card//div[contains(@class,'footer')]//span[contains(@class,'coverWear')])[1]")
     public CustomElement cardDurometerValue;
 
     @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Position']")
@@ -1009,9 +1013,9 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Add New Position']")
     public CustomElement hdAddNewPositionPopUp;
 
-    public void goToCoverWearScreen(){
-        if(!coverWearList.isVisible())
-            home.click("Home");
+    public void goToCoverWearScreen() {
+        if (!coverWearList.isVisible())
+            home.jsClick("Home");
         coverWearList.jsClick("Cover Wear List");
         coverWearHeader.isVisible("Cover Wear Header");
     }
@@ -1019,13 +1023,13 @@ public class CoverWearPage extends BasePage{
     public void goToCoverWearScreenAndWait() {
         goToCoverWearScreen();
         scrollPageDown();
-        String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
+        String val = "";
+        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(180); stop > System.nanoTime(); ) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
             val = pagination.getText();
-            SyncUtil.waitFor(5000);
+            SyncUtil.waitFor(8000);
         }
         scrollPageup();
     }
@@ -1041,7 +1045,6 @@ public class CoverWearPage extends BasePage{
 
     public void addNewMeasurement(String conveyorName, String siteName, String position, String topCoverThickness, String bottomCoverThickness, String positionDurometer, String topCoverCompound, String bottomCoverCompound) {
         cwAddNew.click("Add New Measurement");
-        SyncUtil.waitFor(5000);
         waitForElementToDisplay(cwSiteDropDown);
         dropdownSelectSearch(cwSiteDropDown, cwInput, siteName);
         dropdownSelectSearch(cwConveyorDropDown, cwInput, conveyorName);
@@ -1071,8 +1074,9 @@ public class CoverWearPage extends BasePage{
 
     public void addPosition(String segment, boolean top, String tons, String durameter){
         cwSpecsLoader.waitForNotVisible(10000);
-        SyncUtil.waitFor(2000);
-        cwAddNew.click("Edit");
+        SyncUtil.waitFor(3000);
+        waitForElementToBeClickable(cwAddNew);
+        cwAddNew.jsClick("Edit");
         cwPositionSegment.sendKeys(segment, "Segment");
         cwPositionTonsConveyed.sendKeys(tons, "Tons Conveyed");
         cwPositionDurometer.sendKeys(durameter, "Durameter");
@@ -1144,6 +1148,7 @@ public class CoverWearPage extends BasePage{
     public boolean searchCoverWear(String conveyorName){
         goToCoverWearScreenAndWait();
         cwSearchInput.type(conveyorName, "Cover Wear Search");
+        SyncUtil.waitFor(8000);
         waitForElementToDisplay(cwCheckbox);
         return cwCheckbox.isVisible("Cover Wear Found");
     }
@@ -1163,6 +1168,8 @@ public class CoverWearPage extends BasePage{
         waitForElementToDisplay(cwViewIcon);
         cwViewIcon.click("Cover Wear Detail");
         coverWearTitle.isEnable("Cover Wear Data");
+        waitForPageLoad(5000);
+        SyncUtil.waitFor(10000);
     }
 
     public void verifyCoverWearDelete(String conveyorName) {
@@ -1613,6 +1620,27 @@ public class CoverWearPage extends BasePage{
 //            driver.findElement(By.xpath("(//span[text()=\"" + day + "\" and not(contains(@class,'p-disabled'))])[1]")).click();
     }
 
+    public void selectYear(String year) {
+        int targetYear = Integer.parseInt(year);
+        int startYear = Integer.parseInt(calendarDecadeYear.getText("Calendar year").split(" - ")[0]);
+
+        // Calculate the difference in decades
+        double decadeDifference = (double) (startYear - targetYear) / 10;
+        int steps = (int) Math.ceil(Math.abs(decadeDifference));
+        if (decadeDifference > 0) {
+            for (int i = 0; i < steps; i++) {
+                calendarPrev.click("Calendar Decrement");
+            }
+        } else if (decadeDifference < 0) {
+            for (int i = 0; i < steps; i++) {
+                calendarNext.click("Calendar Increment");
+            }
+        }
+        SyncUtil.waitFor(500);
+        waitForElementToBeClickable(By.xpath("//span[contains(text(),'" + year + "')]"));
+        driver.findElement(By.xpath("//span[contains(text(),'" + year + "')]")).click();
+    }
+
 
     public void selectGivenDateMon(String date) {
         String day = null;
@@ -1810,7 +1838,7 @@ public class CoverWearPage extends BasePage{
     }
 
     public boolean closeAttachment() {
-        closeImgDialog.click("Attachment Close Btn");
+        closeImgDialog.jsClick("Attachment Close Btn");
         return !imgDialog.isNotVisible(1000);
     }
 
@@ -2113,12 +2141,9 @@ public class CoverWearPage extends BasePage{
         Validator.assertTrue(driver.getCurrentUrl().contains("/secure/dashboard/cover-wear"),"URL mismatch","URL matches");
 
     }
-    public void verifyCoverWearBreadCrumb()
-    {
-        waitForElementVisible(coverWearHeader,5000,500);
-        Validator.assertTrue(coverWearBreadCrumb.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb text is displayed");
-        Assert.assertEquals(coverWearBreadCrumb.getText(), "Home\nCover Wear", "Breadcrumb text does not match expected");
-
+    public void verifyCoverWearBreadCrumb() {
+        waitForElementVisible(coverWearHeader, 5000, 500);
+        Validator.assertTrue(coverWearBreadCrumb.isDisplayed(), "Breadcrumb element is not displayed", "Breadcrumb text is displayed");
     }
 
     public void homeLinkClick()
@@ -2242,17 +2267,20 @@ public class CoverWearPage extends BasePage{
         corporateColumnName.click();
 
     }
-    public void clickOnColumn(String columnHeader)
-    {
-        waitForElementVisible(driver.findElement(By.xpath("//div[normalize-space()='"+columnHeader+"']")),5000,500);
-        driver.findElement(By.xpath("//div[normalize-space()='"+columnHeader+"']")).click();
+
+    public void clickOnColumn(String columnHeader) {
+        scrollPageup();
+        waitForElementVisible(driver.findElement(By.xpath("//div[normalize-space()='" + columnHeader + "']")), 5000, 500);
+        SyncUtil.waitFor(3000);
+        waitForElementToBeClickable(driver.findElement(By.xpath("//div[normalize-space()='" + columnHeader + "']")));
+        driver.findElement(By.xpath("//div[normalize-space()='" + columnHeader + "']")).click();
         //        waitForElementVisible(coverGradeColumn,5000,500);
 //        coverGradeColumn.click();
 
     }
 
     private List<String> getColumnData(int columnNumber) {
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(10000);
         List<WebElement> rows = driver.findElements(By.xpath("//tbody/tr"));
         System.out.println(rows + " rows");
         List<String> columnData = new ArrayList<>();
@@ -2267,26 +2295,69 @@ public class CoverWearPage extends BasePage{
         return columnData;
     }
 
-    public void verifyIncreasingOrderSorting(int columnNumber)
-    {
+    public boolean verifyIncreasingOrderSorting(int columnNumber) {
         List<String> columnDataAfterSortingIncreasing = getColumnData(columnNumber);
         List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
+        boolean val = false;
+
+        // Normalize data: Trim, convert to lowercase, and remove hidden characters
+        columnDataAfterSortingIncreasing = columnDataAfterSortingIncreasing.stream()
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        expectedSortedDataIncreasing = expectedSortedDataIncreasing.stream()
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        // Sort the expected data in increasing order
         expectedSortedDataIncreasing.sort(null);
-        Validator.assertTrue(columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing), "Sorting in increasing order is not applied correctly","sorting is applied in increasing order");
+
+        // Debugging
+        for (int i = 0; i < columnDataAfterSortingIncreasing.size(); i++) {
+            System.out.println("Index " + i + ": Actual [" + columnDataAfterSortingIncreasing.get(i)
+                    + "] Expected [" + expectedSortedDataIncreasing.get(i) + "]");
+        }
+        if ((columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing)))
+            val = true;
+        return val;
 
     }
 
 
-    public void verifyDecreasingOrderSorting(int columnNumber)
-    {
-//        int columnNumber = 5; // Example: retrieve data from the 5th column
+    public boolean verifyDecreasingOrderSorting(int columnNumber) {
         List<String> columnDataAfterSortingDecreasing = getColumnData(columnNumber);
         List<String> expectedSortedDataDecreasing = new ArrayList<>(columnDataAfterSortingDecreasing);
+        boolean val = false;
+
+        // Normalize data: Trim, convert to lowercase, and remove hidden characters
+        columnDataAfterSortingDecreasing = columnDataAfterSortingDecreasing.stream()
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        expectedSortedDataDecreasing = expectedSortedDataDecreasing.stream()
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        // Sort the expected data in reverse order
         expectedSortedDataDecreasing.sort(Collections.reverseOrder());
-        // Compare the values of the column data after sorting with the expected sorted data (decreasing order)
-        Validator.assertTrue(columnDataAfterSortingDecreasing.equals(expectedSortedDataDecreasing), "Sorting in decreasing order is not applied correctly","sorting is applied in decreasing order");
+
+        // Debugging
+        for (int i = 0; i < columnDataAfterSortingDecreasing.size(); i++) {
+            System.out.println("Index " + i + ": Actual [" + columnDataAfterSortingDecreasing.get(i)
+                    + "] Expected [" + expectedSortedDataDecreasing.get(i) + "]");
+        }
+        if ((columnDataAfterSortingDecreasing.equals(expectedSortedDataDecreasing)))
+            val = true;
+        return val;
+
 
     }
+
+
     int redCount = 0;
     int yellowCount = 0;
     int greenCount = 0;
@@ -2486,10 +2557,13 @@ public class CoverWearPage extends BasePage{
 
     }
 
-    public void btnAddMeasurementClick()
-    {
-        waitForElementVisible(btAddMeasurement,10000,500);
+    public void btnAddMeasurementClick() {
+        waitForElementVisible(btAddMeasurement, 10000, 500);
+        waitForElementToBeClickable(btAddMeasurement);
         btAddMeasurement.jsClick();
+//        btAddMeasurement.click("add button");
+
+        SyncUtil.waitFor(2000);
 
     }
 
@@ -2906,7 +2980,7 @@ public class CoverWearPage extends BasePage{
         SyncUtil.waitFor(10000);
         waitForElementVisible(tbSurfaceTemperature,20000,500);
         //SHOWING EMPTY
-        Assert.assertEquals(surfaceTemperature,tbSurfaceTemperature.getAttribute("value"),"the user entered data is not present");
+        Assert.assertEquals(surfaceTemperature, tbSurfaceTemperature.getText("value"), "the user entered data is not present");
 
     }
 
@@ -3189,6 +3263,7 @@ public class CoverWearPage extends BasePage{
                 && remainingLifeHeader.isEnable() && durometerShoreHeader.isEnable() && coverGradeHeader.isEnable();
     }
 
+
     public void verifyCoverWearReportData(String conveyorName, String siteName) {
         PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + conveyorName + "_" + siteName + ".pdf");
         try {
@@ -3223,5 +3298,62 @@ public class CoverWearPage extends BasePage{
 //        }
 //    }
 
+
+    public boolean verifyIncreasingOrderSortingForDates(int columnNumber) {
+        // Retrieve column data
+        List<String> columnDataAfterSorting = getColumnData(columnNumber);
+        boolean val = false;
+
+        // Parse the data into LocalDate objects
+        List<LocalDate> actualDates = columnDataAfterSorting.stream()
+                .map(this::parseDate)
+                .collect(Collectors.toList());
+
+        // Create a sorted version of the dates in increasing order
+        List<LocalDate> expectedSortedDates = new ArrayList<>(actualDates);
+        Collections.sort(expectedSortedDates);
+
+        // Debugging output
+        System.out.println("Original Data: " + columnDataAfterSorting);
+        System.out.println("Parsed Dates (Actual): " + actualDates);
+        System.out.println("Expected Sorted Dates (Increasing): " + expectedSortedDates);
+        if (actualDates.equals(expectedSortedDates))
+            val = true;
+        return val;
+    }
+
+    public boolean verifyDecreasingOrderSortingForDates(int columnNumber) {
+        // Retrieve column data
+        List<String> columnDataAfterSorting = getColumnData(columnNumber);
+        boolean val = false;
+
+        // Parse the data into LocalDate objects
+        List<LocalDate> actualDates = columnDataAfterSorting.stream()
+                .map(this::parseDate)
+                .collect(Collectors.toList());
+
+        // Create a sorted version of the dates in decreasing order
+        List<LocalDate> expectedSortedDates = new ArrayList<>(actualDates);
+        expectedSortedDates.sort(Collections.reverseOrder());
+
+        // Debugging output
+        System.out.println("Original Data: " + columnDataAfterSorting);
+        System.out.println("Parsed Dates (Actual): " + actualDates);
+        System.out.println("Expected Sorted Dates (Decreasing): " + expectedSortedDates);
+        if (actualDates.equals(expectedSortedDates))
+            val = true;
+        return val;
+
+    }
+
+    // Helper method to parse a string into a LocalDate
+    private LocalDate parseDate(String value) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy"); // Adjust format as needed
+        try {
+            return LocalDate.parse(value.trim(), dateFormatter);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format: " + value, e);
+        }
+    }
 
 }

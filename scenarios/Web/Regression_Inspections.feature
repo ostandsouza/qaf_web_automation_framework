@@ -87,7 +87,7 @@ Scenario: Verify image upload functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Edit
-Scenario: Verify Inspection Event edit functionality
+Scenario:Verify Inspection Event edit functionality
 
     When  Verify the actions button is disabled
     Then  Verify after select inspection '${InspectionName}' action button is enabled
@@ -119,6 +119,7 @@ Scenario: Verify Delete inspection item
 @sheetName:Regression
 @key:Inspection_Edit
 Scenario: Verify Delete inspection event
+
 
    When  Delete inspection '${EditInspectionName}' from inspection list
    Then  Verify inspection '${EditInspectionName}' is deleted from inspection list
@@ -273,7 +274,7 @@ Scenario: Verify a delete inspection in inspection page
      Then  Verify inspection item '${ConveyorName}' is deleted from inspection list
 
 
-@Regression23
+@Regression24
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_AddSiteInspection
@@ -285,7 +286,7 @@ Scenario: Verify success message after saving inspection event
      And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
- @Regression24
+ @Regression25
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Inspection_AddSiteInspection
@@ -297,7 +298,7 @@ Scenario: Verify success message after saving inspection event
       And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}' '${lat}' '${long}' '${observation}' '${recommendation}' '${address}' '${img}'
 
 
- @Regression25
+ @Regression26
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:Inspection_AddSiteInspection
@@ -308,7 +309,7 @@ Scenario: Verify success message after saving inspection event
      And   Navigate to Add Inspection screen from list screen
 
 
- @Regression25
+ @Regression27
  @dataFile:resources/data/TestData.xls
  @sheetName:Regression
  @key:InspectionItem_Edit
@@ -368,7 +369,7 @@ Scenario: Verify success message after saving inspection event
     Then  Navigate to inspection list screen and wait for data load
     Then Verify duplicate inspection event for '${InspectionName}'
 
-@Regression32 @CTCP-26546
+@Regression28 @CTCP-2654
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -377,7 +378,8 @@ Scenario: Verify user is able to open the inspections from the corporate level
   And Click on corporates and open corperate '${Corporate}'
   Then Click on inspections and verify user is able to open inspections
 
-@Regression32 @CTCP-26576
+
+@Regression29 @CTCP-2657
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -390,7 +392,7 @@ Scenario: Verify user is able to see number of inspection items in condition
   And Click on inspection dashboard symbol and verify user is able to click on dashboard
   And Verify number of inpection items for '${Total}' '${Critical}' '${Poor}' '${Fault}' '${Good}'
 
-@Regression32 @CTCP-26706
+@Regression30 @CTCP-2670
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -401,7 +403,7 @@ Scenario: Verify user is able select the multiple sites via drop down
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on site dropdown and verify user is able to select multiple site '${SiteName}' '${SiteName2}'
 
-@Regression26 @CTCP-724
+@Regression31 @CTCP-724
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
@@ -413,7 +415,7 @@ Scenario: ZVerify the breadcrumb of the page
     Then Verify the breadcrumb of the page
 
 
-@Regression27 @CTCP-747
+@Regression32 @CTCP-747
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_AddConveyor
@@ -427,12 +429,14 @@ Scenario: Verify delete button functionality in add files section
     And Verify delete button is visible and click on delete button
     And Verify that selected image is deleted
 
-@Regression30 @CTCP-748
+@Regression33 @CTCP-748
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_BreadCrumb
-Scenario: Verify breadcrumb of inspection
+Scenario: ZVerify breadcrumb of inspection
 
+       Given User is at Login page
+       When  Login with '${UserName}' and '${Password}'
        And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
        Then Click on conveyor '${ConveyorName}' name in breadcrumb anf verify it navigates to conveyor technical data screen
        And Click on Inspection tile and verify it displays only corresponding conveyor '${ConveyorName}' inspections
@@ -442,7 +446,7 @@ Scenario: Verify breadcrumb of inspection
        And Click on Inspection tile and verify it displays only corresponding corporate '${CustCorp}' inspections
        And Click on corporates breadcrumb and verify it navigates to corporate page
 
- @Regression26 @CTCP-773
+ @Regression34 @CTCP-773
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Inspection_Navigation
@@ -454,18 +458,19 @@ Scenario: Verify breadcrumb of inspection
     Then Verify inspection total count is displayed
     Then Verify number of the to be completed inspection is displayed
 
-@Regression28 @CTCP-788
+@Regression35 @CTCP-788
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ExportFunction
 Scenario: Verify Export functionality under Inspection details screen.
 
-
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
     And Search for the InspectionItem '${ConveyorName}'
     Then Click on Export Button of InspectionItem and verify user is able to download pdf
 
-  @Regression26 @CTCP-789
+@Regression36 @CTCP-789
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Inspection_Navigation_Status
@@ -477,7 +482,7 @@ Scenario: Verify Export functionality under Inspection details screen.
     And Click on the view button
     Then Verify the inspection item status value
 
-  @Regression26 @CTCP-790
+  @Regression37 @CTCP-790
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Inspection_Navigation_Status
@@ -489,7 +494,7 @@ Scenario: Verify Export functionality under Inspection details screen.
     And Click on the view button
     Then Verify the inspection item condition value
 
-@Regression29 @CTCP-791
+@Regression38 @CTCP-791
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ImageFunctionality
@@ -500,7 +505,7 @@ Scenario: Verify uploaded image under inspection item
        Then Click on view icon and verify the uploaded image is visible
 
 
-  @Regression26 @CTCP-792
+  @Regression39 @CTCP-792
   @dataFile:resources/data/TestData.xls
   @sheetName:Regression
   @key:Inspection_AddEvent_SiteInspection
@@ -521,7 +526,7 @@ Scenario: Verify uploaded image under inspection item
     Then  Verify inspection item '${InspectionName}' is deleted from inspection list
 
 
-@Regression32 @CTCP-2655
+@Regression40 @CTCP-2655
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -533,7 +538,7 @@ Scenario: Zverify user is able click on the dashboard symbol
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
 
-@Regression32 @CTCP-2656
+@Regression41 @CTCP-2656
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -544,7 +549,7 @@ Scenario: Verify user is able to see the cards conditions
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Verify user is able to see the cards
 
-@Regression32 @CTCP-2669
+@Regression42 @CTCP-2669
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -557,7 +562,7 @@ Scenario: Verify user is able select the site via dropdown
     And Click on site dropdown and verify user is able to select a site '${SiteName}'
 
 
-@Regression32 @CTCP-2956
+@Regression43 @CTCP-2956
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -570,19 +575,20 @@ Scenario: Verify the Actions button by default under inspection dashboard page
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Verify actions button is present and is enabled by default
 
-@Regression32 @CTCP-2957
+@Regression44 @CTCP-2957
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
 Scenario: Verify the values under Actions dropdown button.
 
-
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on actions dropdown button and verify 'export button' with PDF symbol is visible
 
-@Regression32 @CTCP-2958
+@Regression45 @CTCP-2958
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -595,7 +601,7 @@ Scenario: ZClick on 'Export PDF' value from Actions button and verify the functi
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on Export PDF button and verify PDF is downloaded for company '${Corporate}'
 
-@Regression32 @CTCP-2960
+@Regression46 @CTCP-2960
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -610,7 +616,7 @@ Scenario: ZVerify that the particular selected site is visible under Exported PD
     And  Click on Export PDF button and verify PDF is downloaded for company '${Corporate}'
     And Verify that the selected site for '${SiteName}' and company '${Corporate}' is visible under downloaded PDF under Site Selection
 
-@Regression32 @CTCP-2961
+@Regression47 @CTCP-2961
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard

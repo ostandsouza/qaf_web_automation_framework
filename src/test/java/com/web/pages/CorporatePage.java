@@ -98,7 +98,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[1]")
     public CustomElement drTerritorybutton;
 
-    @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
     public CustomElement drTerritoryvalue;
 
     @FindBy(locator = "xpath=//p-autocomplete[@field='name']//input")
@@ -394,6 +394,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void createDistributorShop(String companyName, String address, String distCorp, String territory, String manager) {
+        waitForPageLoad(10000);
         scrollPageup();
         selectDistributorShop();
         dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,distCorp);
@@ -463,8 +464,10 @@ public class CorporatePage extends BasePage{
 
     public void btnSaveClick() {
         scrollPageDown();
-        btSave.click("Save");
-        waitForElementToInvisible(buttonLoader,10000);
+        waitForElementVisible(btSave, 10000, 500);
+        btSave.jsClick("Save");
+        waitForElementToInvisible(buttonLoader, 10000);
+        SyncUtil.waitFor(10000);
         btSearchinput.isVisible("Corporate list screen");
     }
 
@@ -615,6 +618,7 @@ public class CorporatePage extends BasePage{
     public void goToCorporateDetails(String corpName) {
         searchCorporate(corpName);
         btviewicon.click("Corp Details");
+        SyncUtil.waitFor(5000);
         waitForElementToDisplay(btSiteShopCardNo);
     }
 
@@ -672,7 +676,7 @@ public class CorporatePage extends BasePage{
     public void goToShopSiteDetails(String siteName) {
         btSearchinput.type(siteName, "Site/Shop name");
         waitForElementToDisplay(btCheckbox);
-        detailsMoreButton.click("Corp Details");
+        detailsMoreButton.jsClick("Corp Details");
         siteNameLoader.waitForPartialText(siteName, 15000);
         SyncUtil.waitFor(2000);
         conveyorHeader.isEnable("Conveyor Header");
@@ -684,11 +688,11 @@ public class CorporatePage extends BasePage{
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.click("Site Checkbox");
-        setImplicitWait(5000,TimeUnit.MILLISECONDS);
-        btActions.click("Actions");
+        setImplicitWait(5000, TimeUnit.MILLISECONDS);
+        btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-        typeOfCompanyLoader.waitForText("Distributor Shop");
+//        typeOfCompanyLoader.waitForText("Distributor Shop");
         tbCompanyName.type(editSiteName);
         dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
         drTerritoryManagerbutton.type("Market India Automation", "Territory");
@@ -735,6 +739,7 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btCheckbox);
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
         detailsName.verifyTextIgnoringNewLineChar(conveyorName, "Conveyor name");
+        SyncUtil.waitFor(10000);
         detailsMoreButton.click("Conveyor Details");
         siteNameLoader.waitForPartialText(conveyorName, 15000);
         conveyorTrailsHeader.isVisible("Conveyor Header");

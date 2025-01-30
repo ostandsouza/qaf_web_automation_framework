@@ -74,6 +74,7 @@ Scenario: AVerify the count displayed in cover wear card
 @key:CoverWear_Item
 Scenario: Verify the functionality of column name
 
+
     And Navigate to cover wear listing screen
     Then Click on the column name and verify the column names
     And Select any column name to be displayed and verify the column is displayed
@@ -84,7 +85,8 @@ Scenario: Verify the functionality of column name
 @key:CoverWear_Position
 Scenario: Verify search functionality
 
-
+  Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to cover wear listing screen
     Then Look for the searchBar in the table and verify search icon and search placeholder is visible
     When Enter the text '${ConveyorName}' to search
@@ -96,6 +98,9 @@ Scenario: Verify search functionality
 @key:CoverWear_Item
 Scenario: Verify the functionality of sorting
 
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to cover wear listing screen and wait
    Then Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column and verify sorting should be in increasing order
    And Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column again and verify sorting should be in decreasing order
@@ -106,6 +111,7 @@ Scenario: Verify the functionality of sorting
 @sheetName:Regression
 @key:CoverWear_Item
 Scenario: Verify the functionality of clear filter
+
 
     And Navigate to cover wear listing screen
     When Apply sorting or filter on column name
@@ -239,6 +245,7 @@ Scenario: Verify Specification details for position
 @key:CoverWear_Position
 Scenario: Verify data displayed in Gauge meter in case measurement already exist
 
+
     And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
     Then Extract the data from the position '${Position}' and navigate to position detail page
     Then Verify Gauge image is displayed in specification field
@@ -292,6 +299,8 @@ Scenario: Verify Wear Rate Statistics & Projections table
 @key:CoverWear_AddMeasurementImage
 Scenario: Verify attachment functionality
 
+     Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
     And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
     Then Click on conveyor position '${Position}' and navigate to position screen
     And Look for measurement table and verify data is available in measurement table
@@ -375,7 +384,7 @@ Scenario: ZVerify the breadcrumb functionality of the page
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     And Navigate to conveyor details screen for conveyor '${ConveyorName}'
-    And Click on coverWear card and verify it navigates to coverWear list page
+    And Click on coverWear card and verify it navigates to Specification page
     Then Verify the breadCrumb of the cover wear listing page '${CustSiteName}' '${CustCorp}' '${ConveyorName}'
     And Verify user navigates to respective page on bread crumb click of cover wear '${CustSiteName}' '${CustCorp}'
 
@@ -433,6 +442,7 @@ Scenario: Verify the functionality of column name
 @sheetName:Regression
 @key:CoverWear_DetailSorting
 Scenario: Verify the functionality of sorting
+
 
 
     And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate

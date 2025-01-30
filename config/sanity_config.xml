@@ -26,7 +26,7 @@
 	<test name="Corporate,Conveyor,Inspection,File Manager,Cover Wear,Conveyor Inspect" enabled="true">
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
-		<parameter name="step.provider.sharedinstance" value="true" />
+		<parameter name="step.provider.sharedinstance" value="false" />
 		<parameter name="env.resources" value="resources/env_stg" />
 		<groups>
 			<run>
@@ -46,7 +46,11 @@
 				<include name="Sanity17" />
 				<include name="Sanity18" />
 				<include name="Sanity19" />
-				<include name="Sanity20" />
+				<include name="Sanity21" />
+				<include name="Sanity23" />
+				<include name="Sanity24" />
+
+
 			</run>
 		</groups>
 		<classes>

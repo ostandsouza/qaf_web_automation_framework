@@ -1,8 +1,6 @@
 package com.web.pages;
 
 
-
-
 import com.common.utils.ClasspathResourceHelper;
 import com.common.utils.MiscUtils;
 import com.qmetry.qaf.automation.util.Validator;
@@ -513,6 +511,8 @@ public class UsersPage extends BasePage{
 	public CustomElement txtHomeHeader;
 	@FindBy(locator="//p-splitbutton[@icon='ctp-icon-Add-circle']")
 	public CustomElement btnTempAdd;
+    @FindBy(locator = "//tr//td//span[contains(text(),\"Internal tools\")]")
+    public CustomElement tbInternalTools;
 
 	public void usersclick() {
 		waitForElementVisible(lnkUsers, 10000,500);
@@ -624,116 +624,121 @@ public class UsersPage extends BasePage{
 		tbuserPassword.type(userPassword,"Userpassword");
 	}
 
-	public void setRetypePassword(String retypePassword) {
-		tbRetypePassword.type(retypePassword,"Retypepassword");
-	}
+    public void setRetypePassword(String retypePassword) {
+        tbRetypePassword.type(retypePassword, "Retypepassword");
+    }
 
-	public void goToUserPermission(){
-		btPermission.jsClick();
-	}
+    public void goToUserPermission() {
+        btPermission.jsClick();
+    }
 
-	public void goToTerritory(){
-		btAssign.jsClick();
-	}
+    public void goToTerritory() {
+        btAssign.jsClick();
+    }
 
-	public void Nextclick() {
-		btNext.click();
-	}
+    public void Nextclick() {
+        btNext.isVisible(10000, "Next");
 
-	public void setPermission() {
-		waitForElementVisible(btNext, 5000,500);
-		btNext.click();
-		SyncUtil.waitFor(1000);
-		waitForElementToInvisible(cbSpinner,10000);
-		cbAllcheckboxAdd.click();
-		cbAllcheckboxEdit.click();
-		cbAllcheckboxDelete.click();
-		cbAllcheckboxView.click();
-		cbAllcheckboxDownload.click();
-	}
+        btNext.click();
+    }
 
-	public void setPermission(String add, String edit, String delete, String view, String download) {
-		waitForElementVisible(btNext, 5000,500);
-		btNext.click();
-		SyncUtil.waitFor(2000);
-		waitForElementToInvisible(cbSpinner,25000);
-		if(add.equalsIgnoreCase("true"))
-			cbAllcheckboxAdd.jsClick();
-		if(edit.equalsIgnoreCase("true"))
-			cbAllcheckboxEdit.jsClick();
-		if(delete.equalsIgnoreCase("true"))
-			cbAllcheckboxDelete.jsClick();
-		if(view.equalsIgnoreCase("true"))
-			cbAllcheckboxView.jsClick();
-		if(download.equalsIgnoreCase("true"))
-			cbAllcheckboxDownload.jsClick();
-	}
+    public void setPermission() {
+        waitForElementVisible(btNext, 5000, 500);
+        btNext.click();
+        SyncUtil.waitFor(1000);
+        waitForElementToInvisible(cbSpinner, 10000);
+        cbAllcheckboxAdd.click();
+        cbAllcheckboxEdit.click();
+        cbAllcheckboxDelete.click();
+        cbAllcheckboxView.click();
+        cbAllcheckboxDownload.click();
+    }
 
-	/**
-	 *This method is used for selecting permission for particular sub module
-	 * @param mainModule: Name of main module
-	 * @param subModule: Name of sub module
-	 * @param add: Add Permission flag
-	 * @param edit: Edit Permission flag
-	 * @param delete: Delete Permission flag
-	 * @param view: View Permission flag
-	 * @param download: Download Permission flag
-	 *@return Null
-	 *@author Ostan dsouza
-	 */
-	public void setPermission(String mainModule, String subModule, String add, String edit, String delete, String view, String download) {
-		if(btNext.isVisible()) {
-			waitForElementVisible(btNext, 5000, 500);
-			btNext.click();
-			SyncUtil.waitFor(1000);
-		}
-		waitForElementToInvisible(cbSpinner,20000);
-		driver.findElement(By.xpath("//span[contains(text(),'"+mainModule+"')]/..//button")).click();
-		if(add.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//tr/td//span[contains(text(),'"+subModule+"')]/../..//div[contains(@class,'p-checkbox ')])[1]")).click();
-		if(edit.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//tr/td//span[contains(text(),'"+subModule+"')]/../..//div[contains(@class,'p-checkbox ')])[2]")).click();
-		if(delete.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//tr/td//span[contains(text(),'"+subModule+"')]/../..//div[contains(@class,'p-checkbox ')])[3]")).click();
-		if(view.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//tr/td//span[contains(text(),'"+subModule+"')]/../..//div[contains(@class,'p-checkbox ')])[4]")).click();
-		if(download.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../../..//tr/td//span[contains(text(),'"+subModule+"')]/../..//div[contains(@class,'p-checkbox ')])[5]")).click();
-	}
+    public void setPermission(String add, String edit, String delete, String view, String download) {
+        waitForElementVisible(btNext, 5000, 500);
+        btNext.click();
+        SyncUtil.waitFor(2000);
+        waitForElementToInvisible(cbSpinner, 25000);
+        if (add.equalsIgnoreCase("true"))
+            cbAllcheckboxAdd.jsClick();
+        if (edit.equalsIgnoreCase("true"))
+            cbAllcheckboxEdit.jsClick();
+        if (delete.equalsIgnoreCase("true"))
+            cbAllcheckboxDelete.jsClick();
+        if (view.equalsIgnoreCase("true"))
+            cbAllcheckboxView.jsClick();
+        if (download.equalsIgnoreCase("true"))
+            cbAllcheckboxDownload.jsClick();
+    }
 
-	/**
-	 *This method is used for selecting all permission under main module
-	 * @param mainModule: Name of main module
-	 * @param add: Add Permission flag
-	 * @param edit: Edit Permission flag
-	 * @param delete: Delete Permission flag
-	 * @param view: View Permission flag
-	 * @param download: Download Permission flag
-	 *@return Null
-	 *@author Ostan dsouza
-	 */
-	public void setPermission(String mainModule, String add, String edit, String delete, String view, String download) {
-		if(btNext.isVisible()) {
-			waitForElementVisible(btNext, 5000, 500);
-			btNext.click();
-			SyncUtil.waitFor(1000);
-			waitForElementToInvisible(cbSpinner, 20000);
-		}
-		if(add.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[1]")).click();
-		if(edit.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[2]")).click();
-		if(delete.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[3]")).click();
-		if(view.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[4]")).click();
-		if(download.equalsIgnoreCase("true"))
-			driver.findElement(By.xpath("(//span[contains(text(),'"+mainModule+"')]/../..//div[contains(@class,'p-checkbox ')])[5]")).click();
-	}
+    /**
+     * This method is used for selecting permission for particular sub module
+     *
+     * @param mainModule: Name of main module
+     * @param subModule:  Name of sub module
+     * @param add:        Add Permission flag
+     * @param edit:       Edit Permission flag
+     * @param delete:     Delete Permission flag
+     * @param view:       View Permission flag
+     * @param download:   Download Permission flag
+     * @return Null
+     * @author Ostan dsouza
+     */
+    public void setPermission(String mainModule, String subModule, String add, String edit, String delete, String view, String download) {
+        if (btNext.isVisible()) {
+            waitForElementVisible(btNext, 5000, 500);
+            btNext.click();
+            SyncUtil.waitFor(1000);
+        }
+        waitForElementToInvisible(cbSpinner, 20000);
+        driver.findElement(By.xpath("//span[contains(text(),'" + mainModule + "')]/..//button")).click();
+        if (add.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[1]")).click();
+        if (edit.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[2]")).click();
+        if (delete.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[3]")).click();
+        if (view.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[4]")).click();
+        if (download.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[5]")).click();
+    }
 
-	public void setTerritory(String region) {
-		waitForPageLoad(5000);
-		waitForElementToDisplay(eleArrowMT);
+    /**
+     * This method is used for selecting all permission under main module
+     *
+     * @param mainModule: Name of main module
+     * @param add:        Add Permission flag
+     * @param edit:       Edit Permission flag
+     * @param delete:     Delete Permission flag
+     * @param view:       View Permission flag
+     * @param download:   Download Permission flag
+     * @return Null
+     * @author Ostan dsouza
+     */
+    public void setPermission(String mainModule, String add, String edit, String delete, String view, String download) {
+        if (btNext.isVisible()) {
+            waitForElementVisible(btNext, 5000, 500);
+            btNext.click();
+            SyncUtil.waitFor(1000);
+            waitForElementToInvisible(cbSpinner, 20000);
+        }
+        if (add.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[1]")).click();
+        if (edit.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[2]")).click();
+        if (delete.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[3]")).click();
+        if (view.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[4]")).click();
+        if (download.equalsIgnoreCase("true"))
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[5]")).click();
+    }
+
+    public void setTerritory(String region) {
+        waitForPageLoad(5000);
+        SyncUtil.waitFor(3000);
+        waitForElementToDisplay(eleArrowMT);
 //		eleCheckboxMT.click();
 		if(region.equalsIgnoreCase("APAC")){
 			Reporter.log("isSelected: ="+cbCheckboxAPAC.getAttribute("aria-checked"));
@@ -1259,6 +1264,12 @@ public class UsersPage extends BasePage{
 		waitForElementVisible(dialogBoxDelete,5000,500);
 		btnYes.click();
 	}
+
+    public void editInternalToolsPermission(String add, String edit, String delete, String view, String download) {
+        tbInternalTools.isVisible(10000, "Internal Tools");
+        waitForElementToBeClickable(tbInternalTools);
+        editPermission(add, edit, delete, view, download);
+    }
 
 //	public void verifyCreateTemplate(){
 //		waitForPageLoad(3000);

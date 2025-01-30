@@ -1,10 +1,6 @@
 package com.web.steps;
 
-import com.common.utils.MiscUtils;
-import com.common.utils.SyncUtil;
-import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
-import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
 
@@ -16,10 +12,13 @@ public class CordInspectSteps {
     ConveyorPage conveyorPage = new ConveyorPage();
     UsersPage userPage = new UsersPage();
 
+    String[] BeltScanColNames={"Date Of Scan","Device Type","Site","Conveyor","Territory","CCM"};
 
     @QAFTestStep(description = "Navigate to Add Belt Scan Page and verify navigation")
     public void verifyNavigationToAddBeltScan() {
         cordInspectPage.goToAddBeltScans();
+        Validator.assertTrue(cordInspectPage.getCurrentURL().contains("/secure/belt-scans/add/general-info"), "User is not navigated to Add Belt Scan page!",
+                "User is navigated to Add Belt Scan page!");
     }
 
     @QAFTestStep(description = "Add Belt Scan details with {DateOfScan} {DeviceType} {ReasonForScan} {SiteName} {ConveyorName} {NotifyCCM} {File1} and {File2}")
@@ -42,7 +41,7 @@ public class CordInspectSteps {
     }
 
     @QAFTestStep(description = "Click on Belt Scan card and verify it navigates to BeltScan listing page")
-    public void navigateToBeltScanListPage() {
+    public void navigateTheToBeltScanListPage() {
         cordInspectPage.clickCarouselNextBtn();
         cordInspectPage.goToBeltScanListPage();
     }
@@ -161,4 +160,29 @@ public class CordInspectSteps {
     public void verifyTheItemNotPresent(String item) {
         cordInspectPage.verifyItemNotPresent(item);
     }
+
+    @QAFTestStep(description = "Navigate to Belt Scan List screen and wait")
+    public void verifyNavigationToBeltScreenListScreen() {
+        cordInspectPage.gotoBeltScanScreenWait();
+    }
+    @QAFTestStep(description = "Click on column header and verify sorting functionality")
+    public void verifytheSortingFunctionality()
+    {
+        cordInspectPage.clickOnColumnsHeader(true,BeltScanColNames);
+    }
+    @QAFTestStep(description = "Click on clear filter button and verify filter is removed")
+    public void verifyClearFilterFunctionality()
+    {
+        cordInspectPage.verifyClearFilter();
+    }
+    @QAFTestStep(description = "Click on each column header and verify filter functionality")
+    public void verifyColumnFilterFunctionality()
+    {
+        conveyorPage.columnNameFilterBtnClick(BeltScanColNames);
+    }
+    @QAFTestStep(description = "Search for the device {device}")
+    public void searchAndSelectScan(String conveyor) {
+        cordInspectPage.searchBeltScan(conveyor);
+    }
+
 }

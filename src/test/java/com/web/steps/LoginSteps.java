@@ -38,31 +38,34 @@ public class LoginSteps {
     public void loginWith(String UserName, String Password) {
         String otp;
         String userid = loginPage.apiBase.getUserProfileAPI(UserName);
-        if(!loginPage.apiBase.getUserAPI(userid)) {
-            if (!MiscUtils.isNewEmailTriggered(UserName)) {
-                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
-                if (loginPage.apiBase.secretVerifyAPI(UserName, otp) != 200) {
-                    loginPage.apiBase.resendVerifyAPI(UserName);
-                    if (!MiscUtils.isNewEmailTriggered(UserName)) {
-                        otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
-                        loginPage.apiBase.secretVerifyAPI(UserName, otp);
-                    }
-                }
-            } else {
-                loginPage.apiBase.resendVerifyAPI(UserName);
-                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
-                loginPage.apiBase.secretVerifyAPI(UserName, otp);
-            }
-        }
+//        if (!loginPage.apiBase.getUserAPI(userid)) {
+//            if (!MiscUtils.isNewEmailTriggered(UserName)) {
+//                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+//                if (loginPage.apiBase.secretVerifyAPI(UserName, otp) != 200) {
+//                    loginPage.apiBase.resendVerifyAPI(UserName);
+//                    if (!MiscUtils.isNewEmailTriggered(UserName)) {
+//                        otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+//                        loginPage.apiBase.secretVerifyAPI(UserName, otp);
+//                    }
+//                }
+//            } else {
+//                loginPage.apiBase.resendVerifyAPI(UserName);
+//                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
+//                System.out.println(otp + "received otp");
+//                loginPage.apiBase.secretVerifyAPI(UserName, otp);
+//            }
+//        }
         loginPage.loginToApp(UserName, Password);
         System.out.println("first login");
-        if(loginPage.apiBase.isFirstSignIn(UserName)) {
-            loginPage.changePassword(Password, Password, Password);//
-//             loginPage.loginToApp(UserName, Password);
-             }
-             System.out.println("before handlecookiepopup");
-             dashboardPage.handleCookiePopup();
-             System.out.println("after handlecookiepopup");
+//        if (loginPage.apiBase.isFirstSignIn(UserName)) {
+//            System.out.println("inside if");
+            loginPage.changePassword(Password, Password, Password);
+//            loginPage.loginToApp(UserName, Password);
+//        }
+        System.out.println("outside if");
+
+        dashboardPage.handleCookiePopup();
+
     }
 
 }

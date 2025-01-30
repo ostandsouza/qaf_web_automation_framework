@@ -5,9 +5,7 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
-import groovyjarjarantlr4.v4.codegen.model.Sync;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -18,14 +16,15 @@ public class ConveyorSteps {
     CoverWearPage coverWearPage=new CoverWearPage();
     SitePage sitePage = new SitePage();
     CordInspectPage cordInspectPage=new CordInspectPage();
-
-
     UsersPage userpage = new UsersPage();
 
-    @QAFTestStep(description="Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
-    public void createAConveyor(String conveyorName, String distShopName, String custSiteName){
-//        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
-//        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+    String[] monitoringDeviceColName = {"name", "deviceType", "site", "conveyor", "territory", "carcass", "status", "installedDate", "location", "lastServiceDate", "beltConveyorSaves"};
+
+
+    @QAFTestStep(description = "Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
+    public void createAConveyor(String conveyorName, String distShopName, String custSiteName) {
+        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         conveyorPage.createConveyor(conveyorName, distShopName, custSiteName);
     }
 
@@ -195,7 +194,7 @@ public class ConveyorSteps {
         conveyorPage.apiBase.deletePreferencesAPI(userId, prefId);
         conveyorPage.goToConveyorListScreenAndWait();
         conveyorPage.addLayout(corporates, beltWidth, rating, length, layoutName);
-        Validator.assertTrue(conveyorPage.verifyColFilters(), "All filters are applied in table layout", "All filters were successfully verified");
+        Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
     }
 
     @QAFTestStep(description = "verify user is able to delete layout for {Layout_Name}")
@@ -384,6 +383,7 @@ public class ConveyorSteps {
         conveyorPage.verifyDuplicateLayoutError();
 
     }
+
     @QAFTestStep(description = "Verify column selection filter is visible")
     public void verifyColumnNameFilter() {
         conveyorPage.verifyColumnNameFilterIsVisible();
@@ -400,14 +400,14 @@ public class ConveyorSteps {
     @QAFTestStep(description = "Enter the columnName {ColumnName} in searchBar and verify all columnName with search text is displayed")
     public void searchAndVerifyColumnName(String columnName) {
         conveyorPage.searchColumnName(columnName);
-        conveyorPage.verifySearchedColumnNames();
+        conveyorPage.verifySearchedColumnNames(columnName);
 
     }
 
-    @QAFTestStep(description = "Select the checkbox of searched column and verify only selected column is displayed in the table and column filter text box")
-    public void checkAndVerifySelectColumnNames() {
+    @QAFTestStep(description = "Select the checkbox of searched column and verify only selected column {ColumnName} is displayed in the table and column filter text box")
+    public void checkAndVerifySelectColumnNames(String columnName) {
         conveyorPage.checkboxClick();
-        conveyorPage.verifySearchedColumnNames();
+        conveyorPage.verifySearchedColumnNames(columnName);
         conveyorPage.verifySearchedColumnNamesInTable();
     }
 
@@ -472,7 +472,7 @@ public class ConveyorSteps {
     public void applyAndVerifyFilterAppliedAndPopupClosure(String filterType) {
         conveyorPage.applyBtnClick();
         int noOfConveyors = Integer.parseInt(MiscUtils.regexExtractor(conveyorPage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-        conveyorPage.verifyFilterApplied(noOfConveyors,filterType);
+        conveyorPage.verifyFilterApplied(noOfConveyors, filterType,null);
         conveyorPage.verifyFilterPopupClosed();
     }
 
@@ -940,6 +940,6 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Click on each column header and verify filter icon fields")
     public void clickOnEachFilterIconAndVerifyFilterFields() {
-        conveyorPage.columnNameFilterBtnClick();
+        conveyorPage.columnNameFilterBtnClick(monitoringDeviceColName);
     }
 }

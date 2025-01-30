@@ -1,0 +1,20 @@
+[
+  {
+    "UserName": "contiplus_admin@maildrop.cc",
+    "Password": "Abc@123456",
+    "Market": "APAC",
+    "STDReqByCustomer": "INDIA",
+    "BeltConstruction": "ContiTitan",
+    "CarcassConstruction": "2000/2",
+    "TopCoverCompound": "SHIELD KG",
+    "TopCoverGauge": "5",
+    "BottomCoverCompound": "GOLD PLUS",
+    "BottomCoverGauge":"4",
+    "BeltWidth": "1800",
+    "BreakerItems": "TC",
+    "Overallbeltthickness": "20",
+    "Comment": "Added Comments"
+
+
+  }
+]

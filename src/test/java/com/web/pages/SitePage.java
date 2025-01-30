@@ -146,7 +146,7 @@ public class SitePage  extends BasePage {
     public void goToSiteListScreen() {
         if (!sites.isVisible())
             home.click("Home");
-        sites.click("Sites List");
+        sites.jsClick("Sites List");
         btSearchinput.isVisible("Site Page");
     }
 

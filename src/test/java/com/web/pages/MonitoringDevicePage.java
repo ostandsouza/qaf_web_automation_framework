@@ -233,6 +233,9 @@ public class MonitoringDevicePage extends BasePage {
     @FindBy(locator="xpath=//span[text()='Delete']")
     public CustomElement deleteBtn;
 
+    @FindBy(locator = "xpath=//p-tieredmenusub//ul[@role=\"menu\"]")
+    public CustomElement btActionsPopup;
+
     @FindBy(locator = "xpath=//p-multiselectitem//li[contains(., 'Belt Width') and .//div[contains(@class, 'p-checkbox')]]")
     public CustomElement cbBeltWidth;
 
@@ -266,10 +269,10 @@ public class MonitoringDevicePage extends BasePage {
 	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"Other\"]")
 	public CustomElement ddlSelectOther;
 
-	@FindBy(locator= "xpath=//span[contains(@class,\"p-steps-title\") and text()=\"Add Device\"]")
-	public CustomElement addDeviceTitle;
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Add Device\"]")
+    public CustomElement addDeviceTitle;
 
-    @FindBy(locator= "xpath=//span[contains(@class,\"p-steps-title\") and text()=\"Update Device\"]")
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Update Device\"]")
     public CustomElement updateDeviceTitle;
     @FindBy(locator= "xpath=//button[@disabled]//span[text()=\"Create\"]")
     public CustomElement createBtnDisabled;
@@ -331,7 +334,6 @@ public class MonitoringDevicePage extends BasePage {
 	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
 	public CustomElement noList;
 
-
 	public void clickCarouselLeftIcon(){
 		waitForElementVisible(carouselLeftIcon,5000,500);
 		carouselLeftIcon.click("Carsouel Left");
@@ -347,25 +349,26 @@ public class MonitoringDevicePage extends BasePage {
 		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("count").toString().equals(monitoringDeviceCardCount.getText()),"Monitoring Device Card Count does not match","Monitoring Device Card Count matches");
 	}
 
-	public void goToMonitoringDeviceListScreen(){
-		if(!monitoringDeviceList.isVisible())
-			home.click("Home");
-		waitForElementToDisplay(monitoringDeviceList);
-		monitoringDeviceList.jsClick("Monitoring Device List");
-		btSearchinput.isVisible("Monitoring List Page");
-	}
-	public void goToMonitoringDeviceListScreenAndWait() {
-		goToMonitoringDeviceListScreen();
-		scrollPageDown();
-		String val="";
-		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(280); stop>System.nanoTime();) {
-			if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
-				break;
-			}
-			val = pagination.getText();
-			SyncUtil.waitFor(30000);
-		}
-	}
+    public void goToMonitoringDeviceListScreen() {
+        if (!monitoringDeviceList.isVisible())
+            home.click("Home");
+        monitoringDeviceList.jsClick("Monitoring devices List");
+        btSearchinput.isVisible("Monitoring devices List Page");
+    }
+
+    public void goToMonitoringDeviceListScreenAndWait() {
+        goToMonitoringDeviceListScreen();
+        scrollPageDown();
+        String val = "";
+        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(180); stop > System.nanoTime(); ) {
+            if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+                break;
+            }
+            val = pagination.getText();
+            SyncUtil.waitFor(10000);
+        }
+    }
+
 	public boolean searchMonitoringDevice(String monitoringDeviceName){
 		goToMonitoringDeviceListScreenAndWait();
 		btSearchinput.type(monitoringDeviceName, "Monitoring Device Name Search");
@@ -492,14 +495,6 @@ public class MonitoringDevicePage extends BasePage {
 		Validator.assertTrue(tbSystemSoftwareLink.isDisplayed(),"Access to System Software is not visible","Access to System Software is visible");
 		tbSystemSoftwareLink.sendKeys(systemLink,"Access to System Software");
 	}
-	public void verifyRemoteConnectionDDL()
-	{
-		remoteConnectionDropDown.click("Remote Connection");
-		Validator.assertTrue(ddlSelectLocalOnly.isVisible(10000,"local only option")&&ddlSelect3G4GRouter.isVisible(10000,"3G/4G Router option")&&
-				ddlSelectVPNMineSite.isVisible(10000,"VPN Mine Site option"),"All the options of remote connection dropdown are not visible","All the options of remote connection dropdown are visible");
-		remoteConnectionDropDown.click("Remote Connection");
-		SyncUtil.waitFor(2000);
-	}
 
 	/////
 	public void clickAndVerifyLocationPopUp(String monitoringDevice)
@@ -606,15 +601,7 @@ public class MonitoringDevicePage extends BasePage {
 		waitForPageLoad(15000);
 		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/device/add/basic-info"), "User is not navigated to Add monitoring device page", "User is navigated to Add monitoring device page");
 	}
-	public void addDeviceDetailsWithMandatoryFields(String deviceName,String deviceType)
-	{
-		waitForElementToDisplay(tbDeviceName);
-		waitForElementToBeClickable(tbDeviceName);
-		tbDeviceName.sendKeys(deviceName,"Device name");
-		dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
-		waitForElementVisible(tbInstallationDate,10000,500);
-		tbInstallationDate.click("installation date");
-	}
+
 	public void verifyTableHeaderPanel()
 	{
 		waitForElementToDisplay(btActionsLabel);
@@ -630,6 +617,7 @@ public class MonitoringDevicePage extends BasePage {
 		waitForElementVisible(monitoringDeviceCardHeader,5000,500);
 		monitoringDeviceCardHeader.click("Monitoring Card");
 	}
+
 
 	public void navigateToAddLocation()
 	{
@@ -776,10 +764,9 @@ public class MonitoringDevicePage extends BasePage {
 
     }
 
-    public void verifySearchedColumnNames()
-    {
-        waitForElementVisible(cbBeltWidth,10000,500);
-        Validator.assertTrue(cbBeltWidth.isVisible() && cbBeltSaves.isVisible(),"The column names with searched text  is not visible","The column names with searched text is  visible");
+    public void verifySearchedColumnNames() {
+        waitForElementVisible(cbBeltWidth, 10000, 500);
+        Validator.assertTrue(cbBeltWidth.isVisible() && cbBeltSaves.isVisible(), "The column names with searched text  is not visible", "The column names with searched text is  visible");
     }
     public void verifyScanQRIsVisibleAndClick()
     {
@@ -813,21 +800,37 @@ public class MonitoringDevicePage extends BasePage {
         Assert.assertTrue(monitoringDeviceBreadCrumb.isDisplayed(), "Breadcrumb element is not displayed");
         assertEquals(monitoringDeviceBreadCrumb.getText(), "Home\nMonitoring Devices\nAdd", "Breadcrumb text does not match expected");
     }
-    public void verifyDeviceTypeDDL()
-    {
-        deviceTypeDropDown.click("Device Type");
-        Validator.assertTrue(ddlSelectLoadSense.isVisible(10000,"LoadSense option")&&ddlSelectCordProtect.isVisible(10000,"CordProtect option")&&ddlSelectRipProtect.isVisible(10000,"RipProtect option")&&
-                ddlSelectMultiProtect.isVisible(10000,"MultiProtect option")&&ddlSelectOther.isVisible(10000,"Other option"),"All the options of device type are not visible","All the options of device type are visible");
-        deviceTypeDropDown.click("Device Type");
+
+    public void verifyDeviceTypeDDL() {
+        deviceTypeDropDown.jsClick("Device Type");
+        Validator.assertTrue(ddlSelectLoadSense.isVisible(10000, "LoadSense option") && ddlSelectCordProtect.isVisible(10000, "CordProtect option") && ddlSelectRipProtect.isVisible(10000, "RipProtect option") &&
+                ddlSelectMultiProtect.isVisible(10000, "MultiProtect option") && ddlSelectOther.isVisible(10000, "Other option"), "All the options of device type are not visible", "All the options of device type are visible");
+        deviceTypeDropDown.jsClick("Device Type");
         SyncUtil.waitFor(3000);
     }
 
-    public void addDeviceDetailsWithNonMandatoryFields(String brand,String serialNo,String remoteConnection,String comminsionDate,String beltConveyorSave,String firmwareVersion)
-    {
-        waitForElementVisible(tbDeviceBrand,10000,500);
-        tbDeviceBrand.sendKeys(brand,"Device brand");
-        tbSerialNo.sendKeys(serialNo,"serialNumber");
-        tbFirmwareVersion.sendKeys(firmwareVersion,"Firmware Version");
+    public void addDeviceDetailsWithMandatoryFields(String deviceName, String deviceType) {
+        waitForElementToDisplay(tbDeviceName);
+        waitForElementToBeClickable(tbDeviceName);
+        tbDeviceName.sendKeys(deviceName, "Device name");
+        verifyDeviceTypeDDL();
+        dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
+        waitForElementVisible(tbInstallationDate, 10000, 500);
+        tbInstallationDate.click("installation date");
+    }
+
+    public void verifyRemoteConnectionDDL() {
+        remoteConnectionDropDown.jsClick("Remote Connection");
+        Validator.assertTrue(ddlSelectLocalOnly.isVisible(10000, "local only option") && ddlSelect3G4GRouter.isVisible(10000, "3G/4G Router option") &&
+                ddlSelectVPNMineSite.isVisible(10000, "VPN Mine Site option"), "All the options of remote connection dropdown are not visible", "All the options of remote connection dropdown are visible");
+        remoteConnectionDropDown.click("Remote Connection");
+    }
+
+    public void addDeviceDetailsWithNonMandatoryFields(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion) {
+        waitForElementVisible(tbDeviceBrand, 10000, 500);
+        tbDeviceBrand.sendKeys(brand, "Device brand");
+        tbSerialNo.sendKeys(serialNo, "serialNumber");
+        tbFirmwareVersion.sendKeys(firmwareVersion, "Firmware Version");
         verifyRemoteConnectionDDL();
         dropdownSelectSearch(remoteConnectionDropDown, tbDeviceTypedropdown, remoteConnection);
         waitForElementVisible(tbcommisioningDate,10000,500);
@@ -838,6 +841,7 @@ public class MonitoringDevicePage extends BasePage {
 
     public void verifySaveBtnIsEnabled()
     {Validator.assertTrue(createBtnDisabled.isNotVisible(10000),"Create button is enabled","Create button is enabled");}
+
 
     public void cancelBtnClick()
     {
@@ -869,22 +873,22 @@ public class MonitoringDevicePage extends BasePage {
                 statusOptionPriorToCommissioning.isVisible(10000,"Prior to commissioning"),"All the options of status dropdown are not visible","All the options of status dropdown  are visible");
 
     }
-    public void clickInstallationDateCalendarPopup()
-    {
 
-        waitForElementVisible(tbInstallationDate,10000,500);
-        Validator.assertTrue(tbInstallationDateFormat.isVisible("installation date format"),"The installation date is not in the format MM/DD/YYYY","The installation date is in the format MM/DD/YYYY");
-        tbInstallationDate.click("installation date");
-        calendarPopup.isVisible(10000,"Calendar Popup");
+    public void clickInstallationDateCalendarPopup() {
+
+        waitForElementVisible(tbInstallationDate, 10000, 500);
+        Validator.assertTrue(tbInstallationDateFormat.isVisible("installation date format"), "The installation date is not in the format MM/DD/YYYY", "The installation date is in the format MM/DD/YYYY");
+        tbInstallationDate.jsClick("installation date");
+        calendarPopup.isVisible(10000, "Calendar Popup");
 
     }
-    public void clickCommissioningDateCalendarPopup()
-    {
 
-        waitForElementVisible(tbcommisioningDate,10000,500);
-        Validator.assertTrue(tbCommissioningDateFormat.isVisible("installation date format"),"The installation date is not in the format MM/DD/YYYY","The installation date is in the format MM/DD/YYYY");
-        tbCommissioningDateFormat.click("installation date");
-        calendarPopup.isVisible(10000,"Calendar Popup");
+    public void clickCommissioningDateCalendarPopup() {
+
+        waitForElementVisible(tbcommisioningDate, 10000, 500);
+        Validator.assertTrue(tbCommissioningDateFormat.isVisible("installation date format"), "The installation date is not in the format MM/DD/YYYY", "The installation date is in the format MM/DD/YYYY");
+        tbCommissioningDateFormat.jsClick("installation date");
+        calendarPopup.isVisible(10000, "Calendar Popup");
 
     }
     public String getPreviousMonth()

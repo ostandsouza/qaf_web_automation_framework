@@ -143,7 +143,7 @@ public class MiscUtils {
             if (listOfFile.isFile()) {
                 String fileName = listOfFile.getName();
                 System.out.println("File " + listOfFile.getName());
-                if (fileName.matches(name)) {
+                if (fileName.matches(name)||fileName.contains(name)) {
                     found = true;
                 }
             }

@@ -551,6 +551,7 @@ public class CoverWearSteps {
         coverWearPage.verifyCoverWearListPageNavigation();
     }
 
+
     @QAFTestStep(description="Verify the breadCrumb of coverWear page")
     public void verifyBreadCrumbOfPage(){
         coverWearPage.verifyCoverWearBreadCrumb();
@@ -1134,6 +1135,7 @@ public class CoverWearSteps {
         conveyorPage.addColumnFilters(corporates);
         Validator.assertTrue(coverWearPage.verifyCoverWearColumnFilters(), "All filters are applied in table ", "All filters were successfully verified");
     }
+
     @QAFTestStep(description="Add segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
     public void verifyTheAddSegmentPositionPopUpFields(String segment,String zero,String durometer){
         coverWearPage.addSegmentField(segment);
@@ -1150,5 +1152,11 @@ public class CoverWearSteps {
         coverWearPage.addDurometerField(durometer);
     }
 
+    @QAFTestStep(description = "Click on coverWear card and verify it navigates to Specification page")
+    public void conveyorCoverwearNavigation()
+    {
+        coverWearPage.clickCoverWearCard();
+        coverWearPage.verifySpecificationHeader();
+    }
 }
 
