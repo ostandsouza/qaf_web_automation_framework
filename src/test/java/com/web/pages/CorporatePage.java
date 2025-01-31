@@ -134,7 +134,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
 
-    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]/..")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
 
@@ -198,7 +198,7 @@ public class CorporatePage extends BasePage{
     public CustomElement btConveyorCardNo;
 
     @FindBy(locator="xpath=(//app-card//div[text()='Cover Wear']/..//span)[1]")
-    public CustomElement btCOverWearCardNo;
+    public CustomElement btCoverWearCardNo;
 
     @FindBy(locator="xpath=(//app-card//div[text()='Inspections']/..//span)[1]")
     public CustomElement btInspectionCardNo;
@@ -784,8 +784,9 @@ public class CorporatePage extends BasePage{
         searchCorporate(CorporateName);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.check("CorporateName");
-        btActions.click("Actions");
-        return btAddCorp.isNotVisible(1000) && btEdit.isNotVisible(1000) && btDelete.isNotVisible(1000);
+        return !btActions.isEnabled();
+//        btActions.click("Actions");
+//        return btAddCorp.isNotVisible(1000) && btEdit.isNotVisible(1000) && btDelete.isNotVisible(1000);
 
     }
     public boolean verifyEditButtonVisibleOnCorporateDetailsPage(String CorporateName){

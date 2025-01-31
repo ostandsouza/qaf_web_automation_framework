@@ -98,3 +98,43 @@ Background:
      And   User enters elevator general info '${CalculationName}' and click on next
      And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
      Then  Verify the select belt screen navigation
+
+@Regression16 @CTCP-3394
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:minuteman_duplicate
+Scenario: Verify duplicate name creation on the bucket elevator
+     Given User is at Login page
+     When  Login with '${UserName}' and '${Password}'
+     And   User is at add minuteman bucket elevator page
+     When  User enters elevator general info '${CalculationName1}' '${CustSiteName}' '${ConveyorName}' and click on next
+     And   User enters elevator select belt details and click on final report
+         Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName1}' '${CustSiteName}' '${ConveyorName}'
+     When  Click on create button for minuteman calculation
+     Then  Verify the minuteman calculation '${CalculationName1}' in list screen
+     And   User is at add minuteman bucket elevator page
+     When  User enters elevator general info '${CalculationName2}' '${CustSiteName}' '${ConveyorName2}' and click on next
+     And   User enters elevator select belt details and click on final report
+     Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName2}' '${CustSiteName}' '${ConveyorName2}'
+     When  Click on create button for minuteman calculation
+     Then  Verify the minuteman calculation '${CalculationName2}' in list screen
+     And   User is at add minuteman bucket elevator page
+     When  User enters elevator general info '${CalculationName1}' '${CustSiteName}' '${NoConveyor}' and click on next
+     And   User enters elevator select belt details and click on final report
+     Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName1}' '${CustSiteName}' '${NoConveyor}'
+     When  Click on create button and verify failure toast
+     And   User is at add minuteman bucket elevator page
+     When  User enters elevator general info '${CalculationName1}' '${CustSiteName1}' '${ConveyorName1}' and click on next
+     And   User enters elevator select belt details and click on final report
+     Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName1}' '${CustSiteName1}' '${ConveyorName1}'
+     When  Click on create button for minuteman calculation
+     And   User is at add minuteman bucket elevator page
+     When  User enters elevator general info '${CalculationName1}' '${NoSite}' '${NoConveyor}' and click on next
+     And   User enters elevator select belt details and click on final report
+     Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName1}' '${NoSite}' '${NoConveyor}'
+     When  Click on create button for minuteman calculation
+     And   User is at add minuteman bucket elevator page
+     When  User enters elevator general info '${CalculationName1}' '${NoSite}' '${NoConveyor}' and click on next
+     And   User enters elevator select belt details and click on final report
+     Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName1}' '${NoSite}' '${NoConveyor}'
+     When  Click on create button and verify failure toast

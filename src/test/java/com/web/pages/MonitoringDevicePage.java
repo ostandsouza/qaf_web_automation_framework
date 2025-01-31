@@ -148,7 +148,7 @@ public class MonitoringDevicePage extends BasePage {
 	@FindBy(locator="xpath=(//button[@icon='pi pi-refresh'])[2]")
 	public CustomElement btRefreshIcon;
 
-	@FindBy(locator= "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Add Location\"]")
+	@FindBy(locator= "xpath=//span[contains(@class,\"p-steps-title\") and contains(text(),\"Add Location\")]")
 	public CustomElement addLocationTitle;
 	@FindBy(locator= "xpath=(//app-conveyor-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
 	public CustomElement conveyorDDL;
@@ -272,7 +272,7 @@ public class MonitoringDevicePage extends BasePage {
     @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Add Device\"]")
     public CustomElement addDeviceTitle;
 
-    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Update Device\"]")
+    @FindBy(locator= "xpath=//span[contains(@class,\"p-steps-title\") and contains(text(),\"Update Device\")]")
     public CustomElement updateDeviceTitle;
     @FindBy(locator= "xpath=//button[@disabled]//span[text()=\"Create\"]")
     public CustomElement createBtnDisabled;

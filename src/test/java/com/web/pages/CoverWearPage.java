@@ -174,10 +174,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Belt Length']/parent::div//input")
     public CustomElement cwBeltLength;
 
-    @FindBy(locator="xpath=//label[text()='Top Cover Thickness Nominal']/parent::div//input")
+    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal ']/parent::div//input)")
     public CustomElement cwTopCoverThicknessInput;
 
-    @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal']/parent::div//input")
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness Nominal ']/parent::div//input)")
     public CustomElement cwBottomCoverThicknessInput;
 
     @FindBy(locator="xpath=//label[text()='Top Cover Compound']/parent::div//span")
@@ -195,10 +195,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Durometer (New Belt)']/parent::div//input")
     public CustomElement cwSpecDurometer;
 
-    @FindBy(locator="xpath=//label[text()='Top Cover Compound']/parent::div//div[@role='button']")
+    @FindBy(locator="xpath=//label[text()='Top Cover Compound']/parent::div//div[@role='button']//*[name()='svg']")
     public CustomElement cwTopCoverCompound;
 
-    @FindBy(locator="xpath=//label[text()='Bottom Cover Compound']/parent::div//div[@role='button']")
+    @FindBy(locator="xpath=//label[text()='Bottom Cover Compound']/parent::div//div[@role='button']//*[name()='svg']")
     public CustomElement cwBottomCoverCompound;
 
     @FindBy(locator="xpath=//label[text()='Tons Conveyed']/parent::div//input")

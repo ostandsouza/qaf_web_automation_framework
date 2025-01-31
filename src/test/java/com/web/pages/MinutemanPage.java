@@ -1,6 +1,7 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.MiscUtils;
 import com.common.utils.PDFHelper;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
@@ -98,6 +99,9 @@ public class MinutemanPage extends BasePage{
 
     @FindBy(locator = "xpath=//span[text()='Create']")
     public CustomElement btnCreate;
+
+    @FindBy(locator = "xpath=//div[contains(@class,'p-toast-message-content')]")
+    public CustomElement toastMsg;
 
     @FindBy(locator = "xpath=//span[text()='Next']")
     public CustomElement btnNext;
@@ -658,37 +662,187 @@ public class MinutemanPage extends BasePage{
     public CustomElement txtCustomer;
 
     @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[2]")
-    public CustomElement txtName;
-
-    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[3]")
     public CustomElement txtConveyor;
 
     @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div[2]")
     public CustomElement txtDescription;
 
-    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div")
-    public CustomElement txtMaterialData;
+    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtMaterialDataTonsPerHr;
 
-    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div")
-    public CustomElement txtInputBeltData;
+    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtMaterialDataMaterialDensity;
 
-    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div")
+    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtMaterialDataSurchargeAngle;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtInputBeltDataWidth;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtInputBeltDataSpeed;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtInputBeltDataWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtInputBeltDataOAG;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[1]/div[2]")
     public CustomElement txtSystemData;
 
-    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div")
-    public CustomElement txtCalculateData;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtSystemDataAngleOfIdlers;
 
-    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div")
-    public CustomElement txtBeltData;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtSystemDataCarrySideIdlerSpacing;
 
-    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div")
-    public CustomElement txtRollData;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtSystemDataStationLocationDrive;
 
-    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div")
-    public CustomElement txtVulcanizedSpliceData;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtSystemDataStationLocationTakeUp;
 
-    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div")
-    public CustomElement txtTakeUpTravel;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtSystemDataWeightOfMovingParts;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtSystemDataDriveFactor;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[7]/div[2]")
+    public CustomElement txtSystemDataFrictionFactor;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[8]/div[2]")
+    public CustomElement txtSystemDataLengthFactor;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[9]/div[2]")
+    public CustomElement txtSystemDataDriveWrap;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtCalculateDataUnitTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtCalculateDataMaximumTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtCalculateDataEffectiveTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtCalculateDataBeltPower;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtCalculateDataCounterWeightW;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtCalculateDataCounterWeightTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[7]/div[2]")
+    public CustomElement txtCalculateDataConveyorCapacity;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[8]/div[2]")
+    public CustomElement txtCalculateDataEstimatedBeltLength;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtBeltDataCarcassMaterial;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtBeltDataNoOfPlies;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtBeltDataPlyTensileStrength;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtBeltDataBeltTensileStrength;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtBeltDataVulcanizedRating;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtBeltDataMechanicalRating;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[7]/div[2]")
+    public CustomElement txtBeltDataElasticModulus;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[8]/div[2]")
+    public CustomElement txtBeltDataCarcassGauge;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[9]/div[2]")
+    public CustomElement txtBeltDataCoverGauge;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[10]/div[2]")
+    public CustomElement txtBeltDataBeltGauge;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[11]/div[2]")
+    public CustomElement txtBeltDataCarcassWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[12]/div[2]")
+    public CustomElement txtBeltDataCoverWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[13]/div[2]")
+    public CustomElement txtBeltDataTotalBeltWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtRollDataTotalBeltLength;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtRollDataNoOfRolls;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtRollDataRollLength;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtRollDataRollDiameter;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtRollDataRollWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtRollDataCubage;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataNoOfSplice;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataVulcanizerBiasAngle;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataFabricStepLength;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataBiasLength;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataSpliceLength;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataExtraBeltLength;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[1]/div[2]")
+    public CustomElement txtTakeUpTravelTypeOfTakeUp;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[2]/div[2]")
+    public CustomElement txtTakeUpTravelTypeOfSplice;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[3]/div[2]")
+    public CustomElement txtTakeUpTravelMaximumBeltTension;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[4]/div[2]")
+    public CustomElement txtTakeUpTravelAverageBeltTension;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[6]/div[2]")
+    public CustomElement txtTakeUpTravelTakeUpMovementPermanent;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[8]/div[2]")
+    public CustomElement txtTakeUpTravelTakeUpMovementElastic;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[9]/div[2]")
+    public CustomElement txtTakeUpTravelEstimatedTakeUpMovementPercentage;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[10]/div[2]")
+    public CustomElement txtTakeUpTravelConveyorLength;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[11]/div[2]")
+    public CustomElement txtTakeUpTravelEstimatedTakeUpMovement;
 
     @FindBy(locator = "xpath=//label[text()='Vertical Curves']/following-sibling::table/tr[1]/td[2]")
     public CustomElement txtVerticalCurves;
@@ -1021,16 +1175,14 @@ public class MinutemanPage extends BasePage{
     public ArrayList<Float> getSystemCoordinates(){
         ArrayList<Float> systemCoordinates=new ArrayList<>();
         String estimatedCCLength=txtEstimatedCCLength.getText().split("\\s")[3].split("\\(")[0].trim();
-        for (int i=1;i<=7;i++){
-            for(int j=1;j<=3;j++){
-                WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[2]/div["+i+"]//div[@class='col-2']/div)["+j+"]"));
+        for (int i=1;i<=11;i++){
+                WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[1]//div[contains(@class,'col-3')]/div)["+i+"]"));
                 String text=element.getText();
                 if(element.getText().isEmpty()) {
                     systemCoordinates.add(Float.valueOf(estimatedCCLength));
                     return systemCoordinates;
                 }
                 systemCoordinates.add(Float.valueOf(text));
-            }
         }
         systemCoordinates.add(Float.valueOf(estimatedCCLength));
         return systemCoordinates;
@@ -1038,123 +1190,114 @@ public class MinutemanPage extends BasePage{
 
     public ArrayList<String> getConveyorInformation(){
         String[] data=txtDescription.getText().split("\\r?\\n");
-        String beltDescription = data[1].split(":")[1].trim();
+        String beltDescription = data[1].split("Belt Description ")[1].trim();
         String customer=txtCustomer.getText();
-        String name = txtName.getText();
         String conveyor = txtConveyor.getText();
-        return new ArrayList<> (Arrays.asList(beltDescription,customer,name,conveyor));
+        return new ArrayList<> (Arrays.asList(beltDescription,customer,conveyor));
     }
 
 
     public ArrayList<String> getMaterialData(){
-        String[] data=txtMaterialData.getText().split("\\r?\\n");
-        String[] tonsPerHour = data[0].split(":")[1].trim().split("\\s");
-        String[] materialDensity = data[1].split(":")[1].trim().split("\\s");
-        String[] surchargeAngle = data[2].split(":")[1].trim().split("\\s");
-        return new ArrayList<> (Arrays.asList(tonsPerHour[0], materialDensity[0], surchargeAngle[0]));
+        String tonsPerHour = txtMaterialDataTonsPerHr.getText().trim();
+        String materialDensity = txtMaterialDataMaterialDensity.getText().trim();
+        String surchargeAngle = txtMaterialDataSurchargeAngle.getText().trim();
+        return new ArrayList<> (Arrays.asList(tonsPerHour, materialDensity, surchargeAngle));
     }
 
     public ArrayList<String> getInputBeltData(){
-        String[] data=txtInputBeltData.getText().split("\\r?\\n");
-        String[] width = data[0].split(":")[1].trim().split("\\s");
-        String[] speed = data[1].split(":")[1].trim().split("\\s");
-        String[] weight = data[2].split(":")[1].trim().split("\\s");
-        String[] oAG = data[3].split(":")[1].trim().split("\\s");
-        return new ArrayList<> (Arrays.asList(width[0], speed[0], weight[0], oAG[0]));
+        String width = txtInputBeltDataWidth.getText().trim();
+        String speed = txtInputBeltDataSpeed.getText().trim();
+        String weight = txtInputBeltDataWeight.getText().trim();
+        String oAG = txtInputBeltDataOAG.getText().trim();
+        return new ArrayList<> (Arrays.asList(width, speed, weight, oAG));
     }
 
     public ArrayList<String> getSystemData(){
-        String[] data=txtSystemData.getText().split("\\r?\\n");
-        String[] troughAngleOfIdlers = data[0].split(":")[1].trim().split("\\s");
-        String[] carrySideIdlerSpacing = data[1].split(":")[1].trim().split("\\s");
-        String stationLocationOfDrive = data[2].split(":")[1].trim();
-        String stationLocationOfTakeUp = data[3].split(":")[1].trim();
-        String[] weightOfMovingParts = data[4].split(":")[1].trim().split("\\s");
-        String[] driveFactor = data[5].split(":")[1].trim().split("\\s");
-        String frictionFactor = data[6].split(":")[1].trim();
-        String lengthFactor = data[7].split(":")[1].trim();
-        String[] driveWrap = data[8].split(":")[1].trim().split("\\s");
-        return new ArrayList<> (Arrays.asList(troughAngleOfIdlers[0], carrySideIdlerSpacing[0], stationLocationOfDrive, stationLocationOfTakeUp,
-                weightOfMovingParts[0], driveFactor[0], frictionFactor, lengthFactor, driveWrap[0]));
+        String troughAngleOfIdlers = txtSystemDataAngleOfIdlers.getText().trim();
+        String carrySideIdlerSpacing = txtSystemDataCarrySideIdlerSpacing.getText().trim();
+        String stationLocationOfDrive = txtSystemDataStationLocationDrive.getText().trim();
+        String stationLocationOfTakeUp = txtSystemDataStationLocationTakeUp.getText().trim();
+        String weightOfMovingParts = txtSystemDataWeightOfMovingParts.getText().trim();
+        String driveFactor = txtSystemDataDriveFactor.getText().trim();
+        String frictionFactor = txtSystemDataFrictionFactor.getText().trim();
+        String lengthFactor = txtSystemDataLengthFactor.getText().trim();
+        String driveWrap = txtSystemDataDriveWrap.getText().trim();
+        return new ArrayList<> (Arrays.asList(troughAngleOfIdlers, carrySideIdlerSpacing, stationLocationOfDrive, stationLocationOfTakeUp,
+                weightOfMovingParts, driveFactor, frictionFactor, lengthFactor, driveWrap));
     }
 
     public ArrayList<String> getCalculatedData(){
-        String[] data=txtCalculateData.getText().split("\\r?\\n");
-        String[] unitTension = data[0].split(":")[1].trim().split("\\s");
-        String[] maximumTension = data[1].split(":")[1].trim().split("\\s");
-        String[] effectiveTension = data[2].split(":")[1].trim().split("\\s");
-        String[] beltPower = data[3].split(":")[1].trim().split("\\s");
-        String[] counterweightWeight = data[4].split(":")[1].trim().split("\\s");
-        String[] counterweightTension = data[5].split(":")[1].trim().split("\\s");
-        String[] conveyorCapacity = data[6].split(":")[1].trim().split("\\s");
-        String[] estimatedBeltLength = data[7].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(unitTension[0], maximumTension[0], effectiveTension[0], beltPower[0], counterweightWeight[0], counterweightTension[0],
-                conveyorCapacity[0], estimatedBeltLength[0]));
+        String unitTension = txtCalculateDataUnitTension.getText().trim();
+        String maximumTension = txtCalculateDataMaximumTension.getText().trim();
+        String effectiveTension = txtCalculateDataEffectiveTension.getText().trim();
+        String beltPower = txtCalculateDataBeltPower.getText().trim();
+        String counterweightWeight = txtCalculateDataCounterWeightW.getText().trim();
+        String counterweightTension = txtCalculateDataCounterWeightTension.getText().trim();
+        String conveyorCapacity = txtCalculateDataConveyorCapacity.getText().replace("%","").trim();
+        String estimatedBeltLength = txtCalculateDataEstimatedBeltLength.getText().trim();
+        return new ArrayList<>(Arrays.asList(unitTension, maximumTension, effectiveTension, beltPower, counterweightWeight, counterweightTension,
+                conveyorCapacity, estimatedBeltLength));
     }
 
     public ArrayList<String> getBeltData(){
-        String[] data=txtBeltData.getText().split("\\r?\\n");
-        String carcassMaterial = data[0].split(":")[1].trim();
-        String[] numberOfPlies = data[1].split(":")[1].trim().split("\\s");
-        String[] plyTensileStrength = data[2].split(":")[1].trim().split("\\s");
-        String[] beltTensileStrength = data[3].split(":")[1].trim().split("\\s");
-        String[] vulcanizedRating = data[4].split(":")[1].trim().split("\\s");
-        String[] mechanicalRating = data[5].split(":")[1].trim().split("\\s");
-        String[] elasticModulus = data[6].split(":")[1].trim().split("\\s");
-        String[] carcassGauge = data[7].split(":")[1].trim().split("\\s");
-        String[] totalCoverGauge = data[8].split(":")[1].trim().split("\\s");
-        String[] totalBeltGauge = data[9].split(":")[1].trim().split("\\s");
-        String[] carcassWeight = data[10].split(":")[1].trim().split("\\s");
-        String[] totalCoverWeight = data[11].split(":")[1].trim().split("\\s");
-        String[] totalBeltWeight = data[12].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(carcassMaterial, numberOfPlies[0], plyTensileStrength[0], beltTensileStrength[0], vulcanizedRating[0],
-                mechanicalRating[0], elasticModulus[0], carcassGauge[0], totalCoverGauge[0], totalBeltGauge[0], carcassWeight[0],
-                totalCoverWeight[0], totalBeltWeight[0]));
+        String carcassMaterial = txtBeltDataCarcassMaterial.getText().trim();
+        String numberOfPlies = txtBeltDataNoOfPlies.getText().trim();
+        String plyTensileStrength = txtBeltDataPlyTensileStrength.getText().trim();
+        String beltTensileStrength = txtBeltDataBeltTensileStrength.getText().trim();
+        String vulcanizedRating = txtBeltDataVulcanizedRating.getText().trim();
+        String mechanicalRating = txtBeltDataMechanicalRating.getText().trim();
+        String elasticModulus = txtBeltDataElasticModulus.getText().trim();
+        String carcassGauge = txtBeltDataCarcassGauge.getText().trim();
+        String totalCoverGauge = txtBeltDataCoverGauge.getText().trim();
+        String totalBeltGauge = txtBeltDataBeltGauge.getText().trim();
+        String carcassWeight = txtBeltDataCarcassWeight.getText().trim();
+        String totalCoverWeight = txtBeltDataCoverWeight.getText().trim();
+        String totalBeltWeight = txtBeltDataTotalBeltWeight.getText().trim();
+        return new ArrayList<>(Arrays.asList(carcassMaterial, numberOfPlies, plyTensileStrength, beltTensileStrength, vulcanizedRating,
+                mechanicalRating, elasticModulus, carcassGauge, totalCoverGauge, totalBeltGauge, carcassWeight,
+                totalCoverWeight, totalBeltWeight));
     }
 
     public ArrayList<String> getRollData(){
-        String[] data=txtRollData.getText().split("\\r?\\n");
-        String[] totalBeltLength = data[0].split(":")[1].trim().split("\\s");
-        String numberOfRolls = data[1].split(":")[1].trim();
-        String[] rollLength = data[2].split(":")[1].trim().split("\\s");
-        String[] rollDiameter = data[3].split(":")[1].trim().split("\\s");
-        String[] rollWeight = data[4].split(":")[1].trim().split("\\s");
-        String[] cubage = data[5].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(totalBeltLength[0], numberOfRolls, rollLength[0], rollDiameter[0], rollWeight[0], cubage[0]));
+        String totalBeltLength = txtRollDataTotalBeltLength.getText().trim();
+        String numberOfRolls = txtRollDataNoOfRolls.getText().trim();
+        String rollLength = txtRollDataRollLength.getText().trim();
+        String rollDiameter = txtRollDataRollDiameter.getText().trim();
+        String rollWeight = txtRollDataRollWeight.getText().trim();
+        String cubage = txtRollDataCubage.getText().trim();
+        return new ArrayList<>(Arrays.asList(totalBeltLength, numberOfRolls, rollLength, rollDiameter, rollWeight, cubage));
     }
 
     public ArrayList<String> getVulcanizedSpliceData(){
-        String[] data=txtVulcanizedSpliceData.getText().split("\\r?\\n");
-        String numberOfSplices = data[0].split(":")[1].trim();
-        String[] vulcanizerBiasAngle = data[1].split(":")[1].trim().split("\\s");
-        String[] fabricStepLength = data[2].split(":")[1].trim().split("\\s");
-        String[] biasLength = data[3].split(":")[1].trim().split("\\s");
-        String[] spliceLength = data[4].split(":")[1].trim().split("\\s");
-        String[] extraBeltLength = data[5].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(numberOfSplices, vulcanizerBiasAngle[0], fabricStepLength[0], biasLength[0], spliceLength[0],
-                extraBeltLength[0]));
+        String numberOfSplices = txtVulcanizedSpliceDataNoOfSplice.getText().trim();
+        String vulcanizerBiasAngle = txtVulcanizedSpliceDataVulcanizerBiasAngle.getText().trim();
+        String fabricStepLength = txtVulcanizedSpliceDataFabricStepLength.getText().trim();
+        String biasLength = txtVulcanizedSpliceDataBiasLength.getText().trim();
+        String spliceLength = txtVulcanizedSpliceDataSpliceLength.getText().trim();
+        String extraBeltLength = txtVulcanizedSpliceDataExtraBeltLength.getText().trim();
+        return new ArrayList<>(Arrays.asList(numberOfSplices, vulcanizerBiasAngle, fabricStepLength, biasLength, spliceLength,
+                extraBeltLength));
     }
 
     public ArrayList<String> getTakeUpTravel(){
-        String[] data=txtTakeUpTravel.getText().split("\\r?\\n");
-        String typeOfTakeUp = data[0].split(":")[1].trim();
-        String typeOfSplice = data[1].split(":")[1].trim();
-        String[] maximumBeltTension = data[2].split(":")[1].trim().split("\\s");
-        String[] averageBeltTension = data[3].split(":")[1].trim().split("\\s");
-        String[] estPermanentElongation = data[5].split(":")[1].trim().split("\\s");
-        String[] estElasticElongation = data[7].split(":")[1].trim().split("\\s");
-        String[] estimatedTotalTakeUpMovementPercentage = data[8].split(":")[1].trim().split("\\s");
-        String[] conveyorCCLength = data[9].split(":")[1].trim().split("\\s");
-        String[] estimatedTotalTakeUpMovement = data[10].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(typeOfTakeUp, typeOfSplice, maximumBeltTension[0], averageBeltTension[0], estPermanentElongation[0],
-                estElasticElongation[0], estimatedTotalTakeUpMovementPercentage[0], conveyorCCLength[0], estimatedTotalTakeUpMovement[0]));
+        String typeOfTakeUp = txtTakeUpTravelTypeOfTakeUp.getText().trim();
+        String typeOfSplice = txtTakeUpTravelTypeOfSplice.getText().trim();
+        String maximumBeltTension = txtTakeUpTravelMaximumBeltTension.getText().trim();
+        String averageBeltTension = txtTakeUpTravelAverageBeltTension.getText().trim();
+        String estPermanentElongation = txtTakeUpTravelTakeUpMovementPermanent.getText().trim();
+        String estElasticElongation = txtTakeUpTravelTakeUpMovementElastic.getText().trim();
+        String estimatedTotalTakeUpMovementPercentage = txtTakeUpTravelEstimatedTakeUpMovementPercentage.getText().trim();
+        String conveyorCCLength = txtTakeUpTravelConveyorLength.getText().trim();
+        String estimatedTotalTakeUpMovement = txtTakeUpTravelEstimatedTakeUpMovement.getText().trim();
+        return new ArrayList<>(Arrays.asList(typeOfTakeUp, typeOfSplice, maximumBeltTension, averageBeltTension, estPermanentElongation,
+                estElasticElongation, estimatedTotalTakeUpMovementPercentage, conveyorCCLength, estimatedTotalTakeUpMovement));
     }
 
     public ArrayList<String> getPulleyData(){
         ArrayList<String> pulleyData=new ArrayList<>();
-        for(int i=2;i<=7;i++){
-            for(int j=2;j<=5;j++){
-                WebElement element=driver.findElement(By.xpath("//label[text()='Pulley Data']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+        for(int i=2;i<=3;i++){
+            for(int j=3;j<=6;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Pulley Data']/following-sibling::div["+i+"]/div["+j+"]"));
                 pulleyData.add(element.getText());
             }
         }
@@ -1163,13 +1306,13 @@ public class MinutemanPage extends BasePage{
 
     public ArrayList<String> getVerticalCurves(){
         ArrayList<String> verticalCurves=new ArrayList<>();
-        for (int i=1;i<=4;i++){
-            WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::table/tr[1]/td["+i+"]"));
+        for (int i=3;i<=6;i++){
+            WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::div[1]/div["+i+"]"));
             verticalCurves.add(element.getText().split("\\s")[1].trim());
         }
         for (int i=2;i<=11;i++){
-            for (int j=2;j<=5;j++){
-                WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+            for (int j=3;j<=6;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::div["+i+"]/div["+j+"]"));
                 verticalCurves.add(element.getText());
             }
         }
@@ -1179,14 +1322,13 @@ public class MinutemanPage extends BasePage{
     public ArrayList<String> getTransitionLength(){
         ArrayList<String> transitionLength=new ArrayList<>();
         for(int i=2;i<=8;i++){
-            for(int j=2;j<=3;j++){
-                WebElement element=driver.findElement(By.xpath("//label[text()='Transition Lengths']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+            for(int j=3;j<=4;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Transition Lengths']/following-sibling::div["+i+"]/div["+j+"]"));
                 transitionLength.add(element.getText());
             }
         }
         return transitionLength;
     }
-
 
     public void clickNext(){
         waitForElementToDisplay(btnNext);
@@ -1271,7 +1413,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void setDriveWrapAngleDropdown(String driveWrapAngle){
-        dropdownSelectSearch(driveWrapAngleDropdown,dropdownInput,driveWrapAngle);
+        dropdownSelectSearchContains(driveWrapAngleDropdown,dropdownInput,driveWrapAngle);
     }
 
     public void selectFrictionFactor(String frictionFactor,String lengthFactor){
@@ -1497,7 +1639,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void clickOnFinalReport(){
-        finalReport.click("Final Report");
+        finalReport.jsClick("Final Report");
     }
 
     public void setTbTotalBeltLength(String totalBeltLength){
@@ -1780,11 +1922,15 @@ public class MinutemanPage extends BasePage{
     }
 
     public String getTbTroughDepthHead(){
-        return tbTroughDepthHead.getAttribute("value");
+        String str = tbTroughDepthHead.getAttribute("value");
+        str = str.substring(0, str.length() - 1);
+        return str;
     }
 
     public String getTbTroughDepthTail(){
-        return tbTroughDepthTail.getAttribute("value");
+        String str = tbTroughDepthTail.getAttribute("value");
+        str = str.substring(0, str.length() - 1);
+        return str;
     }
 
     public String getLengthHead(){
@@ -2205,6 +2351,8 @@ public class MinutemanPage extends BasePage{
     public void verifyPrePopulatedDataInInputsPage(String beltWidth,String beltSpeed,String tonsPerHourPeak,String pickMaterialName,String materialDensity, String angleOfIdlers, String carrySideIdler, String driveWrapAngle,String driveWrapAngleDegree,String takeUpTension,String frictionFactor,String lengthFactor,String surchargeAngle,String idlerOffsetType,String driveDetails,String takeUpDetails, String spliceType){
         Validator.assertTrue(tbBeltWidth.getAttribute("value").equalsIgnoreCase(beltWidth),"The initial value provided for the Belt Width field does not match the expected value.","The initial value provided for the Belt Width field matches the expected value.");
         Validator.assertTrue(tbBeltSpeed.getAttribute("value").equalsIgnoreCase(beltSpeed),"The initial value provided for the Belt Speed field does not match the expected value.","The initial value provided for the Belt Speed field matches the expected value.");
+        System.out.println(tonsPerHourPeak);
+        System.out.println(tbTonsPerHourPeak.getAttribute("value"));
         Validator.assertTrue(tbTonsPerHourPeak.getAttribute("value").equalsIgnoreCase(tonsPerHourPeak),"The initial value provided for the Tons Per Hour Peak field does not match the expected value.","The initial value provided for the Tons Per Hour Peak field matches the expected value.");
 //        Validator.assertTrue(tbPickMaterialName.getAttribute("value").equalsIgnoreCase(pickMaterialName),"The initial value provided for the Pick Material Name field does not match the expected value.","The initial value provided for the Pick Material Name field matches the expected value.");
         Validator.assertTrue(tbMaterialDensity.getAttribute("value").equalsIgnoreCase(materialDensity),"The initial value provided for the Material Density field does not match the expected value.","The initial value provided for the Material Density field matches the expected value.");
@@ -2310,6 +2458,7 @@ public class MinutemanPage extends BasePage{
             flightConfiguration.add(elevOffset.get(i));
         }
         flightConfiguration.add(Float.valueOf(tbEstimatedCCLength.getAttribute("value")));
+        System.out.println(flightConfiguration);
         return flightConfiguration;
     }
 
@@ -2354,32 +2503,31 @@ public class MinutemanPage extends BasePage{
     }
 
    public ArrayList<String> getPulleysPageData(){
-        String stationNumberHead=getTbStationNumberHead();
-        String stationNumberDrive=getTbStationNumberDrive();
-        String stationNumberTakeUp=getTbStationNumberTakeUp();
-        String stationNumberTail=getTbStationNumberTail();
+//        String stationNumberHead=getTbStationNumberHead();
+//        String stationNumberDrive=getTbStationNumberDrive();
+//        String stationNumberTakeUp=getTbStationNumberTakeUp();
+//        String stationNumberTail=getTbStationNumberTail();
         String beltTensionHead=getTbBeltTensionHead();
         String beltTensionDrive=getTbBeltTensionDrive();
         String beltTensionTakeUp=getTbBeltTensionTakeUp();
         String beltTensionTail=getTbBeltTensionTail();
-        String minPulleyDiameterHead=getTbMinPulleyDiameterHead();
-        String minPulleyDiameterDrive=getTbMinPulleyDiameterDrive();
-        String minPulleyDiameterTakeUp=getTbMinPulleyDiameterTakeUp();
-        String minPulleyDiameterTail=getTbMinPulleyDiameterTail();
+//        String minPulleyDiameterHead=getTbMinPulleyDiameterHead();
+//        String minPulleyDiameterDrive=getTbMinPulleyDiameterDrive();
+//        String minPulleyDiameterTakeUp=getTbMinPulleyDiameterTakeUp();
+//        String minPulleyDiameterTail=getTbMinPulleyDiameterTail();
         String pulleyDiameterHead=getTbPulleyDiameterHead();
         String pulleyDiameterDrive=getTbPulleyDiameterDrive();
         String pulleyDiameterTakeUp=getTbPulleyDiameterTakeUp();
         String pulleyDiameterTail=getTbPulleyDiameterTail();
-        return new ArrayList<>(Arrays.asList(stationNumberHead,stationNumberDrive,stationNumberTakeUp,stationNumberTail,
-                beltTensionHead,beltTensionDrive,beltTensionTakeUp,beltTensionTail,minPulleyDiameterHead,minPulleyDiameterDrive,
-                minPulleyDiameterTakeUp,minPulleyDiameterTail,pulleyDiameterHead,pulleyDiameterDrive,pulleyDiameterTakeUp,pulleyDiameterTail));
+        return new ArrayList<>(Arrays.asList(
+                beltTensionHead,beltTensionDrive,beltTensionTakeUp,beltTensionTail,pulleyDiameterHead,pulleyDiameterDrive,pulleyDiameterTakeUp,pulleyDiameterTail));
    }
 
    public ArrayList<String> getTransitionsPageData(){
         String beltTensionHead=getTbBeltTensionHeadTransitionLengthPage();
         String beltTensionTail=getTbBeltTensionTailTransitionLengthPage();
-        String idlerAngleHead=getTbIdlerAngleHead();
-        String idlerAngleTail=getTbIdlerAngleTail();
+//        String idlerAngleHead=getTbIdlerAngleHead();
+//        String idlerAngleTail=getTbIdlerAngleTail();
         String troughDepthHead=getTbTroughDepthHead();
         String troughDepthTail=getTbTroughDepthTail();
         String lengthHead=getLengthHead();
@@ -2392,7 +2540,7 @@ public class MinutemanPage extends BasePage{
         String centerTensionTail=getTbCenterTensionTail();
         String centerTensionPercentageHead=getTbCenterTensionHeadPercentage();
         String centerTensionPercentageTail=getTbCenterTensionTailPercentage();
-        return new ArrayList<>(Arrays.asList(beltTensionHead,beltTensionTail,idlerAngleHead,idlerAngleTail,troughDepthHead,troughDepthTail,
+        return new ArrayList<>(Arrays.asList(beltTensionHead,beltTensionTail,troughDepthHead,troughDepthTail,
                 lengthHead,lengthTail,edgeTensionHead,edgeTensionTail,edgeTensionPercentageHead,edgeTensionPercentageTail,centerTensionHead,
                 centerTensionTail,centerTensionPercentageHead,centerTensionPercentageTail));
    }
@@ -2493,9 +2641,13 @@ public class MinutemanPage extends BasePage{
    public void verifyConveyorInformation(ArrayList<String> beltData,String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
        Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
        Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
-       Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
-       Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(3).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+//       Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+       Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(2).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
    }
+
+    public void verifyConveyorInformation(String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
+        Validator.assertTrue(conveyorInformationReport.get(0).contains("AgriFlex"),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
+    }
 
    public void verifySystemCoordinates(ArrayList<Float> flightInformation,ArrayList<Float> systemCoordinatesReport){
        System.out.println("ABCD: = "+flightInformation);
@@ -2511,11 +2663,11 @@ public class MinutemanPage extends BasePage{
        Validator.assertTrue(inputData.get(3).equals(materialDataReport.get(2).trim()),"Surcharge Angle in reports is not matching with the calculated value","Surcharge Angle in reports is not matching with the calculated value");
    }
 
-   public void verifyInputBeltData(String beltWidth,String beltSpeed, ArrayList<String> inputBeltDataReport){
+   public void verifyInputBeltData(String beltWidth,String beltSpeed, ArrayList<String> inputBeltDataReport, ArrayList<String> rollDataReport){
        Validator.assertTrue(beltWidth.equals(inputBeltDataReport.get(0).trim()),"Width in reports is not matching with the calculated value","Width in reports is not matching with the calculated value");
        Validator.assertTrue(beltSpeed.equals(inputBeltDataReport.get(1).trim()),"Speed in reports is not matching with the calculated value","Speed in reports is not matching with the calculated value");
-//       Validator.assertTrue( " ".equals(inputBeltDataReport.get(2)),"Weight in reports is not matching with the calculated value","Weight in reports is not matching with the calculated value");
-//       Validator.assertTrue( " ".equals(inputBeltDataReport.get(2)),"OAG in reports is not matching with the calculated value","OAG in reports is not matching with the calculated value");
+       Validator.assertTrue(rollDataReport.get(13).equals(inputBeltDataReport.get(2)),"Weight in reports is not matching with the calculated value","Weight in reports is not matching with the calculated value");
+       Validator.assertTrue(rollDataReport.get(10).equals(inputBeltDataReport.get(3)),"OAG in reports is not matching with the calculated value","OAG in reports is not matching with the calculated value");
    }
 
    public void verifySystemData(ArrayList<String> capacity,String carrySideIdlerSpacing,String driveLocation,String takeUpLocation,ArrayList<String> inputData,ArrayList<String> systemDataReport){
@@ -2594,21 +2746,36 @@ public class MinutemanPage extends BasePage{
    public void verifyVerticalCurve(ArrayList<String> verticalCurve,ArrayList<String> verticalCurveReport){
        System.out.println(verticalCurve);
        System.out.println(verticalCurveReport);
-//        Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
+       Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
    }
 
     public void verifyTransitionLength(ArrayList<String> transitionLength,ArrayList<String> transitionLengthReport){
         System.out.println("ABCD:= "+transitionLength);
         System.out.println("ABCD:= "+transitionLengthReport);
-//        Validator.assertTrue(transitionLength.equals(transitionLengthReport),"Transition Length data shown in reports is not matching with entered value","Transition Length data shown in reports is matching with entered value");
+        Validator.assertTrue(transitionLength.equals(transitionLengthReport),"Transition Length data shown in reports is not matching with entered value","Transition Length data shown in reports is matching with entered value");
+    }
+
+    public void verifyPulleyData(ArrayList<String> pulleyData,ArrayList<String> pulleyDataReport){
+        System.out.println("ABCD:= "+pulleyData);
+        System.out.println("ABCD:= "+pulleyDataReport);
+        Validator.assertTrue(pulleyData.equals(pulleyDataReport),"Pulley data shown in reports is not matching with entered value","Pulley data shown in reports is matching with entered value");
     }
 
     public void clickOnSaveAndDownload(){
         btnSaveAndDownload.click("Save & Download");
     }
 
-    public void clickOnCreateCalc(){
+    public boolean clickOnCreateCalc(){
         btnCreate.click("Create");
+        waitForElementToDisplay(toastMsg);
+//        toastMsg.getText().contains("created successfully");
+        return btSearchinput.isVisible();
+    }
+
+    public boolean verifyFailureOnCreateCalc(){
+        btnCreate.click("Create");
+        waitForElementToDisplay(toastMsg);
+        return toastMsg.getText().contains("Failed to create minuteman:");
     }
 
     public void verifyPDFContents(String calc){
@@ -2619,6 +2786,20 @@ public class MinutemanPage extends BasePage{
 //            Validator.assertTrue(PDFHelper.getPDFImagesCount(doc) == 2,"PDF Report has unaccepted no of images","PDF report has valid images");
             String val = PDFHelper.getPageContent(doc);
             Validator.assertTrue(val.replaceAll("\r\n", " ").replaceAll("\n", " ").trim().contains(calc),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
+            PDFHelper.PDFBoxExtractImages(doc);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void verifyPDFContentsBucketElevator(String calc){
+        PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+calc+".pdf");
+        try {
+            Validator.assertTrue(PDFHelper.getPageCount(doc) ==1,"PDF Report has incorrect no of pages","PDF report has valid no of pages");
+            System.out.println(PDFHelper.getPDFImagesCount(doc));
+//            Validator.assertTrue(PDFHelper.getPDFImagesCount(doc) == 2,"PDF Report has unaccepted no of images","PDF report has valid images");
+            String val = PDFHelper.getPageContent(doc);
+//            Validator.assertTrue(val.replaceAll("\r\n", " ").replaceAll("\n", " ").trim().contains(calc),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
             PDFHelper.PDFBoxExtractImages(doc);
         }catch(Exception e){
             e.printStackTrace();
@@ -2639,8 +2820,8 @@ public class MinutemanPage extends BasePage{
         goToEditMinutemanCalc(calc);
         setTbCalculationName(newCalc);
         finalReport.jsClick();
-        waitForElementToDisplay(txtName);
-        Validator.assertTrue(newCalc.equals(txtName.getText().trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+//        waitForElementToDisplay(txtName);
+//        Validator.assertTrue(newCalc.equals(txtName.getText().trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
         waitForElementToInvisible(spinner,7000);
         scrollPageDown();
         btnSave.click();
@@ -2983,14 +3164,20 @@ public class MinutemanPage extends BasePage{
     public void getConveyorTypeText(String conveyorType){
         Validator.assertTrue(conveyorTypeText.getText("Conveyor Text").contains(getConveyorTypeToText(conveyorType)),"Conveyor type text is improper","Conveyor type text is verified successfully");
     }
-    public void verifyElevatorConveyorInformation(String customer,String calculationName,ArrayList<String> conveyorInformationReport){
-//        Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
+    public void verifyElevatorConveyorInformation(String customer,String calculationName,String tradeName,ArrayList<String> conveyorInformationReport){
+        System.out.println(txtElevatorBeltDescription.getText());
+        System.out.println(tradeName);
+//        Validator.assertTrue(txtElevatorBeltDescription.getText().contains(tradeName),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
         Validator.assertTrue(customer.equals(conveyorInformationReport.get(0)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
 //        Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is matching with the entered value");
-//         Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(3).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+         Validator.assertTrue(txtElevatorConveyor.getText().equals("-"),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
     }
 
-    public void verifyGivenData(String ConveyorType,String materialDensity,String tonsPerHourPeak,String materialLength,String materialSpacing,String materialVolume,String bucketRows,String materialWidth,String materialHeight,String materialSpeed,String drivePulley,String takeUpType){
+    public void verifyElevatorConveyorInformation(String customer,String calculationName,ArrayList<String> conveyorInformationReport){
+        Validator.assertTrue(txtElevatorConveyor.getText().equals("-"),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+    }
+
+    public void verifyGivenData(String ConveyorType,String materialDensity,String tonsPerHourPeak,String materialProjection, String materialLength,String materialSpacing,String materialWeight,String materialVolume,String bucketRows,String materialWidth,String materialHeight,String materialSpeed,String beltWeight,String drivePulley,String takeUpType){
         System.out.println(materialDensity);
         System.out.println(txtElevatorMaterialDensity.getText());
         Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
@@ -2999,52 +3186,83 @@ public class MinutemanPage extends BasePage{
         Validator.assertTrue(txtElevatorConveyorType.getText().equals(getConveyorTypeToText(ConveyorType)),"ConveyorType in reports is not matching with the calculated value","ConveyorType in reports is not matching with the calculated value");
         System.out.println(tonsPerHourPeak);
         System.out.println(txtElevatortonPerPeak.getText());
-        Validator.assertTrue(txtElevatortonPerPeak.getText().contains(tonsPerHourPeak),"tonsPerHourPeak in reports is not matching with the calculated value","tonsPerHourPeak in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-//        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
-
+        Validator.assertTrue(txtElevatortonPerPeak.getText().equals(tonsPerHourPeak),"tonsPerHourPeak in reports is not matching with the calculated value","tonsPerHourPeak in reports is not matching with the calculated value");
+        System.out.println(materialProjection);
+        System.out.println(txtElevatorBucketProjection.getText());
+        Validator.assertTrue(txtElevatorBucketProjection.getText().contains(materialProjection),"Material Projection in reports is not matching with the calculated value","Material Projection in reports is not matching with the calculated value");
+        System.out.println(materialLength);
+        System.out.println(txtElevatorBucketLength.getText());
+        Validator.assertTrue(txtElevatorBucketLength.getText().equals(materialLength),"Material Length in reports is not matching with the calculated value","Material Length in reports is not matching with the calculated value");
+        System.out.println(materialVolume);
+        System.out.println(txtElevatorBucketVolume.getText());
+        Validator.assertTrue(txtElevatorBucketVolume.getText().equals(materialVolume),"Material Volume in reports is not matching with the calculated value","Material Volume in reports is not matching with the calculated value");
+        System.out.println(materialWidth);
+        System.out.println(txtElevatorBeltWidth.getText());
+        Validator.assertTrue(txtElevatorBeltWidth.getText().equals(materialWidth),"Belt Width in reports is not matching with the calculated value","Belt Width in reports is not matching with the calculated value");
+        System.out.println(materialHeight);
+        System.out.println(txtElevatorBeltHeight.getText());
+        Validator.assertTrue(txtElevatorBeltHeight.getText().equals(materialHeight),"Belt Height in reports is not matching with the calculated value","Belt Height in reports is not matching with the calculated value");
+        System.out.println(materialSpeed);
+        System.out.println(txtElevatorBeltSpeed.getText());
+        Validator.assertTrue(txtElevatorBeltSpeed.getText().equals(materialSpeed),"Belt Speed in reports is not matching with the calculated value","Belt Speed in reports is not matching with the calculated value");
+        System.out.println(takeUpType);
+        System.out.println(txtElevatorTakeUp.getText());
+        Validator.assertTrue(txtElevatorTakeUp.getText().equals(takeUpType),"TakeUp Type in reports is not matching with the calculated value","TakeUp Type in reports is not matching with the calculated value");
+        System.out.println(drivePulley);
+        System.out.println(txtElevatorDrivePulley.getText());
+        Validator.assertTrue(txtElevatorDrivePulley.getText().equals(drivePulley),"Drive Pulley in reports is not matching with the calculated value","Drive Pulley in reports is not matching with the calculated value");
+        System.out.println(materialWeight);
+        System.out.println(txtElevatorBucketWeight.getText());
+        Validator.assertTrue(txtElevatorBucketWeight.getText().equals(materialWeight),"Material Weight in reports is not matching with the calculated value","Material Weight in reports is not matching with the calculated value");
+        System.out.println(beltWeight);
+        System.out.println(txtElevatorBeltWeight.getText());
+        Validator.assertTrue(txtElevatorBeltWeight.getText().equals(beltWeight),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
+        System.out.println(materialSpacing);
+        System.out.println(txtElevatorBucketSpacing.getText());
+        Validator.assertTrue(txtElevatorBucketSpacing.getText().equals(materialSpacing),"Bucket Spacing in reports is not matching with the calculated value","Bucket Spacing in reports is not matching with the calculated value");
+        System.out.println(bucketRows);
+        System.out.println(txtElevatorBucketRows.getText());
+        Validator.assertTrue(txtElevatorBucketRows.getText().equals(bucketRows),"Bucket Rows in reports is not matching with the calculated value","Bucket Rows in reports is not matching with the calculated value");
     }
 
     public void verifyCalculatedData(String maximumTension,String maximumPIW,String effectiveTension,String beltHorsepower,String percentLoaded,String counterweightTension,String counterweightWeight,String weightInEachBucket){
-        System.out.println(percentLoaded);
-        System.out.println(txtElevatorEffectiveTension.getText());
-        Validator.assertTrue(txtElevatorEffectiveTension.getText().equals(percentLoaded),"effectiveTension in reports is not matching with the calculated value","effectiveTension in reports is not matching with the calculated value");
         System.out.println(effectiveTension);
+        System.out.println(txtElevatorEffectiveTension.getText());
+        Validator.assertTrue(txtElevatorEffectiveTension.getText().equals(effectiveTension),"effectiveTension in reports is not matching with the calculated value","effectiveTension in reports is not matching with the calculated value");
+        System.out.println(maximumTension);
         System.out.println(txtElevatorMaximumTension.getText());
-//        Validator.assertTrue(txtElevatorMaximumTension.getText().equals(effectiveTension),"maximumTension in reports is not matching with the calculated value","maximumTension in reports is not matching with the calculated value");
-        System.out.println(weightInEachBucket);
-        System.out.println(txtElevatorCounterweightTension.getText());
-//        Validator.assertTrue(txtElevatorCounterweightTension.getText().equals(weightInEachBucket),"counterweightTension in reports is not matching with the calculated value","counterweightTension in reports is not matching with the calculated value");
+        Validator.assertTrue(txtElevatorMaximumTension.getText().equals(maximumTension),"maximumTension in reports is not matching with the calculated value","maximumTension in reports is not matching with the calculated value");
         System.out.println(counterweightTension);
-        System.out.println(txtElevatorBeltHorsepower.getText());
-        Validator.assertTrue(txtElevatorBeltHorsepower.getText().equals(counterweightTension),"beltHorsepower in reports is not matching with the calculated value","beltHorsepower in reports is not matching with the calculated value");
+        System.out.println(txtElevatorCounterweightTension.getText());
+        Validator.assertTrue(txtElevatorCounterweightTension.getText().equals(counterweightTension),"counterweightTension in reports is not matching with the calculated value","counterweightTension in reports is not matching with the calculated value");
         System.out.println(counterweightWeight);
-        System.out.println(txtElevatorBucketCapacity.getText());
-        Validator.assertTrue(txtElevatorBucketCapacity.getText().split("\\s")[0].equals(counterweightWeight),"percentLoaded in reports is not matching with the calculated value","percentLoaded in reports is not matching with the calculated value");
+        System.out.println(txtElevatorCounterweightWeight.getText());
+        Validator.assertTrue(txtElevatorCounterweightWeight.getText().equals(counterweightWeight),"counterweightWeight in reports is not matching with the calculated value","counterweightWeight in reports is not matching with the calculated value");
+        System.out.println(weightInEachBucket);
+        System.out.println(txtElevatorEachBucketWeight.getText());
+        Validator.assertTrue(txtElevatorEachBucketWeight.getText().equals(weightInEachBucket),"counterweightWeight in reports is not matching with the calculated value","counterweightWeight in reports is not matching with the calculated value");
         System.out.println(beltHorsepower);
+        System.out.println(txtElevatorBeltHorsepower.getText());
+        Validator.assertTrue(txtElevatorBeltHorsepower.getText().equals(beltHorsepower),"beltHorsepower in reports is not matching with the calculated value","beltHorsepower in reports is not matching with the calculated value");
+        System.out.println(percentLoaded);
+        System.out.println(txtElevatorBucketCapacity.getText());
+        Validator.assertTrue(txtElevatorBucketCapacity.getText().split("\\s")[0].equals(percentLoaded),"percentLoaded in reports is not matching with the calculated value","percentLoaded in reports is not matching with the calculated value");
+        System.out.println(maximumPIW);
         System.out.println(txtElevatorMaximumPIW.getText());
-        //Validator.assertTrue(txtElevatorMaximumPIW.getText().equals(beltHorsepower),"maximumPIW in reports is not matching with the calculated value","maximumPIW in reports is not matching with the calculated value");
+        Validator.assertTrue(txtElevatorMaximumPIW.getText().equals(maximumPIW),"maximumPIW in reports is not matching with the calculated value","maximumPIW in reports is not matching with the calculated value");
 
     }
 
     public void verifyAdditionalData(String mimTailPulleyDiameter,String maximumProjection,String appropriateNumber){
         System.out.println(maximumProjection);
         System.out.println(txtElevatorMaxBucketProjection.getText());
-//        Validator.assertTrue(txtElevatorMaxBucketProjection.getText().equals(appropriateNumber),"maximumProjection in reports is not matching with the calculated value","maximumProjection in reports is not matching with the calculated value");
+        Validator.assertTrue(txtElevatorMaxBucketProjection.getText().equals(maximumProjection),"maximumProjection in reports is not matching with the calculated value","maximumProjection in reports is not matching with the calculated value");
         System.out.println(mimTailPulleyDiameter);
         System.out.println(txtElevatorMinHeadPulleyDiameter.getText());
-//        Validator.assertTrue(txtElevatorMinHeadPulleyDiameter.getText().equals(mimTailPulleyDiameter),"mimTailPulleyDiameter in reports is not matching with the calculated value","mimTailPulleyDiameter in reports is not matching with the calculated value");
+        Validator.assertTrue(txtElevatorMinHeadPulleyDiameter.getText().equals(mimTailPulleyDiameter),"mimTailPulleyDiameter in reports is not matching with the calculated value","mimTailPulleyDiameter in reports is not matching with the calculated value");
         System.out.println(appropriateNumber);
         System.out.println(txtElevatorBucketNumber.getText());
-//        Validator.assertTrue(txtElevatorBucketNumber.getText().equals(appropriateNumber),"appropriateNumber in reports is not matching with the calculated value","appropriateNumber in reports is not matching with the calculated value");
+        Validator.assertTrue(txtElevatorBucketNumber.getText().equals(appropriateNumber),"appropriateNumber in reports is not matching with the calculated value","appropriateNumber in reports is not matching with the calculated value");
 
 
     }

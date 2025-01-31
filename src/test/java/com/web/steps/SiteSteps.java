@@ -222,4 +222,46 @@ public class SiteSteps  {
         sitePage.bellIconClick();
         sitePage.markAllAsReadLnkClick();
     }
+
+    @QAFTestStep(description="Navigate to Site list page")
+    public void navigateToSiteListPage(){
+        sitePage.goToSiteListScreenAndWait();
+    }
+
+    @QAFTestStep(description="Verify only view permission right for site {siteName}")
+    public void verifyViewPermissionRightForSite(String siteName) {
+        Validator.assertTrue(sitePage.verifyViewRights(siteName), "View Permission for site is failing", "View permission for site is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and add permission right for site {siteName}")
+    public void verifyViewAndAddPermissionRightForSite(String siteName) {
+        Validator.assertTrue(sitePage.verifyViewAndAddRights(siteName), "Add And view Permission for site is failing", "Add and view permission for site is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and edit permission right for site {siteName}")
+    public void verifyViewAndEditPermissionRightForSite(String siteName) {
+        Validator.assertTrue(sitePage.verifyViewAndEditRights(siteName), "Edit And view Permission for site is failing", "Edit and view permission for site is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view and delete permission right for site {siteName}")
+    public void verifyViewAndDeletePermissionRightForSite(String siteName) {
+        Validator.assertTrue(sitePage.verifyViewAndDeleteRights(siteName), "Delete And view Permission for iste is failing", "Delete and view permission for site is verified successfully");
+    }
+
+    @QAFTestStep(description="Verify only view add edit and delete permission right for site {siteName}")
+    public void verifyViewEditAndDeletePermissionRightForSite(String siteName) {
+        Validator.assertTrue(sitePage.verifyViewAddEditAndDeleteRights(siteName), "Delete And view Permission for iste is failing", "Delete and view permission for site is verified successfully");
+    }
+
+
+    @QAFTestStep(description="Verify card display in home screen for basic permission")
+    public void verifyCardsDisplay() {
+        Validator.assertTrue(sitePage.verifyCardsDisplayForBasics(), "After setting view rights for basics the card display showing other cards too", "After setting view right card display for basics, showing only 3 cards");
+    }
+
+    @QAFTestStep(description="Verify option display in left navigation menu")
+    public void verifyLeftNavigationListDisplay() {
+        Validator.assertTrue(sitePage.verifyLeftNavigationHomeForBasicsView(),"After setting view rights for basics the left navigation display showing other items too", "After setting view right card display for basics, showing only 3 list items");
+        Validator.assertTrue(sitePage.verifyLeftNavigationAdminView(), "After setting view rights for admin the left navigation display showing other items too", "After setting view right card display for admin, showing only 3 items");
+    }
 }

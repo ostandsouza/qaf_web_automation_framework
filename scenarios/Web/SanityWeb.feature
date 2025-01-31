@@ -80,6 +80,7 @@ Scenario: Verify the conveyor management
     And   Create a conveyor with '${ConveyorName5}' and '${DistShopAusName}' and '${CustSiteAusName}'
     And   Create a conveyor with '${ConveyorName6}' and '${DistShopAusName}' and '${CustSiteAusName}'
     Then  Verify conveyor technical data with '${ConveyorName1}'
+    Then  Verify conveyor history screen for '${ConveyorName1}'
     When  Delete Conveyor from Conveyor list screen '${ConveyorName1}'
     Then  Verify Deleted Conveyor '${ConveyorName1}' from Conveyor list screen
     When  Delete Conveyor from Conveyor list screen '${ConveyorName4}'
@@ -401,3 +402,26 @@ Scenario: Verify the Belt-Info Textile functionality
     And Navigate to the Belt Info Textile sheet
     And Enter the Belt Form data '${Market}' '${STDReqByCustomer}' '${BeltConstruction}' '${CarcassConstruction}' '${TopCoverCompound}' '${TopCoverGauge}' '${BottomCoverCompound}' '${BottomCoverGauge}' '${BeltWidth}' '${BreakerItems}' '${BreakerItems}' '${Overallbeltthickness}' '${Comment}'
     And Export PDF and verify the PDF is downloaded
+
+@Sanity25
+@dataFile:resources/data/TestData.xls
+@sheetName:Sanity
+@key:FreeTools
+Scenario: Verify free tools functionality
+
+     Given User is at Login page
+     When  Login with normal user '${UserName}' and '${Password}'
+     And   Navigate to free tools capacity and verify the fields
+     Then  Verify all the calculated data for conveyor capacity for entered data '${BeltWidth}' '${Density}' '${SurchrgeAngle}' '${BeltSpeed}' '${Tonnage}' '${TroughAngle}' '${ConveyorLoad}'
+     Then  Navigate to free tools troughability and verify the fields
+     Then  Verify all the calculated data for troughability for entered data '${RollerInclination}' '${Ratio}'
+     When  Navigate to free tools roll length and verify the fields
+     Then  Verify all the calculated data for roll length for entered data '${ReelShape}' '${InnerDiameter}' '${RaceTrack}' '${ReelWeight}' '${BeltThickness}' '${BeltLength}' '${BeltWeight}' '${ReelDiameter}' '${ReelLength}' '${Revolutions}' '${TotalWeight}'
+     When  Navigate to free tools safety factor and verify the fields
+     Then  Verify all the calculated data for safety calculator for entered data '${BeltType}' '${BeltWidth}' '${BreakingStrength}' '${BreakingForce}' '${BeltTension}' '${SafetyFactor}' '${SafetyFactorMinimum}' '${StartUpMinimum}'
+     Then  Navigate to free tools units converter and verify the fields
+     Then  Verify all the calculated data for PIW converter for entered data '${SafetyFactor}' '${SafetyFactorPN}' '${SafetyFactorST}' '${BreakingStrength}' '${OperatingTension1}' '${BreakingStrength1}' '${OperatingTension}'
+     When  Navigate to free tools belt revolution and verify the fields
+     Then  Verify all the calculated data for belt revolution for entered data '${TapedLength}' '${BeltSpeed}' '${TimeRevolutions}'
+     And   Navigate to free tools wrap angle and verify the fields
+     Then  Verify all the calculated data for wrap angle for entered data '${Direction}' '${Point1}' '${Point2}' '${WrapAngle}'

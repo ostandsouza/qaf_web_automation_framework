@@ -72,7 +72,7 @@ public class BeltScanPage extends BasePage{
     @FindBy(locator= "xpath=(//p-dropdown[@datakey=\"conveyorId\"]//div[contains(@class,\"p-dropdown\")])[1]")
     public CustomElement tbConveyorDropdown;
 
-    @FindBy(locator= "xpath=//label[text()='Notify CCM ']/..//p-dropdown")
+    @FindBy(locator= "xpath=//label[text()='Notify CCM ']/..//p-dropdown/div")
     public CustomElement tbCCMDropdown;
 
     @FindBy(locator= "xpath=//label[text()='Upload Raw Capture File ']/..//app-any-file-uploader//input")
@@ -92,6 +92,9 @@ public class BeltScanPage extends BasePage{
 
     @FindBy(locator = "xpath=//span[text()='Load Backup Data']/..")
     public CustomElement loadBackupData;
+
+    @FindBy(locator = "xpath=//span[text()='File is being scanned...']")
+    public CustomElement fileScanProgress;
 
     @FindBy(locator = "xpath=//span[text()='Load Technical Data']/..")
     public CustomElement loadTechnicalData;
@@ -268,7 +271,7 @@ public class BeltScanPage extends BasePage{
         dropdownSelectSearch(tbCCMDropdown, tbDeviceTypedropdown, ccm);
         SyncUtil.waitFor(1000);
         btnNext.click();
-        return loadBackupData.isEnable() && loadTechnicalData.isEnable();
+        return fileScanProgress.isEnable() && loadTechnicalData.isEnable();
     }
 
     public boolean searchBeltScan(String conveyorName){

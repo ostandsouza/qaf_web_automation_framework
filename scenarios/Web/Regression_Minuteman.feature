@@ -356,3 +356,42 @@ Background:
        And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
        Then  Verify the flight screen navigation
        And   Close warning popup
+
+   @Regression27 @CTCP-1040
+   @dataFile:resources/data/TestData.xls
+   @sheetName:Regression
+   @key:minuteman_duplicate
+   Scenario: Verify duplicate name creation on the minuteman
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
+        And   User is at add minuteman conveyor page
+        When  User enters general info '${CalculationName1}' '${CustSiteName}' '${ConveyorName}' and click on select belt
+        And   User enters select belt details and click on final report
+        Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${CustSiteName}' '${ConveyorName}'
+        When  Click on create button for minuteman calculation
+        Then  Verify the minuteman calculation '${CalculationName1}' in list screen
+        And   User is at add minuteman conveyor page
+        When  User enters general info '${CalculationName2}' '${CustSiteName}' '${ConveyorName2}' and click on select belt
+        And   User enters select belt details and click on final report
+        Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName2}' '${CustSiteName}' '${ConveyorName2}'
+        When  Click on create button for minuteman calculation
+        And   User is at add minuteman conveyor page
+        When  User enters general info '${CalculationName1}' '${CustSiteName}' '${NoConveyor}' and click on select belt
+        And   User enters select belt details and click on final report
+        Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${CustSiteName}' '${NoConveyor}'
+        When  Click on create button and verify failure toast
+        And   User is at add minuteman conveyor page
+        When  User enters general info '${CalculationName1}' '${CustSiteName1}' '${ConveyorName1}' and click on select belt
+        And   User enters select belt details and click on final report
+        Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${CustSiteName1}' '${ConveyorName1}'
+        When  Click on create button for minuteman calculation
+        And   User is at add minuteman conveyor page
+        When  User enters general info '${CalculationName1}' '${NoSite}' '${NoConveyor}' and click on select belt
+        And   User enters select belt details and click on final report
+        Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${NoSite}' '${NoConveyor}'
+        When  Click on create button for minuteman calculation
+        And   User is at add minuteman conveyor page
+        When  User enters general info '${CalculationName1}' '${NoSite}' '${NoConveyor}' and click on select belt
+        And   User enters select belt details and click on final report
+        Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${NoSite}' '${NoConveyor}'
+        When  Click on create button and verify failure toast

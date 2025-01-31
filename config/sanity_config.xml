@@ -49,8 +49,7 @@
 				<include name="Sanity21" />
 				<include name="Sanity23" />
 				<include name="Sanity24" />
-
-
+				<include name="Sanity25" />
 			</run>
 		</groups>
 		<classes>

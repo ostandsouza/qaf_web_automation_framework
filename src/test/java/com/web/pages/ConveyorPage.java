@@ -3132,6 +3132,4 @@ public void verifyUnPinnedSubList(String value) {
         waitForElementToBeClickable(btnYes);
         btnYes.jsClick();
     }
-
-
 }

@@ -372,8 +372,8 @@ Scenario: Verify site level delete multi files file manager manager functionalit
 @key:FileManager_Navigation
 Scenario: Verify site level an file manager memory functionality
 
-     Given User is at Login page
-        When  Login with '${UserName}' and '${Password}'
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And   Navigate to file manager for site '${CustSiteName}'
     Then  Verify folder '${FolderName}' memory details
     And   Upload file '${ImgName}' into the folder '${FolderName}'

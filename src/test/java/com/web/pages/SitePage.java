@@ -24,15 +24,72 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=(//li//span[text()='Sites'])[1]")
     public CustomElement sites;
 
+    @FindBy(locator = "xpath=(//li//span[text()='Sites'])[1]/../..")
+    public CustomElement sitesNav;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Conveyors'])[1]/../..")
+    public CustomElement conveyors;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Cover Wear'])[1]/../..")
+    public CustomElement coverWear;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Inspections'])[1]/../..")
+    public CustomElement inspections;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Conveyor Inspect'])[1]/../..")
+    public CustomElement conveyorInspect;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Belt Scans'])[1]/../..")
+    public CustomElement beltScans;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Monitoring Devices'])[1]/../..")
+    public CustomElement monitoringDevices;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Heavy Equipment'])[1]/../..")
+    public CustomElement heavyEquipment;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Minuteman'])[1]/../..")
+    public CustomElement minuteman;
+
     @FindBy(locator = "xpath=//input[@placeholder='Search']")
     public CustomElement btSearchinput;
 
     @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
 
-    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]/..")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Sites'])[1]")
+    public CustomElement siteCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyors'])[1]")
+    public CustomElement conveyorsCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Cover Wear'])[1]")
+    public CustomElement coverWearCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Inspections'])[1]")
+    public CustomElement inspectionCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyor Inspect'])[1]")
+    public CustomElement conveyorInspectCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Belt Scans'])[1]")
+    public CustomElement beltScanCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]")
+    public CustomElement monitoringDevicesCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Heavy Equipment'])[1]")
+    public CustomElement heavyEquipmentCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.'])[1]")
+    public CustomElement minutemanCard;
+
+    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Add-circle'])[2]")
+    public CustomElement btAdd;
 
     @FindBy(locator = "xpath=//span[text()='Edit']")
     public CustomElement btEdit;
@@ -60,9 +117,6 @@ public class SitePage  extends BasePage {
 
     @FindBy(locator = "xpath=(//span[contains(@class,'p-panel-title')])[1]")
     public CustomElement siteHeader;
-
-    @FindBy(locator = "xpath=(//div[contains(@class,'p-carousel-item')]//app-card//div[@class='card-inner-wrapper' and contains(div, 'Sites')])[1]")
-    public CustomElement siteCard;
 
     @FindBy(locator = "xpath=(//td//i[contains(@class,'ctp-icon-Favorite')])[1]")
     public CustomElement subscribePinIcon;
@@ -142,6 +196,28 @@ public class SitePage  extends BasePage {
     public CustomElement btnNotificationActionDropDwn;
     @FindBy(locator = "xpath=(//span[text()='New'])[1]")
     public CustomElement notificationListNewEntry;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Corporates'])[1]")
+    public CustomElement corporate;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Content Management'])[1]")
+    public CustomElement contentManagement;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Master Data'])[1]")
+    public CustomElement masterData;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Statistics'])[1]")
+    public CustomElement statistics;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Customer API'])[1]")
+    public CustomElement customerAPI;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='File Manager'])[1]")
+    public CustomElement fileManagerCard;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Users'])[1]")
+    public CustomElement users;
+
 
     public void goToSiteListScreen() {
         if (!sites.isVisible())
@@ -478,4 +554,57 @@ public class SitePage  extends BasePage {
         markAllAsReadText.click("Mark All As Read");
     }
 
+    public boolean verifyViewAndAddRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        return btAdd.isVisible(500) && !btActions.isEnabled();
+    }
+
+    public boolean verifyViewRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        return !btActions.isEnabled();
+//        btActions.click("Actions");
+//        return btAdd.isNotVisible(500) && btEdit.isNotVisible(500) && btDelete.isNotVisible(500);
+    }
+
+    public boolean verifyViewAndEditRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        btActions.click("Actions");
+        return btAdd.isNotVisible(500) && btEdit.isVisible(500) && btDelete.isNotVisible(500);
+    }
+
+    public boolean verifyViewAndDeleteRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        btActions.click("Actions");
+        return btAdd.isNotVisible(500) && btEdit.isNotVisible(500) && btDelete.isVisible(500);
+    }
+
+    public boolean verifyViewAddEditAndDeleteRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        btActions.click("Actions");
+        return btAdd.isVisible(500) && btEdit.isVisible(500) && btDelete.isVisible(500);
+    }
+
+    public boolean verifyCardsDisplayForBasics(){
+        return siteCard.isVisible() && conveyorsCard.isVisible() && coverWearCard.isVisible() && fileManagerCard.isNotVisible(500) && inspectionCard.isNotVisible(500) && conveyorInspectCard.isNotVisible(500) && beltScanCard.isNotVisible(500) && monitoringDevicesCard.isNotVisible(500) && heavyEquipmentCard.isNotVisible(500) && minutemanCard.isNotVisible(500);
+    }
+
+    public boolean verifyLeftNavigationHomeForBasicsView() {
+        home.click("Home");
+        SyncUtil.waitFor(1000);
+        return sitesNav.isVisible() && conveyors.isVisible() && coverWear.isVisible() && fileManager.isNotVisible(500) && inspections.isNotVisible(500) && conveyorInspect.isNotVisible(500) && beltScans.isNotVisible(500) && monitoringDevices.isNotVisible(500) && heavyEquipment.isNotVisible(500) && minuteman.isNotVisible(500);
+    }
+
+    public boolean verifyLeftNavigationAdminView() {
+        return corporate.isVisible() && contentManagement.isVisible() && statistics.isVisible() && users.isNotVisible(500) && masterData.isNotVisible(500) && customerAPI.isNotVisible(500);
+    }
 }
