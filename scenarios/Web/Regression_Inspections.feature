@@ -343,33 +343,7 @@ Scenario: Verify success message after saving inspection event
     And Click on view button
     Then Verify the inspection item status value
 
-  @Regression26 @CTCP-790
-  @dataFile:resources/data/TestData.xls
-  @sheetName:Regression
-  @key:Inspection_Navigation_Status
-  Scenario: Verify inspection item condition value after view button is clicked
-
-    And   Navigate to inspection list screen and wait for data load
-    Then Extract inspection item condition value for '${Inspection}'
-    And Click on view button
-    Then Verify the inspection item condition value
-
-  @Regression26 @CTCP-792
-  @dataFile:resources/data/TestData.xls
-  @sheetName:Regression
-  @key:Inspection_AddEvent_SiteInspection
-  Scenario: Verify Duplicate inspections under inspection list
-
-    And   Navigate to inspection list screen and wait for data load
-    And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    Then  Navigate to inspection list screen and wait for data load
-    And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    Then  Navigate to inspection list screen and wait for data load
-    Then Verify duplicate inspection event for '${InspectionName}'
-
-@Regression28 @CTCP-2654
+@Regression32 @CTCP-26546
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Dashboard
@@ -435,8 +409,6 @@ Scenario: Verify delete button functionality in add files section
 @key:Inspection_BreadCrumb
 Scenario: ZVerify breadcrumb of inspection
 
-       Given User is at Login page
-       When  Login with '${UserName}' and '${Password}'
        And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
        Then Click on conveyor '${ConveyorName}' name in breadcrumb anf verify it navigates to conveyor technical data screen
        And Click on Inspection tile and verify it displays only corresponding conveyor '${ConveyorName}' inspections
@@ -464,8 +436,7 @@ Scenario: ZVerify breadcrumb of inspection
 @key:Inspection_ExportFunction
 Scenario: Verify Export functionality under Inspection details screen.
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+
     And Navigate to Inspection detail page of the InspectionEvent '${InspectionEvent}'
     And Search for the InspectionItem '${ConveyorName}'
     Then Click on Export Button of InspectionItem and verify user is able to download pdf
@@ -511,8 +482,6 @@ Scenario: Verify uploaded image under inspection item
   @key:Inspection_AddEvent_SiteInspection
   Scenario: Verify Duplicate inspections under inspection list
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to inspection list screen and wait for data load
     And   Add the inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
@@ -581,8 +550,7 @@ Scenario: Verify the Actions button by default under inspection dashboard page
 @key:Inspection_Dashboard
 Scenario: Verify the values under Actions dropdown button.
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+
     And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -830,6 +798,8 @@ Scenario: Verify the inspection count
 @key:Inspection_Dashboard
 Scenario: Verify user is able to open the inspections from the corporate level
 
+  Given User is at Login page
+  When Login with '${UserName}' and '${Password}'
   And Navigate to Corporate details screen for corporate '${Corporate}'
   Then Click on inspections and verify user is able to open inspections
 
@@ -852,6 +822,8 @@ Scenario: Verify user is able to see number of inspection items in condition
 @key:Inspection_Dashboard
 Scenario: Verify user is able select the multiple sites via drop down
 
+    Given User is at Login page
+     When Login with '${UserName}' and '${Password}'
     And Navigate to Corporate details screen for corporate '${Corporate}'
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard

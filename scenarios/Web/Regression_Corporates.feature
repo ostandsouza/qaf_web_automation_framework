@@ -279,6 +279,8 @@ Scenario: ZdVerify the image upload functionality
 @key:Company_Mandatory_Field
 Scenario: ZcVerify mandantory field
 
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     And User navigates to Add coporates page
     Then Verify '${mandatoryCount}' mandatory fields
     And Add Corporate fields '${companyName}' '${address}'
@@ -311,6 +313,8 @@ Scenario: ZaVerify Company name as blank
 @key:Usermanagement_User_Creation
 Scenario: WVerify the Territory and markets in ascending order
 
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
     And  Add territory as '${Region1}' '${Region2}' '${Region3}' '${Region4}' for the user
     And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
@@ -657,8 +661,8 @@ Scenario: Verify the functionality for Login with other user at Account level co
 @CTCP-1203 @CTCP-2637 @CTCP-2643
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Notification_Conveyor_Update
-Scenario: Verify the user un-read notification count over bell icon after reading all the Notifications.
+@key:Notification_Site_Update
+Scenario: ZVerify the user un-read notification count over bell icon after reading all the Notifications.
 
     Given User is at Login page
     When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
@@ -671,12 +675,13 @@ Scenario: Verify the user un-read notification count over bell icon after readin
 @CTCP-2639 @CTCP-2641 @CTCP-2645 @CTCP-2647
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Notification_Conveyor_Update
+@key:Notification_Site_Update
 Scenario: Verify the 'Actions' button under Notifications list page.
 
     Given User is at Login page
     When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
-    And subscribe one conveyor '${ConveyorName1}' for the user
+#    And subscribe one conveyor '${ConveyorName1}' for the user
+    And subscribe one site '${Site1}' for the user
     Then Verify the notification count in bellIcon
     And Logout from the current user
     And Login with '${UserName}' and '${Password}'
@@ -693,8 +698,10 @@ Scenario: Verify the 'Actions' button under Notifications list page.
     And Click on the action button mark all as read button
     And Verify action button is disabled when user has no new notification
     And Verify all notifications are moved to read status
-    And wait for conveyors to load
-    And Unsubscribe the site '${ConveyorName1}'
+#    And wait for conveyors to load
+#    And Unsubscribe the site '${ConveyorName1}'
+    And Navigate to site list screen
+    And Unsubscribe the site '${Site1}'
 
 @CTCP-2649
 @dataFile:resources/data/TestData.xls
@@ -717,7 +724,8 @@ Scenario: Click on 'Mark all as Read' from Actions dropdown under Notifications 
 
     Given User is at Login page
     When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
-    And subscribe one conveyor '${ConveyorName1}' for the user
+#    And subscribe one conveyor '${ConveyorName1}' for the user
+    And subscribe one site '${Site1}' for the user
     Then Verify the notification count in bellIcon
     And Logout from the current user
     And Login with '${UserName}' and '${Password}'
@@ -735,6 +743,7 @@ Scenario: Click on 'Mark all as Read' from Actions dropdown under Notifications 
     And Click on the action button mark all as read button
     And Verify action button is disabled when user has no new notification
     And Verify all notifications are moved to read status
-    And wait for conveyors to load
-    And Unsubscribe the site '${ConveyorName1}'
-
+#    And wait for conveyors to load
+#    And Unsubscribe the site '${ConveyorName1}'
+    And Navigate to site list screen
+    And Unsubscribe the site '${Site1}'

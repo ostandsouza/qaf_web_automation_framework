@@ -12,7 +12,8 @@ Feature: Beltforms
 
     Given User is at Login page
     When Login with '${UserName}' and '${Password}'
-    And Click on carousel left icon
+    And Click on carousel right icon
+    And Click on carousel right icon
     And Verify Belt Monitoring card details
 
   @CTCP-390 @CTCP-2812
@@ -86,7 +87,8 @@ Feature: Beltforms
 
     Given User is at Login page
     When Login with '${UserName}' and '${Password}'
-    And Click on carousel left icon
+    And Click on carousel right icon
+    And Click on carousel right icon
     And Verify Belt Monitoring card details
     And Click on the Belt Monitoring card
     And Verify the tabel header panel
@@ -106,6 +108,7 @@ Feature: Beltforms
     And Click on previous button  and verify navigation to Add Location page
     And Click on next button and verify navigation to Add Location page
     And Click on save button and verify device '${DeviceName}' is created successfully
+    And Verify search and delete '${DeviceName}' functionality
 
 
   @Regression8 @CTCP-2808 @2807
@@ -123,6 +126,7 @@ Feature: Beltforms
     And Add the non-mandatory fields for device with '${Brand}' '${SerialNumber}' '${RemoteConnection}' '${CommisioningDate}' and '${BeltConveyorSaves}' and '${FirmWareVersion}' and '${SystemLink}'
     And Click on save button and verify device '${DeviceName}' is created successfully
     And Validate Access Link Icon is enabled for Monitoring Device
+    And Verify search and delete '${DeviceName}' functionality
 
   @Regression8 @CTCP-2809 @CTCP-3675
   @dataFile:resources/data/TestData.xls
@@ -139,6 +143,7 @@ Feature: Beltforms
     And Add the non-mandatory fields for device with '${Brand}' '${SerialNumber}' '${RemoteConnection}' '${CommisioningDate}' and '${BeltConveyorSaves}' and '${FirmWareVersion}' and '${SystemLink}'
     And Click on save button and verify device '${DeviceName}' is created successfully
     And Validate Access Link Icon is disabled for Monitoring Device
+    And Verify search and delete '${DeviceName}' functionality
 
   @Regression8 @CTCP-413
   @dataFile:resources/data/TestData.xls

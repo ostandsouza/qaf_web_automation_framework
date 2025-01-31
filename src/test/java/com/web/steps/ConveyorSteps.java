@@ -74,6 +74,7 @@ public class ConveyorSteps {
         conveyorPage.verifyPDFContents(conveyor5);
         corporatePage.clickCorporates();
         conveyorPage.exportCSVConveyor(conveyor2);
+        SyncUtil.waitFor(8000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles("download.csv"), "CSV report was not found", "CSV report was downloaded successfully");
         conveyorPage.verifyCSVContents(conveyor2);
     }
@@ -192,7 +193,7 @@ public class ConveyorSteps {
         String userId = conveyorPage.apiBase.getUserProfileAPI(email);
         String prefId = conveyorPage.apiBase.getPreferenceAPI(userId, layoutName);
         conveyorPage.apiBase.deletePreferencesAPI(userId, prefId);
-        conveyorPage.goToConveyorListScreenAndWait();
+        conveyorPage.goToConveyorListScreen();
         conveyorPage.addLayout(corporates, beltWidth, rating, length, layoutName);
         Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
     }
@@ -400,14 +401,14 @@ public class ConveyorSteps {
     @QAFTestStep(description = "Enter the columnName {ColumnName} in searchBar and verify all columnName with search text is displayed")
     public void searchAndVerifyColumnName(String columnName) {
         conveyorPage.searchColumnName(columnName);
-        conveyorPage.verifySearchedColumnNames(columnName);
+        conveyorPage.verifySearchedColumnNames();
 
     }
 
-    @QAFTestStep(description = "Select the checkbox of searched column and verify only selected column {ColumnName} is displayed in the table and column filter text box")
-    public void checkAndVerifySelectColumnNames(String columnName) {
-        conveyorPage.checkboxClick();
-        conveyorPage.verifySearchedColumnNames(columnName);
+    @QAFTestStep(description = "Select the checkbox of searched column and verify only selected column is displayed in the table and column filter text box")
+    public void checkAndVerifySelectColumnNames() {
+        conveyorPage.columnSelectionCheckboxClick();
+        conveyorPage.verifySearchedColumnNames();
         conveyorPage.verifySearchedColumnNamesInTable();
     }
 
@@ -420,7 +421,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Select the parent checkbox and verify all child column checkbox and all selected column is visible in the table")
     public void selectParentCheckboxAndVerify() {
-        conveyorPage.checkboxClick();
+        conveyorPage.columnSelectionCheckboxClick();
         conveyorPage.verifyCheckedColumnNames();
         conveyorPage.verifyAllColumnsVisibleInTable();
 
@@ -449,10 +450,10 @@ public class ConveyorSteps {
     }
 
 
-    @QAFTestStep(description = "Click on the filter icon and verify all fields are visible for columnName {ColName}")
-    public void clickOnFilterIconAndVerifyFields(String colName) {
+    @QAFTestStep(description = "Click on the filter icon and verify all fields {filterType} are visible")
+    public void clickOnFilterIconAndVerifyFields(String filterType) {
         conveyorPage.filterIconClick();
-        conveyorPage.verifyFilterFields(colName);
+        conveyorPage.verifyFilterFields(filterType);
     }
 
     @QAFTestStep(description = "Select {filterType} from filter dropdown and verify it is selected")
@@ -617,7 +618,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Click on layout and verify safe set preference button")
     public void clickOnLayoutAndVerifyTheSafeSet() {
-        conveyorPage.clickOnLayoutAndVerifySafeSetPreference();
+        conveyorPage.clickOnLayoutAndVerifySaveSetPreference();
 
     }
 
@@ -699,6 +700,7 @@ public class ConveyorSteps {
     }
     @QAFTestStep(description="Verify the excel data for {Site1} {Site2} with file {FileName}")
     public void verifyTheExcelDataForConveyor(String site1,String site2,String fileName){
+        SyncUtil.waitFor(10000);
         conveyorPage.verifySheetNames(fileName,site1,site2);
         conveyorPage.verifyConveyorSheetData(fileName,site1);
         conveyorPage.verifyConveyorSheetData(fileName,site2);

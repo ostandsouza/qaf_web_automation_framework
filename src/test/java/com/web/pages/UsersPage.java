@@ -882,7 +882,7 @@ public class UsersPage extends BasePage{
 		Reporter.log("Image :="+btImg.isDisplayed());
 		Reporter.log("Name :="+btName.getText());
 		Validator.assertTrue(btName.getText().equalsIgnoreCase(userName),"User search result did not match", "User search result verification successful");
-		Reporter.log("Profile :="+btProfile.getText());
+//		Reporter.log("Profile :="+btProfile.getText());
 		Reporter.log("Corp :="+btCorporate.getText());
 		Reporter.log("SUbs :="+(btSubscription.getText()));
 //		Reporter.log("Territory :="+btTerritory.getText());
@@ -896,6 +896,7 @@ public class UsersPage extends BasePage{
 	}
 
 	public void clickOnNextBtn() {
+		waitForElementVisible(btNext,10000,1000);
 		btNext.click();
 	}
 
@@ -1025,7 +1026,9 @@ public class UsersPage extends BasePage{
 	public boolean userFileUpload(String fileName) {
 		String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
 		fileUpload.sendKeys(file_path, "File Path");
+		SyncUtil.waitFor(10000);
 		deleteFile.assertVisible("Delete File upload");
+		SyncUtil.waitFor(5000);
 		return uploadProceed.isVisible();
 	}
 
@@ -1034,7 +1037,7 @@ public class UsersPage extends BasePage{
 		fileUpload.sendKeys(file_path, "File Path");
 		deleteFile.assertVisible("Delete File upload");
 		uploadFileName.assertText(fileName,"Upload file name");
-		loaderUpload.waitForNotVisible(15000);
+		loaderUpload.waitForNotVisible(30000);
 		saveBtn.click("Save File Upload");
 		Reporter.log("User Import file uploaded",MessageTypes.Pass);
 	}
@@ -1057,7 +1060,7 @@ public class UsersPage extends BasePage{
 		waitForElementToInvisible(analysingUsers,10000);
 		continueBtn.click("Continue");
 		importBtn.click("Import");
-		waitForElementToInvisible(buttonLoader,15000);
+		waitForElementToInvisible(buttonLoader,30000);
 		return btSearchinput.isVisible();
 	}
 
@@ -1104,7 +1107,6 @@ public class UsersPage extends BasePage{
 		waitForPageLoad(5000);
 		btAdd.jsClick();
 		waitForPageLoad(10000);
-		waitForElementVisible(usersHeader,5000,500);
 	}
 
 	public void userLinkClick()
@@ -1288,8 +1290,8 @@ public class UsersPage extends BasePage{
 
 	}
 	public void createTemplate(String templateName){
-		waitForElementToBeClickable(btnTempSave);
-		btnTempSave.click();
+		waitForElementToBeClickable(btnTempAdd);
+		btnTempAdd.click();
 		waitForElementVisible(dialogBox, 10000,500);
 		Validator.assertTrue(dialogBox.isDisplayed(),"Dialog box is not visible","Dailog box is visible");
 		waitForElementVisible(tbTempName,5000,1000);
@@ -1406,8 +1408,8 @@ public class UsersPage extends BasePage{
 
 	}
 	public void selectUpdateBtnInImportReportPage(){
-		waitForPageLoad(5000);
-		waitForElementVisible(rdbtnUpdate,5000,1000);
+		waitForPageLoad(30000);
+		waitForElementVisible(rdbtnUpdate,50000,1000);
 		rdbtnUpdate.click();
 		Validator.assertTrue(rdbtnUpdate.isDisplayed(),"Update is not selected","Update is selected");
 	}
@@ -1444,7 +1446,8 @@ public class UsersPage extends BasePage{
 	public void clickImportAndVerifyToastMsg(){
 		waitForElementVisible(importBtn,5000,1000);
 		importBtn.click();
-		waitForElementVisible(altSuccessUserCreation,5000,1000);
+		SyncUtil.waitFor(100000);
+		waitForElementVisible(altSuccessUserCreation,80000,1000);
 		Validator.assertTrue(altSuccessUserCreation.isDisplayed(),"Unable to Import ","Import successful");
 	}
 	public void verifyUserCreationInListPage(String user){

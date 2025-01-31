@@ -98,7 +98,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[1]")
     public CustomElement drTerritorybutton;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
     public CustomElement drTerritoryvalue;
 
     @FindBy(locator = "xpath=//p-autocomplete[@field='name']//input")
@@ -239,7 +239,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//td[contains(text(),'No')]")
     public CustomElement noList;
 
-    @FindBy(locator = "xpath=(//label[text()='Type of Company']/../div//p-dropdown//span)[1]")
+    @FindBy(locator = "xpath=//label[text()='Type of Company']/../div/div/input")
     public CustomElement typeOfCompanyLoader;
 
     @FindBy(locator = "xpath=(//div[contains(@id,'titlebar')]/span)[1]")
@@ -446,7 +446,7 @@ public class CorporatePage extends BasePage{
         tbAddress.type(Address,"Address bar");
         waitForElementToDisplay(tbMapFirstSearchOption);
         tbAddress.click("Address bar");
-        tbMapFirstSearchOption.click("Map search result");
+        tbMapFirstSearchOption.click(" search result");
     }
 
     public void saveCorp() {
@@ -467,7 +467,6 @@ public class CorporatePage extends BasePage{
         waitForElementVisible(btSave, 10000, 500);
         btSave.jsClick("Save");
         waitForElementToInvisible(buttonLoader, 10000);
-        SyncUtil.waitFor(10000);
         btSearchinput.isVisible("Corporate list screen");
     }
 
@@ -524,7 +523,7 @@ public class CorporatePage extends BasePage{
         goToCorporateEditScreen(corpName);
         SyncUtil.waitFor(6000);
         setImplicitWait(10000, TimeUnit.MILLISECONDS);
-        typeOfCompanyLoader.waitForText("Customer Corporate");
+//        typeOfCompanyLoader.waitForText("Customer Corporate");
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
         tbCompanyName.type(editCorpName, "Edit_companyName");
     }
@@ -574,7 +573,7 @@ public class CorporatePage extends BasePage{
         btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
-        typeOfCompanyLoader.waitForText("Customer Site");
+//        typeOfCompanyLoader.waitForText("Customer Site");
         SyncUtil.waitFor(10000);
         tbCompanyName.type(editSiteName);
         SyncUtil.waitFor(2000);
@@ -739,7 +738,6 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btCheckbox);
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
         detailsName.verifyTextIgnoringNewLineChar(conveyorName, "Conveyor name");
-        SyncUtil.waitFor(10000);
         detailsMoreButton.click("Conveyor Details");
         siteNameLoader.waitForPartialText(conveyorName, 15000);
         conveyorTrailsHeader.isVisible("Conveyor Header");

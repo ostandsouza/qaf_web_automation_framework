@@ -32,6 +32,8 @@ Scenario: Verify the create Distributor user with limited permission
 @key:CorporateMangement_Create
 Scenario: Verify with create corporate scenario
 
+    Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     And   Create a Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
     And   Create a Distributor shop with '${DistShopIndName}' and '${DistShopIndAddress}' and '${DistCorpName}' and '${FullName}' and '${TerritoryInd}'
     And   Create a Distributor shop with '${DistShopAusName}' and '${DistShopAusAddress}' and '${DistCorpName}' and '${FullName}' and '${TerritoryAus}'
@@ -77,6 +79,7 @@ Scenario: Verify the conveyor management
     And   Create a conveyor with '${ConveyorName4}' and '${DistShopAusName}' and '${CustSiteAusName}'
     And   Create a conveyor with '${ConveyorName5}' and '${DistShopAusName}' and '${CustSiteAusName}'
     And   Create a conveyor with '${ConveyorName6}' and '${DistShopAusName}' and '${CustSiteAusName}'
+    Then  Verify conveyor technical data with '${ConveyorName1}'
     When  Delete Conveyor from Conveyor list screen '${ConveyorName1}'
     Then  Verify Deleted Conveyor '${ConveyorName1}' from Conveyor list screen
     When  Delete Conveyor from Conveyor list screen '${ConveyorName4}'
@@ -99,7 +102,6 @@ Scenario: Verify the conveyor bulk upload
 @sheetName:Sanity
 @key:Corporate_Card
 Scenario: Verify scenario for corporate card data
-
 
     When  Navigate to Corporate details screen for corporate '${CustCorpName}'
     Then  Verify card count in details screen for '${CustCorpName}'
@@ -332,6 +334,41 @@ Scenario: Verify the add fabric splice screen
     And Verify pdf download functionality for Splice Design with '${CustomerName}' '${ConveyorName}'
     Then Verify delete functionality for Splice Design
 
+@Sanity22
+@dataFile:resources/data/SteelCord.json
+Scenario: Verify the Steel Cord Calculation functionality across the application
+
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
+    And Navigate to the Steel Cord Splice Generator list page
+    And Navigate to the Steel Cord Splice Generator add page
+    Then Create and Calculate The Steel Cord Splice with values '${Market}' '${SpliceKit}' '${CustomerName}' '${ConveyorName}' '${ApproverName}' '${BeltRating}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' '${OverAllBeltThickness}' '${CordDiameter}' '${CordPitch}' '${NumberOfCords}'
+    And Click on calculate button and verify preview tab is displayed
+#   And Verify the Preview Design tab header with values for Steel Cord '${BeltWidth}' '${BeltRating}' '${TopCoverThickness}' '${BottomCoverThickness}' '${TopCoverCompound}'
+    And Verify the Preview Design tab dimensions calculation values for Steel Cord '${NoOfSteps}' '${BeltWidth}' '${OverAllBeltThickness}' '${SplicePattern}' '${SpliceType}' '${NumberOfRepeatsA}' '${NumberOfRepeatsB}' '${CoverCut}' '${CordButtGap}' '${TransitionLength}' '${BiasLength}' '${BiasAngle}' '${StepLength}' '${SpliceLength}' '${OverAllSpliceLength}'
+    And Verify the Preview Design tab Table and Note values for Steel Cord '${CordDiameterBelt}' '${CordDiameterSplice}' '${NoOfCordsBelt}' '${NoOfCordsSplice}' '${CordSpacingBelt}' '${CordSpacingSplice}' '${CordPitchBelt}' '${CordPitchSplice}' '${AllDimension}'
+    And Navigate to Vulcanization Chart Tab and verify calculation values '${Temperature}' '${Pressure}' '${VulcanizationTime}'
+    And Navigate to Comment Log and verify calculation values
+    And Click on Comments log and save as draft
+    And Search for steel cord design and verify the status of the design '${DraftStatus}'
+    And Navigate to edit the Steel Cord Design
+    And Click on Comments Log tab and add comments '${Comments}' and send For Review
+    And Search for steel cord design and verify the status of the design '${InReviewStatus}'
+    And Logout from the current user
+    And Login with '${ApproverUserName}' and '${ApproverPassword}'
+#    When Login with normal user '${ApproverUserName}' and '${ApproverPassword}'
+    And Navigate to the Steel Cord Splice Generator list page
+    And Search for steel cord design and verify the status of the design '${ToReviewStatus}'
+    And Click on view icon
+    And Click on Comments Log tab and add approve comments '${ApproveComments}' and approve
+    And Search for steel cord design and verify the status of the design '${ApprovedStatus}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Navigate to the Steel Cord Splice Generator list page
+    And Search for steel cord design and verify the status of the design '${ApprovedStatus}'
+    And Verify pdf download functionality for Splice Design with '${CustomerName}' '${ConveyorName}'
+    Then Verify delete functionality for Splice Design
+
 @Sanity23
 @dataFile:resources/data/TestData.xls
 @sheetName:Sanity
@@ -355,8 +392,6 @@ Scenario: Verify the Heavy Equipment Calculation functionality across the applic
     And Verify search and delete document '${ImageName}' functionality
     And Navigate to the Heavy Equipment list page
     And Verify search and delete '${EditHeavyEquipmentName}' functionality
-
-
 
 @Sanity24
 @dataFile:resources/data/BeltFormTextileSanity.json

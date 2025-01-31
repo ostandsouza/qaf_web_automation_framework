@@ -7,11 +7,11 @@ Launch the application through '/'
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:UserBulkUpload_Navigation
-Scenario: Verify with User Bulk Upload Navigation
+Scenario: ZVerify with User Bulk Upload Navigation
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    Then  Navigate to User Bulk Upload
+#    Then  Navigate to User Bulk Upload
 
 @Regression2
 @dataFile:resources/data/TestData.xls

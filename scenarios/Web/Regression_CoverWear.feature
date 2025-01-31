@@ -51,7 +51,7 @@ Scenario: AVerify the count displayed in cover wear card
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    And   Navigate to coverWear list screen and wait for data load
+    And  Navigate to coverWear list screen and wait for data load
     Then Verify CoverWear header as Cover Wear Summary
     And Verify CoverWear column name
 
@@ -61,6 +61,8 @@ Scenario: AVerify the count displayed in cover wear card
   @key:CoverWear_Value
   Scenario: ZyVerify the logic of displaying cover grade
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And Search '${ConveyorName}' coverWear
     Then Extract CoverGrade value
@@ -73,7 +75,6 @@ Scenario: AVerify the count displayed in cover wear card
 @sheetName:Regression
 @key:CoverWear_Item
 Scenario: Verify the functionality of column name
-
 
     And Navigate to cover wear listing screen
     Then Click on the column name and verify the column names
@@ -98,10 +99,7 @@ Scenario: Verify search functionality
 @key:CoverWear_Item
 Scenario: Verify the functionality of sorting
 
-
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-    And Navigate to cover wear listing screen and wait
+   And Navigate to cover wear listing screen
    Then Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column and verify sorting should be in increasing order
    And Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column again and verify sorting should be in decreasing order
 
@@ -111,7 +109,6 @@ Scenario: Verify the functionality of sorting
 @sheetName:Regression
 @key:CoverWear_Item
 Scenario: Verify the functionality of clear filter
-
 
     And Navigate to cover wear listing screen
     When Apply sorting or filter on column name
@@ -124,6 +121,8 @@ Scenario: Verify the functionality of clear filter
  @key:CoverWear_Value
  Scenario: ZxVerify the pagination functionality
 
+   Given User is at Login page
+   When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     Then Verify pagination dropdown
     And Verify pagination forward arrow button
@@ -134,11 +133,13 @@ Scenario: Verify the functionality of clear filter
   @key:CovereWear_Management_Position_Metric
   Scenario: Verify metric to imperial conversion
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And   Verify data value in header as metric
     And  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${PositionName}' '${BeltWidth}'
     Then Verify data value are in metric with value '${MetricValue}'
-    And   Navigate to coverWear list screen and wait for data load
+    And  Navigate to coverWear list screen and wait for data load
     And Edit Cover wear measurement for conveyor '${ConveyorName}'
     Then Add data value in header as imperial
     And Verify data value are in imperial with value '${ImperialValue}'
@@ -149,12 +150,14 @@ Scenario: Verify the functionality of clear filter
 @key:CovereWear_Management_Position_Imperial
 Scenario: Verify imperial to metric conversion
 
+   Given User is at Login page
+   When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And Add data value in header as imperial
     And   Verify data value in header as imperial
     And  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${PositionName}' '${BeltWidth}'
     Then Verify data value are in imperial with value '${ImperialValue}'
-    And   Navigate to coverWear list screen and wait for data load
+    And  Navigate to coverWear list screen and wait for data load
     And Edit Cover wear measurement for conveyor '${ConveyorName}'
     Then Add data value in header as metric
     And Verify data value are in metric with value '${MetricValue}'
@@ -173,7 +176,7 @@ Scenario: Verify imperial to metric conversion
     Then  Verify Temperature and Tons Conveyed are not mandatory
     And  Add details '${CustSiteName}' '${ConveyorName}' '${Position}' for measurement pop up
     And Add readings durometer values '${DurometerValue}' and '${Value}'
-    And   Verify save functionality for new measurement
+    And Verify save functionality for new measurement
 
   @Regression5 @CTCP-1383
   @dataFile:resources/data/TestData.xls
@@ -203,7 +206,8 @@ Scenario: Verify imperial to metric conversion
     Then  Add details '${CustSiteName}' '${ConveyorName}' '${Position}' for measurement pop up
     And Add details '${Device}' '${Velocity}' '${CalThickness}' '${SurfaceTemp}' '${TestPosition}' for measurement pop up
     And Add readings durometer values '${DurometerValue}' and '${Value}'
-    And   Verify save functionality for new measurement
+    And  Verify save functionality for new measurement
+#    And Click on dialog box close button
     Then Edit Cover wear measurement for conveyor '${ConveyorName}'
     And Verify the measurement details '${CustSiteName}' '${ConveyorName}'
 
@@ -299,8 +303,6 @@ Scenario: Verify Wear Rate Statistics & Projections table
 @key:CoverWear_AddMeasurementImage
 Scenario: Verify attachment functionality
 
-     Given User is at Login page
-        When  Login with '${UserName}' and '${Password}'
     And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
     Then Click on conveyor position '${Position}' and navigate to position screen
     And Look for measurement table and verify data is available in measurement table
@@ -384,7 +386,7 @@ Scenario: ZVerify the breadcrumb functionality of the page
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     And Navigate to conveyor details screen for conveyor '${ConveyorName}'
-    And Click on coverWear card and verify it navigates to Specification page
+    And Click on coverWear card and verify it navigates to coverWear list page
     Then Verify the breadCrumb of the cover wear listing page '${CustSiteName}' '${CustCorp}' '${ConveyorName}'
     And Verify user navigates to respective page on bread crumb click of cover wear '${CustSiteName}' '${CustCorp}'
 
@@ -455,6 +457,8 @@ Scenario: Verify the functionality of sorting
 @key:Conveyor_CoverWear_Management
 Scenario: Verify user is able to add Tons conveyed with values as '0'
 
+  Given User is at Login page
+  When  Login with '${UserName}' and '${Password}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
     And Click on Add New Position
@@ -463,7 +467,8 @@ Scenario: Verify user is able to add Tons conveyed with values as '0'
     And Click Top/Bottom radio button and verify selection
     And Click save and verify segment '${PositionName}' creation
     And Navigate to coverWear list screen and wait for data load
-    And Delete Cover wear measurement for conveyor '${ConveyorName}'
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Verify Delete Cover wear measurement position '${PositionName}'
 
 @Regression14 @CTCP-1404
 @dataFile:resources/data/TestData.xls
