@@ -1,15 +1,21 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
@@ -106,6 +112,8 @@ public class MonitoringDevicePage extends BasePage {
     public CustomElement ddlSelectVPNMineSite;
     @FindBy(locator = "xpath=//p-calendar[@formcontrolname='commisioningDate']//input")
     public CustomElement tbcommisioningDate;
+    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='lastServiceDate']//input")
+    public CustomElement tbLastServiceDate;
     @FindBy(locator = "xpath=//input[@formcontrolname=\"beltConveyorSaves\"]")
     public CustomElement tbBeltConveyorSaves;
     @FindBy(locator = "xpath=(//app-conveyor-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
@@ -169,8 +177,68 @@ public class MonitoringDevicePage extends BasePage {
     @FindBy(locator = "xpath=(//p-dropdown//div[contains(@class,\"master-data-dropdown\")])[1]//span")
     public CustomElement deviceTypeField;
 
+    @FindBy(locator = "xpath=//button[@icon='ctp-icon-Instaloled-Devices']")
+    public CustomElement iotIcon;
+
+    @FindBy(locator = "xpath=(//div[@id='chartArea'])[1]")
+    public CustomElement iotChart1;
+
+    @FindBy(locator = "xpath=(//div[@id='chartArea'])[2]")
+    public CustomElement iotChart2;
+
+    @FindBy(locator = "xpath=(//div[@id='chartArea'])[3]")
+    public CustomElement iotChart3;
+
+    @FindBy(locator = "xpath=//div[@class=\"menu-cord\"]//div//span[text()=\"MultiProtect\"]")
+    public CustomElement menuList;
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
+    public CustomElement breadCrumbText;
+
+    @FindBy(locator = "xpath=(//app-rip-insert-thumbnail//div//p-card)[1]")
+    public CustomElement ripInsertData;
+
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-panel-header\")]//div//div")
+    public CustomElement ripInsertThumbnailHeader;
+    @FindBy(locator = "xpath=//div//ul[@class='cord-menu-layout']//a//span[text()='Rip Inserts']")
+    public CustomElement ripInsertList;
+    @FindBy(locator = "xpath=//div//ul[@class='cord-menu-layout']//a//span[text()='Rip Inserts']/following-sibling::i[contains(@class,\"pi-angle-down\")]")
+    public CustomElement ripInsertListExpanded;
+    @FindBy(locator = "xpath=//p-tabview//li//a//span[contains(@class,\"tab-heading\") and text()=\"RIP Insert Image\" ]  ")
+    public CustomElement ripInsertImageTab;
+    @FindBy(locator = "xpath=//p-tabview//li//a//span[contains(@class,\"tab-heading\") and text()=\"Latest alarm for this Insert\" ]  ")
+    public CustomElement ripInsertAlarmTab;
+    @FindBy(locator = "xpath=//p-tabview//li[contains(@class,\"p-highlight\")]//a//span[contains(@class,\"tab-heading\") and text()=\"Latest alarm for this Insert\" ]  ")
+    public CustomElement ripInsertAlarmTabActivated;
+
+    @FindBy(locator = "xpath=(//div//h6[contains(text(),\"Position:\")])[1]")
+    public CustomElement ripInsertPositionText;
+    @FindBy(locator = "xpath=(//div//h6[contains(text(),\"Position:\")]/following-sibling::span[contains(text(),'Image generated')])[1]")
+    public CustomElement ripInsertImgGeneratedTxt;
+    @FindBy(locator = "xpath=(//div[@class=\"p-card-content\"]//div[contains(text(),\" Estimated width\")])[1]")
+    public CustomElement ripInsertEstimatedWidth;
+    @FindBy(locator = "xpath=(//div[@class=\"p-card-content\"]//app-image-viewer//span//img[contains(@class,\"p-image\")])[1]")
+    public CustomElement ripInsertImageDisplayed;
+
+    @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+    public CustomElement paginationEntry;
+    @FindBy(locator = "xpath=//tr[1]//td//div//p-button[@type=\"button\" and @icon=\"ctp-icon-Arrow-Right\"]")
+    public CustomElement viewMoreBtn;
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-panel-header\")]//i[contains(@class,\"pi-arrow-right\")]")
+    public CustomElement viewNextBtn;
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-panel-header\")]//i[contains(@class,\"pi-arrow-left\")]")
+    public CustomElement viewPrevBtn;
+
+    @FindBy(locator = "xpath=//textarea[@formcontrolname=\"comment\"]")
+    public CustomElement tbComment;
+    @FindBy(locator = "xpath=//td//span[contains(@class,\"p-highlight\") ]")
+    public CustomElement selectedLastServiceDate;
+
+    @FindBy(locator = "xpath=//td[contains(text(),'No')]")
+    public CustomElement noList;
+
 
     CoverWearPage coverWearPage = new CoverWearPage();
+    String[] menuListNames={"Main Page","Conveyor Details","Splices","Rip Inserts","Damages","Segments"};
 
     public void goToMonitoringDeviceListScreen() {
         if (!monitoringDeviceList.isVisible())
@@ -226,7 +294,7 @@ public class MonitoringDevicePage extends BasePage {
     public boolean searchMonitoringDevice(String device) {
         waitForPageLoad(20000);
         btSearchinput.type(device, "Monitoring Device Search");
-        SyncUtil.waitFor(10000);
+        SyncUtil.waitFor(15000);
         waitForElementVisible(crCheckbox, 20000, 1000);
         waitForElementToDisplay(crCheckbox);
         return crCheckbox.isVisible("Monitoring Device Found");
@@ -243,10 +311,13 @@ public class MonitoringDevicePage extends BasePage {
         btActions.jsClick("Action");
         Validator.assertTrue(scanQRBtn.isVisible(), "Scan QR is not visible", "Scan QR is visible");
     }
-
-    public void clickScanQRAndVerify(String deviceName) {
+    public void clickScanQR()
+    {
         waitForElementVisible(scanQRBtn, 10000, 500);
         scanQRBtn.jsClick("Scan QR");
+    }
+
+    public void verifyScanQR(String deviceName) {
         waitForElementVisible(scanHeader, 10000, 500);
         System.out.println(scanHeader.getText() + "header");
         Validator.assertTrue(scanHeader.getText().contains(deviceName), "Scan QR does not contain the header", "Scan QR Contains the header");
@@ -287,14 +358,17 @@ public class MonitoringDevicePage extends BasePage {
         SyncUtil.waitFor(3000);
     }
 
-    public void addDeviceDetailsWithMandatoryFields(String deviceName, String deviceType) {
+    public void addDeviceDetailsWithMandatoryFields(String deviceName, String deviceType,String status) {
         waitForElementToDisplay(tbDeviceName);
         waitForElementToBeClickable(tbDeviceName);
         tbDeviceName.sendKeys(deviceName, "Device name");
         verifyDeviceTypeDDL();
         dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
-        waitForElementVisible(tbInstallationDate, 10000, 500);
-        tbInstallationDate.click("installation date");
+        clickAndVerifyStatusDropDown();
+        waitForElementVisible(driver.findElement(By.xpath("//ul[@role=\"listbox\"]//p-dropdownitem//li[contains(text(),'"+status+"')]")),10000,500);
+//        statusOptionRunning.isVisible(10000,"Running");
+//        statusOptionRunning.click("Running");
+        driver.findElement(By.xpath("//ul[@role=\"listbox\"]//p-dropdownitem//li[contains(text(),'"+status+"')]")).click();
     }
 
     public void verifyRemoteConnectionDDL() {
@@ -302,9 +376,26 @@ public class MonitoringDevicePage extends BasePage {
         Validator.assertTrue(ddlSelectLocalOnly.isVisible(10000, "local only option") && ddlSelect3G4GRouter.isVisible(10000, "3G/4G Router option") &&
                 ddlSelectVPNMineSite.isVisible(10000, "VPN Mine Site option"), "All the options of remote connection dropdown are not visible", "All the options of remote connection dropdown are visible");
         remoteConnectionDropDown.click("Remote Connection");
-    }
 
-    public void addDeviceDetailsWithNonMandatoryFields(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion) {
+    }
+    public void verifyManualCalenderDateSelection(String inputDate)
+    {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(inputDate, inputFormatter);
+        String formattedDate = date.format(outputFormatter);
+        calendarPopup.isVisible(10000,"calender");
+        Validator.assertTrue(selectedLastServiceDate.getAttribute("data-date").contains(formattedDate),"The manually entered date is not getting selected in the calender!","The manually entered date is getting selected in the calender!");
+
+    }
+    public void verifyManualDateSelection(String lastServiceDateField,String inputDate)
+    {
+        waitForElementVisible(driver.findElement(By.xpath("//p-calendar[@formcontrolname='"+lastServiceDateField+"']//input")),10000,500);
+        driver.findElement(By.xpath("//p-calendar[@formcontrolname='"+lastServiceDateField+"']//input")).click();
+        driver.findElement(By.xpath("//p-calendar[@formcontrolname='"+lastServiceDateField+"']//input")).sendKeys(inputDate);
+        verifyManualCalenderDateSelection(inputDate);
+    }
+    public void addDeviceDetailsWithNonMandatoryFields(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion,String lastServiceDateField,String lastServiceDate,String comment) {
         waitForElementVisible(tbDeviceBrand, 10000, 500);
         tbDeviceBrand.sendKeys(brand, "Device brand");
         tbSerialNo.sendKeys(serialNo, "serialNumber");
@@ -315,6 +406,11 @@ public class MonitoringDevicePage extends BasePage {
         tbcommisioningDate.click("commisioningDate");
         coverWearPage.selectGivenDate(comminsionDate);
         tbBeltConveyorSaves.sendKeys(beltConveyorSave, "Belt/Conveyor Saves");
+        verifyManualDateSelection(lastServiceDateField,lastServiceDate);
+        tbComment.sendKeys(comment);
+        waitForElementVisible(tbInstallationDate, 10000, 500);
+        tbInstallationDate.click("installation date");
+
     }
 
     public void navigateToAddLocation() {
@@ -548,6 +644,211 @@ public class MonitoringDevicePage extends BasePage {
         deviceTypeField.isVisible(10000, "Device Type");
         Validator.assertTrue(deviceTypeField.getText("device type").equalsIgnoreCase(deviceType), "The device type dropdown value is incorrect!", "The device type dropdown value is correct!");
     }
+
+    public boolean navigateToCordProtect(){
+        iotIcon.isEnable("IoT icon");
+        iotIcon.jsClick("cord Protect");
+        return iotChart1.isNotVisible(5000);
+    }
+
+    public boolean verifyCordProtect(){
+        waitForElementToDisplay(iotChart1);
+        waitForElementToDisplay(iotChart2);
+        waitForElementToDisplay(iotChart3);
+        SyncUtil.waitFor(3000);
+        scrollPageDown();
+        SyncUtil.waitFor(2000);
+        return iotChart1.isVisible() && iotChart2.isVisible() && iotChart3.isVisible();
+    }
+    public void verifyMenuListItems()
+    {
+        for(String listName:menuListNames)
+        {
+            SyncUtil.waitFor(3000);
+            Validator.assertTrue(driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='"+listName+"']")).isDisplayed(),"'"+listName+"' link is not visible","'"+listName+"' link is visible");
+        }
+
+    }
+    public void clickAndVerifyFloatingMenuIcon()
+    {
+        menuList.isVisible(10000,"MenuList");
+        waitForElementToBeClickable(menuList);
+        menuList.click("menuList");
+        verifyMenuListItems();
+    }
+    public void ripInsertListClick(String listItem, String nestedItem) {
+        try {
+            //  check if the expanded element is visible
+            boolean isExpanded = isElementVisible(ripInsertListExpanded, 10000);
+
+            if (isExpanded) {
+                Reporter.log("Rip Insert menu item is already expanded.");
+            } else {
+                Reporter.log("Rip Insert menu item is not expanded. Expanding now...");
+                waitForElementToBeClickable(ripInsertList);
+                ripInsertList.click("Rip Insert");
+                SyncUtil.waitFor(2000);
+            }
+
+            // Perform the list item click action
+            listItemClick(listItem, nestedItem);
+        } catch (Exception e) {
+            Reporter.log("An unexpected exception occurred: " + e.getMessage());
+        }
+    }
+    private boolean isElementVisible(WebElement element, int timeout) {
+        try {
+            if (element != null) {
+                return element.isDisplayed();
+            }
+        } catch (NoSuchElementException e) {
+            Reporter.log("Element not found or not visible: " + e.getMessage());
+        } catch (Exception e) {
+            Reporter.log("Unexpected exception while checking visibility: " + e.getMessage());
+        }
+        return false;
+    }
+
+
+
+    public void listItemClick(String listItem,String nestedItem)
+    {
+        SyncUtil.waitFor(1000);
+        waitForElementVisible(driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='"+listItem+"']/../..//ul//li//a//span[text()='"+nestedItem+"']")),10000,500);
+        waitForElementToBeClickable(driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='"+listItem+"']/../..//ul//li//a//span[text()='"+nestedItem+"']")));
+        driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='"+listItem+"']/../..//ul//li//a//span[text()='"+nestedItem+"']")).click();
+        SyncUtil.waitFor(5000);
+        waitForPageLoad(10000);
+
+    }
+    public void verifyRipInsertThumbnailsList()
+    {
+        breadCrumbText.isVisible(10000,"BreadCrumb");
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(breadCrumbText.getText().contains("RIP Insert"),"User is not navigated to Rip Insert thumbnails!","User is navigated to Rip Insert thumbnails!");
+        List<WebElement> elements=driver.findElements(By.xpath("//app-rip-insert-thumbnail//div//p-card"));
+        for(int i=1;i<elements.size();i++)
+        {
+            Validator.assertTrue(driver.findElement(By.xpath("(//app-rip-insert-thumbnail//div//p-card)['"+i+"']")).isDisplayed(),"Rip Inserts are not visible","'"+i+"' rip insert is displayed in rip insert list");
+        }
+
+    }
+    public void clickAndVerifyRipInsertDetailPage()
+    {
+        scrollPageup();
+        ripInsertData.isVisible(10000,"Rip Insert Record");
+        ripInsertData.click("Rip Insert Record");
+        waitForPageLoad(10000);
+        breadCrumbText.isVisible(10000,"Bread Crumb");
+        Validator.assertTrue(ripInsertThumbnailHeader.isVisible(10000,"Thumbnails Header"),"User is not navigated to Rip Insert detail page!","User is  navigated to Rip Insert detail page!");
+        waitForPageLoad(10000);
+    }
+    public void verifyRipInsertTableNavigation()
+    {
+        breadCrumbText.isVisible(10000,"BreadCrumb");
+        Validator.assertTrue(breadCrumbText.getText().contains("Table of Rip Inserts"),"User is not navigated to Rip Insert table page!","User is  navigated to Rip Insert table page!");
+    }
+
+    public void verifyAlarmHistoryNavigation()
+    {
+        breadCrumbText.isVisible(10000,"BreadCrumb");
+        Validator.assertTrue(breadCrumbText.getText().contains("RIP Events"),"User is not navigated to Alarm History page!","User is navigated to Alarm History page");
+    }
+    public void verifyRipInsertData()
+    {
+        Validator.assertTrue(ripInsertImageTab.isVisible(10000,"Rip Insert Image"),"Rip Insert image tab is not visible","Rip Insert image tab is visible");
+        Validator.assertTrue(ripInsertAlarmTab.isVisible(10000,"Rip Insert Alarm"),"Rip Insert alarm tab is not visible","Rip Insert alarm tab is visible");
+        Validator.assertTrue(ripInsertPositionText.isVisible(10000,"position"),"Rip Insert position is visible","Rip Insert position is visible");
+        Validator.assertTrue(ripInsertImgGeneratedTxt.isVisible(10000,"generated Image"),"Rip Insert generated image tab is not visible","Rip Insert generated image tab is visible");
+        Validator.assertTrue(ripInsertImageDisplayed.isVisible(10000,"Image"),"Rip Insert image is not visible","Rip Insert image is visible");
+        Validator.assertTrue(ripInsertEstimatedWidth.isVisible(10000,"estimated width of rip insert"),"estimated width for rip insert is not visible","estimated width for rip insert is  visible");
+
+    }
+    public void verifyRipInsertDataInTabularColumn()
+    {
+        waitForPageLoad(10000);
+        int paginationCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        for(int i=1;i<paginationCount;i++)
+        {
+            Validator.assertTrue(driver.findElement(By.xpath("//tr['"+i+"']//td")).isDisplayed(),"ripInsert Data found","ripInsert Data found");
+        }
+    }
+    public void clickOnViewButton()
+    {
+        viewMoreBtn.isVisible(10000,"view more");
+        viewMoreBtn.jsClick("View More");
+        waitForPageLoad(10000);
+    }
+    public void clickAndVerifyForwardNavigation()
+    {
+        viewNextBtn.isVisible(10000,"Next Button");
+        viewNextBtn.jsClick("next button");
+        ripInsertThumbnailHeader.isVisible(10000,"Rip Insert Header");
+        Validator.assertTrue(ripInsertThumbnailHeader.getText().contains("2"),"user cannot navigate between rip inserts with forward arrow","user can navigate between rip inserts with forward arrow");
+    }
+    public void clickAndVerifyBackwardNavigation()
+    {
+        viewPrevBtn.isVisible(10000,"Prev Button");
+        viewPrevBtn.jsClick("prev button");
+        ripInsertThumbnailHeader.isVisible(10000,"Rip Insert Header");
+        Validator.assertTrue(ripInsertThumbnailHeader.getText().contains("1"),"user cannot navigate between rip inserts with backward arrow","user can navigate between rip inserts with backward arrow");
+    }
+    public void clickAndVerifyLatestAlarmLink()
+    {
+        ripInsertAlarmTab.isVisible(10000,"Latest alarm link");
+        ripInsertAlarmTab.jsClick("Latest alarm link");
+        Validator.assertTrue(ripInsertAlarmTabActivated.isVisible(10000,"RipInsertAlarmTabActivated"),"Latest alarm for this insert link is not activated","Latest alarm for this insert link is visible and is activated");
+    }
+    public void editComment(String editComment)
+    {
+        tbComment.isVisible(10000,"comments tab");
+        tbComment.type(editComment);
+    }
+    public void verifyViewComment(String comment)
+    {
+        tbComment.isVisible(10000,"comments tab");
+        System.out.println(tbComment.getAttribute("value")+"value is");
+        Validator.assertTrue(tbComment.getAttribute("value").equalsIgnoreCase(comment),"User cannot view the updated comment!","User can view the updated comment!");
+
+    }
+    public void verifyDeviceBreadCrumb(String deviceName,String breadCrumb)
+    {
+        breadCrumbText.isVisible(10000,"BreadCrumb");
+        SyncUtil.waitFor(3000);
+        System.out.println(breadCrumbText.getText()+"bc text");
+        Validator.assertTrue(breadCrumbText.getText().contains("Home\nMonitoring Devices\n"+deviceName+"\n"+breadCrumb),"User is not navigated to '"+breadCrumb+"'!","User is navigated to '"+breadCrumb+"'!");
+    }
+
+    public void splicesListClick(String listItem, String nestedItem) {
+        try {
+            //  check if the expanded element is visible
+            boolean isExpanded = isElementVisible(ripInsertListExpanded, 10000);
+
+            if (isExpanded) {
+                Reporter.log("Rip Insert menu item is already expanded.");
+            } else {
+                Reporter.log("Rip Insert menu item is not expanded. Expanding now...");
+                waitForElementToBeClickable(ripInsertList);
+                ripInsertList.click("Rip Insert");
+                SyncUtil.waitFor(2000);
+            }
+
+            // Perform the list item click action
+            listItemClick(listItem, nestedItem);
+        } catch (Exception e) {
+            Reporter.log("An unexpected exception occurred: " + e.getMessage());
+        }
+    }
+
+    public void verifyDeletedMonitoringDevice(String calc) {
+        goToMonitoringDeviceListScreen();
+        waitForPageLoad(10000);
+        btSearchinput.type(calc, "Calc Search");
+        Validator.assertTrue(noList.isVisible(),"Delete Monitoring Device was still found in list screen","Monitoring Device deleted successfully");
+    }
+
+
+
 
 
 }

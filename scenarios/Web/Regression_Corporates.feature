@@ -13,6 +13,8 @@ Scenario: Verify with add company navigation
     When  Login with '${UserName}' and '${Password}'
     Then  Navigate to Add Company screen
 
+
+
 @Regression2
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression

@@ -560,7 +560,7 @@ public class CoverWearPage extends BasePage {
     @FindBy(locator = "xpath=(//p-paginator//span)[1]")
     public CustomElement coverWearPaginationEntry;
 
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Clear-Filters'])[2]")
+    @FindBy(locator = "xpath=//span//button[@icon='ctp-icon-Clear-Filters']")
     public CustomElement clearFilterBtn;
 
     @FindBy(locator = "//button[contains(@class, \"p-column-filter-menu-button-active\")]")
@@ -1080,7 +1080,7 @@ public class CoverWearPage extends BasePage {
         else cwPositionBottomRadio.check("Bottom Radio");
         cwInstalledDate.click("Date Picker");
         cwTodayDate.click("Current Date");
-        cwPositionSave.click("Save Position");
+        cwPositionSave.jsClick("Save Position");
         cwPositionSave.waitForNotVisible(7000);
         SyncUtil.waitFor(3000);
     }
@@ -1624,8 +1624,10 @@ public class CoverWearPage extends BasePage {
             }
         }
         SyncUtil.waitFor(500);
-        waitForElementToBeClickable(By.xpath("//span[contains(text(),'" + year + "')]"));
-        driver.findElement(By.xpath("//span[contains(text(),'" + year + "')]")).click();
+        waitForElementVisible(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")),10000,500);
+        waitForElementToBeClickable(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")));
+        System.out.println(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")).getText()+"year selected");
+        driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")).click();
     }
 
 
@@ -2201,7 +2203,8 @@ public class CoverWearPage extends BasePage {
 
     public void clearFilterClick() {
         waitForElementVisible(clearFilterBtn, 10000, 500);
-        clearFilterBtn.click();
+        clearFilterBtn.click("clear filter button");
+        Reporter.log("filter is removed");
     }
 
     public void verifyFilterIsRemoved() {
@@ -2265,25 +2268,21 @@ public class CoverWearPage extends BasePage {
             System.out.println("Cell Text: " + cellText);
             columnData.add(cellText);
         }
-        System.out.println(columnData + " columnData");
+        System.out.println(columnData + " columnData for first iteration");
         return columnData;
     }
 
     public boolean verifyIncreasingOrderSorting(int columnNumber) {
         List<String> columnDataAfterSortingIncreasing = getColumnData(columnNumber);
-        List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
-        boolean val = false;
 
-        // Normalize data: Trim, convert to lowercase, and remove hidden characters
+        // Filter out empty or special character-only values
         columnDataAfterSortingIncreasing = columnDataAfterSortingIncreasing.stream()
                 .map(String::trim)
+                .filter(data -> !data.isEmpty() && data.matches(".*\\w.*")) // Exclude empty and special character-only values
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());
 
-        expectedSortedDataIncreasing = expectedSortedDataIncreasing.stream()
-                .map(String::trim)
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
+        List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
 
         // Sort the expected data in increasing order
         expectedSortedDataIncreasing.sort(null);
@@ -2293,28 +2292,22 @@ public class CoverWearPage extends BasePage {
             System.out.println("Index " + i + ": Actual [" + columnDataAfterSortingIncreasing.get(i)
                     + "] Expected [" + expectedSortedDataIncreasing.get(i) + "]");
         }
-        if ((columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing)))
-            val = true;
-        return val;
 
+        // Check if the data matches the expected sorted order
+        return columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing);
     }
-
 
     public boolean verifyDecreasingOrderSorting(int columnNumber) {
         List<String> columnDataAfterSortingDecreasing = getColumnData(columnNumber);
-        List<String> expectedSortedDataDecreasing = new ArrayList<>(columnDataAfterSortingDecreasing);
-        boolean val = false;
 
-        // Normalize data: Trim, convert to lowercase, and remove hidden characters
+        // Filter out empty or special character-only values
         columnDataAfterSortingDecreasing = columnDataAfterSortingDecreasing.stream()
                 .map(String::trim)
+                .filter(data -> !data.isEmpty() && data.matches(".*\\w.*")) // Exclude empty and special character-only values
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());
 
-        expectedSortedDataDecreasing = expectedSortedDataDecreasing.stream()
-                .map(String::trim)
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
+        List<String> expectedSortedDataDecreasing = new ArrayList<>(columnDataAfterSortingDecreasing);
 
         // Sort the expected data in reverse order
         expectedSortedDataDecreasing.sort(Collections.reverseOrder());
@@ -2324,12 +2317,11 @@ public class CoverWearPage extends BasePage {
             System.out.println("Index " + i + ": Actual [" + columnDataAfterSortingDecreasing.get(i)
                     + "] Expected [" + expectedSortedDataDecreasing.get(i) + "]");
         }
-        if ((columnDataAfterSortingDecreasing.equals(expectedSortedDataDecreasing)))
-            val = true;
-        return val;
 
-
+        // Check if the data matches the expected reverse sorted order
+        return columnDataAfterSortingDecreasing.equals(expectedSortedDataDecreasing);
     }
+
 
 
     int redCount = 0;
@@ -2342,8 +2334,8 @@ public class CoverWearPage extends BasePage {
         for (int i = 1; i <= 8; i++) {
             SyncUtil.waitFor(10000);
 //            waitForPageLoad(10000);
-            String durometerXpath = "//table//tr[" + i + "]/td[6]//span"; // Replace this with the actual XPath for durometer value
-            String lifecycleXpath = "//table//tr[" + i + "]/td[8]//span"; // Replace this with the actual XPath for lifecycle value
+            String durometerXpath = "//table//tr[" + i + "]/td[6]//span";
+            String lifecycleXpath = "//table//tr[" + i + "]/td[8]//span";
             waitForElementVisible(driver.findElement(By.xpath(durometerXpath)), 5000, 500);
             waitForElementVisible(driver.findElement(By.xpath(lifecycleXpath)), 5000, 500);
 
@@ -3259,6 +3251,12 @@ public class CoverWearPage extends BasePage {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid date format: " + value, e);
         }
+    }
+
+    public void clickOnEditBtn() {
+        waitForElementVisible(cwEditSpec, 5000, 1000);
+        waitForElementToBeClickable(cwEditSpec);
+        cwEditSpec.click("Edit");
     }
 
 

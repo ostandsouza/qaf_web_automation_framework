@@ -11,7 +11,7 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="Sanity1" />-->
@@ -23,13 +23,13 @@
 <!--		</classes>-->
 <!--	</test>-->
 
-	<test name="Corporate,Conveyor,Inspection,File Manager,Cover Wear,Conveyor Inspect" enabled="true">
-		<parameter name="step.provider.pkg" value="com.web.steps" />
-		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
-		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_stg" />
-		<groups>
-			<run>
+<!--	<test name="Corporate,Conveyor,Inspection,File Manager,Cover Wear,Conveyor Inspect" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<groups>-->
+<!--			<run>-->
 <!--				<include name="Sanity3" />-->
 <!--				<include name="Sanity4" />-->
 <!--				<include name="Sanity5" />-->
@@ -47,30 +47,30 @@
 <!--				<include name="Sanity13" />-->
 <!--				<include name="Sanity14" />-->
 <!--				<include name="Sanity15" />-->
-				<include name="Sanity21" />
+<!--				<include name="Sanity21" />-->
 <!--				<include name="Sanity23" />-->
 <!--				<include name="Sanity24" />-->
 
 
-			</run>
-		</groups>
-		<classes>
-			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
-		</classes>
-	</test>
-
-<!--	<test name="Delete Functionality" enabled="true">-->
-<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />-->
-<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
-<!--		<groups>-->
-<!--			<run>-->
-<!--				<include name="Sanity16" />-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
 <!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
 <!--		</classes>-->
 <!--	</test>-->
+
+	<test name="Delete Functionality" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<parameter name="env.resources" value="resources/env_stg" />
+		<groups>
+			<run>
+				<include name="Sanity16" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
 </suite>

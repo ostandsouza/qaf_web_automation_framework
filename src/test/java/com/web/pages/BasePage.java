@@ -292,8 +292,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         SyncUtil.waitFor(100);
 		Search.type(itemstosearch);
         setImplicitWait(70000,TimeUnit.MILLISECONDS);
-		waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
-		driver.findElement("//span[text()='"+itemstosearch+"']").click();
+		waitForPresenceOfElement(By.xpath("//span[contains(text(),'"+itemstosearch+"')]"));
+		driver.findElement("//span[contains(text(),'"+itemstosearch+"')]").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);
 		Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
 	}
@@ -344,6 +344,24 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
                 .build()
                 .perform(); // Perform the action chain
     }
+    public void dropdownSelectSearchContains(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
+        waitForElementVisible(dropDownButton,10000,500);
+        waitForElementToBeClickable(dropDownButton);
+        setImplicitWait(20000,TimeUnit.MILLISECONDS);
+        dropDownButton.jsClick("dropdown");
+        waitForElementToBeClickable(dropDownButton);
+        SyncUtil.waitFor(100);
+        Search.type(itemstosearch);
+        setImplicitWait(60000,TimeUnit.MILLISECONDS);
+//        waitForPresenceOfElement(By.xpath("//span[contains(text(),'"+itemstosearch+"')]"));
+//        driver.findElement("//span[contains(text(),'"+itemstosearch+"')]").click();
+        waitForPresenceOfElement(By.xpath("//li/span[1]"));
+        driver.findElement("//li/span[1]").click();
+        setImplicitWait(1000,TimeUnit.MILLISECONDS);
+        Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
+    }
+
+
 
 
 

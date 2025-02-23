@@ -139,9 +139,11 @@ public class MiscUtils {
             if (listOfFile.isFile()) {
                 String fileName = listOfFile.getName();
                 System.out.println("File " + listOfFile.getName());
-                if (fileName.matches(name)||fileName.contains(name)) {
+                if (fileName.matches(name)) {
                     found = true;
                 }
+                else if(fileName.contains(name))
+                    found=true;
             }
         }
         return found;

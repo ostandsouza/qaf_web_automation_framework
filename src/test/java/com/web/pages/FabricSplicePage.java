@@ -160,6 +160,9 @@ public class FabricSplicePage extends BasePage {
     public CustomElement crCheckbox;
     @FindBy(locator = "xpath=//td//p-tag//span[text()=\" In Review\"]")
     public CustomElement statusInReview;
+
+    @FindBy(locator = "xpath=//td//p-tag//span[text()=\" To Review\"]")
+    public CustomElement statusToReview;
     @FindBy(locator = "xpath=//td//p-tag//span[text()=\" Approved\"]")
     public CustomElement statusApproved;
 
@@ -172,6 +175,8 @@ public class FabricSplicePage extends BasePage {
 
     @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
     public CustomElement btActions;
+    @FindBy(locator = "xpath=//button[@disabled]/chevrondownicon")
+    public CustomElement btActionsDisabled;
 
     @FindBy(locator = "xpath=//li//span[text()='Edit']")
     public CustomElement btEdit;
@@ -223,7 +228,7 @@ public class FabricSplicePage extends BasePage {
                 break;
             }
             val = pagination.getText();
-            SyncUtil.waitFor(30000);
+            SyncUtil.waitFor(15000);
         }
     }
 
@@ -245,7 +250,7 @@ public class FabricSplicePage extends BasePage {
         SyncUtil.waitFor(10000);
         setImplicitWait(20000, TimeUnit.MILLISECONDS);
         drApproverDropdown.click("Approver List");
-        SyncUtil.waitFor(3000);
+        SyncUtil.waitFor(10000);
 //        waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),5000,500);
         scrollIntoView(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")));
         driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")).click();
@@ -354,7 +359,7 @@ public class FabricSplicePage extends BasePage {
     public void saveDraftBtnClick() {
         btnSaveDraftButton.isVisible(10000, "save as draft");
         btnSaveDraftButton.click("Save As Draft");
-        SyncUtil.waitFor(2000);
+        SyncUtil.waitFor(12000);
 //        waitForElementInvisible(btnLoader,15000,500);
     }
 
@@ -383,12 +388,15 @@ public class FabricSplicePage extends BasePage {
         String spliceDrawingNumber = getBundle().getProperty("spliceDrawingNumber").toString();
         System.out.println("Splice drawing number" + spliceDrawingNumber);
         searchForTheRecord(spliceDrawingNumber);
+        setImplicitWait(40000,TimeUnit.MILLISECONDS);
         if (status.equalsIgnoreCase("In Review"))
             Validator.assertTrue(statusInReview.isVisible(10000, "In Review"), "The design is not in review status after sending for review", "The design is in review status after sending for review");
         else if (status.equalsIgnoreCase("Approved"))
             Validator.assertTrue(statusApproved.isVisible(10000, "Approved"), "The design is not approved status", "The design is in approved status");
         else if (status.equalsIgnoreCase("Draft"))
             Validator.assertTrue(statusDraft.isVisible(10000, "Draft"), "The design is not in Draft status", "The design is in Draft status");
+        else if(status.equalsIgnoreCase("To Review"))
+            Validator.assertTrue(statusToReview.isVisible(10000,"To Review"),"The design is not in 'To Review' status","The design is  in 'To Review' status");
 
     }
 
@@ -404,6 +412,14 @@ public class FabricSplicePage extends BasePage {
         waitForElementToBeClickable(btEdit);
         SyncUtil.waitFor(3000);
         btEdit.click("Edit");
+    }
+    public boolean verifyActionBtnPermissions()
+    {
+        SyncUtil.waitFor(10000);
+        crCheckbox.isVisible(10000, "record");
+        crCheckbox.check("Select Corporate");
+        waitForElementVisible(btActions,10000,500);
+        return btActionsDisabled.isVisible(10000,"Action button disabled");
     }
 
     public void verifyEditPageNavigation() {

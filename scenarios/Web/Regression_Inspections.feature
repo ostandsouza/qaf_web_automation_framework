@@ -608,3 +608,89 @@ Scenario: Verify user is able select the multiple sites via drop down
     Then Click on inspections and verify user is able to open inspections
     And Click on inspection dashboard symbol and verify user is able to click on dashboard
     And Click on site dropdown and verify user is able to select multiple site '${SiteName}' '${SiteName2}'
+
+@Regression1.1
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ListNavigation
+Scenario: Navigation to inspection list page
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    Then  Navigate to inspection list screen
+    And Click on Home Link to redirect to home page
+    And Click on inspections and verify user is able to open inspections
+    When  Navigate to Corporate details screen for corporate '${CustCorpName}'
+    And   Verify navigation to '${CustSiteName}' detail screen
+    Then  Verify navigation from site detail to conveyor details screen of '${ConveyorName}'
+    And Click on inspections and verify user is able to open inspections
+    And Click on site name '${CustSiteName}' in breadcrumb anf verify it navigates to site page
+    And Click on inspections and verify user is able to open inspections
+    And Click on corporate name '${CustCorpName}' in inspection breadcrumb anf verify it navigates to corporate page
+    And Click on inspections and verify user is able to open inspections
+    When  Navigate to Corporate details screen for corporate '${DistributorCorpName}'
+    Then  Verify navigation to '${DistShopName}' detail screen
+    And Click on inspections and verify user is able to open inspections
+    And Click on corporate name '${DistributorCorpName}' in inspection breadcrumb anf verify it navigates to corporate page
+    And Click on inspections and verify user is able to open inspections
+
+@Regression1.2
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ListNavigation
+Scenario: Verify the elements displayed in inspection card
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Verify the Inspection card details
+
+@Regression1.3
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ListNavigation
+Scenario: Verify the logic to display count in inspection card at home level
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Verify the Inspection card details
+    And Extract the Inspection Main Card details
+    When Add inspection Event for conveyor '${InspectionNameEdit1}' '${InspectionName1}' with '${CustSiteName}' '${FullName}'
+    And Add inspection Item for conveyor '${ConveyorName1}' for '${CustSiteName}' with '${AssetName1}' '${AssetDetail1}' '${FailureMode1}' '${Condition1}' '${Status}'
+    And Verify the home card count after adding the inspection with condition as '${Condition1}'
+    And Extract the Inspection Main Card details
+    And Add inspection Event for conveyor '${InspectionNameEdit2}' '${InspectionName2}' with '${CustSiteName}' '${FullName}'
+    And Add inspection Item for conveyor '${ConveyorName2}' for '${CustSiteName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
+    And Verify the home card count after adding the inspection with condition as '${Condition2}'
+    And Extract the Inspection Main Card details
+    And Add inspection Event for conveyor '${InspectionNameEdit3}' '${InspectionName3}' with '${CustSiteName}' '${FullName}'
+    And Add inspection Item for conveyor '${ConveyorName3}' for '${CustSiteName}' with '${AssetName2}' '${AssetDetail3}' '${FailureMode2}' '${Condition3}' '${Status}'
+    And Verify the home card count after adding the inspection with condition as '${Condition3}'
+    And Extract the Inspection Main Card details
+    And Add inspection Event for conveyor '${InspectionNameEdit4}' '${InspectionName4}' with '${CustSiteName}' '${FullName}'
+    And Add inspection Item for conveyor '${ConveyorName4}' for '${CustSiteName}' with '${AssetName4}' '${AssetDetail4}' '${FailureMode4}' '${Condition4}' '${Status}'
+    And Verify the home card count after adding the inspection with condition as '${Condition4}'
+
+
+@Regression1.4
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ListNavigation
+Scenario: Verify the logic to display count in inspection card at home level for multi inspection event
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And Verify the Inspection card details
+    And Extract the Inspection Main Card details
+    When Add inspection Event for conveyor '${Multi_InspectionNameEdit1}' '${Multi_InspectionName1}' with '${CustSiteName2}' '${FullName}'
+    And   Add inspection Item for conveyor '${Multi_ConveyorName1}' for '${Multi_InspectionName1}' with '${AssetName1}' '${AssetDetail1}' '${FailureMode1}' '${Condition1}' '${Status}'
+    And   Add inspection Item for conveyor '${Multi_ConveyorName2}' for '${Multi_InspectionName1}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}' and save
+    And   Add inspection Item for conveyor '${Multi_ConveyorName3}' for '${Multi_InspectionName1}' with '${AssetName3}' '${AssetDetail3}' '${FailureMode3}' '${Condition3}' '${Status}' and save
+    And   Add inspection Item for conveyor '${Multi_ConveyorName4}' for '${Multi_InspectionName1}' with '${AssetName4}' '${AssetDetail4}' '${FailureMode4}' '${Condition4}' '${Status}' and save
+
+
+
+
+
+
+
+

@@ -6,6 +6,7 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import net.minidev.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -650,4 +651,82 @@ public class APIBase {
             val = (boolean) jsnPath.getMap("data[0]").get("isFirstSignIn");
         }    tearDown();
         return val;}
+
+    public Map<String, Object> getHeavyEquipmentCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("heavyEquipment_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token", accessToken);
+        Map<String, String> heavyEquipmentPaths = JsonReader.getMapTestData("path", "heavyEquipment_controller");
+        restApiHelper.makeGetRequest(heavyEquipmentPaths.get("count"), queryMaps, headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$");
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getMonitoringDeviceAPI(String monitoringDeviceName) {
+        String next = "0";
+        Map<String, Object> val = null;
+        while(!next.isEmpty()) {
+            configureRestAssured();
+            String baseUrl = commonPaths.get("monitoring_ms");
+            restApiHelper.setBaseURI(baseUrl);
+            queryMaps.put("limit", "200");
+            queryMaps.put("next", next);
+            headersMap.put("user-token", accessToken);
+            Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "monitoring_controller");
+            restApiHelper.makeGetRequest(monitoringPaths.get("list"), queryMaps, headersMap);
+            Response profileResponse = restApiHelper.getResponse();
+            if (profileResponse.getStatusCode() == 200) {
+                JsonPath jsnPath = profileResponse.jsonPath();
+
+                // Get the list of monitoring devices
+                try {
+                    val = (Map<String, Object>) ((JSONArray) com.jayway.jsonpath.JsonPath.read(profileResponse.asString(), "$.data[?(@.name == '" + monitoringDeviceName + "')]")).get(0);
+                    System.out.println(((JSONArray) com.jayway.jsonpath.JsonPath.read(profileResponse.asString(), "$.data[?(@.name == '" + monitoringDeviceName + "')]..monitoringDeviceId")).get(0));
+                    break;
+                } catch (Exception e) {
+                    next = (String) jsnPath.getMap("pagination").get("next");
+                }
+            }
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getMonitoringDeviceDetailsAPI(String monitoringId) {
+        Map<String, Object> val = null;
+        configureRestAssured();
+        String baseUrl = commonPaths.get("monitoring_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token", accessToken);
+        Map<String, String> companyPaths = JsonReader.getMapTestData("path", "monitoring_controller");
+        if(monitoringId != null) {
+            Response minutemanResponse = restApiHelper.makeGetRequest(companyPaths.get("list") + "/" + monitoringId,queryMaps, headersMap);
+            JsonPath jsnPath = minutemanResponse.jsonPath();
+            val = (Map<String, Object>) jsnPath.get();
+            System.out.println(val);
+        }
+        else
+            System.out.println("monitoring id was null");
+        tearDown();
+        return val;
+    }
+
+    public void deleteMinutemanAPI(String minutemanId) {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("minuteman_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> companyPaths = JsonReader.getMapTestData("path", "minuteman_controller");
+        if(minutemanId != null)
+            restApiHelper.makeDeleteRequest(companyPaths.get("minuteman")+"/"+minutemanId, headersMap);
+        else
+            System.out.println("minuteman id was null");
+        tearDown();
+    }
+
 }

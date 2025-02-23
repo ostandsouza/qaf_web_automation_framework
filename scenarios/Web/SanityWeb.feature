@@ -22,8 +22,7 @@ Scenario: Verify the create market manager with all permission
 @key:Usermanagement_DistributorUser
 Scenario: Verify the create Distributor user with limited permission
 
- Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+
     When  Create a Distributor User '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}' and '${CoporateRole}' and '${DistCorpName}' and '${DistShopName}' and '${CustSiteName}'
     And   Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
     Then  Verify '${FullName}' user with distributor user for market as '${Region}' and permission rights as '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}'
@@ -35,7 +34,7 @@ Scenario: Verify the create Distributor user with limited permission
 Scenario: Verify with create corporate scenario
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+    When Login with '${UserName}' and '${Password}'
     And   Create a Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
     And   Create a Distributor shop with '${DistShopIndName}' and '${DistShopIndAddress}' and '${DistCorpName}' and '${FullName}' and '${TerritoryInd}'
     And   Create a Distributor shop with '${DistShopAusName}' and '${DistShopAusAddress}' and '${DistCorpName}' and '${FullName}' and '${TerritoryAus}'
@@ -51,9 +50,11 @@ Scenario: Verify with create corporate scenario
 @key:CorporateMangement_Edit
 Scenario: Verify with Edit corporate scenario
 
+Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     When  Edit Customer Corporate with '${CustCorpName}' and '${EditCustCorpName}'
-   And   Add '${CorpImageName}' image to Corporate and save changes
-   Then  Verify the Distributor Corp details with '${EditCustCorpName}' and '${CorpImageName}'
+    And   Add '${CorpImageName}' image to Corporate and save changes
+    Then  Verify the Distributor Corp details with '${EditCustCorpName}' and '${CorpImageName}'
    When  Edit Customer site with '${CustSiteName}' and '${EditCustSiteName}' using corporate '${EditCustCorpName}'
    And   Add '${CustSiteImageName}' image to Corporate and save changes
    Then  Verify the Customer site details with '${EditCustSiteName}' and '${CustSiteImageName}' using corporate '${EditCustCorpName}'
@@ -75,9 +76,8 @@ Scenario: Verify with Delete corporate scenario
 @sheetName:Sanity
 @key:Conveyor_Management
 Scenario: Verify the conveyor management
-
-      Given User is at Login page
-      When  Login with '${UserName}' and '${Password}'
+ Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     When  Create a conveyor with '${ConveyorName1}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName2}' and '${DistShopAusName}' and '${CustSiteNZName}'
     And   Create a conveyor with '${ConveyorName3}' and '${DistShopAusName}' and '${CustSiteNZName}'
@@ -98,8 +98,6 @@ Scenario: Verify the conveyor management
 Scenario: Verify the conveyor bulk upload
 
 
- Given User is at Login page
-      When  Login with '${UserName}' and '${Password}'
 
     When  Download bulk upload template for distributor '${DistCorpName}' and with sites '${CustSiteName}' and '${CustSite2Name}'
     And   Add two conveyor via bulk upload in site '${CustSiteName}' with file '${FileName}'
@@ -112,8 +110,7 @@ Scenario: Verify the conveyor bulk upload
 Scenario: ZVerify scenario for corporate card data
 
 
-  Given User is at Login page
-      When  Login with '${UserName}' and '${Password}'
+
     When  Navigate to Corporate details screen for corporate '${CustCorpName}'
     Then  Verify card count in details screen for '${CustCorpName}'
 
@@ -123,7 +120,8 @@ Scenario: ZVerify scenario for corporate card data
 @key:Conveyor_Edit
 Scenario: Verify the conveyor Edit
 
-
+  Given User is at Login page
+      When  Login with '${UserName}' and '${Password}'
     When  Edit Conveyor '${ConveyorName}' from conveyor list screen to '${EditConveyorName}'
     Then  Verify Edited conveyor details with '${EditConveyorName}' for Corporate '${CustSiteName}'
 
@@ -136,14 +134,15 @@ Scenario: Verify Inspection management
 
      Given User is at Login page
      When  Login with '${UserName}' and '${Password}'
-    When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
-    Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
-    When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
-    And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}'
-    And   Delete inspection Item for '${ConveyorName1}'
-    Then  Verify And validate the changes for '${EditInspectionName}' with '${ActionItemCount}'
+     When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+     And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}' and save
+     Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
+     When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
+     And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}'
+     And   Delete inspection Item for '${ConveyorName1}'
+     Then  Verify And validate the changes for '${EditInspectionName}' with '${ActionItemCount}'
+
 
 @Sanity11
 @dataFile:resources/data/TestData.xls
@@ -268,21 +267,14 @@ Scenario: Verify the Delete functionality across the application
 Scenario: Verify the Delete functionality across the application
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-    Then User is at Add Fabric splice Screen
-    And Add a design with '${DesignerName}' '${Market}' '${SpliceKit}' '${CustomerName}' '${ConveyorName}' '${ApproverName}' '${BeltConstruction}'
-    And Add the design details '${BeltWidth}' '${BeltType}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' '${OverAllBeltThickness}' '${BiasAngle}'
-    And Select Splice Type '${SpliceType}'
-    And Click on calculate button and verify preview tab is displayed
-    And Verify the Preview Design tab with calculations '${NoOfSteps}' '${BeltWidth}' '${OverAllBeltThickness}' '${StepLength}' '${SpliceLength}' '${CoverStripeTop}' '${CoverStripeBottom}' '${BiasLength}' '${CoatedBreakerStrip}' '${BeltType}' '${TopCoverThickness}' '${BottomCoverThickness}' '${TopCoverCompoundName}'
-    And Verify the Preview Design Notes with calculations '${CureTemperature}' '${CurePressure}' '${CureTime}' '${DimensionUnit}'
-    And Click on Splice kit BOM tab and verify
-    And Click on Comments log and save as draft
-    And Search for fabric-splice design and verify the status of the design '${DraftStatus}'
-    And Navigate to edit the fabric splice design
-    And Click on Comments Log tab and add comments '${Comments}' and send For Review
-    And Search for fabric-splice design and verify the status of the design '${InReviewStatus}'
-    And Logout from the current user
+    When Login with '${UserName}' and '${Password}'
+
+     And Search for fabric-splice design and verify the status of the design '${DraftStatus}'
+     And Navigate to edit the fabric splice design
+     And Click on Comments Log tab and add comments '${Comments}' and send For Review
+     And Search for fabric-splice design and verify the status of the design '${InReviewStatus}'
+     And Logout from the current user
+
     When Login with '${MarketUserName}' and '${MarketPassword}'
     And Search for fabric-splice design and verify the status of the design '${ToReviewStatus}'
     And Click on view icon

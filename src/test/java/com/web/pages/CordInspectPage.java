@@ -93,6 +93,8 @@ public class CordInspectPage extends BasePage {
     public CustomElement noList;
     @FindBy(locator = "xpath=//p-toast//span//checkicon")
     public CustomElement deleteSuccessMsg;
+    @FindBy(locator = "xpath=//th//p-tableheadercheckbox")
+    public CustomElement btCheckboxHeader;
 
 
     CoverWearPage coverWearPage = new CoverWearPage();
@@ -213,12 +215,12 @@ public class CordInspectPage extends BasePage {
     }
 
 
-    public void clickOnColumnsHeader(boolean isIncreasingOrder, String[] columnNames) {
+    public void clickOnColumnsHeader(boolean isIncreasingOrder, String[] columnNames,int innerIndexVal) {
         scrollPageup();
 
         // Initialize indices for both loops
         int outerIndex = 0;
-        int innerIndex = 2;
+        int innerIndex = innerIndexVal;
 
         // Continue until either list is exhausted or a limit is reached
         while (outerIndex < columnNames.length && innerIndex <= 10) {
@@ -302,16 +304,30 @@ public class CordInspectPage extends BasePage {
         SyncUtil.waitFor(3000);
         cbCheckbox.click("Checkbox");
         Validator.assertTrue(coverWearPage.verifyActionBtnState(), "Action button is not enabled after selecting the record", "Action button is enabled");
-        ddlActions.click("Action");
+        ddlActions.jsClick("Action");
         waitForElementToBeClickable(btnDelete);
         Validator.assertTrue(btnDelete.isVisible(), "Delete button is not visible", "Delete button is visible");
-        btnDelete.click("Delete Item");
+        btnDelete.jsClick("Delete Item");
         btnYes.click("Confirm delete");
         waitForElementToDisplay(noList);
         noList.isVisible("No Item Found");
         Validator.assertTrue(deleteSuccessMsg.isVisible(10000, "Delete Toast"), "Delete successfully is not visible", "Deleted successfully is visible");
         btSearchinput.type(" ");
     }
+
+    public void verifySelectAllCheckbox() {
+        waitForElementVisible(btCheckboxHeader, 10000, 500);
+        Validator.assertTrue(btCheckboxHeader.isVisible("Select all checkbox"), "Select all checkbox is not visible", "Select all checkbox is visible");
+        btCheckboxHeader.click();
+    }
+
+    public void verifyDeletedMonitoringDevice(String calc) {
+        gotoBeltScanScreenWait();
+        waitForPageLoad(10000);
+        btSearchinput.type(calc, "Conveyor Search");
+        Validator.assertTrue(noList.isVisible(),"Delete Belt Scan was still found in list screen","Belt Scan deleted successfully");
+    }
+
 
 
 }

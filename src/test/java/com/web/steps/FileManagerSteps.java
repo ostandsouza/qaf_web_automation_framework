@@ -150,6 +150,10 @@ public class FileManagerSteps {
     public void verifyFileManagerTile(){
         fileManagerPage.verifyCount();
     }
+    @QAFTestStep(description="Verify the file count in the file manager tile {Count}")
+    public void verifyFileManagerTileCount(String count){
+        fileManagerPage.verifyTileCount(count);
+    }
 
     @QAFTestStep(description="Delete multiple file inside folder {FolderName}")
     public void deleteMultipleFiles(String folder){
@@ -175,4 +179,36 @@ public class FileManagerSteps {
     public void verifyDefaultFoldersSite(){
 
     }
+    @QAFTestStep(description="Verify the breadcrumb of the page for file manager at {CustCorp} {CustSiteName} {ConveyorName} level")
+    public void verifyBreadCrumbAtModuleLevel(String corpName,String moduleRecordName,String conveyorName){
+        fileManagerPage.verifyFileManagerBreadCrumb(corpName,moduleRecordName,conveyorName);
+    }
+    @QAFTestStep(description="Verify the breadcrumb of the page for file manager at distributor level {DistCorp} {DistShop} {CustSiteName} {ConveyorName} level")
+    public void verifyBreadCrumbAtModuleLevelDistributor(String corpName,String distShopName,String moduleRecordName,String conveyorName){
+        fileManagerPage.verifyFileManagerBreadCrumbDistUser(corpName,distShopName,moduleRecordName,conveyorName);
+    }
+    @QAFTestStep(description="Add Folder by the name {FolderName2} inside the folder {FolderName1}")
+    public void verifyNestedFolder(String folder2,String folder1){
+        fileManagerPage.folderNameClick(folder1);
+        fileManagerPage.createFolder(folder2);
+        SyncUtil.waitFor(2000);
+
+    }
+    @QAFTestStep(description="Click on the folder {FolderName1}")
+    public void clickOnFolder(String folder1){
+        fileManagerPage.folderNameClick(folder1);
+
+    }
+    @QAFTestStep(description="Delete the folder {FolderName} and verify default folders cannot be deleted")
+    public void deleteAndVerifyDefaultFolder(String folder){
+        fileManagerPage.deleteFolder(folder);
+        fileManagerPage.verifyDefaultFolderDeletion();
+    }
+    @QAFTestStep(description="Upload a duplicate {ImgName} into the folder {FolderName} Verify user cannot upload duplicate file inside folder")
+    public void verifyDuplicateFileUploadFunctionality(String fileName,String folderName){
+        fileManagerPage.uploadFile(fileName,folderName);
+        fileManagerPage.verifyDuplicateFileUpload();
+    }
+
+
 }

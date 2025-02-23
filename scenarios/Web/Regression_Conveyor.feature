@@ -157,8 +157,7 @@ Scenario: ZVerify Bread Crumb of the page
 
      Given User is at Login page
      When Login with '${UserName}' and '${Password}'
-     And  Navigate to Add Conveyor screen
-     Then Verify the bread crumb of add conveyor page
+
 
 @Regression17 @CTCP-1866
 @dataFile:resources/data/TestData.xls

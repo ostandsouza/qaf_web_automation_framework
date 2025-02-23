@@ -3,15 +3,13 @@ package com.web.steps;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
-import com.web.pages.ConveyorPage;
-import com.web.pages.CorporatePage;
-import com.web.pages.MonitoringDevicePage;
-import com.web.pages.UsersPage;
+import com.web.pages.*;
 
 public class CorporateSteps {
 
     CorporatePage corpPage = new CorporatePage();
     ConveyorPage conveyorPage = new ConveyorPage();
+    SitePage sitePage=new SitePage();
     MonitoringDevicePage monitoringDevicePage = new MonitoringDevicePage();
 
 
@@ -61,6 +59,15 @@ public class CorporateSteps {
         corpPage.goToAddCorp();
         corpPage.createCustomerSite(CustShopIndName, CustShopIndAddress, CustCorpName, DistShopIndName, territory, FullNameInd);
     }
+    @QAFTestStep(description = "Extract the card count for {ModuleName} at {ModuleLevel} level and Create a Customer site in India {CustShopIndName} and {CustShopIndAddress} and {CustCorpName} and {DistShopIndName} and {FullNameInd} and {territory}")
+    public void createACustomerSiteInIndiaMiningCorpIndiaWithDistribBeltAssociatesIndiaAndExtractCount(String moduleName,String moduleLevel,String CustShopIndName, String CustShopIndAddress, String CustCorpName, String DistShopIndName, String FullNameInd, String territory) {
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustShopIndName));
+        corpPage.apiBase.deleteCompanyAPI(companyId);
+        corpPage.goToCorporateDetails(CustCorpName);
+        conveyorPage.extractMainCardCount(moduleName,moduleLevel);
+        corpPage.goToAddCorp();
+        corpPage.createCustomerSite(CustShopIndName, CustShopIndAddress, CustCorpName, DistShopIndName, territory, FullNameInd);
+    }
 
     @QAFTestStep(description = "Create a Customer site {0} and {1} and {2} and {3} and {4} and {5}")
     public void createACustomerSiteAndAndAndAndAnd(String CustShopGerName, String CustShopGerAddress, String CustCorpName, String DistShopGerName, String FullNameGer, String territory) {
@@ -95,6 +102,10 @@ public class CorporateSteps {
     @QAFTestStep(description = "Verify the Customer site details with {EditCustSiteName} and {CorpImageName} using corporate {EditCustCorpName}")
     public void verifyCustomerSite(String editCustSiteName, String corpImageName, String editCorpName) {
         corpPage.verifySiteOrShopEdit(editCorpName, editCustSiteName);
+    }
+    @QAFTestStep(description = "Verify the Customer site details with {CustomerSiteIndName} using corporate {EditCustCorpName}")
+    public void verifyCustomerSiteEditName(String editCustSiteName,String editCorpName) {
+        corpPage.verifySiteOrShopEditNameDetails(editCorpName, editCustSiteName);
     }
 
     @QAFTestStep(description = "Delete Distributor Shop for Corporate {DistCorpName} with {DistShopIndName}")
@@ -366,6 +377,7 @@ public class CorporateSteps {
 
     @QAFTestStep(description = "Verify user is on home page of the application")
     public void verifyHomePage() {
+        sitePage.goToSiteListScreenAndWait();
         corpPage.homePageVerify();
 
     }
@@ -453,6 +465,11 @@ public class CorporateSteps {
     @QAFTestStep(description = "Verify the pinned subscription list {Value}")
     public void verifyThePinSubList(String value) {
         corpPage.verifyPinnedSubList(value);
+    }
+
+    @QAFTestStep(description = "Navigate to Corporate List screen and wait")
+    public void navigateToCorpListScreen() {
+        corpPage.goToCorporate();
     }
 
 

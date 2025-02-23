@@ -341,7 +341,7 @@ public class UsersPage extends BasePage {
     @FindBy(locator = "//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement bcAddUserLink;
 
-    @FindBy(locator = "//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
+    @FindBy(locator = "//div[@class='conti-avatar-section']//img[contains(@class,'avatar-section-img default-image')]")
     public CustomElement userDefaultImage;
 
     @FindBy(locator = "//img[@src=\"/assets/img/upload_default.png\"]")
@@ -377,7 +377,7 @@ public class UsersPage extends BasePage {
     @FindBy(locator = "xpath=//img[@class='cropped-image']")
     public CustomElement imgUploaded;
 
-    @FindBy(locator = "xpath=//button[contains(@class,\"custom-button-cancel\")]//span[normalize-space()='Cancel']")
+    @FindBy(locator = "xpath=//button//span[normalize-space()='Cancel']")
     public CustomElement btnCancel;
 
     @FindBy(locator = "//img[@src='assets/img/upload_default.png']")
@@ -497,17 +497,31 @@ public class UsersPage extends BasePage {
     @FindBy(locator = "//div[contains(@class, 'img-container')]")
     public CustomElement imgProfile;
 
+    @FindBy(locator = "(//td[.//span[contains(text(),'Heavy Equipment')]]/following-sibling::td//p-checkbox//div[@data-pc-name='checkbox'])[1]")
+    public CustomElement cbHeavyEquipmentAdd;
+    @FindBy(locator = "(//td[.//span[contains(text(),'Heavy Equipment')]]/following-sibling::td//p-checkbox//div[@data-pc-name='checkbox'])[2]")
+    public CustomElement cbHeavyEquipmentEdit;
+    @FindBy(locator = "(//td[.//span[contains(text(),'Heavy Equipment')]]/following-sibling::td//p-checkbox//div[@data-pc-name='checkbox'])[3]")
+    public CustomElement cbHeavyEquipmentDelete;
+    @FindBy(locator = "(//td[.//span[contains(text(),'Heavy Equipment')]]/following-sibling::td//p-checkbox//div[@data-pc-name='checkbox'])[4]")
+    public CustomElement cbHeavyEquipmentView;
+    @FindBy(locator = "(//td[.//span[contains(text(),'Heavy Equipment')]]/following-sibling::td//p-checkbox//div[@data-pc-name='checkbox'])[5]")
+    public CustomElement cbHeavyEquipmentDownload;
+
     @FindBy(locator = "//span[text()='Corporates']")
     public CustomElement lnkCorporates;
 
 //	@FindBy(locator="//tr[@class='ng-star-inserted'][i]//p-chip//div[contains(text(), 'APAC')]")
 //	public CustomElement txtApac;
 
-    @FindBy(locator = "//tr//td//span[contains(text(),\"Internal tools\")]")
+    @FindBy(locator = "//td//span[contains(text(),\"Internal tools\")]/..//p-treetabletoggler//button")
     public CustomElement tbInternalTools;
 
     @FindBy(locator = "xpath=//span[@id='p-panel-3_header']")
     public CustomElement txtHomeHeader;
+
+    @FindBy(locator = "//nav[@data-pc-name=\"steps\"]//li//a//span[text()=\" Permissions\"]")
+    public CustomElement permissionsTab;
 
     public void usersclick() {
         waitForElementVisible(lnkUsers, 10000, 500);
@@ -620,7 +634,6 @@ public class UsersPage extends BasePage {
 
     public void Nextclick() {
         btNext.isVisible(10000, "Next");
-
         btNext.click();
     }
 
@@ -775,7 +788,7 @@ public class UsersPage extends BasePage {
         waitForElementToBeClickable(btSaveandClose);
         btSaveandClose.click();
         waitForElementToBeClickable(btSaveandClose);
-        SyncUtil.waitFor(15000);
+        SyncUtil.waitFor(20000);
         waitForElementToDisplay(btSearchinput);
         Reporter.log("User is created", MessageTypes.Pass);
         System.out.println("wait done after assertion");
@@ -1069,7 +1082,7 @@ public class UsersPage extends BasePage {
     }
 
     public void usersClick() {
-        waitForElementVisible(lnkUsers, 5000, 1000);
+//        waitForElementVisible(lnkUsers, 5000, 1000);
         waitForElementToBeClickable(lnkUsers);
         lnkUsers.click();
         waitForPageLoad(20000);
@@ -1222,11 +1235,41 @@ public class UsersPage extends BasePage {
         if (!(cbAllcheckboxDownload.getAttribute("aria-checked").equals(download)))
             cbAllcheckboxDownload.click();
     }
+    public void editHeavyEquipmentPermission(String add, String edit, String delete, String view, String download, String module) {
+        // Array to hold permission values
+        String[] permissions = {add, edit, delete, view, download};
+
+        // Iterate through the checkboxes using their indexes (1 to 5)
+        for (int i = 1; i <= permissions.length; i++) {
+            // Locate the checkbox using the XPath with the module and index
+            WebElement checkbox = driver.findElement(By.xpath("(//td[.//span[contains(text(),'" + module + "')]]/following-sibling::td[" + i + "]//p-checkbox//div[@data-pc-name='checkbox']//div[@data-p-highlight])"));
+
+            // Check if the current state of the checkbox matches the expected value
+            String expectedValue = permissions[i - 1]; // Get the corresponding permission value
+            String currentValue = checkbox.getAttribute("data-p-highlight"); // Get the current state
+
+            // Click the checkbox if the current value does not match the expected value
+            if (!currentValue.equals(expectedValue)) {
+                checkbox.click();
+            }
+        }
+    }
 
     public void editInternalToolsPermission(String add, String edit, String delete, String view, String download) {
+        permissionsTab.isVisible(10000,"Permissions tab");
+        permissionsTab.jsClick("Permissions Tab");
         tbInternalTools.isVisible(10000, "Internal Tools");
         waitForElementToBeClickable(tbInternalTools);
-        editPermission(add, edit, delete, view, download);
+        tbInternalTools.jsClick("Internal Tools");
+        SyncUtil.waitFor(3000);
+        editHeavyEquipmentPermission(add, edit, delete, view, download,"Heavy Equipment");
+        scrollPageDown();
+        waitForElementVisible(saveBtn, 10000, 1000);
+        waitForElementToBeClickable(saveBtn);
+        saveBtn.click("Save");
+        SyncUtil.waitFor(15000);
+        btSearchinput.isVisible(10000,"SearchInput");
+        waitForElementToDisplay(btSearchinput);
     }
 
     public void deleteTemplate() {
@@ -1556,8 +1599,8 @@ public class UsersPage extends BasePage {
     }
 
     public void verifyCheckboxChecked(String region) {
-        waitForElementVisible(driver.findElement(By.xpath("//div[@aria-label='" + region + "' and contains(@aria-selected,'true')]")), 5000, 500);
-        Validator.assertTrue(driver.findElement(By.xpath("//div[@aria-label='" + region + "' and contains(@aria-selected,'true')]")) != null, region + "Region is not checked", region + "Region is checked");
+        waitForElementVisible(driver.findElement(By.xpath("//li[contains(@aria-label,'"+region+"') and @aria-checked='true']")), 5000, 500);
+        Validator.assertTrue(driver.findElement(By.xpath("//li[contains(@aria-label,'"+region+"') and @aria-checked='true']")) != null, region + "Region is not checked", region + "Region is checked");
 
     }
 

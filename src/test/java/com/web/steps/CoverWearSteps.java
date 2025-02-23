@@ -1142,5 +1142,10 @@ public class CoverWearSteps {
         coverWearPage.clickCoverWearCard();
         coverWearPage.verifySpecificationHeader();
     }
+
+    @QAFTestStep(description = "Click on the edit button")
+    public void clickOnTheEditBtn() {
+        coverWearPage.clickOnEditBtn();
+    }
 }
 

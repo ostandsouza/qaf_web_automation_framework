@@ -5,11 +5,14 @@ import com.common.utils.ClasspathResourceHelper;
 import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.concurrent.TimeUnit;
+
+import static org.testng.Assert.assertEquals;
 
 public class FileManagerPage extends BasePage {
 
@@ -151,6 +154,9 @@ public class FileManagerPage extends BasePage {
     @FindBy(locator = "xpath=//div[text()=' Ultrasonic reports ']")
     public CustomElement ultrasonicFolder;
 
+    @FindBy(locator = "xpath=//div[text()=' Monitoring Devices ']")
+    public CustomElement monitoringDevice;
+
     @FindBy(locator = "xpath=//div[text()=' Technical Data reports ']")
     public CustomElement technicalFolder;
 
@@ -174,9 +180,16 @@ public class FileManagerPage extends BasePage {
 
     @FindBy(locator = "xpath=//span[text()='Rename Folder/File']")
     public CustomElement btRenameDialog;
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
+    public CustomElement inspectionsBreadcrumb;
 
     @FindBy(locator = "xpath=//tr//td//i[@class=\"ctp-icon-Visibility_On\"]")
     public CustomElement documentViewIcon;
+    @FindBy(locator = "xpath=//p-toast//div[contains(text(),\"Cannot do operations on generated folder\")]")
+    public CustomElement defaultFileErrorMessage;
+
+    @FindBy(locator = "xpath=//p[text()=\"File already exists\"]")
+    public CustomElement duplicateFileErrorMessage;
 
     public void goToFileManager() {
         if (fileManager.isEnable())
@@ -191,7 +204,7 @@ public class FileManagerPage extends BasePage {
     }
 
     public void createFolder(String folderName) {
-        newFolder.click("New Folder");
+        newFolder.jsClick("New Folder");
         folderHeader.isVisible("Folder Dialog");
         folderInputName.type(folderName);
         save.click("Save");
@@ -214,6 +227,8 @@ public class FileManagerPage extends BasePage {
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         upload.sendKeys(file_path, "img_upload");
         SyncUtil.waitFor(5000);
+        if(duplicateFileErrorMessage.isVisible(10000,"error"))
+            Reporter.log("User cannot upload Duplicate files");
         waitForElementToInvisible(btFileUploadingProgress, 45000);
         SyncUtil.waitFor(1000);
         waitForElementToBeClickable(btFileUploadingCloseBtn);
@@ -227,7 +242,7 @@ public class FileManagerPage extends BasePage {
             waitForElementToInvisible(fileManagerLoader, 40000);
             Validator.assertTrue(driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).isDisplayed(), "Folder created is not present", "Folder was created successfully");
         }
-//        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         Validator.assertTrue(verifyFilePresent(fileName), "File uploaded is not present", "File was successfully uploaded");
     }
 
@@ -290,7 +305,7 @@ public class FileManagerPage extends BasePage {
 
     public void moveFileIntoFolder(String folderName, String fileName) {
         homeIcon.isVisible(10000,"Home Icon");
-        homeIcon.click("Root Icon");
+        homeIcon.jsClick("Root Icon");
         verifyFilePresent(fileName);
         btCheckbox.click(fileName);
         btCut.isVisible(10000,"Cut");
@@ -349,7 +364,7 @@ public class FileManagerPage extends BasePage {
 
     public boolean verifyDefaultFolders() {
         return videoFolder.isVisible("video folder") && ultrasonicFolder.isVisible("ultrasonic folder") && technicalFolder.isVisible("technical folder") && spliceFolder.isVisible("splice folder") &&
-                photosFolder.isVisible("photos folder") && minutemanFolder.isVisible("minuteman folder") && inspectionFolder.isVisible("inspection folder");
+                photosFolder.isVisible("photos folder") && minutemanFolder.isVisible("minuteman folder") && inspectionFolder.isVisible("inspection folder") && monitoringDevice.isVisible("monitoring device folder");
     }
 
     public boolean verifyFolder(String folderName) {
@@ -361,6 +376,8 @@ public class FileManagerPage extends BasePage {
         waitForElementToInvisible(fileManagerLoader, 40000);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//*[contains(text(),'" + folder + "')]")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//*[contains(text(),'" + folder + "')]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//*[contains(text(),'" + folder + "')]")));
+
         verifyFilePresent(fileName);
         waitForElementToBeClickable(btCheckbox);
         btCheckbox.check(fileName);
@@ -380,14 +397,14 @@ public class FileManagerPage extends BasePage {
     }
 
     public void downloadFile(String folderName) {
-        waitForElementToInvisible(fileManagerLoader, 40000);
+        waitForElementToInvisible(fileManagerLoader, 60000);
         driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
         driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
         driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
         waitForElementToBeClickable(btCheckboxHeader);
         btCheckboxHeader.check("all files");
         btDownload.click("Download");
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(20000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(folderName + ".zip"), "Downloaded file was not found", "File was downloaded successfully");
     }
 
@@ -395,7 +412,13 @@ public class FileManagerPage extends BasePage {
         waitForElementToInvisible(fileManagerLoader, 40000);
         SyncUtil.waitFor(5000);
         System.out.println("count = " + fileManagerCount.getText());
-        Validator.assertTrue(fileManagerCount.getText().equalsIgnoreCase("4") || fileManagerCount.getText().equalsIgnoreCase("6"), "File manager count doesnt match", "File manager count verified successfully");
+        Validator.assertTrue(fileManagerCount.getText().equalsIgnoreCase("6") || fileManagerCount.getText().equalsIgnoreCase("6"), "File manager count doesnt match", "File manager count verified successfully");
+    }
+    public void verifyTileCount(String count) {
+        waitForElementToInvisible(fileManagerLoader, 40000);
+        SyncUtil.waitFor(5000);
+        System.out.println("count = " + fileManagerCount.getText());
+        Validator.assertTrue(fileManagerCount.getText().equalsIgnoreCase(count) || fileManagerCount.getText().equalsIgnoreCase("6"), "File manager count doesnt match", "File manager count verified successfully");
     }
 
     public void deleteAllFile(String folderName) {
@@ -434,6 +457,50 @@ public class FileManagerPage extends BasePage {
         documentViewIcon.click();
         waitForElementToDisplay(pdfPopup);
         pdfPopup.isVisible("pdf");
+        closePopup.click();
+    }
+    public void verifyFileManagerBreadCrumb(String corpName,String moduleRecordName,String conveyorName)
+    {
+        waitForElementVisible(inspectionsBreadcrumb, 10000, 500);
+        Validator.assertTrue(inspectionsBreadcrumb.isDisplayed(), "Breadcrumb element is not displayed", "Breadcrumb text is displayed");
+        if(!conveyorName.isEmpty())
+            assertEquals(inspectionsBreadcrumb.getText(), "Home\nCorporates\n"+corpName+"\n"+moduleRecordName+"\n"+conveyorName+"\nFile Manager", "Breadcrumb text does not match expected");
+        else
+            assertEquals(inspectionsBreadcrumb.getText(), "Home\nCorporates\n"+corpName+"\n"+moduleRecordName, "Breadcrumb text does not match expected");
+    }
+    public void verifyFileManagerBreadCrumbDistUser(String corpName,String distShop,String moduleRecordName,String conveyorName)
+    {
+        waitForElementVisible(inspectionsBreadcrumb, 10000, 500);
+        Validator.assertTrue(inspectionsBreadcrumb.isDisplayed(), "Breadcrumb element is not displayed", "Breadcrumb text is displayed");
+        if(!conveyorName.isEmpty())
+            assertEquals(inspectionsBreadcrumb.getText(), "Home\nCorporates\n" + corpName + "\n" + distShop + "\n" + moduleRecordName + "\n" + conveyorName + "\nFile Manager", "Breadcrumb text does not match expected");
+
+        else
+            assertEquals(inspectionsBreadcrumb.getText(), "Home\nCorporates\n"+corpName+"\n"+ distShop + "\n"+moduleRecordName, "Breadcrumb text does not match expected");
+    }
+    public void folderNameClick(String folderName) {
+        SyncUtil.waitFor(5000);
+        if (folderName.equalsIgnoreCase("root"))
+            homeIcon.click("Root Icon");
+        else {
+            setImplicitWait(30000, TimeUnit.MILLISECONDS);
+            waitForElementToInvisible(fileManagerLoader, 40000);
+            scrollIntoView(driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")));
+            driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
+            setImplicitWait(5000, TimeUnit.MILLISECONDS);
+            driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
+
+        }
+    }
+    public void verifyDefaultFolderDeletion()
+    {
+        defaultFileErrorMessage.isVisible(10000,"Error message");
+        Validator.assertTrue(defaultFileErrorMessage.isVisible(),"The default files are getting deleted","The default folders are not getting deleted");
+    }
+    public void verifyDuplicateFileUpload()
+    {
+        duplicateFileErrorMessage.isVisible(10000,"Error message");
+        Validator.assertTrue(duplicateFileErrorMessage.isVisible(10000,"error"),"Able to upload duplicate files!","User cannot upload duplicate files!");
         closePopup.click();
     }
 }

@@ -74,7 +74,8 @@ Scenario: AVerify the count displayed in cover wear card
 @key:CoverWear_Item
 Scenario: Verify the functionality of column name
 
-
+ Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to cover wear listing screen
     Then Click on the column name and verify the column names
     And Select any column name to be displayed and verify the column is displayed
@@ -112,7 +113,8 @@ Scenario: Verify the functionality of sorting
 @key:CoverWear_Item
 Scenario: Verify the functionality of clear filter
 
-
+ Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to cover wear listing screen
     When Apply sorting or filter on column name
     Then Verify that the filter is applied

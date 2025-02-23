@@ -18,7 +18,7 @@ public class ConveyorSteps {
     CordInspectPage cordInspectPage=new CordInspectPage();
     UsersPage userpage = new UsersPage();
 
-    String[] monitoringDeviceColName = {"name", "deviceType", "site", "conveyor", "territory", "carcass", "status", "installedDate", "location", "lastServiceDate", "beltConveyorSaves"};
+    String[] monitoringDeviceColName = {"Name", "Device Type","Serial Number", "Site", "Conveyor", "Territory", "Carcass","Location", "Last Service Date", "Belt/Conveyor Saves"};
 
 
     @QAFTestStep(description = "Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
@@ -912,6 +912,24 @@ public class ConveyorSteps {
     @QAFTestStep(description = "Click on each column header and verify filter icon fields")
     public void clickOnEachFilterIconAndVerifyFilterFields() {
         conveyorPage.columnNameFilterBtnClick(monitoringDeviceColName);
+    }
+    @QAFTestStep(description = "Extract the main card count in {Home} page for {ModuleName}")
+    public void extractInitialMainCardCount(String moduleLevel,String moduleName) {
+        conveyorPage.extractMainCardCount(moduleName,moduleLevel);
+    }
+    @QAFTestStep(description = "Verify the main card count after operation {Addition} for {Sites} with count {Value} at module level {ModuleLevel}")
+    public void extractAddedMainCardCount(String operation,String moduleName,int value,String moduleLevel) {
+        conveyorPage.verifyMainCardCountAfterAddition(operation,moduleName,value,moduleLevel);
+    }
+
+    @QAFTestStep(description = "Click multiSelect Checkbox and verify delete functionality")
+    public void clickTheMultiSelectCheckBoxAndDelete() {
+        conveyorPage.clickMultiSelectCheckBoxAndDelete();
+    }
+    @QAFTestStep(description = "Verify correct pagination and card count is displayed at {HomeLevel} page for {Sites}")
+    public void verifyPaginationCountAndCardCountAtModuleLevel(String moduleLevel,String moduleName) {
+        conveyorPage.extractMainCardCount(moduleName,moduleLevel);
+        conveyorPage.verifyPaginationCountAndCardCount(moduleLevel);
     }
 
 

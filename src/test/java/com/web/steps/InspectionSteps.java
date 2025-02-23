@@ -41,6 +41,15 @@ public class InspectionSteps {
         inspectionpage.goToInspection();
         inspectionpage.addInspection(inspectionName, custSiteName, fullName);
     }
+    @QAFTestStep(description = "Add inspection Event for conveyor {InspectionNameEdit} {InspectionName} with {CustSiteName} {FullName}")
+    public void addInspectionEventForSite(String inspectionNameEdit,String inspectionName, String customerSitename,String fullName) {
+        String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionNameEdit);
+        inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+        inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
+        inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+        inspectionpage.goToInspection();
+        inspectionpage.addNewInspectionEvent(inspectionName,customerSitename, fullName);
+    }
 
     @QAFTestStep(description = "Add inspection Event for conveyor {ConveyorName} with {InspectionName}")
     public void createAddInspection(String conveyorName, String inspectionName) {
@@ -55,6 +64,11 @@ public class InspectionSteps {
     public void createAddInspectionItemMandatoryFields(String conveyorName, String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status) {
         inspectionpage.addItemMandatoryField(conveyorName, assetName, assetDetail, failureMode, condition, status);
         inspectionpage.saveInspectionItem();
+    }
+    @QAFTestStep(description = "Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status} and save")
+    public void createAddInspectionItemMandatoryFieldsAndSave(String conveyorName, String inspectionName, String assetName, String assetDetail, String failureMode, String condition, String status) {
+        inspectionpage.addItemMandatoryField(conveyorName, assetName, assetDetail, failureMode, condition, status);
+        inspectionpage.updateInspectionItem();
     }
 
     @QAFTestStep(description = "Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {FailureMode1} {Condition1} {Status} {lat} {long} {observation} {recommendation} {address} {img}")
@@ -548,6 +562,20 @@ public class InspectionSteps {
     @QAFTestStep(description = "Click on Clear filter Icon")
     public void clickTheClickFilter() {
         inspectionpage.clickClickFilter();
+    }
+
+    @QAFTestStep(description = "Verify the Inspection card details")
+    public void verifyInspectionCardDetails() {
+        inspectionpage.verifyInspectionMainCardDetails();
+    }
+
+    @QAFTestStep(description = "Extract the Inspection Main Card details")
+    public void storeInspectionMainCardCountDetails() {
+        inspectionpage.extractInspectionCardDetails();
+    }
+    @QAFTestStep(description = "Verify the home card count after adding the inspection with condition as {Good}")
+    public void verifyTheHomeCardCount(String condition) {
+        inspectionpage.verifyInspectionHomeCardCount(condition);
     }
 }
 

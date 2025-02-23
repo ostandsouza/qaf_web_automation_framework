@@ -6,6 +6,7 @@ import static org.testng.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.common.component.CustomElement;
@@ -75,6 +76,8 @@ public class InspectionPage extends BasePage {
 
     @FindBy(locator = "xpath=//label[text()='Asset']/parent::div//div[@role='button']")
     public CustomElement ddlAsset;
+    @FindBy(locator = "xpath=//label[text()='Asset']")
+    public CustomElement tbAsset;
 
     @FindBy(locator = "xpath=//label[text()='Detail']/parent::div//div[@role='button']")
     public CustomElement ddlAssetDetail;
@@ -97,6 +100,8 @@ public class InspectionPage extends BasePage {
     @FindBy(locator = "xpath=//textarea[@formcontrolname='recommendation']")
     public CustomElement eleRecommendation;
 
+    @FindBy(locator = "xpath=//p-dialog//span[text()='Create']")
+    public CustomElement btnCreate;
     @FindBy(locator = "xpath=//p-dialog//span[text()='Save']")
     public CustomElement btnSave;
 
@@ -170,7 +175,7 @@ public class InspectionPage extends BasePage {
     @FindBy(locator = "xpath=//a[@ng-reflect-router-link='/secure/dashboard']//span")
     public CustomElement eleHome;
 
-    @FindBy(locator = "xpath=//button[text()='Select Files']")
+    @FindBy(locator = "xpath=//button//span[text()='Select Files']")
     public CustomElement btnSelectFiles;
 
     @FindBy(locator = "id=file-input")
@@ -477,6 +482,23 @@ public class InspectionPage extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Clear Filters']")
     public CustomElement clearFilterBtn;
 
+    @FindBy(locator = "//div//h6[text()=\"Section 1 Chutes/Load Area\"]/following-sibling::div//p[text()=\"Add New Item\"]")
+    public CustomElement btnChutesAddNewItem;
+
+    @FindBy(locator = "xpath=(//app-card//div[@class=\"header\" and text()=\"Inspections\"]/..//div//span)[1]")
+    public CustomElement inspectionMainCardCount;
+    @FindBy(locator = "xpath=//app-card//div[@class=\"header\" and text()=\"Inspections\"]/..//div[contains(text(),\"To be completed\")]//span")
+    public CustomElement inspectionToBeCompletedCount;
+    @FindBy(locator = "xpath=//app-card//div[@class=\"header\" and text()=\"Inspections\"]/..//div[contains(@class,\"footer-count\")]//div[@style=\"background: rgb(45, 185, 40);\"]")
+    public CustomElement inspectionGoodCount;
+    @FindBy(locator = "xpath=//app-card//div[@class=\"header\" and text()=\"Inspections\"]/..//div[contains(@class,\"footer-count\")]//div[@style=\"background: rgb(255, 198, 0);\"]")
+    public CustomElement inspectionFaultCount;
+    @FindBy(locator = "xpath=//app-card//div[@class=\"header\" and text()=\"Inspections\"]/..//div[contains(@class,\"footer-count\")]//div[@style=\"background: rgb(255, 138, 0);\"]")
+    public CustomElement inspectionPoorCount;
+    @FindBy(locator = "xpath=//app-card//div[@class=\"header\" and text()=\"Inspections\"]/..//div[contains(@class,\"footer-count\")]//div[@style=\"background: rgb(255, 0, 0);\"]")
+    public CustomElement inspectionCriticalCount;
+
+
     public void goToInspection() {
         if (!lnkInspection.isVisible())
             lnkHome.click("Home");
@@ -538,6 +560,21 @@ public class InspectionPage extends BasePage {
         Reporter.log("Inspection is created", MessageTypes.Pass);
     }
 
+    public void addNewInspectionEvent(String inspectionName, String siteName, String fullName) {
+        waitForPageLoad(5000);
+        waitForElementToDisplay(btnAddInspection);
+        waitForElementVisible(btnAddInspection, 20000, 1000);
+        waitForElementToBeClickable(btnAddInspection);
+//		SyncUtil.waitFor(5000);
+        btnAddInspection.jsClick("Add Inspection btn");
+        waitForElementToBeClickable(ddlSiteCustomername);
+        dropdownSelectSearch(ddlSiteCustomername, tbInput, siteName);
+        Validator.assertTrue(tbInspectionName.getText().contains(siteName), "site name is not populated as inspection name ", "site name is populated as inspection name ");
+        tbInspectionName.type(inspectionName);
+        ddlInspectorName.verifyText(fullName, "Inspector Name");
+        Reporter.log("Inspection is created", MessageTypes.Pass);
+    }
+
     public void addInspection(String inspectionName) {
         btnAddInspection.click("Add Inspection btn");
         tbInspectionName.type(inspectionName);
@@ -545,20 +582,31 @@ public class InspectionPage extends BasePage {
     }
 
     public void saveInspectionItem() {
-        waitForElementToBeClickable(btnSave);
-        btnSave.jsClick("Save");
+        waitForElementToBeClickable(btnCreate);
+        btnCreate.jsClick("Create");
         waitForElementToDisplay(inspectionUpdateMsg);
         SyncUtil.waitFor(10000);
         Reporter.log("Inspection Item is created", MessageTypes.Pass);
     }
 
+    public void updateInspectionItem() {
+        waitForElementToBeClickable(btnSave);
+        btnSave.jsClick();
+        waitForElementToDisplay(inspectionUpdateMsg);
+        SyncUtil.waitFor(10000);
+        Reporter.log("Inspection Item is updated", MessageTypes.Pass);
+    }
+
+
     public void addItemMandatoryField(String conveyorName, String assetName, String assetDetail, String failureMode, String condition, String status) {
         waitForElementToBeClickable(btnAddnew);
         SyncUtil.waitFor(4000);
         btnAddnew.click("Add New Inspection");
-        waitForElementToDisplay(ddlAsset);
         dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
-        dropdownSelectSearch(ddlAsset, tbInput, assetName);
+//        dropdownSelectSearch(ddlAsset, tbInput, assetName);
+        waitForElementVisible(driver.findElement(By.xpath("//div//h6[contains(text(),'" + assetName + "')]/following-sibling::div//p[text()='Add New Item']")), 10000, 500);
+        driver.findElement(By.xpath("//div//h6[contains(text(),'" + assetName + "')]/following-sibling::div//p[text()='Add New Item']")).click();
+        waitForElementToDisplay(tbAsset);
         if (ddlDetails.isVisible())
             dropdownSelect(ddlDetails, ListItem, assetDetail);
         if (ddlTypes.isVisible())
@@ -567,7 +615,8 @@ public class InspectionPage extends BasePage {
             ddlDetailInput.type(assetDetail);
         dropdownSelectSearch(ddlFailureMode, tbInput, failureMode);
         dropdownSelect(ddlCondition, ListItem, condition);
-        dropdownSelect(ddlStatus, ListItem, status);
+        waitForElementVisible(driver.findElement(By.xpath("//div//label[text()=\"Status\"]/..//div//label[text()='" + status + "']/..//p-radiobutton[@name=\"status\"]")), 10000, 500);
+        driver.findElement(By.xpath("//div//label[text()=\"Status\"]/..//div//label[text()='" + status + "']/..//p-radiobutton[@name=\"status\"]")).click();
     }
 
     public void addItemOptionalField(String lat, String longitude, String observation, String recommendation, String address, String img) {
@@ -658,7 +707,7 @@ public class InspectionPage extends BasePage {
         waitForElementToDisplay(detailIcon);
         ddViewicon.click("Inspection Detail");
         SyncUtil.waitFor(3000);
-        inspectionHeader.verifyText(inspectionName, "Inspection Header");
+        inspectionHeader.verifyText("Inspection Event", "Inspection Header");
         scrollPageDown();
         SyncUtil.waitFor(3000);
         Validator.assertTrue(pagination.getText("Inspection Item").contains(itemCount), "All Inspections Items are not listed", "All Inspections Items are listed");
@@ -717,8 +766,8 @@ public class InspectionPage extends BasePage {
         btSearchinput.type(inspectionItem, "Inspection Search");
         waitForElementToDisplay(cbCheckbox);
         btnEdit.click("Edit Inspection Item");
-        waitForElementToDisplay(ddlStatus);
-        dropdownSelect(ddlStatus, ListItem, newStatus);
+        waitForElementVisible(driver.findElement(By.xpath("//div//label[text()=\"Status\"]/..//div//label[text()='" + newStatus + "']/..//p-radiobutton[@name=\"status\"]")), 10000, 500);
+        driver.findElement(By.xpath("//div//label[text()=\"Status\"]/..//div//label[text()='" + newStatus + "']/..//p-radiobutton[@name=\"status\"]")).click();
         btnSave.jsClick("Save");
         waitForElementToDisplay(inspectionUpdateMsg);
         Reporter.log("Inspection Item is Updated", MessageTypes.Pass);
@@ -1390,5 +1439,93 @@ public class InspectionPage extends BasePage {
         clearFilterBtn.jsClick();
         waitForPageLoad(10000);
     }
+
+    public void verifyInspectionMainCardDetails() {
+        inspectionMainCardCount.isVisible(10000, "Main Card");
+        Validator.assertTrue(inspectionMainCardCount.isVisible(10000, "Main Card Count"), "Total number of inspection event is not visible in the card!", "Total number of inspection event is  visible in the card!");
+        Validator.assertTrue(inspectionToBeCompletedCount.isVisible(10000, "To Be Completed Count"), "Total number of inspection event with 'to be completed status' is not visible", "Total number of inspection event with 'to be completed status' is not visible!");
+        Validator.assertTrue(inspectionGoodCount.isVisible(10000, "Good Card Count"), "Number of inspection items with condition 'good' and status 'to be completed' is not visible!", "Number of inspection items with condition 'good' and status 'to be completed' is  visible!");
+        Validator.assertTrue(inspectionFaultCount.isVisible(10000, "Fault Count Card"), "Number of inspection items with condition 'fault' and status 'to be completed' is not visible!", "Number of inspection items with condition 'fault' and status 'to be completed' is  visible!");
+        Validator.assertTrue(inspectionPoorCount.isVisible(10000, "Poor Card Count"), "Number of inspection items with condition 'poor' and status 'to be completed' is not visible!", "Number of inspection items with condition 'poor' and status 'to be completed' is  visible!");
+        Validator.assertTrue(inspectionCriticalCount.isVisible(10000, "Critical Card Count"), "Number of inspection items with condition 'critical' and status 'to be completed' is not visible!", "Number of inspection items with condition 'critical' and status 'to be completed' is  visible!");
+    }
+
+    public void extractInspectionCardDetails() {
+        setProperty("inspectionMainCount", inspectionMainCardCount);
+        setProperty("inspectionMainToBeCompletedCount", inspectionToBeCompletedCount);
+        setProperty("inspectionMainGoodCount", inspectionGoodCount);
+        setProperty("inspectionMainCardGoodCount", inspectionGoodCount);
+        setProperty("inspectionMainCardFaultCount", inspectionFaultCount);
+        setProperty("inspectionMainCardPoorCount", inspectionPoorCount);
+        setProperty("inspectionMainCardCriticalCount", inspectionCriticalCount);
+    }
+
+    private void setProperty(String propertyName, WebElement element) {
+        String value = element.getAttribute("value");
+        getBundle().setProperty(propertyName, value);
+    }
+
+    public void verifyInspectionHomeCardCount(String condition) {
+        // Common counts that are always verified
+        Map<String, WebElement> commonCounts = Map.of(
+                "inspectionMainCount", inspectionMainCardCount,
+                "inspectionMainToBeCompletedCount", inspectionToBeCompletedCount
+        );
+
+        // Condition-specific counts
+        Map<String, WebElement> conditionCounts = Map.of(
+                "Good", inspectionGoodCount,
+                "Fault", inspectionFaultCount,
+                "Poor", inspectionPoorCount,
+                "Critical", inspectionCriticalCount
+        );
+
+        // Verify common counts
+        commonCounts.forEach((propertyKey, element) ->
+                verifyCountUpdate(
+                        propertyKey,
+                        element,
+                        propertyKey + " is not updated after adding a new inspection event",
+                        propertyKey + " is updated after adding a new inspection event"
+                )
+        );
+
+        // Verify condition-specific count
+        if (condition != null && !condition.isEmpty()) {
+            WebElement element = conditionCounts.get(condition);
+            if (element != null) {
+                verifyCountUpdate(
+                        "inspectionMain" + condition + "Count",
+                        element,
+                        "Inspection condition with '" + condition + "' count is not updated after adding a new inspection event",
+                        "Inspection condition with '" + condition + "' count is updated after adding a new inspection event"
+                );
+            } else {
+                throw new IllegalArgumentException("Invalid condition: " + condition);
+            }
+        } else {
+            // If no specific condition is provided, verify all condition-specific counts
+            conditionCounts.forEach((key, element) ->
+                    verifyCountUpdate(
+                            "inspectionMain" + key + "Count",
+                            element,
+                            "Inspection condition with '" + key + "' count is not updated after adding a new inspection event",
+                            "Inspection condition with '" + key + "' count is updated after adding a new inspection event"
+                    )
+            );
+        }
+    }
+
+
+    public void verifyCountUpdate(String propertyName, WebElement element, String failMessage, String passMessage) {
+        int incrementedCount = Integer.parseInt(element.getText());
+        int storedCount = Integer.parseInt(getBundle().getProperty(propertyName).toString());
+        Validator.assertTrue(
+                incrementedCount == storedCount + 1,
+                failMessage,
+                passMessage
+        );
+    }
+
 
 }

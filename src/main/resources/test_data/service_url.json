@@ -14,7 +14,9 @@
     "user_ms": "https://user-management.service.stage.cloud1.ws.continental-industry.com",
     "file_ms": "https://file-management.service.dev2.contiplus.net",
     "minuteman_ms": "https://minuteman-management.service.dev2.contiplus.net",
-    "inspection_findings_ms": "https://inspection-finding-management.service.dev2.contiplus.net"
+    "inspection_findings_ms": "https://inspection-finding-management.service.dev2.contiplus.net",
+    "heavyEquipment_ms": "https://heavy-equipment.service.dev2.contiplus.net",
+    "monitoring_ms": "https://monitoring-device-management.service.dev2.contiplus.net"
   },
   "stage": {
     "auth_ms": "https://authentication-management.service.stage.cloud1.ws.continental-industry.com",
@@ -30,7 +32,8 @@
     "permission_ms": "https://permission-management.service.dev2.contiplus.net",
     "user_ms": "https://user-management.service.stage.cloud1.ws.continental-industry.com",
     "file_ms": "https://file-management.service.stage.contiplus.net",
-    "inspection_findings_ms": "https://inspection-finding-management.service.stage.contiplus.net"
+    "inspection_findings_ms": "https://inspection-finding-management.service.stage.contiplus.net",
+    "monitoring_ms": "https://monitoring-device-management.service.dev2.contiplus.net"
   },
   "sandbox": {
     "auth_ms": "https://authentication-management.service.sandbox.cloud1.ws.continental-industry.com",

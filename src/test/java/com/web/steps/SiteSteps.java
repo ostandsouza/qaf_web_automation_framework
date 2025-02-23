@@ -4,12 +4,15 @@ import com.common.utils.APIBase;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.web.pages.ConveyorPage;
+import com.web.pages.CorporatePage;
+import com.web.pages.FabricSplicePage;
 import com.web.pages.SitePage;
 
 public class SiteSteps {
 
     SitePage sitePage = new SitePage();
     ConveyorPage conveyorPage = new ConveyorPage();
+    FabricSplicePage fabricSplicePage=new FabricSplicePage();
 
     @QAFTestStep(description = "Delete Customer site with {CustSiteName}")
     public void deleteCustomerSite(String custSiteName) {
@@ -30,6 +33,8 @@ public class SiteSteps {
     public void verifyNavigationToSiteListPage() {
         sitePage.verifySiteListPageNaviagtion();
     }
+
+    CorporatePage corporatePage=new CorporatePage();
 
     @QAFTestStep(description = "subscribe the sites for the user {Site1} and {Site2}")
     public void searchAndSubscribeTwoSites(String site1, String site2) {
@@ -155,5 +160,27 @@ public class SiteSteps {
     public void actionBtnClickAndVerify() {
         sitePage.actionBtnClickAndVerifySymbol();
     }
+
+    @QAFTestStep(description = "Navigate to Add Site page from home and create a Customer site {CustShopIndName} and {CustShopIndAddress} and {CustCorpName} and {DistShopIndName} and {FullNameInd} and {territory}")
+    public void navigationToAddSitePageAndCreate(String CustShopIndName, String CustShopIndAddress, String CustCorpName, String DistShopIndName, String FullNameInd, String territory) {
+        String companyId = corporatePage.apiBase.getCompanyID(corporatePage.apiBase.getCompanyAPI(CustShopIndName));
+        corporatePage.apiBase.deleteCompanyAPI(companyId);
+        sitePage.goToAddSitePage();
+        corporatePage.createCustomerSite(CustShopIndName, CustShopIndAddress, CustCorpName, DistShopIndName, territory, FullNameInd);
+    }
+
+    @QAFTestStep(description = "Search for the site {CustSiteIndName} and edit the site name {EditCustSiteName}")
+    public void searchAndNavigateToEditSite(String siteName,String editSiteName) {
+        fabricSplicePage.searchForTheRecord(siteName);
+        fabricSplicePage.editRecord();
+        corporatePage.editSiteName(editSiteName);
+    }
+
+    @QAFTestStep(description = "Search for the record {CustSiteNameDel1}")
+    public void searchForTheRecordAndVerify(String recordName) {
+        fabricSplicePage.searchForTheRecord(recordName);
+        SyncUtil.waitFor(4000);
+    }
+
 
 }
