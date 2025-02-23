@@ -64,7 +64,7 @@ public class LoginPage extends BasePage {
 		 * 
 		 * driver = ChromeDriver(desiredcapabilities);
 		 */
-
+		waitForElementVisible(tbUserName,5000,1000);
 		tbUserName.type(userName, "UserName"); 
         tbPassword.type(password, "Password");
         btnLogIn.click("LOGIN");

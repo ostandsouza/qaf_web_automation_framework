@@ -437,4 +437,20 @@ public class CorporateSteps {
         corpPage.clickCreateBtn();
         corpPage.deleteCorporate(CompanyName);
     }
+    @QAFTestStep(description = "Verify the site count with respect to pagination")
+    public void validateTheSiteCountWrtPagination()
+    {
+        corpPage.validateSiteCountWrtPagination();
+    }
+    @QAFTestStep(description = "Scroll the page up")
+    public void scrollThePageUp()
+    {
+        corpPage.scrollPageup();
+    }
+    @QAFTestStep(description = "Scroll the page down")
+    public void scrollThePageDown()
+    {
+        corpPage.scrollPageDown();
+    }
+
 }

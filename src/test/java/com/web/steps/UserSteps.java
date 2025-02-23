@@ -145,7 +145,7 @@ public class UserSteps extends BasePage {
     public void ClickOnLogout() {
 		SyncUtil.waitFor(3000);
 		userpage.clickOnLogout();
-		SyncUtil.waitFor(2000);
+		SyncUtil.waitFor(5000);
 	}
 
 	@QAFTestStep(description="Create a Market manager {FullName} and {Phone} and {Email} and {ProfileType} and {UserPassword} and {RetypePassword}")

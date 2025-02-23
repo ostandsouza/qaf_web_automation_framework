@@ -53,10 +53,10 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
-<!--				<include name="Regression1" />-->
+<!--&lt;!&ndash;				<include name="Regression1" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="Regression2" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="Regression3" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="Regression4" />&ndash;&gt;-->
@@ -69,9 +69,9 @@
 <!--&lt;!&ndash;				<include name="Regression11" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="Regression12" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="Regression13" />&ndash;&gt;-->
-<!--				<include name="Regression14" />-->
-<!--				<include name="Regression15" />-->
-<!--				<include name="Regression16" />-->
+<!--&lt;!&ndash;				<include name="Regression14" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression15" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression16" />&ndash;&gt;-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
@@ -139,7 +139,34 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_UserBulkUpload.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression1" />-->
+<!--&lt;!&ndash;				<include name="Regression2" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression3" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression4" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression5" />&ndash;&gt;-->
+<!--				<include name="Regression6" />-->
+<!--&lt;!&ndash;				<include name="Regression7" />&ndash;&gt;-->
+<!--				<include name="Regression8" />-->
+<!--				<include name="Regression9" />-->
+<!--&lt;!&ndash;				<include name="Regression10" />&ndash;&gt;-->
+<!--				<include name="Regression11" />-->
+<!--&lt;!&ndash;				<include name="Regression12" />&ndash;&gt;-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+
+
+<!--	<test name="Cover Wear testcases" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Ultrasonics.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="Regression1" />-->
@@ -154,53 +181,26 @@
 <!--&lt;!&ndash;				<include name="Regression10" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="Regression11" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="Regression12" />&ndash;&gt;-->
-<!--			</run>-->
-<!--		</groups>-->
-<!--		<classes>-->
-<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
-<!--		</classes>-->
-<!--	</test>-->
-
-
-<!--	<test name="Cover Wear testcases" enabled="true">-->
-<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Ultrasonics.feature" />-->
-<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
-<!--		<groups>-->
-<!--			<run>-->
-<!--				<include name="Regression1" />-->
-<!--				<include name="Regression2" />-->
-<!--				<include name="Regression3" />-->
-<!--				<include name="Regression4" />-->
-<!--				<include name="Regression5" />-->
-<!--				<include name="Regression6" />-->
-<!--				<include name="Regression7" />-->
-<!--				<include name="Regression8" />-->
-<!--				<include name="Regression9" />-->
-<!--				<include name="Regression10" />-->
-<!--				<include name="Regression11" />-->
-<!--				<include name="Regression12" />-->
-<!--				<include name="Regression13" />-->
-<!--				<include name="Regression14" />-->
-<!--				<include name="Regression15" />-->
-<!--				<include name="Regression16" />-->
-<!--				<include name="Regression17" />-->
-<!--				<include name="Regression18" />-->
-<!--				<include name="Regression19" />-->
-<!--				<include name="Regression20" />-->
-<!--				<include name="Regression21" />-->
-<!--				<include name="Regression22" />-->
-<!--				<include name="Regression23" />-->
-<!--				<include name="Regression24" />-->
-<!--				<include name="Regression25" />-->
+<!--&lt;!&ndash;				<include name="Regression13" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression14" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression15" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression16" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression17" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression18" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression19" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression20" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression21" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression22" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression23" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression24" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression25" />&ndash;&gt;-->
 <!--				<include name="Regression26" />-->
-<!--				<include name="Regression27" />-->
-<!--				<include name="Regression28" />-->
-<!--				<include name="Regression29" />-->
-<!--				<include name="Regression30" />-->
-<!--				<include name="Regression31" />-->
-<!--				<include name="Regression32" />-->
+<!--&lt;!&ndash;				<include name="Regression27" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression28" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression29" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression30" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression31" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression32" />&ndash;&gt;-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
@@ -252,15 +252,16 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_User.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_stg" />-->
+<!--			<parameter name="env.resources" value="resources/env_dev" />-->
 <!--			<groups>-->
 <!--				<run>-->
 <!--&lt;!&ndash;					<include name="CTCP-1285" />&ndash;&gt;-->
 <!--&lt;!&ndash;					<include name="CTCP-1324" />&ndash;&gt;-->
 <!--&lt;!&ndash;					<include name="CTCP-1311" />&ndash;&gt;-->
 <!--&lt;!&ndash;					<include name="CTCP-1318" />&ndash;&gt;-->
-<!--							<include name="CTCP-1321" />-->
-<!--&lt;!&ndash;					<include name="CTCP-1294" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;					<include name="CTCP-1321" />&ndash;&gt;-->
+<!--					<include name="CTCP-1294" />-->
 
 <!--&lt;!&ndash;					<include name="CTCP-1284" />&ndash;&gt;-->
 <!--&lt;!&ndash;	                <include name="CTCP-1286" />&ndash;&gt;-->
@@ -281,15 +282,16 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Corporates.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--&lt;!&ndash;						<include name="CTCP-567" />&ndash;&gt;-->
 <!--&lt;!&ndash;						<include name="CTCP-573" />&ndash;&gt;-->
 <!--&lt;!&ndash;						<include name="CTCP-575" />&ndash;&gt;-->
 <!--&lt;!&ndash;						<include name="CTCP-576" />&ndash;&gt;-->
-<!--						<include name="CTCP-2851" />-->
-<!--						<include name="CTCP-2852" />-->
+<!--&lt;!&ndash;						<include name="CTCP-2851" />&ndash;&gt;-->
+<!--&lt;!&ndash;						<include name="CTCP-2852" />&ndash;&gt;-->
+
 <!--&lt;!&ndash;					<include name="CTCP-566" />&ndash;&gt;-->
 <!--&lt;!&ndash;	                <include name="CTCP-568" />&ndash;&gt;-->
 <!--&lt;!&ndash;	                <include name="CTCP-574" />&ndash;&gt;-->
@@ -330,17 +332,17 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
-<!--				<include name="CTCP-1365" />-->
-<!--				<include name="CTCP-1366" />-->
-<!--				<include name="CTCP-1377" />-->
-<!--				<include name="CTCP-1382" />-->
-<!--				<include name="CTCP-1383" />-->
-<!--				<include name="CTCP-1384" />-->
-<!--				<include name="CTCP-1380" />-->
-<!--				<include name="CTCP-1381" />-->
+<!--&lt;!&ndash;				<include name="CTCP-1365" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1366" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1377" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1382" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1383" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1384" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1380" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-1381" />&ndash;&gt;-->
 
 <!--&lt;!&ndash;					<include name="CTCP-1363" />&ndash;&gt;-->
 <!--&lt;!&ndash;	                <include name="CTCP-1373" />&ndash;&gt;-->
@@ -359,16 +361,16 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_stg" />-->
+<!--			<parameter name="env.resources" value="resources/env_dev" />-->
 <!--			<groups>-->
 <!--				<run>-->
 
-<!--					<include name="CTCP-1443" />-->
-<!--					<include name="CTCP-1426"/>-->
-<!--					<include name="CTCP-1444" />-->
-<!--					<include name="CTCP-1429"/>-->
-<!--					<include name="CTCP-1442"/>-->
-<!--					<include name="CTCP-1439"/>-->
+<!--&lt;!&ndash;					<include name="CTCP-1443" />&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1426"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1444" />&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1429"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1442"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-1439"/>&ndash;&gt;-->
 
 <!--&lt;!&ndash;	               		 <include name="CTCP-1425" />&ndash;&gt;-->
 <!--&lt;!&ndash;	          	         <include name="CTCP-1428" />&ndash;&gt;-->
@@ -389,7 +391,7 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CoverWear.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_stg" />-->
+<!--			<parameter name="env.resources" value="resources/env_dev" />-->
 <!--			<groups>-->
 <!--				<run>-->
 
@@ -415,7 +417,7 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
 <!--				<include name="CTCP-1866" />-->
@@ -441,7 +443,7 @@
 <!--			<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--			<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--			<parameter name="env.resources" value="resources/env_stg" />-->
+<!--			<parameter name="env.resources" value="resources/env_dev" />-->
 <!--			<groups>-->
 <!--				<run>-->
 <!--					<include name="CTCP-1997" />-->
@@ -462,13 +464,13 @@
 <!--	        <parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--	        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--	        <parameter name="step.provider.sharedinstance" value="false" />-->
-<!--	        <parameter name="env.resources" value="resources/env_stg" />-->
+<!--	        <parameter name="env.resources" value="resources/env_dev" />-->
 <!--	        <groups>-->
 <!--	            <run>-->
-<!--					<include name="CTCP-2007" />-->
-<!--					<include name="CTCP-2009" />-->
-<!--					<include name="CTCP-2011"/>-->
-<!--					<include name="CTCP-2015"/>-->
+<!--&lt;!&ndash;					<include name="CTCP-2007" />&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-2009" />&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-2011"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="CTCP-2015"/>&ndash;&gt;-->
 <!--&lt;!&ndash;	                	<include name="CTCP-2005" />&ndash;&gt;-->
 <!--&lt;!&ndash;	                	<include name="CTCP-2008" />&ndash;&gt;-->
 <!--&lt;!&ndash;	               		<include name="CTCP-2010" />&ndash;&gt;-->
@@ -485,11 +487,11 @@
 <!--	        <parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--	        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_Conveyor.feature" />-->
 <!--	        <parameter name="step.provider.sharedinstance" value="false" />-->
-<!--	        <parameter name="env.resources" value="resources/env_stg" />-->
+<!--	        <parameter name="env.resources" value="resources/env_dev" />-->
 <!--	        <groups>-->
 <!--	            <run>-->
 <!--&lt;!&ndash;					<include name="CTCP-1987"/>&ndash;&gt;-->
-<!--&lt;!&ndash;					<include name="CTCP-1970"/>&ndash;&gt;-->
+<!--					<include name="CTCP-1970"/>-->
 <!--&lt;!&ndash;					<include name="CTCP-1986"/>&ndash;&gt;-->
 <!--&lt;!&ndash;					<include name="CTCP-1989"/>&ndash;&gt;-->
 <!--&lt;!&ndash;					<include name="CTCP-1990"/>&ndash;&gt;-->
@@ -594,18 +596,18 @@
 <!--				<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_UserBulkUpload.feature" />-->
 <!--				<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--				<parameter name="env.resources" value="resources/env_stg" />-->
+<!--				<parameter name="env.resources" value="resources/env_dev" />-->
 <!--				<groups>-->
 <!--					<run>-->
-<!--&lt;!&ndash;						<include name="CTCP-108"/>&ndash;&gt;-->
-<!--&lt;!&ndash;						<include name="CTCP-115"/>&ndash;&gt;-->
-<!--&lt;!&ndash;						<include name="CTCP-122"/>&ndash;&gt;-->
-<!--&lt;!&ndash;						<include name="CTCP-117"/>&ndash;&gt;-->
-<!--&lt;!&ndash;						<include name="CTCP-119"/>&ndash;&gt;-->
-<!--&lt;!&ndash;						<include name="CTCP-121"/>&ndash;&gt;-->
-<!--&lt;!&ndash;						<include name="CTCP-125"/>&ndash;&gt;-->
-<!--&lt;!&ndash;						<include name="CTCP-128"/>&ndash;&gt;-->
-<!--&lt;!&ndash;						<include name="CTCP-129"/>&ndash;&gt;-->
+<!--						<include name="CTCP-108"/>-->
+<!--						<include name="CTCP-115"/>-->
+<!--						<include name="CTCP-122"/>-->
+<!--						<include name="CTCP-117"/>-->
+<!--						<include name="CTCP-119"/>-->
+<!--						<include name="CTCP-121"/>-->
+<!--						<include name="CTCP-125"/>-->
+<!--						<include name="CTCP-128"/>-->
+<!--						<include name="CTCP-129"/>-->
 <!--					</run>-->
 <!--				</groups>-->
 <!--				<classes>-->
@@ -618,7 +620,7 @@
 <!--				<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--				<parameter name="scenario.file.loc" value="scenarios/Web/Regression_ConveyorBulkUpload.feature" />-->
 <!--				<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--				<parameter name="env.resources" value="resources/env_stg" />-->
+<!--				<parameter name="env.resources" value="resources/env_dev" />-->
 <!--				<groups>-->
 <!--					<run>-->
 <!--&lt;!&ndash;						<include name="CTCP-155"/>&ndash;&gt;-->
@@ -667,22 +669,32 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_MonitoringDevice.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
-<!--&lt;!&ndash;				<include name="CTCP-388"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="CTCP-390"/>&ndash;&gt;-->
+<!--				<include name="CTCP-388"/>-->
+<!--				<include name="CTCP-390"/>-->
 <!--&lt;!&ndash;				<include name="CTCP-392"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="CTCP-398"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="CTCP-406"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="CTCP-3676"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="CTCP-479"/>&ndash;&gt;-->
+<!--				<include name="CTCP-398"/>-->
+<!--				<include name="CTCP-406"/>-->
+<!--				<include name="CTCP-3676"/>-->
 <!--&lt;!&ndash;				<include name="CTCP-497"/>&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="CTCP-2809"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="CTCP-2808"/>&ndash;&gt;-->
+<!--				<include name="CTCP-2808"/>-->
 <!--&lt;!&ndash;				<include name="CTCP-413" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="CTCP-521" />&ndash;&gt;-->
 <!--&lt;!&ndash;				<include name="CTCP-551" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-4058" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-4060" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-4061" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-3628" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-4033" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-4034" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-2814" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="CTCP-2791" />&ndash;&gt;-->
+<!--				<include name="CTCP-470" />-->
+<!--				<include name="CTCP-472" />-->
+<!--&lt;!&ndash;				<include name="CTCP-3979" />&ndash;&gt;-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
@@ -690,14 +702,14 @@
 <!--		</classes>-->
 <!--	</test>-->
 
-	<test name="Cord Inspect testcases" enabled="true">
-		<parameter name="step.provider.pkg" value="com.web.steps" />
-		<parameter name="step.provider.pkg" value="com.web.steps" />
-		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CordInspect.feature" />
-		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_dev" />
-		<groups>
-			<run>
+<!--	<test name="Cord Inspect testcases" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_CordInspect.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<groups>-->
+<!--			<run>-->
 <!--				<include name="CTCP-3513"/>-->
 <!--				<include name="CTCP-3516"/>-->
 <!--				<include name="CTCP-3525"/>-->
@@ -709,19 +721,266 @@
 
 <!--				<include name="CTCP-3537"/>-->
 <!--				<include name="CTCP-3535"/>-->
+<!--				<include name="CTCP-3597"/>-->
+<!--				<include name="CTCP-3604"/>-->
 
 <!--				<include name="CTCP-3988"/>-->
 <!--				<include name="CTCP-3992"/>-->
 <!--				<include name="CTCP-3993"/>-->
 <!--				<include name="CTCP-3560"/>-->
+<!--				<include name="CTCP-3600"/>-->
+
 
 <!--				<include name="CTCP-4055"/>-->
 <!--				<include name="CTCP-3561"/>-->
 <!--				<include name="CTCP-3562"/>-->
 <!--				<include name="CTCP-3563"/>-->
 <!--				<include name="CTCP-3564"/>-->
-<!--				<include name="CTCP-3600"/>-->
 
+
+<!--				<include name="CTCP-36011"/>-->
+
+<!--				<include name="CTCP-3682"/>-->
+
+<!--				<include name="CTCP-3683"/>-->
+<!--				<include name="CTCP-3591"/>-->
+<!--				<include name="CTCP-3686"/>-->
+<!--				<include name="CTCP-3991"/>-->
+
+
+
+
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+
+<!--	<test name="Regression High Priority testcases" enabled="true">&ndash;&gt;-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_HP_Master.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--&lt;!&ndash;			<include name="RegressionHp1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp2"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp3"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp5"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp7"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp8"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp9"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp10"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp11"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp12"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp13"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp14"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp15"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp16"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp18"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp19"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp20"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp22"/>&ndash;&gt;-->
+<!--			<include name="RegressionHp39"/>-->
+<!--&lt;!&ndash;			<include name="RegressionHp40"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp41"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp42"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp43"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp44"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp45"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp47"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp52"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp53"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp54"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp55"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp57"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp58"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp59"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp60"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp61"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp62"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp63"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp64"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp65"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp66"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp67"/>&ndash;&gt;-->
+
+
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+
+<!--<test name="Regression High Priority testcases" enabled="true">&ndash;&gt;-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_HP_MarketManager.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--&lt;!&ndash;			<include name="RegressionHp1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp2"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp3"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp5"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp7"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp8"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp9"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp10"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp11"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp12"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp13"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp14"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp15"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp19"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp20"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp22"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp39"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp40"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp41"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp42"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp43"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp44"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp45"/>&ndash;&gt;-->
+<!--			<include name="RegressionHp47"/>-->
+<!--&lt;!&ndash;							<include name="RegressionHp52"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp53"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp54"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp55"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp57"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp58"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp59"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp60"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp61"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp62"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp63"/>&ndash;&gt;-->
+<!--&lt;!&ndash;							<include name="RegressionHp64"/>&ndash;&gt;-->
+<!--				&lt;!&ndash;			<include name="RegressionHp65"/>&ndash;&gt;-->
+<!--				&lt;!&ndash;			<include name="RegressionHp66"/>&ndash;&gt;-->
+<!--				&lt;!&ndash;			<include name="RegressionHp67"/>&ndash;&gt;-->
+
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+
+<!--	<test name="Regression High Priority testcases" enabled="true">&ndash;&gt;-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_HP_Distributor.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_stg" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--&lt;!&ndash;			<include name="RegressionHp1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp2"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp3"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp5"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp7"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp8"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp9"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp10"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp11"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp12"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp13"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp14"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp15"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp19"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp20"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			<include name="RegressionHp22"/>&ndash;&gt;-->
+<!--					<include name="RegressionHp39"/>-->
+<!--&lt;!&ndash;					<include name="RegressionHp40"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="RegressionHp41"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="RegressionHp42"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="RegressionHp43"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="RegressionHp44"/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<include name="RegressionHp45"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<include name="RegressionHp46&ndash;&gt;-->
+<!--&lt;!&ndash;   			<include name="RegressionHp52"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp53"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp54"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp55"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp57"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp58"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp59"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp60"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp61"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp62"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="RegressionHp63"/>&ndash;&gt;-->
+<!--			&lt;!&ndash;				<include name="RegressionHp64"/>&ndash;&gt;-->
+<!--				&lt;!&ndash;			<include name="RegressionHp65"/>&ndash;&gt;-->
+<!--				&lt;!&ndash;			<include name="RegressionHp66"/>&ndash;&gt;-->
+<!--				&lt;!&ndash;			<include name="RegressionHp67"/>&ndash;&gt;-->
+
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+
+	<test name="Regression High Priority testcases" enabled="true">-->
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_HP_Customer.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<parameter name="env.resources" value="resources/env_stg" />
+		<groups>
+			<run>
+<!--			<include name="RegressionHp1"/>-->
+<!--			<include name="RegressionHp2"/>-->
+<!--			<include name="RegressionHp3"/>-->
+<!--			<include name="RegressionHp4"/>-->
+<!--			<include name="RegressionHp5"/>-->
+<!--			<include name="RegressionHp6"/>-->
+<!--			<include name="RegressionHp7"/>-->
+<!--			<include name="RegressionHp8"/>-->
+<!--			<include name="RegressionHp9"/>-->
+<!--			<include name="RegressionHp10"/>-->
+<!--			<include name="RegressionHp11"/>-->
+<!--			<include name="RegressionHp12"/>-->
+<!--			<include name="RegressionHp13"/>-->
+<!--			<include name="RegressionHp14"/>-->
+<!--			<include name="RegressionHp15"/>-->
+<!--			<include name="RegressionHp17"/>-->
+<!--			<include name="RegressionHp19"/>-->
+<!--			<include name="RegressionHp20"/>-->
+<!--			<include name="RegressionHp22"/>-->
+					<include name="RegressionHp39"/>
+<!--					<include name="RegressionHp40"/>-->
+<!--					<include name="RegressionHp41"/>-->
+<!--					<include name="RegressionHp42"/>-->
+<!--					<include name="RegressionHp43"/>-->
+<!--					<include name="RegressionHp44"/>-->
+<!--					<include name="RegressionHp45"/>-->
+<!--				<include name="RegressionHp47"/>-->
+    <!--								<include name="RegressionHp52"/>-->
+<!--								<include name="RegressionHp53"/>-->
+<!--								<include name="RegressionHp54"/>-->
+<!--								<include name="RegressionHp55"/>-->
+<!--								<include name="RegressionHp57"/>-->
+<!--								<include name="RegressionHp58"/>-->
+<!--								<include name="RegressionHp59"/>-->
+<!--								<include name="RegressionHp60"/>-->
+<!--								<include name="RegressionHp61"/>-->
+<!--								<include name="RegressionHp62"/>-->
+<!--								<include name="RegressionHp63"/>-->
+<!--											<include name="RegressionHp64"/>-->
+								<!--			<include name="RegressionHp65"/>-->
+								<!--			<include name="RegressionHp66"/>-->
+								<!--			<include name="RegressionHp67"/>-->
 
 
 			</run>

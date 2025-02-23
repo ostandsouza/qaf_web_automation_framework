@@ -1,12 +1,12 @@
 [
   {
-    "UserName": "contiplus_admin@maildrop.cc",
+    "UserName": "marketsmanager2023@gmail.com",
     "Password": "Abc@123456",
     "Market": "APAC",
     "SpliceKit": "Bayswater",
     "CustomerName": "AB1 Automation Site",
     "ConveyorName": "BY1 Automation Conveyor",
-    "ApproverName": "VSMaster",
+    "ApproverName": "Conti Plus",
     "BeltRating": "ST 5000",
     "BeltWidth": "1500",
     "TopCoverCompound": "Monster Hide Plus",
@@ -50,13 +50,7 @@
     "ApprovedStatus":"Approved",
     "Comments": "For review",
     "ApproveComments": "Approved Review",
-    "ApproverUserName": "Marketmaster@yopmail.com",
+    "ApproverUserName": "contiplus_admin@maildrop.cc",
     "ApproverPassword": "Abc@123456"
-
-
-
-
-
-
-  }
+    }
 ]

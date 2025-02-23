@@ -86,7 +86,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//span[text()='Permissions']")
 	public CustomElement btPermission;
 
-	@FindBy(locator = "xpath=//span[text()='Assign']")
+	@FindBy(locator = "xpath=//span[contains(text(),'Assign')]")
 	public CustomElement btAssign;
 
 	@FindBy(locator = "xpath=//span[text()='Next']")
@@ -164,7 +164,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//div[text()=' BASIC ']")
 	public CustomElement eleBasics;
 	
-	@FindBy(locator="xpath=//tr[@class='p-selectable-row ng-star-inserted']//td//p-tablecheckbox")
+	@FindBy(locator="xpath=//td//p-tablecheckbox")
 	public CustomElement cbTablecheckbox;
 	
 	@FindBy(locator="xpath=//button[@class='p-element p-splitbutton-menubutton p-button p-component p-button-icon-only']")
@@ -340,10 +340,10 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="//div[@class='p-breadcrumb p-component']")
 	public CustomElement bcAddUserLink;
 
-	@FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
+	@FindBy(locator="xpath=//div[@class='conti-avatar-section']//img[contains(@class,'avatar-section-img default-image')]")
 	public CustomElement userDefaultImage;
 
-	@FindBy(locator="//img[@src=\"/assets/img/upload_default.png\"]")
+	@FindBy(locator="xpath=//img[@src='/assets/img/upload_default.png']")
 	public CustomElement addDefaultImgSrc;
 
 	@FindBy(locator="//div[@class='icon']//img")
@@ -799,8 +799,8 @@ public class UsersPage extends BasePage{
 	
     public void clickOnLogout() {
     
-    	btprofile.click();
-    	btlogout.click();
+    	btprofile.jsClick();
+    	btlogout.jsClick();
     	
     }
 
@@ -891,7 +891,7 @@ public class UsersPage extends BasePage{
 
 	public void clickOnNextBtn() {
 		waitForElementVisible(btNext,10000,1000);
-		btNext.click();
+		btNext.jsClick();
 	}
 
 	public void clickOnUpdateBtn() {

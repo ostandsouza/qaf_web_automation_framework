@@ -1451,5 +1451,10 @@ public class InspectionPage extends BasePage {
 //		Validator.assertTrue(statusCardGoodCount.getText().contains(good),"Good Count doesn't match","Good Count match");
 
 	}
+	public void validateInspectionCountWrtPagination(){
+		int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+		Validator.assertTrue(apiBase.getInspectionCount().get("count").equals(deviceCount),"Inspection Pagination Count does not match","Inspection Pagination Count matches");
+		Validator.assertTrue(Integer.toString(deviceCount).equals(txtInspCount.getText()),"Inspection Card Count does not match","Inspection Card Count matches");
+	}
 
 }

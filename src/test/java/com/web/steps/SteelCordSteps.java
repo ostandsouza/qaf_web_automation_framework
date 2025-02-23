@@ -78,8 +78,8 @@ public class SteelCordSteps extends BasePage {
 		steelpage.btnReviewClick();
 	}
 	@QAFTestStep(description = "Click on view icon")
-	public void clickOnTheViewBtn() {
-		steelpage.clickViewBtn();
+	public void clickOnTheViewIcon() {
+		steelpage.clickViewIcon();
 	}
 	@QAFTestStep(description = "Click on Comments Log tab and add approve comments {ApproveComments} and approve")
 	public void verifyTheApproveCommentsLogFun(String comments) {

@@ -256,4 +256,23 @@ public class MiscUtils {
         String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d, yyyy"));
         return formattedDate;
     }
+    public static String getDownloadedFileName(String regexName){
+        SyncUtil.waitFor(4000);
+        File folder = new File(System.getProperty("user.dir")+separator+"target"+separator+"downloads");  //List the files on that folder
+        File[] listOfFiles = folder.listFiles();
+        String name = "";
+        //Look for the file in the files
+        // You should write smart REGEX according to the filename
+
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                String fileName = listOfFile.getName();
+                System.out.println("File " + listOfFile.getName());
+                if (fileName.matches(regexName)) {
+                    name = fileName;
+                }
+            }
+        }
+        return name;
+    }
 }

@@ -296,4 +296,13 @@ public class MinutemanSteps {
         minutemanPage.verifyTransitionLength(transitionsPageData,minutemanPage.getTransitionLength());
         minutemanPage.verifyVerticalCurve(calculatedVerticalCurvesDataInCurvesPage,minutemanPage.getVerticalCurves());
     }
+    @QAFTestStep(description = "Navigate to minuteman list screen and wait to load data")
+    public void verifyTheMinutemanListNavAndWait() {
+        minutemanPage.gotoMinutemanScreenWait();
+    }
+    @QAFTestStep(description = "Verify the minuteman count with respect to pagination")
+    public void validateTheMinutemanCountWrtPagination()
+    {
+        minutemanPage.validateMinutemanCountWrtPagination();
+    }
 }

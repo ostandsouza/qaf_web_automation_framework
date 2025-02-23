@@ -74,6 +74,7 @@ public class InspectionSteps {
 		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
 		inspectionpage.searchInspection(inspectionName);
 		inspectionpage.downloadPDF();
+		SyncUtil.waitFor(5000);
 		System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd")+"-"+custSIteName+"-Multiple-"+conveyorName+".pdf");
 		System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+conveyorName+".pdf");
 		Validator.assertTrue(MiscUtils.checkDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+inspectionName+".pdf"),"PDF report was not found","PDF report was downloaded successfully");
@@ -547,6 +548,16 @@ public class InspectionSteps {
 	public void clickTheClickFilter() {
 		inspectionpage.clickClickFilter();
 	}
+	@QAFTestStep(description = "Navigate to inspection list screen and wait to load data")
+	public void verifyInspectionListNavAndWait() {
+		inspectionpage.goToInspectionScreenAndWait();
+	}
+	@QAFTestStep(description = "Verify the inspection count with respect to pagination")
+	public void validateTheInspectionCountWrtPagination()
+	{
+		inspectionpage.validateInspectionCountWrtPagination();
+	}
+
 }
 
 

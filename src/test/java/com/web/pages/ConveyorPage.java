@@ -32,6 +32,10 @@ import static org.testng.Assert.assertNotEquals;
 
 public class ConveyorPage extends BasePage{
 
+    CoverWearPage coverWearPage = new CoverWearPage();
+    UsersPage userPage=new UsersPage();
+    CordInspectPage cordInspectPage = new CordInspectPage();
+    InspectionPage inspectionpage = new InspectionPage();
     @FindBy(locator = "xpath=//span[text()='Add Conveyor']")
     public CustomElement addConveyors;
 
@@ -137,29 +141,48 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//div[text()='Technical Data']/..//div[contains(@class,'text-area')]/span)[1]")
     public CustomElement crTechnicalDataCard;
 
-    @FindBy(locator = "xpath=//span[text()=' Conveyor-Lite']")
+//    @FindBy(locator = "xpath=//span[text()=' Conveyor-Lite']")
+//    public CustomElement crConveyorLiteTab;
+
+    @FindBy(locator = "xpath=//a//span[contains(text(),'Conveyor-Lite')]")
     public CustomElement crConveyorLiteTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Installed Belt']")
+//    @FindBy(locator = "xpath=//span[text()=' Installed Belt']")
+//    public CustomElement crInstalledBeltTab;
+    @FindBy(locator = "xpath=//a//span[contains(text(),'Installed Belt')]")
     public CustomElement crInstalledBeltTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Material']")
+//    @FindBy(locator = "xpath=//span[text()=' Material']")
+//    public CustomElement crMaterialTab;
+
+    @FindBy(locator = "xpath=//a//span[contains(text(),'Material')]")
     public CustomElement crMaterialTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Conveyor']")
+//    @FindBy(locator = "xpath=//span[text()=' Conveyor']")
+//    public CustomElement crConveyorTab;
+    @FindBy(locator = "xpath=//a//span[text()='Conveyor']")
     public CustomElement crConveyorTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Wear Life']")
+    @FindBy(locator = "xpath=//li[@id='5']//a//span[contains(text(),'Conveyor')]")
+    public CustomElement crAddConveyorTab;
+
+//    @FindBy(locator = "xpath=//span[text()=' Wear Life']")
+//    public CustomElement crWearLifeTab;
+    @FindBy(locator = "xpath=//a//span[contains(text(),'Wear Life')]")
     public CustomElement crWearLifeTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Idlers']")
+//    @FindBy(locator = "xpath=//span[text()=' Idlers']")
+//    public CustomElement crIdlersTab;
+    @FindBy(locator = "xpath=//a//span[contains(text(),'Idlers')]")
     public CustomElement crIdlersTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Pulleys']")
+//    @FindBy(locator = "xpath=//span[text()=' Pulleys']")
+//    public CustomElement crPulleysTab;
+    @FindBy(locator = "xpath=//span[contains(text(),'Pulleys')]")
     public CustomElement crPulleysTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Transition Zone']")
-    public CustomElement crTransitionZoneTab;
+//    @FindBy(locator = "xpath=//span[text()=' Transition Zone']")
+//    public CustomElement crTransitionZoneTab;
 
     @FindBy(locator = "xpath=//span[contains(text(),'Remarks')]")
     public CustomElement crRemarksTab;
@@ -173,8 +196,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Tons per Hour Peak']/..//input")
     public CustomElement crTonsPerHr;
 
-    @FindBy(locator = "xpath=(//label[text()='Pick Material Name ']/..//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Pick Material Name ']/..//input")
     public CustomElement crMaterialName;
+    @FindBy(locator = "xpath=//label[text()='Pick Material Name ']/..//div[@role]")
+    public CustomElement drMaterialName;
 
     @FindBy(locator = "xpath=//label[text()='Material Density ']/..//input")
     public CustomElement crMaterialDensity;
@@ -187,6 +212,9 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator = "xpath=(//label[text()='Drive Wrap Angle ']/..//input)[2]")
     public CustomElement crDriveWrapAngle;
+
+    @FindBy(locator = "xpath=//label[text()='Drive Wrap Angle ']/..//div[@role]")
+    public CustomElement drDriveWrapAngle;
 
     @FindBy(locator = "xpath=//label[text()='Take-up Tension (if known) ']/..//input")
     public CustomElement crTakeUpTension;
@@ -206,14 +234,29 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[text()='Surcharge Angle ']/..//input)[2]")
     public CustomElement crSurchargeFactor;
 
+    @FindBy(locator = "xpath=//label[text()='Surcharge Angle ']/..//div[@role]")
+    public CustomElement drSurchargeFactor;
+
     @FindBy(locator = "xpath=(//label[text()='Idler Offset Type ']/..//input)[2]")
     public CustomElement crIdleOffsetType;
+
+    @FindBy(locator = "xpath=//label[text()='Idler Offset Type ']/..//div[@role]")
+    public CustomElement drIdleOffsetType;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Drive Details')]/..//input")
     public CustomElement crDriveDetails;
 
+    @FindBy(locator = "xpath=//label[contains(text(),'Drive Details')]/..//div[@role]")
+    public CustomElement drDriveDetails;
+
     @FindBy(locator = "xpath=//label[contains(text(),'Take-up Details')]/..//input")
     public CustomElement crTakeupDetails;
+    @FindBy(locator = "xpath=//label[contains(text(),'Take-up Details')]/..//div[@role]")
+    public CustomElement drTakeupDetails;
+    @FindBy(locator = "xpath=//p-checkbox")
+    public CustomElement cbStation;
+    @FindBy(locator = "xpath=//p-radiobutton[@formcontrolname='drive']")
+    public CustomElement rbDrive;
 
     @FindBy(locator = "xpath=(//label[contains(text(),'Configuration')]/..//input)[1]")
     public CustomElement crMonolithConfig;
@@ -221,20 +264,31 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Configuration')]/..//input)[2]")
     public CustomElement crMixedConfig;
 
-    @FindBy(locator = "xpath=(//label[contains(text(),'Belt Manufacturer')]/..//input)[2]")
+    @FindBy(locator = "xpath=(//label[contains(text(),'Belt Manufacturer')]/..//input)[1]")
     public CustomElement crBeltConfig;
+    @FindBy(locator = "xpath=//label[contains(text(),'Belt Manufacturer')]/..//div[@role]")
+    public CustomElement drBeltConfig;
 
     @FindBy(locator = "xpath=//label[text()='Belt Construction']/..//input")
     public CustomElement crBeltConstruction;
+    @FindBy(locator = "xpath=//label[text()='Belt Construction']/..//div[@role]")
+    public CustomElement drBeltConstruction;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Top Cover Compound')]/..//input")
     public CustomElement crTopCompound;
-
+    @FindBy(locator = "xpath=//label[contains(text(),'Top Cover Compound')]/..//div[@role]")
+    public CustomElement drTopCompound;
     @FindBy(locator = "xpath=//label[contains(text(),'Bottom Cover Compound')]/..//input")
     public CustomElement crBottomCompound;
+    @FindBy(locator = "xpath=//label[contains(text(),'Bottom Cover Compound')]/..//div[@role]")
+    public CustomElement drBottomCompound;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Carcass')]/..//input")
     public CustomElement crCarcass;
+    @FindBy(locator = "xpath=//label[contains(text(),'Carcass')]/..//div[@role]")
+    public CustomElement drCarcass;
+    @FindBy(locator = "xpath=//label[contains(text(),'Number of Plies')]/..//input")
+    public CustomElement crNumberOfPlies;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Width')]/..//input")
     public CustomElement crWidth;
@@ -245,8 +299,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//input[@value='BreakingStrength']")
     public CustomElement crBreakingStrengthRadio;
 
-    @FindBy(locator = "xpath=//label[contains(text(),'Breaking Strength')]/..//input")
+    @FindBy(locator = "xpath=(//label[contains(text(),'Breaking Strength')]/..//input)[2]")
     public CustomElement crBreakingStrength;
+    @FindBy(locator = "xpath=(//label[contains(text(),'Rating')]/..//input)[2]")
+    public CustomElement crBreakingStrengthRating;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Top Cover Thickness')]/..//input")
     public CustomElement crTopCoverThickness;
@@ -254,14 +310,16 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//label[contains(text(),'Bottom Cover Thickness')]/..//input")
     public CustomElement crBottomCoverThickness;
 
-    @FindBy(locator = "xpath=//label[contains(text(),'Length')]/..//input")
+    @FindBy(locator = "xpath=//label[text()='Length']/..//input")
     public CustomElement crLength;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Splice / Type')]/..//input")
     public CustomElement crSplice;
+    @FindBy(locator = "xpath=//label[contains(text(),'Splice / Type')]/..//div[@role]")
+    public CustomElement drSplice;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Splices Quantity')]/..//input")
-    public CustomElement crSpliceQuality;
+    public CustomElement crSpliceQuantity;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Installation Date')]/..//input")
     public CustomElement crInstallationDate;
@@ -278,34 +336,34 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//label[contains(text(),'Lump Size')]/..//input")
     public CustomElement crLumpSize;
 
-    @FindBy(locator = "xpath=//label[contains(text(),'Granular Size')]/..//input")
+    @FindBy(locator = "xpath=//label[contains(text(),'Granular Size')]/..//div[@role]")
     public CustomElement crGranularSize;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Contingent of Fines')]/..//input")
     public CustomElement crContingentOfFines;
 
-    @FindBy(locator = "xpath=//label[contains(text(),'Aggresivity')]/..//input")
+    @FindBy(locator = "xpath=//label[contains(text(),'Aggresivity')]/..//div[@role]")
     public CustomElement crAggresivity;
 
-    @FindBy(locator = "xpath=//label[contains(text(),'Density Type')]/..//input")
+    @FindBy(locator = "xpath=//label[contains(text(),'Density Type')]/..//div[@role]")
     public CustomElement crDensityType;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Chute Drop')]/..//input")
     public CustomElement crChuteDrop;
 
-    @FindBy(locator = "xpath=//label[contains(text(),'Loading Frequecy')]/..//input")
+    @FindBy(locator = "xpath=//label[contains(text(),'Loading Frequecy')]/..//div[@role]")
     public CustomElement crLoadingFrequency;
 
-    @FindBy(locator = "xpath=//label[contains(text(),'Loading Conditions')]/..//input")
+    @FindBy(locator = "xpath=//label[contains(text(),'Loading Conditions')]/..//div[@role]")
     public CustomElement crLoadingConditions;
 
     @FindBy(locator = "xpath=//label[text()='Temperature']/..//input")
     public CustomElement crTemperature;
 
-    @FindBy(locator = "xpath=//label[text()='Feeding Conditions']/..//input")
+    @FindBy(locator = "xpath=//label[text()='Feeding Conditions']/..//div[@role]")
     public CustomElement crFeedingConditions;
 
-    @FindBy(locator = "xpath=//label[text()='Presence of Oil']/..//input")
+    @FindBy(locator = "xpath=//label[text()='Presence of Oil']/..//div[@role]")
     public CustomElement crPresenceOfOil;
 
     @FindBy(locator = "xpath=(//label[text()='Conveying Length']/..//input)[1]")
@@ -317,8 +375,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[contains(text(),'Drive Power')]/..//input)[1]")
     public CustomElement crDrivePower;
 
+    @FindBy(locator = "xpath=(//label[contains(text(),'Gear Ratio')]/..//input)[1]")
+    public CustomElement crGearRatioFirst;
     @FindBy(locator = "xpath=(//label[contains(text(),'Gear Ratio')]/..//input)[2]")
-    public CustomElement crGearRatio;
+    public CustomElement crGearRatioSecond;
 
     @FindBy(locator = "xpath=(//label[contains(text(),'Drive Frequency')]/..//input)[1]")
     public CustomElement crDriveFrequency;
@@ -335,11 +395,13 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[text()='Percent Load']/..//input)[2]")
     public CustomElement crPercentLoad;
 
-    @FindBy(locator = "xpath=(//label[text()='Minimum Temperature']/..//input)[2]")
+    @FindBy(locator = "xpath=//input[@formcontrolname='minimumTemperature']")
     public CustomElement crMinimumTemperature;
 
     @FindBy(locator = "xpath=(//label[text()='Maximum Temperature']/..//input)[2]")
     public CustomElement crMaximumTemperature;
+    @FindBy(locator = "xpath=//label[text()='Stage']/..//div[@role]")
+    public CustomElement crStage;
 
     @FindBy(locator = "xpath=//label[text()='Take-up type']/..//p-dropdown")
     public CustomElement crTakeupType;
@@ -356,7 +418,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Manufacturer']/..//input")
     public CustomElement crManufacturer;
 
-    @FindBy(locator = "xpath=(//label[text()='Belt Turnover']/..//input)[1]")
+    @FindBy(locator = "xpath=//label[text()='Belt Turnover']/..//div[@role]")
     public CustomElement crBeltTurnover;
 
     @FindBy(locator = "xpath=(//label[text()='Pipe Belt']/following-sibling::div//input)[1]")
@@ -418,6 +480,8 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator = "xpath=(//label[text()='Idler Offset']/..//input)[1]")
     public CustomElement crIdlerOffset;
+    @FindBy(locator = "xpath=//label[text()='Idler Offset']/..//div[@role]")
+    public CustomElement drIdlerOffset;
 
     @FindBy(locator = "xpath=//label[text()='Number of Transition Idlers']/..//input")
     public CustomElement crNoOfTransitionIdlers;
@@ -430,21 +494,29 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator = "xpath=//label[text()='Drive Pulley']/..//p-dropdown")
     public CustomElement crDrivePulley;
+    @FindBy(locator = "xpath=//label[text()='Drive Pulley']/..//div[@role]")
+    public CustomElement drDrivePulley;
 
     @FindBy(locator = "xpath=//label[text()='Brake Device']/..//p-dropdown")
     public CustomElement crBrakeDevice;
+    @FindBy(locator = "xpath=//label[text()='Brake Device']/..//div[@role]")
+    public CustomElement drBrakeDevice;
 
     @FindBy(locator = "xpath=(//label[text()='Diameter']/..//input)[2]")
     public CustomElement crHeadPulleyDiameter;
 
-    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[3]")
+    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[1]")
     public CustomElement crHeadPulleyWidth;
 
     @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//p-dropdown)[1]")
     public CustomElement crHeadPulleyAngleOfWrap;
+    @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//div[@role])[1]")
+    public CustomElement drHeadPulleyAngleOfWrap;
 
     @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//p-dropdown)[1]")
     public CustomElement crHeadPulleyLaggingType;
+    @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//div[@role])[1]")
+    public CustomElement drHeadPulleyLaggingType;
 
     @FindBy(locator = "xpath=(//label[text()='Lagging Thickness']/..//input)[1]")
     public CustomElement crHeadPulleyLaggingThickness;
@@ -452,17 +524,96 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//label[text()='Diameter']/..//input)[4]")
     public CustomElement crTailPulleyDiameter;
 
-    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[4]")
+    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[2]")
     public CustomElement crTailPulleyWidth;
 
     @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//p-dropdown)[2]")
     public CustomElement crTailPulleyAngleOfWrap;
 
+    @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//div[@role])[2]")
+    public CustomElement drTailPulleyAngleOfWrap;
+
     @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//p-dropdown)[2]")
     public CustomElement crTailPulleyLaggingType;
+    @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//div[@role])[2]")
+    public CustomElement drTailPulleyLaggingType;
 
     @FindBy(locator = "xpath=(//label[text()='Lagging Thickness']/..//input)[2]")
     public CustomElement crTailPulleyLaggingThickness;
+
+    @FindBy(locator = "xpath=(//label[text()='Diameter']/..//input)[6]")
+    public CustomElement crTakeUpPulleyDiameter;
+
+    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[3]")
+    public CustomElement crTakeUpPulleyWidth;
+
+    @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//div[@role])[3]")
+    public CustomElement drTakeUpAngleOfWrap;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//div[@role])[3]")
+    public CustomElement drTakeUpLaggingType;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Thickness']/..//input)[3]")
+    public CustomElement crTakeUpLaggingThickness;
+
+    @FindBy(locator = "xpath=(//label[text()='Diameter']/..//input)[8]")
+    public CustomElement crBendPulley1PulleyDiameter;
+
+    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[4]")
+    public CustomElement crBendPulley1PulleyWidth;
+
+    @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//div[@role])[4]")
+    public CustomElement drBendPulley1AngleOfWrap;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//div[@role])[4]")
+    public CustomElement drBendPulley1LaggingType;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Thickness']/..//input)[4]")
+    public CustomElement crBendPulley1LaggingThickness;
+
+    @FindBy(locator = "xpath=(//label[text()='Diameter']/..//input)[10]")
+    public CustomElement crBendPulley2PulleyDiameter;
+
+    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[5]")
+    public CustomElement crBendPulley2PulleyWidth;
+
+    @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//div[@role])[5]")
+    public CustomElement drBendPulley2AngleOfWrap;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//div[@role])[5]")
+    public CustomElement drBendPulley2LaggingType;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Thickness']/..//input)[5]")
+    public CustomElement crBendPulley2LaggingThickness;
+
+    @FindBy(locator = "xpath=(//label[text()='Diameter']/..//input)[12]")
+    public CustomElement crAdditionPulley1PulleyDiameter;
+
+    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[6]")
+    public CustomElement crAdditionPulley1PulleyWidth;
+
+    @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//div[@role])[6]")
+    public CustomElement drAdditionPulley1AngleOfWrap;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//div[@role])[6]")
+    public CustomElement drAdditionPulley1LaggingType;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Thickness']/..//input)[6]")
+    public CustomElement crAdditionPulley1LaggingThickness;
+    @FindBy(locator = "xpath=(//label[text()='Diameter']/..//input)[14]")
+    public CustomElement crAdditionPulley2PulleyDiameter;
+
+    @FindBy(locator = "xpath=(//label[text()='Width']/..//input)[7]")
+    public CustomElement crAdditionPulley2PulleyWidth;
+
+    @FindBy(locator = "xpath=(//label[text()='Angle of Wrap']/..//div[@role])[7]")
+    public CustomElement drAdditionPulley2AngleOfWrap;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Type']/..//div[@role])[7]")
+    public CustomElement drAdditionPulley2LaggingType;
+
+    @FindBy(locator = "xpath=(//label[text()='Lagging Thickness']/..//input)[7]")
+    public CustomElement crAdditionPulley2LaggingThickness;
 
     @FindBy(locator = "xpath=//label[text()='Flat-to-trough Transition Length']/..//input")
     public CustomElement crHeadTransitionLength;
@@ -505,6 +656,8 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator = "xpath=//div[text()='Additional Remarks']/following-sibling::textarea")
     public CustomElement crAdditionalRemarks;
+    @FindBy(locator = "xpath=(//a[contains(text(),'.pdf')])[1]")
+    public CustomElement crRefrenceDocument;
 
     @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
     public CustomElement pagination;
@@ -628,7 +781,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Table Layout Settings']")
     public CustomElement tableLayoutHeader;
 
-    @FindBy(locator = "xpath=//div[text()=' Default Layout ']/p-radiobutton")
+    @FindBy(locator = "xpath=//div[text()=' Default Layout ']/p-radiobutton//input")
     public CustomElement defaultLayout;
 
     @FindBy(locator = "xpath=//button[text()='Save Set Preference']")
@@ -696,8 +849,6 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//div[contains(@class,'p-multiselect-panel')]")
     public CustomElement filterDropdowPopup;
 
-
-
     @FindBy(locator = "xpath=//div[text()='Layout created successfully']")
     public CustomElement layoutSuccessMsg;
 
@@ -755,7 +906,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()=' Details']")
     public CustomElement crDetailsTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Transitions']")
+//    @FindBy(locator = "xpath=//span[text()=' Transitions']")
+//    public CustomElement crTransitionTab;
+
+    @FindBy(locator = "xpath=//span[contains(text(),'Transition')]")
     public CustomElement crTransitionTab;
 
     @FindBy(locator = "xpath=//span[text()='Cancel']")
@@ -1003,7 +1157,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//button[text()='Back']")
     public CustomElement btnBack;
 
-    @FindBy(locator="xpath=//div[text()=' Automation Regression Layout ']//p-radiobutton")
+    @FindBy(locator="xpath=//div[text()=' Automation Default Regression Layout ']//p-radiobutton")
     public CustomElement rdBtnCommonLayout;
 
     @FindBy(locator="xpath=//button[text()='Save Set Preference']")
@@ -1135,11 +1289,13 @@ public class ConveyorPage extends BasePage{
     public CustomElement btnCollapse;
     @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//i[@class='ctp-icon-Open-Inspections-Items']")
     public CustomElement inspNotification;
-    @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[1]")
+    @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//i[@class='ctp-icon-cord-inspect-main-icon']")
+    public CustomElement beltScanNotification;
+    @FindBy(locator = "xpath=((//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[1])[2]")
     public CustomElement notificationSiteName;
-    @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[2]")
+    @FindBy(locator = "xpath=((//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[2])[1]")
     public CustomElement notificationConveyorName;
-    @FindBy(locator = "xpath=(//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[3]")
+    @FindBy(locator = "xpath=((//app-notification-item//div[contains(@class,'notification')])[2]//div[2]//div[2])[2]")
     public CustomElement notificationUserName;
 
     @FindBy(locator = "xpath=(//app-card//div[text()='Conveyors'])[1]/../div/div/div/div/i")
@@ -1150,9 +1306,20 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]")
     public CustomElement warningDialog;
 
-    @FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]//div//button//span[text()=\"Yes\"]")
+    @FindBy(locator="xpath=//span[text()='Confirmation']/../../div//button//span[text()='Yes']")
     public CustomElement btnYes;
-    InspectionPage inspectionpage = new InspectionPage();
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+    public CustomElement ddlActions;
+    @FindBy(locator = "xpath=//span[text()='Delete']")
+    public CustomElement btnDelete;
+    @FindBy(locator = "xpath=(//div[contains(text(),'Success')])[1]")
+    public CustomElement deleteSuccessMsg;
+
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
+    public CustomElement breadCrumb;
+    @FindBy(locator = "xpath=//div[@class=\"p-multiselect-label\"]")
+    public CustomElement selectedColumnFilters;
+
     String[] columnNames={"Name","Site","Corporate","Last Modified","Installed Belt","Remaining Life by Time","Remaining Cover %","Inspection Items",
             "Belt Manufacturer","Number of Plies","Number of Cords","Cord Pitch","Cord Diameter","Length","Splice Type","Splice Quantity","Installation Date","Belt Speed","Tons Per Hour Peak","Material",
             "Angle of Idlers","Carry Side Idler Spacing","Drive Wrap Angle","Take-up Tension","Surcharge Angle",
@@ -1183,7 +1350,7 @@ public class ConveyorPage extends BasePage{
         goToConveyorListScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(180); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(600); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
@@ -1224,6 +1391,14 @@ public class ConveyorPage extends BasePage{
         waitForElementToBeClickable(tbConveyorname);
         tbConveyorname.sendKeys(conveyorName,"conveyor name");
         dropdownSelectSearch(drDistShopdropdown, tbSitedropdown, distShopName);
+        dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
+    }
+    public void enterConveyorDetails(String conveyorName, String distShopName, String custSiteName) {
+        waitForElementToDisplay(tbConveyorname);
+        waitForElementToBeClickable(tbConveyorname);
+        tbConveyorname.sendKeys(conveyorName,"conveyor name");
+        if (!distShopName.isEmpty())
+            dropdownSelectSearch(drDistShopdropdown, tbSitedropdown, distShopName);
         dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
     }
 
@@ -1301,6 +1476,7 @@ public class ConveyorPage extends BasePage{
         waitForElementToDisplay(crviewicon);
         crviewicon.click("Conveyor Detail");
         waitForPageLoad(40000);
+        waitForElementToDisplay(crTechnicalDataCard);
         crTechnicalDataCard.isEnable("Technical Data");
     }
 
@@ -1317,11 +1493,11 @@ public class ConveyorPage extends BasePage{
         verifyConveyorLiteFields();
         verifyInstalledBelt();
         verifyMaterial();
-        verifyConveyor();
+        verifyConveyorViewScreen();
         verifyWearLife();
         verifyIdlers();
         verifyPulleys();
-        verifyTransitionZone();
+        verifyTransitions();
         verifyRemarks();
         scrollPageup();
     }
@@ -1353,7 +1529,19 @@ public class ConveyorPage extends BasePage{
         return crDescription.isVisible("Material Description");
     }
 
+    //Technical Details Conveyor screen in add/edit mode
     public boolean verifyConveyor() {
+        crAddConveyorTab.click("Conveyor Tab");
+//        return crConveyingLength.isVisible("Conveying Length") && crLift.isVisible("Conveyor Lift") && crDrivePower.isVisible("Driver Power") &&
+//                crGearRatio.isVisible("Gear Ratio") && crDriveFrequency.isVisible("Driver Frequency") && crAngle.isVisible("Conveyor Angle") &&
+//                crSpeed.isVisible("Conveyor Speed") && crConveyingCapacity.isVisible("Conveying Capacity") && crPercentLoad.isVisible("Percent Load") && crMinimumTemperature.isVisible("Minimum Temperature") &&
+//                crMaximumTemperature.isVisible("Maximum Temperature") && crTakeupTravel.isVisible("Take Up Travel") && crEstimatedWeight.isVisible("Estimated Weight") &&
+//                crClockwise.isEnable("Right / Clockwise");
+        return crConveyingLength.isVisible("Conveying Length");
+    }
+
+    //Technical Details Conveyor screen in view mode
+    public boolean verifyConveyorViewScreen() {
         crConveyorTab.click("Conveyor Tab");
 //        return crConveyingLength.isVisible("Conveying Length") && crLift.isVisible("Conveyor Lift") && crDrivePower.isVisible("Driver Power") &&
 //                crGearRatio.isVisible("Gear Ratio") && crDriveFrequency.isVisible("Driver Frequency") && crAngle.isVisible("Conveyor Angle") &&
@@ -1372,11 +1560,12 @@ public class ConveyorPage extends BasePage{
 
     public boolean verifyIdlers() {
         crIdlersTab.click("Idlers Tab");
-        return crCarryIdlerDiameter.isVisible("Carry Idler Diameter") && crCarryAngle.isVisible("Carry Angle") && crCarryTotalIdlers.isVisible("Carry Total Number of Idlers") &&
-                crCarryTopRunSpacing.isVisible("Carry Top Run Spacing") && crReturnIdlerDiameter.isVisible("Return Idler Diameter") && crReturnAngle.isVisible("Return Angle") &&
-                crReturnTotalIdlers.isVisible("Return Total Number of Idlers") && crReturnTopRunSpacing.isVisible("Return Top Run Spacing") && crImpactIdlerDiameter.isVisible("Impact Idler Diameter") && crImpactAngle.isVisible("Impact Angle") &&
-                crImpactTotalIdlers.isVisible("Impact Total Number of Idlers") && !crIdlerOffset.isEnable() && crNoOfTransitionIdlers.isVisible("Number of Transition Idlers") && !crMisalignmentSensorsYes.isEnable() &&
-                !crMisalignmentSensorsNo.isEnable();
+        return crCarryIdlerDiameter.isVisible("Carry Idler Diameter") && crCarryAngle.isVisible("Carry Angle");
+//                && crCarryTotalIdlers.isVisible("Carry Total Number of Idlers") &&
+//                crCarryTopRunSpacing.isVisible("Carry Top Run Spacing") && crReturnIdlerDiameter.isVisible("Return Idler Diameter") && crReturnAngle.isVisible("Return Angle") &&
+//                crReturnTotalIdlers.isVisible("Return Total Number of Idlers") && crReturnTopRunSpacing.isVisible("Return Top Run Spacing") && crImpactIdlerDiameter.isVisible("Impact Idler Diameter") && crImpactAngle.isVisible("Impact Angle") &&
+//                crImpactTotalIdlers.isVisible("Impact Total Number of Idlers") && !crIdlerOffset.isEnable() && crNoOfTransitionIdlers.isVisible("Number of Transition Idlers") && !crMisalignmentSensorsYes.isEnable() &&
+//                !crMisalignmentSensorsNo.isEnable();
     }
 
     public boolean verifyPulleys() {
@@ -1387,7 +1576,7 @@ public class ConveyorPage extends BasePage{
 //                crTailPulleyLaggingType.isEnable("Tail Pulley Lagging Type") && crTailPulleyLaggingThickness.isVisible("Tail Pulley Lagging Thickness");
     }
 
-    public boolean verifyTransitionZone() {
+    public boolean verifyTransitions() {
         crTransitionTab.click("Transition Zone Tab");
         return crHeadTransitionLength.isVisible("Flat-to-trough Transition Length") && crHeadPulleyLift.isVisible("Pulley Lift") && crTailTransitionLength.isVisible("Trough-to-flat Transition Length") && crTailPulleyLift.isVisible("Tail Pulley Lift") &&
                 !crHeadTransitionTypeFull.isEnable() && !crHeadTransitionTypeHalf.isEnable() && !crTailTransitionTypeFull.isEnable() && !crTailTransitionTypeHalf.isEnable() &&
@@ -1411,7 +1600,8 @@ public class ConveyorPage extends BasePage{
     }
 
     public void verifyCSVContents(String conveyor2) {
-        Validator.assertTrue(((Map<String,String>)(CSVUtil.getCSVDataAsMap(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+"download.csv").get(0)[0])).get("Name").equalsIgnoreCase(conveyor2),"CSV Report was generated for the wrong conveyor","CSV Report was generated for the right conveyor");
+        Validator.assertTrue(((Map<String,String>)(CSVUtil.getCSVDataAsMap(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+"download.csv").get(0)[0])).values().iterator().next().equalsIgnoreCase(conveyor2),"CSV Report was generated for the wrong conveyor","CSV Report was generated for the right conveyor");
+//        Validator.assertTrue(((Map<String,String>)(CSVUtil.getCSVDataAsMap(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+"download.csv").get(0)[0])).get("Name").equalsIgnoreCase(conveyor2),"CSV Report was generated for the wrong conveyor","CSV Report was generated for the right conveyor");
         Validator.assertTrue(CSVUtil.getCSVDataAsMap(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+"download.csv").get(0).length == 1,"CSV Report has incorrect no of conveyors","CSV report has valid no of conveyors");
     }
 
@@ -1597,11 +1787,12 @@ public class ConveyorPage extends BasePage{
         tbMultipleSiteDropdown.type(corporates);
         waitForPresenceOfElement(By.xpath("//li/div[contains(text(),'" + corporates + "')]"));
         driver.findElement("//li/div[contains(text(),'" + corporates + "')]").click();
-        return verifyFilters();
+        return verifyCorporateFilter();
 
     }
 
     public boolean verifyFilters(){
+        waitForPageLoad(5000);
         System.out.println(corporatesCol.isEnable()+""+BeltWidthCol.isEnable()+ratingCol.isEnable()+lengthCol.isEnable());
         return corporatesCol.isEnable() && BeltWidthCol.isEnable() && ratingCol.isEnable() && lengthCol.isEnable();
     }
@@ -1618,10 +1809,7 @@ public class ConveyorPage extends BasePage{
         btTableLayout.jsClick("Add Table Layout");
         tableLayoutHeader.isVisible("Table Layout");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
-        waitForElementVisible(defaultLayout,10000,500);
-        waitForElementToBeClickable(defaultLayout);
         defaultLayout.jsClick("Default Radio");
-        System.out.println("clicked default ");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         SyncUtil.waitFor(10000);
         waitForElementVisible(driver.findElement(By.xpath("//div[contains(text(),'"+layoutName+"')]/following-sibling::div//span[contains(@class,'ctp-icon-Delete')]")),20000,500);
@@ -1779,7 +1967,7 @@ public class ConveyorPage extends BasePage{
         Validator.assertTrue(crConveyorLiteTab.getText().contains("Conveyor-Lite"),"Conveyor-Lite Bar is not visible","Conveyor-Lite Bar is visible");
         Validator.assertTrue(crInstalledBeltTab.getText().contains("Installed Belt"),"Installed Belt Bar is not visible","Installed Belt Bar is visible");
         Validator.assertTrue(crMaterialTab.getText().contains("Material"),"Material Bar is not visible","Material Bar is visible");
-        Validator.assertTrue(crConveyorTab.getText().contains("Conveyor"),"Conveyor Bar is not visible","Conveyor Bar is visible");
+        Validator.assertTrue(crAddConveyorTab.getText().contains("Conveyor"),"Conveyor Bar is not visible","Conveyor Bar is visible");
         Validator.assertTrue(crWearLifeTab.getText().contains("Wear Life"),"Wear Life Bar is not visible","Wear Life Bar is visible");
         Validator.assertTrue(crIdlersTab.getText().contains("Idlers"),"Idlers Bar is not visible","Idlers Bar is visible");
         Validator.assertTrue(crPulleysTab.getText().contains("Pulleys"),"Pulleys Bar is not visible","Pulleys Bar is visible");
@@ -1793,9 +1981,9 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyConveyorLitePage() {
-        crConveyorLiteTab.click("Conveyor Lite Tab");
+        crConveyorLiteTab.jsClick("Conveyor Lite Tab");
         waitForElementVisible(crBeltWidth,5000,1000);
-        Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/conveyor-lite"),"URL missMatch","URL validation passed");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/conveyor-lite"),"URL missMatch","URL validation passed");
         return crBeltWidth.isVisible("Belt Width") && crBeltSpeed.isVisible("Belt Speed");
     }
 
@@ -1814,7 +2002,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyConveyorPage() {
-        crConveyorTab.click("Conveyor Tab");
+        crAddConveyorTab.click("Conveyor Tab");
         waitForElementVisible(crLift,5000,1000);
         Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/conveyor"),"URL missMatch","URL validation passed");
         return crLift.isVisible("Conveyor Lift") && crDrivePower.isVisible("Driver Power");
@@ -2039,6 +2227,9 @@ public class ConveyorPage extends BasePage{
     public void createConveyorWithRequiredField(String conveyorName, String distShopName, String custSiteName) {
         enterConveyorMandatoryDetails(conveyorName,distShopName,custSiteName);
     }
+    public void enterConveyorFields(String conveyorName, String distShopName, String custSiteName) {
+        enterConveyorDetails(conveyorName,distShopName,custSiteName);
+    }
 
     public void previousBtnClick()
     {
@@ -2073,18 +2264,45 @@ public class ConveyorPage extends BasePage{
 
     }
 
-    public void extractConveyorCount()
+//    public void extractConveyorCount()
+//    {
+//        int conveyorCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+//        Validator.assertTrue(Integer.toString(conveyorCount).equals(conveyorCardCount.getText()),"Conveyor Card Count and pagination does not match","Conveyor Card Count and pagination matches");
+//        getBundle().setProperty("mainCardCountKey", conveyorCount);
+//    }
+    public void extractMainCardCount(String moduleName)
     {
-        int conveyorCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-        getBundle().setProperty("conveyorListCount", conveyorCount);
+        int extractedCardCount = Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='" + moduleName + "']/..//div//span)[1]")).getText());
+        int paginationCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        System.out.println(extractedCardCount+"value"+paginationCount);
+//        Validator.assertTrue(extractedCardCount==paginationCount,"Card Count and pagination does not match","Card Count and pagination matches");
+        getBundle().setProperty("mainCardCountKey", extractedCardCount);
     }
-    public void verifyConveyorCount()
+    public void extractConveyorCardCountForDetailPage(String moduleName)
     {
+        SyncUtil.waitFor(4000);
+        int extractedCardCount = Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='" + moduleName + "']/..//div//span)[1]")).getText());
+        int paginationCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        System.out.println(extractedCardCount+"value"+paginationCount);
+        Validator.assertTrue(extractedCardCount==paginationCount,"Card Count and pagination does not match","Card Count and pagination matches");
+        getBundle().setProperty("cardCountDetailPage", extractedCardCount);
+
+    }
+    public void verifyCardCountInDetailPageAfterChange(String operation, String moduleName, int value) {
+        String extractedCrdCountAfterAddition = getBundle().getProperty("cardCountDetailPage").toString();
+        int mainCardCountAfterAdd;
+        if (operation.equalsIgnoreCase("add"))
+            mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition) + value;
+        else if (operation.equalsIgnoreCase("delete"))
+            mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition) - value;
+        else mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition);
         int paginationValue = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-        Integer extractedValue = Integer.parseInt(getBundle().getProperty("conveyorListCount").toString());
-        Integer expectedValue= extractedValue - 1;
-        System.out.println(expectedValue+" values "+paginationValue);
-        Validator.assertTrue(expectedValue.equals(paginationValue),"Expected value is not returned","Expected value is returned");
+        System.out.println(mainCardCountAfterAdd+"value"+paginationValue);
+        Validator.assertTrue(mainCardCountAfterAdd == paginationValue, "The pagination count is not matching", "The pagination count is matching");
+        int updatedMainCardCount = Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='" + moduleName + "']/..//div//span)[1]")).getText());
+        Reporter.log(updatedMainCardCount + "is the  main card count after adding");
+        System.out.println(mainCardCountAfterAdd+"value"+updatedMainCardCount);
+        Validator.assertTrue(mainCardCountAfterAdd == updatedMainCardCount, "The main card count is not matching", "The main card count is matching");
     }
 
     public void verifySiteAndConveyorPreFilled()
@@ -2245,6 +2463,18 @@ public class ConveyorPage extends BasePage{
         SyncUtil.waitFor(2000);
         Validator.assertTrue(!(tableLayoutHeader.isPresent()),"Dailog Table Layout Settings is not closed","Dailog Table Layout Settings is closed");
     }
+    public void clickOnTheDefault()
+    {
+        waitForElementVisible(btTableLayout,10000,500);
+        waitForElementToBeClickable(btTableLayout);
+        btTableLayout.jsClick("Add Table Layout");
+        tableLayoutHeader.isVisible("Table Layout");
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        defaultLayout.jsClick("Default Radio");
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(2000);
+    }
+
 
 //    public void editConveyorPageWithFieldAndValue(String page,String field,String input,String value,String index)
 //    {
@@ -2861,7 +3091,7 @@ public class ConveyorPage extends BasePage{
     public void clickCreateBtn() {
         waitForElementVisible(btCreate, 10000, 500);
         waitForElementToBeClickable(btCreate);
-        btCreate.click();
+        btCreate.jsClick();
         waitForElementToInvisible(buttonLoader,40000);
     }
 
@@ -2871,9 +3101,12 @@ public class ConveyorPage extends BasePage{
         crSave.click();
         waitForPageLoad(10000);
     }
-    public void clickConveyorCard() {
+    public void verifyConveyorCardDisplay() {
         waitForPageLoad(20000);
         waitForElementVisible(conveyorCardHeader, 20000, 500);
+    }
+
+    public void clickConveyorCard() {
         waitForElementToBeClickable(conveyorCardHeader);
         conveyorCardHeader.jsClick();
         waitForPageLoad(20000);
@@ -2956,4 +3189,360 @@ public void verifyUnPinnedSubList(String value) {
         waitForElementVisible(btnYes,10000,500);
         waitForElementToBeClickable(btnYes);    btnYes.jsClick();
     }
+    public void validateConveyorCountWrtPagination(){
+        int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        Validator.assertTrue(apiBase.getConveyorCount().get("count").equals(deviceCount),"Conveyor Pagination Count does not match","Conveyor Pagination Count matches");
+        Validator.assertTrue(Integer.toString(deviceCount).equals(conveyorCardCount.getText()),"Conveyor Card Count does not match","Conveyor Card Count matches");
+    }
+    public void clickOnAddConveyorInMenu(){
+        waitForElementVisible(addConveyors,5000,1000);
+        addConveyors.click("Add Conveyors");
+    }
+    public void clearSearchItem(){
+        waitForElementVisible(btSearchinput,5000,1000);
+        btSearchinput.clear();
+        btSearchinput.type(" ");
+    }
+    public void clickOnAddIcon(){
+       waitForElementVisible(btAddConveyor,5000,1000);
+        btAddConveyor.jsClick("Add icon");
+        SyncUtil.waitFor(8000);
+        System.out.println(driver.getCurrentUrl());
+        Validator.assertTrue(driver.getCurrentUrl().contains("add"),"URL missMatch","URL validation passed");
+    }
+
+    public void enterConveyorLitePageFields(String beltWidth,String materialName,String driveWrapAngle,String surchargeAngle,String idlerOffsetType,String driveDetails,String takeUpDetails){
+        verifyConveyorLitePage();
+        crBeltWidth.type(beltWidth);
+        crBeltSpeed.type(beltWidth);
+        crTonsPerHr.type(beltWidth);
+        dropdownSelectSearch(drMaterialName, tbSitedropdown, materialName);
+        crMaterialDensity.type(beltWidth);
+        crAngleOfIdlers.type(beltWidth);
+        crIdlerSpacing.type(beltWidth);
+        dropdownSelectSearch(drDriveWrapAngle, tbSitedropdown, driveWrapAngle);
+        crTakeUpTension.type(beltWidth);
+        crPermanentFriction.jsClick();
+//        dropdownSelectSearch(drSurchargeFactor, tbSitedropdown, surchargeAngle);
+        dropdownSelectSearch(drIdleOffsetType, tbSitedropdown, idlerOffsetType);
+        drDriveDetails.click();
+        driver.findElement("//span[text()='"+driveDetails+"']").click();
+        dropdownSelectSearch(drTakeupDetails, tbSitedropdown, takeUpDetails);
+        cbStation.click();
+        rbDrive.click();
+    }
+    public void enterInstalledBeltPageFields(String beltConfig,String beltConst,String topCompound,String carCass,String width,String splice,String installDate){
+        scrollPageup();
+        verifyInstalledBeltPage();
+        dropdownSelectSearch(drBeltConfig, tbSitedropdown, beltConfig);
+        dropdownSelectSearch(drBeltConstruction, tbSitedropdown, beltConst);
+        dropdownSelectSearch(drTopCompound, tbSitedropdown, topCompound);
+        dropdownSelectSearch(drBottomCompound, tbSitedropdown, topCompound);
+        dropdownSelectSearch(drCarcass, tbSitedropdown, carCass);
+        crNumberOfPlies.type(width);
+        crBreakingStrength.type(width);
+        crTopCoverThickness.type(width);
+        crBottomCoverThickness.type(width);
+        crLength.type(width);
+        drSplice.click();
+        driver.findElement("//ul//span[text()='"+splice+"']").click();
+        crSpliceQuantity.type(width);
+        crInstallationDate.click();
+        coverWearPage.selectGivenDate(installDate);
+   }
+    public void enterMaterialPageFields(String bulkSize,String granularSize,String aggresivity,String loadingFrequency,String feedingConditions){
+        scrollPageup();
+        verifyMaterialPage();
+        crBulkDensity.clear();
+        crBulkDensity.type(bulkSize);
+        crBulkSize.type(bulkSize);
+        crLumpSize.type(bulkSize);
+        crGranularSize.click();
+        driver.findElement("//ul//span[text()='"+granularSize+"']").click();
+        crContingentOfFines.type(bulkSize);
+        crAggresivity.click();
+        driver.findElement("//ul//span[text()='"+aggresivity+"']").click();
+        crDensityType.click();
+        driver.findElement("//ul//span[text()='"+granularSize+"']").click();
+        crChuteDrop.type(bulkSize);
+        crLoadingFrequency.click();
+        driver.findElement("//ul//span[text()='"+loadingFrequency+"']").click();
+        crLoadingConditions.click();
+        driver.findElement("//ul//span[text()='"+loadingFrequency+"']").click();
+        crTemperature.type(bulkSize);
+        crFeedingConditions.click();
+        driver.findElement("//ul//span[text()='"+feedingConditions+"']").click();
+        crPresenceOfOil.click();
+        driver.findElement("//ul//span[text()='"+aggresivity+"']").click();
+    }
+    public void enterConveyorPageFields(String conveyingLength,String ratio,String stage,String takeUpDetails,String beltTurnOver){
+        scrollPageup();
+        verifyConveyorPage();
+        crConveyingLength.type(conveyingLength);
+        crLift.type(conveyingLength);
+        crDrivePower.type(conveyingLength);
+        crGearRatioFirst.type(ratio);
+        crGearRatioSecond.type(ratio);
+        crDriveFrequency.type(conveyingLength);
+        crAngle.type(conveyingLength);
+        crConveyingCapacity.type(conveyingLength);
+        crPercentLoad.type(conveyingLength);
+        crMinimumTemperature.type(conveyingLength);
+        crMaximumTemperature.type(conveyingLength);
+        dropdownSelectSearch(crStage, tbSitedropdown,stage);
+        crTakeupType.click();
+        driver.findElement("//span[text()='"+takeUpDetails+"']").click();
+        crTakeupTravel.type(conveyingLength);
+        crEstimatedWeight.type(conveyingLength);
+        crBeltTurnover.click();
+        driver.findElement("//span[text()='"+beltTurnOver+"']").click();
+        crClockwise.jsClick();
+        crPipeBeltYes.jsClick();
+    }
+    public void enterWearLifePageFields(String chuteAngle){
+        scrollPageup();
+        verifyWearLifePage();
+        crTonsPerYear.type(chuteAngle);
+        crFeedAngle.type(chuteAngle);
+        crChuteAngle.type(chuteAngle);
+        crBeltInclineAngle.type(chuteAngle);
+      }
+    public void enterIdlersPageFields(String angle,String idlerOffset){
+        scrollPageup();
+        verifyIdlersPage();
+        crCarryIdlerDiameter.type(angle);
+        crCarryTotalIdlers.type(angle);
+        crReturnIdlerDiameter.type(angle);
+        crReturnAngle.type(angle);
+        crReturnTotalIdlers.type(angle);
+        crReturnTopRunSpacing.type(angle);
+        crImpactIdlerDiameter.type(angle);
+        crImpactAngle.type(angle);
+        crImpactTotalIdlers.type(angle);
+        crNoOfTransitionIdlers.type(angle);
+        crMisalignmentSensorsYes.jsClick();
+    }
+    public void enterPulleysPageFields(String drivePulley,String brakeDevice,String headDiameter,String angleWrap,String laggingType){
+        scrollPageup();
+        verifyPulleysPage();
+        drDrivePulley.click();
+        driver.findElement("//span[text()='"+drivePulley+"']").click();
+        drBrakeDevice.click();
+        driver.findElement("//span[text()='"+brakeDevice+"']").click();
+
+        crHeadPulleyDiameter.type(headDiameter);
+        crHeadPulleyWidth.type(headDiameter);
+        drHeadPulleyAngleOfWrap.click();
+        driver.findElement("//ul//span[text()='"+angleWrap+"']").click();
+        drHeadPulleyLaggingType.click();
+        driver.findElement("//ul//span[text()='"+laggingType+"']").click();
+        crHeadPulleyLaggingThickness.type(headDiameter);
+
+        crTailPulleyDiameter.type(headDiameter);
+        crTailPulleyWidth.type(headDiameter);
+        drTailPulleyAngleOfWrap.click();
+        driver.findElement("//ul//span[text()='"+angleWrap+"']").click();
+        drTailPulleyLaggingType.click();
+        driver.findElement("//ul//span[text()='"+laggingType+"']").click();
+        crTailPulleyLaggingThickness.type(headDiameter);
+
+        crTakeUpPulleyDiameter.type(headDiameter);
+        crTakeUpPulleyWidth.type(headDiameter);
+        drTakeUpAngleOfWrap.click();
+        driver.findElement("//ul//span[text()='"+angleWrap+"']").click();
+        drTakeUpLaggingType.click();
+        driver.findElement("//ul//span[text()='"+laggingType+"']").click();
+        crTakeUpLaggingThickness.type(headDiameter);
+
+        crBendPulley1PulleyDiameter.type(headDiameter);
+        crBendPulley1PulleyWidth.type(headDiameter);
+        drBendPulley1AngleOfWrap.click();
+        driver.findElement("//ul//span[text()='"+angleWrap+"']").click();
+        drBendPulley1LaggingType.click();
+        driver.findElement("//ul//span[text()='"+laggingType+"']").click();
+        crBendPulley1LaggingThickness.type(headDiameter);
+
+        crBendPulley2PulleyDiameter.type(headDiameter);
+        crBendPulley2PulleyWidth.type(headDiameter);
+        drBendPulley2AngleOfWrap.click();
+        driver.findElement("//ul//span[text()='"+angleWrap+"']").click();
+        drBendPulley2LaggingType.click();
+        driver.findElement("//ul//span[text()='"+laggingType+"']").click();
+        crBendPulley2LaggingThickness.type(headDiameter);
+
+        crAdditionPulley1PulleyDiameter.type(headDiameter);
+        crAdditionPulley1PulleyWidth.type(headDiameter);
+        drAdditionPulley1AngleOfWrap.click();
+        driver.findElement("//ul//span[text()='"+angleWrap+"']").click();
+        drAdditionPulley1LaggingType.click();
+        driver.findElement("//ul//span[text()='"+laggingType+"']").click();
+        crAdditionPulley1LaggingThickness.type(headDiameter);
+
+        crAdditionPulley2PulleyDiameter.type(headDiameter);
+        crAdditionPulley2PulleyWidth.type(headDiameter);
+        drAdditionPulley2AngleOfWrap.click();
+        driver.findElement("//ul//span[text()='"+angleWrap+"']").click();
+        drAdditionPulley2LaggingType.click();
+        driver.findElement("//ul//span[text()='"+laggingType+"']").click();
+        crAdditionPulley2LaggingThickness.type(headDiameter);
+    }
+
+    public void enterTransitionsPageFields(String length){
+        scrollPageup();
+        verifyTransitionPage();
+        crHeadTransitionLength.type(length);
+        crHeadPulleyLift.type(length);
+        crHeadTransitionTypeHalf.jsClick();
+        crTailTransitionLength.type(length);
+        crTailPulleyLift.type(length);
+        crTailTransitionTypeHalf.jsClick();
+        crMaterialGuidanceYes.jsClick();
+        crConditionYes.jsClick();
+
+    }
+    public void enterRemarksPageFields(String file,String remark){
+        scrollPageup();
+        verifyRemarksPage();
+        userPage.imageUpload(file);
+        SyncUtil.waitFor(4000);
+        waitForElementToInvisible(buttonLoader,10000);
+        waitForElementVisible(crDeleteFileUpload,10000,1000);
+        crAdditionalRemarks.type(remark);
+
+    }
+    public void clickMultiSelectCheckBoxAndDelete(){
+        cordInspectPage.verifySelectAllCheckbox();
+        Validator.assertTrue(coverWearPage.verifyActionBtnState(),"Action button is not enabled after selecting the record","Action button is enabled");
+        ddlActions.jsClick("Action");
+        waitForElementToBeClickable(btnDelete);
+        Validator.assertTrue(btnDelete.isVisible(),"Delete button is not visible","Delete button is visible");
+        btnDelete.click("Delete Item");
+        btnYes.click("Confirm delete");
+        waitForElementToDisplay(noList);
+        noList.isVisible("No Item Found");
+//        waitForElementVisible(deleteSuccessMsg,10000,1000);
+//        Validator.assertTrue(deleteSuccessMsg.isVisible("Delete pop up"),"Delete successfully is not visible","Deleted successfully is visible");
+    }
+    public void editEachTechDataForFields(String conveyorName,String beltWidth,String beltConfig,String drivePulley,String file,String remarks){
+        SyncUtil.waitFor(10000);
+        waitForElementToDisplay(tbConveyorname);
+        tbConveyorname.type(conveyorName);
+        crConveyorLiteTab.click("Conveyor Lite Tab");
+        crBeltWidth.type(beltWidth);
+        verifyInstalledBelt();
+        dropdownSelectSearch(drBeltConfig, tbSitedropdown, beltConfig);
+        verifyMaterial();
+        crBulkSize.type(beltWidth);
+        verifyConveyor();
+        crDrivePower.type(beltWidth);
+        verifyWearLife();
+        crTonsPerYear.type(beltWidth);
+        verifyIdlers();
+        crCarryTotalIdlers.type(beltWidth);
+        verifyPulleys();
+        drDrivePulley.click();
+        driver.findElement("//span[text()='"+drivePulley+"']").click();
+        verifyTransitions();
+        crHeadPulleyLift.type(beltWidth);
+        verifyRemarks();
+        crDeleteFileUpload.click();
+        userPage.imageUpload(file);
+        SyncUtil.waitFor(4000);
+        waitForElementToInvisible(buttonLoader,10000);
+        crAdditionalRemarks.type(remarks);
+        crSave.jsClick();
+        waitForElementToDisplay(crUpdateMsg);
+    }
+    public void verifyEachTechDataAfterEditForFields(String conveyorName,String beltWidth,String beltConfig,String drivePulley,String remark){
+        waitForPageLoad(5000);
+        waitForElementVisible(conveyorNameLoader,10000,1000);
+        conveyorNameLoader.waitForPartialText(conveyorName, 15000);
+        Validator.assertTrue(conveyorNameLoader.getText().contains(conveyorName),"Conveyor Name does not match","Conveyor Name matches");
+        editConveyor.click();
+        waitForPageLoad(5000);
+        scrollPageDown();
+//        waitForElementToDisplay(crBeltWidth);
+        Validator.assertTrue(crBeltWidth.getAttribute("value").contains(beltWidth),"Belt Width does not match","Belt Width matches");
+        verifyInstalledBelt();
+        Validator.assertTrue(crBeltConfig.getAttribute("value").contains(beltConfig),"Belt Manufacturer does not match","Belt Manufacturer matches");
+        verifyMaterial();
+        Validator.assertTrue(crBulkSize.getAttribute("value").contains(beltWidth),"Bulk Size does not match","Bulk Size matches");
+        verifyConveyorViewScreen();
+        Validator.assertTrue(crDrivePower.getAttribute("value").contains(beltWidth),"Drive Power does not match","Drive Power matches");
+        verifyWearLife();
+        Validator.assertTrue(crTonsPerYear.getAttribute("value").contains(beltWidth),"Tons Per Year does not match","Tons Per Year matches");
+        verifyIdlers();
+        Validator.assertTrue(crCarryTotalIdlers.getAttribute("value").contains(beltWidth),"Carry Total Idlers does not match","Carry Total Idlers matches");
+        verifyPulleys();
+        Validator.assertTrue(crDrivePulley.getText().contains(drivePulley),"Drive Pulley does not match","Drive Pulley matches");
+        verifyTransitions();
+        Validator.assertTrue(crHeadPulleyLift.getAttribute("value").contains(beltWidth),"Head Pulley Lift does not match","Head Pulley Lift matches");
+        verifyRemarks();
+        Validator.assertTrue(crAdditionalRemarks.getAttribute("value").contains(remark),"Remark does not match","Remark matches");
+        Validator.assertTrue(crRefrenceDocument.isDisplayed(),"File does not exist","File exists");
+    }
+    public void verifyTechnicalTabImperialValueForFields(String beltWidth,String topCoverThickness,String beltRating,String length){
+        waitForPageLoad(5000);
+        scrollPageDown();
+        Validator.assertTrue(crBeltWidth.getAttribute("value").contains(topCoverThickness),"Belt Width does not match","Belt Width matches");
+        verifyInstalledBelt();
+        Validator.assertTrue(crBreakingStrengthRating.getAttribute("value").contains(beltRating),"Breaking Strength does not match","Breaking Strength matches");
+        Validator.assertTrue(crTopCoverThickness.getAttribute("value").contains(topCoverThickness),"TopCover Thickness does not match","TopCover Thickness matches");
+        Validator.assertTrue(crBottomCoverThickness.getAttribute("value").contains(topCoverThickness),"BottomCover Thickness does not match","BottomCover Thickness matches");
+        Validator.assertTrue(crLength.getAttribute("value").contains(length),"Length does not match","Length matches");
+    }
+    public void verifyTechnicalTabMetricValueForFields(String beltWidth,String topCoverThickness){
+        waitForPageLoad(5000);
+        scrollPageDown();
+        Validator.assertTrue(crBeltWidth.getAttribute("value").contains(beltWidth),"Belt Width does not match","Belt Width matches");
+        verifyInstalledBelt();
+        Validator.assertTrue(crBreakingStrength.getAttribute("value").contains(topCoverThickness),"Breaking Strength does not match","Breaking Strength matches");
+        Validator.assertTrue(crTopCoverThickness.getAttribute("value").contains(topCoverThickness),"TopCover Thickness does not match","TopCover Thickness matches");
+        Validator.assertTrue(crBottomCoverThickness.getAttribute("value").contains(topCoverThickness),"BottomCover Thickness does not match","BottomCover Thickness matches");
+        Validator.assertTrue(crLength.getAttribute("value").contains(topCoverThickness),"Length does not match","Length matches");
+    }
+    public void verifyMainCardCountAfterAddition(String operation, String moduleName, int value) {
+        String extractedCrdCountAfterAddition = getBundle().getProperty("mainCardCountKey").toString();
+        int mainCardCountAfterAdd;
+        if (operation.equalsIgnoreCase("add"))
+            mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition) + value;
+        else if (operation.equalsIgnoreCase("delete"))
+            mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition) - value;
+        else mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition);
+
+        int paginationValue = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        System.out.println(mainCardCountAfterAdd+"value"+paginationValue);
+        Validator.assertTrue(mainCardCountAfterAdd == paginationValue, "The pagination count is not matching", "The pagination count is matching");
+        int updatedMainCardCount = Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='" + moduleName + "']/..//div//span)[1]")).getText());
+        Reporter.log(updatedMainCardCount + "is the  main card count after adding");
+        System.out.println(mainCardCountAfterAdd+"value"+updatedMainCardCount);
+        Validator.assertTrue(mainCardCountAfterAdd == updatedMainCardCount, "The card count is not matching", "The main card count is matching");
+    }
+    public void extractStatusCardCount(String moduleName,String status,String storeVal)
+    {
+       int extractedCardCount = Integer.parseInt(driver.findElement(By.xpath("((//app-card//div[text()='" + moduleName + "'])[1]/../div[contains(@class,'footer-count')]/div/div)["+ status +"]")).getText());
+        getBundle().setProperty(storeVal, extractedCardCount);
+    }
+    public void verifyStatusCardCountAfterChanges(String operation, String moduleName,String status, int value,String storeVal) {
+        String extractedCrdCountAfterAddition = getBundle().getProperty(storeVal).toString();
+        int mainCardCountAfterAdd;
+        if (operation.equalsIgnoreCase("add"))
+            mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition) + value;
+        else if (operation.equalsIgnoreCase("delete"))
+            mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition) - value;
+        else mainCardCountAfterAdd = Integer.parseInt(extractedCrdCountAfterAddition);
+        int updatedMainCardCount = Integer.parseInt(driver.findElement(By.xpath("((//app-card//div[text()='" + moduleName + "'])[1]/../div[contains(@class,'footer-count')]/div/div)["+ status +"]")).getText());
+        System.out.println(mainCardCountAfterAdd+"value"+updatedMainCardCount);
+        Reporter.log(updatedMainCardCount + "is the  status card count after changes");
+        Validator.assertTrue(mainCardCountAfterAdd == updatedMainCardCount, "The status card count is not matching", "The status card count is matching");
+    }
+
+    public void verifyBeltScanNotification(String conveyorName,String siteName,String userName) {
+        setImplicitWait(10000, TimeUnit.MILLISECONDS);
+        Validator.assertTrue(beltScanNotification.isDisplayed(), "Belt Scan Notifications is not displayed", "Belt Scan Notifications is displayed");
+        Validator.assertTrue(notificationSiteName.getText().equalsIgnoreCase(siteName), "Site value misMatch", "Site value matched");
+        Validator.assertTrue(notificationConveyorName.getText().equalsIgnoreCase(conveyorName), "Conveyor value misMatch", "Conveyor value matched");
+        Validator.assertTrue(notificationUserName.getText().contains(userName), "User value misMatch", "User value matched");
+    }
+
 }

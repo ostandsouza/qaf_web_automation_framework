@@ -668,7 +668,6 @@ public class APIBase {
         String baseUrl = commonPaths.get("monitoring_ms");
         restApiHelper.setBaseURI(baseUrl);
         headersMap.put("user-token",accessToken);
-        System.out.println(accessToken+"monitoring");
         Map<String, String> monitoringPaths = JsonReader.getMapTestData("path", "monitoring_controller");
         restApiHelper.makeGetRequest(monitoringPaths.get("count"),queryMaps,headersMap);
         Response profileResponse = restApiHelper.getResponse();
@@ -676,7 +675,7 @@ public class APIBase {
         Map<String, Object> val = null;
         if (profileResponse.getStatusCode() == 200) {
             JsonPath jsnPath = profileResponse.jsonPath();
-            val = jsnPath.getMap("$"); // This extracts the full JSON response into a Map
+            val = jsnPath.getMap("$");
         }
         tearDown();
         return val;
@@ -694,7 +693,7 @@ public class APIBase {
         Map<String, Object> val = null;
         if (profileResponse.getStatusCode() == 200) {
             JsonPath jsnPath = profileResponse.jsonPath();
-            val = jsnPath.getMap("$"); // This extracts the full JSON response into a Map
+            val = jsnPath.getMap("$");
         }
         tearDown();
         return val;
@@ -711,7 +710,104 @@ public class APIBase {
         Map<String, Object> val = null;
         if (profileResponse.getStatusCode() == 200) {
             JsonPath jsnPath = profileResponse.jsonPath();
-            val = jsnPath.getMap("$"); // This extracts the full JSON response into a Map
+            val = jsnPath.getMap("$");
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getSiteCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("company_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> sitePaths = JsonReader.getMapTestData("path", "company_controller");
+        restApiHelper.makeGetRequest(sitePaths.get("company_count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$");
+        }
+        tearDown();
+        System.out.println(val+"Site count");
+        return val;
+    }
+   public Map<String, Object> getInspectionCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("inspection_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "inspection_controller");
+        restApiHelper.makeGetRequest(inspectionPaths.get("inspection_count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$");
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getBeltScanCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("cordInspect_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> beltScanPaths = JsonReader.getMapTestData("path", "cordInspect_controller");
+        restApiHelper.makeGetRequest(beltScanPaths.get("count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$");
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getIotDashboardCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("iotDashboard_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> iotDashboardPaths = JsonReader.getMapTestData("path", "iotDashboard_controller");
+        restApiHelper.makeGetRequest(iotDashboardPaths.get("count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$");
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getHeavyEquipmentCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("heavyEquipment_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> heavyEquipmentPaths = JsonReader.getMapTestData("path", "heavyEquipment_controller");
+        restApiHelper.makeGetRequest(heavyEquipmentPaths.get("count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$");
+        }
+        tearDown();
+        return val;
+    }
+    public Map<String, Object> getMinutemanCount() {
+        configureRestAssured();
+        String baseUrl = commonPaths.get("minuteman_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token",accessToken);
+        Map<String, String> heavyEquipmentPaths = JsonReader.getMapTestData("path", "minuteman_controller");
+        restApiHelper.makeGetRequest(heavyEquipmentPaths.get("count"),queryMaps,headersMap);
+        Response profileResponse = restApiHelper.getResponse();
+        Map<String, Object> val = null;
+        if (profileResponse.getStatusCode() == 200) {
+            JsonPath jsnPath = profileResponse.jsonPath();
+            val = jsnPath.getMap("$");
         }
         tearDown();
         return val;

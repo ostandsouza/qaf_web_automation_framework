@@ -103,6 +103,9 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//li//span[text()='Export PDF']")
     public CustomElement cwExport;
 
+    @FindBy(locator="xpath=//li//span[text()='Export CSV']")
+    public CustomElement cwCSV;
+
     @FindBy(locator="xpath=//span[text()='Delete']")
     public CustomElement cwDelete;
 
@@ -173,7 +176,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Belt Length']/parent::div//input")
     public CustomElement cwBeltLength;
 
-    @FindBy(locator="xpath=//label[text()='Top Cover Thickness Nominal']/parent::div//input")
+    @FindBy(locator="xpath=//label[contains(text(),'Top Cover Thickness Nominal')]/parent::div//input")
     public CustomElement cwTopCoverThicknessInput;
 
     @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal']/parent::div//input")
@@ -257,7 +260,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//tr/td[contains(@class,'datapoint') and contains(@class,'existing') and contains(@class,'ng-star')]")
     public List<CustomElement> previousDataPoints;
 
-    @FindBy(locator="xpath=//span[text()='(Installed date)']/..")
+    @FindBy(locator="xpath=(//span[text()='(Installed date)']/..)[2]")
     public CustomElement installationDateField;
 
     @FindBy(locator="xpath=//span[text()='(Prev. Measurement)']/..")
@@ -299,7 +302,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//div[@class='p-progress-spinner']")
     public CustomElement progressLoader;
 
-    @FindBy(locator="xpath=(//app-image-viewer/img)[1]")
+    @FindBy(locator="xpath=(//app-image-viewer//img)[3]")
     public CustomElement imageViewer;
 
     @FindBy(locator="xpath=(//span/button[contains(@icon,'pi-download')])[2]")
@@ -316,9 +319,6 @@ public class CoverWearPage extends BasePage{
 
     @FindBy(locator="xpath=//span[text()='Cover Wear Summary']")
     public CustomElement coverWearHeader;
-
-    @FindBy(locator="xpath=//span[text()=\"Specification\"]")
-    public CustomElement headerSpecification;
 
     @FindBy(locator="xpath=//span[text()='Specification']")
     public CustomElement specificationHeader;
@@ -523,7 +523,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//span[contains(@id, \"p-panel-5_header\") and contains(text(), \"Sites\")]")
     public CustomElement siteHeader;
 
-    @FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+    @FindBy(locator="xpath=//nav[@class='p-breadcrumb p-component']")
     public CustomElement coverWearBreadCrumb;
 
     @FindBy(locator="xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
@@ -1040,7 +1040,7 @@ public class CoverWearPage extends BasePage{
     }
 
     public void addNewMeasurement(String conveyorName, String siteName, String position, String topCoverThickness, String bottomCoverThickness, String positionDurometer, String topCoverCompound, String bottomCoverCompound) {
-        cwAddNew.click("Add New Measurement");
+        cwAddNew.jsClick("Add New Measurement");
         SyncUtil.waitFor(5000);
         waitForElementToDisplay(cwSiteDropDown);
         dropdownSelectSearch(cwSiteDropDown, cwInput, siteName);
@@ -1081,7 +1081,8 @@ public class CoverWearPage extends BasePage{
         else cwPositionBottomRadio.check("Bottom Radio");
         cwInstalledDate.click("Date Picker");
         cwTodayDate.click("Current Date");
-        cwPositionSave.click("Save Position");
+        SyncUtil.waitFor(4000);
+        cwPositionSave.jsClick("Save Position");
         cwPositionSave.waitForNotVisible(7000);
         SyncUtil.waitFor(3000);
     }
@@ -1108,6 +1109,7 @@ public class CoverWearPage extends BasePage{
     }
 
     public boolean searchPosition(String segmentName){
+        cwSearchInput.clear();
         cwSearchInput.type(segmentName, "Position Search");
         waitForElementToDisplay(cwCheckbox);
         return cwCheckbox.isVisible("Position Found");
@@ -1166,6 +1168,8 @@ public class CoverWearPage extends BasePage{
         Validator.assertTrue(noList.isVisible(),"Delete Cover Wear was still found in cover wear list screen","Cover Wear deleted successfully");
     }
     public void verifyCoverWearDeletePosition(String position) {
+        waitForElementVisible(cwSearchInput,5000,100);
+        SyncUtil.waitFor(3000);
         cwSearchInput.type(position, "Cover Wear Position Search");
         Validator.assertTrue(noList.isVisible(),"Delete Cover Wear position was still found in cover wear list screen","Cover Wear position deleted successfully");
     }
@@ -1295,6 +1299,7 @@ public class CoverWearPage extends BasePage{
 
     public void verifyImageUpload(){
         waitForElementToInvisible(progressLoader,20000);
+        SyncUtil.waitFor(5000);
         Validator.assertFalse(imageViewer.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
     }
 
@@ -1649,8 +1654,10 @@ public class CoverWearPage extends BasePage{
     }
 
     public void verifySaveBtn(){
+        waitForElementVisible(applyBtn,5000,1000);
+        waitForElementToBeClickable(applyBtn);
         applyBtn.jsClick("Apply");
-        waitForElementToInvisible(cwSpecsLoader, 15000);
+        waitForElementToInvisible(cwSpecsLoader, 40000);
     }
 
     public void verifyCloseBtn(){
@@ -2065,7 +2072,7 @@ public class CoverWearPage extends BasePage{
         waitForPageLoad(20000);
         waitForElementVisible(coverWearHeader,20000,500);
         Validator.assertTrue(coverWearHeader.isVisible(),"user is not navigated to coverWear list page","user is  navigated to coverWear list page");
-        Validator.assertTrue(driver.getCurrentUrl().contains("/secure/dashboard/cover-wear"),"URL mismatch","URL matches");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/dashboard/cover-wear"),"URL mismatch","URL matches");
 
     }
     public void verifyCoverWearBreadCrumb()
@@ -2533,7 +2540,7 @@ public class CoverWearPage extends BasePage{
     }
 
 
-    public void verifyDataInMetric(String metricValue){
+    public void verifyDataInMetricForBeltWidth(String metricValue){
         waitForElementVisible(beltWidthFieldUnit,5000,1000);
         SyncUtil.waitFor(3000);
         Validator.assertTrue(beltWidthFieldUnit.getText().contains("mm"),"Metric unit is not selected","Metric unit is selected");
@@ -2542,7 +2549,7 @@ public class CoverWearPage extends BasePage{
         Validator.assertTrue(beltWidthField.getAttribute("value").contains(metricValue),"Metric value is not matching","Metric value is matching");
     }
 
-    public void verifyDataInImperial(String imperialValue){
+    public void verifyDataInImperialForBeltWidth(String imperialValue){
         waitForElementVisible(beltWidthFieldUnit,5000,1000);
         SyncUtil.waitFor(5000);
         Validator.assertTrue(beltWidthFieldUnit.getText().contains("in"),"Imperial unit is not selected","Imperial unit is selected");
@@ -2560,18 +2567,7 @@ public class CoverWearPage extends BasePage{
         waitForElementToBeClickable(btMetricUnit);
         btMetricUnit.click();
     }
-
-    public void addDataAsImperial(){
-        waitForPageLoad(5000);
-        waitForElementVisible(unitIcon,15000,1000);
-        waitForElementToBeClickable(unitIcon);
-        unitIcon.click();
-        waitForElementVisible(btImperialUnit,15000,1000);
-        waitForElementToBeClickable(btImperialUnit);
-        btImperialUnit.click();
-    }
-
-    public void addNewMeasurementWithWidth(String conveyorName, String siteName, String position, String beltWidth) {
+        public void addNewMeasurementWithWidth(String conveyorName, String siteName, String position, String beltWidth) {
         cwAddNew.click("Add New Measurement");
         waitForElementToDisplay(cwSiteDropDown);
         waitForPageLoad(5000);
@@ -2585,6 +2581,8 @@ public class CoverWearPage extends BasePage{
         cwEditSpec.click("Edit");
         waitForElementVisible(cwBeltWidth,10000,1000);
         waitForElementToBeClickable(cwBeltWidth);
+        SyncUtil.waitFor(5000);
+        cwBeltWidth.clear();
         SyncUtil.waitFor(5000);
         cwBeltWidth.clear();
         cwBeltWidth.sendKeys(beltWidth);
@@ -2663,6 +2661,7 @@ public class CoverWearPage extends BasePage{
         waitForElementVisible(hdInstalledBelt,5000,1000);
         waitForElementToBeClickable(hdInstalledBelt);
         hdInstalledBelt.click();
+        SyncUtil.waitFor(2000);
         waitForElementVisible(ddBeltConstructionValue,5000,1000);
         Validator.assertTrue(ddInstallationDateValue.getAttribute("value").contains(date),"Date Value doesn't match","Date Value matches");
         Validator.assertTrue(ddBeltConstructionValue.getAttribute("value").equalsIgnoreCase(beltConstruction),"Belt Construction Value doesn't match","Belt Construction Value matches");
@@ -2784,6 +2783,10 @@ public class CoverWearPage extends BasePage{
     public void clickOnExportPDF() {
         waitForElementVisible(cwExport,5000,1000);
         cwExport.click();
+    }
+    public void clickOnExportCSV() {
+        waitForElementVisible(cwCSV,5000,1000);
+        cwCSV.click();
     }
 
     public void verifyExportPopUp() {
@@ -2927,7 +2930,6 @@ public class CoverWearPage extends BasePage{
         waitForElementVisible(btnEditLink,10000,500);
         btnEditLink.jsClick();
         SyncUtil.waitFor(5000);
-
     }
 
     public void verifyMeasurementTableData()
@@ -3158,6 +3160,54 @@ public class CoverWearPage extends BasePage{
             e.printStackTrace();
         }
     }
+    public void addInputValForLabel(String value,String label){
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
+        waitForElementVisible(driver.findElement("//label[contains(text(),'"+label+"')]/..//input"),10000,500);
+        driver.findElement("//label[contains(text(),'"+label+"')]/..//input").click();
+        driver.findElement("//label[contains(text(),'"+label+"')]/..//input").clear();
+        driver.findElement("//label[contains(text(),'"+label+"')]/..//input").sendKeys(value);
+    }
+    public void verifyInputValForLabel(String value,String label){
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
+        waitForElementVisible(driver.findElement("//label[contains(text(),'"+label+"')]/..//input"),10000,500);
+        Validator.assertTrue(driver.findElement("//label[contains(text(),'"+label+"')]/..//input").getAttribute("value").contains(value),"Input value doesn't match","Input value matches");
+    }
+    public void addDropDownSelectSearchValForLabel(String value,String label){
+        waitForElementVisible(driver.findElement("//label[text()="+label+"]/parent::div//div[@role='button']"),5000,1000);
+        dropdownSelectSearch((CustomElement) driver.findElement("//label[text()="+label+"]/parent::div//div[@role='button']"), cwInput, value);
+    }
+    public void addDropDownSelectValForLabel(String value,String label){
+        waitForElementVisible(driver.findElement("//label[text()="+label+"]/parent::div//div[@role='button']"),5000,1000);
+        driver.findElement("//label[text()="+label+"]/parent::div//div[@role='button']").click();
+        waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+value+"']")),10000,500);
+        driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+value+"']")).click();
+
+    }
+    public void addNewCoverWearRecord(String conveyorName, String siteName, String position) {
+        cwAddNew.click("Add New Measurement");
+        SyncUtil.waitFor(5000);
+        waitForElementToDisplay(cwSiteDropDown);
+        dropdownSelectSearch(cwSiteDropDown, cwInput, siteName);
+        dropdownSelectSearch(cwConveyorDropDown, cwInput, conveyorName);
+        dropdownSelect(cwPositionDropDown, ListItem, position);
+        SyncUtil.waitFor(4000);
+        waitForElementVisible(specificationHeader,10000,500);
+        Validator.assertTrue(specificationHeader.isVisible(),"User is not on add specification page","User is navigated to add specification page");
+    }
+   public void clickOnEditBtn() {
+       waitForElementVisible(cwEditSpec,5000,1000);
+       waitForElementToBeClickable(cwEditSpec);
+       cwEditSpec.click("Edit");
+    }
+    public void verifyTechDataForCoverWear(String conveyor,String beltWidth,String topCoverThickness,String topCoverCompound) {
+        waitForElementVisible(cwConveyorDropDownInput,5000,1000);
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
+       Validator.assertTrue(cwConveyorDropDownInput.getAttribute("value").contains(conveyor),"Conveyor value doesn't match","Conveyor value matches");
+       Validator.assertTrue(cwBeltWidth.getAttribute("value").contains(beltWidth),"BeltWidth value doesn't match","BeltWidth value matches");
+       Validator.assertTrue(cwTopCoverThicknessInput.getAttribute("value").contains(topCoverThickness),"Top Cover Thickness value doesn't match","Top Cover Thickness value matches");
+       Validator.assertTrue(cwTopCoverCompoundInput.getText().contains(topCoverCompound),"Top Cover Compound value doesn't match","Top Cover Compound value matches");
+    }
+
 
 //    public void verifyCoverWearReport(String conveyorName, String siteName) {
 //        PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + conveyorName + "_" + siteName + ".pdf");

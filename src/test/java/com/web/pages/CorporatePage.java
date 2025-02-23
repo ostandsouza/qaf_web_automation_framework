@@ -2,6 +2,7 @@ package com.web.pages;
 
 import com.common.component.CustomElement;
 import com.common.utils.ClasspathResourceHelper;
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
@@ -273,7 +274,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=//nav[@class='p-breadcrumb p-component']")
     public CustomElement bcAddUserLink;
 
-    @FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
+    @FindBy(locator="//div[@class='conti-avatar-section']//img[contains(@class,'avatar-section-img default-image')]")
     public CustomElement addDefaultImgSrc;
 
     @FindBy(locator="//img[@src='/assets/img/upload_default.png']")
@@ -348,6 +349,9 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "//span[contains(@class,'p-panel-title') and text()='Sites']")
     public CustomElement sitesHeader ;
 
+    @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+    public CustomElement paginationEntry;
+
 
     public void goToAddCompany() {
         addCompany.click("Add Company");
@@ -394,6 +398,7 @@ public class CorporatePage extends BasePage{
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(btSiteShopCardNo);
+        SyncUtil.waitFor(4000);
         btSiteShopCardNo.isVisible("Shop Details");
         Reporter.log(companyName + "distributor shop is created" , MessageTypes.Pass);
     }
@@ -415,7 +420,7 @@ public class CorporatePage extends BasePage{
         dropdownSelectSearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
         dropdownSelectSearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopIndName);
         dropdownSelectSearch(drTerritorybutton, tbSitedropdown, DistCorpIndTerritory);
-        drTerritoryManagerbutton.type(manager);
+//        drTerritoryManagerbutton.type(manager);
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(btSiteShopCardNo);
@@ -981,7 +986,12 @@ public class CorporatePage extends BasePage{
 
     }
 
-//    public void verifyComapanyCreation()
+    public void validateSiteCountWrtPagination(){
+        int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        Validator.assertTrue(Integer.toString(deviceCount).equals(btSiteShopCardNo.getText()),"Site Card Count does not match","Site Card Count matches");
+    }
+
+//    public void verifyCompanyCreation()
 //    {
 //        waitForElementVisible(toastSuccess,5000,500);
 //        Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not created successfully","the company is created successfully");

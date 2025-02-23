@@ -62,6 +62,8 @@ public class SteelCordPage extends BasePage {
 
 	@FindBy(locator = "xpath=//p-autocomplete[@field='name']//button")
 	public CustomElement drApproverDropdown;
+	@FindBy(locator = "xpath=//p-autocomplete[@field='name']//input")
+	public CustomElement drApproverInput;
 	
 	public String drapproverlist = "xpath= //ul[contains(@class,'p-autocomplete-items')]//li//div//span";
 	
@@ -297,15 +299,12 @@ public class SteelCordPage extends BasePage {
 		dropdownSearchSelect(drProductionLocationOfSplicekit, tbInput, spliceKit);
 		dropdownSearchSelect(drCustomerName, tbInput, customerName);
 		dropdownSearchSelect(drConveyorName, tbInput, conveyorName);
-		drApproverName.click("Approver List");
-		waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),5000,500);
-		driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")).click();
 		dropdownSearchSelect(drBeltrating, tbInput, beltRating);
 		tbBeltWidth.type(beltWidth);
 		dropdownSearchSelect(drTopCoverCompound, tbInput, topCoverCompound);
 		dropdownSearchSelect(drBottomCoverCompound, tbInput, bottomCoverCompound);
-		Validator.assertTrue(tbCreationDate.getAttribute("value").contains(formattedCurrentDate),"Creation Date not set to current date","Creation Date is set to current date");
 		Validator.assertTrue(tbdesignerName.getAttribute("value").contains(tbProfileName.getText()),"DesignerName Mismatch","DesignerName matches");
+		Validator.assertTrue(tbCreationDate.getAttribute("value").contains(formattedCurrentDate),"Creation Date not set to current date","Creation Date is set to current date");
 		dropdownSearchSelect(drTopCoverThickness, tbInput, topCoverThickness);
 		dropdownSearchSelect(drBottomCoverThickness, tbInput, bottomCoverThickness);
 		tbOverallThickness.type(overAllBeltThickness);
@@ -315,6 +314,12 @@ public class SteelCordPage extends BasePage {
 		drBiasAngle.click();
 		drBiasAngle22Deg.click();
 		radioRegularSplice.jsClick();
+		drApproverName.jsClick("Approver List");
+		drApproverInput.type(approverName);
+		SyncUtil.waitFor(5000);
+		waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),10000,500);
+		driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")).click();
+		scrollPageDown();
 		setImplicitWait(3000, TimeUnit.MILLISECONDS);
 		waitForPageLoad(3000);
 
@@ -376,7 +381,9 @@ public class SteelCordPage extends BasePage {
 	public void verifyPreviewVulcanizationForSteelCord(String temperature,String pressure,String valcanizationTime) {
 		Validator.assertTrue(tbVulcanizationChartHeader.isDisplayed(),"Vulcanization Chart Tab is not visible","Vulcanization Chart Tab is visible");
 		tbVulcanizationChartHeader.click();
-		waitForPageLoad(2000);
+		waitForPageLoad(5000);
+		SyncUtil.waitFor(5000);
+		waitForElementVisible(vulcanizationChartImg,10000,1000);
 		Validator.assertTrue(vulcanizationChartHeader.isDisplayed(),"Vulcanization Chart Header is not visible","Vulcanization Chart Header is visible");
 		Validator.assertTrue(vulcanizationChartImg.isDisplayed(),"Vulcanization Chart Image is not visible","Vulcanization Chart Image is visible");
 		Validator.assertTrue(crossSectionalViewHeader.isDisplayed(),"Vulcanization Chart Header is not visible","Vulcanization Chart Header is visible");
@@ -477,10 +484,10 @@ public class SteelCordPage extends BasePage {
 		waitForPageLoad(10000);
 	}
 
-	public void clickViewBtn(){
+	public void clickViewIcon(){
 		waitForElementToDisplay(crCheckbox);
 		waitForElementToDisplay(btviewicon);
-		btviewicon.click("View Details");
+		btviewicon.jsClick("View Details");
 		waitForPageLoad(20000);
 	}
 	public void btnApproveClick() {

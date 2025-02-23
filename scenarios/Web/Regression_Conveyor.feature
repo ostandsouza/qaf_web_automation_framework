@@ -154,7 +154,7 @@ Scenario: Verify user is able to edit the belt width for the metric unit Convers
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
-    And Verify site and coporate fields are prefilled
+    And Verify site and corporate fields are prefilled
     Then Verify data value in header as metric
     And Edit Conveyor belt width value '${BeltWidth}'
     And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
@@ -260,12 +260,14 @@ Scenario: ZcVerify user is able to get the count after deleting the conveyor
 
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustShopGerName}'
-    And Extract the conveyor count from conveyor list page
+    And wait for conveyors to load
+    And Extract the main card count for '${Module}'
     Then Delete Conveyor from Conveyor list screen '${ConveyorNameGer}'
     And  Verify Deleted Conveyor '${ConveyorNameGer}' from Conveyor list screen
-    And  Navigate to coverWear list screen and wait for data load
     And Navigate to conveyor list screen
-    And Verify the conveyor count from conveyor list page
+    And Click on Clear filter Icon
+    And wait for conveyors to load
+    And Verify the main card count after operation '${Deletion}' for '${Module}' with count '${DeleteCount}'
 
 
 @Regression22 @CTCP-1922
@@ -345,7 +347,7 @@ Scenario: ZVerify user is able to edit the belt width for the Imperial unit Conv
     When  Login with '${UserName}' and '${Password}'
     And Add data value in header as imperial
     And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
-    And Verify site and coporate fields are prefilled
+    And Verify site and corporate fields are prefilled
     Then Verify data value in header as imperial
     And Edit Conveyor belt width value '${BeltWidth}'
 #    And Edit Conveyor for page '${PageName}' for field '${FieldName}' '${FieldInput}' with value '${FieldValue}' and '${Index}'
@@ -360,7 +362,7 @@ Scenario: ZVerify user is able to edit the belt width for the Imperial unit Conv
 Scenario: Verify user is able to edit the tons per hour peak for the metric unit Conversions
 
     And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
-    And Verify site and coporate fields are prefilled
+    And Verify site and corporate fields are prefilled
     Then Verify data value in header as metric
     And Edit Conveyor belt width value '${BeltWidth}'
     And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
@@ -420,7 +422,7 @@ Scenario: Verify user is able to click the back button
 @Regression27 @CTCP-2010
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
-@key:Conveyor_Layout
+@key:Conveyor_Layout_Check
 Scenario: ZVerify user is able to see the newly added layout
 
     Given User is at Login page
@@ -442,6 +444,7 @@ Scenario: AVerify user is able to click the save set preferrence
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Click on layout and verify safe set preference button
+    And Click on default layout
 
 
 @Regression28 @CTCP-2014
@@ -636,16 +639,18 @@ Scenario: ZxVerify the unit conversions for speed on conveyor Listing screen for
 @key:Conveyor_Navigation_Count
 Scenario: Verify pagination functionality
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to conveyor list screen
     And Verify pagination format
     And Create a conveyor with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustShopGerName}'
     And wait for conveyors to load
-    And Extract the conveyor count from conveyor list page
+    And Extract the main card count for '${Module}'
     Then Delete Conveyor from Conveyor list screen '${ConveyorNameGer}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigate to conveyor list screen
     And wait for conveyors to load
-    And Verify the conveyor count from conveyor list page
+    And Verify the main card count after operation '${Deletion}' for '${Module}' with count '${DeleteCount}'
     Then Verify pagination forward arrow button
     And Verify pagination backward arrow button
 

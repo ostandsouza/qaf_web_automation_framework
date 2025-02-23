@@ -335,13 +335,13 @@ Scenario: ZzVerify the image upload functionality
 
   Given User is at Login page
   When Login with '${UserName}' and '${Password}'
-#  And User navigates to Add user page
-#  Then Verify the default image is displayed and on hover camera icon is displayed
-#  And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
-#  When User clicks on Upload Image
-#  Then Verify that the user is able to upload the image '${imgName}' from the system
-#  When Crop the Image using the dots
-#  Then Click on Save and Verify the image is displayed
+  And User navigates to Add user page
+  Then Verify the default image is displayed and on hover camera icon is displayed
+  And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
+  When User clicks on Upload Image
+  Then Verify that the user is able to upload the image '${imgName}' from the system
+  When Crop the Image using the dots
+  Then Click on Save and Verify the image is displayed
 
 
 @UserRegression29 @CTCP-1286

@@ -137,11 +137,11 @@ Scenario: Verify the functionality of clear filter
     And   Navigate to coverWear list screen and wait for data load
     And   Verify data value in header as metric
     And  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${PositionName}' '${BeltWidth}'
-    Then Verify data value are in metric with value '${MetricValue}'
+    Then Verify data value are in metric with value '${MetricValue}' for Belt Width
     And  Navigate to coverWear list screen and wait for data load
     And Edit Cover wear measurement for conveyor '${ConveyorName}'
     Then Add data value in header as imperial
-    And Verify data value are in imperial with value '${ImperialValue}'
+    And Verify data value are in imperial with value '${ImperialValue}' for Belt Width
 
  @Regression8 @CTCP-1381
  @dataFile:resources/data/TestData.xls
@@ -155,11 +155,11 @@ Scenario: Verify imperial to metric conversion
     And Add data value in header as imperial
     And   Verify data value in header as imperial
     And  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${PositionName}' '${BeltWidth}'
-    Then Verify data value are in imperial with value '${ImperialValue}'
+    Then Verify data value are in imperial with value '${ImperialValue}' for Belt Width
     And  Navigate to coverWear list screen and wait for data load
     And Edit Cover wear measurement for conveyor '${ConveyorName}'
     Then Add data value in header as metric
-    And Verify data value are in metric with value '${MetricValue}'
+    And Verify data value are in metric with value '${MetricValue}' for Belt Width
 
   @Regression4 @CTCP-1382
   @dataFile:resources/data/TestData.xls
@@ -463,6 +463,7 @@ Scenario: Verify user is able to add Tons conveyed with values as '0'
     And Add segment as '${Segment}' tons conveyed as '${Zero}' durometer as '${DurometerValue}'
     And Click Top/Bottom radio button and verify selection
     And Click save and verify segment '${PositionName}' creation
+    And Delete Cover wear position for conveyor '${ConveyorName}' with data '${PositionName}'
     And Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
     And Verify Delete Cover wear measurement position '${PositionName}'

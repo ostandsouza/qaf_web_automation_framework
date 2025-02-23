@@ -25,6 +25,7 @@ public class CoverWearSteps {
 //        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
 //        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
 //        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
+        System.out.println(conveyorName+custSiteName+positionName+topCoverThickness+bottomCoverThickness+durometer+topCoverCompound+bottomCoverCompound);
         coverWearPage.goToCoverWearScreen();
         coverWearPage.addNewMeasurement(conveyorName, custSiteName,positionName,topCoverThickness,bottomCoverThickness,durometer,topCoverCompound,bottomCoverCompound);
     }
@@ -551,7 +552,6 @@ public class CoverWearSteps {
     @QAFTestStep(description="Click on coverWear card and verify it navigates to coverWear list page")
     public void clickOnCoverWear(){
         coverWearPage.clickCoverWearCard();
-//        coverWearPage.verifyCoverWearNavigation();
         coverWearPage.verifyCoverWearListPageNavigation();
     }
 
@@ -740,14 +740,14 @@ public class CoverWearSteps {
         coverWearPage.verifyUserSavedMeasurementDetails(CustSiteName,ConveyorName);
     }
 
-    @QAFTestStep(description="Verify data value are in metric with value {MetricValue}")
-    public void verifyTheDataAreInMetric(String metricValue){
-        coverWearPage.verifyDataInMetric(metricValue);
+    @QAFTestStep(description="Verify data value are in metric with value {MetricValue} for Belt Width")
+    public void verifyTheDataAreInMetricForBeltWidth(String metricValue){
+        coverWearPage.verifyDataInMetricForBeltWidth(metricValue);
     }
 
-    @QAFTestStep(description="Verify data value are in imperial with value {ImperialValue}")
-    public void verifyTheDataAreInImperial(String imperialValue){
-        coverWearPage.verifyDataInImperial(imperialValue);
+    @QAFTestStep(description="Verify data value are in imperial with value {ImperialValue} for Belt Width")
+    public void verifyTheDataAreInImperialForBeltWidth(String imperialValue){
+        coverWearPage.verifyDataInImperialForBeltWidth(imperialValue);
     }
 
     @QAFTestStep(description="Add data value in header as metric")
@@ -1158,6 +1158,34 @@ public class CoverWearSteps {
     public void clickOnTheDialogClose() {
         coverWearPage.clickOnDialogClose();
     }
-
+    @QAFTestStep(description = "Enter the input value {value} with label {label}")
+    public void addTheInputValForTheLabel(String value,String label) {
+        coverWearPage.addInputValForLabel(value,label);
+    }
+    @QAFTestStep(description = "Go to Add Cover Wear for conveyor {ConveyorName} and site {CustSiteName} with data {PositionName}")
+    public void addTheNewCoverWearRecord(String conveyorName,String custSiteName,String positionName) {
+        coverWearPage.goToCoverWearScreen();
+        coverWearPage.addNewCoverWearRecord(conveyorName,custSiteName,positionName);
+    }
+    @QAFTestStep(description = "Click on the edit button")
+    public void clickOnTheEditBtn() {
+        coverWearPage.clickOnEditBtn();
+    }
+    @QAFTestStep(description = "Enter the dropdown search select value {value} with label {label}")
+    public void addTheDropDownSelectSearchValForLabel(String value,String label) {
+        coverWearPage.addDropDownSelectSearchValForLabel(value,label);
+    }
+    @QAFTestStep(description = "Enter the dropdown select value {value} with label {label}")
+    public void addTheDropDownSelectValForLabel(String value,String label) {
+        coverWearPage.addDropDownSelectValForLabel(value,label);
+    }
+    @QAFTestStep(description = "Verify the input value {value} with label {label}")
+    public void verifyTheInputValForTheLabel(String value,String label) {
+        coverWearPage.verifyInputValForLabel(value,label);
+    }
+    @QAFTestStep(description = "Verify the technical data is loaded for the coverWear {Conveyor} with data {BeltWidth} {TopCoverThickness} {TopCoverCompound}")
+    public void verifyTheTechDataForCoverWear(String conveyor,String beltWidth,String topCoverThickness,String topCoverCompound) {
+        coverWearPage.verifyTechDataForCoverWear(conveyor,beltWidth,topCoverThickness,topCoverCompound);
+    }
 }
 

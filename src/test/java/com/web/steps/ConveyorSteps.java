@@ -35,6 +35,10 @@ public class ConveyorSteps {
         conveyorPage.createConveyorWithRequiredField(conveyorName, distShopName, custSiteName);
         conveyorPage.clickCreateBtn();
     }
+    @QAFTestStep(description = "Enter the conveyor fields with {ConveyorName} and {DistShopName} and {CustSiteName}")
+    public void enterTheConveyorFields(String conveyorName, String distShopName, String custSiteName) {
+        conveyorPage.enterConveyorDetails(conveyorName, distShopName, custSiteName);
+    }
 
 
     @QAFTestStep(description = "Create a duplicate conveyor with {ConveyorName1} and {DistShopAusName} and {CustSiteNZName}")
@@ -124,11 +128,6 @@ public class ConveyorSteps {
         conveyorPage.goToAddConveyor();
     }
 
-    @QAFTestStep(description = "Navigate to Add Conveyor screen")
-    public void verifyNavigationToListConveyor() {
-        conveyorPage.goToConveyorListScreen();
-    }
-
     @QAFTestStep(description = "Navigate to conveyor details screen for conveyor {conveyorName}")
     public void verifyConveyorDetailsNavigation(String conveyorName) {
         conveyorPage.goToConveyorDetailScreen(conveyorName);
@@ -188,18 +187,19 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "verify user {Email} is able to add new layout for {Corporates} {BeltWidth} {Rating} {Length} with {Layout_Name}")
     public void verifyAddLayout(String email, String corporates, String beltWidth, String rating, String length, String layoutName) {
-        String userId = conveyorPage.apiBase.getUserProfileAPI(email);
-        String prefId = conveyorPage.apiBase.getPreferenceAPI(userId, layoutName);
-        conveyorPage.apiBase.deletePreferencesAPI(userId, prefId);
+//        String userId = conveyorPage.apiBase.getUserProfileAPI(email);
+//        String prefId = conveyorPage.apiBase.getPreferenceAPI(userId, layoutName);
+//        conveyorPage.apiBase.deletePreferencesAPI(userId, prefId);
         conveyorPage.goToConveyorListScreen();
         conveyorPage.addLayout(corporates, beltWidth, rating, length, layoutName);
-        Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
+        Validator.assertTrue(conveyorPage.verifyFilters(), "All filters are not applied in table layout", "All filters were successfully verified");
     }
 
     @QAFTestStep(description = "verify user is able to delete layout for {Layout_Name}")
     public void verifyDeleteLayout(String layoutName) {
         conveyorPage.goToConveyorListScreen();
         conveyorPage.deleteLayout(layoutName);
+        SyncUtil.waitFor(5000);
         Validator.assertFalse(conveyorPage.verifyFilters(), "All filters are applied in table layout", "All filters were successfully verified");
     }
 
@@ -557,18 +557,46 @@ public class ConveyorSteps {
         conveyorPage.verifyDataHeaderUnitInAddConveyor(unit);
     }
 
-    @QAFTestStep(description="Extract the conveyor count from conveyor list page")
-    public void extractConveyorCountInConveyorListPage(){
-        conveyorPage.goToConveyorListScreenAndWait();
-        conveyorPage.extractConveyorCount();
+//    @QAFTestStep(description="Extract the conveyor count from conveyor list page")
+//    public void extractConveyorCountInConveyorListPage(){
+//        conveyorPage.goToConveyorListScreenAndWait();
+//        conveyorPage.extractConveyorCount();
+//    }
+    @QAFTestStep(description="Extract the main card count for {module}")
+    public void extractTheMainCardCount(String module){
+        conveyorPage.extractMainCardCount(module);
+    }
+    @QAFTestStep(description="Extract the card count in detail page for {Module}")
+    public void extractTheConveyorCountInDetailPage(String module){
+        conveyorPage.extractConveyorCardCountForDetailPage(module);
     }
 
-    @QAFTestStep(description="Verify the conveyor count from conveyor list page")
-    public void verifyConveyorCountInConveyorListPage(){
-        conveyorPage.verifyConveyorCount();
+//    @QAFTestStep(description="Verify the conveyor count from conveyor list page after delete with {val}")
+//    public void verifyConveyorCountInConveyorListPageAfterDelete(String value){
+//        conveyorPage.verifyConveyorCountAfterDelete(value);
+//    }
+//    @QAFTestStep(description="Verify the conveyor count from conveyor list page after addition")
+//    public void verifyConveyorCountInConveyorListPageAfterAddition(){
+//        conveyorPage.verifyConveyorCountAfterAddition();
+//    }
+    @QAFTestStep(description = "Verify the main card count after operation {Addition} for {Sites} with count {Value}")
+    public void extractAddedMainCardCount(String operation, String moduleName, int value) {
+        conveyorPage.verifyMainCardCountAfterAddition(operation, moduleName, value);
     }
+    @QAFTestStep(description = "Verify the card count in detail screen after operation {Addition} for {Sites} with count {Value}")
+    public void verifyTheCardCountInDetailPageAfterChange(String operation, String moduleName, int value) {
+        conveyorPage.verifyCardCountInDetailPageAfterChange(operation, moduleName, value);
+    }
+//    @QAFTestStep(description="Verify the conveyor count in detail page after addition")
+//    public void verifyTheConveyorCountAfterAdditionInDetailPage(){
+//        conveyorPage.verifyConveyorCountAfterAdditionInDetailPage();
+//    }
+//    @QAFTestStep(description="Verify the conveyor count from conveyor list page after edit")
+//    public void verifyConveyorCountInConveyorListPageAfterEdit(){
+//        conveyorPage.verifyConveyorCountInDetail();
+//    }
 
-    @QAFTestStep(description="Verify site and coporate fields are prefilled")
+    @QAFTestStep(description="Verify site and corporate fields are prefilled")
     public void verifyTheSiteAndConveyorPreFilled(){
         conveyorPage.verifySiteAndConveyorPreFilled();
     }
@@ -603,6 +631,11 @@ public class ConveyorSteps {
     @QAFTestStep(description = "Click on layout and verify safe set preference button")
     public void clickOnLayoutAndVerifyTheSafeSet() {
         conveyorPage.clickOnLayoutAndVerifySaveSetPreference();
+
+    }
+    @QAFTestStep(description = "Click on default layout")
+    public void clickOnTheDefault() {
+        conveyorPage.clickOnTheDefault();
 
     }
     @QAFTestStep(description = "Click on cross button in layout setting popUp")
@@ -826,12 +859,17 @@ public class ConveyorSteps {
         Validator.assertTrue(conveyorPage.verifyaddConveyorHistoryViewRights(), "Add Conveyor history option enabled for view rights", "Add Conveyor history option disabled for view rights");
     }
     @QAFTestStep(description = "Verify that conveyor card is displayed in home page")
-    public void verifyConveyorCardDisplay () {
-        conveyorPage.clickConveyorCard();
+    public void verifyTheConveyorCardDisplay () {
+        conveyorPage.verifyConveyorCardDisplay();
     }
     @QAFTestStep(description = "Click on the conveyor card and verify it navigates to conveyor list screen")
     public void verifyNavigationToConveyorListPage () {
+        conveyorPage.clickConveyorCard();
         conveyorPage.verifyConveyorListPageNaviagtion();
+    }
+    @QAFTestStep(description = "Click on the conveyor card")
+    public void clickTheConveyorCard () {
+        conveyorPage.clickConveyorCard();
     }
     @QAFTestStep(description = "subscribe one conveyor {ConveyorName1} for the user")
     public void searchAndSubscribeConveyor (String conveyorName) {
@@ -893,5 +931,99 @@ public class ConveyorSteps {
         SyncUtil.waitFor(2000);
         conveyorPage.closeDialog();
     }
+    @QAFTestStep(description = "Navigate to conveyor list screen and wait to load data")
+    public void verifyConveyorListNavAndWait() {
+        conveyorPage.goToConveyorListScreenAndWait();
+    }
+    @QAFTestStep(description = "Verify the conveyor count with respect to pagination")
+    public void validateTheConveyorCountWrtPagination()
+    {
+        conveyorPage.validateConveyorCountWrtPagination();
+    }
+    @QAFTestStep(description = "Click on add conveyor in menu")
+    public void clickOnTheAddConveyorInMenu()
+    {
+        conveyorPage.clickOnAddConveyorInMenu();
+    }
+    @QAFTestStep(description = "Clear the search item")
+    public void clearTheSearchItem()
+    {
+        conveyorPage.clearSearchItem();
+    }
+    @QAFTestStep(description = "Click on The Add Icon")
+    public void clickTheOnAddIcon() {
+        conveyorPage.clickOnAddIcon();
+    }
+    @QAFTestStep(description = "Enter the conveyor lite page fields with {BeltWidth} {MaterialName} {DriveWrapAngle} {SurchargeAngle} {IdlerOffsetType} {DriveDetails} {TakeUpDetails}")
+    public void enterTheConveyorLitePageFields(String beltWidth,String materialName,String driveWrapAngle,String surchargeAngle,String idlerOffsetType,String driveDetails,String takeUpDetails) {
+        conveyorPage.enterConveyorLitePageFields(beltWidth,materialName,driveWrapAngle,surchargeAngle,idlerOffsetType,driveDetails,takeUpDetails);
+    }
+    @QAFTestStep(description = "Enter the installed belt page fields with {BeltConfig} {BeltConst} {TopCompound} {CarCass} {Width} {Splice} {InstallDate}")
+    public void enterTheInstalledBeltPageFields(String beltConfig,String beltConst,String topCompound,String carCass,String width,String splice,String installDate) {
+        conveyorPage.enterInstalledBeltPageFields(beltConfig,beltConst,topCompound,carCass,width,splice,installDate);
+    }
+    @QAFTestStep(description = "Enter the material page fields with {BulkSize} {GranularSize} {Aggresivity} {LoadingFrequency} {FeedingConditions}")
+    public void enterTheMaterialPageFields(String bulkSize,String granularSize,String aggresivity,String loadingFrequency,String feedingConditions) {
+        conveyorPage.enterMaterialPageFields(bulkSize,granularSize,aggresivity,loadingFrequency,feedingConditions);
+    }
+    @QAFTestStep(description = "Enter the conveyor page fields with {ConveyingLength} {Ratio} {Stage} {TakeUpDetails} {BeltTurnOver}")
+    public void enterTheConveyorPageFields(String conveyingLength,String ratio,String stage,String takeUpDetails,String beltTurnOver) {
+        conveyorPage.enterConveyorPageFields(conveyingLength,ratio,stage,takeUpDetails,beltTurnOver);
+    }
+    @QAFTestStep(description = "Enter the wear life page fields with {ChuteAngle}")
+    public void enterTheWearLifePageFields(String chuteAngle) {
+        conveyorPage.enterWearLifePageFields(chuteAngle);
+    }
+    @QAFTestStep(description = "Enter the idlers page fields with {Angle} {IdlerOffset}")
+    public void enterTheIdlersPageFields(String angle,String idlerOffset) {
+        conveyorPage.enterIdlersPageFields(angle,idlerOffset);
+    }
+    @QAFTestStep(description = "Enter the pulleys page fields with {DrivePulley} {BrakeDevice} {HeadDiameter} {AngleWrap} {LaggingType}")
+    public void enterThePulleysPageFields(String drivePulley,String brakeDevice,String headDiameter,String angleWrap,String laggingType) {
+        conveyorPage.enterPulleysPageFields(drivePulley,brakeDevice,headDiameter,angleWrap,laggingType);
+    }
+    @QAFTestStep(description = "Enter the transitions page fields with {Length}")
+    public void enterTheTransitionsPageFields(String length) {
+        conveyorPage.enterTransitionsPageFields(length);
+    }
+    @QAFTestStep(description = "Enter the remarks page fields with {File} {Remark}")
+    public void enterTheRemarksPageFields(String file,String remark) {
+        conveyorPage.enterRemarksPageFields(file,remark);
+    }
+    @QAFTestStep(description = "Click multiSelect Checkbox and verify delete functionality")
+    public void clickTheMultiSelectCheckBoxAndDelete() {
+        conveyorPage.clickMultiSelectCheckBoxAndDelete();
+    }
+     @QAFTestStep(description = "Edit the technical tab data for the fields {ConveyorName} {BeltWidth} {BeltConfig} {DrivePulley} {File} {Remarks}")
+     public void editTheEachTechDataForFields(String conveyorName,String beltWidth,String beltConfig,String drivePulley,String file,String remarks) {
+        conveyorPage.editEachTechDataForFields(conveyorName,beltWidth,beltConfig,drivePulley,file,remarks);
+    }
+    @QAFTestStep(description = "Verify the technical tab data after edit for the fields {ConveyorName} {BeltWidth} {BeltConfig} {DrivePulley} {Remarks}")
+     public void verifyTheEachTechDataAfterEditForFields(String conveyorName,String beltWidth,String beltConfig,String drivePulley,String remarks) {
+        conveyorPage.verifyEachTechDataAfterEditForFields(conveyorName,beltWidth,beltConfig,drivePulley,remarks);
+    }
+    @QAFTestStep(description = "Verify the technical tab data are in imperial value for fields {BeltWidth} {TopCoverThickness} {BeltRating} {Length}")
+     public void verifyTheTechnicalTabImperialValueForFields(String beltWidth,String topCoverThickness,String beltRating,String length) {
+        conveyorPage.verifyTechnicalTabImperialValueForFields(beltWidth,topCoverThickness,beltRating,length);
+    }
+    @QAFTestStep(description = "Verify the technical tab data are in metric value for fields {BeltWidth} {TopCoverThickness}")
+     public void verifyTheTechnicalTabMetricValueForFields(String beltWidth,String topCoverThickness) {
+        conveyorPage.verifyTechnicalTabMetricValueForFields(beltWidth,topCoverThickness);
+    }
+    @QAFTestStep(description="Extract the status count for {Module} for {Status} in {StatusStored}")
+    public void extractTheStatusCardCount(String module,String status,String storeVal){
+        conveyorPage.extractStatusCardCount(module,status,storeVal);
+    }
+    @QAFTestStep(description = "Verify the status card count after operation {Addition} for {Sites} for {Status} with count {Value} in {StatusStored}")
+    public void verifyTheStatusCardCountAfterChanges(String operation, String moduleName,String status, int value,String storeVal) {
+        conveyorPage.verifyStatusCardCountAfterChanges(operation, moduleName,status, value,storeVal);
+    }
+    @QAFTestStep(description = "Verify user is getting belt scan notification for {ConveyorName} with {CustSiteName} by {UserName}")
+    public void verifyTheBeltScanNotification(String conveyorName,String siteName,String userName)
+    {
+        sitePage.bellIconClick();
+        conveyorPage.verifyBeltScanNotification(conveyorName,siteName,userName);
+    }
+
 
 }

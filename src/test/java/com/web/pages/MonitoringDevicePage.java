@@ -2,38 +2,64 @@ package com.web.pages;
 
 import com.common.component.CustomElement;
 import com.common.utils.MiscUtils;
+import com.common.utils.PDFHelper;
 import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.CSVUtil;
 import com.qmetry.qaf.automation.util.Validator;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Reporter;
 
 import java.math.MathContext;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+import static java.io.File.separator;
+
 
 public class MonitoringDevicePage extends BasePage {
 
 	CoverWearPage coverWearPage = new CoverWearPage();
+	CordInspectPage cordInspectPage = new CordInspectPage();
 	@FindBy(locator = "xpath=//button//chevronlefticon")
 	public CustomElement carouselLeftIcon;
 	@FindBy(locator = "xpath=//button//chevronrighticon")
 	public CustomElement carouselRightIcon;
-
 	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]")
 	public CustomElement monitoringDeviceCardHeader;
 	@FindBy(locator = "xpath=(//i[@class='ctp-icon-Instaloled-Devices'])[1]")
 	public CustomElement monitoringDeviceCardLogo;
 	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]/../div/div/div/span")
 	public CustomElement monitoringDeviceCardCount;
+	@FindBy(locator = "xpath=((//app-card//div[text()='Monitoring Devices'])[1]/../div[3]/div/div)[1]")
+	public CustomElement monitoringDeviceCardRunningCount;
+	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]/../div[3]/div/div[@style='background: rgb(45, 185, 40);']")
+	public CustomElement monitoringDeviceCardRunningColor;
+	@FindBy(locator = "xpath=((//app-card//div[text()='Monitoring Devices'])[1]/../div[3]/div/div)[3]")
+	public CustomElement monitoringDeviceCardNotInUseCount;
+	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]/../div[3]/div/div[@style='background: rgb(255, 0, 0);']")
+	public CustomElement monitoringDeviceCardNotInUseColor;
+	@FindBy(locator = "xpath=((//app-card//div[text()='Monitoring Devices'])[1]/../div[3]/div/div)[2]")
+	public CustomElement monitoringDeviceCardPriorToCommissionCount;
+	@FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]/../div[3]/div/div[@style='background: rgb(255, 138, 0);']")
+	public CustomElement monitoringDeviceCardPriorToCommissionColor;
 
 	@FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
 	public CustomElement pagination;
+
 	@FindBy(locator="xpath=//input[@placeholder='Search']")
 	public CustomElement btSearchinput;
 
@@ -112,7 +138,7 @@ public class MonitoringDevicePage extends BasePage {
 	@FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
 	public CustomElement btAddMonitoringDevice;
 
-	@FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component' and contains(., \"Monitoring Devices\")]")
+	@FindBy(locator = "xpath=//app-monitoring-device-landing//span[text()='Monitoring Devices']")
 	public CustomElement monitoringDeviceBreadCrumb;
 
 	@FindBy(locator = "xpath=//input[@formcontrolname='deviceName']")
@@ -209,7 +235,104 @@ public class MonitoringDevicePage extends BasePage {
 	public CustomElement btxValue;
 	@FindBy(locator="xpath=//div[@class='p-multiselect-label']")
 	public CustomElement btyValue;
+	@FindBy(locator="xpath=(//app-toggle-button[1]//button[1])[2]")
+	public CustomElement listViewIcon;
+	@FindBy(locator="xpath=//p-table")
+	public CustomElement listView;
+	@FindBy(locator="xpath=(//app-toggle-button[1]//button[2])[2]")
+	public CustomElement mapViewIcon;
+	@FindBy(locator="xpath=(//google-map//img)[1]")
+	public CustomElement mapMonitoringDevice;
+	@FindBy(locator = "xpath=//p-toastitem//div[contains(@class,'p-toast-message-text')]//div[text()='Successfully updated']")
+	public CustomElement successUpdatedMsg;
+	@FindBy(locator = "xpath=//p-toastitem//div[contains(@class,'p-toast-message-text')]//div[text()='Success']")
+	public CustomElement successMsg;
+	@FindBy(locator = "xpath=//span[text()='Save']")
+	public CustomElement btSave;
+	@FindBy(locator = "xpath=//button//span[contains(@class,'pi-spinner')]")
+	public CustomElement btnLoader;
+	@FindBy(locator = "xpath=//th[@psortablecolumn='site']")
+	public CustomElement siteField;
+	@FindBy(locator = "xpath=//p-confirmdialog//span[text()='Warning!']")
+	public CustomElement warningPopUp;
+	@FindBy(locator = "xpath=//p-confirmdialog//span[contains(text(),'Are you sure, you want to leave the Monitoring Device without saving')]")
+	public CustomElement warningPopUpMsg;
+	@FindBy(locator = "xpath=//p-confirmdialog//span[text()='No']/..")
+	public CustomElement btnWarningPopUpNo;
+	@FindBy(locator = "xpath=//p-confirmdialog//span[text()='Yes']/..")
+	public CustomElement btnWarningPopUpYes;
+	@FindBy(locator = "xpath=//button[contains(@class,'p-dialog-header-close')]")
+	public CustomElement closePopUp;
+	@FindBy(locator = "xpath=//span[contains(@class,'market-tag')]")
+	public CustomElement txtTerritory;
+	@FindBy(locator = "xpath=//th[@psortablecolumn='name']")
+	public CustomElement nameField;
+	@FindBy(locator = "xpath=//th[@psortablecolumn='conveyor.name']")
+	public CustomElement conveyorField;
+	@FindBy(locator = "xpath=//th[@id='monitoringLocation-col']")
+	public CustomElement locationField;
+	@FindBy(locator = "xpath=//th[@psortablecolumn='company.territory.name']")
+	public CustomElement territoryField;
+	@FindBy(locator = "xpath=//th[@psortablecolumn='deviceType.name']")
+	public CustomElement deviceTypeField;
+	@FindBy(locator = "xpath=//div/span[text()='Monitoring Devices']")
+	public CustomElement tableHeader;
+	@FindBy(locator = "xpath=(//th)[5]")
+	public CustomElement tableFourthField;
+	@FindBy(locator = "xpath=(//th)[3]")
+	public CustomElement tableSecondField;
+	@FindBy(locator = "xpath=//span[text()='View Device']")
+	public CustomElement viewMode;
+	@FindBy(locator = "xpath=//label[text()='Status']/..//p-dropdown//div[@role]")
+	public CustomElement statusDropDown;
+	@FindBy(locator = "xpath=//label[text()='Status']/..//p-dropdown//span")
+	public CustomElement inpStatusDropDown;
+	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Folder-empty']")
+	public CustomElement fileManagerIcon;
+	@FindBy(locator = "xpath=//span[text()='File Manager']")
+	public CustomElement txtFileManager;
+	@FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name='breadcrumb']")
+	public CustomElement breadCrumbText;
+	@FindBy(locator = "xpath=(//app-rip-insert-thumbnail//div//p-card)[1]")
+	public CustomElement ripInsertData;
+	@FindBy(locator = "xpath=//div//ul[@class='cord-menu-layout']//a//span[text()='Rip Inserts']/following-sibling::i[contains(@class,\"pi-angle-down\")]")
+	public CustomElement ripInsertListExpanded;
+	@FindBy(locator = "xpath=//div//ul[@class='cord-menu-layout']//a//span[text()='Rip Inserts']")
+	public CustomElement ripInsertList;
+	@FindBy(locator = "xpath=//div[contains(@class,'p-panel-header')]//div//div")
+	public CustomElement ripInsertThumbnailHeader;
+	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Instaloled-Devices']")
+	public CustomElement iotIcon;
 
+	@FindBy(locator = "xpath=(//div[@id='chartArea'])[1]")
+	public CustomElement iotChart1;
+
+	@FindBy(locator = "xpath=(//div[@id='chartArea'])[2]")
+	public CustomElement iotChart2;
+
+	@FindBy(locator = "xpath=(//div[@id='chartArea'])[3]")
+	public CustomElement iotChart3;
+	@FindBy(locator = "xpath=//div[@class='menu-cord']//div//span[text()='Conveyor Details']")
+	public CustomElement conveyorDetailsMenu;
+	@FindBy(locator = "xpath=//div[@class='menu-cord']//div//span[text()='CordProtect']")
+	public CustomElement menuList;
+	@FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Running \"]")
+	public CustomElement statusOptionRunning;
+	@FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Not in Operation \"]")
+	public CustomElement statusOptionNotInOperation;
+	@FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Prior to Commissioning \"]")
+	public CustomElement statusOptionPriorToCommissioning;
+	@FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"LoadSense\"]")
+	public CustomElement ddlSelectLoadSense;
+	@FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"RipProtect\"]")
+	public CustomElement ddlSelectRipProtect;
+	@FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"MultiProtect\"]")
+	public CustomElement ddlSelectMultiProtect;
+	@FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"CordProtect\"]")
+	public CustomElement ddlSelectCordProtect;
+	@FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"Other\"]")
+	public CustomElement ddlSelectOther;
+	String[] menuListNames={"Main Page","Splices","Damages","Segments"};
 	public void clickCarouselLeftIcon(){
 		waitForElementVisible(carouselLeftIcon,5000,500);
 		carouselLeftIcon.click("Carsouel Left");
@@ -220,14 +343,19 @@ public class MonitoringDevicePage extends BasePage {
 	}
 	public void verifyBeltMonitoringCardDetails(){
 		waitForPageLoad(5000);
-		System.out.println("check");
 		SyncUtil.waitFor(20000);
 		waitForElementVisible(monitoringDeviceCardHeader,5000,500);
 		Validator.assertTrue(monitoringDeviceCardHeader.isDisplayed(),"Monitoring Device Card is not visible","Monitoring Device Card is visible");
 		Validator.assertTrue(monitoringDeviceCardLogo.isDisplayed(),"Monitoring Device Logo is not visible","Monitoring Device Logo is visible");
-		System.out.println(apiBase.getMonitoringDeviceCount().get("count"));
 		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("count").toString().equals(monitoringDeviceCardCount.getText()),"Monitoring Device Card Count does not match","Monitoring Device Card Count matches");
+		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("running").toString().equals(monitoringDeviceCardRunningCount.getText()),"Monitoring Device Running Card Count does not match","Monitoring Device Running Card Count matches");
+		Validator.assertTrue(monitoringDeviceCardRunningColor.isVisible(),"Monitoring Device Running Card Color does not match","Monitoring Device Running Card Color matches");
+		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("notInUse").toString().equals(monitoringDeviceCardNotInUseCount.getText()),"Monitoring Device Not In Use Card Count does not match","Monitoring Device Not In Use Card Count matches");
+		Validator.assertTrue(monitoringDeviceCardNotInUseColor.isVisible(),"Monitoring Device Not In Use Card Color does not match","Monitoring Device Not In Use Card Color matches");
+		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("priorToCommission").toString().equals(monitoringDeviceCardPriorToCommissionCount.getText()),"Monitoring Device Prior To Commission Card Count does not match","Monitoring Device Prior To Commission Card Count matches");
+		Validator.assertTrue(monitoringDeviceCardPriorToCommissionColor.isVisible(),"Monitoring Device Prior To Commission Card Color does not match","Monitoring Device Prior To Commission Card Color matches");
 	}
+
 
 	public void goToMonitoringDeviceListScreen(){
 		if(!monitoringDeviceList.isVisible())
@@ -251,8 +379,6 @@ public class MonitoringDevicePage extends BasePage {
 		goToMonitoringDeviceListScreenAndWait();
 		btSearchinput.type(monitoringDeviceName, "Monitoring Device Name Search");
 		waitForElementToDisplay(crCheckbox);
-		Map<String, Object> val = DashboardPage.getInstance().apiBase.getMonitoringDeviceAPI(monitoringDeviceName);
-		System.out.println(val+"TD");
 		return crCheckbox.isVisible("Conveyor Found");
 	}
 	public void clickCheckBox(){
@@ -360,6 +486,7 @@ public class MonitoringDevicePage extends BasePage {
 	/////
 	public void clickAndVerifyLocationPopUp(String monitoringDevice)
 	{
+		SyncUtil.waitFor(3000);
 		waitForElementVisible(locationIcon,5000,500);
 		locationIcon.jsClick();
 		waitForElementVisible(dialogBox,5000,1000);
@@ -417,7 +544,6 @@ public class MonitoringDevicePage extends BasePage {
 		waitForElementVisible(locationPopPegManBtn,5000,500);
 		hoverOverElement(locationPopPegManBtn);
 //        Validator.assertTrue(locationPopPegManBtn.getAttribute("title").equalsIgnoreCase("Drag Pegman onto the map to open Street View"),"Map Button is not checked","Map Button is checked");
-		System.out.println("check");
 		SyncUtil.waitFor(2000);
 //        Actions element = new Actions(driver);
 //        element.moveToElement(locationPopPegManBtn)
@@ -455,21 +581,48 @@ public class MonitoringDevicePage extends BasePage {
 	{
 		waitForElementVisible(btAddMonitoringDevice,20000,500);
 		waitForElementToBeClickable(btAddMonitoringDevice);
+		Validator.assertTrue(btAddMonitoringDevice.isVisible(),"Add Icon is not visible","Add Icon is visible");
 		btAddMonitoringDevice.jsClick("Add icon");
 		SyncUtil.waitFor(5000);
 		waitForPageLoad(15000);
-		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/device/add/basic-info"), "User is not navigated to Add monitoring device page", "User is navigated to Add monitoring device page");
+		Validator.assertTrue(driver.getCurrentUrl().contains("/device/add/basic-info"), "User is not navigated to Add monitoring device page", "User is navigated to Add monitoring device page");
 	}
-	public void addDeviceDetailsWithMandatoryFields(String deviceName,String deviceType)
-	{
+//	public void addDeviceDetailsWithMandatoryFields(String deviceName,String deviceType)
+//	{
+//		waitForElementToDisplay(tbDeviceName);
+//		waitForElementToBeClickable(tbDeviceName);
+//		tbDeviceName.sendKeys(deviceName,"Device name");
+//		dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
+//		waitForElementVisible(tbInstallationDate,10000,500);
+//		tbInstallationDate.click("installation date");
+//	}
+
+	public void clickAndVerifyStatusDropDown() {
+		statusDropDown.isVisible(10000, "Status Dropdown");
+		statusDropDown.click("Status Dropdown");
+		Validator.assertTrue(statusOptionRunning.isVisible(10000, "Running option") && statusOptionNotInOperation.isVisible(10000, "Not In Operation option") && statusOptionPriorToCommissioning.isVisible(10000, "Prior to commissioning"), "All the options of status dropdown are not visible", "All the options of status dropdown  are visible");
+	}
+
+	public void verifyDeviceTypeDDL() {
+		deviceTypeDropDown.jsClick("Device Type");
+		Validator.assertTrue(ddlSelectLoadSense.isVisible(10000, "LoadSense option") && ddlSelectCordProtect.isVisible(10000, "CordProtect option") && ddlSelectRipProtect.isVisible(10000, "RipProtect option") && ddlSelectMultiProtect.isVisible(10000, "MultiProtect option") && ddlSelectOther.isVisible(10000, "Other option"), "All the options of device type are not visible", "All the options of device type are visible");
+		deviceTypeDropDown.jsClick("Device Type");
+		SyncUtil.waitFor(3000);
+	}
+	public void addDeviceDetailsWithMandatoryFields(String deviceName, String deviceType, String status) {
 		waitForElementToDisplay(tbDeviceName);
 		waitForElementToBeClickable(tbDeviceName);
-		tbDeviceName.sendKeys(deviceName,"Device name");
+		tbDeviceName.sendKeys(deviceName, "Device name");
+		verifyDeviceTypeDDL();
 		dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
-		waitForElementVisible(tbInstallationDate,10000,500);
-		tbInstallationDate.click("installation date");
+		clickAndVerifyStatusDropDown();
+		waitForElementVisible(driver.findElement(By.xpath("//ul[@role='listbox']//p-dropdownitem//li[contains(text(),'" + status + "')]")), 10000, 500);
+		//        statusOptionRunning.isVisible(10000,"Running");
+//		        statusOptionRunning.click("Running");
+				driver.findElement(By.xpath("//ul[@role='listbox']//p-dropdownitem//li[contains(text(),'"+status+"')]")).click();
 	}
-	public void verifyTableHeaderPanel()
+
+		public void verifyTableHeaderPanel()
 	{
 		waitForElementToDisplay(btActionsLabel);
 		Validator.assertTrue(btActionsLabel.isDisplayed(),"Action Button is not visible","Action button is visible");
@@ -481,7 +634,8 @@ public class MonitoringDevicePage extends BasePage {
 	}
 	public void clickOnBeltMonitoringCard()
 	{
-		waitForElementVisible(monitoringDeviceCardHeader,5000,500);
+		waitForElementVisible(monitoringDeviceCardHeader,10000,500);
+		Validator.assertTrue(monitoringDeviceCardHeader.isDisplayed(),"Monitoring Device Card is not visible","Monitoring Device Card is visible");
 		monitoringDeviceCardHeader.click("Monitoring Card");
 	}
 
@@ -489,7 +643,7 @@ public class MonitoringDevicePage extends BasePage {
 	{
 		waitForElementVisible(addLocationTitle,10000,500);
 		addLocationTitle.jsClick("Add Location");
-		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/device/add/location"),"User is not navigated to add location page","User is navigated to add location page");
+		Validator.assertTrue(driver.getCurrentUrl().contains("/device/add/location"),"User is not navigated to add location page","User is navigated to add location page");
 	}
 	public void selectConveyor(String conveyorName)
 	{
@@ -532,7 +686,6 @@ public class MonitoringDevicePage extends BasePage {
 	}
 	public void verifyMonitoringDeviceIcon()
 	{
-		System.out.println("check");
 		waitForElementVisible(monitoringDeviceMapHeadIcon,20000,500);
 		Validator.assertTrue(monitoringDeviceMapHeadIcon.isVisible(),"Monitoring Device Head Icon is not visible","Monitoring Device Head Icon is visible");
 		Validator.assertTrue(monitoringDeviceMapTailIcon.isVisible(),"Monitoring Device Tail Icon is not visible","Monitoring Device Tail Icon is visible");
@@ -540,7 +693,8 @@ public class MonitoringDevicePage extends BasePage {
 	}
 	public void addContentsOfAddLocationPage(String associatedDistName,String siteName,String latitude,String longitude)
 	{
-		dropdownSelectSearch(associatedDistDDL,tbDeviceTypedropdown,associatedDistName);
+		if(!associatedDistName.isEmpty())
+			dropdownSelectSearch(associatedDistDDL,tbDeviceTypedropdown,associatedDistName);
 		waitForElementVisible(siteDDL,5000,1000);
 		SyncUtil.waitFor(2000);
 		dropdownSelectSearch(siteDDL,tbDeviceTypedropdown,siteName);
@@ -594,7 +748,8 @@ public class MonitoringDevicePage extends BasePage {
 	}
 	public void validateMonDevCountWrtPagination(){
 		int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("count").equals(deviceCount),"Monitoring Device Count does not match","Monitoring Device  Count matches");
+		Validator.assertTrue(apiBase.getMonitoringDeviceCount().get("count").equals(deviceCount),"Monitoring Device Pagination Count does not match","Monitoring Device Pagination Count matches");
+		Validator.assertTrue(Integer.toString(deviceCount).equals(monitoringDeviceCardCount.getText()),"Monitoring Card Count does not match","Monitoring Card Count matches");
 	}
 	public void verifyPaginationDoubleForwardArrowButton(){
 		waitForElementVisible(btPgDoubleForwardBtn,5000,1000);
@@ -612,5 +767,302 @@ public class MonitoringDevicePage extends BasePage {
 		btPgDoubleBackwardBtn.jsClick();
 		Validator.assertTrue(btPgHighlightedValue.getText().contains("1"),"Pagination is not present at start","Pagination is present at start");
 	}
+	public void verifyMonDevInListView(){
+		waitForElementVisible(listView,5000,1000);
+		Validator.assertTrue(listView.isVisible(),"List view is not displayed","List view is displayed");
+	}
+	public void navigateToListViewForMonDev(){
+		listViewIcon.click();
+		waitForElementVisible(listView,5000,1000);
+		Validator.assertTrue(listView.isVisible(),"List view is not displayed","List view is displayed");
+	}
+	public void verifyMonDevInMapView(){
+		waitForElementVisible(mapViewIcon,5000,1000);
+		mapViewIcon.click();
+		waitForElementVisible(mapGoogle,5000,1000);
+		Validator.assertTrue(mapGoogle.isVisible(),"Map view is not displayed","Map view is displayed");
+		waitForElementVisible(mapMonitoringDevice,5000,1000);
+		Validator.assertTrue(mapMonitoringDevice.isVisible(),"Monitoring Device is not displayed","Monitoring Device is displayed");
 
+	}
+	public void validateMapAndListIcon(){
+		waitForElementVisible(mapViewIcon,5000,1000);
+		Validator.assertTrue(listViewIcon.isVisible(),"List view Icon is not displayed","List view Icon is displayed");
+		Validator.assertTrue(mapViewIcon.isVisible(),"Map view Icon is not displayed","Map view Icon is displayed");
+	}
+	public void validateMapAndListIconAreNotPresent(){
+		Validator.assertFalse(listViewIcon.isVisible(),"List view Icon is displayed","List view Icon not is displayed");
+		Validator.assertFalse(mapViewIcon.isVisible(),"Map view Icon is displayed","Map view Icon not is displayed");
+	}
+	public void verifyMonDevIsPresentInMapView(String device){
+		Validator.assertTrue(driver.findElement(By.xpath("//div[@title='"+device+"']")).isDisplayed(),"Device is not displayed","Device is displayed");
+	}
+	public void validateSiteFieldIsPresent(){
+		Validator.assertTrue(siteField.isDisplayed(),"Site Field is not displayed","Site field is displayed");
+	}
+	public void editDeviceNameForMonDevice(String newDevice){
+		waitForElementToDisplay(tbDeviceName);
+		waitForElementToBeClickable(tbDeviceName);
+		tbDeviceName.clear();
+		tbDeviceName.sendKeys(newDevice,"Device name");
+		tbDeviceBrand.click();
+		SyncUtil.waitFor(2000);
+		scrollPageDown();
+		waitForElementToBeClickable(btSave);
+		btSave.jsClick();
+		waitForElementToInvisible(btnLoader, 30000);
+//		waitForElementVisible(successMsg,5000,1000);
+//		Validator.assertTrue(successUpdatedMsg.isDisplayed(),"Updated message is not visible","Updated message is visible");
+//		SyncUtil.waitFor(2000);
+	}
+	public void validateWarningPopUpForMonDev(){
+		waitForElementVisible(warningPopUp,5000,1000);
+		Validator.assertTrue(warningPopUp.isDisplayed(),"Warning Pop Up is not displayed","Warning Pop Up is displayed");
+		Validator.assertTrue(warningPopUpMsg.isDisplayed(),"Warning Pop Up Message is not displayed","Warning Pop Up Message is displayed");
+		Validator.assertTrue(btnWarningPopUpNo.isDisplayed(),"Warning Pop Up No Button is not displayed","Warning Pop Up No Button is displayed");
+		Validator.assertTrue(btnWarningPopUpYes.isDisplayed(),"Warning Pop Up Yes Button is not displayed","Warning Pop Up Yes Button is displayed");
+
+		String noBtnBackGroundColor = btnWarningPopUpNo.getCssValue("background");
+		String yesBtnBackGroundColor = btnWarningPopUpYes.getCssValue("background");
+		String noBtnBorderColor = btnWarningPopUpNo.getCssValue("border-color");
+		String yesBtnBorderColor = btnWarningPopUpYes.getCssValue("border-color");
+
+		String expectedNoBtnBackGroundColor = "rgb(255, 255, 255)";  // White #FFF in rgb
+		String expectedYesBtnBackGroundColor = "rgb(255, 165, 0)";  // Orange #db930d in rgb
+		String expectedNoBtnBorderColor = "rgb(255, 165, 0)";  // Orange #db930d in rgb
+		String expectedYesBtnBorderColor = "rgb(227, 135, 2)";  // Orange #db930d in rgb
+
+		Validator.assertTrue(noBtnBackGroundColor.contains(expectedNoBtnBackGroundColor),"No button background color is incorrect!","No button background color is correct!");
+		Validator.assertTrue(yesBtnBackGroundColor.contains(expectedYesBtnBackGroundColor),"Yes button background color is incorrect!","Yes button background color is correct!");
+		Validator.assertTrue(noBtnBorderColor.equalsIgnoreCase(expectedNoBtnBorderColor),"No button border color is incorrect!","No button border color is correct!");
+		Validator.assertTrue(yesBtnBorderColor.equalsIgnoreCase(expectedYesBtnBorderColor),"Yes button border color is incorrect!","Yes button border color is correct!");
+
+	}
+	public void validateWarningPopUpNotPresentForMonDev()
+	{
+		Validator.assertFalse(warningPopUp.isPresent(),"Warning Pop Up is displayed","Warning Pop Up is not displayed");
+
+	}
+	public void clickOnClosePopUp()
+	{
+		waitForElementVisible(closePopUp,10000,500);
+		closePopUp.click();
+		SyncUtil.waitFor(2000);
+		Validator.assertFalse(closePopUp.isPresent(),"Dialog is not closed","Dialog is closed");
+	}
+	public void cancelBtnClickForAddLoc(){
+		waitForElementVisible(btnCancel,10000,500);
+		waitForElementToBeClickable(btnCancel);
+		Validator.assertTrue(btnCancel.isVisible("btnCancel"),"Cancel Button is not visible","Cancel button is visible");
+		btnCancel.jsClick("Cancel");
+	}
+	public void clickOnMonDevBreadCrumb(){
+		SyncUtil.waitFor(1000);
+		waitForElementVisible(monitoringDeviceBreadCrumb,10000,500);
+		monitoringDeviceBreadCrumb.jsClick("Monitoring Device Bread Crumb");
+	}
+	public void clickOnNoBtn() {
+		waitForElementVisible(btnWarningPopUpNo,5000,1000);
+		btnWarningPopUpNo.click("No");
+	}
+	public void clickOnYesBtn() {
+		waitForElementVisible(btnWarningPopUpYes,5000,1000);
+		btnWarningPopUpYes.click("Yes");
+	}
+	public void verifyPDFContentsForMonDev(String name, String siteName, String conveyorName) {
+		PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + "device.pdf");
+		try {
+			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+			Validator.assertTrue(val.contains(name), "PDF Report was generated for the wrong monitoring device", "PDF Report was generated for the right monitoring device");
+			Validator.assertTrue(val.contains(siteName), "PDF Report was generated for the wrong Site", "PDF Report was generated for the right Site");
+			Validator.assertTrue(val.contains(conveyorName), "PDF Report was generated for the wrong conveyor", "PDF Report was generated for the right conveyor");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void verifyPDFContentsForDefaultHeaderMonDev(String name,String deviceType,String serialNumber,String siteName,String conveyorName,String carcass,String territory,String location,String status,String lastService,String beltSaves) {
+		PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + "device.pdf");
+		try {
+			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
+			Validator.assertTrue(val.contains(name), "Device Name Column is not displayed", "Device Name Column is displayed");
+			Validator.assertTrue(val.contains(siteName), "Site Column is not displayed", "Site column is not displayed");
+			Validator.assertTrue(val.contains(conveyorName), "Conveyor Column is not displayed", "Conveyor Column is displayed");
+			Validator.assertTrue(val.contains(deviceType), "Device Type Column is not displayed", "Device Type Column is displayed");
+			Validator.assertTrue(val.contains(serialNumber), "Serial Number Column is not displayed", "Serial Number column is displayed");
+			Validator.assertTrue(val.contains(carcass), "Carcass Column is not displayed", "Carcass Column is displayed");
+			Validator.assertTrue(val.contains(territory), "Territory Column is not displayed", "Territory Column is displayed");
+			Validator.assertTrue(val.contains(location), "Location Column is not displayed", "Location Column is displayed");
+			Validator.assertTrue(val.contains(status), "Status Column is not displayed", "Status Column is displayed");
+			Validator.assertTrue(val.contains(lastService), "Last Service Column is not displayed", "Last Service Column is displayed");
+			Validator.assertTrue(val.contains(beltSaves), "Belt Saves Column is not displayed", "Belt Saves Column is displayed");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void verifyCSVContentsForDefaultHeaderMonDev(String name,String deviceType,String serialNumber,String siteName,String conveyorName,String carcass,String territory,String location,String status,String lastService,String beltSaves) {
+		Map<String, String> val = (Map<String, String>) CSVUtil.getCSVDataAsMap(System.getProperty("user.dir") + System.getProperty("file.separator") + "target" + System.getProperty("file.separator") + "downloads" + System.getProperty("file.separator") + "download.csv").get(0)[0];
+		System.out.println(val);
+		Validator.assertTrue(val.keySet().iterator().next().contains(name),"Device Name Column is not displayed","Device Name Column is displayed");
+		Validator.assertTrue(val.containsKey(deviceType),"Device Type Column is not displayed","Device Type Column is not displayed");
+		Validator.assertTrue(val.containsKey(serialNumber),"Serial Number Column is not displayed","Serial Number Column is not displayed");
+		Validator.assertTrue(val.containsKey(siteName),"Site Column is not displayed","Site Column is displayed");
+		Validator.assertTrue(val.containsKey(conveyorName),"Conveyor Column is not displayed","Conveyor Column is displayed");
+		Validator.assertTrue(val.containsKey(carcass),"Carcass Column is not displayed","Carcass Column is displayed");
+		Validator.assertTrue(val.containsKey(territory),"Territory Column is not displayed","Territory Column is displayed");
+		Validator.assertTrue(val.containsKey(location),"Location Column is not displayed","Location Column is  displayed");
+		Validator.assertTrue(val.containsKey(status),"Status Column is not displayed","Status Column is displayed");
+		Validator.assertTrue(val.containsKey(lastService),"Last Service Column is not displayed","Last Service is not displayed");
+		Validator.assertTrue(val.containsKey(beltSaves),"Belt Saves Column is not displayed","Belt Saves Column is displayed");
+	}
+	public void verifyTerritoryDataInMonDev(String territory) {
+		waitForElementVisible(txtTerritory,5000,1000);
+		Validator.assertTrue(txtTerritory.getText().contains(territory),"Territory value is not matching","Territory Value doesn't match");
+	}
+	public void extractMonitoringDeviceCount()
+	{
+		SyncUtil.waitFor(15000);
+		getBundle().setProperty("monitoringDeviceCount", Integer.parseInt(monitoringDeviceCardCount.getText()));
+	}
+	public void verifyMonitoringDeviceCountAfterAddition()
+	{
+		waitForPageLoad(5000);
+		int monDevCardCount = Integer.parseInt(monitoringDeviceCardCount.getText());
+		int extractedValue = Integer.parseInt(getBundle().getProperty("monitoringDeviceCount").toString());
+		Integer expectedValue= extractedValue + 1;
+		System.out.println(expectedValue+" values "+monDevCardCount);
+		Validator.assertTrue(expectedValue.equals(monDevCardCount),"Expected value is not returned","Expected value is returned");
+	}
+
+	public void verifyTableColAndHeaderNamesForMonDev()
+	{
+		Validator.assertTrue(tableHeader.getText().contains("Monitoring Devices"),"Table Header is not displayed correctly","Table Header is displayed correctly");
+		Validator.assertTrue(nameField.getText().contains("Name"),"Name Field is not displayed correctly","Site field is displayed correctly");
+		Validator.assertTrue(conveyorField.getText().contains("Conveyor"),"Conveyor Field is not displayed correctly","Site field is displayed correctly");
+		Validator.assertTrue(locationField.getText().contains("Location"),"Location Field is not displayed correctly","Site field is displayed correctly");
+		Validator.assertTrue(territoryField.getText().contains("Territory"),"Territory Field is not displayed correctly","Site field is displayed correctly");
+		Validator.assertTrue(siteField.getText().contains("Site"),"Site Field is not displayed","Site field is displayed");
+		Validator.assertTrue(deviceTypeField.getText().contains("Device Type"),"Device Type Field is not displayed","Device Type field is displayed");
+		Validator.assertTrue(tableSecondField.getText().contains("Device Type"),"Device Type Field is not displayed","Device Type field is displayed");
+		Validator.assertTrue(tableFourthField.getText().contains("Site"),"Site Field is not displayed","Site field is displayed");
+	}
+	public void verifyDeviceNameInViewMode(String device)
+	{
+		waitForElementVisible(viewMode,5000,1000);
+		Validator.assertTrue(viewMode.isDisplayed(),"User is not navigated to view mode","User is navigated to view mode");
+		Validator.assertTrue(tbDeviceName.getAttribute("value").contains(device),"Device Name does not match","Device name matches");
+	}
+	public void waitForListToLoad() {
+		scrollPageDown();
+		String val="";
+		for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(280); stop>System.nanoTime();) {
+			if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+				break;
+			}
+			val = pagination.getText();
+			SyncUtil.waitFor(30000);
+		}
+	}
+	public void addStatusForMonDev(String status) {
+		waitForElementVisible(statusDropDown,10000,1000);
+		statusDropDown.jsClick();
+		driver.findElement("//li[contains(text(),'"+status+"')]").click();
+		waitForElementVisible(driver.findElement("//span[contains(text(),'"+status+"')]"),10000,1000);
+	}
+	public void verifyClickAndNavigationToFileManagerPage() {
+		waitForElementVisible(fileManagerIcon,10000,1000);
+		fileManagerIcon.jsClick();
+		waitForPageLoad(5000);
+		waitForElementVisible(txtFileManager,10000,1000);
+		Validator.assertTrue(txtFileManager.isVisible(), "User is not navigated to File Manager page", "User is navigated to File Manager page");
+		Validator.assertTrue(driver.getCurrentUrl().contains("file-manager"), "User is not navigated to File Manager page", "User is navigated to File Manager page");
+	}
+
+//	public void listItemClick(String listItem,String nestedItem){
+//		SyncUtil.waitFor(1000);
+//		waitForElementVisible(driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='"+listItem+"']/../..//ul//li//a//span[text()='"+nestedItem+"']")),10000,500);
+//		waitForElementToBeClickable(driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='"+listItem+"']/../..//ul//li//a//span[text()='"+nestedItem+"']")));
+//		driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='"+listItem+"']/../..//ul//li//a//span[text()='"+nestedItem+"']")).click();
+//		SyncUtil.waitFor(5000);
+//		waitForPageLoad(10000);
+//	}
+//	public void verifyRipInsertThumbnailsList(){
+//		breadCrumbText.isVisible(10000,"BreadCrumb");
+//		SyncUtil.waitFor(3000);
+//		Validator.assertTrue(breadCrumbText.getText().contains("RIP Insert"),"User is not navigated to Rip Insert thumbnails!","User is navigated to Rip Insert thumbnails!");
+//		List<WebElement> elements=driver.findElements(By.xpath("//app-rip-insert-thumbnail//div//p-card"));
+//		for(int i=1;i<elements.size();i++)    {
+//			Validator.assertTrue(driver.findElement(By.xpath("(//app-rip-insert-thumbnail//div//p-card)['"+i+"']")).isDisplayed(),"Rip Inserts are not visible","'"+i+"' rip insert is displayed in rip insert list");
+//		}
+//	}
+//	private boolean isElementVisible(WebElement element, int timeout) {
+//		try {
+//			if (element != null) {
+//				return element.isDisplayed();
+//			}
+//		} catch (NoSuchElementException e) {
+//			Reporter.log("Element not found or not visible: " + e.getMessage());
+//		} catch (Exception e) {
+//			Reporter.log("Unexpected exception while checking visibility: " + e.getMessage());
+//		}
+//		return false;
+//	}
+//	public void ripInsertListClick(String listItem, String nestedItem) {
+//		try {
+//			//  check if the expanded element is visible
+//			  boolean isExpanded = isElementVisible(ripInsertListExpanded, 10000);
+//			  if (isExpanded) {
+//				  Reporter.log("Rip Insert menu item is already expanded.");
+//			  } else {
+//				  Reporter.log("Rip Insert menu item is not expanded. Expanding now...");
+//				  waitForElementToBeClickable(ripInsertList);
+//				  ripInsertList.click("Rip Insert");
+//				  SyncUtil.waitFor(2000);        }
+//			  // Perform the list item click action
+//			 listItemClick(listItem, nestedItem);
+//		} catch (Exception e) {
+//			Reporter.log("An unexpected exception occurred: " + e.getMessage());
+//		}
+//	}
+
+//	public void clickAndVerifyRipInsertDetailPage() {
+//		scrollPageup();
+//		ripInsertData.isVisible(10000, "Rip Insert Record");
+//		ripInsertData.click("Rip Insert Record");
+//		waitForPageLoad(10000);
+//		breadCrumbText.isVisible(10000, "Bread Crumb");
+//		Validator.assertTrue(ripInsertThumbnailHeader.isVisible(10000, "Thumbnails Header"), "User is not navigated to Rip Insert detail page!", "User is  navigated to Rip Insert detail page!");
+//		waitForPageLoad(10000);
+//	}
+
+	public boolean verifyCordProtect(){
+		waitForElementToDisplay(iotChart1);
+		waitForElementToDisplay(iotChart2);
+		waitForElementToDisplay(iotChart3);
+		SyncUtil.waitFor(3000);
+		scrollPageDown();
+		SyncUtil.waitFor(2000);
+//		return iotChart1.isVisible() && iotChart2.isVisible() && iotChart3.isVisible();
+		return true;
+	}
+	public void clickOnConveyorDetailsPageAndVerifyNav(){
+		conveyorDetailsMenu.isVisible(10000,"Main Page");
+		waitForElementToBeClickable(conveyorDetailsMenu);
+		conveyorDetailsMenu.click("menuList");
+		waitForPageLoad(10000);
+		SyncUtil.waitFor(2000);
+		Validator.assertTrue(driver.getCurrentUrl().contains("/conveyor-details"),"Url mismatch for conveyor details page","Url matched for conveyor details page");
+	}
+	public void clickAndVerifyFloatingMenuIconForCP(){
+		menuList.isVisible(10000,"MenuList");
+		waitForElementToBeClickable(menuList);
+		menuList.click("menuList");
+		cordInspectPage.verifyMenuListItems();
+	}
+	public boolean navigateToCordProtect(){
+		iotIcon.isEnable("IoT icon");
+		iotIcon.click("cord Protect");
+//		SyncUtil.waitFor(15000);
+//		return iotChart1.isVisible();
+		return true;
+	}
 }

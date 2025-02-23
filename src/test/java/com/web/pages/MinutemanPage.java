@@ -1,6 +1,7 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
@@ -719,8 +720,14 @@ public class MinutemanPage extends BasePage{
     private static final double PERCENTAGE_THRESHOLD = 1.0;
     String listItem="//ul[@role='listbox']//p-dropdownitem//li//span";
 
+    @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+    public CustomElement paginationEntry;
+    @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.'])[1]/../div/div/div/span")
+    public CustomElement minutemanCardCount;
+
     public void gotoMinutemanScreen(){
-        home.click("Home");
+        if(!minuteman.isVisible())
+          home.click("Home");
         minuteman.click("Minuteman");
         btSearchinput.isVisible("Minuteman Page");
     }
@@ -728,12 +735,12 @@ public class MinutemanPage extends BasePage{
         gotoMinutemanScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(300); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
             val = pagination.getText();
-            SyncUtil.waitFor(5000);
+            SyncUtil.waitFor(8000);
         }
     }
 
@@ -2322,4 +2329,9 @@ public class MinutemanPage extends BasePage{
         btnSaveAndDownload.click("Save & Download");
     }
 
+    public void validateMinutemanCountWrtPagination(){
+        int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        Validator.assertTrue(apiBase.getMinutemanCount().get("count").equals(deviceCount),"Minuteman Pagination Count does not match","Minuteman Pagination Count matches");
+        Validator.assertTrue(Integer.toString(deviceCount).equals(minutemanCardCount.getText()),"Minuteman Card Count does not match","Minuteman Card Count matches");
+    }
 }
