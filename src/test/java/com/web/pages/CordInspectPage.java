@@ -1,19 +1,22 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.ClasspathResourceHelper;
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.By;
-import com.common.utils.ClasspathResourceHelper;
+import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
+import org.openqa.selenium.By;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import com.common.utils.MiscUtils;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import com.qmetry.qaf.automation.util.CSVUtil;
@@ -29,6 +32,8 @@ public class CordInspectPage extends BasePage {
 	public CustomElement deviceTypeDdl;
 	@FindBy(locator = "xpath=//p-dropdown[@formcontrolname=\"reasonForScan\"]")
 	public CustomElement reasonForScanDdl;
+	@FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
+	public CustomElement home;
 	@FindBy(locator = "xpath=//p-dropdownitem//span[text()=\"CordInspect\"]")
 	public CustomElement cordInspectOption;
 	@FindBy(locator = "xpath=//p-dropdownitem//span[text()=\"Splice problem\"]")
@@ -101,14 +106,12 @@ public class CordInspectPage extends BasePage {
 	public CustomElement btnDelete;
 	@FindBy(locator = "xpath=//span[text()='Yes']")
 	public CustomElement btnYes;
-	@FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+ 	@FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
 	public CustomElement paginationEntry;
 	@FindBy(locator = "xpath=(//app-card//div[text()='Belt Scans'])/../div/div/div/span")
 	public CustomElement beltScanCardCount;
 	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
 	public CustomElement noList;
-	@FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
-	public CustomElement home;
 	@FindBy(locator = "xpath=//input[@placeholder='Search']")
 	public CustomElement btSearchinput;
 	@FindBy(locator = "xpath=//th//p-tableheadercheckbox")
@@ -277,6 +280,13 @@ public class CordInspectPage extends BasePage {
 
 	String[] menuListNames={"Main Page","Splices","Damages","Segments"};
 
+	@FindBy(locator = "xpath= //th[@psortablecolumn=\"ccm.fullname\" and contains(@class,\"p-highlight\")]\n")
+	public CustomElement ccmColHighlighted;
+
+
+	String[] reasonForScanList = {"Regular scheduled scan", "Belt mistracking", "Splice problem", "Pulley damage", "Idler damage", "Excessive wear", "Impact damage", "Other"};
+	String[] generalInfoTextBoxList = {"Date Of Scan", "Device Type", "Reason For Scan", "Site", "Conveyor", "Notify CCM", "Upload Raw Capture File", "Upload Backup File"};
+
 	public void goToAddBeltScans() {
 		waitForElementVisible(addBeltScan, 10000, 500);
 		waitForElementToBeClickable(addBeltScan);
@@ -374,21 +384,21 @@ public class CordInspectPage extends BasePage {
 	}
 
 	public void goToBeltScanListPageWithCard() {
-		SyncUtil.waitFor(8000);
-		beltScanCard.isVisible(10000, "BeltScan Card");
-		beltScanCard.click("BeltScan Card");
-		waitForPageLoad(10000);
-		SyncUtil.waitFor(5000);
-		Validator.assertTrue(driver.getCurrentUrl().contains("/belt-scans"), "User is not navigated to beltScan listing page", "User is not navigated to beltScan listing page");
-		waitForPageLoad(10000);
-		scrollPageDown();
-		String val = "";
-		for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime(); ) {
-			if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
-				break;
-			}
-			val = pagination.getText();
-			SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(8000);
+        beltScanCard.isVisible(10000, "BeltScan Card");
+        beltScanCard.click("BeltScan Card");
+        waitForPageLoad(10000);
+        SyncUtil.waitFor(5000);
+        Validator.assertTrue(driver.getCurrentUrl().contains("/belt-scans"), "User is not navigated to beltScan listing page", "User is not navigated to beltScan listing page");
+        waitForPageLoad(10000);
+        scrollPageDown();
+        String val = "";
+        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime(); ) {
+            if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+                break;
+            }
+            val = pagination.getText();
+            SyncUtil.waitFor(5000);
 		}
 	}
 
@@ -399,63 +409,164 @@ public class CordInspectPage extends BasePage {
 		SyncUtil.waitFor(5000);
 	}
 	public void verifyInBeltScanListPage() {
-		waitForElementVisible(beltScansListHeader, 5000, 1000);
-		Validator.assertTrue(beltScansListHeader.isVisible("beltScansListHeader"), "Belt scans header is not visible", "Belt scans header is visible");
-		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/dashboard/belt-scans"), "User is not navigated to beltScan listing page", "User is not navigated to beltScan listing page");
+        waitForElementVisible(beltScansListHeader, 5000, 1000);
+        Validator.assertTrue(beltScansListHeader.isVisible("beltScansListHeader"), "Belt scans header is not visible", "Belt scans header is visible");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/secure/dashboard/belt-scans"), "User is not navigated to beltScan listing page", "User is not navigated to beltScan listing page");
+}
+    public void verifyReasonForScanDDL() {
+        reasonForScanDdl.isVisible(10000, "reasonForScanDdl");
+        reasonForScanDdl.click("reasonForScan");
+        for (String name : reasonForScanList) {
+            waitForElementVisible(driver.findElement(By.xpath("//p-dropdownitem//span[text()='" + name + "']")), 10000, 500);
+            Validator.assertTrue(driver.findElement(By.xpath("//p-dropdownitem//span[text()='" + name + "']")).isDisplayed(),
+                    "'" + name + "' dropdown option is not displayed", "'" + name + "' dropdown option is displayed");
+        }
+    }
 
-	}
-	public void cancelBtnClick() {
+    public void verifyManFieldsInAddGeneralScreen() {
+        for (String tbName : generalInfoTextBoxList) {
+            waitForElementVisible(driver.findElement(By.xpath("//div//label[text()='" + tbName + " ']//em[text()=\"*\"]")), 10000, 500);
+            Validator.assertTrue(driver.findElement(By.xpath("//div//label[text()='" + tbName + " ']//em[text()=\"*\"]")).isDisplayed(), "'" + tbName + "' is not a mandatory field", "'" + tbName + "' is a mandatory field");
+        }
+
+    }
+
+    public void clickOnColumnsHeader(boolean isIncreasingOrder, String[] columnNames) {
+        scrollPageup();
+
+        // Initialize indices for both loops
+        int outerIndex = 0;
+        int innerIndex = 2;
+
+        // Continue until either list is exhausted or a limit is reached
+        while (outerIndex < columnNames.length && innerIndex <= 10) {
+            String colName = columnNames[outerIndex];
+
+            // Skip specific column
+            if (colName.equalsIgnoreCase("Device Type")) {
+                outerIndex++;
+                innerIndex++;
+                continue;
+            }
+            // Perform actions for the current column and index
+            waitForElementVisible(driver.findElement(By.xpath("//div[normalize-space()='" + colName + "']")), 5000, 500);
+            SyncUtil.waitFor(3000);
+            waitForElementToBeClickable(driver.findElement(By.xpath("//div[normalize-space()='" + colName + "']")));
+            driver.findElement(By.xpath("//div[normalize-space()='" + colName + "']")).click();
+
+            if (isIncreasingOrder) {
+                if (!colName.equalsIgnoreCase("Date Of Scan")) {
+                    Validator.assertTrue(coverWearPage.verifyIncreasingOrderSorting(innerIndex),
+                            "Sorting in increasing order is not applied correctly for '" + colName + "'",
+                            "Sorting is applied in increasing order for '" + colName + "'");
+                    driver.findElement(By.xpath("//div[normalize-space()='" + colName + "']")).click();
+                    Validator.assertTrue(coverWearPage.verifyDecreasingOrderSorting(innerIndex),
+                            "Sorting in decreasing order is not applied correctly for '" + colName + "'",
+                            "Sorting is applied in decreasing order for '" + colName + "'");
+
+                } else {
+                    Validator.assertTrue(coverWearPage.verifyIncreasingOrderSortingForDates(innerIndex),
+                            "Sorting in increasing order is not applied correctly for '" + colName + "'",
+                            "Sorting is applied in increasing order for '" + colName + "'");
+                    driver.findElement(By.xpath("//div[normalize-space()='" + colName + "']")).click();
+                    Validator.assertTrue(coverWearPage.verifyDecreasingOrderSortingForDates(innerIndex),
+                            "Sorting in decreasing order is not applied correctly for '" + colName + "'",
+                            "Sorting is applied in decreasing order for '" + colName + "'");
+
+                }
+            }
+
+            // Increment both indices
+            outerIndex++;
+            innerIndex++;
+        }
+    }
+
+    public void cancelBtnClick() {
 		waitForElementVisible(btnCancel, 10000, 500);
 		waitForElementToBeClickable(btnCancel);
 		Validator.assertTrue(btnCancel.isVisible("btnCancel"), "Cancel Button is not visible", "Cancel button is visible");
 		btnCancel.jsClick("Cancel");
 	}
+    public void verifyClearFilter() {
+        ccmColHighlighted.isVisible(10000, "CCM column highlighted");
+		coverWearPage.clearFilterClick();
+        Validator.assertTrue(ccmColHighlighted.isNotVisible(10000), "The applied filter is not removed", "The applied filter is removed");
 
-	public void deleteItem(String item) {
-		waitForElementToDisplay(btSearchinput);
-		btSearchinput.clear();
-		btSearchinput.type(item, "Search Item");
-		waitForElementToDisplay(cbCheckbox);
-		SyncUtil.waitFor(3000);
-		cbCheckbox.click("Checkbox");
-		Validator.assertTrue(coverWearPage.verifyActionBtnState(), "Action button is not enabled after selecting the record", "Action button is enabled");
-		ddlActions.jsClick("Action");
-		waitForElementToBeClickable(btnDelete);
-		Validator.assertTrue(btnDelete.isVisible(), "Delete button is not visible", "Delete button is visible");
-		btnDelete.click("Delete Item");
-		btnYes.click("Confirm delete");
-		SyncUtil.waitFor(3000);
-		waitForElementToDisplay(noList);
-		noList.isVisible("No Item Found");
+    }
+
+    public String[] camelCaseConvertor(String[] columnArray) {
+        String[] camelCaseColNames = Arrays.stream(columnArray)
+                .map(str -> {
+                    String[] words = str.split(" ");
+                    return words[0].toLowerCase() +
+                            Arrays.stream(words, 1, words.length)
+                                    .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase())
+                                    .reduce("", String::concat);
+                })
+                .toArray(String[]::new);
+        return camelCaseColNames;
+    }
+
+    public void deleteItem(String item) {
+        waitForElementToDisplay(btSearchinput);
+        btSearchinput.clear();
+        btSearchinput.type(item, "Search Item");
+        waitForElementToDisplay(cbCheckbox);
+        SyncUtil.waitFor(3000);
+        cbCheckbox.click("Checkbox");
+        Validator.assertTrue(coverWearPage.verifyActionBtnState(), "Action button is not enabled after selecting the record", "Action button is enabled");
+        ddlActions.jsClick("Action");
+        waitForElementToBeClickable(btnDelete);
+        Validator.assertTrue(btnDelete.isVisible(), "Delete button is not visible", "Delete button is visible");
+        btnDelete.click("Delete Item");
+        btnYes.click("Confirm delete");
+        SyncUtil.waitFor(3000);
+        waitForElementToDisplay(noList);
+        noList.isVisible("No Item Found");
 //		waitForElementVisible(deleteSuccessMsg,10000,1000);
 //		Validator.assertTrue(deleteSuccessMsg.isVisible("Delete pop up"),"Delete successfully is not visible","Deleted successfully is visible");
-		btSearchinput.type(" ");
-	}
+        btSearchinput.type(" ");
+    }
 
-	public void validateCordInspCountWrtPaginationAndTile() {
-		SyncUtil.waitFor(30000);
-		int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-		System.out.println(deviceCount + "deviceCount");
-		Validator.assertTrue(apiBase.getCordInspectCount().get("count").equals(deviceCount), "Belt Scan Card Count does not match", "Belt Scan Card Count matches");
-		Validator.assertTrue(apiBase.getCordInspectCount().get("count").toString().equals(beltScanCardCount.getText()), "Belt Scan Card Count does not match", "Belt Scan Card Count matches");
+    public void validateCordInspCountWrtPaginationAndTile(){
+        SyncUtil.waitFor(20000);
+        int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        System.out.println(deviceCount+"deviceCount");
+        Validator.assertTrue(apiBase.getCordInspectCount().get("count").equals(deviceCount),"Belt Scan Card Count does not match","Belt Scan Card Count matches");
+        Validator.assertTrue(apiBase.getCordInspectCount().get("count").toString().equals(beltScanCardCount.getText()),"Belt Scan Card Count does not match","Belt Scan Card Count matches");
 
-	}
+    }
 
-	public void validateBeltScanCountBeforeDel() {
-		String deviceCount = apiBase.getCordInspectCount().get("count").toString();
-		getBundle().setProperty("beltScanDeviceCount", deviceCount);
-	}
+    public void validateBeltScanCountBeforeDel(){
+        String deviceCount = apiBase.getCordInspectCount().get("count").toString();
+        getBundle().setProperty("beltScanDeviceCount", deviceCount);
+    }
 
-	public void validateBeltScanCountAfterDel() {
-		waitForPageLoad(10000);
-		String extractedValue = getBundle().getProperty("beltScanDeviceCount").toString();
-		int expectedValue = Integer.parseInt(extractedValue) - 1;
-		System.out.println(expectedValue + "expectedValue");
-		System.out.println(apiBase.getCordInspectCount().get("count") + "expectedValuecount");
-		Validator.assertTrue(apiBase.getCordInspectCount().get("count").equals(expectedValue), "Belt Scan Card Count does not match", "Belt Scan Card Count matches");
-		Validator.assertTrue(apiBase.getCordInspectCount().get("count").toString().equals(beltScanCardCount.getText()), "Belt Scan Card Count does not match", "Belt Scan Card Count matches");
+    public void validateBeltScanCountAfterDel(){
+        waitForPageLoad(10000);
+        String extractedValue = getBundle().getProperty("beltScanDeviceCount").toString();
+        int expectedValue = Integer.parseInt(extractedValue) - 1;
+        System.out.println(expectedValue+"expectedValue");
+        System.out.println(apiBase.getCordInspectCount().get("count")+"expectedValuecount");
+        Validator.assertTrue(apiBase.getCordInspectCount().get("count").equals(expectedValue),"Belt Scan Card Count does not match","Belt Scan Card Count matches");
+        Validator.assertTrue(apiBase.getCordInspectCount().get("count").toString().equals(beltScanCardCount.getText()),"Belt Scan Card Count does not match","Belt Scan Card Count matches");
 
-	}
+    }
+//	public void waitUntilBeltScanCountLoads(){
+//		int apiCount = Integer.parseInt(apiBase.getCordInspectCount().get("count").toString());
+//		for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime();) {
+//			int elementCount = Integer.parseInt(beltScanCardCount.getText());
+//			if (elementCount == apiCount) {
+//				System.out.println("Counts match! Exiting loop.");
+//				break;
+//			}
+//			System.out.println("Waiting for counts to match. Current element count: " + elementCount + ", API count: " + apiCount);
+//
+//			SyncUtil.waitFor(5000);
+//		}
+//
+//	}
 
 	public void verifyDeleteIsVisible() {
 		waitForElementVisible(btnDelete, 10000, 500);
@@ -622,7 +733,6 @@ public class CordInspectPage extends BasePage {
 		Validator.assertTrue(uploadError.isVisible(), "Error message is not visible", "Error message is visible");
 
 	}
-
 	public void clickUploadAnalysisFromActionBtn() {
 		waitForElementToDisplay(cbCheckbox);
 		SyncUtil.waitFor(2000);

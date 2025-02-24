@@ -80,6 +80,7 @@ Scenario: Verify the conveyor management
     And   Create a conveyor with '${ConveyorName5}' and '${DistShopAusName}' and '${CustSiteAusName}'
     And   Create a conveyor with '${ConveyorName6}' and '${DistShopAusName}' and '${CustSiteAusName}'
     Then  Verify conveyor technical data with '${ConveyorName1}'
+    Then  Verify conveyor history screen for '${ConveyorName1}'
     When  Delete Conveyor from Conveyor list screen '${ConveyorName1}'
     Then  Verify Deleted Conveyor '${ConveyorName1}' from Conveyor list screen
     When  Delete Conveyor from Conveyor list screen '${ConveyorName4}'
@@ -155,17 +156,20 @@ Scenario: Verify Inspection Delete
 @key:CoverWear_Management
 Scenario: Verify Cover Wear Management
 
-    When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
-    Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
-    When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'
-    Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${SegmentName}' with durometer as '${PositionDurometer}'
-    When  Edit Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' to '${EditSegmentName}'
-    Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}' with durometer as '${PositionDurometer}'
-    When  Delete Cover wear position for conveyor '${ConveyorName}' with data '${EditSegmentName}'
-    Then  Verify Delete Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}'
-    When  Edit Cover wear measurement for conveyor '${ConveyorName}'
-    When  Delete Cover wear measurement for conveyor '${ConveyorName}'
-    Then  Verify Delete Cover wear measurement for conveyor '${ConveyorName}'
+
+       Given User is at Login page
+       When  Login with '${UserName}' and '${Password}'
+       When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
+       Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
+       When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'
+       Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${SegmentName}' with durometer as '${PositionDurometer}'
+       When  Edit Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' to '${EditSegmentName}'
+       Then  Verify Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}' with durometer as '${PositionDurometer}'
+       When  Delete Cover wear position for conveyor '${ConveyorName}' with data '${EditSegmentName}'
+       Then  Verify Delete Cover wear position for conveyor '${ConveyorName}' and segment '${EditSegmentName}'
+       When  Edit Cover wear measurement for conveyor '${ConveyorName}'
+       When  Delete Cover wear measurement for conveyor '${ConveyorName}'
+       Then  Verify Delete Cover wear measurement for conveyor '${ConveyorName}'
 
 @Sanity14
 @dataFile:resources/data/TestData.xls
@@ -235,6 +239,101 @@ Scenario: Verify the Delete functionality across the application
     When  Delete User with name '${FullName1}'
     Then  Verify user '${FullName1}' is deleted
 
+ @Sanity17
+ @dataFile:resources/data/LegacyMetricSanity.json
+ Scenario: Verify Complete minuteman functionality
+
+     And   User is at add minuteman conveyor page '${CalculationName}'
+     When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+     And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
+     And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
+     And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
+     And   User enters select belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+     And   User should see all the calculated data of capacity page and click on next
+     And   User should see all the calculated data of Roll data page and click on next
+     And   User should see all the calculated data of pulleys page and click on next
+     And   User should see all the calculated data Add '${TransitionLengthHead}' '${TransitionLengthTail}' of transition page and click on next
+     And   User should see all the calculated data Add '${TakeUpTensionIfKnown}' of take up page and click on next
+     And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
+     Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+     Then  Verify download report option on final report '${CalculationName}'
+     When  Click on create button for minuteman calculation
+     Then  Verify the minuteman calculation '${CalculationName}' in list screen
+     When  Edit minuteman calculation '${CalculationName}' to '${NewCalculationName}'
+     Then  Verify the minuteman calculation '${NewCalculationName}' in list screen
+     When  Delete minuteman calculation '${NewCalculationName}'
+     Then  Verify the deleted minuteman calculation '${NewCalculationName}' in list screen
+
+ @Sanity18
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Sanity
+ @key:BeltMonitoring
+ Scenario: Verify Complete monitoring device functionality
+
+    Then  Navigate to Belt Monitoring List page for '${DeviceName}'
+    And   Navigate to Add monitoring device screen
+    And   Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
+    And   Click on save button and verify device '${DeviceName}' is created successfully
+    When  Edit monitoring device '${DeviceName}' to '${NewDeviceName}'
+    Then  Verify the monitoring device '${NewDeviceName}' in list screen
+    When  Delete monitoring device '${NewDeviceName}'
+    Then  Verify the deleted monitoring device '${NewDeviceName}' in list screen
+
+
+ @Sanity19
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Sanity
+ @key:CordProtect
+ Scenario: Verify Cord protect functionality
+
+    And   Navigate to Belt Monitoring List screen
+    Then  Verify the monitoring device '${DeviceName}' in list screen
+    When  Navigate to cord protect iot window
+    Then  Verify the cord protect details page
+
+ @Sanity20
+ @dataFile:resources/data/TestData.xls
+ @sheetName:Sanity
+ @key:BeltScan
+ Scenario: Verify Belt Scan functionality
+
+    And   Navigate to Belt Scan List page
+    Then  Navigate to Add Belt Scan Page and verify navigation
+    When  Add Belt Scan general Info with '${DateOfScan}' '${ScanReason}' '${CustSiteAusName}' '${ConveyorName}' '${NotifyCCM}' '${File1}' and '${File2}'
+    When  Submit the belt scan form
+    Then  Verify the belt scan for '${ConveyorName}' is present in list screen
+    When  Edit belt scan '${ConveyorName}' date scan to '${NewScanReason}'
+    And   Delete belt scan '${ConveyorName}'
+    Then  Verify the deleted Belt Scan '${ConveyorName}' in list screen
+
+@Sanity21
+@dataFile:resources/data/FabricSpliceSanity.json
+Scenario: Verify the add fabric splice screen
+
+    Then User is at Add Fabric splice Screen
+    And Add a design with '${DesignerName}' '${Market}' '${SpliceKit}' '${CustomerName}' '${ConveyorName}' '${ApproverName}' '${BeltConstruction}'
+    And Add the design details '${BeltWidth}' '${BeltType}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' '${OverAllBeltThickness}' '${BiasAngle}'
+    And Select Splice Type '${SpliceType}'
+    And Click on calculate button and verify preview tab is displayed
+    And Verify the Preview Design tab with calculations '${NoOfSteps}' '${BeltWidth}' '${OverAllBeltThickness}' '${StepLength}' '${SpliceLength}' '${CoverStripeTop}' '${CoverStripeBottom}' '${BiasLength}' '${CoatedBreakerStrip}' '${BeltType}' '${TopCoverThickness}' '${BottomCoverThickness}' '${TopCoverCompoundName}'
+    And Verify the Preview Design Notes with calculations '${CureTemperature}' '${CurePressure}' '${CureTime}' '${DimensionUnit}'
+    And Click on Splice kit BOM tab and verify
+    And Click on Comments log and save as draft
+    And Search for fabric-splice design and verify the status of the design '${DraftStatus}'
+    And Navigate to edit the fabric splice design
+    And Click on Comments Log tab and add comments '${Comments}' and send For Review
+    And Search for fabric-splice design and verify the status of the design '${InReviewStatus}'
+    And Logout from the current user
+    When Login with '${MarketUserName}' and '${MarketPassword}'
+    And Search for fabric-splice design and verify the status of the design '${ToReviewStatus}'
+    And Click on view icon
+    And Click on Comments Log tab and add approve comments '${ApproveComments}' and approve
+    And Search for fabric-splice design and verify the status of the design '${ApprovedStatus}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Search for fabric-splice design and verify the status of the design '${ApprovedStatus}'
+    And Verify pdf download functionality for Splice Design with '${CustomerName}' '${ConveyorName}'
+    Then Verify delete functionality for Splice Design
 
 @Sanity22
 @dataFile:resources/data/SteelCord.json
@@ -271,6 +370,58 @@ Scenario: Verify the Steel Cord Calculation functionality across the application
     And Verify pdf download functionality for Splice Design with '${CustomerName}' '${ConveyorName}'
     Then Verify delete functionality for Splice Design
 
+@Sanity23
+@dataFile:resources/data/TestData.xls
+@sheetName:Sanity
+@key:Heavy_Equipment
+Scenario: Verify the Heavy Equipment Calculation functionality across the application
 
+    And Navigate to the Heavy Equipment list page
+    And Navigate to the Heavy Equipment add page
+    And Create a heavy equipment with '${HeavyEquipmentName}' '${Category}' '${Model}' '${Year}' '${SerialNumber}' '${DistShopName}' '${ImageName}'
+    And Search for the heavy equipment '${HeavyEquipmentName}'
+    And Navigate to edit heavy equipment page
+    And Edit the Heavy Equipment '${EditHeavyEquipmentName}' '${Category}'
+    And Click on add Icon and upload the file '${ImageName}'
+    And Click on add Icon and upload the file '${PdfFile}'
+    And Click on save button and verify the Heavy Equipment '${EditHeavyEquipmentName}' is edited
+    And Click on view more icon
+    And Verify and view the image uploaded '${ImageName}'
+    And Verify file download functionality for '${ImageName}'
+    And Verify and view the pdf file uploaded '${PdfFile}'
+    And Verify file download functionality for '${PdfFile}'
+    And Verify search and delete document '${ImageName}' functionality
+    And Navigate to the Heavy Equipment list page
+    And Verify search and delete '${EditHeavyEquipmentName}' functionality
 
+@Sanity24
+@dataFile:resources/data/BeltFormTextileSanity.json
+Scenario: Verify the Belt-Info Textile functionality
 
+    And Navigate to the Belt Info Steel list page
+    And Navigate to the Belt Info Textile sheet
+    And Enter the Belt Form data '${Market}' '${STDReqByCustomer}' '${BeltConstruction}' '${CarcassConstruction}' '${TopCoverCompound}' '${TopCoverGauge}' '${BottomCoverCompound}' '${BottomCoverGauge}' '${BeltWidth}' '${BreakerItems}' '${BreakerItems}' '${Overallbeltthickness}' '${Comment}'
+    And Export PDF and verify the PDF is downloaded
+
+@Sanity25
+@dataFile:resources/data/TestData.xls
+@sheetName:Sanity
+@key:FreeTools
+Scenario: Verify free tools functionality
+
+     Given User is at Login page
+     When  Login with normal user '${UserName}' and '${Password}'
+     And   Navigate to free tools capacity and verify the fields
+     Then  Verify all the calculated data for conveyor capacity for entered data '${BeltWidth}' '${Density}' '${SurchrgeAngle}' '${BeltSpeed}' '${Tonnage}' '${TroughAngle}' '${ConveyorLoad}'
+     Then  Navigate to free tools troughability and verify the fields
+     Then  Verify all the calculated data for troughability for entered data '${RollerInclination}' '${Ratio}'
+     When  Navigate to free tools roll length and verify the fields
+     Then  Verify all the calculated data for roll length for entered data '${ReelShape}' '${InnerDiameter}' '${RaceTrack}' '${ReelWeight}' '${BeltThickness}' '${BeltLength}' '${BeltWeight}' '${ReelDiameter}' '${ReelLength}' '${Revolutions}' '${TotalWeight}'
+     When  Navigate to free tools safety factor and verify the fields
+     Then  Verify all the calculated data for safety calculator for entered data '${BeltType}' '${BeltWidth}' '${BreakingStrength}' '${BreakingForce}' '${BeltTension}' '${SafetyFactor}' '${SafetyFactorMinimum}' '${StartUpMinimum}'
+     Then  Navigate to free tools units converter and verify the fields
+     Then  Verify all the calculated data for PIW converter for entered data '${SafetyFactor}' '${SafetyFactorPN}' '${SafetyFactorST}' '${BreakingStrength}' '${OperatingTension1}' '${BreakingStrength1}' '${OperatingTension}'
+     When  Navigate to free tools belt revolution and verify the fields
+     Then  Verify all the calculated data for belt revolution for entered data '${TapedLength}' '${BeltSpeed}' '${TimeRevolutions}'
+     And   Navigate to free tools wrap angle and verify the fields
+     Then  Verify all the calculated data for wrap angle for entered data '${Direction}' '${Point1}' '${Point2}' '${WrapAngle}'

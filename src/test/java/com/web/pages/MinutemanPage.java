@@ -2,11 +2,14 @@ package com.web.pages;
 
 import com.common.component.CustomElement;
 import com.common.utils.MiscUtils;
+import com.common.utils.PDFHelper;
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
 import com.qmetry.qaf.automation.util.Validator;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.io.File.separator;
 import static java.lang.Double.parseDouble;
 
 public class MinutemanPage extends BasePage{
@@ -24,8 +28,11 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
     public CustomElement home;
 
-    @FindBy(locator = "xpath=(//li//span[text()='Minuteman'])[1]")
+    @FindBy(locator = "xpath=(//div[text()='Home']/../..//li//span[text()='Minuteman'])[1]")
     public CustomElement minuteman;
+
+    @FindBy(locator = "xpath=//span[text()='Minuteman Calculations']")
+    public CustomElement minutemanHeader;
 
     @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
     public CustomElement pagination;
@@ -72,6 +79,10 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//p-radiobutton[@value='metric']//input")
     public CustomElement checkedRadioMetric;
 
+    @FindBy(locator = "xpath=//p-radiobutton[@value='imperial']//input")
+    public CustomElement checkedRadioImperial;
+
+
     @FindBy(locator = "xpath=//span[text()='Load Data']")
     public CustomElement btnLoadData;
 
@@ -84,40 +95,55 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Save & Close']")
     public CustomElement btnSaveAndClose;
 
+    @FindBy(locator = "xpath=//span[text()='Save']")
+    public CustomElement btnSave;
+
+    @FindBy(locator = "xpath=//span[text()='Create']")
+    public CustomElement btnCreate;
+
+    @FindBy(locator = "xpath=//div[contains(@class,'p-toast-message-content')]")
+    public CustomElement toastMsg;
+
     @FindBy(locator = "xpath=//span[text()='Next']")
     public CustomElement btnNext;
 
     @FindBy(locator = "xpath=//span[text()='Previous']")
     public CustomElement btnPrevious;
 
-    @FindBy(locator = "xpath=(//label[text()='Belt Width']/following-sibling::div//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Belt Width']/following-sibling::div//input")
     public CustomElement tbBeltWidth;
 
-    @FindBy(locator = "xpath=(//label[text()='Pick Material Name']/following-sibling::app-master-data-picker//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Pick Material Name']/following-sibling::app-master-data-picker//input")
     public CustomElement tbPickMaterialName;
+
+    @FindBy(locator = "xpath=//label[text()='Pick Material Name']/following-sibling::app-master-data-picker//chevrondownicon")
+    public CustomElement tbPickMaterialDropdown;
+
+    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    public CustomElement tbDeviceTypedropdown;
 
     @FindBy(locator = "xpath=//label[text()='Drive Wrap Angle']/following-sibling::app-master-data-picker//div[@role='button']")
     public CustomElement driveWrapAngleDropdown;
 
-    @FindBy(locator = "xpath=(//label[text()='Drive Wrap Angle']/following-sibling::app-master-data-picker//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Drive Wrap Angle']/following-sibling::app-master-data-picker//span")
     public CustomElement tbDriveWrapAngle;
 
     @FindBy(locator = "xpath=//label[text()='Surcharge Angle']/following-sibling::app-master-data-picker//div[@role='button']")
     public CustomElement surchargeAngleDropdown;
 
-    @FindBy(locator = "xpath=(//label[text()='Surcharge Angle']/following-sibling::app-master-data-picker//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Surcharge Angle']/following-sibling::app-master-data-picker//span")
     public CustomElement tbSurchargeAngle;
 
     @FindBy(locator = "xpath=//label[text()='Idler Offset Type']/following-sibling::app-master-data-picker//div[@role='button']")
     public CustomElement idlerOffsetTypeDropdown;
 
-    @FindBy(locator = "xpath=(//label[text()='Idler Offset Type']/following-sibling::app-master-data-picker//input)[2]")
+    @FindBy(locator = "xpath=//label[text()='Idler Offset Type']/following-sibling::app-master-data-picker//input")
     public CustomElement tbIdlerOffsetType;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='driveDetails']//span")
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='drivePulleySurface']//span")
     public CustomElement driveDetailsDropdown;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='takeUpDetails']//span")
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='takeupType']//span")
     public CustomElement takeUpDetailsDropdown;
 
     @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='spliceInformation']//span")
@@ -153,10 +179,10 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//p-radiobutton[@inputid='temporaryConveyors']")
     public CustomElement radioTemporaryConveyor;
 
-    @FindBy(locator = "xpath=//input[@formcontrolname='frictionFactorValue']")
+    @FindBy(locator = "xpath=//input[@formcontrolname='frictionFactor']")
     public CustomElement tbFrictionFactorValue;
 
-    @FindBy(locator = "xpath=//input[@formcontrolname='lengthFactorValue']")
+    @FindBy(locator = "xpath=//input[@formcontrolname='lengthFactor']")
     public CustomElement tbLengthFactorValue;
 
     @FindBy(locator = "xpath=//p-checkbox[@formcontrolname='station']")
@@ -216,6 +242,9 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Maximum Tension']/following-sibling::span[1]")
     public CustomElement textMaximumTension;
 
+    @FindBy(locator = "xpath=//label[text()='Maximum PIW']/following-sibling::span[1]")
+    public CustomElement textMaximumPIW;
+
     @FindBy(locator = "xpath=//label[text()='Effective Tension']/following-sibling::span[1]")
     public CustomElement textEffectiveTension;
 
@@ -227,6 +256,12 @@ public class MinutemanPage extends BasePage{
 
     @FindBy(locator = "xpath=//label[text()='Counterweight Tension']/following-sibling::span[1]")
     public CustomElement textCounterweightTension;
+
+    @FindBy(locator = "xpath=//label[text()='Weight in Each Bucket']/following-sibling::span[1]")
+    public CustomElement textWeightEachBucket;
+
+    @FindBy(locator = "xpath=//label[text()='Percent Loaded']/following-sibling::span[1]")
+    public CustomElement textPercentLoaded;
 
     @FindBy(locator = "xpath=//label[text()='Conveyor Capacity']/following-sibling::span[1]")
     public CustomElement textConveyorCapacity;
@@ -447,31 +482,31 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=(//p-radiobutton[@formcontrolname='transitionTailTroughDepthType'])[2]")
     public CustomElement radioTransitionTailTroughDepthHalf;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[1]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[1]")
     public CustomElement tbTakeUpTensionTakeUpLevel;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[2]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[2]")
     public CustomElement tbCounterWeight;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[5]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[5]")
     public CustomElement tbMaximumBeltTension;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[6]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[6]")
     public CustomElement tbAverageBeltTension;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[7]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[7]")
     public CustomElement tbEstimatedTakeUpMovementDueToPermanentElongation;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[8]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[8]")
     public CustomElement tbEstimatedTakeUpMovementDueToElasticElongation;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[9]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[9]")
     public CustomElement tbTotalEstimatedTakeUpMovementPercentage;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[10]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[10]")
     public CustomElement tbEstimatedBeltCCLength;
 
-    @FindBy(locator = "xpath=(//div[@class='p-col-4']//input)[11]")
+    @FindBy(locator = "xpath=(//div[@class='col-4']//input)[11]")
     public CustomElement tbTotalEstimatedTakeUpMovement;
 
     @FindBy(locator = "xpath=//input[@formcontrolname='takeupTension']")
@@ -624,41 +659,191 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//div[contains(text(),'Estimated C-C Length')]")
     public CustomElement txtEstimatedCCLength;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[1]")
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[1]")
     public CustomElement txtCustomer;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[2]")
-    public CustomElement txtName;
-
-    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div/span[3]")
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[2]")
     public CustomElement txtConveyor;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor information']/following-sibling::div[2]")
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div[2]")
     public CustomElement txtDescription;
 
-    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div")
-    public CustomElement txtMaterialData;
+    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtMaterialDataTonsPerHr;
 
-    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div")
-    public CustomElement txtInputBeltData;
+    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtMaterialDataMaterialDensity;
 
-    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div")
+    @FindBy(locator = "xpath=//label[text()='Material Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtMaterialDataSurchargeAngle;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtInputBeltDataWidth;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtInputBeltDataSpeed;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtInputBeltDataWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Input Belt Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtInputBeltDataOAG;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[1]/div[2]")
     public CustomElement txtSystemData;
 
-    @FindBy(locator = "xpath=//label[text()='Calculate Data']/following-sibling::div")
-    public CustomElement txtCalculateData;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtSystemDataAngleOfIdlers;
 
-    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div")
-    public CustomElement txtBeltData;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtSystemDataCarrySideIdlerSpacing;
 
-    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div")
-    public CustomElement txtRollData;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtSystemDataStationLocationDrive;
 
-    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div")
-    public CustomElement txtVulcanizedSpliceData;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtSystemDataStationLocationTakeUp;
 
-    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div")
-    public CustomElement txtTakeUpTravel;
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtSystemDataWeightOfMovingParts;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtSystemDataDriveFactor;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[7]/div[2]")
+    public CustomElement txtSystemDataFrictionFactor;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[8]/div[2]")
+    public CustomElement txtSystemDataLengthFactor;
+
+    @FindBy(locator = "xpath=//label[text()='System Data']/following-sibling::div[9]/div[2]")
+    public CustomElement txtSystemDataDriveWrap;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtCalculateDataUnitTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtCalculateDataMaximumTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtCalculateDataEffectiveTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtCalculateDataBeltPower;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtCalculateDataCounterWeightW;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtCalculateDataCounterWeightTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[7]/div[2]")
+    public CustomElement txtCalculateDataConveyorCapacity;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::div[8]/div[2]")
+    public CustomElement txtCalculateDataEstimatedBeltLength;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtBeltDataCarcassMaterial;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtBeltDataNoOfPlies;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtBeltDataPlyTensileStrength;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtBeltDataBeltTensileStrength;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtBeltDataVulcanizedRating;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtBeltDataMechanicalRating;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[7]/div[2]")
+    public CustomElement txtBeltDataElasticModulus;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[8]/div[2]")
+    public CustomElement txtBeltDataCarcassGauge;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[9]/div[2]")
+    public CustomElement txtBeltDataCoverGauge;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[10]/div[2]")
+    public CustomElement txtBeltDataBeltGauge;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[11]/div[2]")
+    public CustomElement txtBeltDataCarcassWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[12]/div[2]")
+    public CustomElement txtBeltDataCoverWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Belt Data']/following-sibling::div[13]/div[2]")
+    public CustomElement txtBeltDataTotalBeltWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtRollDataTotalBeltLength;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtRollDataNoOfRolls;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtRollDataRollLength;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtRollDataRollDiameter;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtRollDataRollWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Roll Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtRollDataCubage;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[1]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataNoOfSplice;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[2]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataVulcanizerBiasAngle;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[3]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataFabricStepLength;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[4]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataBiasLength;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[5]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataSpliceLength;
+
+    @FindBy(locator = "xpath=//label[text()='Vulcanized Splice Data']/following-sibling::div[6]/div[2]")
+    public CustomElement txtVulcanizedSpliceDataExtraBeltLength;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[1]/div[2]")
+    public CustomElement txtTakeUpTravelTypeOfTakeUp;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[2]/div[2]")
+    public CustomElement txtTakeUpTravelTypeOfSplice;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[3]/div[2]")
+    public CustomElement txtTakeUpTravelMaximumBeltTension;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[4]/div[2]")
+    public CustomElement txtTakeUpTravelAverageBeltTension;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[6]/div[2]")
+    public CustomElement txtTakeUpTravelTakeUpMovementPermanent;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[8]/div[2]")
+    public CustomElement txtTakeUpTravelTakeUpMovementElastic;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[9]/div[2]")
+    public CustomElement txtTakeUpTravelEstimatedTakeUpMovementPercentage;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[10]/div[2]")
+    public CustomElement txtTakeUpTravelConveyorLength;
+
+    @FindBy(locator = "xpath=//label[text()='Take-Up Travel']/following-sibling::div[11]/div[2]")
+    public CustomElement txtTakeUpTravelEstimatedTakeUpMovement;
 
     @FindBy(locator = "xpath=//label[text()='Vertical Curves']/following-sibling::table/tr[1]/td[2]")
     public CustomElement txtVerticalCurves;
@@ -708,14 +893,255 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='12']")
     public CustomElement finalReport;
 
-    @FindBy(locator = "xpath=//label[text()='System Coordinates']/following-sibling::div[3]//div[@class='p-col-2']/div")
+    @FindBy(locator = "xpath=//label[text()='System Coordinates']/following-sibling::div[3]//div[@class='col-2']/div")
     public CustomElement systemCoordinates;
 
     @FindBy(locator = "xpath=//label[text()='Pulley Data']/following-sibling::table/tr[2]/td[2]")
     public CustomElement pulleyData;
 
-    @FindBy(locator = "xpath=//span[text()='Save & Download']")
+    @FindBy(locator = "xpath=//span[text()='Create & Download']")
     public CustomElement btnSaveAndDownload;
+
+    @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
+    public CustomElement crCheckbox;
+
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+    public CustomElement crActions;
+
+    @FindBy(locator="xpath=//li//span[text()='Edit']")
+    public CustomElement crEdit;
+
+    @FindBy(locator="xpath=//span[text()='Delete']")
+    public CustomElement crDelete;
+
+    @FindBy(locator = "xpath=//li/a/span[text()='Edit']")
+    public CustomElement editBreadCrumb;
+
+    @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
+    public CustomElement buttonLoader;
+
+    @FindBy(locator = "xpath=//span[text()='Yes']")
+    public CustomElement crYesConfirmation;
+
+    @FindBy(locator = "xpath=//td[contains(text(),'No')]")
+    public CustomElement noList;
+
+    @FindBy(locator = "xpath=//label[text()='Stations - Please chose the number of Stations, Drives and Take-ups']")
+    public CustomElement stationLabel;
+
+    @FindBy(locator = "xpath=//label[text()='Conveyor Profile']")
+    public CustomElement flightHeader;
+
+    @FindBy(locator = "xpath=//div[text()='Select Conveyor Belt']")
+    public CustomElement selectBeltHeader;
+
+    @FindBy(locator = "xpath=//div[text()='Capacity']")
+    public CustomElement capacityHeader;
+
+    @FindBy(locator = "xpath=//label[text()='Conveyor Belt Data']")
+    public CustomElement rollDataHeader;
+
+    @FindBy(locator = "xpath=//label[text()='Review Calculated Pulley']")
+    public CustomElement pulleyHeader;
+
+    @FindBy(locator = "xpath=//label[text()='Review Calculated Transition Length']")
+    public CustomElement transactionHeader;
+
+    @FindBy(locator = "xpath=//label[text()='Review Calculated Take-Up Travel']")
+    public CustomElement takeUpHeader;
+
+    @FindBy(locator = "xpath=//label[text()='Review Calculated Vertical Curves']")
+    public CustomElement curvesHeader;
+
+    @FindBy(locator="xpath=//span[text()='No']")
+    public CustomElement unitNo;
+
+    @FindBy(locator="xpath=//span[text()='Yes']")
+    public CustomElement unitYes;
+
+    @FindBy(locator="xpath=//span[text()='Changing the unit of measure will reset the form with default values. Are you sure you want to change it?']")
+    public CustomElement unitsPopup;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='conveyorType']//span)[1]")
+    public CustomElement tbConveyorType;
+
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname=\"conveyorType\"]/../../following-sibling::div//span")
+    public CustomElement conveyorTypeText;
+
+    @FindBy(locator = "xpath=(//label[text()='Density']/following-sibling::div//input)[1]")
+    public CustomElement tbDensity;
+
+    @FindBy(locator = "xpath=(//label[text()='Material/hr']/following-sibling::div//input)[1]")
+    public CustomElement tbTonPerHrPeak;
+
+    @FindBy(locator = "xpath=(//label[text()='Length']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialLength;
+
+    @FindBy(locator = "xpath=(//label[text()='Projection']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialProjection;
+
+    @FindBy(locator = "xpath=(//label[text()='C-C Spacing']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialSpacing;
+
+    @FindBy(locator = "xpath=(//label[text()='Weight']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialWeight;
+
+    @FindBy(locator = "xpath=(//label[text()='Volume']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialVolume;
+
+    @FindBy(locator = "xpath=(//label[text()='No. of Rows']/following-sibling::div//input)[1]")
+    public CustomElement tbBucketRows;
+
+    @FindBy(locator = "xpath=(//label[text()='Width']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialWidth;
+
+    @FindBy(locator = "xpath=(//label[text()='Height']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialHeight;
+
+    @FindBy(locator = "xpath=(//label[text()='Speed']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialSpeed;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='beltDrivePulley']//span)[1]")
+    public CustomElement tbDrivePulley;
+
+    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='beltTakeupType']//span)[1]")
+    public CustomElement tbTakeUpType;
+
+    @FindBy(locator = "xpath=(//label[text()='Maximum Tension']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialTension;
+
+    @FindBy(locator = "xpath=(//label[text()='Maximum PIW']/following-sibling::div//input)[1]")
+    public CustomElement tbMaterialPIW;
+
+    @FindBy(locator = "xpath=(//label[text()='Effective Tension']/following-sibling::div//input)[1]")
+    public CustomElement tbEffectiveTension;
+
+    @FindBy(locator = "xpath=(//label[text()='Belt Horsepower']/following-sibling::div//input)[1]")
+    public CustomElement tbBeltHorsepower;
+
+    @FindBy(locator = "xpath=(//label[text()='Percent Loaded ']/following-sibling::div//input)[1]")
+    public CustomElement tbPercentLoaded;
+
+    @FindBy(locator = "xpath=(//label[text()='Counterweight Tension']/following-sibling::div//input)[1]")
+    public CustomElement tbCounterweightTensionn;
+
+    @FindBy(locator = "xpath=(//label[text()='Counterweight Weight']/following-sibling::div//input)[1]")
+    public CustomElement tbCounterweightWeight;
+
+    @FindBy(locator = "xpath=(//label[text()='Weight in Each Bucket']/following-sibling::div//input)[1]")
+    public CustomElement tbEachBucketWeight;
+
+    @FindBy(locator = "xpath=(//label[text()='Min Head Pulley Diameter']/following-sibling::div//input)[1]")
+    public CustomElement tbHeadPulleyDeameter;
+
+    @FindBy(locator = "xpath=(//label[text()='Min Tail Pulley Diameter']/following-sibling::div//input)[1]")
+    public CustomElement tbTailPulleyDiaeter;
+
+    @FindBy(locator = "xpath=(//label[text()='Maximum Projection']/following-sibling::div//input)[1]")
+    public CustomElement tbMaximumProjection;
+
+    @FindBy(locator = "xpath=(//label[text()='Approximate Number']/following-sibling::div//input)[1]")
+    public CustomElement tbApproximateNumber;
+
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/table/tr/td[1]")
+    public CustomElement txtElevatorCustomer;
+
+    @FindBy(locator = "xpath=//p-dropdown[@datakey='conveyorId']/div")
+    public CustomElement conveyorDropdownStatus;
+
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/table/tr/td[2]")
+    public CustomElement txtElevatorConveyor;
+
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/table/tr/td[3]")
+    public CustomElement txtElevatorRepresentive;
+
+    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/table/tr/td[4]")
+    public CustomElement txtElevatorBeltDescription;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[1]/td")
+    public CustomElement txtElevatorConveyorType;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[2]/td/span[1]")
+    public CustomElement txtElevatorBucketProjection;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[3]/td/span[1]")
+    public CustomElement txtElevatorBucketLength;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[4]/td/span[1]")
+    public CustomElement txtElevatorBucketVolume;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[5]/td/span[1]")
+    public CustomElement txtElevatorBeltWidth;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[6]/td/span[1]")
+    public CustomElement txtElevatorBeltHeight;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[7]/td/span[1]")
+    public CustomElement txtElevatorBeltSpeed;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[8]/td/span[1]")
+    public CustomElement txtElevatortonPerPeak;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[9]/td/span[1]")
+    public CustomElement txtElevatorMaterialDensity;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[10]/td/span[1]")
+    public CustomElement txtElevatorTakeUp;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[11]/td/span[1]")
+    public CustomElement txtElevatorDrivePulley;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[12]/td/span[1]")
+    public CustomElement txtElevatorBucketWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[13]/td/span[1]")
+    public CustomElement txtElevatorBeltWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[14]/td/span[1]")
+    public CustomElement txtElevatorBucketSpacing;
+
+    @FindBy(locator = "xpath=//label[text()='Given Data']/following-sibling::table/tr[15]/td")
+    public CustomElement txtElevatorBucketRows;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[1]/td/span[1]")
+    public CustomElement txtElevatorMaximumTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[2]/td/span[1]")
+    public CustomElement txtElevatorEffectiveTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[3]/td/span[1]")
+    public CustomElement txtElevatorMaximumPIW;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[4]/td/span[1]")
+    public CustomElement txtElevatorBeltHorsepower;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[5]/td/span[1]")
+    public CustomElement txtElevatorCounterweightTension;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[6]/td/span[1]")
+    public CustomElement txtElevatorCounterweightWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[7]/td/span[1]")
+    public CustomElement txtElevatorEachBucketWeight;
+
+    @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[8]/td/span[1]")
+    public CustomElement txtElevatorBucketCapacity;
+
+    @FindBy(locator = "xpath=//label[text()='Additional Data']/following-sibling::table/tr[1]/td/span[1]")
+    public CustomElement txtElevatorMinHeadPulleyDiameter;
+
+    @FindBy(locator = "xpath=//label[text()='Additional Data']/following-sibling::table/tr[2]/td/span[1]")
+    public CustomElement txtElevatorMaxBucketProjection;
+
+    @FindBy(locator = "xpath=//label[text()='Additional Data']/following-sibling::table/tr[3]/td/span[1]")
+    public CustomElement txtElevatorBucketNumber;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='name']")
+    public CustomElement tbElevatorCalculationName;
+
+    @FindBy(locator = "xpath=//span[text()='Are you sure, you want to leave the Minuteman calculation without saving?']")
+    public CustomElement warningPopup;
+
 
     private static final double PERCENTAGE_THRESHOLD = 1.0;
     String listItem="//ul[@role='listbox']//p-dropdownitem//li//span";
@@ -727,8 +1153,10 @@ public class MinutemanPage extends BasePage{
 
     public void gotoMinutemanScreen(){
         if(!minuteman.isVisible())
-          home.click("Home");
+            home.click("Home");
+        SyncUtil.waitFor(1000);
         minuteman.click("Minuteman");
+        waitForElementToDisplay(minutemanHeader);
         btSearchinput.isVisible("Minuteman Page");
     }
     public void gotoMinutemanScreenWait(){
@@ -753,9 +1181,8 @@ public class MinutemanPage extends BasePage{
     public ArrayList<Float> getSystemCoordinates(){
         ArrayList<Float> systemCoordinates=new ArrayList<>();
         String estimatedCCLength=txtEstimatedCCLength.getText().split("\\s")[3].split("\\(")[0].trim();
-        for (int i=1;i<=7;i++){
-            for(int j=1;j<=3;j++){
-                WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[2]/div["+i+"]//div[@class='p-col-2']/div)["+j+"]"));
+        for (int i=1;i<=11;i++){
+                WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[1]//div[contains(@class,'col-3')]/div)["+i+"]"));
                 String text=element.getText();
                 if(element.getText().isEmpty()) {
                     systemCoordinates.add(Float.valueOf(estimatedCCLength));
@@ -763,130 +1190,120 @@ public class MinutemanPage extends BasePage{
                 }
                 systemCoordinates.add(Float.valueOf(text));
             }
-        }
         systemCoordinates.add(Float.valueOf(estimatedCCLength));
         return systemCoordinates;
     }
 
     public ArrayList<String> getConveyorInformation(){
         String[] data=txtDescription.getText().split("\\r?\\n");
-        String beltDescription = data[1].split(":")[1].trim();
+        String beltDescription = data[1].split("Belt Description ")[1].trim();
         String customer=txtCustomer.getText();
-        String name = txtName.getText();
         String conveyor = txtConveyor.getText();
-        return new ArrayList<> (Arrays.asList(beltDescription,customer,name,conveyor));
+        return new ArrayList<> (Arrays.asList(beltDescription,customer,conveyor));
     }
 
 
     public ArrayList<String> getMaterialData(){
-        String[] data=txtMaterialData.getText().split("\\r?\\n");
-        String[] tonsPerHour = data[0].split(":")[1].trim().split("\\s");
-        String[] materialDensity = data[1].split(":")[1].trim().split("\\s");
-        String[] surchargeAngle = data[2].split(":")[1].trim().split("\\s");
-        return new ArrayList<> (Arrays.asList(tonsPerHour[0], materialDensity[0], surchargeAngle[0]));
+        String tonsPerHour = txtMaterialDataTonsPerHr.getText().trim();
+        String materialDensity = txtMaterialDataMaterialDensity.getText().trim();
+        String surchargeAngle = txtMaterialDataSurchargeAngle.getText().trim();
+        return new ArrayList<> (Arrays.asList(tonsPerHour, materialDensity, surchargeAngle));
     }
 
     public ArrayList<String> getInputBeltData(){
-        String[] data=txtInputBeltData.getText().split("\\r?\\n");
-        String[] width = data[0].split(":")[1].trim().split("\\s");
-        String[] speed = data[1].split(":")[1].trim().split("\\s");
-        String[] weight = data[2].split(":")[1].trim().split("\\s");
-        String[] oAG = data[3].split(":")[1].trim().split("\\s");
-        return new ArrayList<> (Arrays.asList(width[0], speed[0], weight[0], oAG[0]));
+        String width = txtInputBeltDataWidth.getText().trim();
+        String speed = txtInputBeltDataSpeed.getText().trim();
+        String weight = txtInputBeltDataWeight.getText().trim();
+        String oAG = txtInputBeltDataOAG.getText().trim();
+        return new ArrayList<> (Arrays.asList(width, speed, weight, oAG));
     }
 
     public ArrayList<String> getSystemData(){
-        String[] data=txtSystemData.getText().split("\\r?\\n");
-        String[] troughAngleOfIdlers = data[0].split(":")[1].trim().split("\\s");
-        String[] carrySideIdlerSpacing = data[1].split(":")[1].trim().split("\\s");
-        String stationLocationOfDrive = data[2].split(":")[1].trim();
-        String stationLocationOfTakeUp = data[3].split(":")[1].trim();
-        String[] weightOfMovingParts = data[4].split(":")[1].trim().split("\\s");
-        String[] driveFactor = data[5].split(":")[1].trim().split("\\s");
-        String frictionFactor = data[6].split(":")[1].trim();
-        String lengthFactor = data[7].split(":")[1].trim();
-        String[] driveWrap = data[8].split(":")[1].trim().split("\\s");
-        return new ArrayList<> (Arrays.asList(troughAngleOfIdlers[0], carrySideIdlerSpacing[0], stationLocationOfDrive, stationLocationOfTakeUp,
-                weightOfMovingParts[0], driveFactor[0], frictionFactor, lengthFactor, driveWrap[0]));
+        String troughAngleOfIdlers = txtSystemDataAngleOfIdlers.getText().trim();
+        String carrySideIdlerSpacing = txtSystemDataCarrySideIdlerSpacing.getText().trim();
+        String stationLocationOfDrive = txtSystemDataStationLocationDrive.getText().trim();
+        String stationLocationOfTakeUp = txtSystemDataStationLocationTakeUp.getText().trim();
+        String weightOfMovingParts = txtSystemDataWeightOfMovingParts.getText().trim();
+        String driveFactor = txtSystemDataDriveFactor.getText().trim();
+        String frictionFactor = txtSystemDataFrictionFactor.getText().trim();
+        String lengthFactor = txtSystemDataLengthFactor.getText().trim();
+        String driveWrap = txtSystemDataDriveWrap.getText().trim();
+        return new ArrayList<> (Arrays.asList(troughAngleOfIdlers, carrySideIdlerSpacing, stationLocationOfDrive, stationLocationOfTakeUp,
+                weightOfMovingParts, driveFactor, frictionFactor, lengthFactor, driveWrap));
     }
 
     public ArrayList<String> getCalculatedData(){
-        String[] data=txtCalculateData.getText().split("\\r?\\n");
-        String[] unitTension = data[0].split(":")[1].trim().split("\\s");
-        String[] maximumTension = data[1].split(":")[1].trim().split("\\s");
-        String[] effectiveTension = data[2].split(":")[1].trim().split("\\s");
-        String[] beltPower = data[3].split(":")[1].trim().split("\\s");
-        String[] counterweightWeight = data[4].split(":")[1].trim().split("\\s");
-        String[] counterweightTension = data[5].split(":")[1].trim().split("\\s");
-        String[] conveyorCapacity = data[6].split(":")[1].trim().split("\\s");
-        String[] estimatedBeltLength = data[7].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(unitTension[0], maximumTension[0], effectiveTension[0], beltPower[0], counterweightWeight[0], counterweightTension[0],
-                conveyorCapacity[0], estimatedBeltLength[0]));
+        String unitTension = txtCalculateDataUnitTension.getText().trim();
+        String maximumTension = txtCalculateDataMaximumTension.getText().trim();
+        String effectiveTension = txtCalculateDataEffectiveTension.getText().trim();
+        String beltPower = txtCalculateDataBeltPower.getText().trim();
+        String counterweightWeight = txtCalculateDataCounterWeightW.getText().trim();
+        String counterweightTension = txtCalculateDataCounterWeightTension.getText().trim();
+        String conveyorCapacity = txtCalculateDataConveyorCapacity.getText().replace("%","").trim();
+        String estimatedBeltLength = txtCalculateDataEstimatedBeltLength.getText().trim();
+        return new ArrayList<>(Arrays.asList(unitTension, maximumTension, effectiveTension, beltPower, counterweightWeight, counterweightTension,
+                conveyorCapacity, estimatedBeltLength));
     }
 
     public ArrayList<String> getBeltData(){
-        String[] data=txtBeltData.getText().split("\\r?\\n");
-        String carcassMaterial = data[0].split(":")[1].trim();
-        String[] numberOfPlies = data[1].split(":")[1].trim().split("\\s");
-        String[] plyTensileStrength = data[2].split(":")[1].trim().split("\\s");
-        String[] beltTensileStrength = data[3].split(":")[1].trim().split("\\s");
-        String[] vulcanizedRating = data[4].split(":")[1].trim().split("\\s");
-        String[] mechanicalRating = data[5].split(":")[1].trim().split("\\s");
-        String[] elasticModulus = data[6].split(":")[1].trim().split("\\s");
-        String[] carcassGauge = data[7].split(":")[1].trim().split("\\s");
-        String[] totalCoverGauge = data[8].split(":")[1].trim().split("\\s");
-        String[] totalBeltGauge = data[9].split(":")[1].trim().split("\\s");
-        String[] carcassWeight = data[10].split(":")[1].trim().split("\\s");
-        String[] totalCoverWeight = data[11].split(":")[1].trim().split("\\s");
-        String[] totalBeltWeight = data[12].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(carcassMaterial, numberOfPlies[0], plyTensileStrength[0], beltTensileStrength[0], vulcanizedRating[0],
-                mechanicalRating[0], elasticModulus[0], carcassGauge[0], totalCoverGauge[0], totalBeltGauge[0], carcassWeight[0],
-                totalCoverWeight[0], totalBeltWeight[0]));
+        String carcassMaterial = txtBeltDataCarcassMaterial.getText().trim();
+        String numberOfPlies = txtBeltDataNoOfPlies.getText().trim();
+        String plyTensileStrength = txtBeltDataPlyTensileStrength.getText().trim();
+        String beltTensileStrength = txtBeltDataBeltTensileStrength.getText().trim();
+        String vulcanizedRating = txtBeltDataVulcanizedRating.getText().trim();
+        String mechanicalRating = txtBeltDataMechanicalRating.getText().trim();
+        String elasticModulus = txtBeltDataElasticModulus.getText().trim();
+        String carcassGauge = txtBeltDataCarcassGauge.getText().trim();
+        String totalCoverGauge = txtBeltDataCoverGauge.getText().trim();
+        String totalBeltGauge = txtBeltDataBeltGauge.getText().trim();
+        String carcassWeight = txtBeltDataCarcassWeight.getText().trim();
+        String totalCoverWeight = txtBeltDataCoverWeight.getText().trim();
+        String totalBeltWeight = txtBeltDataTotalBeltWeight.getText().trim();
+        return new ArrayList<>(Arrays.asList(carcassMaterial, numberOfPlies, plyTensileStrength, beltTensileStrength, vulcanizedRating,
+                mechanicalRating, elasticModulus, carcassGauge, totalCoverGauge, totalBeltGauge, carcassWeight,
+                totalCoverWeight, totalBeltWeight));
     }
 
     public ArrayList<String> getRollData(){
-        String[] data=txtRollData.getText().split("\\r?\\n");
-        String[] totalBeltLength = data[0].split(":")[1].trim().split("\\s");
-        String numberOfRolls = data[1].split(":")[1].trim();
-        String[] rollLength = data[2].split(":")[1].trim().split("\\s");
-        String[] rollDiameter = data[3].split(":")[1].trim().split("\\s");
-        String[] rollWeight = data[4].split(":")[1].trim().split("\\s");
-        String[] cubage = data[5].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(totalBeltLength[0], numberOfRolls, rollLength[0], rollDiameter[0], rollWeight[0], cubage[0]));
+        String totalBeltLength = txtRollDataTotalBeltLength.getText().trim();
+        String numberOfRolls = txtRollDataNoOfRolls.getText().trim();
+        String rollLength = txtRollDataRollLength.getText().trim();
+        String rollDiameter = txtRollDataRollDiameter.getText().trim();
+        String rollWeight = txtRollDataRollWeight.getText().trim();
+        String cubage = txtRollDataCubage.getText().trim();
+        return new ArrayList<>(Arrays.asList(totalBeltLength, numberOfRolls, rollLength, rollDiameter, rollWeight, cubage));
     }
 
     public ArrayList<String> getVulcanizedSpliceData(){
-        String[] data=txtVulcanizedSpliceData.getText().split("\\r?\\n");
-        String numberOfSplices = data[0].split(":")[1].trim();
-        String[] vulcanizerBiasAngle = data[1].split(":")[1].trim().split("\\s");
-        String[] fabricStepLength = data[2].split(":")[1].trim().split("\\s");
-        String[] biasLength = data[3].split(":")[1].trim().split("\\s");
-        String[] spliceLength = data[4].split(":")[1].trim().split("\\s");
-        String[] extraBeltLength = data[5].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(numberOfSplices, vulcanizerBiasAngle[0], fabricStepLength[0], biasLength[0], spliceLength[0],
-                extraBeltLength[0]));
+        String numberOfSplices = txtVulcanizedSpliceDataNoOfSplice.getText().trim();
+        String vulcanizerBiasAngle = txtVulcanizedSpliceDataVulcanizerBiasAngle.getText().trim();
+        String fabricStepLength = txtVulcanizedSpliceDataFabricStepLength.getText().trim();
+        String biasLength = txtVulcanizedSpliceDataBiasLength.getText().trim();
+        String spliceLength = txtVulcanizedSpliceDataSpliceLength.getText().trim();
+        String extraBeltLength = txtVulcanizedSpliceDataExtraBeltLength.getText().trim();
+        return new ArrayList<>(Arrays.asList(numberOfSplices, vulcanizerBiasAngle, fabricStepLength, biasLength, spliceLength,
+                extraBeltLength));
     }
 
     public ArrayList<String> getTakeUpTravel(){
-        String[] data=txtTakeUpTravel.getText().split("\\r?\\n");
-        String typeOfTakeUp = data[0].split(":")[1].trim();
-        String typeOfSplice = data[1].split(":")[1].trim();
-        String[] maximumBeltTension = data[2].split(":")[1].trim().split("\\s");
-        String[] averageBeltTension = data[3].split(":")[1].trim().split("\\s");
-        String[] estPermanentElongation = data[5].split(":")[1].trim().split("\\s");
-        String[] estElasticElongation = data[7].split(":")[1].trim().split("\\s");
-        String[] estimatedTotalTakeUpMovementPercentage = data[8].split(":")[1].trim().split("\\s");
-        String[] conveyorCCLength = data[9].split(":")[1].trim().split("\\s");
-        String[] estimatedTotalTakeUpMovement = data[10].split(":")[1].trim().split("\\s");
-        return new ArrayList<>(Arrays.asList(typeOfTakeUp, typeOfSplice, maximumBeltTension[0], averageBeltTension[0], estPermanentElongation[0],
-                estElasticElongation[0], estimatedTotalTakeUpMovementPercentage[0], conveyorCCLength[0], estimatedTotalTakeUpMovement[0]));
+        String typeOfTakeUp = txtTakeUpTravelTypeOfTakeUp.getText().trim();
+        String typeOfSplice = txtTakeUpTravelTypeOfSplice.getText().trim();
+        String maximumBeltTension = txtTakeUpTravelMaximumBeltTension.getText().trim();
+        String averageBeltTension = txtTakeUpTravelAverageBeltTension.getText().trim();
+        String estPermanentElongation = txtTakeUpTravelTakeUpMovementPermanent.getText().trim();
+        String estElasticElongation = txtTakeUpTravelTakeUpMovementElastic.getText().trim();
+        String estimatedTotalTakeUpMovementPercentage = txtTakeUpTravelEstimatedTakeUpMovementPercentage.getText().trim();
+        String conveyorCCLength = txtTakeUpTravelConveyorLength.getText().trim();
+        String estimatedTotalTakeUpMovement = txtTakeUpTravelEstimatedTakeUpMovement.getText().trim();
+        return new ArrayList<>(Arrays.asList(typeOfTakeUp, typeOfSplice, maximumBeltTension, averageBeltTension, estPermanentElongation,
+                estElasticElongation, estimatedTotalTakeUpMovementPercentage, conveyorCCLength, estimatedTotalTakeUpMovement));
     }
 
     public ArrayList<String> getPulleyData(){
         ArrayList<String> pulleyData=new ArrayList<>();
-        for(int i=2;i<=7;i++){
-            for(int j=2;j<=5;j++){
-                WebElement element=driver.findElement(By.xpath("//label[text()='Pulley Data']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+        for(int i=2;i<=3;i++){
+            for(int j=3;j<=6;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Pulley Data']/following-sibling::div["+i+"]/div["+j+"]"));
                 pulleyData.add(element.getText());
             }
         }
@@ -895,13 +1312,13 @@ public class MinutemanPage extends BasePage{
 
     public ArrayList<String> getVerticalCurves(){
         ArrayList<String> verticalCurves=new ArrayList<>();
-        for (int i=1;i<=4;i++){
-            WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::table/tr[1]/td["+i+"]"));
+        for (int i=3;i<=6;i++){
+            WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::div[1]/div["+i+"]"));
             verticalCurves.add(element.getText().split("\\s")[1].trim());
         }
         for (int i=2;i<=11;i++){
-            for (int j=2;j<=5;j++){
-                WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+            for (int j=3;j<=6;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::div["+i+"]/div["+j+"]"));
                 verticalCurves.add(element.getText());
             }
         }
@@ -911,14 +1328,13 @@ public class MinutemanPage extends BasePage{
     public ArrayList<String> getTransitionLength(){
         ArrayList<String> transitionLength=new ArrayList<>();
         for(int i=2;i<=8;i++){
-            for(int j=2;j<=3;j++){
-                WebElement element=driver.findElement(By.xpath("//label[text()='Transition Lengths']/following-sibling::table/tr["+i+"]/td["+j+"]"));
+            for(int j=3;j<=4;j++){
+                WebElement element=driver.findElement(By.xpath("//label[text()='Transition Lengths']/following-sibling::div["+i+"]/div["+j+"]"));
                 transitionLength.add(element.getText());
             }
         }
         return transitionLength;
     }
-
 
     public void clickNext(){
         waitForElementToDisplay(btnNext);
@@ -986,7 +1402,8 @@ public class MinutemanPage extends BasePage{
     }
 
     public void setTbPickMaterialName(String pickMaterialName){
-        tbPickMaterialName.type(pickMaterialName,"Pick Material Name");
+//        tbPickMaterialName.type(pickMaterialName,"Pick Material Name");
+        dropdownSelectSearch(tbPickMaterialDropdown, tbDeviceTypedropdown, pickMaterialName);
     }
 
     public void setTbMaterialDensity(String materialDensity){
@@ -1002,7 +1419,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void setDriveWrapAngleDropdown(String driveWrapAngle){
-        dropdownSelectSearch(driveWrapAngleDropdown,dropdownInput,driveWrapAngle);
+        dropdownSelectSearchContains(driveWrapAngleDropdown,dropdownInput,driveWrapAngle);
     }
 
     public void selectFrictionFactor(String frictionFactor,String lengthFactor){
@@ -1044,6 +1461,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void selectDriveStation(String driveStation){
+        SyncUtil.waitFor(1500);
         driver.findElement(By.xpath("(//p-radiobutton[@formcontrolname='drive'])["+driveStation+"]")).click();
         Reporter.log("Selected Drive station "+driveStation);
     }
@@ -1227,7 +1645,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void clickOnFinalReport(){
-        finalReport.click("Final Report");
+        finalReport.jsClick("Final Report");
     }
 
     public void setTbTotalBeltLength(String totalBeltLength){
@@ -1312,7 +1730,7 @@ public class MinutemanPage extends BasePage{
 
     public String getLengthFactor(){
 //        return tbLengthFactorValue.getAttribute("Value");
-        waitForElementToBeClickable(tbLengthFactorValue);
+//        waitForElementToBeClickable(tbLengthFactorValue);
         return tbLengthFactorValue.getAttribute("value");
 //        return (String) js.executeScript("return arguments[0].value;",tbLengthFactorValue);
     }
@@ -1322,7 +1740,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public String getSurchargeAngle(){
-        return tbSurchargeAngle.getAttribute("value");
+        return tbSurchargeAngle.getText();
     }
 
     public String getTbBeltSpecification(){
@@ -1510,11 +1928,15 @@ public class MinutemanPage extends BasePage{
     }
 
     public String getTbTroughDepthHead(){
-        return tbTroughDepthHead.getAttribute("value");
+        String str = tbTroughDepthHead.getAttribute("value");
+        str = str.substring(0, str.length() - 1);
+        return str;
     }
 
     public String getTbTroughDepthTail(){
-        return tbTroughDepthTail.getAttribute("value");
+        String str = tbTroughDepthTail.getAttribute("value");
+        str = str.substring(0, str.length() - 1);
+        return str;
     }
 
     public String getLengthHead(){
@@ -1935,6 +2357,8 @@ public class MinutemanPage extends BasePage{
     public void verifyPrePopulatedDataInInputsPage(String beltWidth,String beltSpeed,String tonsPerHourPeak,String pickMaterialName,String materialDensity, String angleOfIdlers, String carrySideIdler, String driveWrapAngle,String driveWrapAngleDegree,String takeUpTension,String frictionFactor,String lengthFactor,String surchargeAngle,String idlerOffsetType,String driveDetails,String takeUpDetails, String spliceType){
         Validator.assertTrue(tbBeltWidth.getAttribute("value").equalsIgnoreCase(beltWidth),"The initial value provided for the Belt Width field does not match the expected value.","The initial value provided for the Belt Width field matches the expected value.");
         Validator.assertTrue(tbBeltSpeed.getAttribute("value").equalsIgnoreCase(beltSpeed),"The initial value provided for the Belt Speed field does not match the expected value.","The initial value provided for the Belt Speed field matches the expected value.");
+        System.out.println(tonsPerHourPeak);
+        System.out.println(tbTonsPerHourPeak.getAttribute("value"));
         Validator.assertTrue(tbTonsPerHourPeak.getAttribute("value").equalsIgnoreCase(tonsPerHourPeak),"The initial value provided for the Tons Per Hour Peak field does not match the expected value.","The initial value provided for the Tons Per Hour Peak field matches the expected value.");
 //        Validator.assertTrue(tbPickMaterialName.getAttribute("value").equalsIgnoreCase(pickMaterialName),"The initial value provided for the Pick Material Name field does not match the expected value.","The initial value provided for the Pick Material Name field matches the expected value.");
         Validator.assertTrue(tbMaterialDensity.getAttribute("value").equalsIgnoreCase(materialDensity),"The initial value provided for the Material Density field does not match the expected value.","The initial value provided for the Material Density field matches the expected value.");
@@ -1946,7 +2370,7 @@ public class MinutemanPage extends BasePage{
         Validator.assertTrue(checkedRadioPermanent.isSelected(),"Conveyors with permanent or other well aligned structures with normal maintenance radio button is should be selected.","Conveyors with permanent or other well aligned structures with normal maintenance radio button is selected as expected.");
         Validator.assertTrue(tbFrictionFactorValue.getAttribute("value").equalsIgnoreCase(frictionFactor),"The initial value provided for the Friction Factor field does not match the expected value.","The initial value provided for the Friction Factor field matches the expected value.");
         Validator.assertTrue(tbLengthFactorValue.getAttribute("value").equalsIgnoreCase(lengthFactor),"The initial value provided for the Length Factor field does not match the expected value.","The initial value provided for the Length Factor field matches the expected value.");
-        Validator.assertTrue(tbSurchargeAngle.getAttribute("value").equalsIgnoreCase(surchargeAngle),"The initial value provided for the Surcharge Angle field does not match the expected value.","The initial value provided for the Surcharge Angle field matches the expected value.");
+        Validator.assertTrue(tbSurchargeAngle.getText().equalsIgnoreCase(surchargeAngle),"The initial value provided for the Surcharge Angle field does not match the expected value.","The initial value provided for the Surcharge Angle field matches the expected value.");
         Validator.assertTrue(tbIdlerOffsetType.getAttribute("value").equalsIgnoreCase(idlerOffsetType),"The initial value provided for the Idler Offset Type field does not match the expected value.","The initial value provided for the Idler Offset Type field matches the expected value.");
         Validator.assertTrue(driveDetailsDropdown.getText().equalsIgnoreCase(driveDetails),"The initial value provided for the Drive Details field does not match the expected value.","The initial value provided for the Drive Details field matches the expected value.");
         Validator.assertTrue(takeUpDetailsDropdown.getText().equalsIgnoreCase(takeUpDetails),"The initial value provided for the Take-Up Details field does not match the expected value.","The initial value provided for the Take-Up Details field matches the expected value.");
@@ -2040,6 +2464,7 @@ public class MinutemanPage extends BasePage{
             flightConfiguration.add(elevOffset.get(i));
         }
         flightConfiguration.add(Float.valueOf(tbEstimatedCCLength.getAttribute("value")));
+        System.out.println(flightConfiguration);
         return flightConfiguration;
     }
 
@@ -2084,32 +2509,31 @@ public class MinutemanPage extends BasePage{
     }
 
    public ArrayList<String> getPulleysPageData(){
-        String stationNumberHead=getTbStationNumberHead();
-        String stationNumberDrive=getTbStationNumberDrive();
-        String stationNumberTakeUp=getTbStationNumberTakeUp();
-        String stationNumberTail=getTbStationNumberTail();
+//        String stationNumberHead=getTbStationNumberHead();
+//        String stationNumberDrive=getTbStationNumberDrive();
+//        String stationNumberTakeUp=getTbStationNumberTakeUp();
+//        String stationNumberTail=getTbStationNumberTail();
         String beltTensionHead=getTbBeltTensionHead();
         String beltTensionDrive=getTbBeltTensionDrive();
         String beltTensionTakeUp=getTbBeltTensionTakeUp();
         String beltTensionTail=getTbBeltTensionTail();
-        String minPulleyDiameterHead=getTbMinPulleyDiameterHead();
-        String minPulleyDiameterDrive=getTbMinPulleyDiameterDrive();
-        String minPulleyDiameterTakeUp=getTbMinPulleyDiameterTakeUp();
-        String minPulleyDiameterTail=getTbMinPulleyDiameterTail();
+//        String minPulleyDiameterHead=getTbMinPulleyDiameterHead();
+//        String minPulleyDiameterDrive=getTbMinPulleyDiameterDrive();
+//        String minPulleyDiameterTakeUp=getTbMinPulleyDiameterTakeUp();
+//        String minPulleyDiameterTail=getTbMinPulleyDiameterTail();
         String pulleyDiameterHead=getTbPulleyDiameterHead();
         String pulleyDiameterDrive=getTbPulleyDiameterDrive();
         String pulleyDiameterTakeUp=getTbPulleyDiameterTakeUp();
         String pulleyDiameterTail=getTbPulleyDiameterTail();
-        return new ArrayList<>(Arrays.asList(stationNumberHead,stationNumberDrive,stationNumberTakeUp,stationNumberTail,
-                beltTensionHead,beltTensionDrive,beltTensionTakeUp,beltTensionTail,minPulleyDiameterHead,minPulleyDiameterDrive,
-                minPulleyDiameterTakeUp,minPulleyDiameterTail,pulleyDiameterHead,pulleyDiameterDrive,pulleyDiameterTakeUp,pulleyDiameterTail));
+        return new ArrayList<>(Arrays.asList(
+                beltTensionHead,beltTensionDrive,beltTensionTakeUp,beltTensionTail,pulleyDiameterHead,pulleyDiameterDrive,pulleyDiameterTakeUp,pulleyDiameterTail));
    }
 
    public ArrayList<String> getTransitionsPageData(){
         String beltTensionHead=getTbBeltTensionHeadTransitionLengthPage();
         String beltTensionTail=getTbBeltTensionTailTransitionLengthPage();
-        String idlerAngleHead=getTbIdlerAngleHead();
-        String idlerAngleTail=getTbIdlerAngleTail();
+//        String idlerAngleHead=getTbIdlerAngleHead();
+//        String idlerAngleTail=getTbIdlerAngleTail();
         String troughDepthHead=getTbTroughDepthHead();
         String troughDepthTail=getTbTroughDepthTail();
         String lengthHead=getLengthHead();
@@ -2122,7 +2546,7 @@ public class MinutemanPage extends BasePage{
         String centerTensionTail=getTbCenterTensionTail();
         String centerTensionPercentageHead=getTbCenterTensionHeadPercentage();
         String centerTensionPercentageTail=getTbCenterTensionTailPercentage();
-        return new ArrayList<>(Arrays.asList(beltTensionHead,beltTensionTail,idlerAngleHead,idlerAngleTail,troughDepthHead,troughDepthTail,
+        return new ArrayList<>(Arrays.asList(beltTensionHead,beltTensionTail,troughDepthHead,troughDepthTail,
                 lengthHead,lengthTail,edgeTensionHead,edgeTensionTail,edgeTensionPercentageHead,edgeTensionPercentageTail,centerTensionHead,
                 centerTensionTail,centerTensionPercentageHead,centerTensionPercentageTail));
    }
@@ -2131,6 +2555,12 @@ public class MinutemanPage extends BasePage{
         String takeUpTension=getTbTakeUpTensionTakeUpLevel();
         String counterweightWeight=getTbCounterweightWeightTakeUpLevel();
         String typeOfSplice="";
+        SyncUtil.waitFor(2000);
+        if(checkedRadioVulcanized.isVisible()) {
+            takeUp.jsClick();
+            takeUp.click();
+        }
+        SyncUtil.waitFor(1500);
         if (checkedRadioVulcanized.isSelected()){
             typeOfSplice="Vulcanized";
         }else if(checkedRadioMechanical.isSelected()){
@@ -2216,10 +2646,14 @@ public class MinutemanPage extends BasePage{
 
    public void verifyConveyorInformation(ArrayList<String> beltData,String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
        Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
-      // Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
-       Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
-      // Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(3).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+       Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
+//       Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+       Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(2).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
    }
+
+    public void verifyConveyorInformation(String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
+        Validator.assertTrue(conveyorInformationReport.get(0).contains("AgriFlex"),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
+    }
 
    public void verifySystemCoordinates(ArrayList<Float> flightInformation,ArrayList<Float> systemCoordinatesReport){
        System.out.println("ABCD: = "+flightInformation);
@@ -2235,11 +2669,11 @@ public class MinutemanPage extends BasePage{
        Validator.assertTrue(inputData.get(3).equals(materialDataReport.get(2).trim()),"Surcharge Angle in reports is not matching with the calculated value","Surcharge Angle in reports is not matching with the calculated value");
    }
 
-   public void verifyInputBeltData(String beltWidth,String beltSpeed, ArrayList<String> inputBeltDataReport){
+   public void verifyInputBeltData(String beltWidth,String beltSpeed, ArrayList<String> inputBeltDataReport, ArrayList<String> rollDataReport){
        Validator.assertTrue(beltWidth.equals(inputBeltDataReport.get(0).trim()),"Width in reports is not matching with the calculated value","Width in reports is not matching with the calculated value");
        Validator.assertTrue(beltSpeed.equals(inputBeltDataReport.get(1).trim()),"Speed in reports is not matching with the calculated value","Speed in reports is not matching with the calculated value");
-//       Validator.assertTrue( " ".equals(inputBeltDataReport.get(2)),"Weight in reports is not matching with the calculated value","Weight in reports is not matching with the calculated value");
-//       Validator.assertTrue( " ".equals(inputBeltDataReport.get(2)),"OAG in reports is not matching with the calculated value","OAG in reports is not matching with the calculated value");
+       Validator.assertTrue(rollDataReport.get(13).equals(inputBeltDataReport.get(2)),"Weight in reports is not matching with the calculated value","Weight in reports is not matching with the calculated value");
+       Validator.assertTrue(rollDataReport.get(10).equals(inputBeltDataReport.get(3)),"OAG in reports is not matching with the calculated value","OAG in reports is not matching with the calculated value");
    }
 
    public void verifySystemData(ArrayList<String> capacity,String carrySideIdlerSpacing,String driveLocation,String takeUpLocation,ArrayList<String> inputData,ArrayList<String> systemDataReport){
@@ -2304,7 +2738,7 @@ public class MinutemanPage extends BasePage{
 
    public void verifyTakeUpTravel(ArrayList<String> reviewCalculatedTakeUpTravelData,ArrayList<String> calculatedTakeUpData,String typeOfTakeUp,ArrayList<String> takeUpTravelReport){
        System.out.println("This is im printing: "+takeUpTravelReport.get(0)+" "+typeOfTakeUp);
-//        Validator.assertTrue(takeUpTravelReport.get(0).contains(typeOfTakeUp),"Type of take-up reports is not matching with the calculated value","Type of take-up in reports is not matching with the calculated value");
+        Validator.assertTrue(takeUpTravelReport.get(0).contains(typeOfTakeUp),"Type of take-up reports is not matching with the calculated value","Type of take-up in reports is not matching with the calculated value");
        Validator.assertTrue(reviewCalculatedTakeUpTravelData.get(2).equals(takeUpTravelReport.get(1)),"Type of splice in reports is not matching with the calculated value","Type of splice in reports is not matching with the calculated value");
        Validator.assertTrue(calculatedTakeUpData.get(0).equals(takeUpTravelReport.get(2)),"Maximum belt tension in reports is not matching with the calculated value","Maximum belt tension in reports is not matching with the calculated value");
        Validator.assertTrue(calculatedTakeUpData.get(1).equals(takeUpTravelReport.get(3)),"Average belt tension in reports is not matching with the calculated value","Average belt tension in reports is not matching with the calculated value");
@@ -2316,17 +2750,575 @@ public class MinutemanPage extends BasePage{
    }
 
    public void verifyVerticalCurve(ArrayList<String> verticalCurve,ArrayList<String> verticalCurveReport){
-        Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
+       System.out.println(verticalCurve);
+       System.out.println(verticalCurveReport);
+       Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
    }
 
     public void verifyTransitionLength(ArrayList<String> transitionLength,ArrayList<String> transitionLengthReport){
         System.out.println("ABCD:= "+transitionLength);
         System.out.println("ABCD:= "+transitionLengthReport);
-//        Validator.assertTrue(transitionLength.equals(transitionLengthReport),"Transition Length data shown in reports is not matching with entered value","Transition Length data shown in reports is matching with entered value");
+        Validator.assertTrue(transitionLength.equals(transitionLengthReport),"Transition Length data shown in reports is not matching with entered value","Transition Length data shown in reports is matching with entered value");
+    }
+
+    public void verifyPulleyData(ArrayList<String> pulleyData,ArrayList<String> pulleyDataReport){
+        System.out.println("ABCD:= "+pulleyData);
+        System.out.println("ABCD:= "+pulleyDataReport);
+        Validator.assertTrue(pulleyData.equals(pulleyDataReport),"Pulley data shown in reports is not matching with entered value","Pulley data shown in reports is matching with entered value");
     }
 
     public void clickOnSaveAndDownload(){
         btnSaveAndDownload.click("Save & Download");
+    }
+
+    public boolean clickOnCreateCalc(){
+        btnCreate.click("Create");
+        waitForElementToDisplay(toastMsg);
+//        toastMsg.getText().contains("created successfully");
+        return btSearchinput.isVisible();
+    }
+
+    public boolean verifyFailureOnCreateCalc(){
+        btnCreate.click("Create");
+        waitForElementToDisplay(toastMsg);
+        return toastMsg.getText().contains("Failed to create minuteman:");
+    }
+
+    public void verifyPDFContents(String calc){
+        PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+calc+".pdf");
+        try {
+            Validator.assertTrue(PDFHelper.getPageCount(doc) ==2,"PDF Report has incorrect no of pages","PDF report has valid no of pages");
+            System.out.println(PDFHelper.getPDFImagesCount(doc));
+//            Validator.assertTrue(PDFHelper.getPDFImagesCount(doc) == 2,"PDF Report has unaccepted no of images","PDF report has valid images");
+            String val = PDFHelper.getPageContent(doc);
+            Validator.assertTrue(val.replaceAll("\r\n", " ").replaceAll("\n", " ").trim().contains(calc),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
+            PDFHelper.PDFBoxExtractImages(doc);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void verifyPDFContentsBucketElevator(String calc){
+        PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+calc+".pdf");
+        try {
+            Validator.assertTrue(PDFHelper.getPageCount(doc) ==1,"PDF Report has incorrect no of pages","PDF report has valid no of pages");
+            System.out.println(PDFHelper.getPDFImagesCount(doc));
+//            Validator.assertTrue(PDFHelper.getPDFImagesCount(doc) == 2,"PDF Report has unaccepted no of images","PDF report has valid images");
+            String val = PDFHelper.getPageContent(doc);
+//            Validator.assertTrue(val.replaceAll("\r\n", " ").replaceAll("\n", " ").trim().contains(calc),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
+            PDFHelper.PDFBoxExtractImages(doc);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public boolean goToEditMinutemanCalc(String calc){
+        searchMinuteman(calc);
+        SyncUtil.waitFor(1000);
+        crCheckbox.check("Conveyor Checkbox");
+        crActions.click("Actions");
+        waitForElementVisible(crEdit, 20000,500);
+        crEdit.click("Edit");
+        return editBreadCrumb.isVisible("Edit breadcrumb");
+    }
+
+    public void editMinutemanCalc(String calc, String newCalc){
+        goToEditMinutemanCalc(calc);
+        setTbCalculationName(newCalc);
+        finalReport.jsClick();
+//        waitForElementToDisplay(txtName);
+//        Validator.assertTrue(newCalc.equals(txtName.getText().trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+        waitForElementToInvisible(spinner,7000);
+        scrollPageDown();
+        btnSave.click();
+        waitForElementToInvisible(buttonLoader,10000);
+    }
+
+    public boolean searchMinuteman(String calc){
+        gotoMinutemanScreenWait();
+        waitForPageLoad(10000);
+        btSearchinput.type(calc, "Calc Search");
+//        SyncUtil.waitFor(10000);
+        waitForElementVisible(crCheckbox,20000,1000);
+        waitForElementToDisplay(crCheckbox);
+        return crCheckbox.isVisible("Conveyor Found");
+    }
+
+    public boolean deleteMinutemanCalc(String calc){
+        searchMinuteman(calc);
+        SyncUtil.waitFor(1000);
+        crCheckbox.check("Conveyor Checkbox");
+        crActions.click("Actions");
+        waitForElementVisible(crDelete, 20000,500);
+        crDelete.click("Delete");
+        crYesConfirmation.click("Confirm");
+        waitForElementToDisplay(noList);
+        SyncUtil.waitFor(2000);
+        return noList.isVisible();
+    }
+
+    public void verifyDeletedCalc(String calc) {
+        gotoMinutemanScreenWait();
+        waitForPageLoad(10000);
+        btSearchinput.type(calc, "Calc Search");
+        Validator.assertTrue(noList.isVisible(),"Delete Calculation was still found in Conveyor list screen","Calculation deleted successfully");
+    }
+
+    public boolean verifyAddMinutemanBtnContents(){
+        gotoMinutemanScreen();
+        btnAdd.click("Add");
+        return btnConveyor.isVisible("Elevator") && btnElevator.isVisible("Elevator");
+    }
+
+    public void gotoAddMinutemanBucketElevator(){
+        gotoMinutemanScreen();
+        btnAdd.click("Add");
+        btnElevator.click("Elevator");
+    }
+
+    public boolean goToAddMinutemanCalc(){
+        btnAdd.click("Add");
+        btnConveyor.click("Conveyor");
+        return tbCalculationName.isVisible();
+    }
+
+    public void verifyUnitsRadioPage(){
+        Validator.assertTrue(checkedRadioMetric.isSelected(),"Metric radio button should not be selected","Metric radio button is selected as expected");
+        Validator.assertTrue(!checkedRadioImperial.isSelected(),"Imperial radio button is selected","Imperial radio button is not selected as expected");
+        radioImperial.click("Imperial Unit");
+        Validator.assertTrue(checkedRadioImperial.isSelected(),"Imperial radio button should not be selected","Imperial radio button is selected as expected");
+        Validator.assertTrue(!checkedRadioMetric.isSelected(),"Metric radio button is selected","Metric radio button is not selected as expected");
+        handleUnitsPopup("Imperial");
+    }
+
+    public boolean isStationScreen(){
+        return stationLabel.isVisible("Station Label");
+    }
+
+    public boolean isFlightScreen(){
+        return flightHeader.isVisible("Flight Label");
+    }
+
+    public boolean isBeltScreen(){
+        return selectBeltHeader.isVisible("Select Belt Header");
+    }
+
+    public boolean isCapacityScreen(){
+        return capacityHeader.isVisible("Capacity Header");
+    }
+
+    public boolean isRollDataScreen(){
+        return rollDataHeader.isVisible("Roll Data Header");
+    }
+
+    public boolean isPulleyScreen(){
+        return pulleyHeader.isVisible("Pulley Header");
+    }
+
+    public boolean isTransactionScreen(){
+        return transactionHeader.isVisible("Transaction Header");
+    }
+
+    public boolean isCurvesScreen(){
+        return curvesHeader.isVisible("Curves Header");
+    }
+
+    public boolean isFinalReportScreen(){
+        return btnSaveAndDownload.isVisible("Final Report Header");
+    }
+
+    public void deleteMinuteman(String name){
+        btSearchinput.type(name);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("minuteman Checkbox");
+        crActions.click("Actions");
+        crDelete.click("delete");
+    }
+
+    public void verifyStationSelection(){
+        Validator.assertTrue(driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[1]")).isSelected(),"Station 1 radio button should not be selected","Station 1 radio button is selected as expected");
+        Validator.assertTrue(driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[2]")).isSelected(),"Station 2 radio button should not be selected","Station 2 radio button is selected as expected");
+        Validator.assertTrue(!driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[3]")).isSelected(),"Station 3 radio button is selected","Station 3 radio button is not selected as expected");
+        Validator.assertTrue(!driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[4]")).isSelected(),"Station 4 radio button is selected","Station 4 radio button is not selected as expected");
+        Validator.assertTrue(!driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[5]")).isSelected(),"Station 5 radio button is selected","Station 5 radio button is not selected as expected");
+        Validator.assertTrue(!driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[6]")).isSelected(),"Station 6 radio button is selected","Station 6 radio button is not selected as expected");
+        SyncUtil.waitFor(1000);
+        driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station'])[3]")).click();
+        waitForElementToInvisible(spinner,10000);
+        driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station'])[4]")).click();
+        waitForElementToInvisible(spinner,10000);
+        driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station'])[5]")).click();
+        waitForElementToInvisible(spinner,10000);
+        driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station'])[6]")).click();
+        waitForElementToInvisible(spinner,10000);
+        Validator.assertTrue(driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[1]")).isSelected(),"Station 1 radio button should not be selected","Station 1 radio button is selected as expected");
+        Validator.assertTrue(driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[2]")).isSelected(),"Station 2 radio button should not be selected","Station 2 radio button is selected as expected");
+        Validator.assertTrue(driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[3]")).isSelected(),"Station 3 radio button should not be selected","Station 3 radio button is selected as expected");
+        Validator.assertTrue(driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[4]")).isSelected(),"Station 4 radio button should not be selected","Station 4 radio button is selected as expected");
+        Validator.assertTrue(driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[5]")).isSelected(),"Station 5 radio button should not be selected","Station 5 radio button is selected as expected");
+        Validator.assertTrue(driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)[6]")).isSelected(),"Station 6 radio button should not be selected","Station 6 radio button is selected as expected");
+    }
+
+    public void setTbConveyorType(String conveyorType){
+        dropdownSelect(tbConveyorType,listItem,conveyorType);
+    }
+
+    public void setTbDensity(String materialDensity){
+        tbDensity.type(materialDensity,"Material Density");
+    }
+
+    public void settbTonPerHrPeak(String tbTonsPerHrPeak){
+        tbTonPerHrPeak.type(tbTonsPerHrPeak,"Tons per hour peak");
+    }
+
+    public void settbMaterialLength(String materialLength){
+        tbMaterialLength.type(materialLength,"material Length");
+    }
+
+    public void settbMaterialProjection(String materialProjection){
+        tbMaterialProjection.type(materialProjection,"material Projection");
+    }
+
+    public void settbMaterialSpacing(String materialSpacing){
+        tbMaterialSpacing.type(materialSpacing,"material Spacing");
+    }
+
+    public void settbMaterialWeight(String materialSpacing){
+        tbMaterialWeight.type(materialSpacing,"material Spacing");
+    }
+
+    public void settbMaterialVolume(String materialVolume){
+        tbMaterialVolume.type(materialVolume,"material Volume");
+    }
+
+    public void settbBucketRows(String bucketRows){
+        tbBucketRows.type(bucketRows,"bucket Rows");
+    }
+
+    public void settbMaterialWidth(String materialWidth){
+        tbMaterialWidth.type(materialWidth,"material Width");
+    }
+
+    public void settbMaterialHeight(String materialHeight){
+        tbMaterialHeight.type(materialHeight,"material Height");
+    }
+
+    public void settbMaterialSpeed(String materialSpeed){
+        tbMaterialSpeed.type(materialSpeed,"material Speed");
+    }
+
+    public void settbDrivePulley(String drivePulley){
+        dropdownSelect(tbDrivePulley,listItem,drivePulley);
+    }
+
+    public void settbTakeUpType(String takeUpType){
+        dropdownSelect(tbTakeUpType,listItem,takeUpType);
+    }
+
+    public String getTbMaterialTension(){
+        return tbMaterialTension.getAttribute("value");
+    }
+
+    public String getTbMaximumPIW(){
+        return tbMaterialPIW.getAttribute("value");
+    }
+
+    public String getTbEffectiveTension(){
+        return tbEffectiveTension.getAttribute("value");
+    }
+
+    public String getTbBeltHorsepower(){
+        return tbBeltHorsepower.getAttribute("value");
+    }
+
+    public String getTbPercentLoaded(){
+        return tbPercentLoaded.getAttribute("value");
+    }
+
+    public String getTbCounterweightTension(){
+        return tbCounterweightTensionn.getAttribute("value");
+    }
+
+    public String getTbCounterweightWeight(){
+        return tbCounterweightWeight.getAttribute("value");
+    }
+
+    public String getTbEachBucketWeight(){
+        return tbEachBucketWeight.getAttribute("value");
+    }
+
+    public String getTbHeadPulleyDiameter(){
+        return tbHeadPulleyDeameter.getAttribute("value");
+    }
+
+    public String getTbTailPulleyDiameter(){
+        return tbTailPulleyDiaeter.getAttribute("value");
+    }
+
+    public String getTbMaximumProjection(){
+        return tbMaximumProjection.getAttribute("value");
+    }
+
+    public String getTbApproximateNumber(){
+        return tbApproximateNumber.getAttribute("value");
+    }
+
+    public String getTbMaterialDensity(){
+        return tbDensity.getAttribute("value");
+    }
+
+    public String getTbTonPerHrPeak(){
+        return tbTonPerHrPeak.getAttribute("value");
+    }
+
+    public String getTbMaterialLength(){
+        return tbMaterialLength.getAttribute("value");
+    }
+
+    public String getTbMaterialProjection(){
+        return tbMaterialProjection.getAttribute("value");
+    }
+
+    public String getTbMaterialSpacing(){
+        return tbMaterialSpacing.getAttribute("value");
+    }
+
+    public String getTbMaterialWeight(){
+        return tbMaterialWeight.getAttribute("value");
+    }
+
+    public String getTbMaterialVolume(){
+        return tbMaterialVolume.getAttribute("value");
+    }
+
+    public String getTbBucketRows(){
+        return tbBucketRows.getAttribute("value");
+    }
+
+    public String getTbMaterialWidth(){
+        return tbMaterialWidth.getAttribute("value");
+    }
+
+    public String getTbMaterialHeight(){
+        return tbMaterialHeight.getAttribute("value");
+    }
+
+    public String getTbMaterialSpeed(){
+        return tbMaterialSpeed.getAttribute("value");
+    }
+
+    public String getTbDrivePulley(){
+        return tbDrivePulley.getAttribute("value");
+    }
+
+    public String getTbTakeUpType(){
+        return tbTakeUpType.getAttribute("value");
+    }
+
+    public void setTbElevatorCalculationName(String calculationName){
+        tbElevatorCalculationName.type(calculationName,"Calculation Name");
+    }
+
+
+    public ArrayList<String> getElevatorInputPageData(){
+        String materialDensity=getTbMaterialDensity();
+        String tonPerHrPeak=getTbTonPerHrPeak();
+        String materialLength=getTbMaterialLength();
+        String materialProjection=getTbMaterialProjection();
+        String materialSpacing=getTbMaterialSpacing();
+        String materialWeight=getTbMaterialWeight();
+        String materialVolume=getTbMaterialVolume();
+        String bucketRows=getTbBucketRows();
+        String materialWidth=getTbMaterialWidth();
+        String materialHeight=getTbMaterialHeight();
+        String materialSpeed=getTbMaterialSpeed();
+        String drivePulley=getTbDrivePulley();
+        String takeUpType=getTbTakeUpType();
+        return new ArrayList<>(Arrays.asList(materialDensity,tonPerHrPeak,materialLength,materialProjection,
+                materialSpacing,materialWeight,materialVolume,bucketRows,materialWidth,materialHeight,materialSpeed,drivePulley,takeUpType));
+    }
+
+    public ArrayList<String> getCalculatedOutputPage(){
+        String maximumTension=getTbMaterialTension();
+        String maximumPIW=getTbMaximumPIW();
+        String effectiveTension=getTbEffectiveTension();
+        String beltHorsepower=getTbBeltHorsepower();
+        String percentLoaded=getTbPercentLoaded();
+        String counterweightTensionn=getTbCounterweightTension();
+        String counterweightWeight=getTbCounterweightWeight();
+        String eachBucketWeight=getTbEachBucketWeight();
+        String headPulleyDiameter=getTbHeadPulleyDiameter();
+        String tailPulleyDiameter=getTbTailPulleyDiameter();
+        String maximumProjection=getTbMaximumProjection();
+        String approximateNumber=getTbApproximateNumber();
+        return new ArrayList<>(Arrays.asList(maximumTension,maximumPIW,effectiveTension,beltHorsepower,percentLoaded,counterweightTensionn,counterweightWeight,
+                eachBucketWeight,headPulleyDiameter,tailPulleyDiameter,maximumProjection,approximateNumber));
+    }
+
+    public void isInputsScreen(){
+        tbConveyorType.isVisible("Conveyor Type");
+    }
+
+    public String getConveyorTypeToText(String conveyorType){
+        if(conveyorType.equalsIgnoreCase("A"))
+            return "Grain Service";
+        else if(conveyorType.equalsIgnoreCase("B"))
+            return "Spaced Bucket, Industrial Service";
+        else return "Continuous Bucket, Industrial Service";
+    }
+
+    public void getConveyorTypeText(String conveyorType){
+        Validator.assertTrue(conveyorTypeText.getText("Conveyor Text").contains(getConveyorTypeToText(conveyorType)),"Conveyor type text is improper","Conveyor type text is verified successfully");
+    }
+    public void verifyElevatorConveyorInformation(String customer,String calculationName,String tradeName,ArrayList<String> conveyorInformationReport){
+        System.out.println(txtElevatorBeltDescription.getText());
+        System.out.println(tradeName);
+//        Validator.assertTrue(txtElevatorBeltDescription.getText().contains(tradeName),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
+        Validator.assertTrue(customer.equals(conveyorInformationReport.get(0)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
+//        Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is matching with the entered value");
+         Validator.assertTrue(txtElevatorConveyor.getText().equals("-"),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+    }
+
+    public void verifyElevatorConveyorInformation(String customer,String calculationName,ArrayList<String> conveyorInformationReport){
+        Validator.assertTrue(txtElevatorConveyor.getText().equals("-"),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+    }
+
+    public void verifyGivenData(String ConveyorType,String materialDensity,String tonsPerHourPeak,String materialProjection, String materialLength,String materialSpacing,String materialWeight,String materialVolume,String bucketRows,String materialWidth,String materialHeight,String materialSpeed,String beltWeight,String drivePulley,String takeUpType){
+        System.out.println(materialDensity);
+        System.out.println(txtElevatorMaterialDensity.getText());
+        Validator.assertTrue(txtElevatorMaterialDensity.getText().equals(materialDensity),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
+        System.out.println(getConveyorTypeToText(ConveyorType));
+        System.out.println(txtElevatorConveyorType.getText());
+        Validator.assertTrue(txtElevatorConveyorType.getText().equals(getConveyorTypeToText(ConveyorType)),"ConveyorType in reports is not matching with the calculated value","ConveyorType in reports is not matching with the calculated value");
+        System.out.println(tonsPerHourPeak);
+        System.out.println(txtElevatortonPerPeak.getText());
+        Validator.assertTrue(txtElevatortonPerPeak.getText().equals(tonsPerHourPeak),"tonsPerHourPeak in reports is not matching with the calculated value","tonsPerHourPeak in reports is not matching with the calculated value");
+        System.out.println(materialProjection);
+        System.out.println(txtElevatorBucketProjection.getText());
+        Validator.assertTrue(txtElevatorBucketProjection.getText().contains(materialProjection),"Material Projection in reports is not matching with the calculated value","Material Projection in reports is not matching with the calculated value");
+        System.out.println(materialLength);
+        System.out.println(txtElevatorBucketLength.getText());
+        Validator.assertTrue(txtElevatorBucketLength.getText().equals(materialLength),"Material Length in reports is not matching with the calculated value","Material Length in reports is not matching with the calculated value");
+        System.out.println(materialVolume);
+        System.out.println(txtElevatorBucketVolume.getText());
+        Validator.assertTrue(txtElevatorBucketVolume.getText().equals(materialVolume),"Material Volume in reports is not matching with the calculated value","Material Volume in reports is not matching with the calculated value");
+        System.out.println(materialWidth);
+        System.out.println(txtElevatorBeltWidth.getText());
+        Validator.assertTrue(txtElevatorBeltWidth.getText().equals(materialWidth),"Belt Width in reports is not matching with the calculated value","Belt Width in reports is not matching with the calculated value");
+        System.out.println(materialHeight);
+        System.out.println(txtElevatorBeltHeight.getText());
+        Validator.assertTrue(txtElevatorBeltHeight.getText().equals(materialHeight),"Belt Height in reports is not matching with the calculated value","Belt Height in reports is not matching with the calculated value");
+        System.out.println(materialSpeed);
+        System.out.println(txtElevatorBeltSpeed.getText());
+        Validator.assertTrue(txtElevatorBeltSpeed.getText().equals(materialSpeed),"Belt Speed in reports is not matching with the calculated value","Belt Speed in reports is not matching with the calculated value");
+        System.out.println(takeUpType);
+        System.out.println(txtElevatorTakeUp.getText());
+        Validator.assertTrue(txtElevatorTakeUp.getText().equals(takeUpType),"TakeUp Type in reports is not matching with the calculated value","TakeUp Type in reports is not matching with the calculated value");
+        System.out.println(drivePulley);
+        System.out.println(txtElevatorDrivePulley.getText());
+        Validator.assertTrue(txtElevatorDrivePulley.getText().equals(drivePulley),"Drive Pulley in reports is not matching with the calculated value","Drive Pulley in reports is not matching with the calculated value");
+        System.out.println(materialWeight);
+        System.out.println(txtElevatorBucketWeight.getText());
+        Validator.assertTrue(txtElevatorBucketWeight.getText().equals(materialWeight),"Material Weight in reports is not matching with the calculated value","Material Weight in reports is not matching with the calculated value");
+        System.out.println(beltWeight);
+        System.out.println(txtElevatorBeltWeight.getText());
+        Validator.assertTrue(txtElevatorBeltWeight.getText().equals(beltWeight),"materialDensity in reports is not matching with the calculated value","materialDensity in reports is not matching with the calculated value");
+        System.out.println(materialSpacing);
+        System.out.println(txtElevatorBucketSpacing.getText());
+        Validator.assertTrue(txtElevatorBucketSpacing.getText().equals(materialSpacing),"Bucket Spacing in reports is not matching with the calculated value","Bucket Spacing in reports is not matching with the calculated value");
+        System.out.println(bucketRows);
+        System.out.println(txtElevatorBucketRows.getText());
+        Validator.assertTrue(txtElevatorBucketRows.getText().equals(bucketRows),"Bucket Rows in reports is not matching with the calculated value","Bucket Rows in reports is not matching with the calculated value");
+    }
+
+    public void verifyCalculatedData(String maximumTension,String maximumPIW,String effectiveTension,String beltHorsepower,String percentLoaded,String counterweightTension,String counterweightWeight,String weightInEachBucket){
+        System.out.println(effectiveTension);
+        System.out.println(txtElevatorEffectiveTension.getText());
+        Validator.assertTrue(txtElevatorEffectiveTension.getText().equals(effectiveTension),"effectiveTension in reports is not matching with the calculated value","effectiveTension in reports is not matching with the calculated value");
+        System.out.println(maximumTension);
+        System.out.println(txtElevatorMaximumTension.getText());
+        Validator.assertTrue(txtElevatorMaximumTension.getText().equals(maximumTension),"maximumTension in reports is not matching with the calculated value","maximumTension in reports is not matching with the calculated value");
+        System.out.println(counterweightTension);
+        System.out.println(txtElevatorCounterweightTension.getText());
+        Validator.assertTrue(txtElevatorCounterweightTension.getText().equals(counterweightTension),"counterweightTension in reports is not matching with the calculated value","counterweightTension in reports is not matching with the calculated value");
+        System.out.println(counterweightWeight);
+        System.out.println(txtElevatorCounterweightWeight.getText());
+        Validator.assertTrue(txtElevatorCounterweightWeight.getText().equals(counterweightWeight),"counterweightWeight in reports is not matching with the calculated value","counterweightWeight in reports is not matching with the calculated value");
+        System.out.println(weightInEachBucket);
+        System.out.println(txtElevatorEachBucketWeight.getText());
+        Validator.assertTrue(txtElevatorEachBucketWeight.getText().equals(weightInEachBucket),"counterweightWeight in reports is not matching with the calculated value","counterweightWeight in reports is not matching with the calculated value");
+        System.out.println(beltHorsepower);
+        System.out.println(txtElevatorBeltHorsepower.getText());
+        Validator.assertTrue(txtElevatorBeltHorsepower.getText().equals(beltHorsepower),"beltHorsepower in reports is not matching with the calculated value","beltHorsepower in reports is not matching with the calculated value");
+        System.out.println(percentLoaded);
+        System.out.println(txtElevatorBucketCapacity.getText());
+        Validator.assertTrue(txtElevatorBucketCapacity.getText().split("\\s")[0].equals(percentLoaded),"percentLoaded in reports is not matching with the calculated value","percentLoaded in reports is not matching with the calculated value");
+        System.out.println(maximumPIW);
+        System.out.println(txtElevatorMaximumPIW.getText());
+        Validator.assertTrue(txtElevatorMaximumPIW.getText().equals(maximumPIW),"maximumPIW in reports is not matching with the calculated value","maximumPIW in reports is not matching with the calculated value");
+
+    }
+
+    public void verifyAdditionalData(String mimTailPulleyDiameter,String maximumProjection,String appropriateNumber){
+        System.out.println(maximumProjection);
+        System.out.println(txtElevatorMaxBucketProjection.getText());
+        Validator.assertTrue(txtElevatorMaxBucketProjection.getText().equals(maximumProjection),"maximumProjection in reports is not matching with the calculated value","maximumProjection in reports is not matching with the calculated value");
+        System.out.println(mimTailPulleyDiameter);
+        System.out.println(txtElevatorMinHeadPulleyDiameter.getText());
+        Validator.assertTrue(txtElevatorMinHeadPulleyDiameter.getText().equals(mimTailPulleyDiameter),"mimTailPulleyDiameter in reports is not matching with the calculated value","mimTailPulleyDiameter in reports is not matching with the calculated value");
+        System.out.println(appropriateNumber);
+        System.out.println(txtElevatorBucketNumber.getText());
+        Validator.assertTrue(txtElevatorBucketNumber.getText().equals(appropriateNumber),"appropriateNumber in reports is not matching with the calculated value","appropriateNumber in reports is not matching with the calculated value");
+
+
+    }
+
+    public void closeWarning(){
+        waitForElementToDisplay(warningPopup);
+        System.out.println(warningPopup.isVisible());
+        System.out.println(unitYes.isVisible());
+        SyncUtil.waitFor(10000);
+//        if(!warningPopup.isVisible())
+//            breadcrumbHome.jsClick();
+//        if(warningPopup.isVisible())
+//            unitYes.jsClick();
+    }
+
+    public void handleUnitsPopup(String units){
+        if (units.equalsIgnoreCase("Imperial")){
+            waitForElementToDisplay(unitsPopup);
+            if(unitsPopup.isVisible())
+                unitYes.click();
+        }
+    }
+
+    public ArrayList<String> getElevatorConveyorInformation(){
+//        String[] data=txtElevatorBeltDescription.getText().split("\\r?\\n");
+//        String beltDescription = data[1].split(":")[1].trim();
+        String customer=txtElevatorCustomer.getText();
+//        String conveyor = txtElevatorConveyor.getText();
+        return new ArrayList<> (Arrays.asList(customer));
+    }
+
+    public boolean isConveyorDropdownDisabled(){
+        return conveyorDropdownStatus.getAttribute("class").contains("disabled");
+    }
+
+    public boolean isSelectBeltScreen(){
+        return tradeNameDropdown.isVisible("Trade Dropdown");
+    }
+
+    public ArrayList<String> getCalculatedDataInElevatorSelectBelt(){
+        String[] unitTension = textMaximumTension.getText().trim().split("\\s");
+        String[] maximumTension = textMaximumPIW.getText().trim().split("\\s");
+        String[] effectiveTension = textEffectiveTension.getText().trim().split("\\s");
+        String[] beltPower = textBeltPower.getText().trim().split("\\s");
+        String[] counterweightWeight = textCounterweightWeight.getText().trim().split("\\s");
+        String[] counterweightTension = textCounterweightTension.getText().trim().split("\\s");
+        String[] conveyorCapacity = textWeightEachBucket.getText().trim().split("\\s");
+        String[] percentLoaded = textPercentLoaded.getText().trim().split("\\s");
+        return new ArrayList<>(Arrays.asList(unitTension[0], maximumTension[0], effectiveTension[0], beltPower[0], counterweightWeight[0], counterweightTension[0],
+                conveyorCapacity[0],percentLoaded[0]));
     }
 
     public void validateMinutemanCountWrtPagination(){

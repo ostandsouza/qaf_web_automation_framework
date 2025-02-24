@@ -23,9 +23,11 @@ inspection.signOff.label = flutter-text=Sign Off
 inspection.uploadFile.label= flutter-text=Upload File
 inspection.addNewItem.button= flutter-text=Add New Item
 inspection.toBeCompleted.button= flutter-text=To be Completed
-inspection.toBeCompleted.button= flutter-text=Completed
-
-
+inspection.completed.button= flutter-text=Completed
+inspection.recommendation.field = flutter-valuekey=Recommendation
+inspection.saveAndClose.btn = flutter-text=Save & Close
+inspection.addNewItem.itemLength= flutter-valuekey=InspectionItemLength
+inspection.signOff.summaryLabel=flutter-text=Summary
 inspection.beltWidth.field = flutter-valuekey=Belt Width
 inspection.beltRating.field = flutter-valuekey=Belt Rating
 inspection.topCoverThickness.field = flutter-valuekey=Top Cover Thickness
@@ -34,6 +36,15 @@ inspection.beltCarcass.field = flutter-valuekey=Belt Carcass
 
 inspection.asset.dropdown= flutter-valuekey=Asset/Component
 inspection.detail.dropdown= flutter-valuekey=Detail
+inspection.failure.dropdown= flutter-valuekey=Failure Mode
+inspection.datePicker.dropdown= flutter-valuekey=ContiplusDatePicker
+inspection.condition.dropdown= flutter-valuekey=Condition
+inspection.status.dropDown=flutter-valuekey=Status
+inspection.condition.criticalFlag= flutter-valuekey=critical
+inspection.condition.poorFlag= flutter-valuekey=poor
+inspection.condition.faultFlag= flutter-valuekey=fault
+inspection.condition.goodFlag= flutter-valuekey=good
+inspection.observation.field= flutter-valuekey=Observation
 inspection.locationAlongBelt.dropdown= flutter-valuekey=Location Along the Belt
 inspection.pullyNo.dropdown= flutter-valuekey=Pulley No
 inspection.type.dropdown= flutter-valuekey=Type

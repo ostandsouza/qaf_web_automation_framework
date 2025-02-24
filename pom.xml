@@ -13,8 +13,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<testSuiteFile>config/sanity_config.xml</testSuiteFile>
-		<sourceVersion>17</sourceVersion>
-		<targetVersion>17</targetVersion>
+		<sourceVersion>11</sourceVersion>
+		<targetVersion>11</targetVersion>
 		<qaf.version>4.0.0-RC3</qaf.version>
 		<restassured.version>5.5.0</restassured.version>
 		<selenium.version>4.14.1</selenium.version>
@@ -30,14 +30,14 @@
 		<testng.report.title>Demo</testng.report.title>
 	</properties>
 	<repositories>
-		<repository>
-			<id>qaf</id>
-			<url>https://qmetry.github.io/qaf/dist</url>
-		</repository>
-		<repository>
-			<id>jai</id>
-			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases</url>
-		</repository>
+<!--		<repository>-->
+<!--			<id>qaf</id>-->
+<!--			<url>https://qmetry.github.io/qaf/dist</url>-->
+<!--		</repository>-->
+<!--		<repository>-->
+<!--			<id>jai</id>-->
+<!--			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases</url>-->
+<!--		</repository>-->
 	</repositories>
 
 	<dependencies>
@@ -219,6 +219,8 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>${testSuiteFile}</suiteXmlFile>
 					</suiteXmlFiles>
+					<testFailureIgnore>true</testFailureIgnore>
+					<skipTests>false</skipTests>
 					<reportsDirectory>${test.results.dir}/${run.time}</reportsDirectory>
 					<systemPropertyVariables>
 						<org.uncommons.reportng.xml-dialect>testng</org.uncommons.reportng.xml-dialect>

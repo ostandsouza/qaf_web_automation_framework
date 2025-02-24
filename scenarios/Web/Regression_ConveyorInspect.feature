@@ -223,8 +223,6 @@ Launch the application through '/'
  @key:Conveyor_Inspect_CI
  Scenario: ZhVerify conveyor inspect findings observation
 
-   Given User is at Login page
-   When  Login with '${UserName}' and '${Password}'
      When  Go to conveyor inspect for conveyor '${ConveyorName}'
      Then  Go to maintenance action tab
      And   Verify findings observations

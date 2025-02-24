@@ -41,6 +41,7 @@ public class LoginPage extends BasePage {
 
 	public boolean verifyUserOnLoginPage()  {
 		waitForElementToDisplay(tbUserName);
+		tbUserName.isVisible(10000,"UserName");
 		return tbUserName.isDisplayed();
 	}
 
@@ -64,8 +65,10 @@ public class LoginPage extends BasePage {
 		 * 
 		 * driver = ChromeDriver(desiredcapabilities);
 		 */
-		waitForElementVisible(tbUserName,5000,1000);
-		tbUserName.type(userName, "UserName"); 
+		System.out.println("entered login to app");
+
+		waitForElementVisible(tbUserName,20000,500);
+		tbUserName.type(userName, "UserName");
         tbPassword.type(password, "Password");
         btnLogIn.click("LOGIN");
 		waitForElementToInvisible(btnLogIn,15000);
@@ -83,7 +86,6 @@ public class LoginPage extends BasePage {
 		tbConfirmPassword.type(confirmPassword,"Confirm Password");
 		btnSave.click("Save");
 		waitForElementToInvisible(btnSave,75000);
-		SyncUtil.waitFor(30000);
 	}
 
 }

@@ -169,6 +169,24 @@
 <!--        </classes>-->
 <!--    </test>-->
 
+    <test name="Add Company" enabled="true" thread-count="1" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile/CompanyMob.feature"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'emulator-5554','platformName':'Android','automationName':'flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'13.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Vishmitha G/Downloads/app-dev-debug.apk','udid':'emulator-5554','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="CTCP-2171"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
     <test name="User Management - Permission Flow" enabled="true" thread-count="2" parallel="methods">
         <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
         <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
@@ -320,7 +338,7 @@
         <parameter name="remote.server" value="127.0.0.1"/>
         <parameter name="remote.port" value="4723" />
         <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M90XAA6L','platformName':'Android','automationName':'flutter','appPackage':'com.continental.contiplus','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Supreetha/Downloads/app-dev-debug.apk','udid':'RZ8M90XAA6L','noReset':false,'autoGrantPermissions':true}"/>
-<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'ZA222K9F2M','platformName':'Android','automationName':'flutter','appPackage':'com.continental.contiplus','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'14.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Vishmitha G/Downloads/app-dev-debug.apk','udid':'ZA222K9F2M','noReset':false,'autoGrantPermissions':true}"/>&ndash;&gt;-->
+
         <parameter name="driver.name" value="flutterDriver" />
         <groups>
             <run>

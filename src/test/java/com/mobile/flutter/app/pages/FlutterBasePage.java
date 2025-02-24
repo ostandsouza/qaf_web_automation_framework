@@ -1,6 +1,7 @@
 package com.mobile.flutter.app.pages;
 
 import com.common.utils.APIBase;
+import com.qmetry.qaf.automation.core.ConfigurationManager;
 import com.qmetry.qaf.automation.support.flutter.ByFlutter;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,5 +103,30 @@ public class FlutterBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public IOSDriver getIOSDriver() {
+        return (IOSDriver) getAppiumDriver();
+
+    }
+
+    public void clearAndroidAppCache(String appPackage) {
+        Map<String, Object> args = new HashMap<>();
+        String command;
+        if (!ConfigurationManager.getBundle().getString("remote.server").contains("perfecto")) {
+            args.put("command", "pm");
+            args.put("args", "clear " + appPackage);
+            command = "mobile: shell";
+            getAppiumDriver().executeScript(command, args);
+        } else {
+            try {
+                args.put("identifier", appPackage);
+                command = "mobile:application:clean";
+                getAppiumDriver().executeScript(command, args);
+            } catch (Exception ignore) {
+            }
+        }
+
     }
 }

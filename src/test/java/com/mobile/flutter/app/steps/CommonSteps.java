@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,48 +29,152 @@ public class CommonSteps {
 
     String appName = ConfigurationManager.getBundle().getString("aut.appName");
     boolean isUsingPerfecto = ConfigurationManager.getBundle().getString("remote.server").contains("perfecto");
+//    boolean isUsingAndriod = ConfigurationManager.getBundle().getString("env.resources").contains("android");
+    boolean isUsingAndriod = true;
 
     @QAFTestStep(description = "Application is installed")
     public void InstallMobileApplication() throws URISyntaxException, IOException {
-    	app.getTestBase().getDriver().executeScript("flutter:terminateApp", appName);
-    	
         boolean updateAppFlag = Boolean.parseBoolean(ConfigurationManager.getBundle().getString("aut.updateApp"));
-        String artifactLocator = ConfigurationManager.getBundle().getString("appium.capabilities.app");
-        if (updateAppFlag && isUsingPerfecto) {
-            String cloudName = ConfigurationManager.getBundle().getString("perfecto.cloud");
-            String source = MiscUtils.getAbsolutePath(ConfigurationManager.getBundle().getString("aut.path"));
-            String token = (String) app.getAppiumDriver().getCapabilities().getCapability("accessToken");
-            PerfectoLabUtils.uploadMedia_NewAPI(cloudName, token, source, artifactLocator);
+        boolean clearAppCacheFlag = Boolean.parseBoolean(ConfigurationManager.getBundle().getString("aut.clearCache"));
 
+        String source = MiscUtils.getAbsolutePath(ConfigurationManager.getBundle().getString("aut.path"));
+
+        if (updateAppFlag)
+            Reporter.log("Removing existing app as update flag is true.", MessageTypes.Info);
+
+        try {
+            if (isUsingAndriod) {
+                app.getAndroidDriver().context("NATIVE_APP");
+                if (updateAppFlag)
+                    if(app.getAndroidDriver().removeApp(appName))
+                        Reporter.log("Removed existing app for updating.", MessageTypes.Info);
+                    else
+                        Reporter.log("Failed to removed existing app.", MessageTypes.Fail);
+
+                if (!app.getAndroidDriver().isAppInstalled(appName)) {
+                    Reporter.log("Installing app : " + appName, MessageTypes.Info);
+                    app.getAndroidDriver().installApp(source);
+                }
+
+            } else {
+                app.getIOSDriver().context("NATIVE_APP");
+                if (updateAppFlag) {
+                    if(app.getIOSDriver().removeApp(appName))
+                        Reporter.log("Removed existing app for updating.", MessageTypes.Info);
+                    else
+                        Reporter.log("Failed to removed existing app.", MessageTypes.Fail);
+                }
+                if (!app.getIOSDriver().isAppInstalled(appName)) {
+                    Reporter.log("Installing app : " + appName, MessageTypes.Info);
+                    app.getIOSDriver().installApp(source);
+
+                }
+            }
+            ConfigurationManager.getBundle().setProperty("aut.updateApp", "false");
+            Reporter.log("Application is installed : " + appName, MessageTypes.Info);
+        } catch (Exception ex) {
+            Reporter.log("Failed to launch Application " + appName + " with underlying exception : "
+                    + ex.getLocalizedMessage(), MessageTypes.Fail);
+            throw ex;
         }
 
-        if (updateAppFlag && app.getAndroidDriver().isAppInstalled(appName))
-            app.getAndroidDriver().removeApp(appName);
-
-        if (!app.getAndroidDriver().isAppInstalled(appName)) {
-            if (isUsingPerfecto) {
-                Map<String, Object> params = new HashMap<>();
-                params.put("file", artifactLocator);
-                params.put("instrument", "instrument");
-                app.getAppiumDriver().executeScript("mobile:application:install", params);
-            } else
-                app.getAndroidDriver().installApp(MiscUtils.getAbsolutePath(ConfigurationManager.getBundle().getString("aut.path")));
-        }
-
-        if (app.getAndroidDriver().isAppInstalled(appName)) {
-            ConfigurationManager.getBundle().setProperty("android.apk.updateApp", false);
-            Reporter.log("Application is Installed : " + appName, MessageTypes.Info);
-        }
     }
 
+    @QAFTestStep(description = "Application is launched")
+    public void launchMobileApplication() {
+        boolean clearAppCacheFlag = Boolean.parseBoolean(ConfigurationManager.getBundle().getString("aut.clearCache"));
+
+        String source = MiscUtils.getAbsolutePath(ConfigurationManager.getBundle().getString("aut.path"));
+        try {
+            if (isUsingAndriod) {
+                app.getAndroidDriver().context("NATIVE_APP");
+                app.getAndroidDriver().terminateApp(appName);
+                if (clearAppCacheFlag)
+                    app.clearAndroidAppCache(appName);
+                app.getAndroidDriver().context("FLUTTER");
+                app.getAndroidDriver().activateApp(appName);
+                app.getAndroidDriver().configuratorSetKeyInjectionDelay(
+                        Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.keyInjectionDelay")));
+                app.getAndroidDriver().configuratorSetWaitForIdleTimeout(
+                        Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.waitForIdleTimeout")));
+                app.getAndroidDriver().configuratorSetWaitForSelectorTimeout(Duration
+                        .ofMillis(ConfigurationManager.getBundle().getLong("android.apk.waitForSelectorTimeout")));
+                app.getAndroidDriver().ignoreUnimportantViews(false);
+
+            } else {
+                app.getIOSDriver().context("NATIVE_APP");
+                if (clearAppCacheFlag) {
+                    if (app.getIOSDriver().isAppInstalled(appName)) {
+                        app.getIOSDriver().terminateApp(appName);
+                        app.getIOSDriver().removeApp(appName);
+                        Reporter.log("Removed existing app for cache clearing.", MessageTypes.Info);
+                        app.getIOSDriver().installApp(source);
+                        Reporter.log("Re-Installed app : " + appName, MessageTypes.Info);
+                    }
+                }
+                app.getIOSDriver().context("FLUTTER");
+                app.getIOSDriver().activateApp(appName);
+
+            }
+            Reporter.log("Application Launched : " + appName, MessageTypes.Info);
+        } catch (Exception ex) {
+            Reporter.log("Failed to launch Application " + appName + " with underlying exception : "
+                    + ex.getLocalizedMessage(), MessageTypes.Fail);
+            throw ex;
+        }
+
+    }
+
+    @QAFTestStep(description = "Launch application without reset")
+    public void launchAppWithoutReset() {
+        try {
+            if (isUsingAndriod) {
+                app.getAndroidDriver().context("NATIVE_APP");
+                app.getAndroidDriver().terminateApp(appName);
+                app.getAndroidDriver().context("FLUTTER");
+                app.getAndroidDriver().activateApp(appName);
+                app.getAndroidDriver().configuratorSetKeyInjectionDelay(
+                        Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.keyInjectionDelay")));
+                app.getAndroidDriver().configuratorSetWaitForIdleTimeout(
+                        Duration.ofMillis(ConfigurationManager.getBundle().getLong("android.apk.waitForIdleTimeout")));
+                app.getAndroidDriver().configuratorSetWaitForSelectorTimeout(Duration
+                        .ofMillis(ConfigurationManager.getBundle().getLong("android.apk.waitForSelectorTimeout")));
+                app.getAndroidDriver().ignoreUnimportantViews(false);
+
+            } else {
+                app.getIOSDriver().context("NATIVE_APP");
+                app.getIOSDriver().terminateApp(appName);
+                app.getIOSDriver().context("FLUTTER");
+                app.getIOSDriver().activateApp(appName);
+            }
+            Reporter.log("Application is launched : " + appName, MessageTypes.Info);
+
+        } catch (Exception ex) {
+            Reporter.log("Failed to launch Application " + appName + " with underlying exception : "
+                    + ex.getLocalizedMessage(), MessageTypes.Fail);
+            throw ex;
+        }
+
+    }
 
     @QAFTestStep(description = "Close application")
     public void closeMobileApplication() {
+
         try {
-//            app.activateAppUnderTest();
+            if (isUsingAndriod) {
+                app.getAndroidDriver().context("NATIVE_APP");
+                app.getAndroidDriver().terminateApp(appName);
+                app.getAndroidDriver().context("FLUTTER");
+            } else {
+                app.getIOSDriver().context("NATIVE_APP");
+                app.getIOSDriver().terminateApp(appName);
+                app.getIOSDriver().context("FLUTTER");
+            }
+            // app.activateAppUnderTest();
             Reporter.log("Application Closed : " + appName, MessageTypes.Info);
         } catch (Exception ex) {
-            Reporter.log("Failed to close Application " + appName + " with underlying exception : " + ex.getLocalizedMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to close Application " + appName + " with underlying exception : "
+                    + ex.getLocalizedMessage(), MessageTypes.Fail);
             throw ex;
         }
 
@@ -94,13 +199,5 @@ public class CommonSteps {
         app.apiBase.deleteUserAPI(userid);
         String userId= app.apiBase.createUserAPI(email, pwd, phone, userName);
         app.apiBase.createProfileAPI(userType, userId);
-    }
-    @QAFTestStep(description = "Launch the application through {url}")
-    public void launchTheApplicationThrough(String url) {
-//        loginPage.getTestBase().getDriver().manage().window().maximize();
-        loginPage.getTestBase().getDriver().get(url);
-        loginPage.apiBase.getLoginAPI(getBundle().getString("env.adminUsername"),getBundle().getString("env.adminPassword"));
-        //loginPage.getTestBase().getDriver().get("https://Uie68917:Conti@2021@dev2.contiplus.net/#/auth/login:4444");
-        Reporter.log("Application is launched using :" + url, MessageTypes.Pass);
     }
 }

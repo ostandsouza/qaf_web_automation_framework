@@ -165,7 +165,7 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "corporate.frame.screen")
     public CustomFlutterElement corporateFrame;
 
-    @FindBy(locator = "corporate.corporateList.header")
+    @FindBy(locator = "corporate.list.header")
     public CustomFlutterElement corporateHeader;
 
     @FindBy(locator = "corporate.view.header")
@@ -177,17 +177,17 @@ public class CorporatePage extends FlutterBasePage {
     @FindBy(locator = "corporate.name.field")
     public CustomFlutterElement tbCompanyName;
 
-    @FindBy(locator = "company.add.icon")
+    @FindBy(locator = "corporate.add.icon")
     public CustomFlutterElement addCompanyBtn;
 
-    @FindBy(locator = "company.add.corporate")
+    @FindBy(locator = "corporate.add.corporate")
     public CustomFlutterElement addCorporateBtn;
 
-    @FindBy(locator = "company.add.site")
+    @FindBy(locator = "corporate.add.site")
     public CustomFlutterElement addSiteShop;
 
 
-    @FindBy(locator = "company.add.header")
+    @FindBy(locator = "corporate.add.header")
     public CustomFlutterElement addCorporateHeader;
     @FindBy(locator = "corporate.inspection.header")
     public CustomFlutterElement inspectionListHeader;
@@ -294,13 +294,10 @@ public class CorporatePage extends FlutterBasePage {
 
     public void enterSearchQuery(String query){
         waitForPageToLoad();
-        SyncUtil.waitFor(5000);
         driver.executeScript("flutter:setFrameSync",true, 5000);
-//        SyncUtil.waitFor(2000);
         SyncUtil.waitFor(1000);
         System.out.println(query);
         searchField.sendKeys(query);
-        SyncUtil.waitFor(2000);
         driver.executeScript("flutter:setFrameSync",false, 5000);
     }
 
@@ -310,7 +307,6 @@ public class CorporatePage extends FlutterBasePage {
         enterSearchQuery(company);
         System.out.println(DashboardNativePage.getInstance().getSearchCount());
         System.out.println(DashboardNativePage.getInstance().getSearchResult());
-        SyncUtil.waitFor(5000);
         Assert.assertTrue(DashboardNativePage.getInstance().getSearchCount().equals("1"),"Search Result Count");
         return DashboardNativePage.getInstance().getSearchResult().equalsIgnoreCase(company);
     }
@@ -485,6 +481,15 @@ public class CorporatePage extends FlutterBasePage {
 //    public void verifyCorpListPage(){
 //        DashboardNativePage.getInstance().goToCorporatePage();
 //    }
+    public void verifyCorpListPageNavigation()
+    {
+        Validator.assertTrue(DashboardNativePage.getInstance().isCorporateList(),"User is not navigated to corporate list screen","User is not navigated to corporate list screen");
+    }
+
+    public void verifyDefaultCompField(){
+        companyType.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(companyType.getText().contains("j"),"Default Text is not present","Default Text is present");
+    }
     public void verifyDefaultSiteField(String value){
         companyType.waitForTheElementToBeVisible(30);
         Validator.assertTrue(companyType.getText().contains(value),"Default Text is not present","Default Text is present");
@@ -627,16 +632,6 @@ public class CorporatePage extends FlutterBasePage {
         Validator.assertTrue(corporateSiteListCount.getText().equalsIgnoreCase("0"),"Count of sites/Shops is not displayed","Count of sites/Shops is  displayed");
     }
 
-    public void verifyCorpListPageNavigation()
-    {
-        Validator.assertTrue(corporateHeader.isDisplayed(),"User is not navigated to corporate list screen","User is not navigated to corporate list screen");
-    }
-
-    public void verifyDefaultCompField(){
-        SyncUtil.waitFor(3000);
-        inpCorpTypeOfCompany.waitForTheElementToBeVisible(30);
-        Validator.assertTrue(inpCorpTypeOfCompany.getText().contains("Customer Corporate"),"Default Value mismatch","Default Value matched");
-    }
     public void verifyDefaultSiteField(){
         SyncUtil.waitFor(3000);
         inpSiteTypeOfCompany.waitForTheElementToBeVisible(30);

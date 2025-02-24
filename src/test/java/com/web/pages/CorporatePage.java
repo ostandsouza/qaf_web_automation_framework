@@ -96,7 +96,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//li[text()=' No results found ']")
     public CustomElement drTerritoryLoader;
 
-    @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div")
+    @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[1]")
     public CustomElement drTerritorybutton;
 
     @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
@@ -135,7 +135,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
 
-    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]/..")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
 
@@ -199,7 +199,7 @@ public class CorporatePage extends BasePage{
     public CustomElement btConveyorCardNo;
 
     @FindBy(locator="xpath=(//app-card//div[text()='Cover Wear']/..//span)[1]")
-    public CustomElement btCOverWearCardNo;
+    public CustomElement btCoverWearCardNo;
 
     @FindBy(locator="xpath=(//app-card//div[text()='Inspections']/..//span)[1]")
     public CustomElement btInspectionCardNo;
@@ -258,6 +258,9 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Conveyor Trails']")
     public CustomElement conveyorTrailsHeader;
 
+    @FindBy(locator = "xpath=//span[text()='Add Conveyor']")
+    public CustomElement addConveyors;
+
     @FindBy(locator = "xpath=//input[@id='firstname1']")
     public CustomElement tbConveyorname;
 
@@ -269,9 +272,11 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator= "//span[text()='Create']/parent::button[@disabled]")
     public CustomElement btnCreateDisabled;
+
     @FindBy(locator= "//span[text()='Create']/parent::button[not(@disabled)]")
     public CustomElement btnCreateEnabled;
-    @FindBy(locator="xpath=//nav[@class='p-breadcrumb p-component']")
+
+    @FindBy(locator = "//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement bcAddUserLink;
 
     @FindBy(locator="//div[@class='conti-avatar-section']//img[contains(@class,'avatar-section-img default-image')]")
@@ -279,7 +284,7 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator="//img[@src='/assets/img/upload_default.png']")
     public CustomElement addCompanyDefaultImage;
-    @FindBy(locator="//div[@class='p-breadcrumb p-component']")
+    @FindBy(locator = "//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement bcAddCompanyLink;
 
     @FindBy(locator="xpath=(//span[text()='Corporates'])[2]")
@@ -308,6 +313,9 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator = "//li[@id='p-highlighted-option' and @aria-label=\"Distributor Corporate\"]")
     public CustomElement rdbDistributorCorporate;
+
+    @FindBy(locator = "//li[contains(@class,'p-highlight') and @aria-label=\"Customer Site\"]")
+    public CustomElement rdbCustomerSite;
 
     @FindBy(locator = "//div[contains(@class, 'pac-item')]")
     public CustomElement autoSuggest;
@@ -390,6 +398,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void createDistributorShop(String companyName, String address, String distCorp, String territory, String manager) {
+        waitForPageLoad(10000);
         scrollPageup();
         selectDistributorShop();
         dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,distCorp);
@@ -450,16 +459,19 @@ public class CorporatePage extends BasePage{
         waitForElementToBeClickable(btCreate);
         btCreate.click("Create");
     }
+
     public void updateCorp() {
         scrollPageDown();
         btSave.click("Update");
         waitForElementToInvisible(buttonLoader,10000);
         btSearchinput.isVisible("Corporate list screen");
     }
+
     public void btnSaveClick() {
         scrollPageDown();
-        btSave.click("Save");
-        waitForElementToInvisible(buttonLoader,10000);
+        waitForElementVisible(btSave, 10000, 500);
+        btSave.jsClick("Save");
+        waitForElementToInvisible(buttonLoader, 10000);
         btSearchinput.isVisible("Corporate list screen");
     }
 
@@ -610,6 +622,7 @@ public class CorporatePage extends BasePage{
     public void goToCorporateDetails(String corpName) {
         searchCorporate(corpName);
         btviewicon.click("Corp Details");
+        SyncUtil.waitFor(5000);
         waitForElementToDisplay(btSiteShopCardNo);
     }
 
@@ -641,7 +654,7 @@ public class CorporatePage extends BasePage{
 
     public void verifyCardDetails(String siteName) {
         siteNameLoader.waitForPartialText(siteName, 15000);
-        SyncUtil.waitFor(20000);
+        SyncUtil.waitFor(15000);
         Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase("2"),"Site/Shop card count shown in corporate details screen is incorrect","Successfully verified Site/Shop card count shown in corporate details screen");
         Validator.assertTrue(btConveyorCardNo.getText("Conveyor Card").trim().equalsIgnoreCase("6"),"Conveyor card count shown in corporate details screen is incorrect","Successfully verified Conveyor card count shown in corporate details screen");
     }
@@ -667,7 +680,7 @@ public class CorporatePage extends BasePage{
     public void goToShopSiteDetails(String siteName) {
         btSearchinput.type(siteName, "Site/Shop name");
         waitForElementToDisplay(btCheckbox);
-        detailsMoreButton.click("Corp Details");
+        detailsMoreButton.jsClick("Corp Details");
         siteNameLoader.waitForPartialText(siteName, 15000);
         SyncUtil.waitFor(2000);
         conveyorHeader.isEnable("Conveyor Header");
@@ -679,8 +692,8 @@ public class CorporatePage extends BasePage{
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.click("Site Checkbox");
-        setImplicitWait(5000,TimeUnit.MILLISECONDS);
-        btActions.click("Actions");
+        setImplicitWait(5000, TimeUnit.MILLISECONDS);
+        btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
 //        typeOfCompanyLoader.waitForText("Distributor Shop");
@@ -708,9 +721,11 @@ public class CorporatePage extends BasePage{
 
     public void goToAddConveyor() {
         scrollPageup();
-        waitForElementToDisplay(btAddCorp);
-        btAddCorp.click("Add Corp");
-        waitForElementToDisplay(tbConveyorname);
+        waitForElementVisible(addConveyors,10000,500);
+        waitForElementToBeClickable(addConveyors);
+        addConveyors.click("Add Conveyors");
+        waitForPageLoad(10000);
+        tbConveyorname.isVisible("Conveyor Name");
     }
 
     public void createConveyor(String conveyorName,String custSiteName) {
@@ -774,8 +789,9 @@ public class CorporatePage extends BasePage{
         searchCorporate(CorporateName);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.check("CorporateName");
-        btActions.click("Actions");
-        return btAddCorp.isNotVisible(1000) && btEdit.isNotVisible(1000) && btDelete.isNotVisible(1000);
+        return !btActions.isEnabled();
+//        btActions.click("Actions");
+//        return btAddCorp.isNotVisible(1000) && btEdit.isNotVisible(1000) && btDelete.isNotVisible(1000);
 
     }
     public boolean verifyEditButtonVisibleOnCorporateDetailsPage(String CorporateName){
@@ -997,6 +1013,11 @@ public class CorporatePage extends BasePage{
 //        Validator.assertTrue(toastSuccess.isDisplayed(),"the company is not created successfully","the company is created successfully");
 //
 //    }
+
+    public void verifyPinnedSubList(String value) {
+        String pinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-red')]";
+        Validator.assertTrue(driver.findElement(By.xpath(pinnedValue)).isDisplayed(), "Pinned Value is not displayed", "Pinned Value is displayed");   }
+
 
 
 }

@@ -466,6 +466,27 @@ public class CustomFlutterElement extends FlutterElement {
         }
     }
 
+    public ArrayList<Map<Object, Object>> getRenderObject(String... objName) {
+        try {
+            ArrayList<Map<Object, Object>> obj;
+            if (waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
+                obj = (ArrayList<Map<Object, Object>>) ((Map<Object, Object>) getAppiumDriver().executeScript(
+                        "flutter:getRenderObjectDiagnostics",
+                        this.getId(),
+                        new HashMap<String, Object>() {{
+                            put("includeProperties", true);
+                            put("subtreeDepth", 0);
+                        }})).get("properties");
+            } else throw new RuntimeException(this + " element for render props not found");
+            return obj;
+        } catch (Exception e) {
+            Reporter.log("Failed to get element size for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
+        }
+    }
+
+
+
     /**
      * This method is used to get the size of the element
      * @param objName: Name of object for reporting purpose
@@ -651,25 +672,6 @@ public class CustomFlutterElement extends FlutterElement {
 
         } catch (Exception e) {
             Reporter.log("Failed to get element color for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
-            throw e;
-        }
-    }
-
-    public ArrayList<Map<Object, Object>> getRenderObject(String... objName) {
-        try {
-            ArrayList<Map<Object, Object>> obj;
-            if (waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
-                obj = (ArrayList<Map<Object, Object>>) ((Map<Object, Object>) getAppiumDriver().executeScript(
-                        "flutter:getRenderObjectDiagnostics",
-                        this.getId(),
-                        new HashMap<String, Object>() {{
-                            put("includeProperties", true);
-                            put("subtreeDepth", 1);
-                        }})).get("properties");
-            } else throw new RuntimeException(this + " element for render props not found");
-            return obj;
-        } catch (Exception e) {
-            Reporter.log("Failed to get element size for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }

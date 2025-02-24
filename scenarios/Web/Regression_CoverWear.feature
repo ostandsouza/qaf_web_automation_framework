@@ -86,7 +86,8 @@ Scenario: Verify the functionality of column name
 @key:CoverWear_Position
 Scenario: Verify search functionality
 
-
+  Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And Navigate to cover wear listing screen
     Then Look for the searchBar in the table and verify search icon and search placeholder is visible
     When Enter the text '${ConveyorName}' to search
@@ -98,7 +99,7 @@ Scenario: Verify search functionality
 @key:CoverWear_Item
 Scenario: Verify the functionality of sorting
 
-    And Navigate to cover wear listing screen
+   And Navigate to cover wear listing screen
    Then Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column and verify sorting should be in increasing order
    And Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column again and verify sorting should be in decreasing order
 
@@ -247,6 +248,7 @@ Scenario: Verify Specification details for position
 @sheetName:Regression
 @key:CoverWear_Position
 Scenario: Verify data displayed in Gauge meter in case measurement already exist
+
 
     And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
     Then Extract the data from the position '${Position}' and navigate to position detail page
@@ -442,6 +444,7 @@ Scenario: Verify the functionality of column name
 @sheetName:Regression
 @key:CoverWear_DetailSorting
 Scenario: Verify the functionality of sorting
+
 
 
     And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate

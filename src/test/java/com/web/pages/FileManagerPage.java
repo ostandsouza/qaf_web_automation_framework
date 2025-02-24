@@ -175,8 +175,11 @@ public class FileManagerPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Rename Folder/File']")
     public CustomElement btRenameDialog;
 
-    public void goToFileManager(){
-        if(fileManager.isEnable())
+    @FindBy(locator = "xpath=//tr//td//i[@class=\"ctp-icon-Visibility_On\"]")
+    public CustomElement documentViewIcon;
+
+    public void goToFileManager() {
+        if (fileManager.isEnable())
             fileManager.jsClick("File Manager");
         else {
             btRightCarousel.jsClick("Carousel right");
@@ -190,7 +193,7 @@ public class FileManagerPage extends BasePage{
         newFolder.click("New Folder");
         folderHeader.isVisible("Folder Dialog");
         folderInputName.type(folderName);
-        save.click("Save");
+        save.jsClick("Save");
         waitForElementToInvisible(btSaveLoader,30000);
         waitForElementToDisplay(folderSuccessMessage);
     }
@@ -201,9 +204,11 @@ public class FileManagerPage extends BasePage{
         else {
             setImplicitWait(30000, TimeUnit.MILLISECONDS);
             waitForElementToInvisible(fileManagerLoader,40000);
+            SyncUtil.waitFor(2000);
             driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
             setImplicitWait(5000, TimeUnit.MILLISECONDS);
-            driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
+            SyncUtil.waitFor(1000);
+            driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']/div")).click();
         }
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         upload.sendKeys(file_path, "img_upload");
@@ -311,7 +316,8 @@ public class FileManagerPage extends BasePage{
         driver.findElement(By.xpath("//a[text()='"+fileName+"']")).click();
         waitForElementToDisplay(pdfPopup);
         pdfPopup.isVisible("pdf");
-        closePopup.click();
+        if(closePopup.isVisible())
+            closePopup.click();
     }
 
     public void openFile(String folderName,String fileName){
@@ -356,10 +362,11 @@ public class FileManagerPage extends BasePage{
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(folderName+".zip"),"Downloaded file was not found","File was downloaded successfully");
     }
 
-    public void downloadFile(String folderName){
-        waitForElementToInvisible(fileManagerLoader,40000);
-        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
-        driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
+    public void downloadFile(String folderName) {
+        waitForElementToInvisible(fileManagerLoader, 40000);
+        driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
+        driver.findElement(By.xpath("//li[@aria-label='" + folderName + "']")).click();
         waitForElementToBeClickable(btCheckboxHeader);
         btCheckboxHeader.check("all files");
         btDownload.click("Download");
@@ -391,5 +398,22 @@ public class FileManagerPage extends BasePage{
         String memory = driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']//span[@class='file-details']")).getText();
         System.out.println(MiscUtils.regexExtractor(memory, "(|[^|]*)$").trim());
         return MiscUtils.regexExtractor(memory, "(|[^|]*)$").trim();
+    }
+    public void openImageDocument(String fileName){
+        SyncUtil.waitFor(4000);
+        documentViewIcon.isVisible(10000,"View Icon");
+        documentViewIcon.click();
+        waitForElementToDisplay(imgPopup);
+        imgPopup.isVisible("Image");
+        closePopup.click();
+    }
+    public void openPdfDocument(String fileName)
+    {
+        SyncUtil.waitFor(4000);
+        documentViewIcon.isVisible(10000,"View Icon");
+        documentViewIcon.click();
+        waitForElementToDisplay(pdfPopup);
+        pdfPopup.isVisible("pdf");
+        closePopup.click();
     }
 }

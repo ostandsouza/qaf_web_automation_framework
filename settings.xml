@@ -1,0 +1,10 @@
+<settings>
+    <mirrors>
+        <mirror>
+            <id>eujfart</id>
+            <name>EU Artifact</name>
+            <url>https://eu.artifactory.conti.de/artifactory/common_maven_r</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+</settings>

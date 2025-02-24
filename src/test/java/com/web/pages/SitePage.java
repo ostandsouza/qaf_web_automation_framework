@@ -17,7 +17,6 @@ import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.lang.Integer.parseInt;
 
 public class SitePage  extends BasePage {
-    InspectionPage inspectionpage = new InspectionPage();
 
     @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
     public CustomElement home;
@@ -25,15 +24,72 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=(//li//span[text()='Sites'])[1]")
     public CustomElement sites;
 
+    @FindBy(locator = "xpath=(//li//span[text()='Sites'])[1]/../..")
+    public CustomElement sitesNav;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Conveyors'])[1]/../..")
+    public CustomElement conveyors;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Cover Wear'])[1]/../..")
+    public CustomElement coverWear;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Inspections'])[1]/../..")
+    public CustomElement inspections;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Conveyor Inspect'])[1]/../..")
+    public CustomElement conveyorInspect;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Belt Scans'])[1]/../..")
+    public CustomElement beltScans;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Monitoring Devices'])[1]/../..")
+    public CustomElement monitoringDevices;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Heavy Equipment'])[1]/../..")
+    public CustomElement heavyEquipment;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Minuteman'])[1]/../..")
+    public CustomElement minuteman;
+
     @FindBy(locator = "xpath=//input[@placeholder='Search']")
     public CustomElement btSearchinput;
 
     @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
 
-    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]/..")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Sites'])[1]")
+    public CustomElement siteCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyors'])[1]")
+    public CustomElement conveyorsCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Cover Wear'])[1]")
+    public CustomElement coverWearCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Inspections'])[1]")
+    public CustomElement inspectionCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyor Inspect'])[1]")
+    public CustomElement conveyorInspectCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Belt Scans'])[1]")
+    public CustomElement beltScanCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Monitoring Devices'])[1]")
+    public CustomElement monitoringDevicesCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Heavy Equipment'])[1]")
+    public CustomElement heavyEquipmentCard;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.'])[1]")
+    public CustomElement minutemanCard;
+
+    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Add-circle'])[2]")
+    public CustomElement btAdd;
 
     @FindBy(locator = "xpath=//span[text()='Edit']")
     public CustomElement btEdit;
@@ -61,9 +117,6 @@ public class SitePage  extends BasePage {
 
     @FindBy(locator = "xpath=(//span[contains(@class,'p-panel-title')])[1]")
     public CustomElement siteHeader;
-
-    @FindBy(locator = "xpath=(//div[contains(@class,'p-carousel-item')]//app-card//div[@class='card-inner-wrapper' and contains(div, 'Sites')])[1]")
-    public CustomElement siteCard;
 
     @FindBy(locator = "xpath=(//td//i[contains(@class,'ctp-icon-Favorite')])[1]")
     public CustomElement subscribePinIcon;
@@ -144,11 +197,32 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=(//span[text()='New'])[1]")
     public CustomElement notificationListNewEntry;
 
+    @FindBy(locator = "xpath=(//li//span[text()='Corporates'])[1]")
+    public CustomElement corporate;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Content Management'])[1]")
+    public CustomElement contentManagement;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Master Data'])[1]")
+    public CustomElement masterData;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Statistics'])[1]")
+    public CustomElement statistics;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Customer API'])[1]")
+    public CustomElement customerAPI;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='File Manager'])[1]")
+    public CustomElement fileManagerCard;
+
+    @FindBy(locator = "xpath=(//li//span[text()='Users'])[1]")
+    public CustomElement users;
+
 
     public void goToSiteListScreen() {
         if (!sites.isVisible())
             home.click("Home");
-        sites.click("Sites List");
+        sites.jsClick("Sites List");
         btSearchinput.isVisible("Site Page");
     }
 
@@ -173,7 +247,7 @@ public class SitePage  extends BasePage {
     public void goToSiteDetails(String siteName) {
         searchSite(siteName);
         waitForElementToDisplay(btCheckbox);
-        btViewIcon.click("Site Details");
+        btViewIcon.jsClick("Site Details");
         waitForElementToDisplay(siteHeader);
         siteHeader.isEnable("File Manager");
     }
@@ -229,12 +303,12 @@ public class SitePage  extends BasePage {
 
     public void unSubscribe(String siteName) {
         btSearchinput.type(siteName, "site Search");
-        waitForElementVisible(subscribedPinIcon, 50000, 500);
+        waitForElementVisible(subscribedPinIcon, 10000, 500);
         subscribedPinIcon.click();
         SyncUtil.waitFor(8000);
         waitForElementToDisplay(subscribePinIcon);
-        Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed", "subscription is removed");
-    }
+        Validator.assertTrue(subscribePinIcon.isDisplayed(), "subscription is not removed",
+                "subscription is removed");}
 
     public void searchSiteAndNavigate(String siteName) {
         searchSite(siteName);
@@ -253,7 +327,6 @@ public class SitePage  extends BasePage {
     }
 
     public void searchConveyorAndEdit(String conveyorName) {
-//        inspectionpage.clickClickFilter();
         searchConveyorSiteLevel(conveyorName);
         waitForElementVisible(crCheckbox,30000,1000);
         crCheckbox.check("Conveyor Checkbox");
@@ -265,8 +338,11 @@ public class SitePage  extends BasePage {
     public void bellIconClick() {
         waitForElementVisible(bellIcon, 10000, 500);
         bellIcon.click();
+        notificationPopup.isVisible(10000,"Notification popup");
         Validator.assertTrue(notificationPopup.isDisplayed(), "Notification popup is not displayed", "Notification popup is displayed");
-        Validator.assertTrue(markAllAsReadText.isVisible(10000,"Mark all as Read"),"Mark all as Read is not visible under notification menu!",        "Mark all as Read is visible under notification menu!");
+        Validator.assertTrue(markAllAsReadText.isVisible(10000,"Mark all as Read"),"Mark all as Read is not visible under notification menu!",
+                "Mark all as Read is visible under notification menu!");
+
     }
 
     public void verifyNotificationSiteOrder(String value1,String value2) {
@@ -292,16 +368,22 @@ public class SitePage  extends BasePage {
 
     public void extractNotificationCountBefore() {
         int beforeSubscriptionCount = extractNotificationCount();
-        System.out.println(beforeSubscriptionCount + "beforeSubscriptionCount");
+        Reporter.log("Initial notification count is-'"+beforeSubscriptionCount);
         getBundle().setProperty("notificationCntBefore", beforeSubscriptionCount);
 
     }
 
     public void extractNotificationCountAfter() {
         int afterSubscriptionCount = extractNotificationCount();
-        System.out.println(afterSubscriptionCount + "afterSubscriptionCount");
+        Reporter.log("Notification count after update is-'"+afterSubscriptionCount);
         getBundle().setProperty("notificationCntAfter", afterSubscriptionCount);
-
+    }
+    public void verifyUserNotificationCountAfterUpdate()
+    {
+        int notificationCountBefore = Integer.parseInt(getBundle().getProperty("notificationCntBefore").toString());
+        notificationCountBefore+=1;
+        extractNotificationCountAfter();
+        Validator.assertTrue(getBundle().getProperty("notificationCntAfter").equals(notificationCountBefore), "User has not received new notification", "User received new notification");
     }
 
     public void verifyUserNotificationCount() {
@@ -419,12 +501,7 @@ public class SitePage  extends BasePage {
         Validator.assertTrue(notificationListRefresh.isDisplayed(),"Notification list is not getting refreshed","Notification List is getting refreshed");
 
     }
-    public void verifyUserNotificationCountAfterUpdate(){
-        int notificationCountBefore = Integer.parseInt(getBundle().getProperty("notificationCntBefore").toString());
-        notificationCountBefore+=1;
-        extractNotificationCountAfter();
-        Validator.assertTrue(getBundle().getProperty("notificationCntAfter").equals(notificationCountBefore), "User has not received new notification", "User received new notification");
-    }
+
     public void verifyNewLinkInNotificationList(String site1)
     {
         waitForElementToDisplay(notificationListNewFirstEntry);
@@ -471,6 +548,63 @@ public class SitePage  extends BasePage {
       Validator.assertTrue(notificationListNewEntry.isNotVisible(5000),"New Notification is found","New Notification is not found");
     }
 
+    public void markAllAsReadLnkClick()
+    {
+        waitForElementToBeClickable(markAllAsReadText);
+        markAllAsReadText.click("Mark All As Read");
+    }
 
+    public boolean verifyViewAndAddRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        return btAdd.isVisible(500) && !btActions.isEnabled();
+    }
 
+    public boolean verifyViewRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        return !btActions.isEnabled();
+//        btActions.click("Actions");
+//        return btAdd.isNotVisible(500) && btEdit.isNotVisible(500) && btDelete.isNotVisible(500);
+    }
+
+    public boolean verifyViewAndEditRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        btActions.click("Actions");
+        return btAdd.isNotVisible(500) && btEdit.isVisible(500) && btDelete.isNotVisible(500);
+    }
+
+    public boolean verifyViewAndDeleteRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        btActions.click("Actions");
+        return btAdd.isNotVisible(500) && btEdit.isNotVisible(500) && btDelete.isVisible(500);
+    }
+
+    public boolean verifyViewAddEditAndDeleteRights(String siteName){
+        searchSite(siteName);
+        waitForElementToDisplay(btCheckbox);
+        btCheckbox.check("Site/Shop Checkbox");
+        btActions.click("Actions");
+        return btAdd.isVisible(500) && btEdit.isVisible(500) && btDelete.isVisible(500);
+    }
+
+    public boolean verifyCardsDisplayForBasics(){
+        return siteCard.isVisible() && conveyorsCard.isVisible() && coverWearCard.isVisible() && fileManagerCard.isNotVisible(500) && inspectionCard.isNotVisible(500) && conveyorInspectCard.isNotVisible(500) && beltScanCard.isNotVisible(500) && monitoringDevicesCard.isNotVisible(500) && heavyEquipmentCard.isNotVisible(500) && minutemanCard.isNotVisible(500);
+    }
+
+    public boolean verifyLeftNavigationHomeForBasicsView() {
+        home.click("Home");
+        SyncUtil.waitFor(1000);
+        return sitesNav.isVisible() && conveyors.isVisible() && coverWear.isVisible() && fileManager.isNotVisible(500) && inspections.isNotVisible(500) && conveyorInspect.isNotVisible(500) && beltScans.isNotVisible(500) && monitoringDevices.isNotVisible(500) && heavyEquipment.isNotVisible(500) && minuteman.isNotVisible(500);
+    }
+
+    public boolean verifyLeftNavigationAdminView() {
+        return corporate.isVisible() && contentManagement.isVisible() && statistics.isVisible() && users.isNotVisible(500) && masterData.isNotVisible(500) && customerAPI.isNotVisible(500);
+    }
 }

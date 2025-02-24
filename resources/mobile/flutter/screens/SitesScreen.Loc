@@ -1,6 +1,0 @@
-sites.siteList.header = flutter-text=Sites
-sites.more.btn = flutter-valuekey=siteMoreBtn
-site.company.existingerror = flutter-text=Site already exist
-site.company.successMsg= flutter-text= Company successfully created
-corporate.edit.success = flutter-text=Site already exist
-

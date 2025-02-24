@@ -25,7 +25,6 @@ public class CoverWearSteps {
 //        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
 //        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
 //        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
-        System.out.println(conveyorName+custSiteName+positionName+topCoverThickness+bottomCoverThickness+durometer+topCoverCompound+bottomCoverCompound);
         coverWearPage.goToCoverWearScreen();
         coverWearPage.addNewMeasurement(conveyorName, custSiteName,positionName,topCoverThickness,bottomCoverThickness,durometer,topCoverCompound,bottomCoverCompound);
     }
@@ -107,9 +106,9 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Verify mandatory parameter for add measurement {ConveyorName}")
     public void verifyMandatoryParameters(String conveyorName){
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
-        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
+//        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+//        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+//        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
         coverWearPage.goToAddMeasurement();
         coverWearPage.verifyErrorMessage();
     }
@@ -209,6 +208,14 @@ public class CoverWearSteps {
     @QAFTestStep(description="Add new measurement for current date with {Thickness} and {Durometer}")
     public void verifyAddNewMeasurement(String thickness, String durometer){
         coverWearPage.verifyAdditionOfNewMeasurement(thickness, durometer);
+    }
+
+    @QAFTestStep(description="Add new measurement for {Position} with current date {Thickness} and {Durometer}")
+    public void verifyAddNewMeasurementPosition(String position, String thickness, String durometer){
+        coverWearPage.verifyPositionNav(position);
+        coverWearPage.openMeasurement();
+        coverWearPage.verifyAdditionOfNewMeasurement(thickness, durometer);
+        coverWearPage.verifySaveFunctionality();
     }
 
     @QAFTestStep(description="Verify Add and remove new measurement readings")
@@ -1157,6 +1164,13 @@ public class CoverWearSteps {
     @QAFTestStep(description = "Click on dialog box close button")
     public void clickOnTheDialogClose() {
         coverWearPage.clickOnDialogClose();
+    }
+
+    @QAFTestStep(description = "Click on coverWear card and verify it navigates to Specification page")
+    public void conveyorCoverwearNavigation()
+    {
+        coverWearPage.clickCoverWearCard();
+        coverWearPage.verifySpecificationHeader();
     }
     @QAFTestStep(description = "Enter the input value {value} with label {label}")
     public void addTheInputValForTheLabel(String value,String label) {

@@ -5,9 +5,7 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
-import groovyjarjarantlr4.v4.codegen.model.Sync;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -17,10 +15,14 @@ public class ConveyorSteps {
     CorporatePage corporatePage = new CorporatePage();
     CoverWearPage coverWearPage=new CoverWearPage();
     SitePage sitePage = new SitePage();
+    CordInspectPage cordInspectPage=new CordInspectPage();
     UsersPage userpage = new UsersPage();
 
-    @QAFTestStep(description="Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
-    public void createAConveyor(String conveyorName, String distShopName, String custSiteName){
+    String[] monitoringDeviceColName = {"name", "deviceType", "site", "conveyor", "territory", "carcass", "status", "installedDate", "location", "lastServiceDate", "beltConveyorSaves"};
+
+
+    @QAFTestStep(description = "Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
+    public void createAConveyor(String conveyorName, String distShopName, String custSiteName) {
 //        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
 //        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         conveyorPage.createConveyor(conveyorName, distShopName, custSiteName);
@@ -205,7 +207,6 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Verify user is able see saved preference")
     public void verifySavedPreference() {
-        SyncUtil.waitFor(50000);
         Validator.assertTrue(conveyorPage.verifyFilters(), "All saved filters are not available in layout", "All filters were successfully verified");
     }
 
@@ -467,7 +468,7 @@ public class ConveyorSteps {
     public void applyAndVerifyFilterAppliedAndPopupClosure(String filterType) {
         conveyorPage.applyBtnClick();
         int noOfConveyors = Integer.parseInt(MiscUtils.regexExtractor(conveyorPage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-        conveyorPage.verifyFilterApplied(noOfConveyors,filterType);
+        conveyorPage.verifyFilterApplied(noOfConveyors, filterType,null);
         conveyorPage.verifyFilterPopupClosed();
     }
     @QAFTestStep(description = "Click on clear button in popup and verify filter is removed")
@@ -528,6 +529,12 @@ public class ConveyorSteps {
     @QAFTestStep(description="Verify data value unit as {MetricUnit} in Add Conveyor for TonsPerHour")
     public void verifyTheDataUnitInAddConveyorForTonsPerHour(String unit){
         conveyorPage.verifyDataUnitInAddConveyorForTonsPerHour(unit);
+    }
+
+    @QAFTestStep(description = "Close the warning popup")
+    public void closeWarning() {
+        SyncUtil.waitFor(2000);
+        conveyorPage.closeDialog();
     }
 
     @QAFTestStep(description="Verify on click of conveyor nagivation bar nagivates to respective pages")
@@ -926,10 +933,12 @@ public class ConveyorSteps {
     public void verifyTheConveyorCardDetails() {
         conveyorPage.verifyConveyorCardDetails();
     }
-    @QAFTestStep(description = "Close the warning popup")
-    public void closeWarning(){
-        SyncUtil.waitFor(2000);
-        conveyorPage.closeDialog();
+
+    @QAFTestStep(description = "Click on the new link of the recent conveyor notification for {ConveyorName1} and verify it navigates conveyor history page")
+    public void clickNewLinkAndVerifyNavigation(String conveyorName)
+    {
+        conveyorPage.newLinkClick();
+        conveyorPage.verifyConveyorHistoryNav(conveyorName);
     }
     @QAFTestStep(description = "Navigate to conveyor list screen and wait to load data")
     public void verifyConveyorListNavAndWait() {
@@ -1026,4 +1035,32 @@ public class ConveyorSteps {
     }
 
 
+    @QAFTestStep(description = "Verify the notification count in bellIcon after subscription and verify user is getting any notification")
+    public void verifyNotificationCountAfterSubscriptionForConveyor()
+    {
+
+        sitePage.extractNotificationCountAfter();
+        sitePage.verifyUserNotificationCountAfterUpdate();
+    }
+
+    @QAFTestStep(description = "Click on the new link of the recent Belt Scan notification and verify it navigates Add Belt Scan page")
+    public void clickNewLinkAndVerifyBeltScanNavigation() {
+        sitePage.bellIconClick();
+        conveyorPage.newLinkClick();
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(cordInspectPage.getCurrentURL().contains("/secure/belt-scans/detail/"), "User is not navigated to  Belt Scan Detail page!",
+                "User is  navigated to  Belt Scan Detail page!");
+    }
+
+    @QAFTestStep(description = "Verify user can see the updates done to the conveyor {ConveyorName} in the conveyor history under the subscribed site")
+    public void verifyConveyorUpdateHistory(String conveyorName)
+    {
+        Validator.assertTrue(conveyorPage.getCurrentURL().contains("/conveyor-history"),"User is not navigated to conveyor history page","User is navigated to conveyor history page");
+        conveyorPage.verifyConveyorHistoryForConveyor(conveyorName);
+    }
+
+    @QAFTestStep(description = "Click on each column header and verify filter icon fields")
+    public void clickOnEachFilterIconAndVerifyFilterFields() {
+        conveyorPage.columnNameFilterBtnClick(monitoringDeviceColName);
+    }
 }

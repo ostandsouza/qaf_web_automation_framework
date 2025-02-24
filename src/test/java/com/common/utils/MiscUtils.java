@@ -6,6 +6,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
 import com.qmetry.qaf.automation.util.PoiExcelUtil;
 import com.qmetry.qaf.automation.util.Reporter;
+import org.apache.commons.lang3.SystemUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,9 +15,7 @@ import org.json.simple.parser.ParseException;
 import io.restassured.response.Response;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -46,6 +45,11 @@ public class MiscUtils {
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy:HH.mm.ss");
         return formatter.format(currentDate.getTime());
+    }
+
+    public static String getDateFromEpoc(Long epoc) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        return formatter.format(epoc);
     }
 
     public static String convertTimeToString(long miliSeconds) {
@@ -139,7 +143,7 @@ public class MiscUtils {
             if (listOfFile.isFile()) {
                 String fileName = listOfFile.getName();
                 System.out.println("File " + listOfFile.getName());
-                if (fileName.matches(name)) {
+                if (fileName.matches(name)||fileName.contains(name)) {
                     found = true;
                 }
             }
@@ -255,6 +259,36 @@ public class MiscUtils {
         LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d, yyyy"));
         return formattedDate;
+    }
+
+    public static String executeCommand(String command) {
+        String[] commands;
+        if (SystemUtils.IS_OS_WINDOWS) {
+            commands = new String[] { "cmd", "/c", command };
+        } else {
+            commands = new String[] { "bash", "-l", "-c", command };
+        }
+        return executeCommand(commands);
+    }
+
+    public static String executeCommand(String[] commands) {
+        String output = null;
+        try {
+            Process process = Runtime.getRuntime().exec(commands);
+
+            StringBuilder sb = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                String parsedResult = "";
+                while ((parsedResult = reader.readLine()) != null) {
+                    sb.append(parsedResult);
+                }
+            }
+            output = sb.toString();
+            System.out.println("output " + output);
+        } catch (IOException e) {
+            Reporter.log(e.getMessage());
+        }
+        return output;
     }
     public static String getDownloadedFileName(String regexName){
         SyncUtil.waitFor(4000);
