@@ -4,10 +4,10 @@ dashboard.distributor.shop = flutter-text=Distributor Shop
 dashboard.customer.site = flutter-text=Customer Site
 dashboard.customer.corporate = flutter-rawmap={"finderType":"Ancestor","matching":"{\"finderType\":\"ByType\",\"type\": \"ListTile\"}","of":"{\"finderType\":\"ByText\",\"text\": \"Customer Corporate\"}"}
 dashboard.company.field = flutter-type=TextFormField
+
+
 dashboard.address.field = flutter-valuekey=Address
 dashboard.save.btn = flutter-text=Save
-
-
 corporate.edit.save = flutter-text=Save changes
 corporate.create.success = flutter-text=Company successfully created
 corporate.details.btn = flutter-valuekey=corp_details
@@ -17,25 +17,64 @@ corporate.details.count = flutter-valuekey=details_card_count
 corporate.details.back = flutter-valuekey=details_back_btn
 corporate.edit.name = flutter-valuekey=Company Name
 corporate.address.field = flutter-type=Autocomplete<Prediction>
+corporate.edit.companyType = flutter-valuekey=Type of Company
 corporate.edit.count = flutter-valuekey=associate_count
 corporate.edit.territoryManager = flutter-valuekey=Territory Manager
 corporate.edit.success = flutter-text=Company successfully updated
 corporate.filter.search = flutter-valuekey=search_box
+site.name.field = flutter-valuekey=Site Name
+site.customer.dropdown = flutter-valuekey=Customer Corporate
+site.shop.dropdown = flutter-valuekey=Associated Distributor Shop
+site.dropdown.search = flutter-valuekey=Search
+site.territory.dropdown = flutter-valuekey=Territory
+site.manager.dropdown = flutter-valuekey=Territory Manager
+shop.name.field = flutter-valuekey=Shop Name
+shop.distributor.field = flutter-valuekey=Distributor Corporate
+corporate.details.header = flutter-valuekey=details_header
+corporate.site.list = flutter-rawmap={"finderType":"Ancestor","matching":"{\"finderType\":\"ByType\",\"type\": \"ListView\"}","of":"{\"finderType\":\"ByType\",\"type\": \"SiteRow\"}"}
+site.search.field = flutter-valuekey=site_search
 corporate.frame.screen= flutter-type=SingleChildScrollView
+site.conveyor.action=flutter-valuekey=conveyor_more
+
+corporate.corporateList.header = flutter-text=Corporates
+corporate.view.header=flutter-valuekey=company_header
+company.company.card=flutter-valuekey=company-card
+corporate.name.field=flutter-valuekey=company_Name
+
+company.add.icon = flutter-valuekey=AddCompanyIcon
+company.add.header = flutter-text=Add Corporate
+company.add.corporate = flutter-text=ADD CORPORATE
+company.add.back=flutter-valuekey=AddCompanyBack
+company.add.site = flutter-text=ADD SITE/SHOP
+company.addSite.header = flutter-text=Add Site
+company.addSite.back=flutter-valuekey=AddSiteBack
+sites.conveyor.edit = flutter-text=Edit
+sites.conveyor.delete = flutter-text=Delete
+company.search.placeholder=flutter-text=Search in corporates
 corporate.inspection.header=flutter-text=Inspections
 corporate.tools.header=flutter-text=Tools
+
 corporate.site.count=flutter-valuekey=list_card_count
+
+
 corporate.add.icon = flutter-valuekey=AddCompanyIcon
 corporate.add.back= flutter-valuekey=AddCompanyBack
 corporate.list.sitecount= flutter-rawmap={"finderType":"Ancestor","matching":"{\"finderType\":\"ByType\",\"valuekey\": \"Search\"}","of":"{\"finderType\":\"ByType\",\"valuekey\": \"list_card_count\"}"}
 corporate.view.header = flutter-valuekey=company_header
+
 corporate.company.existingerror = flutter-text=Company already exist
 corporate.list.header = flutter-text=Corporates
 corporate.add.header = flutter-text=Add Corporate
 corporate.add.site = flutter-text=ADD SITE/SHOP
 corporate.add.corporate = flutter-text=ADD CORPORATE
-corporate.details.header = flutter-valuekey=details_header
-corporate.site.list = flutter-rawmap={"finderType":"Ancestor","matching":"{\"finderType\":\"ByType\",\"type\": \"ListView\"}","of":"{\"finderType\":\"ByType\",\"type\": \"SiteRow\"}"}
+site.default.company= flutter-text=Customer Site
+corporate.default.company= flutter-text=Customer Corporate
+site.add.header = flutter-text=Add Site
+site.companyinfo.header= flutter-text=Company Information
+site.territoryinfo.header = flutter-text=Territory Information
+site.additionalinfo.header = flutter-text=Additional Details
+site.company.existingerror = flutter-text=Site already exist
+site.company.successMsg= flutter-text= Company successfully created
 corporate.edit.success = flutter-text=Site already exist
 corporate.default.company= flutter-text=Customer Corporate
 corporate.name.field=flutter-valuekey=company_Name
@@ -43,11 +82,11 @@ company.company.card=flutter-valuekey=company-card
 company.addSite.header = flutter-text=Add Site
 company.addSite.back=flutter-valuekey=AddSiteBack
 company.search.placeholder=flutter-text=Search in corporates
+corporate.actionPopup.move = flutter-text=Move
+corporate.actionPopup.delete = flutter-text=Delete
+corporate.actionPopup.cancel = flutter-text=Cancel
 
-
-
-
-
+fileManager.folder.breadCrumb=xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]
 
 
 

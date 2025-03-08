@@ -38,7 +38,6 @@ public class LoginPage extends BasePage {
 	public CustomElement btnSave;
 
 
-
 	public boolean verifyUserOnLoginPage()  {
 		waitForElementToDisplay(tbUserName);
 		tbUserName.isVisible(10000,"UserName");
@@ -73,24 +72,19 @@ public class LoginPage extends BasePage {
         btnLogIn.click("LOGIN");
 		waitForElementToInvisible(btnLogIn,15000);
     }
-	public void changePassword(String password,String newPassword,String confirmPassword)
-	{
+
+
+	private QAFExtendedWebDriver ChromeDriver(DesiredCapabilities desiredcapabilities) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void changePassword(String password,String newPassword,String confirmPassword){
 		tbOldPassword.isVisible(10000,"Current password");
 		tbOldPassword.type(password,"Current password");
 		tbNewPassword.type(newPassword,"New Password");
 		tbConfirmPassword.type(confirmPassword,"Confirm Password");
 		btnSave.click("Save");
 		waitForElementToInvisible(btnSave,75000);
-		System.out.println("after change password");
-		SyncUtil.waitFor(30000);
-		System.out.println("waited for 30 sec");
-
-	}
-
-
-	private QAFExtendedWebDriver ChromeDriver(DesiredCapabilities desiredcapabilities) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -1,10 +1,12 @@
 package com.mobile.flutter.app.steps;
 
 
+import com.mobile.flutter.app.component.CustomFlutterElement;
 import com.mobile.flutter.app.pages.ContinentalLoginPage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.mobile.flutter.app.pages.LandingPage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
+import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Validator;
 import org.testng.Assert;
 
@@ -14,9 +16,8 @@ public class LoginSteps {
     @QAFTestStep(description = "Login to the application with {UserName} and {Password}")
     public void loginToApplication(String userName, String password) {
 //        ContinentalLoginPage.getInstance().login(userName,password);
-        contiPage.login(userName,password);
-
         Validator.assertTrue(ContinentalLoginPage.getInstance().isContinentalPage(),"Continental login page is not visible","Continental login page is visible");
+        contiPage.login(userName,password);
     }
 
     @QAFTestStep(description="Verify user is on continental login page")
@@ -63,6 +64,36 @@ public class LoginSteps {
     @QAFTestStep(description="Click on filter functionality and verify user is able to see the popup with header as filter")
     public void clickAndVerifyFilterFunctionality() {
         DashboardPage.getInstance().filterBtnClick();
+    }
+
+    @QAFTestStep(description="Verify userName and Password field is present")
+    public void verifyTheUserNameAndPasswordFieldsExists(){
+        ContinentalLoginPage.getInstance().verifyUserNameAndPasswordFieldsExists();
+    }
+    @QAFTestStep(description="Click on back button")
+    public void clickOnTheBackBtn(){
+        ContinentalLoginPage.getInstance().clickOnBackBtn();
+    }
+    @QAFTestStep(description="Verify user is in welcome page")
+    public void verifyIsWelcomePage(){
+        LandingPage.getInstance().isWelcomePage();
+    }
+
+    @QAFTestStep(description = "User login to the application with {UserName} and {Password}")
+    public void userLoginToApplication(String userName, String password) {
+        ContinentalLoginPage.getInstance().loginWithEmailAndPassword(userName,password);
+    }
+    @QAFTestStep(description = "Verify Email field error message")
+    public void verifyTheEmailErrorMsg() {
+        ContinentalLoginPage.getInstance().verifyEmailErrorMsg();
+    }
+    @QAFTestStep(description = "Click and Verify Forget Password button")
+    public void clickTheForgotPasswordBtn() {
+        ContinentalLoginPage.getInstance().clickForgotPasswordBtn();
+    }
+    @QAFTestStep(description = "Enter email {ForgottenEmail} for Forgot Password")
+    public void enterTheEmailForForgotPassword(String email) {
+        ContinentalLoginPage.getInstance().enterTheEmailForForgotPassword(email);
     }
 
 }

@@ -11,7 +11,7 @@ Scenario: Verify with add conveyor navigation
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    Then  Navigate to Add Conveyor screen
+#    Then  Navigate to Add Conveyor screen
 
 @Regression2
 @dataFile:resources/data/TestData.xls
@@ -77,6 +77,7 @@ Scenario: Verify image upload functionality
 @key:Conveyor_Details
 Scenario: Verify for the tiles in conveyor details screen
 
+    And wait for conveyors to load
    When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
    Then  Verify all the tiles in conveyor detail screen
 
@@ -132,6 +133,7 @@ Scenario: Verify a user is able to Get selected layout post re-login
     Then  Verify user is able see saved preference
     When  Click on profile and select logout button
     When  Login with '${UserName}' and '${Password}'
+    When  Navigate to conveyor list screen
     Then  Verify user is able see saved preference
 
 @Regression16
@@ -148,6 +150,14 @@ Scenario: Verify a user is able to Delete layout
 @sheetName:Regression
 @key:Conveyor_Belt_Metric
 Scenario: Verify user is able to edit the belt width for the metric unit Conversions
+
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Verify site and coporate fields are prefilled
+    Then Verify data value in header as metric
+    And Edit Conveyor belt width value '${BeltWidth}'
+    And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
+    Then Add data value in header as imperial
+    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for beltwidth
 
 @Regression17 @CTCP-1865
 @dataFile:resources/data/TestData.xls
@@ -224,6 +234,8 @@ Scenario: ZbVerify the save as draft button on remarks tab
     And  Navigate to Add Conveyor screen
     And Create a conveyor with '${ConveyorName}' and '${DistShopName}' and '${CustShopName}' with mandatory field
     Then Go to remarks and click on save as button
+    When  Delete Conveyor from Conveyor list screen '${ConveyorName}'
+    Then  Verify Deleted Conveyor '${ConveyorName}' from Conveyor list screen
 
 @Regression21 @CTCP-1920
 @dataFile:resources/data/TestData.xls
@@ -312,15 +324,26 @@ Scenario: ZFields displayed under Conveyor name
 Scenario: Verify conveyor location displayed in map
 
 
-
-  Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor details screen for conveyor '${ConveyorName}'
     And Verify Conveyor Name '${ConveyorName}' is displayed as heading of the page
     Then Verify that map is displayed in the Conveyor Trail
     And Look for site Location '${CustSiteName}' in Conveyor trails map with site location should display
     And Verify Conveyor Head and Tail location position is displayed in the map
     And Click on pin location of conveyor in map and verify it displays label with conveyor name and cross button
+
+@Regression21 @CTCP-1999
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Conveyor_Belt_Metric
+Scenario: Verify user is able to edit the tons per hour peak for the metric unit Conversions
+
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And Verify site and coporate fields are prefilled
+    Then Verify data value in header as metric
+    And Edit Conveyor belt width value '${BeltWidth}'
+    And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
+    Then Add data value in header as imperial
+    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for beltwidth
 
 @Regression21 @CTCP-1998
 @dataFile:resources/data/TestData.xls
@@ -340,32 +363,12 @@ Scenario: ZVerify user is able to edit the belt width for the Imperial unit Conv
     Then Add data value in header as metric
     And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
 
-@Regression21 @CTCP-1999
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:Conveyor_Belt_Metric
-Scenario: Verify user is able to edit the tons per hour peak for the metric unit Conversions
-
-
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-    And  Navigate to conveyor details screen for conveyor '${ConveyorName}'
-    And Verify site and coporate fields are prefilled
-    Then Verify data value in header as metric
-    And Edit Conveyor belt width value '${BeltWidth}'
-    And Verify data value unit as '${MetricUnit}' in Add Conveyor for beltwidth
-    Then Add data value in header as imperial
-    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for beltwidth
-
-
 @Regression24 @CTCP-2005
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_LayoutCreate
 Scenario: ZVerify the table layout picker
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Verify user is able to open the popup
@@ -390,8 +393,6 @@ Scenario: ZVerify user is able to add the layout name
 Scenario: Verify the user should get the add button enable
 
 
-  Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Click on text box and verify user is able to enter the layout name '${LayoutName}'
@@ -403,19 +404,23 @@ Scenario: Verify the user should get the add button enable
 @key:Conveyor_Layout_Create
 Scenario: Verify user is able to click the back button
 
-    And Edit Conveyor tons per hour value '${TonsPerHour}'
-    And Verify data value unit as '${MetricUnit}' in Add Conveyor for TonsPerHour
-    Then Add data value in header as imperial
-    And Verify data value unit as '${ImperialUnit}' in Add Conveyor for TonsPerHour
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    When  Navigate to conveyor list screen
+    Then Click on layout picker
+    And Click on text box and verify user is able to enter the layout name '${LayoutName}'
+    And Click on back button and verify user lands on table layout settings
 
 @Regression27 @CTCP-2010
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_Layout
-Scenario: Verify user is able to see the newly added layout
+Scenario: ZVerify user is able to see the newly added layout
 
     Given User is at Login page
-
+    When  Login with '${UserName}' and '${Password}'
+    Then  verify user '${UserName}' is able to add new layout for '${Corporates}' '${BeltWidth}' '${Rating}' '${Length}' with '${Layout_UserName}'
+    And Click on profile and select logout button
     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Verify user is able to see newly added layout
@@ -449,6 +454,8 @@ Scenario: Verify duplicate name of the layout
 @key:Conveyor_Layout_Create
 Scenario: Verify user is able to click the back button
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Click on cross button in layout setting popUp
@@ -459,8 +466,7 @@ Scenario: Verify user is able to click the back button
 @key:Conveyor_LayoutCreate
 Scenario: User should able to drag and drop the table Layout settings popup
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+
     When  Navigate to conveyor list screen
     Then Click on layout picker
     And Verify user is able to open the popup
@@ -483,7 +489,6 @@ Scenario: Verify heading and column displayed in conveyor list table
 @key:Conveyor_ColumnFilter
 Scenario: ZSelect table column as per column selection filter
 
-
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
@@ -502,10 +507,8 @@ Scenario: ZSelect table column as per column selection filter
 Scenario: Search conveyor in conveyor list
 
 
-   Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  wait for conveyors to load
-    And Click on Clear filter Icon
+    And  Click on Clear filter Icon
     Then Look for the searchBar in the table and verify search icon and search placeholder is visible
     When Enter the text '${ConveyorName}' to search
     And Verify the matching result is displayed or No record found message should display
@@ -516,11 +519,8 @@ Scenario: Search conveyor in conveyor list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Conveyor_ColumnFilter
-Scenario: ZApply and remove 'Start With' filter
+Scenario: Apply and remove 'Start With' filter
 
-
-    Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
     And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
@@ -538,8 +538,6 @@ Scenario: ZApply and remove 'Start With' filter
 Scenario: Apply and remove 'Contains' filter
 
 
-   Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
     And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
@@ -556,8 +554,6 @@ Scenario: Apply and remove 'Contains' filter
 Scenario: Apply and remove ' Equals' filter
 
 
- Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     Then Hover on a column and verify filter icon is displayed
     And Click on the filter icon and verify all fields are visible for columnName '${ColName}'
@@ -637,10 +633,12 @@ Scenario: Verify pagination functionality
     And Navigate to conveyor list screen
     And Verify pagination format
     And Create a conveyor with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustShopGerName}'
+    And wait for conveyors to load
     And Extract the conveyor count from conveyor list page
     Then Delete Conveyor from Conveyor list screen '${ConveyorNameGer}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigate to conveyor list screen
+    And wait for conveyors to load
     And Verify the conveyor count from conveyor list page
     Then Verify pagination forward arrow button
     And Verify pagination backward arrow button
@@ -652,9 +650,6 @@ Scenario: Verify pagination functionality
 @key:Conveyor_update
 Scenario: Verify update functionality for Conveyor lite page
 
-
- Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to conveyor list screen
     And Click on Clear filter Icon
     And Search for the conveyor '${ConveyorName}' and select the checkbox to edit and verify user is able to select checkbox
@@ -820,10 +815,137 @@ Scenario: Verify user is able to get the notifications on belt scan for master u
     Then Verify the notification count in bellIcon after subscription and verify user is getting any notification
     And Click on the new link of the recent Belt Scan notification and verify it navigates Add Belt Scan page
 
+@CTCP-1208
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Company_Navigation
+Scenario: Navigate to Conveyors List table from home page with specific User
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    Then  Verify that conveyor card is displayed in home page
+    And Click on the conveyor card and verify it navigates to conveyor list screen
 
+@CTCP-1217
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify notification order after login with other user and try to update the data on multiple subscribed sites
 
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Subscribe the conveyors '${ConveyorName1}' and '${ConveyorName2}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And wait for conveyors to load
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And Edit Conveyor belt width value '${BeltWidth1}'
+    And  Navigate to conveyor details screen for conveyor '${ConveyorName2}'
+    And Edit Conveyor belt width value '${BeltWidth2}'
+    And Click on home link in breadCrumb and verify it navigates to home page
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify user is getting conveyor notification in last in first out format for '${ConveyorName2}' '${ConveyorName1}'
+    And Navigate to conveyor list screen
+    And wait for conveyors to load
+    And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
 
+@Regression29 @CTCP-1220
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the page after Click on 'View more' from Notification bell icon.
 
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyorListPage and click on bellIcon
+    Then Click on View more button and verify the fields in notification list page
 
+@Regression29 @CTCP-1223
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the result after providing dates under fromDate toDate
+
+    Given User is at Login page
+    When Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyorListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Verify user is unable to add toDate '${ToDate}' less than fromDate '${FromDate}'
+
+@Regression29 @CTCP-1231
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the fields on the page after Click on 'Conveyor History' from specific site.
+
+    Given User is at Login page
+    When Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And User clicks on Conveyor History
+    And Verify Conveyor History navigation bar fields
+
+@Regression29 @CTCP-1232
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the functionality after performing any Inspection on subscribed Conveyor
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe one conveyor '${ConveyorName1}' for the user
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Add the inspection Event for conveyor '${ConveyorName1}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    And Navigate to inspection list screen
+    And Search and verify the '${InspectionName}' is present
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify user is getting inspection notification for '${ConveyorName1}' with '${CustSiteName}' by '${FullName}'
+    And Navigate to conveyor list screen
+    And wait for conveyors to load
+    And Unsubscribe the site '${ConveyorName1}'
+
+@CTCP-1236
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Subscribe multiple conveyors while click on pin location icon and verify the subsc
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Subscribe the conveyors '${ConveyorName1}' and '${ConveyorName2}'
+    And Click on Clear filter Icon
+    And wait for conveyors to load
+    Then Verify the pinned subscription list '${ConveyorName1}'
+    And Verify the pinned subscription list '${ConveyorName2}'
+    And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
+
+@CTCP-1239
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Conveyor_Update
+Scenario: Verify the functionality for Login with other user at Account level contains sam
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Subscribe the conveyors '${ConveyorName1}' and '${ConveyorName2}'
+    And Click on Clear filter Icon
+    And wait for conveyors to load
+    Then Verify the pinned subscription list '${ConveyorName1}'
+    And Verify the pinned subscription list '${ConveyorName2}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Navigate to conveyor list screen
+    And wait for conveyors to load
+    And Search and verify the '${ConveyorName1}' is present
+    Then Verify the unPinned subscription list '${ConveyorName1}'
+    And Search and verify the '${ConveyorName2}' is present
+    And Verify the unPinned subscription list '${ConveyorName2}'
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Navigate to conveyor list screen
+    And wait for conveyors to load
+    And Unsubscribe the sites '${ConveyorName1}' and '${ConveyorName2}'
 

@@ -1,6 +1,6 @@
 package com.mobile.flutter.app.steps;
 
-import com.mobile.flutter.app.pages.DashboardPage;
+import com.mobile.flutter.app.pages.*;
 import com.mobile.flutter.app.pages.ProfilePage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
@@ -58,5 +58,15 @@ public class DashboardSteps {
         ProfilePage.getInstance().goToProfileDetails();
     }
 
-
+    @QAFTestStep(description = "Verify add button functionality in home screen")
+    public void verifyTheHomePageAddIconFunctionality() {
+        DashboardPage.getInstance().goToAddCorp();
+        CorporatePage.getInstance().verifyAddCorpBackBtnToHomePage();
+        DashboardPage.getInstance().goToSiteShop();
+        SitePage.getInstance().verifyAddSiteBackBtnToHomePage();
+        DashboardPage.getInstance().goToConveyor();
+        ConveyorPage.getInstance().verifyAddConvBackBtnToHomePage();
+        DashboardPage.getInstance().goToInspection();
+        InspectionPage.getInstance().verifyAddInspBackBtnToHomePage();
+    }
 }

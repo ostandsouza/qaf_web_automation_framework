@@ -15,10 +15,10 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-public class CorporatePage extends BasePage {
+public class CorporatePage extends BasePage{
 
     @UiElement(
-            fieldLoc = "xpath=//span[text()='Corporates']",
+            fieldLoc= "xpath=//span[text()='Corporates']",
             viewLoc = "xpath=//span[text()='Corporates1']"
     )
     public CustomElement lCorporates1;
@@ -26,7 +26,7 @@ public class CorporatePage extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Corporates']")
     public CustomElement lCorporates;
 
-    @FindBy(locator = "xpath=//div/span[text()='Corporates']")
+    @FindBy(locator="xpath=//div/span[text()='Corporates']")
     public CustomElement corporateHeader;
 
     @FindBy(locator = "xpath=(//app-card//div[text()='File Manager'])[1]")
@@ -66,7 +66,7 @@ public class CorporatePage extends BasePage {
     public CustomElement tbCompanyName;
 
     @FindBy(locator = "xpath=//span[text()='Create']/..")
-    public CustomElement btSaveandclose;
+    public CustomElement btCreate;
 
     @FindBy(locator = "xpath=//button//span[text()='Create']")
     public CustomElement btnCreate;
@@ -103,7 +103,7 @@ public class CorporatePage extends BasePage {
     @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[1]")
     public CustomElement drTerritorybutton;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
     public CustomElement drTerritoryvalue;
 
     @FindBy(locator = "xpath=//p-autocomplete[@field='name']//input")
@@ -115,50 +115,50 @@ public class CorporatePage extends BasePage {
     @FindBy(locator = "xpath=//div[contains(@class, 'pac-container')]/div[1]")
     public CustomElement tbMapFirstSearchOption;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
     public CustomElement tbSitedropdown;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
     public CustomElement tbAssociatedSitedropdown;
 
-    @FindBy(locator = "xpath=//p-dropdown[@datakey='companyId']/div/div[2]")
+    @FindBy(locator= "xpath=//p-dropdown[@datakey='companyId']/div/div[2]")
     public CustomElement drDistShopdropdown;
 
-    @FindBy(locator = "xpath=(//div[@role='button'])[2]")
+    @FindBy(locator="xpath=(//div[@role='button'])[2]")
     public CustomElement drCustomerCorporate;
 
-    @FindBy(locator = "xpath=(//div[@role='button'])[4]")
+    @FindBy(locator ="xpath=(//div[@role='button'])[4]")
     public CustomElement drAssociatedCustomerCorporate;
 
     @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
     public CustomElement pagination;
 
-    @FindBy(locator = "xpath=//input[@placeholder='Search']")
+    @FindBy(locator="xpath=//input[@placeholder='Search']")
     public CustomElement btSearchinput;
 
-    @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
+    @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
 
-    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator="xpath=(//button/chevrondownicon)[2]/..")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
 
-    @FindBy(locator = "xpath=//li//span[text()='Edit']")
+    @FindBy(locator="xpath=//li//span[text()='Edit']")
     public CustomElement btEdit;
 
-    @FindBy(locator = "xpath=//span[text()='Delete']")
+    @FindBy(locator="xpath=//span[text()='Delete']")
     public CustomElement btDelete;
 
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
     public CustomElement btviewicon;
 
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[2]")
+    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[2]")
     public CustomElement btviewicon2;
 
     @FindBy(locator = "xpath=//span[text()='Save']")
     public CustomElement btUpdate;
 
-    @FindBy(locator = "xpath=//button[contains(@class,'p-button-loading')]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
     public CustomElement buttonLoader;
 
     @FindBy(locator = "xpath=//span[text()='Yes']")
@@ -176,75 +176,75 @@ public class CorporatePage extends BasePage {
     @FindBy(locator = "xpath=//div[@class='icon']/img")
     public CustomElement imageIcon;
 
-    @FindBy(locator = "xpath=(//td//img)[1]")
+    @FindBy(locator="xpath=(//td//img)[1]")
     public CustomElement btImg;
 
-    @FindBy(locator = "xpath=(//td[3])[1]")
+    @FindBy(locator="xpath=(//td[3])[1]")
     public CustomElement btName;
 
-    @FindBy(locator = "xpath=(//td[4]/span)[1]")
+    @FindBy(locator="xpath=(//td[4]/span)[1]")
     public CustomElement btType;
 
-    @FindBy(locator = "xpath=(//td[5]/span)[1]")
+    @FindBy(locator="xpath=(//td[5]/span)[1]")
     public CustomElement btAddress;
 
-    @FindBy(locator = "xpath=(//td[6]/p-chip/div)[1]")
+    @FindBy(locator="xpath=(//td[6]/p-chip/div)[1]")
     public CustomElement btMarket1;
 
-    @FindBy(locator = "xpath=(//td[6]/p-chip/div/div)[1]")
+    @FindBy(locator="xpath=(//td[6]/p-chip/div/div)[1]")
     public CustomElement btMarket;
 
-    @FindBy(locator = "xpath=//td[7]/div")
+    @FindBy(locator="xpath=//td[7]/div")
     public CustomElement btShopNumber;
-    @FindBy(locator = "xpath=(//app-card//div[text()='Sites' or text()='Shops'] /..//span)[1]")
+    @FindBy(locator="xpath=(//app-card//div[text()='Sites' or text()='Shops'] /..//span)[1]")
     public CustomElement btSiteShopCardNo;
 
-    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyors']/..//span)[1]")
+    @FindBy(locator="xpath=(//app-card//div[text()='Conveyors']/..//span)[1]")
     public CustomElement btConveyorCardNo;
 
-    @FindBy(locator = "xpath=(//app-card//div[text()='Cover Wear']/..//span)[1]")
-    public CustomElement btCOverWearCardNo;
+    @FindBy(locator="xpath=(//app-card//div[text()='Cover Wear']/..//span)[1]")
+    public CustomElement btCoverWearCardNo;
 
-    @FindBy(locator = "xpath=(//app-card//div[text()='Inspections']/..//span)[1]")
+    @FindBy(locator="xpath=(//app-card//div[text()='Inspections']/..//span)[1]")
     public CustomElement btInspectionCardNo;
 
-    @FindBy(locator = "xpath=(//app-card//div[text()='Conveyor Inspect']/..//span)[1]")
+    @FindBy(locator="xpath=(//app-card//div[text()='Conveyor Inspect']/..//span)[1]")
     public CustomElement btConveyorInspectCardNo;
 
-    @FindBy(locator = "xpath=(//td//img)[1]")
+    @FindBy(locator="xpath=(//td//img)[1]")
     public CustomElement detailsImg;
 
-    @FindBy(locator = "xpath=(//td[4])[1]")
+    @FindBy(locator="xpath=(//td[4])[1]")
     public CustomElement detailsName;
 
-    @FindBy(locator = "xpath=(//td[5]/span)[1]")
+    @FindBy(locator="xpath=(//td[5]/span)[1]")
     public CustomElement detailsCorp;
 
-    @FindBy(locator = "xpath=(//td[6])[1]")
+    @FindBy(locator="xpath=(//td[6])[1]")
     public CustomElement detailsAddress;
 
-    @FindBy(locator = "xpath=(//td[7])[1]")
+    @FindBy(locator="xpath=(//td[7])[1]")
     public CustomElement detailsTerritory;
 
-    @FindBy(locator = "xpath=(//td[8])[1]")
+    @FindBy(locator="xpath=(//td[8])[1]")
     public CustomElement detailsManager;
 
-    @FindBy(locator = "xpath=(//td[9]/div)[1]")
+    @FindBy(locator="xpath=(//td[9]/div)[1]")
     public CustomElement detailsSiteNumber;
 
-    @FindBy(locator = "xpath=(//td[9])[1]")
+    @FindBy(locator="xpath=(//td[9])[1]")
     public CustomElement detailsDistributor;
 
-    @FindBy(locator = "xpath=(//td[10]/div)[1]")
+    @FindBy(locator="xpath=(//td[10]/div)[1]")
     public CustomElement detailsConveyorNumber;
 
-    @FindBy(locator = "xpath=(//td[11]/button)[1]")
+    @FindBy(locator="xpath=(//td[11]/button)[1]")
     public CustomElement detailsMoreButton;
 
     @FindBy(locator = "xpath=//td[contains(text(),'No')]")
     public CustomElement noList;
 
-    @FindBy(locator = "xpath=(//label[text()='Type of Company']/../div//input)[1]")
+    @FindBy(locator = "xpath=//label[text()='Type of Company']/../div/div/input")
     public CustomElement typeOfCompanyLoader;
     @FindBy(locator = "xpath=(//div[contains(@id,'titlebar')]/span)[1]")
     public CustomElement siteNameLoader;
@@ -261,39 +261,42 @@ public class CorporatePage extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Conveyor Trails']")
     public CustomElement conveyorTrailsHeader;
 
+    @FindBy(locator = "xpath=//span[text()='Add Conveyor']")
+    public CustomElement addConveyors;
+
     @FindBy(locator = "xpath=//input[@id='firstname1']")
     public CustomElement tbConveyorname;
 
-    @FindBy(locator = "xpath=//label[text()='Site']/following::span[1]")
+    @FindBy(locator= "xpath=//label[text()='Site']/following::span[1]")
     public CustomElement drSitedropdown;
 
-    @FindBy(locator = "xpath=//span[text()='Edit']")
+    @FindBy(locator="xpath=//span[text()='Edit']")
     public CustomElement btEditDetails;
 
-    @FindBy(locator = "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component p-disabled']")
-    public CustomElement btnSaveDisabled;
+    @FindBy(locator= "//span[text()='Create']/parent::button[@disabled]")
+    public CustomElement btnCreateDisabled;
 
-    @FindBy(locator = "//button[@class='p-ripple p-element p-button-rounded p-button-primary p-button p-component']")
-    public CustomElement btnSaveEnabled;
+    @FindBy(locator= "//span[text()='Create']/parent::button[not(@disabled)]")
+    public CustomElement btnCreateEnabled;
 
     @FindBy(locator = "//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement bcAddUserLink;
 
-    @FindBy(locator = "//div[@class='conti-avatar-section']//img[contains(@class,'avatar-section-img default-image')]")
+    @FindBy(locator="//div[@class='conti-avatar-section']//img[@class='avatar-section-img default-image']")
     public CustomElement addDefaultImgSrc;
 
-    @FindBy(locator = "//img[@src='/assets/img/upload_default.png']")
+    @FindBy(locator="//img[@src='/assets/img/upload_default.png']")
     public CustomElement addCompanyDefaultImage;
     @FindBy(locator = "//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement bcAddCompanyLink;
 
-    @FindBy(locator = "xpath=(//span[text()='Corporates'])[2]")
+    @FindBy(locator="xpath=(//span[text()='Corporates'])[2]")
     public CustomElement bcCorporatesLink;
 
-    @FindBy(locator = "xpath=//div[contains(@class,'p-panel-header')]//span[text()='Corporates']")
+    @FindBy(locator="xpath=//div[contains(@class,'p-panel-header')]//span[text()='Corporates']")
     public CustomElement txtCorporateHeader;
 
-    @FindBy(locator = "xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
+    @FindBy(locator="xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
     public CustomElement bcHomeLink;
 
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
@@ -311,7 +314,7 @@ public class CorporatePage extends BasePage {
     @FindBy(locator = "//button[contains(@aria-pressed, 'true') and @title='Toggle fullscreen view']")
     public CustomElement iconMaximized;
 
-    @FindBy(locator = "//div[contains(text(),' Distributor Corporate ')]//p-radiobutton[@formcontrolname=\"companyType\"]")
+    @FindBy(locator = "//li[@id='p-highlighted-option' and @aria-label=\"Distributor Corporate\"]")
     public CustomElement rdbDistributorCorporate;
 
     @FindBy(locator = "//li[contains(@class,'p-highlight') and @aria-label=\"Customer Site\"]")
@@ -320,7 +323,7 @@ public class CorporatePage extends BasePage {
     @FindBy(locator = "//div[contains(@class, 'pac-item')]")
     public CustomElement autoSuggest;
 
-    @FindBy(locator = "//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
+    @FindBy(locator ="//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
     public CustomElement mapLocation;
 
     @FindBy(locator = "//div//input[@formcontrolname='street']")
@@ -352,10 +355,10 @@ public class CorporatePage extends BasePage {
 
     @FindBy(locator = "//label[normalize-space()='Street and No.']")
     public CustomElement textStreet;
-    //    @FindBy(locator = "(//div[@class='card-inner-wrapper' and contains(div, 'Sites')])[1]")
+//    @FindBy(locator = "(//div[@class='card-inner-wrapper' and contains(div, 'Sites')])[1]")
 //    public CustomElement siteCard ;
     @FindBy(locator = "//span[contains(@class,'p-panel-title') and text()='Sites']")
-    public CustomElement sitesHeader;
+    public CustomElement sitesHeader ;
 
 
     public void goToAddCompany() {
@@ -365,11 +368,11 @@ public class CorporatePage extends BasePage {
     }
 
     public void clickCorporates() {
-        waitForElementVisible(lCorporates, 10000, 500);
+        waitForElementVisible(lCorporates, 10000,500);
         lCorporates.click("Corporate");
         waitForPageLoad(10000);
-        waitForElementVisible(corporateHeader, 5000, 500);
-        Validator.assertTrue(corporateHeader.isDisplayed(), "Company List page has not loaded", "Company List page has not loaded");
+        waitForElementVisible(corporateHeader,5000,500);
+        Validator.assertTrue(corporateHeader.isDisplayed(),"Company List page has not loaded","Company List page has not loaded");
         waitForElementToDisplay(btAddCorp);
     }
 
@@ -392,21 +395,21 @@ public class CorporatePage extends BasePage {
         waitForElementToDisplay(corporateHeader);
         SyncUtil.waitFor(2000);
         corporateHeader.isEnable("Corporate List");
-        Reporter.log(companyName + "corporate is created", MessageTypes.Pass);
+        Reporter.log(companyName +"corporate is created" , MessageTypes.Pass);
     }
 
     public void createDistributorShop(String companyName, String address, String distCorp, String territory, String manager) {
         waitForPageLoad(10000);
         scrollPageup();
         selectDistributorShop();
-        dropdownSelectSearch(drDistributorcorporate, tbSitedropdown, distCorp);
+        dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,distCorp);
         dropdownSelectSearch(drTerritorybutton, tbSitedropdown, territory);
 //        drTerritoryManagerbutton.type(manager, "Territory");
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(btSiteShopCardNo);
         btSiteShopCardNo.isVisible("Shop Details");
-        Reporter.log(companyName + "distributor shop is created", MessageTypes.Pass);
+        Reporter.log(companyName + "distributor shop is created" , MessageTypes.Pass);
     }
 
     public void createCustomerCorporate(String companyName, String address) {
@@ -418,7 +421,7 @@ public class CorporatePage extends BasePage {
         waitForElementToDisplay(corporateHeader);
         SyncUtil.waitFor(2000);
         corporateHeader.isEnable("Corporate List");
-        Reporter.log(companyName + " customer corporate is created", MessageTypes.Pass);
+        Reporter.log(companyName +" customer corporate is created", MessageTypes.Pass);
     }
 
     public void createCustomerSite(String companyName, String address, String CustCorpName, String DistShopIndName, String DistCorpIndTerritory, String manager) {
@@ -452,32 +455,41 @@ public class CorporatePage extends BasePage {
         tbAddress.click("Address bar");
         tbMapFirstSearchOption.click(" search result");
     }
-
     public void saveCorp() {
         scrollPageDown();
-        waitForElementToBeClickable(btSaveandclose);
-        btSaveandclose.jsClick("Save And Close");
+        waitForElementToBeClickable(btCreate);
+        btCreate.jsClick("Save And Close");
     }
+
+    public void updateCorp() {
+        scrollPageDown();
+        btSave.click("Update");
+        waitForElementToInvisible(buttonLoader,10000);
+        btSearchinput.isVisible("Corporate list screen");
+    }
+
 
     public void btnSaveClick() {
         scrollPageDown();
         waitForElementVisible(btSave, 10000, 500);
         btSave.jsClick("Save");
         waitForElementToInvisible(buttonLoader, 10000);
+        SyncUtil.waitFor(10000);
         btSearchinput.isVisible("Corporate list screen");
     }
 
-    public void clickCreateBtn() {
-        waitForElementVisible(btnCreate, 10000, 500);
+    public void clickCreateBtn()
+    {
+        waitForElementVisible(btnCreate,10000,500);
         waitForElementToBeClickable(btnCreate);
         btnCreate.click();
         waitForPageLoad(10000);
-        Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(), "company is not created", "company is created successfully");
+        Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(),"company is not created","company is created successfully");
 
     }
 
     public void selectDistributorShop() {
-        waitForElementVisible(drTypeofcompany, 5000, 500);
+        waitForElementVisible(drTypeofcompany,5000,500);
         drTypeofcompany.click("Corporate Type");
         waitForElementToDisplay(radioDistribtorshop);
         radioDistribtorshop.click("Distributor shop");
@@ -509,14 +521,15 @@ public class CorporatePage extends BasePage {
     }
 
     public void goToCorporateEditScreen(String corpName) {
-        waitForElementVisible(btSearchinput, 10000, 500);
+        waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(corpName, "Corporate Search");
         waitForElementToDisplay(btCheckbox);
         btCheckbox.check("Select Corporate");
         btActions.click("Actions");
-        waitForElementVisible(btEdit, 10000, 500);
+        waitForElementVisible(btEdit, 10000,500);
         btEdit.click("Edit");
     }
+
 
 
     public void corporateImgUpload(String fileName) {
@@ -529,9 +542,9 @@ public class CorporatePage extends BasePage {
     }
 
     public void verifyMarketType(String type) {
-        if (btMarket.isVisible())
-            btMarket.verifyText(type, "Market Type");
-        else btMarket1.verifyText(type, "Market Type");
+        if(btMarket.isVisible())
+            btMarket.verifyText(type,"Market Type");
+        else btMarket1.verifyText(type,"Market Type");
     }
 
     public void verifyCorporateNav() {
@@ -542,8 +555,8 @@ public class CorporatePage extends BasePage {
     public void goToCorporate() {
         lCorporates.click("Corporate Menu");
         scrollPageDown();
-        String val = "";
-        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime(); ) {
+        String val="";
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
@@ -571,10 +584,10 @@ public class CorporatePage extends BasePage {
         goToCorporateDetails(corp);
         SyncUtil.waitFor(6000);
         btSearchinput.type(siteName, "Site name");
-        setImplicitWait(30000, TimeUnit.MILLISECONDS);
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.click("Site Checkbox");
-        setImplicitWait(5000, TimeUnit.MILLISECONDS);
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
         btActions.jsClick("Actions");
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
@@ -599,11 +612,11 @@ public class CorporatePage extends BasePage {
     public void deleteSiteOrShop(String custCorp, String custSite) {
         goToDistCorporateDetails(custCorp);
         btSearchinput.type(custSite, "Site/Shop name");
-        setImplicitWait(30000, TimeUnit.MILLISECONDS);
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
         btCheckbox.check("Site/Shop Checkbox");
-        setImplicitWait(5000, TimeUnit.MILLISECONDS);
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
         btActions.jsClick("Actions");
-        waitForElementVisible(btDelete, 10000, 500);
+        waitForElementVisible(btDelete, 10000,500);
         btDelete.jsClick("Delete");
         yesConfirmation.click("Confirm");
     }
@@ -614,7 +627,7 @@ public class CorporatePage extends BasePage {
         btSearchinput.type(corpName, "Corporate Search");
     }
 
-    public void verifyImageUpload() {
+    public void verifyImageUpload(){
         waitForElementToDisplay(imageAvatar);
         Validator.assertFalse(imageAvatar.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
     }
@@ -637,7 +650,7 @@ public class CorporatePage extends BasePage {
     public void goToDistCorporateDetails(String corpName) {
         searchCorporate(corpName);
         SyncUtil.waitFor(2000);
-        if (btviewicon2.isEnable())
+        if(btviewicon2.isEnable())
             btviewicon2.click("Dist Corp shop Details");
         else
             btviewicon.click("Corp Site Details");
@@ -674,25 +687,25 @@ public class CorporatePage extends BasePage {
 
     public void verifyCardDetails(String siteName) {
         siteNameLoader.waitForPartialText(siteName, 15000);
-        SyncUtil.waitFor(30000);
-        Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase("2"), "Site/Shop card count shown in corporate details screen is incorrect", "Successfully verified Site/Shop card count shown in corporate details screen");
-        Validator.assertTrue(btConveyorCardNo.getText("Conveyor Card").trim().equalsIgnoreCase("6"), "Conveyor card count shown in corporate details screen is incorrect", "Successfully verified Conveyor card count shown in corporate details screen");
+        SyncUtil.waitFor(15000);
+        Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase("2"),"Site/Shop card count shown in corporate details screen is incorrect","Successfully verified Site/Shop card count shown in corporate details screen");
+        Validator.assertTrue(btConveyorCardNo.getText("Conveyor Card").trim().equalsIgnoreCase("6"),"Conveyor card count shown in corporate details screen is incorrect","Successfully verified Conveyor card count shown in corporate details screen");
     }
 
     public void deleteCorporate(String corpName) {
-        goToCorporate();
-        waitForElementVisible(btSearchinput, 10000, 500);
+//        goToCorporate();
+        waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(corpName);
         btCheckbox.click();
         btActions.click();
-        waitForElementVisible(btDelete, 10000, 500);
+        waitForElementVisible(btDelete, 10000,500);
         btDelete.click();
         yesConfirmation.click();
     }
 
     public boolean verifyCorporate(String corpName) {
         goToCorporate();
-        waitForElementVisible(btSearchinput, 10000, 500);
+        waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(corpName);
         return noList.isVisible();
     }
@@ -709,7 +722,7 @@ public class CorporatePage extends BasePage {
     public void editDistributorShop(String siteName, String editSiteName, String corp) {
         goToCorporateDetails(corp);
         btSearchinput.type(siteName, "Site name");
-        setImplicitWait(30000, TimeUnit.MILLISECONDS);
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.click("Site Checkbox");
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
@@ -718,22 +731,22 @@ public class CorporatePage extends BasePage {
         btEdit.jsClick("Edit");
 //        typeOfCompanyLoader.waitForText("Distributor Shop");
         tbCompanyName.type(editSiteName);
-        dropdownSelectSearch(drTerritorybutton, drTerritoryvalue, "India");
+        dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
         drTerritoryManagerbutton.type("Market India Automation", "Territory");
     }
 
     public void verifyShopSiteCardCount(String count) {
-        SyncUtil.waitFor(35000);
-        Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase(count), "Site/Shop card count shown in corporate details screen is incorrect", "Successfully verified Site/Shop card count shown in corporate details screen");
+        SyncUtil.waitFor(15000);
+        Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase(count),"Site/Shop card count shown in corporate details screen is incorrect","Successfully verified Site/Shop card count shown in corporate details screen");
     }
 
-    public void verifyAddDistCorporateDropdown(String corp) {
+    public void verifyAddDistCorporateDropdown(String corp){
         scrollPageup();
         selectDistributorShop();
-        dropdownSelectSearch(drDistributorcorporate, tbSitedropdown, corp);
+        dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,corp);
     }
 
-    public void verifyAddCustCorporateDropdown(String corp) {
+    public void verifyAddCustCorporateDropdown(String corp){
         scrollPageup();
         selectCustomerSite();
         dropdownSelectSearch(drCustomerCorporate, tbSitedropdown, corp);
@@ -741,25 +754,27 @@ public class CorporatePage extends BasePage {
 
     public void goToAddConveyor() {
         scrollPageup();
-        waitForElementToDisplay(btAddCorp);
-        btAddCorp.click("Add Corp");
-        waitForElementToDisplay(tbConveyorname);
+        waitForElementVisible(addConveyors,10000,500);
+        waitForElementToBeClickable(addConveyors);
+        addConveyors.click("Add Conveyors");
+        waitForPageLoad(10000);
+        tbConveyorname.isVisible("Conveyor Name");
     }
 
-    public void createConveyor(String conveyorName, String custSiteName) {
-        tbConveyorname.type(conveyorName, "Conveyor Name");
+    public void createConveyor(String conveyorName,String custSiteName) {
+        tbConveyorname.type(conveyorName,"Conveyor Name");
         dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
-        btSaveandclose.click("Save & Close");
-        waitForElementToInvisible(buttonLoader, 10000);
+        btCreate.click("Save & Close");
+        waitForElementToInvisible(buttonLoader,10000);
         btSearchinput.isVisible("Conveyor list screen");
-        Reporter.log(conveyorName + " conveyor is created", MessageTypes.Pass);
+        Reporter.log(conveyorName +" conveyor is created", MessageTypes.Pass);
     }
 
     public void goToConveyorDetails(String conveyorName) {
         btSearchinput.type(conveyorName, "Conveyor name");
-        setImplicitWait(30000, TimeUnit.MILLISECONDS);
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
-        setImplicitWait(5000, TimeUnit.MILLISECONDS);
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
         detailsName.verifyTextIgnoringNewLineChar(conveyorName, "Conveyor name");
         SyncUtil.waitFor(10000);
         detailsMoreButton.click("Conveyor Details");
@@ -769,15 +784,14 @@ public class CorporatePage extends BasePage {
 
     public void deleteConveyor(String conveyor) {
         btSearchinput.type(conveyor, "Conveyor name");
-        setImplicitWait(30000, TimeUnit.MILLISECONDS);
+        setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.check("conveyor Checkbox");
-        setImplicitWait(10000, TimeUnit.MILLISECONDS);
-        SyncUtil.waitFor(8000);
-        btActions.jsClick("Actions");
-        waitForElementVisible(btDelete, 10000, 500);
-        btDelete.jsClick("Delete");
-        yesConfirmation.jsClick("Confirm");
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
+        btActions.click("Actions");
+        waitForElementVisible(btDelete, 10000,500);
+        btDelete.click("Delete");
+        yesConfirmation.click("Confirm");
     }
 
     public void verifyDeleteConveyor(String conveyor) {
@@ -809,17 +823,17 @@ public class CorporatePage extends BasePage {
         searchCorporate(CorporateName);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.check("CorporateName");
-        btActions.click("Actions");
-        return btAddCorp.isNotVisible(1000) && btEdit.isNotVisible(1000) && btDelete.isNotVisible(1000);
+        return !btActions.isEnabled();
+//        btActions.click("Actions");
+//        return btAddCorp.isNotVisible(1000) && btEdit.isNotVisible(1000) && btDelete.isNotVisible(1000);
 
     }
-
-    public boolean verifyEditButtonVisibleOnCorporateDetailsPage(String CorporateName) {
+    public boolean verifyEditButtonVisibleOnCorporateDetailsPage(String CorporateName){
         goToCorporateDetails(CorporateName);
         return btEditDetails.isVisible(1000);
     }
 
-    public boolean verifyCorporateDetailCardsDisplayForBasics() {
+    public boolean verifyCorporateDetailCardsDisplayForBasics(){
         return siteCard.isVisible() && conveyorsCard.isVisible() && coverWearCard.isVisible() && fileManagerCard.isNotVisible(500) && inspectionCard.isNotVisible(500) && conveyorInspectCard.isNotVisible(500) && beltScanCard.isNotVisible(500) && monitoringDevicesCard.isNotVisible(500) && heavyEquipmentCard.isNotVisible(500) && minutemanCard.isNotVisible(500);
     }
 
@@ -828,23 +842,24 @@ public class CorporatePage extends BasePage {
         return radioDistribtorshop.isNotVisible(500) && radioDistributorCorp.isNotVisible(500) && radioCustomerCorportae.isNotVisible(500) && radioCustomeSite.isVisible(500);
     }
 
-    public void verifyMandatoryFields() {
-        Validator.assertTrue(btnSaveDisabled.isDisplayed(), "Save button is not disabled", "Cancel button is disabled");
+    public void verifyMandatoryFields(){
+        Validator.assertTrue(btnCreateDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
         tbCompanyName.type("");
-        Validator.assertTrue(btnSaveEnabled.isDisplayed(), "Cancel button is not enabled", "Cancel button is enabled");
+        Validator.assertTrue(btnCreateEnabled.isDisplayed(),"Cancel button is not enabled","Cancel button is enabled");
     }
 
-    public void verifyUserBreadCrumb() {
+    public void verifyUserBreadCrumb()
+    {
         waitForPageLoad(15000);
-        waitForElementVisible(addDefaultImgSrc, 5000, 500);
-        waitForElementVisible(bcAddUserLink, 10000, 500);
-        Validator.assertTrue(bcAddUserLink.isDisplayed(), "Breadcrumb element is not displayed", "Breadcrumb element is displayed");
+        waitForElementVisible(addDefaultImgSrc,5000,500);
+        waitForElementVisible(bcAddUserLink,10000,500);
+        Validator.assertTrue(bcAddUserLink.isDisplayed(), "Breadcrumb element is not displayed","Breadcrumb element is displayed");
         assertEquals(bcAddUserLink.getText(), "Home\nCorporates\nAdd", "Breadcrumb text does not match expected");
     }
 
-    public void verifyBlankField() {
-        Validator.assertTrue(btnSaveDisabled.isDisplayed(), "Save button is not disabled", "Cancel button is disabled");
-    }
+    public void verifyBlankField(){
+        Validator.assertTrue(btnCreateDisabled.isDisplayed(),"Save button is not disabled","Cancel button is disabled");
+        }
 
 //    public void addBlankCompanyAndAddress(String Address) {
 //        tbCompanyName.type("");
@@ -855,8 +870,8 @@ public class CorporatePage extends BasePage {
 //        tbMapFirstSearchOption.click("Map search result");
 //    }
 
-    public void verifyManFields(int mandatoryCount) {
-        Assert.assertEquals(driver.findElements(By.xpath("//div[not(@hidden)]/label/em[text()='*']/..")).size(), mandatoryCount, "Expected count does not match actual count");
+    public void verifyManFields(int mandatoryCount){
+       Assert.assertEquals(driver.findElements(By.xpath("//div[not(@hidden)]/label/em[text()='*']/..")).size(), mandatoryCount, "Expected count does not match actual count");
     }
 
 //        waitForElementVisible(addCompanyDefaultImage,5000,500);
@@ -866,12 +881,13 @@ public class CorporatePage extends BasePage {
 //
 //    }
 
-    public void corporateLinkClick() {
+    public void corporateLinkClick()
+    {
         bcCorporatesLink.click();
         waitForPageLoad(5000);
-        waitForElementVisible(txtCorporateHeader, 5000, 500);
-        Validator.assertTrue(txtCorporateHeader.isVisible(), "Page is not redirected to corporate-list page", "Redirected to corporate-list page");
-        Validator.assertTrue(driver.getCurrentUrl().contains("secure/companies/list"), "URL missMatch", "URL validation passed");
+        waitForElementVisible(txtCorporateHeader,5000,500);
+        Validator.assertTrue(txtCorporateHeader.isVisible(),"Page is not redirected to corporate-list page","Redirected to corporate-list page");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/companies/list"),"URL missMatch","URL validation passed");
 
     }
 
@@ -884,10 +900,10 @@ public class CorporatePage extends BasePage {
         waitForElementVisible(bcHomeLink, 10000, 500);
         bcHomeLink.jsClick();
         waitForPageLoad(20000);
-        waitForElementVisible(bcAddCompanyLink, 10000, 500);
+        waitForElementVisible(bcAddCompanyLink,10000,500);
         Assert.assertTrue(bcAddCompanyLink.isDisplayed(), "Breadcrumb element is not displayed");
         assertEquals(bcAddCompanyLink.getText(), "Home\nSites", "Breadcrumb text does not match expected");
-        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"), "URL missMatch", "URL validation passed");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"URL missMatch","URL validation passed");
 
     }
 
@@ -896,61 +912,63 @@ public class CorporatePage extends BasePage {
         waitForElementVisible(bcAddCompanyLink, 10000, 500);
         Assert.assertTrue(bcAddCompanyLink.isDisplayed(), "Breadcrumb element is not displayed");
         assertEquals(bcAddCompanyLink.getText(), "Home\nSites", "Breadcrumb text does not match expected");
-        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"), "URL missMatch", "URL validation passed");
+        Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"URL missMatch","URL validation passed");
 
     }
 
-    public void verifyAddUserLink() {
-        waitForElementVisible(lnkAddCompany, 5000, 500);
-        Validator.assertTrue(lnkAddCompany.isVisible(), "Add Company link is not visible in navigation bar", "Add company Link is visible in navigation bar");
+    public void verifyAddUserLink()
+    {
+        waitForElementVisible(lnkAddCompany,5000,500);
+        Validator.assertTrue(lnkAddCompany.isVisible(),"Add Company link is not visible in navigation bar","Add company Link is visible in navigation bar");
 
     }
 
-    public void verifyAddCompanyPage() {
-        waitForElementVisible(bcAddCompanyLink, 10000, 500);
-        waitForElementVisible(txtCompanyHeader, 5000, 500);
-        Validator.assertTrue(txtCompanyHeader.isVisible(), "User is not in Add Company page", "User is in Add Company page");
+    public void verifyAddCompanyPage()
+    {
+        waitForElementVisible(bcAddCompanyLink,10000,500);
+        waitForElementVisible(txtCompanyHeader,5000,500);
+        Validator.assertTrue(txtCompanyHeader.isVisible(),"User is not in Add Company page","User is in Add Company page");
 
 
     }
 
-    public void maximizeIconClick() {
-        waitForElementVisible(iconMaximize, 5000, 500);
+    public void maximizeIconClick()
+    {
+        waitForElementVisible(iconMaximize,5000,500);
         iconMaximize.click();
 
     }
 
-    public void verifyMapMaximization() {
-        waitForElementVisible(iconMaximized, 5000, 500);
-        Validator.assertTrue(iconMaximized.isVisible(), "The map is not maximized", "The map is maximized");
+    public void verifyMapMaximization()
+    {
+        waitForElementVisible(iconMaximized,5000,500);
+        Validator.assertTrue(iconMaximized.isVisible(),"The map is not maximized","The map is maximized");
 
     }
 
-    public void setNewLocation(String Address) {
-        waitForElementVisible(tbAddress, 5000, 500);
+    public void setNewLocation(String Address)
+    {
+        waitForElementVisible(tbAddress,5000,500);
         tbAddress.type(Address, "Address");
 
 
     }
-
-    public void verifyAutoSuggestion(String Address) {
-        waitForElementVisible(driver.findElement(By.xpath("//div[contains(@class, 'pac-container')]//div[1]//span[text()='" + Address + "']")), 5000, 500);
-        Validator.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'pac-container')]//div[1]//span[text()='" + Address + "']")).isDisplayed(), "The autoSuggest address does not match the text box", "autoSuggest address matches the address in text box");
+    public void verifyAutoSuggestion(String Address)
+    {
+        waitForElementVisible(driver.findElement(By.xpath("//div[contains(@class, 'pac-container')]//div[1]//span[text()='"+Address+"']")),5000,500);
+        Validator.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'pac-container')]//div[1]//span[text()='"+Address+"']")).isDisplayed(),"The autoSuggest address does not match the text box","autoSuggest address matches the address in text box");
 
     }
 
     public void clickDistributorCorporate() {
         selectDistributorCorp();
     }
-
-    public void verifyAddDistCorporate() {
-        waitForElementVisible(drTypeofcompany, 5000, 500);
+    public void verifyAddDistCorporate()
+    {
+        waitForElementVisible(drTypeofcompany,5000,500);
         drTypeofcompany.click("Corporate Type");
-        Validator.assertTrue(rdbCustomerSite.isVisible(), "Customer Site is not selected by default", "Customer Sitee is  selected by default");
-        waitForElementVisible(rdbDistributorCorporate, 5000, 500);
-        waitForElementToBeClickable(rdbDistributorCorporate);
-        rdbDistributorCorporate.jsClick("Distributor Corporate");
-//        Validator.assertTrue(rdbDistributorCorporate.isVisible(),"Distributor corporate is not selected by default","Distributor corporate is  selected by default");
+        waitForElementVisible(rdbDistributorCorporate,5000,500);
+        Validator.assertTrue(rdbDistributorCorporate.isVisible(),"Distributor corporate is not selected by default","Distributor corporate is  selected by default");
 
     }
 
@@ -959,51 +977,55 @@ public class CorporatePage extends BasePage {
         tbAddress.type(Address, "Address bar");
     }
 
-    public void setCompanyAndAddress(String companyName, String address) {
+    public void setCompanyAndAddress(String companyName,String address)
+    {
         addDistCorporateDetails(companyName, address);
     }
 
-    public void verifyCompanyAndAutoSuggest(String companyName) {
-        Validator.assertTrue(tbCompanyName.getAttribute("value").equalsIgnoreCase(companyName), "User is unable to enter company name", "user is able to enter company name");
+    public void verifyCompanyAndAutoSuggest(String companyName)
+    {
+        Validator.assertTrue(tbCompanyName.getAttribute("value").equalsIgnoreCase(companyName),"User is unable to enter company name", "user is able to enter company name");
 //        Validator.assertTrue(autoSuggest.isNotVisible(2000),"The auto suggest is getting displayed","The auto suggest is not getting displayed");
 
 
     }
 
-    public void clickOnMap() {
-        waitForElementVisible(mapLocation, 10000, 500);
+    public void clickOnMap()
+    {
+        waitForElementVisible(mapLocation,10000,500);
         waitForElementToBeClickable(mapLocation);
         mapLocation.jsClick();
     }
 
-    public void verifyMapAddressFieldNames() {
-        waitForElementVisible(manualAddressCard, 5000, 500);
-        waitForElementVisible(textStreet, 5000, 500);
-        Validator.assertTrue(textStreet.isVisible(), "street field is not visible", "street field is visible");
-        waitForElementVisible(tbCity, 5000, 500);
-        Validator.assertTrue(tbCity.isVisible(), "city field is not visible", "city field is visible");
-        waitForElementVisible(tbZipCode, 5000, 500);
-        Validator.assertTrue(tbZipCode.isVisible(), "city field is not visible", "city field is visible");
-        waitForElementVisible(tbState, 5000, 500);
-        Validator.assertTrue(tbState.isVisible(), "city field is not visible", "city field is visible");
-        waitForElementVisible(tbCountry, 5000, 500);
-        Validator.assertTrue(tbCountry.isVisible(), "city field is not visible", "city field is visible");
-        waitForElementVisible(btnCancel, 5000, 500);
-        Validator.assertTrue(btnCancel.isVisible(), "city field is not visible", "city field is visible");
-        waitForElementVisible(btnApply, 5000, 500);
-        Validator.assertTrue(btnApply.isVisible(), "city field is not visible", "city field is visible");
+    public void verifyMapAddressFieldNames()
+    {
+        waitForElementVisible(manualAddressCard,5000,500);
+        waitForElementVisible(textStreet,5000,500);
+        Validator.assertTrue(textStreet.isVisible(),"street field is not visible","street field is visible");
+        waitForElementVisible(tbCity,5000,500);
+        Validator.assertTrue(tbCity.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(tbZipCode,5000,500);
+        Validator.assertTrue(tbZipCode.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(tbState,5000,500);
+        Validator.assertTrue(tbState.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(tbCountry,5000,500);
+        Validator.assertTrue(tbCountry.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(btnCancel,5000,500);
+        Validator.assertTrue(btnCancel.isVisible(),"city field is not visible","city field is visible");
+        waitForElementVisible(btnApply,5000,500);
+        Validator.assertTrue(btnApply.isVisible(),"city field is not visible","city field is visible");
 
 
     }
-
-    public void clickSaveBtnAndVerify() {
-        waitForElementVisible(btSaveandclose, 5000, 500);
-        btSaveandclose.click();
+    public void clickSaveBtnAndVerify()
+    {
+        waitForElementVisible(btCreate,5000,500);
+        btCreate.click();
         waitForPageLoad(10000);
-        Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(), "company is not created", "company is created successfully");
+        Validator.assertTrue(driver.findElement("//p-panel[contains(@header, 'Corporates')]").isDisplayed(),"company is not created","company is created successfully");
     }
-
-    public void setMapAddress(String street, String city, String zipCode, String state, String country) {
+    public void setMapAddress(String street,String city,String zipCode,String state,String country)
+    {
         verifyMapAddressFieldNames();
         tbStreet.type(street);
         tbCity.type(city);
@@ -1022,9 +1044,9 @@ public class CorporatePage extends BasePage {
 //    }
 
     public void verifyPinnedSubList(String value) {
-        String pinnedValue = "//td[text()=' " + value + " ']/..//td//i[contains(@class,'marker-icon-red')]";
-        Validator.assertTrue(driver.findElement(By.xpath(pinnedValue)).isDisplayed(), "Pinned Value is not displayed", "Pinned Value is displayed");
-    }
+        String pinnedValue = "//td[text()=' "+value+" ']/..//td//i[contains(@class,'marker-icon-red')]";
+        Validator.assertTrue(driver.findElement(By.xpath(pinnedValue)).isDisplayed(), "Pinned Value is not displayed", "Pinned Value is displayed");   }
+
 
 
 }

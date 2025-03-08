@@ -51,7 +51,7 @@ Scenario: AVerify the count displayed in cover wear card
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    And   Navigate to coverWear list screen and wait for data load
+    And  Navigate to coverWear list screen and wait for data load
     Then Verify CoverWear header as Cover Wear Summary
     And Verify CoverWear column name
 
@@ -61,6 +61,8 @@ Scenario: AVerify the count displayed in cover wear card
   @key:CoverWear_Value
   Scenario: ZyVerify the logic of displaying cover grade
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And Search '${ConveyorName}' coverWear
     Then Extract CoverGrade value
@@ -99,10 +101,7 @@ Scenario: Verify search functionality
 @key:CoverWear_Item
 Scenario: Verify the functionality of sorting
 
-
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
-    And Navigate to cover wear listing screen and wait
+   And Navigate to cover wear listing screen
    Then Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column and verify sorting should be in increasing order
    And Click on column header '${ColumnHeader}' of '${ColumnNumber}' nd column again and verify sorting should be in decreasing order
 
@@ -140,7 +139,7 @@ Scenario: Verify the functionality of clear filter
     And   Verify data value in header as metric
     And  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${PositionName}' '${BeltWidth}'
     Then Verify data value are in metric with value '${MetricValue}'
-    And   Navigate to coverWear list screen and wait for data load
+    And  Navigate to coverWear list screen and wait for data load
     And Edit Cover wear measurement for conveyor '${ConveyorName}'
     Then Add data value in header as imperial
     And Verify data value are in imperial with value '${ImperialValue}'
@@ -464,6 +463,9 @@ Scenario: Verify user is able to add Tons conveyed with values as '0'
     And Add segment as '${Segment}' tons conveyed as '${Zero}' durometer as '${DurometerValue}'
     And Click Top/Bottom radio button and verify selection
     And Click save and verify segment '${PositionName}' creation
+    And Navigate to coverWear list screen and wait for data load
+    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
+    And Verify Delete Cover wear measurement position '${PositionName}'
 
 @Regression14 @CTCP-1404
 @dataFile:resources/data/TestData.xls

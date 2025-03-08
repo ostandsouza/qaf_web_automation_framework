@@ -20,8 +20,8 @@ Launch the application through '/'
 @key:Conveyor_Bulk_Upload
 Scenario: Upload file having wrong file format
 
-#    Given User is at Login page
-#    When Login with '${UserName}' and '${Password}'
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     Then  Navigate to Conveyor Bulk Upload
     And Verify the failure message after uploading wrong format file with name '${File2}'
 
@@ -31,8 +31,8 @@ Scenario: Upload file having wrong file format
 @key:Conveyor_Bulk_Upload
 Scenario: Upload file having correct file format
 
-#    Given User is at Login page
-#    When Login with '${UserName}' and '${Password}'
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     Then  Navigate to Conveyor Bulk Upload
     And Verify the success message after uploading file with name '${File}'
 
@@ -70,8 +70,6 @@ Scenario: Verify back button
     When Login with '${UserName}' and '${Password}'
     Then  Navigate to Conveyor Bulk Upload
     And Verify upload back button functionality after uploading file with name '${File}'
-
-
 
 @CTCP-159
 @dataFile:resources/data/TestData.xls

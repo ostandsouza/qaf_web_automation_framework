@@ -22,6 +22,5 @@ continental.termsAndConditions.header = flutter-valuekey=termsAndConditionsHeade
 continental.privacySettings.header = flutter-text=Privacy Settings
 continental.imprintTab.header = flutter-text=Imprint
 
-
-
-
+continental.email.errorMessage= flutter-text=Please enter valid email
+continental.forgot.page = flutter-text=Forgot your password?

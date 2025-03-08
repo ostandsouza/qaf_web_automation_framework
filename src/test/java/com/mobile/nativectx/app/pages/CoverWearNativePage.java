@@ -53,6 +53,16 @@ public class CoverWearNativePage extends NativeBasePage {
         switchContext("FLUTTER");
         return flag;
     }
+    public void verifyAddNewPositionSpecErrorMsg() {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        Validator.assertTrue(posSpecErrorMsg.isPresent(),"Add New Position Button is not visbile","Add New Position Button is visbile");
+        switchContext("FLUTTER");
+    }
+    public void verifyExistingPositionErrorMsg() {
+        switchContext("NATIVE_APP").manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        Validator.assertTrue(exisitingPosErrorMsg.isPresent(),"Existing Position Error is not visbile","Existing Position Erroris visbile");
+        switchContext("FLUTTER");
+    }
 
     public void deleteBtnClick()
     {
@@ -61,9 +71,6 @@ public class CoverWearNativePage extends NativeBasePage {
         switchContext("FLUTTER");
 
     }
-
-
-
 
 
 }

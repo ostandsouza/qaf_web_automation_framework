@@ -2,11 +2,14 @@ package com.mobile.flutter.app.pages;
 
 import com.common.utils.SyncUtil;
 import com.mobile.flutter.app.component.CustomFlutterElement;
+import com.mobile.nativectx.app.component.CustomMobileElement;
 import com.mobile.nativectx.app.pages.DashboardNativePage;
 import com.mobile.utils.DIRECTION;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Validator;
 import org.testng.Assert;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class ConveyorPage extends FlutterBasePage {
 
@@ -17,6 +20,9 @@ public class ConveyorPage extends FlutterBasePage {
             obj = new ConveyorPage();
         return obj;
     }
+
+    @FindBy(locator = "dashboard.loading.animation")
+    public CustomFlutterElement loadingDashboard;
 
     @FindBy(locator = "conveyor.name.field")
     public CustomFlutterElement conveyorNameField;
@@ -54,6 +60,9 @@ public class ConveyorPage extends FlutterBasePage {
     @FindBy(locator = "conveyor.details.fileManager")
     public CustomFlutterElement conveyorFileManagerDetails;
 
+    @FindBy(locator = "conveyor.details.conveyorInspect")
+    protected CustomMobileElement conveyorInspectDetails;
+
     @FindBy(locator = "conveyor.list.download")
     public CustomFlutterElement conveyorDownloadBtn;
 
@@ -81,27 +90,28 @@ public class ConveyorPage extends FlutterBasePage {
     @FindBy(locator = "conveyor.toast.error")
     public CustomFlutterElement addConveyorNameError;
 
-    @FindBy(locator = "dashboard.loading.animation")
-    public CustomFlutterElement loadingDashboard;
-
     @FindBy(locator = "conveyor.distributor.fieldtext")
     public CustomFlutterElement distributorFieldText;
-    @FindBy(locator = "conveyor.fileManager.header")
-    public CustomFlutterElement fileManagerHeader;
+    @FindBy(locator = "conveyor.add.back")
+    public CustomFlutterElement conveyorAddBackBtn;
 
     @FindBy(locator = "conveyor.file.name")
     public CustomFlutterElement fileNameField;
-
     @FindBy(locator = "conveyor.fileName.checkbox")
     public CustomFlutterElement fileNameCheckBox;
+
     @FindBy(locator = "conveyor.action.popup")
     public CustomFlutterElement actionPopup;
-    @FindBy(locator = "conveyor.actionPopup.cancel")
+    @FindBy(locator = "corporate.actionPopup.cancel")
     public CustomFlutterElement actionPopupCancelBtn;
-    @FindBy(locator = "conveyor.actionPopup.delete")
+    @FindBy(locator = "corporate.actionPopup.delete")
     public CustomFlutterElement actionPopupDeleteBtn;
-    @FindBy(locator = "conveyor.actionPopup.move")
+    @FindBy(locator = "corporate.actionPopup.move")
     public CustomFlutterElement actionPopupMoveBtn;
+
+    @FindBy(locator = "conveyor.fileManager.header")
+    public CustomFlutterElement fileManagerHeader;
+
     @FindBy(locator = "conveyor.actionPopup.paste")
     public CustomFlutterElement actionPopupPasteBtn;
 
@@ -110,17 +120,15 @@ public class ConveyorPage extends FlutterBasePage {
     @FindBy(locator = "flutter-rawmap={\"finderType\":\"Descendant\",\"matching\":\"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"test-Photos\\\"}\",\"of\": \"{\\\"finderType\\\":\\\"ByValueKey\\\",\\\"keyValueType\\\": \\\"String\\\",\\\"keyValueString\\\": \\\"breadcrumb\\\"}\"}")
     public CustomFlutterElement folderBreadCrumb;
 
-
-
-
     public boolean isConveyorPage() {
-        Validator.assertTrue(conveyorListHeader.isPresent(),"user navigated to conveyor list page","user navigated to conveyor list page");
-        return conveyorListHeader.isPresent();
+        conveyorListHeader.waitForTheElementToBeVisible(30);
+        Validator.assertTrue(conveyorListHeader.isVisible(),"user navigated to conveyor list page","user navigated to conveyor list page");
+        return conveyorListHeader.isVisible();
     }
 
     public boolean isAddConveyorPage() {
-        Validator.assertTrue(addConveyorHeader.isPresent(),"user navigated to add conveyor page","user navigated to add conveyor  page");
-        return addConveyorHeader.isPresent();
+        Validator.assertTrue(addConveyorHeader.isVisible(),"user navigated to add conveyor page","user navigated to add conveyor  page");
+        return addConveyorHeader.isVisible();
     }
 
     public boolean addConveyor(String conveyorName, String custSiteName, String distShopName) {
@@ -204,8 +212,8 @@ public class ConveyorPage extends FlutterBasePage {
 
     public boolean conveyorDetailsNav(String company) {
         DashboardNativePage.getInstance().goToConveyorSearch();
-        SyncUtil.waitFor(5000);
         DashboardNativePage.getInstance().enterSearchQuery(company);
+        SyncUtil.waitFor(1500);
         return goToConveyorDetails();
     }
 
@@ -314,9 +322,28 @@ public class ConveyorPage extends FlutterBasePage {
         return DashboardNativePage.getInstance().getConveyorSearchResult().contains(company);
     }
     public void fileManagerCardClick() {
+        SyncUtil.waitFor(3000);
         Validator.assertTrue(conveyorFileManagerDetails.isVisible(),"File Manager is not Visible","File Manager is visible");
         conveyorFileManagerDetails.click();
     }
+
+    public void verifyAddConvBackBtnToHomePage() {
+        conveyorAddBackBtn.waitForTheElementToBeVisible(5000);
+        conveyorAddBackBtn.click("Conveyor Back Button");
+        DashboardPage.getInstance().isHomePage();
+    }
+
+    public void clickCancelBtnInFileManger()
+    {
+        actionPopupCancelBtn.waitForTheElementToBeVisible(5000,"deleteButton");
+        actionPopupCancelBtn.click("Cancel");
+    }
+    public boolean verifyCancelBtnFuncInFileManager()
+    {
+        fileNameCheckBox.waitForTheElementToBeInvisible(10000,"filename");
+        return fileNameCheckBox.verifyNotPresent();
+    }
+
     public boolean navigateToFileManager(String conveyorName)
     {
         conveyorFileManagerDetails.waitForTheElementToBeVisible(10000);

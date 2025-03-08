@@ -146,6 +146,25 @@ public class CustomElement extends QAFWebComponent {
     }
 
     /**
+     * Get text from element
+     *
+     * @param objName Name of object for reporting purpose.
+     */
+    public String jsText(String... objName) {
+        String text;
+        try {
+            text = (String) ((JavascriptExecutor) getWrappedDriver()).executeScript("return arguments[0].value;",this);
+
+            Reporter.log("Getting text from " + objName, MessageTypes.Info);
+
+        } catch (Exception e) {
+            Reporter.log("Failed to get text from " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
+        }
+        return text;
+    }
+
+    /**
      * Selects an object if it's not selected already.
      *
      * @param objName Name of object for reporting purpose.
@@ -364,5 +383,123 @@ public class CustomElement extends QAFWebComponent {
                         return StringUtil.contains(element.getText(), String.valueOf(text.trim()));
                 }
         });
+    }
+    public void jsDragAndDropEle(WebElement source, WebElement destination, String... objName) {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) getWrappedDriver();
+            String script = "function createEvent(typeOfEvent) {\n" +
+                    "  var event = document.createEvent(\"CustomEvent\");\n" +
+                    "  event.initCustomEvent(typeOfEvent, true, true, null);\n" +
+                    "  event.dataTransfer = {\n" +
+                    "    data: {},\n" +
+                    "    setData: function (key, value) {\n" +
+                    "      this.data[key] = value;\n" +
+                    "    },\n" +
+                    "    getData: function (key) {\n" +
+                    "      return this.data[key];\n" +
+                    "    }\n" +
+                    "  };\n" +
+                    "  return event;\n" +
+                    "}\n" +
+                    "\n" +
+                    "function dispatchEvent(element, event, transferData) {\n" +
+                    "  if (transferData !== undefined) {\n" +
+                    "    event.dataTransfer = transferData;\n" +
+                    "  }\n" +
+                    "  if (element.dispatchEvent) {\n" +
+                    "    element.dispatchEvent(event);\n" +
+                    "  } else if (element.fireEvent) {\n" +
+                    "    element.fireEvent(\"on\" + event.type, event);\n" +
+                    "  }\n" +
+                    "}\n" +
+                    "\n" +
+                    "function simulateHTML5DragAndDrop(element, destination) {\n" +
+                    "  setTimeout(function() {\n" +
+                    "    var dragStartEvent = createEvent('dragstart');\n" +
+                    "    dispatchEvent(element, dragStartEvent);\n" +
+                    "  }, 1000);\n" + // Delay for dragstart event\n" +
+                    "\n" +
+                    "  setTimeout(function() {\n" +
+                    "    var dropEvent = createEvent('drop');\n" +
+                    "    dispatchEvent(destination, dropEvent, dragStartEvent.dataTransfer);\n" +
+                    "  }, 2000);\n" + // Delay for drop event\n" +
+                    "\n" +
+                    "  setTimeout(function() {\n" +
+                    "    var dragEndEvent = createEvent('dragend');\n" +
+                    "    dispatchEvent(element, dragEndEvent, dropEvent.dataTransfer);\n" +
+                    "  }, 3000);\n" + // Delay for dragend event\n" +
+                    "}\n" +
+                    "\n" +
+                    "simulateHTML5DragAndDrop(arguments[0], arguments[1]);";
+
+            js.executeScript(script, source, destination);
+
+            if (objName.length > 0) {
+                System.out.println("Dragged and dropped " + objName[0] + " to " + objName[1]);
+            }
+
+        } catch (Exception e) {
+            if (objName.length > 0) {
+                System.err.println("Failed to drag and drop " + objName[0] + " to " + objName[1] + " due to exception " + e.getMessage());
+            } else {
+                System.err.println("Failed to perform drag and drop due to exception " + e.getMessage());
+            }
+            throw e;
+        }
+    }
+
+    public void jsDragAndDrop(int x, int y) {
+        try {
+            WebElement source = this;
+            JavascriptExecutor js = (JavascriptExecutor) getWrappedDriver();
+            String script = "function createEvent(typeOfEvent) {\n" +
+                    "  var event = document.createEvent(\"CustomEvent\");\n" +
+                    "  event.initCustomEvent(typeOfEvent, true, true, null);\n" +
+                    "  event.dataTransfer = {\n" +
+                    "    data: {},\n" +
+                    "    setData: function (key, value) {\n" +
+                    "      this.data[key] = value;\n" +
+                    "    },\n" +
+                    "    getData: function (key) {\n" +
+                    "      return this.data[key];\n" +
+                    "    }\n" +
+                    "  };\n" +
+                    "  return event;\n" +
+                    "}\n" +
+                    "\n" +
+                    "function dispatchEvent(element, event, transferData) {\n" +
+                    "  if (transferData !== undefined) {\n" +
+                    "    event.dataTransfer = transferData;\n" +
+                    "  }\n" +
+                    "  if (element.dispatchEvent) {\n" +
+                    "    element.dispatchEvent(event);\n" +
+                    "  } else if (element.fireEvent) {\n" +
+                    "    element.fireEvent(\"on\" + event.type, event);\n" +
+                    "  }\n" +
+                    "}\n" +
+                    "\n" +
+                    "function simulateHTML5DragAndDrop(element, x, y) {\n" +
+                    "  var dragStartEvent = createEvent('dragstart');\n" +
+                    "  dispatchEvent(element, dragStartEvent);\n" +
+                    "  var dropEvent = createEvent('drop');\n" +
+                    "  dropEvent.clientX = x;\n" +
+                    "  dropEvent.clientY = y;\n" +
+                    "  var target = document.elementFromPoint(x, y);\n" +
+                    "  dispatchEvent(target, dropEvent, dragStartEvent.dataTransfer);\n" +
+                    "  var dragEndEvent = createEvent('dragend');\n" +
+                    "  dispatchEvent(element, dragEndEvent, dropEvent.dataTransfer);\n" +
+                    "}\n" +
+                    "\n" +
+                    "simulateHTML5DragAndDrop(arguments[0], arguments[1], arguments[2]);";
+
+            // Execute the drag and drop script with this element as source and given coordinates.
+            js.executeScript(script, source, x, y);
+
+            System.out.println("Dragged and dropped element to coordinates (" + x + ", " + y + ")");
+
+        } catch (Exception e) {
+            System.err.println("Failed to drag and drop element to coordinates (" + x + ", " + y + ") due to exception: " + e.getMessage());
+            throw e;
+        }
     }
 }

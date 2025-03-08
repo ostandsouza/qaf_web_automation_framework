@@ -92,7 +92,7 @@ public class CustomFlutterElement extends FlutterElement {
      *@return Null
      *@author Ostan dsouza
      */
-    public String getText(String objName) {
+    public String getText(String... objName) {
         try {
             if (waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 return this.getText();
@@ -466,6 +466,27 @@ public class CustomFlutterElement extends FlutterElement {
         }
     }
 
+    public ArrayList<Map<Object, Object>> getRenderObject(String... objName) {
+        try {
+            ArrayList<Map<Object, Object>> obj;
+            if (waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
+                obj = (ArrayList<Map<Object, Object>>) ((Map<Object, Object>) getAppiumDriver().executeScript(
+                        "flutter:getRenderObjectDiagnostics",
+                        this.getId(),
+                        new HashMap<String, Object>() {{
+                            put("includeProperties", true);
+                            put("subtreeDepth", 0);
+                        }})).get("properties");
+            } else throw new RuntimeException(this + " element for render props not found");
+            return obj;
+        } catch (Exception e) {
+            Reporter.log("Failed to get element size for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
+        }
+    }
+
+
+
     /**
      * This method is used to get the size of the element
      * @param objName: Name of object for reporting purpose
@@ -605,4 +626,54 @@ public class CustomFlutterElement extends FlutterElement {
             throw e;
         }
     }
+    public HashMap<String, Integer> getElementColor(String... objName) {
+        try {
+            String colorDescription;
+            System.out.println(((Map<Object, Object>) getAppiumDriver().executeScript(
+
+                    "flutter:getRenderObjectDiagnostics",
+
+                    this.getId(),
+
+                    new HashMap<String, Object>() {{
+
+                        put("includeProperties", true);
+
+                        put("subtreeDepth", 0);
+
+                    }})).get("properties"));
+            if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
+                colorDescription = (String) ((ArrayList<Map<Object, Object>>) ((Map<Object, Object>) getAppiumDriver().executeScript(
+                        "flutter:getRenderObjectDiagnostics",
+                        this.getId(),
+                        new HashMap<String, Object>() {{
+                            put("includeProperties", true);
+                            put("subtreeDepth", 0);
+                        }})).get("properties")).stream()
+                        .filter(x -> ((String) x.get("name")).equalsIgnoreCase("color"))
+                        .collect(Collectors.toList()).get(0).get("description");
+            } else {
+                throw new RuntimeException(this + " element for render props not found");
+            }
+
+            Pattern p = Pattern.compile("red=([0-9]+).*green=([0-9]+).*blue=([0-9]+).*alpha=([0-9]+)");
+            Matcher m = p.matcher(colorDescription);
+
+            HashMap<String, Integer> colorMap = new HashMap<>();
+            if (m.find()) {
+                colorMap.put("red", Integer.parseInt(m.group(1)));
+                colorMap.put("green", Integer.parseInt(m.group(2)));
+                colorMap.put("blue", Integer.parseInt(m.group(3)));
+                colorMap.put("alpha", Integer.parseInt(m.group(4)));
+            }
+
+            Reporter.log("Element color for " + objName, MessageTypes.Info);
+            return colorMap;
+
+        } catch (Exception e) {
+            Reporter.log("Failed to get element color for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            throw e;
+        }
+    }
+
 }

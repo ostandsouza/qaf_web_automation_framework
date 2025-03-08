@@ -295,6 +295,7 @@ public class UserSteps extends BasePage {
         Validator.assertTrue(userpage.userFileUpload(fileName), "User bulk import file upload failed", "User bulk import file upload was successful");
     }
 
+
     @QAFTestStep(description = "Verify bulk upload analysis result after uploading file with name {file} having count {count}")
     public void verifyBulkImportAnalysis(String fileName, int count) {
         userpage.userFileImport(fileName);
@@ -435,7 +436,7 @@ public class UserSteps extends BasePage {
         userpage.verifyUserListPage();
 
 
-    }
+	}
 
 
     @QAFTestStep(description = "Verify that Image Viewer panel is displayed on clicking the camera icon")
@@ -627,7 +628,7 @@ public class UserSteps extends BasePage {
     public void updateUserPermissionAtSubModule(String mainModule, String subModule, String add, String edit, String delete, String view, String download) {
         userpage.setPermission(mainModule, subModule, add, edit, delete, view, download);
 
-    }
+	}
 
     @QAFTestStep(description = "Click on delete button and verify that delete popup is displayed")
     public void verifyDeleteBtnClick() {

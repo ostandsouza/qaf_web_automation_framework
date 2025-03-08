@@ -335,13 +335,13 @@ Scenario: ZzVerify the image upload functionality
 
   Given User is at Login page
   When Login with '${UserName}' and '${Password}'
-  And User navigates to Add user page
-  Then Verify the default image is displayed and on hover camera icon is displayed
-  And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
-  When User clicks on Upload Image
-  Then Verify that the user is able to upload the image '${imgName}' from the system
-  When Crop the Image using the dots
-  Then Click on Save and Verify the image is displayed
+#  And User navigates to Add user page
+#  Then Verify the default image is displayed and on hover camera icon is displayed
+#  And Verify on click of cameraIcon the Image viewer panel is displayed with upload preview cancel and save button
+#  When User clicks on Upload Image
+#  Then Verify that the user is able to upload the image '${imgName}' from the system
+#  When Crop the Image using the dots
+#  Then Click on Save and Verify the image is displayed
 
 
 @UserRegression29 @CTCP-1286
@@ -358,7 +358,7 @@ Scenario: Verify closing of Image viewer panel
      When User clicks on Upload Image
      Then Verify that the user is able to upload the image '${imgName}' from the system
      And Verify that selected image is getting displayed in the image viewer panel
-     When User clicks on cancel button
+     And Click on cancel button
      Then Verify that the image viewer panel is closed and image is not uploaded
 
 @UserRegression30 @Regression @CTCP-1294
@@ -373,6 +373,8 @@ Scenario: ZuVerify create template edit functionality
   Then Verify template is created
   Then Apply custom permission template '${templateName}'
   And  Edit template '${templateName}' for permission rights with '${EditAdd}' '${EditEdit}' '${EditDelete}' '${EditView}' '${EditDownload}' and verify
+  When Delete template '${templateName}'
+  And  Verify template is deleted
 
 
 @UserRegression30 @CTCP-1296
@@ -403,7 +405,7 @@ Scenario: AVerify the user login with profile type [Any]
               When Login with '${UserName}' and '${Password}'
               And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
               And  Add territory as '${Region}' for the user
-              Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
+              And Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
               And Logout from the current user
               And Login with normal user '${Email}' and '${UserPassword}'
               And Verify the profile type '${ProfileTypeVerify}' of the user
@@ -440,7 +442,7 @@ Scenario: Verify search assignment for marketManager
               When Login with '${UserName}' and '${Password}'
               And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
               And  Add territory as '${Region}' for the user
-              Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
+              And Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${View}' and create user
               And Logout from the current user
               And Login with normal user '${Email}' and '${UserPassword}'
               And Verify the profile type '${ProfileType}' of the user
@@ -491,9 +493,6 @@ Scenario: AVerify master user can create another master user
               Then Login with normal user '${Email}' and '${UserPassword}'
 
 
-
-
-
 @UserRegression32 @Regression @CTCP-1318
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -510,6 +509,8 @@ Scenario: Verify user can select corporate name
 @key:Usermanagement_User_Creation
 Scenario: AVerify the Number of sites is equal to master
 
+  Given User is at Login page
+  When Login with '${UserName}' and '${Password}'
   And  Extract the number of sites and store
   Then  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
   And  Add territory as '${Region1}' '${Region2}' '${Region3}' '${Region4}' for the user

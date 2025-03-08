@@ -16,7 +16,7 @@ coverWear.more.button=flutter-valuekey=position_more
 coverWear.delete.text=flutter-text=Delete
 coverWear.list.header=flutter-text=Summary
 coverWear.position.header=flutter-text=Positions
-coverWear.positions.count=flutter-valuekey=position_count
+coverWear.positions.count=flutter-valuekey=Cover Wear Count
 coverWear.first.Position=flutter-valuekey=first_position
 coverWear.remainingLife.value=flutter-valuekey=remaining_life
 coverWear.remainingCover.value=flutter-valuekey=remaining_cover

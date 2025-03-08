@@ -82,6 +82,10 @@ public class CoverWearSteps {
     public void verifyDeleteCoverWearMeasurement(String conveyorName){
         coverWearPage.verifyCoverWearDelete(conveyorName);
     }
+    @QAFTestStep(description="Verify Delete Cover wear measurement position {Position}")
+    public void verifyDeleteCoverWearMeasurementPosition(String position){
+        coverWearPage.verifyCoverWearDeletePosition(position);
+    }
 
     @QAFTestStep(description="Navigate to cover wear listing screen and wait")
     public void verifyNavigationToCoverWearListingAndWait(){
@@ -102,9 +106,9 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Verify mandatory parameter for add measurement {ConveyorName}")
     public void verifyMandatoryParameters(String conveyorName){
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
-        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
+//        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+//        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+//        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
         coverWearPage.goToAddMeasurement();
         coverWearPage.verifyErrorMessage();
     }
@@ -206,6 +210,14 @@ public class CoverWearSteps {
         coverWearPage.verifyAdditionOfNewMeasurement(thickness, durometer);
     }
 
+    @QAFTestStep(description="Add new measurement for {Position} with current date {Thickness} and {Durometer}")
+    public void verifyAddNewMeasurementPosition(String position, String thickness, String durometer){
+        coverWearPage.verifyPositionNav(position);
+        coverWearPage.openMeasurement();
+        coverWearPage.verifyAdditionOfNewMeasurement(thickness, durometer);
+        coverWearPage.verifySaveFunctionality();
+    }
+
     @QAFTestStep(description="Verify Add and remove new measurement readings")
     public void verifyAddRemoveMeasurement(){
         coverWearPage.verifyAddNewReading();
@@ -214,43 +226,37 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Verify durometer shoreA score for {ConveyorName} in specification screen")
     public void verifyShoreAScoreSpecs(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        long shoreA =coverWearPage.apiBase.getMinCalculatedDurometer(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+        long shoreA =coverWearPage.apiBase.getMinCalculatedDurometer(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         coverWearPage.verifyShoreASpecs(shoreA);
+    }
+
+    @QAFTestStep(description = "Verify remaining cover percentage for {ConveyorName} in specification screen")
+    public void verifyCoverPercentageSpecs(String conveyorName) throws ParseException {
+        double val = coverWearPage.apiBase.getMinPercentage(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
+        coverWearPage.verifyRemainingCoverSpecs(val);
     }
 
     @QAFTestStep(description="Verify remaining life by time for {ConveyorName} in specification screen")
     public void verifyRemainingLifeSpecs(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        double val =coverWearPage.apiBase.getMinEstimatedTime(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+        double val =coverWearPage.apiBase.getMinEstimatedTime(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         coverWearPage.verifyRemainingLifeSpecs(val);
-    }
-
-    @QAFTestStep(description="Verify remaining cover percentage for {ConveyorName} in specification screen")
-    public void verifyCoverPercentageSpecs(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        double val =coverWearPage.apiBase.getMinPercentage(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
-        coverWearPage.verifyRemainingCoverSpecs(val);
     }
 
     @QAFTestStep(description="Verify durometer shoreA score for {ConveyorName}")
     public void verifyShoreAScore(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        long shoreA =coverWearPage.apiBase.getMinCalculatedDurometer(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+        long shoreA =coverWearPage.apiBase.getMinCalculatedDurometer(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         coverWearPage.verifyShoreA(shoreA);
     }
 
     @QAFTestStep(description="Verify remaining life by time for {ConveyorName}")
     public void verifyRemainingLife(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        double val =coverWearPage.apiBase.getMinEstimatedTime(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+        double val =coverWearPage.apiBase.getMinEstimatedTime(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         coverWearPage.verifyRemainingLife(val);
     }
 
     @QAFTestStep(description="Verify remaining cover percentage for {ConveyorName}")
     public void verifyCoverPercentage(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        double val =coverWearPage.apiBase.getMinPercentage(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+        double val =coverWearPage.apiBase.getMinPercentage(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         coverWearPage.verifyRemainingCover(val);
     }
 
@@ -357,9 +363,9 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Verify whether the specifications is populated when no technical data is present for {ConveyorName} {CustSiteName}")
     public void verifySpecsWithNoTechnicalData(String conveyorName, String custSiteName){
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
-        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
+//        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+//        String ultrasonicId=coverWearPage.apiBase.getUltrasonicId(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+//        coverWearPage.apiBase.deleteUltrasonicAPI(ultrasonicId);
         conveyorPage.goToConveyorDetailScreen(conveyorName);
         coverWearPage.verifyCoverWearViaConveyor();
         Validator.assertTrue(coverWearPage.verifyCoverWearSpecs(conveyorName,custSiteName),"Incorrect default values are prefilled in specification screen","Correct default values are pre populated in specification page");
@@ -550,7 +556,6 @@ public class CoverWearSteps {
 //        coverWearPage.verifyCoverWearNavigation();
         coverWearPage.verifyCoverWearListPageNavigation();
     }
-
 
     @QAFTestStep(description="Verify the breadCrumb of coverWear page")
     public void verifyBreadCrumbOfPage(){
@@ -825,6 +830,7 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Click on Add New Position")
     public void clickOnTheAddNewPosition(){
+     SyncUtil.waitFor(5000);
      userpage.addIconClick();
      coverWearPage.verifyAddNewPositionPopUp();
     }
@@ -836,12 +842,12 @@ public class CoverWearSteps {
     coverWearPage.verifyWidthField(width);
     }
 
-    @QAFTestStep(description="Add segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
-    public void verifyAddSegmentPositionPopUpFields(String segment,String zero,String durometer){
-    coverWearPage.addSegmentField(segment);
-    coverWearPage.addTonsConveyedField(zero);
-    coverWearPage.addDurometerField(durometer);
-    }
+//    @QAFTestStep(description="Add segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
+//    public void verifyAddSegmentPositionPopUpFields(String segment,String zero,String durometer){
+//    coverWearPage.addSegmentField(segment);
+//    coverWearPage.addTonsConveyedField(zero);
+//    coverWearPage.addDurometerField(durometer);
+//    }
     @QAFTestStep(description="Click Top/Bottom radio button and verify selection")
     public void addTheTopBottomValue(){
     coverWearPage.addTopBottomValue();
@@ -1134,8 +1140,28 @@ public class CoverWearSteps {
     public void selectSomeColumnsAndVerifyTable(String corporates){
         conveyorPage.addColumnFilters(corporates);
         Validator.assertTrue(coverWearPage.verifyCoverWearColumnFilters(), "All filters are applied in table ", "All filters were successfully verified");
-
     }
+
+    @QAFTestStep(description="Add segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
+    public void verifyTheAddSegmentPositionPopUpFields(String segment,String zero,String durometer){
+        coverWearPage.addSegmentField(segment);
+        coverWearPage.addTonsConveyedField(zero);
+        coverWearPage.addDurometerField(durometer);
+    }
+
+    @QAFTestStep(description="Add installed date as {InstallDate} segment as {Segment} tons conveyed as {Zero} durometer as {DurometerValue}")
+    public void verifyAddSegmentPositionPopUpFields(String installedDate,String segment,String zero,String durometer){
+        SyncUtil.waitFor(5000);
+        coverWearPage.addInstalledDateField(installedDate);
+        coverWearPage.addSegmentField(segment);
+        coverWearPage.addTonsConveyedField(zero);
+        coverWearPage.addDurometerField(durometer);
+    }
+    @QAFTestStep(description = "Click on dialog box close button")
+    public void clickOnTheDialogClose() {
+        coverWearPage.clickOnDialogClose();
+    }
+
     @QAFTestStep(description = "Click on coverWear card and verify it navigates to Specification page")
     public void conveyorCoverwearNavigation()
     {

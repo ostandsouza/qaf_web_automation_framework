@@ -1176,13 +1176,13 @@ public class MinutemanPage extends BasePage{
         ArrayList<Float> systemCoordinates=new ArrayList<>();
         String estimatedCCLength=txtEstimatedCCLength.getText().split("\\s")[3].split("\\(")[0].trim();
         for (int i=1;i<=11;i++){
-            WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[1]//div[contains(@class,'col-3')]/div)["+i+"]"));
-            String text=element.getText();
-            if(element.getText().isEmpty()) {
-                systemCoordinates.add(Float.valueOf(estimatedCCLength));
-                return systemCoordinates;
-            }
-            systemCoordinates.add(Float.valueOf(text));
+                WebElement element=driver.findElement(By.xpath("(//label[text()='System Coordinates']/following-sibling::div[1]//div[contains(@class,'col-3')]/div)["+i+"]"));
+                String text=element.getText();
+                if(element.getText().isEmpty()) {
+                    systemCoordinates.add(Float.valueOf(estimatedCCLength));
+                    return systemCoordinates;
+                }
+                systemCoordinates.add(Float.valueOf(text));
         }
         systemCoordinates.add(Float.valueOf(estimatedCCLength));
         return systemCoordinates;
@@ -1434,7 +1434,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void setDriveDetailsDropdown(String driveDetails){
-        dropdownSelect(driveDetailsDropdown,listItem,driveDetails);
+       dropdownSelect(driveDetailsDropdown,listItem,driveDetails);
     }
 
     public void setTakeUpDetailsDropdown(String takeUpDetails){
@@ -1461,8 +1461,8 @@ public class MinutemanPage extends BasePage{
     }
 
     public void selectTakeUpStation(String takeUpStation){
-        driver.findElement(By.xpath("(//p-radiobutton[@formcontrolname='takeup'])["+takeUpStation+"]")).click();
-        Reporter.log("Selected Take-Up station "+takeUpStation);
+       driver.findElement(By.xpath("(//p-radiobutton[@formcontrolname='takeup'])["+takeUpStation+"]")).click();
+       Reporter.log("Selected Take-Up station "+takeUpStation);
     }
 
     public void setConveyorFlightsConfiguration(String station,String[] horzOffset,String[] elevOffset){
@@ -1475,7 +1475,7 @@ public class MinutemanPage extends BasePage{
             Reporter.log("Entered Elev Offset value "+elevOffset[i-1],MessageTypes.Pass);
         }
     }
-
+    
     public void getPointsOnGraph() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String script = "var points = []; \n" +
@@ -1596,7 +1596,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void clickOnGeneralInfo(){
-        generalInfo.click("General Info");
+       generalInfo.click("General Info");
     }
 
     public void clickOnInputs(){
@@ -2254,10 +2254,10 @@ public class MinutemanPage extends BasePage{
         String ele="";
         for(int i=1;i<=6;i++){
             WebElement element=driver.findElement(By.xpath("(//p-checkbox[@formcontrolname='station']//input)["+i+"]"));
-            if(element.isSelected()){
+             if(element.isSelected()){
                 ele=element.getAttribute("value");
-            }else
-                break;
+             }else
+                 break;
         }
         return ele;
     }
@@ -2502,7 +2502,7 @@ public class MinutemanPage extends BasePage{
         return new ArrayList<>(Arrays.asList(numberOfRolls,vulcanizedSpliceAngle,stepLength,biasLength,spliceLength,extraBeltLength));
     }
 
-    public ArrayList<String> getPulleysPageData(){
+   public ArrayList<String> getPulleysPageData(){
 //        String stationNumberHead=getTbStationNumberHead();
 //        String stationNumberDrive=getTbStationNumberDrive();
 //        String stationNumberTakeUp=getTbStationNumberTakeUp();
@@ -2521,9 +2521,9 @@ public class MinutemanPage extends BasePage{
         String pulleyDiameterTail=getTbPulleyDiameterTail();
         return new ArrayList<>(Arrays.asList(
                 beltTensionHead,beltTensionDrive,beltTensionTakeUp,beltTensionTail,pulleyDiameterHead,pulleyDiameterDrive,pulleyDiameterTakeUp,pulleyDiameterTail));
-    }
+   }
 
-    public ArrayList<String> getTransitionsPageData(){
+   public ArrayList<String> getTransitionsPageData(){
         String beltTensionHead=getTbBeltTensionHeadTransitionLengthPage();
         String beltTensionTail=getTbBeltTensionTailTransitionLengthPage();
 //        String idlerAngleHead=getTbIdlerAngleHead();
@@ -2543,9 +2543,9 @@ public class MinutemanPage extends BasePage{
         return new ArrayList<>(Arrays.asList(beltTensionHead,beltTensionTail,troughDepthHead,troughDepthTail,
                 lengthHead,lengthTail,edgeTensionHead,edgeTensionTail,edgeTensionPercentageHead,edgeTensionPercentageTail,centerTensionHead,
                 centerTensionTail,centerTensionPercentageHead,centerTensionPercentageTail));
-    }
+   }
 
-    public ArrayList<String> getReviewCalculatedTakeUpTravelDataTakeUpPage(){
+   public ArrayList<String> getReviewCalculatedTakeUpTravelDataTakeUpPage(){
         String takeUpTension=getTbTakeUpTensionTakeUpLevel();
         String counterweightWeight=getTbCounterweightWeightTakeUpLevel();
         String typeOfSplice="";
@@ -2561,9 +2561,9 @@ public class MinutemanPage extends BasePage{
             typeOfSplice="Mechanical";
         }
         return new ArrayList<>(Arrays.asList(takeUpTension,counterweightWeight,typeOfSplice));
-    }
+   }
 
-    public ArrayList<String> getCalculatedTakeUpDataInTakeUpPage(){
+   public ArrayList<String> getCalculatedTakeUpDataInTakeUpPage(){
         String maximumBeltTension=getTbMaximumBeltTension();
         String averageBeltTension=getTbAverageBeltTension();
         String permanentElongation=getTbEstimatedTakeUpMovementDueToPermanentElongation();
@@ -2574,9 +2574,9 @@ public class MinutemanPage extends BasePage{
         String takeUpTensionIfKnown=getTbTakeUPTensionIfKnown();
         return new ArrayList<>(Arrays.asList(maximumBeltTension,averageBeltTension,permanentElongation,elasticElongation,
                 totalEstimatedTakeUpMovementPercentage,estimatedBeltCCLength,totalEstimatedTakeUpMovement,takeUpTensionIfKnown));
-    }
+   }
 
-    public ArrayList<String> getCalculatedVerticalCurvesDataInCurvesPage(){
+   public ArrayList<String> getCalculatedVerticalCurvesDataInCurvesPage(){
         String stationLocation1=getTbStationLocation1();
         String stationLocation2=getTbStationLocation2();
         String stationLocation3=getTbStationLocation3();
@@ -2629,7 +2629,7 @@ public class MinutemanPage extends BasePage{
                 centerTensionPercentage2,centerTensionPercentage3,centerTensionPercentage4,edgeTension1,edgeTension2,
                 edgeTension3,edgeTension4,edgeTensionPercentage1,edgeTensionPercentage2,edgeTensionPercentage3,edgeTensionPercentage4,
                 estimatedLiftOff1,estimatedLiftOff2,estimatedLiftOff3,estimatedLiftOff4));
-    }
+   }
 
     public static boolean compareWithPercentageDifference(double value1, double value2) {
         double difference = Math.abs(value1 - value2);
@@ -2638,63 +2638,63 @@ public class MinutemanPage extends BasePage{
         return percentageDifference <= PERCENTAGE_THRESHOLD;
     }
 
-    public void verifyConveyorInformation(ArrayList<String> beltData,String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
-        Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
-        Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
+   public void verifyConveyorInformation(ArrayList<String> beltData,String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
+       Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
+       Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
 //       Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
-        Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(2).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
-    }
+       Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(2).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+   }
 
     public void verifyConveyorInformation(String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
         Validator.assertTrue(conveyorInformationReport.get(0).contains("AgriFlex"),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
     }
 
-    public void verifySystemCoordinates(ArrayList<Float> flightInformation,ArrayList<Float> systemCoordinatesReport){
-        System.out.println("ABCD: = "+flightInformation);
-        System.out.println("ABCD: = "+systemCoordinatesReport);
+   public void verifySystemCoordinates(ArrayList<Float> flightInformation,ArrayList<Float> systemCoordinatesReport){
+       System.out.println("ABCD: = "+flightInformation);
+       System.out.println("ABCD: = "+systemCoordinatesReport);
         Validator.assertTrue(flightInformation.equals(systemCoordinatesReport),"System coordinates in reports is not matching with entered value","System coordinates in reports is matching with entered value");
-    }
+   }
 
-    public void verifyMaterialData(String tonsPerHourPeak,String materialDensity,ArrayList<String> inputData,ArrayList<String> materialDataReport){
-        Validator.assertTrue(tonsPerHourPeak.equals(materialDataReport.get(0).trim()),"Tons per hour peak in reports is not matching with the calculated value","Tons per hour in reports is not matching with the calculated value");
-        System.out.println("ABCD:= "+materialDensity);
-        System.out.println("ABCD:= "+materialDataReport.get(1).trim());
-        Validator.assertTrue(materialDensity.equals(materialDataReport.get(1).trim()),"Material Density in reports is not matching with the calculated value","Material Density in reports is not matching with the calculated value");
-        Validator.assertTrue(inputData.get(3).equals(materialDataReport.get(2).trim()),"Surcharge Angle in reports is not matching with the calculated value","Surcharge Angle in reports is not matching with the calculated value");
-    }
+   public void verifyMaterialData(String tonsPerHourPeak,String materialDensity,ArrayList<String> inputData,ArrayList<String> materialDataReport){
+       Validator.assertTrue(tonsPerHourPeak.equals(materialDataReport.get(0).trim()),"Tons per hour peak in reports is not matching with the calculated value","Tons per hour in reports is not matching with the calculated value");
+       System.out.println("ABCD:= "+materialDensity);
+       System.out.println("ABCD:= "+materialDataReport.get(1).trim());
+       Validator.assertTrue(materialDensity.equals(materialDataReport.get(1).trim()),"Material Density in reports is not matching with the calculated value","Material Density in reports is not matching with the calculated value");
+       Validator.assertTrue(inputData.get(3).equals(materialDataReport.get(2).trim()),"Surcharge Angle in reports is not matching with the calculated value","Surcharge Angle in reports is not matching with the calculated value");
+   }
 
-    public void verifyInputBeltData(String beltWidth,String beltSpeed, ArrayList<String> inputBeltDataReport, ArrayList<String> rollDataReport){
-        Validator.assertTrue(beltWidth.equals(inputBeltDataReport.get(0).trim()),"Width in reports is not matching with the calculated value","Width in reports is not matching with the calculated value");
-        Validator.assertTrue(beltSpeed.equals(inputBeltDataReport.get(1).trim()),"Speed in reports is not matching with the calculated value","Speed in reports is not matching with the calculated value");
-        Validator.assertTrue(rollDataReport.get(13).equals(inputBeltDataReport.get(2)),"Weight in reports is not matching with the calculated value","Weight in reports is not matching with the calculated value");
-        Validator.assertTrue(rollDataReport.get(10).equals(inputBeltDataReport.get(3)),"OAG in reports is not matching with the calculated value","OAG in reports is not matching with the calculated value");
-    }
+   public void verifyInputBeltData(String beltWidth,String beltSpeed, ArrayList<String> inputBeltDataReport, ArrayList<String> rollDataReport){
+       Validator.assertTrue(beltWidth.equals(inputBeltDataReport.get(0).trim()),"Width in reports is not matching with the calculated value","Width in reports is not matching with the calculated value");
+       Validator.assertTrue(beltSpeed.equals(inputBeltDataReport.get(1).trim()),"Speed in reports is not matching with the calculated value","Speed in reports is not matching with the calculated value");
+       Validator.assertTrue(rollDataReport.get(13).equals(inputBeltDataReport.get(2)),"Weight in reports is not matching with the calculated value","Weight in reports is not matching with the calculated value");
+       Validator.assertTrue(rollDataReport.get(10).equals(inputBeltDataReport.get(3)),"OAG in reports is not matching with the calculated value","OAG in reports is not matching with the calculated value");
+   }
 
-    public void verifySystemData(ArrayList<String> capacity,String carrySideIdlerSpacing,String driveLocation,String takeUpLocation,ArrayList<String> inputData,ArrayList<String> systemDataReport){
-        Validator.assertTrue(capacity.get(1).equals(systemDataReport.get(0)),"Trough Angle of Idlers in reports is not matching with the calculated value","Trough Angle of Idlers in reports is not matching with the calculated value");
-        Validator.assertTrue(carrySideIdlerSpacing.equals(systemDataReport.get(1)),"Carry Side Idler Spacing in reports is not matching with the calculated value","Carry Side Idler Spacing in reports is not matching with the calculated value");
-        Validator.assertTrue(driveLocation.equals(systemDataReport.get(2).trim()),"Station Location of Drive in reports is not matching with the calculated value","Station Location of Drive in reports is not matching with the calculated value");
-        Validator.assertTrue(takeUpLocation.equals(systemDataReport.get(3).trim()),"Station Location of Take-up in reports is not matching with the calculated value","Station Location of Take-up in reports is not matching with the calculated value");
+   public void verifySystemData(ArrayList<String> capacity,String carrySideIdlerSpacing,String driveLocation,String takeUpLocation,ArrayList<String> inputData,ArrayList<String> systemDataReport){
+       Validator.assertTrue(capacity.get(1).equals(systemDataReport.get(0)),"Trough Angle of Idlers in reports is not matching with the calculated value","Trough Angle of Idlers in reports is not matching with the calculated value");
+       Validator.assertTrue(carrySideIdlerSpacing.equals(systemDataReport.get(1)),"Carry Side Idler Spacing in reports is not matching with the calculated value","Carry Side Idler Spacing in reports is not matching with the calculated value");
+       Validator.assertTrue(driveLocation.equals(systemDataReport.get(2).trim()),"Station Location of Drive in reports is not matching with the calculated value","Station Location of Drive in reports is not matching with the calculated value");
+       Validator.assertTrue(takeUpLocation.equals(systemDataReport.get(3).trim()),"Station Location of Take-up in reports is not matching with the calculated value","Station Location of Take-up in reports is not matching with the calculated value");
 //       Validator.assertTrue(" ".equals(systemDataReport.get(4)),"Weight of Moving Parts in reports is not matching with the calculated value","Weight of Moving Parts in reports is not matching with the calculated value");
 //       Validator.assertTrue(" ".equals(systemDataReport.get(5)),"Drive Factor in reports is not matching with the calculated value","Drive Factor reports is not matching with the calculated value");
-        Validator.assertTrue(inputData.get(0).equals(systemDataReport.get(6)),"Friction factor in reports is not matching with the calculated value","Friction factor in reports is not matching with the calculated value");
-        Validator.assertTrue(inputData.get(1).equals(systemDataReport.get(7)),"Length factor in reports is not matching with the calculated value","Length factor in reports is not matching with the calculated value");
-        Validator.assertTrue(inputData.get(2).equals(systemDataReport.get(8)),"Drive wrap in reports is not matching with the calculated value","Drive wrap in reports is not matching with the calculated value");
-    }
+       Validator.assertTrue(inputData.get(0).equals(systemDataReport.get(6)),"Friction factor in reports is not matching with the calculated value","Friction factor in reports is not matching with the calculated value");
+       Validator.assertTrue(inputData.get(1).equals(systemDataReport.get(7)),"Length factor in reports is not matching with the calculated value","Length factor in reports is not matching with the calculated value");
+       Validator.assertTrue(inputData.get(2).equals(systemDataReport.get(8)),"Drive wrap in reports is not matching with the calculated value","Drive wrap in reports is not matching with the calculated value");
+   }
 
-    public void verifyCalculateData(ArrayList<String> calculatedData,ArrayList<String> rollData,ArrayList<String> calculatedDataReport){
+   public void verifyCalculateData(ArrayList<String> calculatedData,ArrayList<String> rollData,ArrayList<String> calculatedDataReport){
         System.out.println("This is the unit"+calculatedData.get(0)+" "+calculatedDataReport.get(0));
-        Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(0)),parseDouble(calculatedDataReport.get(0))),"Unit tension in reports is not matching with the calculated value","Unit tension in reports is not matching with the calculated value");
-        Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(1)),parseDouble(calculatedDataReport.get(1))),"Maximum tension in reports is not matching with the calculated value","Maximum tension in reports is not matching with the calculated value");
-        Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(2)),parseDouble(calculatedDataReport.get(2))),"Effective tension in reports is not matching with the calculated value","Effective tension in reports is not matching with the calculated value");
-        Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(3)),parseDouble(calculatedDataReport.get(3))),"Belt power in reports is not matching with the calculated value","Belt power in reports is not matching with the calculated value");
-        Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(4)),parseDouble(calculatedDataReport.get(4))),"Counterweight Weight in reports is not matching with the calculated value","Counterweight Weight in reports is not matching with the calculated value");
-        Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(5)),parseDouble(calculatedDataReport.get(5))),"Counterweight tension in reports is not matching with the calculated value","Counterweight tension in reports is not matching with the calculated value");
-        Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(6)),parseDouble(calculatedDataReport.get(6))),"Conveyor capacity in reports is not matching with the calculated value","Conveyor capacity in reports is not matching with the calculated value");
-        Validator.assertTrue(compareWithPercentageDifference(parseDouble(rollData.get(0)),parseDouble(calculatedDataReport.get(7))),"Estimated belt length in reports is not matching with the calculated value","Estimated belt length in reports is not matching with the calculated value");
-    }
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(0)),parseDouble(calculatedDataReport.get(0))),"Unit tension in reports is not matching with the calculated value","Unit tension in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(1)),parseDouble(calculatedDataReport.get(1))),"Maximum tension in reports is not matching with the calculated value","Maximum tension in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(2)),parseDouble(calculatedDataReport.get(2))),"Effective tension in reports is not matching with the calculated value","Effective tension in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(3)),parseDouble(calculatedDataReport.get(3))),"Belt power in reports is not matching with the calculated value","Belt power in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(4)),parseDouble(calculatedDataReport.get(4))),"Counterweight Weight in reports is not matching with the calculated value","Counterweight Weight in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(5)),parseDouble(calculatedDataReport.get(5))),"Counterweight tension in reports is not matching with the calculated value","Counterweight tension in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(calculatedData.get(6)),parseDouble(calculatedDataReport.get(6))),"Conveyor capacity in reports is not matching with the calculated value","Conveyor capacity in reports is not matching with the calculated value");
+       Validator.assertTrue(compareWithPercentageDifference(parseDouble(rollData.get(0)),parseDouble(calculatedDataReport.get(7))),"Estimated belt length in reports is not matching with the calculated value","Estimated belt length in reports is not matching with the calculated value");
+   }
 
-    public void verifyBeltData(ArrayList<String> beltData,ArrayList<String> beltDataReport){
+   public void verifyBeltData(ArrayList<String> beltData,ArrayList<String> beltDataReport){
         Validator.assertTrue(beltData.get(1).equals(beltDataReport.get(0)),"Carcass material in reports is not matching with the calculated value","Carcass material in reports is not matching with the calculated value");
         Validator.assertTrue(beltData.get(2).equals(beltDataReport.get(1)),"Number of Plies in reports is not matching with the calculated value","Number of Plies in reports is not matching with the calculated value");
         Validator.assertTrue(beltData.get(3).equals(beltDataReport.get(2)),"Ply tension in reports is not matching with the calculated value","Ply tension in reports is not matching with the calculated value");
@@ -2708,46 +2708,46 @@ public class MinutemanPage extends BasePage{
         Validator.assertTrue(beltData.get(11).equals(beltDataReport.get(10)),"Carcass weight in reports is not matching with the calculated value","Carcass weight in reports is not matching with the calculated value");
         Validator.assertTrue(beltData.get(12).equals(beltDataReport.get(11)),"Total cover weight in reports is not matching with the calculated value","Total cover weight in reports is not matching with the calculated value");
         Validator.assertTrue(beltData.get(13).equals(beltDataReport.get(12)),"Total belt weight in reports is not matching with the calculated value","Total belt weight in reports is not matching with the calculated value");
-    }
+   }
 
-    public void verifyRollData(ArrayList<String> rollData,ArrayList<String> rollDataReport){
-        System.out.println("ABCD:= "+rollData.get(0));
-        System.out.println("ABCD:= "+rollDataReport.get(0));
+   public void verifyRollData(ArrayList<String> rollData,ArrayList<String> rollDataReport){
+       System.out.println("ABCD:= "+rollData.get(0));
+       System.out.println("ABCD:= "+rollDataReport.get(0));
         Validator.assertTrue(rollData.get(0).equals(rollDataReport.get(0)),"Total belt length in reports is not matching with the calculated value","Total belt length in reports is not matching with the calculated value");
-        Validator.assertTrue(rollData.get(1).equals(rollDataReport.get(1)),"Number of rolls in reports is not matching with the calculated value","Number of rolls in reports is not matching with the calculated value");
-        Validator.assertTrue(rollData.get(2).equals(rollDataReport.get(2)),"Roll length in reports is not matching with the calculated value","Roll length in reports is not matching with the calculated value");
-        Validator.assertTrue(rollData.get(3).equals(rollDataReport.get(3)),"Roll diameter in reports is not matching with the calculated value","Roll diameter in reports is not matching with the calculated value");
-        Validator.assertTrue(rollData.get(4).equals(rollDataReport.get(4)),"Roll weight in reports is not matching with the calculated value","Roll weight in reports is not matching with the calculated value");
-        Validator.assertTrue(rollData.get(5).equals(rollDataReport.get(5)),"Cubage in reports is not matching with the calculated value","Cubage in reports is not matching with the calculated value");
-    }
+       Validator.assertTrue(rollData.get(1).equals(rollDataReport.get(1)),"Number of rolls in reports is not matching with the calculated value","Number of rolls in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(2).equals(rollDataReport.get(2)),"Roll length in reports is not matching with the calculated value","Roll length in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(3).equals(rollDataReport.get(3)),"Roll diameter in reports is not matching with the calculated value","Roll diameter in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(4).equals(rollDataReport.get(4)),"Roll weight in reports is not matching with the calculated value","Roll weight in reports is not matching with the calculated value");
+       Validator.assertTrue(rollData.get(5).equals(rollDataReport.get(5)),"Cubage in reports is not matching with the calculated value","Cubage in reports is not matching with the calculated value");
+   }
 
-    public void verifyVulcanizedSpliceData(ArrayList<String> vulcanizedSpliceData,ArrayList<String> vulcanizedSpliceDataReport){
-        Validator.assertTrue(vulcanizedSpliceData.get(0).equals(vulcanizedSpliceDataReport.get(0)),"Number of splice in reports is not matching with the calculated value","Number of splice in reports is not matching with the calculated value");
-        Validator.assertTrue(vulcanizedSpliceData.get(1).equals(vulcanizedSpliceDataReport.get(1)),"Vulcanizer bias angle in reports is not matching with the calculated value","Vulcanizer bias angle in reports is not matching with the calculated value");
-        Validator.assertTrue(vulcanizedSpliceData.get(2).equals(vulcanizedSpliceDataReport.get(2)),"Fabric step length in reports is not matching with the calculated value","Fabric step length in reports is not matching with the calculated value");
-        Validator.assertTrue(vulcanizedSpliceData.get(3).equals(vulcanizedSpliceDataReport.get(3)),"Bias length in reports is not matching with the calculated value","Bias length in reports is not matching with the calculated value");
-        Validator.assertTrue(vulcanizedSpliceData.get(4).equals(vulcanizedSpliceDataReport.get(4)),"Splice length in reports is not matching with the calculated value","Splice length in reports is not matching with the calculated value");
-        Validator.assertTrue(vulcanizedSpliceData.get(5).equals(vulcanizedSpliceDataReport.get(5)),"Extra belt length in reports is not matching with the calculated value","Vulcanizer bias angle in reports is not matching with the calculated value");
-    }
+   public void verifyVulcanizedSpliceData(ArrayList<String> vulcanizedSpliceData,ArrayList<String> vulcanizedSpliceDataReport){
+       Validator.assertTrue(vulcanizedSpliceData.get(0).equals(vulcanizedSpliceDataReport.get(0)),"Number of splice in reports is not matching with the calculated value","Number of splice in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(1).equals(vulcanizedSpliceDataReport.get(1)),"Vulcanizer bias angle in reports is not matching with the calculated value","Vulcanizer bias angle in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(2).equals(vulcanizedSpliceDataReport.get(2)),"Fabric step length in reports is not matching with the calculated value","Fabric step length in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(3).equals(vulcanizedSpliceDataReport.get(3)),"Bias length in reports is not matching with the calculated value","Bias length in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(4).equals(vulcanizedSpliceDataReport.get(4)),"Splice length in reports is not matching with the calculated value","Splice length in reports is not matching with the calculated value");
+       Validator.assertTrue(vulcanizedSpliceData.get(5).equals(vulcanizedSpliceDataReport.get(5)),"Extra belt length in reports is not matching with the calculated value","Vulcanizer bias angle in reports is not matching with the calculated value");
+   }
 
-    public void verifyTakeUpTravel(ArrayList<String> reviewCalculatedTakeUpTravelData,ArrayList<String> calculatedTakeUpData,String typeOfTakeUp,ArrayList<String> takeUpTravelReport){
-        System.out.println("This is im printing: "+takeUpTravelReport.get(0)+" "+typeOfTakeUp);
+   public void verifyTakeUpTravel(ArrayList<String> reviewCalculatedTakeUpTravelData,ArrayList<String> calculatedTakeUpData,String typeOfTakeUp,ArrayList<String> takeUpTravelReport){
+       System.out.println("This is im printing: "+takeUpTravelReport.get(0)+" "+typeOfTakeUp);
         Validator.assertTrue(takeUpTravelReport.get(0).contains(typeOfTakeUp),"Type of take-up reports is not matching with the calculated value","Type of take-up in reports is not matching with the calculated value");
-        Validator.assertTrue(reviewCalculatedTakeUpTravelData.get(2).equals(takeUpTravelReport.get(1)),"Type of splice in reports is not matching with the calculated value","Type of splice in reports is not matching with the calculated value");
-        Validator.assertTrue(calculatedTakeUpData.get(0).equals(takeUpTravelReport.get(2)),"Maximum belt tension in reports is not matching with the calculated value","Maximum belt tension in reports is not matching with the calculated value");
-        Validator.assertTrue(calculatedTakeUpData.get(1).equals(takeUpTravelReport.get(3)),"Average belt tension in reports is not matching with the calculated value","Average belt tension in reports is not matching with the calculated value");
-        Validator.assertTrue(calculatedTakeUpData.get(2).equals(takeUpTravelReport.get(4)),"Est. Take-up Movement due to Permanent Elongation in reports is not matching with the calculated value","Est. Take-up Movement due to Permanent Elongation in reports is not matching with the calculated value");
-        Validator.assertTrue(calculatedTakeUpData.get(3).equals(takeUpTravelReport.get(5)),"Est. Take-up Movement due to Elastic Elongation in reports is not matching with the calculated value","Est. Take-up Movement due to Elastic Elongation in reports is not matching with the calculated value");
-        Validator.assertTrue(calculatedTakeUpData.get(4).equals(takeUpTravelReport.get(6)),"Estimated Total Take-up Movement percentage in reports is not matching with the calculated value","Estimated Total Take-up Movement percentage in reports is not matching with the calculated value");
-        Validator.assertTrue(calculatedTakeUpData.get(5).equals(takeUpTravelReport.get(7)),"Conveyor C-C length in reports is not matching with the calculated value","Conveyor C-C length in reports is not matching with the calculated value");
-        Validator.assertTrue(calculatedTakeUpData.get(6).equals(takeUpTravelReport.get(8)),"Estimated Total Take-up Movement in reports is not matching with the calculated value","Estimated Total Take-up Movement in reports is not matching with the calculated value");
-    }
+       Validator.assertTrue(reviewCalculatedTakeUpTravelData.get(2).equals(takeUpTravelReport.get(1)),"Type of splice in reports is not matching with the calculated value","Type of splice in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(0).equals(takeUpTravelReport.get(2)),"Maximum belt tension in reports is not matching with the calculated value","Maximum belt tension in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(1).equals(takeUpTravelReport.get(3)),"Average belt tension in reports is not matching with the calculated value","Average belt tension in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(2).equals(takeUpTravelReport.get(4)),"Est. Take-up Movement due to Permanent Elongation in reports is not matching with the calculated value","Est. Take-up Movement due to Permanent Elongation in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(3).equals(takeUpTravelReport.get(5)),"Est. Take-up Movement due to Elastic Elongation in reports is not matching with the calculated value","Est. Take-up Movement due to Elastic Elongation in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(4).equals(takeUpTravelReport.get(6)),"Estimated Total Take-up Movement percentage in reports is not matching with the calculated value","Estimated Total Take-up Movement percentage in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(5).equals(takeUpTravelReport.get(7)),"Conveyor C-C length in reports is not matching with the calculated value","Conveyor C-C length in reports is not matching with the calculated value");
+       Validator.assertTrue(calculatedTakeUpData.get(6).equals(takeUpTravelReport.get(8)),"Estimated Total Take-up Movement in reports is not matching with the calculated value","Estimated Total Take-up Movement in reports is not matching with the calculated value");
+   }
 
-    public void verifyVerticalCurve(ArrayList<String> verticalCurve,ArrayList<String> verticalCurveReport){
-        System.out.println(verticalCurve);
-        System.out.println(verticalCurveReport);
-        Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
-    }
+   public void verifyVerticalCurve(ArrayList<String> verticalCurve,ArrayList<String> verticalCurveReport){
+       System.out.println(verticalCurve);
+       System.out.println(verticalCurveReport);
+       Validator.assertTrue(verticalCurve.equals(verticalCurveReport),"Vertical curve data shown in reports is not matching with entered value","Vertical curve data shown in reports is matching with entered value");
+   }
 
     public void verifyTransitionLength(ArrayList<String> transitionLength,ArrayList<String> transitionLengthReport){
         System.out.println("ABCD:= "+transitionLength);
@@ -3170,7 +3170,7 @@ public class MinutemanPage extends BasePage{
 //        Validator.assertTrue(txtElevatorBeltDescription.getText().contains(tradeName),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
         Validator.assertTrue(customer.equals(conveyorInformationReport.get(0)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
 //        Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is matching with the entered value");
-        Validator.assertTrue(txtElevatorConveyor.getText().equals("-"),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
+         Validator.assertTrue(txtElevatorConveyor.getText().equals("-"),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
     }
 
     public void verifyElevatorConveyorInformation(String customer,String calculationName,ArrayList<String> conveyorInformationReport){

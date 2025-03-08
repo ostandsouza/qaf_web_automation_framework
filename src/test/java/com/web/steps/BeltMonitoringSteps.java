@@ -8,6 +8,9 @@ import com.web.pages.*;
 
 import java.util.Map;
 
+import java.util.Map;
+
+
 public class BeltMonitoringSteps {
 
     LoginPage loginPage = new LoginPage();
@@ -26,6 +29,14 @@ public class BeltMonitoringSteps {
 
     @QAFTestStep(description = "Navigate to Belt Monitoring List page")
     public void verifyNavigationToMonitoringDeviceListPage() {
+        monitoringDevicePage.goToMonitoringDeviceListScreen();
+    }
+
+    @QAFTestStep(description = "Navigate to Belt Monitoring List page for {Device}")
+    public void verifyNavigationToMonitoringDeviceListPageWithDelete(String monitoringDevice) {
+        Map<String, Object> obj = monitoringDevicePage.apiBase.getMonitoringDeviceAPI(monitoringDevice);
+        if(obj != null)
+            monitoringDevicePage.apiBase.deleteMonitoringDeviceAPI((String) obj.get("monitoringDeviceId"));
         monitoringDevicePage.goToMonitoringDeviceListScreen();
     }
 
@@ -75,11 +86,12 @@ public class BeltMonitoringSteps {
     public void verifyQRDownloadFunctionality(String deviceName) {
         monitoringDevicePage.downloadButtonClick();
         SyncUtil.waitFor(5000);
-        Validator.assertTrue(MiscUtils.checkDownloadedFiles(deviceName + "_QR_Code.png"), "QR Code was not found", "QR Code was downloaded successfully");
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles(deviceName+"_QR_Code.png"),"QR Code was not found","QR Code was downloaded successfully");
     }
 
-    @QAFTestStep(description = "Navigate to Add monitoring device screen")
-    public void navigateToAddMonitoringDevice() {
+    @QAFTestStep(description ="Navigate to Add monitoring device screen")
+    public void navigateToAddMonitoringDevice()
+    {
         monitoringDevicePage.goToAddMonitoringDevice();
     }
 
@@ -106,134 +118,143 @@ public class BeltMonitoringSteps {
     }
 
     @QAFTestStep(description = "Verify save button is enabled")
-    public void verifySaveBtnEnabledForMandFields() {
+    public void verifySaveBtnEnabledForMandFields()
+    {
         monitoringDevicePage.verifySaveBtnIsEnabled();
     }
 
     @QAFTestStep(description = "Click on Cancel button and verify warning popup is displayed and click on yes button")
-    public void clickCancelBtnAndVerifyPopup() {
+    public void clickCancelBtnAndVerifyPopup()
+    {
         monitoringDevicePage.cancelBtnClick();
         SyncUtil.waitFor(10000);
         monitoringDevicePage.verifyWarningPopupAndExit();
     }
 
     @QAFTestStep(description = "Verify user is navigated to monitoring device listing page")
-    public void verifyMonitoringDeviceListPageNavigation() {
+    public void verifyMonitoringDeviceListPageNavigation()
+    {
         monitoringDevicePage.waitForPageLoad(10000);
-        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"), "User is navigated to monitoring device list page",
+        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"),"User is navigated to monitoring device list page",
                 "User is navigated to monitoring device list page");
     }
 
     @QAFTestStep(description = "Click on save button and verify device {DeviceName} is created successfully")
-    public void verifyMonitoringDeviceCreation(String deviceName) {
+    public void verifyMonitoringDeviceCreation(String deviceName)
+    {
         conveyorPage.clickCreateBtn();
         monitoringDevicePage.waitForPageLoad(10000);
-        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"), "User is navigated to monitoring device list page",
+        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"),"User is navigated to monitoring device list page",
                 "User is navigated to monitoring device list page");
         monitoringDevicePage.searchMonitoringDevice(deviceName);
 
     }
 
     @QAFTestStep(description = "Click on next button and verify navigation to Add Location page")
-    public void clickNxtBtnAndVerifyNavigation() {
+    public void clickNxtBtnAndVerifyNavigation()
+    {
         monitoringDevicePage.clickOnNextBtn();
     }
 
     @QAFTestStep(description = "Click on the status dropdown and verify the dropdown values")
-    public void statusDropDownClickAndVerify() {
-        monitoringDevicePage.clickAndVerifyStatusDropDown();
-    }
+    public void statusDropDownClickAndVerify()
+    {monitoringDevicePage.clickAndVerifyStatusDropDown();}
 
     @QAFTestStep(description = "Verify the format of the installation date field and click on it and verify calendar popup is displayed")
-    public void verifyCalendarPopUpDisplay() {
-        monitoringDevicePage.clickInstallationDateCalendarPopup();
-    }
-
+    public void verifyCalendarPopUpDisplay()
+    {monitoringDevicePage.clickInstallationDateCalendarPopup();}
     @QAFTestStep(description = "Verify the format of the commissioning date field and click on it and verify calendar popup is displayed")
-    public void verifyCalendarPopUpDisplayForCommissioningDate() {
-        monitoringDevicePage.clickCommissioningDateCalendarPopup();
-    }
+    public void verifyCalendarPopUpDisplayForCommissioningDate()
+    {monitoringDevicePage.clickCommissioningDateCalendarPopup();}
 
     @QAFTestStep(description = "Click on the month in calender and verify month chart is displayed and next and verify previous buttons functionality")
-    public void clickOnMonthAndVerifyMonthChart() {
+    public void clickOnMonthAndVerifyMonthChart()
+    {
         monitoringDevicePage.clickAndVerifyMonthChart();
         monitoringDevicePage.verifyYearBtnFunctionality();
     }
 
     @QAFTestStep(description = "Click on the year in calender and verify year chart is displayed and next and verify previous buttons functionality")
-    public void clickOnYearAndVerifyYearChart() {
+    public void clickOnYearAndVerifyYearChart()
+    {
         monitoringDevicePage.clickAndVerifyYearChart();
     }
 
     @QAFTestStep(description = "Click on any past commissioning date user should be able to select only past date")
-    public void verifyPastDateSelection() {
+    public void verifyPastDateSelection()
+    {
         monitoringDevicePage.verifyRemoteConnectionDDL();
         monitoringDevicePage.clickCommissioningDateCalendarPopup();
         monitoringDevicePage.verifyPastDatesSelection();
     }
 
     @QAFTestStep(description = "Click on the belt/conveyor saves text field and verify the upward and downward functionality")
-    public void verifyBeltConveyorSavesFunctionality() {
+    public void verifyBeltConveyorSavesFunctionality()
+    {
         monitoringDevicePage.verifyBeltConveyorSave();
     }
 
     @QAFTestStep(description = "Verify create and cancel buttons are displayed")
-    public void verifyCreateCancelBtnDisplay() {
+    public void verifyCreateCancelBtnDisplay()
+    {
         monitoringDevicePage.verifyCreateAndCancelBtn();
     }
 
     @QAFTestStep(description = "Verify create and cancel button colors")
-    public void verifyBtnStyles() {
-        monitoringDevicePage.verifyBtnColors();
-    }
+    public void verifyBtnStyles()
+    {monitoringDevicePage.verifyBtnColors();}
 
     @QAFTestStep(description = "Search for the device {DeviceName} and navigate to edit device page")
-    public void navigateToEditDevicePage(String deviceName) {
-        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"), "User is navigated to monitoring device list page",
+    public void navigateToEditDevicePage(String deviceName)
+    {
+        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"),"User is navigated to monitoring device list page",
                 "User is navigated to monitoring device list page");
-        monitoringDevicePage.searchMonitoringDevice(deviceName);
-        monitoringDevicePage.goToCorporateEditScreen();
+//        monitoringDevicePage.searchMonitoringDevice(deviceName);
+        monitoringDevicePage.goToMonitoringDeviceEditScreen(deviceName);
     }
 
     @QAFTestStep(description = "Verify save and cancel buttons are displayed")
-    public void verifySaveCancelBtnDisplay() {
-        monitoringDevicePage.verifySaveAndCancelBtn();
-    }
+    public void verifySaveCancelBtnDisplay()
+    {monitoringDevicePage.verifySaveAndCancelBtn();}
 
     @QAFTestStep(description = "Verify the values under the device type dropdown")
-    public void verifyTheDeviceTypeDdlVal() {
-        monitoringDevicePage.verifyDeviceTypeDDL();
-    }
+    public void verifyTheDeviceTypeDdlVal()
+    {monitoringDevicePage.verifyDeviceTypeDDL();}
 
     @QAFTestStep(description = "Click on cancel button and verify navigation to monitoring device list page")
-    public void cancelBtnClickAndVerifyNavigation() {
+    public void cancelBtnClickAndVerifyNavigation()
+    {
         monitoringDevicePage.cancelBtnClick();
         monitoringDevicePage.waitForPageLoad(10000);
-        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"), "User is navigated to monitoring device list page",
+        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"),"User is navigated to monitoring device list page",
                 "User is navigated to monitoring device list page");
 
     }
 
     @QAFTestStep(description = "Search for the device {DeviceName} and navigate to view device page")
-    public void navigateToViewDevicePage(String deviceName) {
-        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"), "User is navigated to monitoring device list page",
+    public void navigateToViewDevicePage(String deviceName)
+    {
+        Validator.assertTrue(monitoringDevicePage.getCurrentURL().contains("/secure/dashboard/devices"),"User is navigated to monitoring device list page",
                 "User is navigated to monitoring device list page");
         monitoringDevicePage.searchMonitoringDevice(deviceName);
         monitoringDevicePage.goToMonitoringDeviceDetailScreen();
     }
 
     @QAFTestStep(description = "Verify the deviceType {DeviceType} in monitoring device view page")
-    public void verifyDeviceTypeInViewPage(String deviceType) {
+    public void verifyDeviceTypeInViewPage(String deviceType)
+    {
         monitoringDevicePage.verifyDeviceTypeInViewMode(deviceType);
     }
 
     @QAFTestStep(description = "Verify user is able to see the column names selected by default")
-    public void verifyDefaultCbxSelectedInMonitoringDeviceFilter() {
+    public void verifyDefaultCbxSelectedInMonitoringDeviceFilter()
+    {
         conveyorPage.verifyCheckedColumnNames();
     }
 
     @QAFTestStep(description = "Select only two columns and verify the selected columns are visible in the table")
-    public void selectTwoColumnsAndVerifyTable() {
+    public void selectTwoColumnsAndVerifyTable()
+    {
         conveyorPage.selectTwoColumnsAndVerify();
         conveyorPage.verifySelectedColumnDisplay("multiple");
 //        conveyorPage.verifySelectedColumnDisplay("single");
@@ -344,6 +365,31 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.verifyRemoteConnectionDDL();
         monitoringDevicePage.verifyManualDateSelection(dateField,date);
     }
+
+    @QAFTestStep(description="Verify the monitoring device {Device} in list screen")
+    public void searchMonitoringDevice(String device){
+        Map<String, Object> obj = monitoringDevicePage.apiBase.getMonitoringDeviceAPI(device);
+        if(obj != null)
+            obj = monitoringDevicePage.apiBase.getMonitoringDeviceDetailsAPI((String) obj.get("monitoringDeviceId"));
+        Validator.assertTrue(monitoringDevicePage.searchMonitoringDevice(device),"Monitoring Device was not found","Monitoring Device was found and verified successfully");
+    }
+
+    @QAFTestStep(description="Edit monitoring device {Device} to {NewDevice}")
+    public void editMonitoringDeviceTo(String device, String newdevice){
+        monitoringDevicePage.editMonitoringDevice(device, newdevice);
+    }
+
+    @QAFTestStep(description="Delete monitoring device {Device}")
+    public void deleteMonitoringDevice(String device){
+        Validator.assertTrue(monitoringDevicePage.deleteMonitoringDevice(device),"Monitoring device was found after delete","Monitoring device was found and verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the deleted monitoring device {Device} in list screen")
+    public void verifyTheDeletedMonitoringDeviceInListScreen(String device){
+        monitoringDevicePage.verifyDeletedMonitoringDevice(device);
+    }
+
+
 
     @QAFTestStep(description = "Click on menu item {RipInsert} {RipInsertThumbNails} and verify breadcrumb for {DeviceName} with {RipInsertBreadCrumb}")
     public void verifyRipInsertBreadCrumb(String listItem,String nestedItem,String deviceName,String breadcrumb )

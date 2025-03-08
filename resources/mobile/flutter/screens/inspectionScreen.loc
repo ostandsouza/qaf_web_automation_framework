@@ -11,12 +11,15 @@ inspection.signOff.label=flutter-text=Sign Off
 inspection.saveAsDraft.label=flutter-text=Save Draft
 inspection.type.single=flutter-text=Single
 inspection.type.multiple=flutter-text=Multiple
+
 inspection.addNewItem.header= flutter-valuekey=AddNewItemHeader
 inspection.inspectorName.field = flutter-valuekey=Inspector Name
 inspection.addCustomerDistributorLogo.label = flutter-text=Add custom distributor logo
+inspection.Info.label = flutter-text=Inspection Info
 inspection.previous.btn = flutter-text=Previous
 inspection.beltSpecs.label = flutter-text=Belt Specs
 inspection.items.label = flutter-text=Add Inspection Items
+inspection.signOff.label = flutter-text=Sign Off
 inspection.uploadFile.label= flutter-text=Upload File
 inspection.addNewItem.button= flutter-text=Add New Item
 inspection.toBeCompleted.button= flutter-text=To be Completed
@@ -30,6 +33,7 @@ inspection.beltRating.field = flutter-valuekey=Belt Rating
 inspection.topCoverThickness.field = flutter-valuekey=Top Cover Thickness
 inspection.bottomCoverThickness.field = flutter-valuekey=Bottom Cover Thickness
 inspection.beltCarcass.field = flutter-valuekey=Belt Carcass
+
 inspection.asset.dropdown= flutter-valuekey=Asset/Component
 inspection.detail.dropdown= flutter-valuekey=Detail
 inspection.failure.dropdown= flutter-valuekey=Failure Mode
@@ -46,6 +50,12 @@ inspection.pullyNo.dropdown= flutter-valuekey=Pulley No
 inspection.type.dropdown= flutter-valuekey=Type
 inspection.frameNo.dropdown= flutter-valuekey=Frame Number
 inspection.other.dropdown= flutter-valuekey=Other
+inspection.observation.label= flutter-valuekey=Observation
+
+
+inspection.failure.dropdown= flutter-valuekey=Failure Mode
+inspection.datePicker.dropdown= flutter-valuekey=ContiplusDatePicker
+
 inspection.assetOption.chutes = flutter-text=Chutes/Load Area
 inspection.assetOption.conveyorStructure = flutter-text=Conveyor Structure
 inspection.assetOption.counterWeight = flutter-text=Counterweight
@@ -57,4 +67,52 @@ inspection.assetOption.conveyorBelt = flutter-text=Conveyor Belt
 inspection.assetOption.pulley = flutter-text=Pulley
 inspection.assetOption.rollerIdlers = flutter-text=Rollers/Idlers
 inspection.assetOption.other= flutter-text=Other
+
+inspection.condition.faultFlag=flutter-valuekey=fault
+inspection.condition.goodFlag=flutter-valuekey=good
+inspection.condition.poorFlag=flutter-valuekey=poor
+inspection.condition.criticalFlag=flutter-valuekey=critical
+inspection.condition.dropdown=flutter-valuekey=Condition
+
+inspection.status.toBeCompleted = flutter-text=To be Completed
+inspection.recommendation.field = flutter-valuekey=Recommendation
+inspection.saveAndClose.btn = flutter-text=Save & Close
+inspection.addNewItem.itemLength= flutter-valuekey=InspectionItemLength
+
+
+
+inspection.addCustomerDistributorLogo.label = flutter-text=Add custom distributor logo
+inspection.Info.label = flutter-text=Inspection Info
+inspection.previous.btn = flutter-text=Previous
+inspection.beltSpecs.label = flutter-text=Belt Specs
+inspection.items.label = flutter-text=Add Inspection Items
+inspection.signOff.label = flutter-text=Sign Off
+inspection.uploadFile.label= flutter-text=Upload File
+inspection.addNewItem.button= flutter-text=Add New Item
+inspection.toBeCompleted.button= flutter-text=To be Completed
+inspection.completed.button= flutter-text=Completed
+inspection.saveAndClose.btn=flutter-text=Save & Close
+inspection.signOff.summaryLabel=flutter-text=Summary
+
+inspection.addNewItem.header= flutter-valuekey=AddNewItemHeader
+inspection.inspectorName.field = flutter-valuekey=Inspector Name
+inspection.beltWidth.field = flutter-valuekey=Belt Width
+inspection.beltRating.field = flutter-valuekey=Belt Rating
+inspection.topCoverThickness.field = flutter-valuekey=Top Cover Thickness
+inspection.bottomCoverThickness.field = flutter-valuekey=Bottom Cover Thickness
+inspection.beltCarcass.field = flutter-valuekey=Belt Carcass
+inspection.asset.dropdown= flutter-valuekey=Asset/Component
+inspection.detail.dropdown= flutter-valuekey=Detail
+inspection.failure.dropdown= flutter-valuekey=Failure Mode
+inspection.datePicker.dropdown= flutter-valuekey=ContiplusDatePicker
+inspection.condition.dropdown= flutter-valuekey=Condition
+inspection.status.dropDown=flutter-valuekey=Status
+inspection.condition.criticalFlag= flutter-valuekey=critical
+inspection.condition.poorFlag= flutter-valuekey=poor
+inspection.condition.faultFlag= flutter-valuekey=fault
+inspection.condition.goodFlag= flutter-valuekey=good
+inspection.observation.field= flutter-valuekey=Observation
+inspection.recommendation.field= flutter-valuekey=Recommendation
+inspection.addNewItem.itemLength= flutter-valuekey=InspectionItemLength
+inspection.add.back= flutter-valuekey=AddInspectionBack
 

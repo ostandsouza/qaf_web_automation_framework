@@ -18,27 +18,28 @@ public class LoginSteps {
         loginPage.verifyTitle("Conti+");
     }
 
-    @QAFTestStep(description = "Login with {UserName} and {Password}")
-    public void loginWithAnd(String UserName, String Password) {
+    @QAFTestStep(description = "Login with {UserName} and {Password}")   
+     public void loginWithAnd(String UserName, String Password) {
         loginPage.loginToApp(UserName, Password);
         dashboardPage.handleCookiePopup();
     }
 
-    @QAFTestStep(description = "Verify Home page is displayed")
-    public void verifyHomePageIsDisplayed() {
-
-        if (loginPage.getCurrentURL().endsWith("/secure/dashboard/conveyors"))
+    @QAFTestStep(description="Verify Home page is displayed")
+    public void verifyHomePageIsDisplayed(){
+    	
+    	if (loginPage.getCurrentURL().endsWith("/secure/dashboard/conveyors"))
             Reporter.log("Home page is displayed", MessageTypes.Pass);
         else
             Reporter.log("Home page is not displayed", MessageTypes.Fail);
-        SyncUtil.waitFor(3000);
+    	SyncUtil.waitFor(3000);
     }
+
 
     @QAFTestStep(description = "Login with normal user {UserName} and {Password}")
     public void loginWith(String UserName, String Password) {
         String otp;
         String userid = loginPage.apiBase.getUserProfileAPI(UserName);
-//        if (!loginPage.apiBase.getUserAPI(userid)) {
+//        if(!loginPage.apiBase.getUserAPI(userid)) {
 //            if (!MiscUtils.isNewEmailTriggered(UserName)) {
 //                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
 //                if (loginPage.apiBase.secretVerifyAPI(UserName, otp) != 200) {
@@ -51,21 +52,17 @@ public class LoginSteps {
 //            } else {
 //                loginPage.apiBase.resendVerifyAPI(UserName);
 //                otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(UserName));
-//                System.out.println(otp + "received otp");
 //                loginPage.apiBase.secretVerifyAPI(UserName, otp);
 //            }
 //        }
         loginPage.loginToApp(UserName, Password);
         System.out.println("first login");
-//        if (loginPage.apiBase.isFirstSignIn(UserName)) {
-//            System.out.println("inside if");
+//        if(loginPage.apiBase.isFirstSignIn(UserName)) {
             loginPage.changePassword(Password, Password, Password);
-//            loginPage.loginToApp(UserName, Password);
-//        }
-        System.out.println("outside if");
-
-        dashboardPage.handleCookiePopup();
-
+//             loginPage.loginToApp(UserName, Password);
+//             }
+             System.out.println("before handlecookiepopup");
+             dashboardPage.handleCookiePopup();
+             System.out.println("after handlecookiepopup");
     }
-
 }

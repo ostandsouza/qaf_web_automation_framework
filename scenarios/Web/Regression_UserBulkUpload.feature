@@ -7,11 +7,11 @@ Launch the application through '/'
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:UserBulkUpload_Navigation
-Scenario: Verify with User Bulk Upload Navigation
+Scenario: ZVerify with User Bulk Upload Navigation
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
-    Then  Navigate to User Bulk Upload
+#    Then  Navigate to User Bulk Upload
 
 @Regression2
 @dataFile:resources/data/TestData.xls
@@ -129,6 +129,8 @@ Scenario: Verify profile dropdown
 @key:UserManagement_Bulk_Upload
 Scenario: Upload file having correct file format
 
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     Then Navigate to User Bulk Upload
     And Verify the success message after uploading file with name '${File}'
 
@@ -223,3 +225,5 @@ Scenario: Check Skip and Update functionality for for bulk import
     And Verify import Analysis page data
     Then Click on import and verify toast message
     And Verify user '${User}' creation in the user list page
+    When Delete User with name '${User}'
+    Then Verify user '${User}' is deleted

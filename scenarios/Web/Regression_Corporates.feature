@@ -281,6 +281,8 @@ Scenario: ZdVerify the image upload functionality
 @key:Company_Mandatory_Field
 Scenario: ZcVerify mandantory field
 
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     And User navigates to Add coporates page
     Then Verify '${mandatoryCount}' mandatory fields
     And Add Corporate fields '${companyName}' '${address}'
@@ -313,6 +315,8 @@ Scenario: ZaVerify Company name as blank
 @key:Usermanagement_User_Creation
 Scenario: WVerify the Territory and markets in ascending order
 
+    Given User is at Login page
+    When Login with '${UserName}' and '${Password}'
     And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
     And  Add territory as '${Region1}' '${Region2}' '${Region3}' '${Region4}' for the user
     And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
@@ -320,6 +324,9 @@ Scenario: WVerify the Territory and markets in ascending order
     And Login with normal user '${Email}' and '${UserPassword}'
     Then Verify territorys are in ascending order for '${FullName}'
     And Logout from the current user
+    When Login with '${UserName}' and '${Password}'
+    When  Delete User with name '${FullName}'
+    Then  Verify user '${FullName}' is deleted
 
 
 @Regression34 @CTCP-2852
@@ -328,8 +335,6 @@ Scenario: WVerify the Territory and markets in ascending order
 @key:Usermanagement_User_Creation
 Scenario: Verify the Territory and markets in ascending order after Edit
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
     And  Create a User with '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
     And  Add territory as '${Region}' for the user
     And  Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
@@ -337,6 +342,10 @@ Scenario: Verify the Territory and markets in ascending order after Edit
     And  Logout from the current user
     And  Login with normal user '${Email}' and '${UserPassword}'
     Then Verify territorys are in ascending order for '${FullName}'
+    And Logout from the current user
+    When Login with '${UserName}' and '${Password}'
+    When  Delete User with name '${FullName}'
+    Then  Verify user '${FullName}' is deleted
 
 @Regression35 @CTCP-1133
 @dataFile:resources/data/TestData.xls
@@ -607,8 +616,136 @@ Scenario: Subscribe multiple conveyors while click on pin location icon and veri
     And Verify the pinned subscription list '${Site2}'
     And Unsubscribe the sites '${Site1}' and '${Site2}'
 
+@CTCP-1152
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Site_Update
+Scenario: Verify result after click on 'New' link for latest Notification under Notifications list page.
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe one site '${Site1}' for the user
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Edit the subscribed sites '${Site1}' and '${ConveyorName1}'
+    And Logout from the current user
+    When Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Navigate to siteListPage and click on bellIcon
+    Then Navigate to notifications List page
+    And Verify new link is avaiable for the latest updated site/conveyor '${Site1}'
+    And Click on view icon for the new notification
+    Then Verify user can only see conveyor history of the particular subscribed conveyor '${ConveyorName1}' notification
+    And Navigate to site list screen
+    And Unsubscribe the site '${Site1}'
+
+@CTCP-1164
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Site_Update
+Scenario: Verify the functionality for Login with other user at Account level contains sam
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And subscribe the sites for the user '${Site1}' and '${Site2}'
+    And Click on Clear filter Icon
+    Then Verify the pinned subscription list '${Site1}'
+    And Verify the pinned subscription list '${Site2}'
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Search and verify the '${Site1}' is present
+    Then Verify the unPinned subscription list '${Site1}'
+    And Search and verify the '${Site2}' is present
+    And Verify the unPinned subscription list '${Site2}'
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Unsubscribe the sites '${Site1}' and '${Site2}'
+
+@CTCP-1203 @CTCP-2637 @CTCP-2643
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Site_Update
+Scenario: ZVerify the user un-read notification count over bell icon after reading all the Notifications.
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify the notification count is present in bellIcon
+    And Navigate to siteListPage and click on bellIcon
+    Then Click on Mark all as Read for notification
+    Then Verify the notification count is zero in bellIcon
 
 
+@CTCP-2639 @CTCP-2641 @CTCP-2645 @CTCP-2647
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Site_Update
+Scenario: Verify the 'Actions' button under Notifications list page.
 
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+#    And subscribe one conveyor '${ConveyorName1}' for the user
+    And subscribe one site '${Site1}' for the user
+    Then Verify the notification count in bellIcon
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And Edit Conveyor belt width value '${BeltWidth1}'
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Verify the notification count in bellIcon after subscription and verify user is getting any notification
+    Then Navigate to siteListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Verify Action button is visible under notification list page
+    And Verify action button is enabled when user has new notification
+    And Click on the action button and verify user can see Mark all as read with eye symbol
+    And Click on the action button mark all as read button
+    And Verify action button is disabled when user has no new notification
+    And Verify all notifications are moved to read status
+#    And wait for conveyors to load
+#    And Unsubscribe the site '${ConveyorName1}'
+    And Navigate to site list screen
+    And Unsubscribe the site '${Site1}'
 
+@CTCP-2649
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Site_Update
+Scenario: Click on 'Mark all as read' link at Notification popup and verify the functionality(Territory Manager).
 
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    And Verify the notification count is present in bellIcon
+    And Navigate to siteListPage and click on bellIcon
+    Then Click on Mark all as Read for notification
+    Then Verify the notification count is zero in bellIcon
+
+@CTCP-2651 @CTCP-2653
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Notification_Site_Update
+Scenario: Click on 'Mark all as Read' from Actions dropdown under Notifications list page then verify the functionality (Territory Manager).
+
+    Given User is at Login page
+    When  Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+#    And subscribe one conveyor '${ConveyorName1}' for the user
+    And subscribe one site '${Site1}' for the user
+    Then Verify the notification count in bellIcon
+    And Logout from the current user
+    And Login with '${UserName}' and '${Password}'
+    And Navigate to conveyor details screen for conveyor '${ConveyorName1}'
+    And Edit Conveyor belt width value '${BeltWidth1}'
+    And Click on home link in breadCrumb and verify it navigates to home page
+    And Logout from the current user
+    And Login with '${UserNameTerritory}' and '${PasswordTerritory}'
+    Then Verify the notification count in bellIcon after subscription and verify user is getting any notification
+    Then Navigate to siteListPage and click on bellIcon
+    And Navigate to notifications List page
+    And Verify Action button is visible under notification list page
+    And Verify action button is enabled when user has new notification
+    And Click on the action button and verify user can see Mark all as read with eye symbol
+    And Click on the action button mark all as read button
+    And Verify action button is disabled when user has no new notification
+    And Verify all notifications are moved to read status
+#    And wait for conveyors to load
+#    And Unsubscribe the site '${ConveyorName1}'
+    And Navigate to site list screen
+    And Unsubscribe the site '${Site1}'

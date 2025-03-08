@@ -1,3 +1,5 @@
+Feature: Regression Flow for Mob
+
 @Regression1 @CTCP-2267
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
@@ -72,7 +74,7 @@ Scenario:Verifying the Single and Multiple Inspection types are available while 
   And Click on Add Inspection link and verify the fields in Add New Inspection page
   And Click o Inspection info and verify single and multiple inspection types options are available
 
-@CTCP-2254
+@CTCP-2254 @CTCP-2068
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Mobile
@@ -82,7 +84,7 @@ Scenario: Login in the application
   And  Login to the application with '${UserName}' and '${Password}'
   Then Verify user present in home screen
 
-@CTCP-2255
+@CTCP-2255 @CTCP-2069
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Mobile

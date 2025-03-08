@@ -7,7 +7,7 @@ import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
 
-public class Beltformspage extends BasePage{
+public class BeltFormsPge extends BasePage{
 
 	@FindBy(locator = "xpath=//span[text()='Belt Info']")
 	public CustomElement lnkBeltinfo;

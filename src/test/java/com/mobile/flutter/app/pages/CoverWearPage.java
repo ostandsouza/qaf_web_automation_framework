@@ -246,8 +246,8 @@ public class CoverWearPage extends FlutterBasePage {
     }
 
     public boolean isCoverWearPage() {
-        Validator.assertTrue(coverWearHeader.isPresent(),"user navigated to coverWear list page","user navigated to coverWear list page");
-        return coverWearHeader.isPresent();
+        Validator.assertTrue(coverWearHeader.isVisible(),"user navigated to coverWear list page","user navigated to coverWear list page");
+        return coverWearHeader.isVisible();
     }
 
     public boolean fillCoverWearSpecs(){
@@ -362,21 +362,21 @@ public class CoverWearPage extends FlutterBasePage {
 
     public void verifySpecificationDefaultValues(String siteName,String conveyorName,String beltWidth,String beltLength)
     {
+//        siteLabel.scroll(DIRECTION.UP,3500);
         siteLabel.waitForTheElementToBeVisible(10000);
         Validator.assertTrue(siteLabel.getText().contains(siteName),"Default site name is not displayed","Default site name is displayed");
-
         conveyorLabel.waitForTheElementToBeVisible(10000);
         conveyorLabel.scrollToElement(conveyorLabel, DIRECTION.UP);
         Validator.assertTrue(conveyorLabel.getText().contains(conveyorName),"Default conveyor name is not displayed","Default conveyor name is displayed");
+        beltWidthLabel.waitForTheElementToBeVisible(10000);
+        beltWidthLabel.scrollToElement(beltWidthLabel, DIRECTION.DOWN);
 
-//        beltWidthLabel.waitForTheElementToBeVisible(10000);
-//        beltWidthLabel.scrollToElement(beltWidthLabel, DIRECTION.DOWN);
+        System.out.println(beltWidthLabel.getText()+"beltWidthLabel");
+        Validator.assertTrue(beltWidthLabel.getText().contains(beltWidth),"Default beltWidth is not displayed","Default beltWidth is displayed");
+//        beltLengthLabel.waitForTheElementToBeVisible(10000);
 //        System.out.println(beltWidthLabel.getText()+"beltWidthLabel");
-//        Validator.assertTrue(beltWidthLabel.getText().contains(beltWidth),"Default beltWidth is not displayed","Default beltWidth is displayed");
 
-//      beltLengthLabel.waitForTheElementToBeVisible(10000);
-//      System.out.println(beltWidthLabel.getText()+"beltWidthLabel");
-//      Validator.assertTrue(beltLengthLabel.getText().contains(siteName),"Default beltLength is not displayed","Default beltLength is displayed");
+//        Validator.assertTrue(beltLengthLabel.getText().contains(siteName),"Default beltLength is not displayed","Default beltLength is displayed");
     }
     public void positionClick()
     {
@@ -399,6 +399,9 @@ public class CoverWearPage extends FlutterBasePage {
         Validator.assertTrue(defaultInstallation.isVisible(),"Default Installation is not visible","Default Installation header is  visible");
         Validator.assertTrue(CoverWearNativePage.getInstance().verifyEditButtonIsVisible(),"Edit button for installation is visible","Edit button for installation is visible");
     }
+
+
+
 
     public void verifyNoOfDataPointsDdl()
     {
@@ -501,5 +504,26 @@ public class CoverWearPage extends FlutterBasePage {
         Validator.assertTrue(addMeasurementHeader.isDisplayed(),"User is not in add new position page","User is in add new position page");
 
     }
+
+    public void editDefaultValuesOfTopBottomThickness()
+    {
+        topCoverThicknessLabel.clear();
+        topCoverThicknessLabel.sendKeys("8","topCoverThicknessNominal");
+        DashboardNativePage.getInstance().selectFirstSearch();
+
+        bottomCoverThicknessLabel.clear();
+        bottomCoverThicknessLabel.sendKeys("7","bottomCoverThicknessNominal");
+        DashboardNativePage.getInstance().selectFirstSearch();
+
+    }
+    public void verifyDefaultValuesOfTopBottomThickness(String topCoverThicknessNominal,String bottomCoverThicknessNominal)
+    {
+        topCoverThicknessLabel.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(topCoverThicknessLabel.getText().contains(topCoverThicknessNominal),"Top Cover Thickness Nominal is not displayed","Top Cover Thickness Nominal name is displayed");
+        bottomCoverThicknessLabel.waitForTheElementToBeVisible(10000);
+        Validator.assertTrue(bottomCoverThicknessLabel.getText().contains(bottomCoverThicknessNominal),"Bottom Cover Thickness Nominal is not displayed","Bottom Cover Thickness Nominal name is displayed");
+
+    }
+
 
 }

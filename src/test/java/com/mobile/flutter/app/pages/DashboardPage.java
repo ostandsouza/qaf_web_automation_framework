@@ -59,12 +59,13 @@ public class DashboardPage extends FlutterBasePage {
 
 
     public boolean isHomePage() {
-        Validator.assertTrue(homeTitle.isPresent(),"User is not navigated Home Page","User is navigated Home Page");
-        return homeTitle.isPresent();
+        homeTitle.waitForTheElementToBeVisible(70);
+        Validator.assertTrue(homeTitle.isVisible(),"User is not navigated Home Page","User is navigated Home Page");
+        return homeTitle.isVisible();
     }
 
     public boolean goToProfilePage() {
-        SyncUtil.waitFor(000);
+        SyncUtil.waitFor(3000);
         profileIcon.click();
         return ProfilePage.getInstance().isMyProfile();
     }
@@ -87,19 +88,19 @@ public class DashboardPage extends FlutterBasePage {
 
 
     public boolean goToSiteShop() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addSiteShop.click();
         return CorporatePage.getInstance().isCompanyPage();
     }
 
     public boolean goToConveyor() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addConveyor.click();
         return ConveyorPage.getInstance().isConveyorPage();
     }
 
     public boolean goToInspection() {
-        addIconClick();
+        Validator.assertTrue(verifyHomePageAddIcon(),"Home Page Navigation is not valid","Home Page Navigation is valid");
         addInspection.click();
         return InspectionPage.getInstance().isInspectionPage();
     }
@@ -174,6 +175,12 @@ public class DashboardPage extends FlutterBasePage {
         Validator.assertTrue(filterHeader.isVisible(),"The Filter header is not visible","The Filter header is visible");
     }
 
+    public void fileManagerTileClick()
+    {
+        ConveyorPage.getInstance().fileManagerCardClick();
+        Validator.assertTrue(FileManagerPage.getInstance().isFileManagerPage(),"File Manager Page is not present","File Manager Page is present");
+
+    }
 
 
 
