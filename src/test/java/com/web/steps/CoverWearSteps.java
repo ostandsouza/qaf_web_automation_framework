@@ -226,42 +226,41 @@ public class CoverWearSteps {
 
     @QAFTestStep(description="Verify durometer shoreA score for {ConveyorName} in specification screen")
     public void verifyShoreAScoreSpecs(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId= coverWearPage.apiBase.getConveyorID(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         long shoreA =coverWearPage.apiBase.getMinCalculatedDurometer(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
         coverWearPage.verifyShoreASpecs(shoreA);
     }
 
     @QAFTestStep(description="Verify remaining life by time for {ConveyorName} in specification screen")
     public void verifyRemainingLifeSpecs(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId= coverWearPage.apiBase.getConveyorID(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         double val =coverWearPage.apiBase.getMinEstimatedTime(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
         coverWearPage.verifyRemainingLifeSpecs(val);
     }
 
     @QAFTestStep(description="Verify remaining cover percentage for {ConveyorName} in specification screen")
     public void verifyCoverPercentageSpecs(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId= coverWearPage.apiBase.getConveyorID(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         double val =coverWearPage.apiBase.getMinPercentage(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
         coverWearPage.verifyRemainingCoverSpecs(val);
     }
 
     @QAFTestStep(description="Verify durometer shoreA score for {ConveyorName}")
     public void verifyShoreAScore(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
-        long shoreA =coverWearPage.apiBase.getMinCalculatedDurometer(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
+        long shoreA =coverWearPage.apiBase.getMinCalculatedDurometer(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         coverWearPage.verifyShoreA(shoreA);
     }
 
     @QAFTestStep(description="Verify remaining life by time for {ConveyorName}")
     public void verifyRemainingLife(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId= coverWearPage.apiBase.getConveyorID(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         double val =coverWearPage.apiBase.getMinEstimatedTime(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
         coverWearPage.verifyRemainingLife(val);
     }
 
     @QAFTestStep(description="Verify remaining cover percentage for {ConveyorName}")
     public void verifyCoverPercentage(String conveyorName) throws ParseException {
-        String conveyorId= coverWearPage.apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId= coverWearPage.apiBase.getConveyorID(coverWearPage.apiBase.getConveyorsAPI(conveyorName));
         double val =coverWearPage.apiBase.getMinPercentage(coverWearPage.apiBase.getUltrasonicAPI(conveyorId));
         coverWearPage.verifyRemainingCover(val);
     }

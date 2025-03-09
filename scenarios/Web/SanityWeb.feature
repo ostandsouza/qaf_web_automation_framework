@@ -122,14 +122,14 @@ Scenario: Verify the conveyor Edit
 @key:Inspection_Management
 Scenario: Verify Inspection management
 
-    When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
-    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-    And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
-    Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
-    When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
-    And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}'
-    And   Delete inspection Item for '${ConveyorName1}'
-    Then  Verify And validate the changes for '${EditInspectionName}' with '${ActionItemCount}'
+     When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+     And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}' and save
+     Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
+     When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
+     And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}'
+     And   Delete inspection Item for '${ConveyorName1}'
+     Then  Verify And validate the changes for '${EditInspectionName}' with '${ActionItemCount}'
 
 @Sanity11
 @dataFile:resources/data/TestData.xls

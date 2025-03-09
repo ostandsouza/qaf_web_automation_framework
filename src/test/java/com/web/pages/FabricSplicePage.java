@@ -160,6 +160,9 @@ public class FabricSplicePage extends BasePage {
     public CustomElement crCheckbox;
     @FindBy(locator = "xpath=//td//p-tag//span[text()=\" In Review\"]")
     public CustomElement statusInReview;
+
+    @FindBy(locator = "xpath=//td//p-tag//span[text()=\" To Review\"]")
+    public CustomElement statusToReview;
     @FindBy(locator = "xpath=//td//p-tag//span[text()=\" Approved\"]")
     public CustomElement statusApproved;
 
@@ -172,6 +175,8 @@ public class FabricSplicePage extends BasePage {
 
     @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
     public CustomElement btActions;
+    @FindBy(locator = "xpath=//button[@disabled]/chevrondownicon")
+    public CustomElement btActionsDisabled;
 
     @FindBy(locator = "xpath=//li//span[text()='Edit']")
     public CustomElement btEdit;
@@ -223,7 +228,7 @@ public class FabricSplicePage extends BasePage {
                 break;
             }
             val = pagination.getText();
-            SyncUtil.waitFor(30000);
+            SyncUtil.waitFor(15000);
         }
     }
 
@@ -354,7 +359,7 @@ public class FabricSplicePage extends BasePage {
     public void saveDraftBtnClick() {
         btnSaveDraftButton.isVisible(10000, "save as draft");
         btnSaveDraftButton.click("Save As Draft");
-        SyncUtil.waitFor(2000);
+        SyncUtil.waitFor(12000);
 //        waitForElementInvisible(btnLoader,15000,500);
     }
 
@@ -389,6 +394,8 @@ public class FabricSplicePage extends BasePage {
             Validator.assertTrue(statusApproved.isVisible(10000, "Approved"), "The design is not approved status", "The design is in approved status");
         else if (status.equalsIgnoreCase("Draft"))
             Validator.assertTrue(statusDraft.isVisible(10000, "Draft"), "The design is not in Draft status", "The design is in Draft status");
+        else if(status.equalsIgnoreCase("To Review"))
+            Validator.assertTrue(statusToReview.isVisible(10000,"To Review"),"The design is not in 'To Review' status","The design is  in 'To Review' status");
 
     }
 
@@ -404,6 +411,14 @@ public class FabricSplicePage extends BasePage {
         waitForElementToBeClickable(btEdit);
         SyncUtil.waitFor(3000);
         btEdit.click("Edit");
+    }
+    public boolean verifyActionBtnPermissions()
+    {
+        SyncUtil.waitFor(10000);
+        crCheckbox.isVisible(10000, "record");
+        crCheckbox.check("Select Corporate");
+        waitForElementVisible(btActions,10000,500);
+        return btActionsDisabled.isVisible(10000,"Action button disabled");
     }
 
     public void verifyEditPageNavigation() {

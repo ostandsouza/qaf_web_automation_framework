@@ -1,0 +1,67 @@
+[
+  {
+    "UserNameMaster": "contiplus_admin@maildrop.cc",
+    "Password": "Abc@123456",
+    "UserNameCustomer": "customerhp2025@yopmail.com",
+    "UserNameDistributor": "distributorhp2025@yopmail.com",
+    "UserNameMarket": "markethp2025@yopmail.com",
+    "CustCorp": "Cust Automation Common Corp",
+    "DistCorp": "Dist Automation Common Corp",
+    "DistShop": "Dist Automation Common India",
+
+
+    "FolderName": "A2-Drive",
+    "pdfFile": "conveyors.pdf",
+    "videoFile": "sample.mp4",
+    "csvFile": "conti-csv.csv",
+    "excelFile": "conti-excel.xlsx",
+    "wordFile": "conti-word.docx",
+    "ImgName": "corp.jpeg",
+    "FolderName1": "HP-Drive-009",
+    "FolderNameNested": "HP-Drive-009-Nested",
+    "FolderName2": "HP2-Drive-0019",
+    "pdfFileNew": "conveyors-edit.pdf",
+    "FolderNameNestedNew": "HP-Drive-008-Nested-Edit",
+    "Deletion": "delete",
+    "multipleValue": "2",
+    "defaultFolder": "Videos",
+
+
+
+
+    "Master_FM_SiteName": "Master_HP_FM Regression Automation",
+    "Master_FM_ConveyorName": "Master_HP_FM1 Automation Conveyor",
+    "Master_FM_ConveyorName1": "",
+    "Master_FM_ConveyorName2": "Master_HP_FM2 Automation Conveyor",
+    "Master_FMD_Site": "Master_HP_FMD Regression Automation",
+    "Master_FMD_ConveyorName": "Master_HP_FMD Regression Conveyor",
+
+    "Distributor_FM_SiteName": "AB1 Automation Site",
+    "Distributor_FM_ConveyorName": "Distributor_HP_FM1 Automation Conveyor",
+    "Distributor_FM_ConveyorName1": "",
+    "Distributor_FM_ConveyorName2": "Distributor_HP_FM2 Automation Conveyor",
+    "Distributor_FMD_Site": "Distributor_HP_FMD Regression Automation",
+    "Distributor_FMD_ConveyorName": "Distributor_HP_FMD Regression Conveyor",
+
+    "Customer_FM_SiteName": "AB1 Automation Site",
+    "Customer_FM_ConveyorName": "Customer_HP_FM1 Automation Conveyor",
+    "Customer_FM_ConveyorName1": "",
+    "Customer_FM_ConveyorName2": "Customer_HP_FM2 Automation Conveyor",
+    "Customer_FMD_Site": "Customer_HP_FMD Regression Automation",
+    "Customer_FMD_ConveyorName": "Customer_HP_FMD Regression Conveyor",
+
+    "Market_FM_SiteName": "Market_HP_FM Regression Automation",
+    "Market_FM_ConveyorName": "Market_HP_FM1 Automation Conveyor",
+    "Market_FM_ConveyorName1": "",
+    "Market_FM_ConveyorName2": "Market_HP_FM2 Automation Conveyor",
+    "Market_FMD_Site": "Market_HP_FMD Regression Automation",
+    "Market_FMD_ConveyorName": "Market_HP_FMD Regression Conveyor",
+
+    "ConveyorLevel": "conveyor",
+    "FileManager":"File Manager",
+    "Edit": "edit",
+    "ConveyorCount": "6",
+    "SiteCount": "12"
+
+  }
+]

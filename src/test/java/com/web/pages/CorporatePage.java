@@ -78,11 +78,16 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=(//div[@role='button'])[1]")
     public CustomElement drTypeofcompany;
 
+    @FindBy(locator = "xpath=//app-master-data-picker[@formcontrolname=\"inspectionTemplate\"]//div[@role='button']")
+    public CustomElement drTypeOfTemplate;
+
     @FindBy(locator = "xpath=//div[text()=' Distributor Shop ']")
     public CustomElement radioDistribtorshop;
 
     @FindBy(locator = "xpath=//div[text()=' Customer Corporate ']")
     public CustomElement radioCustomerCorportae;
+    @FindBy(locator = "xpath=//span[text()='Default']")
+    public CustomElement defaultTemplate;
 
     @FindBy(locator = "xpath=//div[text()=' Customer Site ']")
     public CustomElement radioCustomeSite;
@@ -242,7 +247,6 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator = "xpath=//label[text()='Type of Company']/../div/div/input")
     public CustomElement typeOfCompanyLoader;
-
     @FindBy(locator = "xpath=(//div[contains(@id,'titlebar')]/span)[1]")
     public CustomElement siteNameLoader;
 
@@ -403,7 +407,7 @@ public class CorporatePage extends BasePage{
         selectDistributorShop();
         dropdownSelectSearch(drDistributorcorporate, tbSitedropdown,distCorp);
         dropdownSelectSearch(drTerritorybutton, tbSitedropdown, territory);
-        drTerritoryManagerbutton.type(manager, "Territory");
+//        drTerritoryManagerbutton.type(manager, "Territory");
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(btSiteShopCardNo);
@@ -414,6 +418,7 @@ public class CorporatePage extends BasePage{
     public void createCustomerCorporate(String companyName, String address) {
         scrollPageup();
         selectCustomerCorp();
+        selectInspectionDefaultTemplate();
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(corporateHeader);
@@ -426,9 +431,10 @@ public class CorporatePage extends BasePage{
         scrollPageup();
         selectCustomerSite();
         dropdownSelectSearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
-        dropdownSelectSearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopIndName);
+        if(!DistShopIndName.isEmpty())
+            dropdownSelectSearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopIndName);
         dropdownSelectSearch(drTerritorybutton, tbSitedropdown, DistCorpIndTerritory);
-        drTerritoryManagerbutton.type(manager);
+//        drTerritoryManagerbutton.type(manager);
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(btSiteShopCardNo);
@@ -505,6 +511,12 @@ public class CorporatePage extends BasePage{
         radioCustomerCorportae.click("Customer Corp");
     }
 
+    public void selectInspectionDefaultTemplate() {
+        drTypeOfTemplate.click("Template Type");
+        waitForElementToDisplay(defaultTemplate);
+        defaultTemplate.click("Customer Corp");
+    }
+
     public void selectCustomerSite() {
         drTypeofcompany.click("Corporate Type");
         waitForElementToDisplay(radioCustomeSite);
@@ -564,9 +576,7 @@ public class CorporatePage extends BasePage{
         }
     }
 
-
     public void editCustomerSite(String siteName, String editSiteName, String corp) {
-        SyncUtil.waitFor(6000);
         goToCorporateDetails(corp);
         SyncUtil.waitFor(6000);
         btSearchinput.type(siteName, "Site name");
@@ -586,6 +596,16 @@ public class CorporatePage extends BasePage{
         drTerritoryManagerbutton.type("Territory India Automation", "Territory");
         scrollPageDown();
     }
+    public void editSiteName(String editSiteName)
+    {
+        tbCompanyName.type(editSiteName);
+        SyncUtil.waitFor(4000);
+        scrollPageDown();
+        SyncUtil.waitFor(8000);
+        btnSaveClick();
+
+    }
+
 
     public void deleteSiteOrShop(String custCorp, String custSite) {
         goToDistCorporateDetails(custCorp);
@@ -638,11 +658,23 @@ public class CorporatePage extends BasePage{
     public void verifySiteOrShopEdit(String corpName, String siteName) {
         goToCorporateDetails(corpName);
         btSearchinput.type(siteName, "Site/Shop name");
+        SyncUtil.waitFor(3000);
+        waitForElementVisible(detailsImg,10000,500);
         Validator.assertFalse(detailsImg.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
         detailsName.verifyTextIgnoringNewLineChar(siteName, "Site name");
         detailsMoreButton.click("Corp Details");
         siteNameLoader.waitForPartialText(siteName, 15000);
+        imageAvatar.isVisible(10000,"Image Avatar");
         Validator.assertFalse(imageAvatar.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
+    }
+    public void verifySiteOrShopEditNameDetails(String corpName,String siteName)
+    {
+        goToCorporateDetails(corpName);
+        btSearchinput.type(siteName, "Site/Shop name");
+        SyncUtil.waitFor(3000);
+//        waitForElementVisible(detailsImg,10000,500);
+//        Validator.assertFalse(detailsImg.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
+        detailsName.verifyTextIgnoringNewLineChar(siteName, "Site name");
     }
 
     public void verifySiteOrShopDelete(String corpName, String siteName) {
@@ -861,10 +893,9 @@ public class CorporatePage extends BasePage{
         btAdd.click();
     }
 
-    public void homeLinkClick()
-    {
-        waitForElementVisible(bcHomeLink,10000,500);
-        bcHomeLink.click();
+    public void homeLinkClick() {
+        waitForElementVisible(bcHomeLink, 10000, 500);
+        bcHomeLink.jsClick();
         waitForPageLoad(20000);
         waitForElementVisible(bcAddCompanyLink,10000,500);
         Assert.assertTrue(bcAddCompanyLink.isDisplayed(), "Breadcrumb element is not displayed");
@@ -872,9 +903,10 @@ public class CorporatePage extends BasePage{
         Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"URL missMatch","URL validation passed");
 
     }
-    public void homePageVerify()
-    {
-        waitForElementVisible(bcAddCompanyLink,10000,500);
+
+    public void homePageVerify() {
+        waitForPageLoad(20000);
+        waitForElementVisible(bcAddCompanyLink, 10000, 500);
         Assert.assertTrue(bcAddCompanyLink.isDisplayed(), "Breadcrumb element is not displayed");
         assertEquals(bcAddCompanyLink.getText(), "Home\nSites", "Breadcrumb text does not match expected");
         Validator.assertTrue(driver.getCurrentUrl().contains("secure/dashboard/sites"),"URL missMatch","URL validation passed");

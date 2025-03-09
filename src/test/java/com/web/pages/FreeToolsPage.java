@@ -3,6 +3,7 @@ package com.web.pages;
 import com.common.component.CustomElement;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
+import com.qmetry.qaf.automation.util.Validator;
 
 public class FreeToolsPage extends BasePage{
 
@@ -18,6 +19,10 @@ public class FreeToolsPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Troughability']")
     public CustomElement troughability;
 
+    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Capacity']")
+    public CustomElement capacityTab;
+    @FindBy(locator = "//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
+    public CustomElement bcAddUserLink;
     @FindBy(locator = "xpath=//span[text()='Roll Length']")
     public CustomElement rollLength;
 
@@ -32,9 +37,6 @@ public class FreeToolsPage extends BasePage{
 
     @FindBy(locator = "xpath=//span[text()='Wrap Angle']")
     public CustomElement wrapAngle;
-
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Capacity']")
-    public CustomElement capacityTab;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Belt Width')]/..//input")
     public CustomElement beltWidthCapacity;
@@ -66,6 +68,23 @@ public class FreeToolsPage extends BasePage{
     @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Troughability']")
     public CustomElement troughabilityTab;
 
+    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Safety Factor Calculator']")
+    public CustomElement safetyFactorTab;
+    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Belt Reel Dimensions']")
+    public CustomElement rollLengthTab;
+
+    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='PIW PN ST Conversion']")
+    public CustomElement PIWConverterTab;
+    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Unit Converter']")
+    public CustomElement unitConverterTab;
+    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Belt Revolution']")
+    public CustomElement beltRevolutionTab;
+    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Wrap Angle']")
+    public CustomElement wrapAngleTab;
+
+    @FindBy(locator = "xpath=//p-skeleton//div[@data-pc-name=\"skeleton\"]")
+    public CustomElement loaderSkeleton;
+
     @FindBy(locator = "xpath=//label[text()='Inclination of side idler rollers ']/parent::div//div[@role='button']")
     public CustomElement sideRollersTroughability;
 
@@ -73,9 +92,6 @@ public class FreeToolsPage extends BasePage{
 
     @FindBy(locator = "xpath=//label[contains(text(),'Min. value of ratio Deflection/Width')]/..//input")
     public CustomElement ratioTroughability;
-
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Belt Reel Dimensions']")
-    public CustomElement rollLengthTab;
 
     @FindBy(locator = "xpath=//label[text()='Reel Shape ']/parent::div//div[@role='button']")
     public CustomElement reelShapeRollLength;
@@ -110,9 +126,6 @@ public class FreeToolsPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Total Reel Weight ']/..//input")
     public CustomElement totalReelWeightRollLength;
 
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Safety Factor Calculator']")
-    public CustomElement safetyFactorTab;
-
     @FindBy(locator = "xpath=//label[text()='Belt Type ']/parent::div//div[@role='button']")
     public CustomElement beltTypeSafetyFactor;
 
@@ -136,12 +149,6 @@ public class FreeToolsPage extends BasePage{
 
     @FindBy(locator = "xpath=//label[contains(text(),'Safety Factor Start-Up Minimum')]/..//input")
     public CustomElement startUpSafetyFactor;
-
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='PIW PN ST Conversion']")
-    public CustomElement PIWConverterTab;
-
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Unit Converter']")
-    public CustomElement unitConverterTab;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Safety Factor')]/..//input")
     public CustomElement safetyFactorConverter;
@@ -173,8 +180,6 @@ public class FreeToolsPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Imperial Unit ']/parent::div//div[@role='button']")
     public CustomElement imperialUnitConverter;
 
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Belt Revolution']")
-    public CustomElement beltRevolutionTab;
 
     @FindBy(locator = "xpath=//label[contains(text(),'Taped Length')]/..//input")
     public CustomElement tapedLengthBeltRevolution;
@@ -184,9 +189,6 @@ public class FreeToolsPage extends BasePage{
 
     @FindBy(locator = "xpath=//label[contains(text(),'Time for 1 revolution')]/..//input")
     public CustomElement timeRevolution;
-
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Wrap Angle']")
-    public CustomElement wrapAngleTab;
 
     @FindBy(locator = "xpath=//label[text()='Direction of belt travel ']/parent::div//div[@role='button']")
     public CustomElement beltTravelDirectionWrapAngle;
@@ -217,8 +219,8 @@ public class FreeToolsPage extends BasePage{
     public void goToRollLength() {
         if(!rollLength.isVisible())
             freeTools.click("free tools");
-        rollLength.jsClick("Troughability");
-        rollLengthTab.isVisible("Troughability Tab");
+        rollLength.jsClick("Roll length");
+        rollLengthTab.isVisible("Roll length");
     }
 
     public void goToSafetyFactor() {
@@ -307,6 +309,17 @@ public class FreeToolsPage extends BasePage{
         calculate.click();
         SyncUtil.waitFor(5000);
         return ratioTroughability.getAttribute("value").equalsIgnoreCase(ratio);
+    }
+
+    public void verifyBreadCrumb(String moduleName)
+    {
+        bcAddUserLink.isVisible(10000,"breadcrumb");
+        loaderSkeleton.isNotVisible(10000);
+        System.out.println(bcAddUserLink.getText()+"breadcrumb value is");
+        System.out.println("Home\n"+moduleName+"breadcrumb retieved is");
+
+        Validator.assertTrue(bcAddUserLink.getText().contains("Home\n"+moduleName), "User is not navigated to '"+moduleName+"' page","User is  navigated to '"+moduleName+"' page");
+
     }
 
     public boolean verifyRollLengthCalculations(String reelShape, String innerDiameter, String racetrack, String reelWeight, String beltThickness, String beltLength, String beltWeight,  String reelDiameter, String reelLength, String revolutions, String totalWeight){

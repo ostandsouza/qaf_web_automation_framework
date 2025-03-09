@@ -560,7 +560,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator = "xpath=(//p-paginator//span)[1]")
     public CustomElement coverWearPaginationEntry;
 
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Clear-Filters'])[2]")
+    @FindBy(locator = "xpath=//span//button[@icon='ctp-icon-Clear-Filters']")
     public CustomElement clearFilterBtn;
 
     @FindBy(locator = "//button[contains(@class, \"p-column-filter-menu-button-active\")]")
@@ -1085,7 +1085,7 @@ public class CoverWearPage extends BasePage{
         else cwPositionBottomRadio.check("Bottom Radio");
         cwInstalledDate.click("Date Picker");
         cwTodayDate.click("Current Date");
-        cwPositionSave.click("Save Position");
+        cwPositionSave.jsClick("Save Position");
         cwPositionSave.waitForNotVisible(7000);
         SyncUtil.waitFor(3000);
     }
@@ -1148,6 +1148,7 @@ public class CoverWearPage extends BasePage{
     public boolean searchCoverWear(String conveyorName){
         goToCoverWearScreenAndWait();
         cwSearchInput.type(conveyorName, "Cover Wear Search");
+        SyncUtil.waitFor(8000);
         waitForElementToDisplay(cwCheckbox);
         return cwCheckbox.isVisible("Cover Wear Found");
     }
@@ -1165,9 +1166,10 @@ public class CoverWearPage extends BasePage{
     public void goToCoverWearDetailScreen(String conveyorName) {
         searchCoverWear(conveyorName);
         waitForElementToDisplay(cwViewIcon);
-        cwViewIcon.click("Cover Wear Detail");
+        cwViewIcon.jsClick("Cover Wear Detail");
         coverWearTitle.isEnable("Cover Wear Data");
         waitForPageLoad(5000);
+        SyncUtil.waitFor(10000);
     }
 
     public void verifyCoverWearDelete(String conveyorName) {
@@ -1419,6 +1421,7 @@ public class CoverWearPage extends BasePage{
         }
 
     }
+
     public static String dateFormatter(Date date) {
         // Define the date format
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
@@ -1641,8 +1644,10 @@ public class CoverWearPage extends BasePage{
             }
         }
         SyncUtil.waitFor(500);
-        waitForElementToBeClickable(By.xpath("//span[contains(text(),'" + year + "')]"));
-        driver.findElement(By.xpath("//span[contains(text(),'" + year + "')]")).click();
+        waitForElementVisible(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")),10000,500);
+        waitForElementToBeClickable(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")));
+        System.out.println(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")).getText()+"year selected");
+        driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")).click();
     }
 
 
@@ -1904,6 +1909,7 @@ public class CoverWearPage extends BasePage{
         cwActions.click("Actions");
         return cwAddNew.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwDelete.isNotVisible(1000);
     }
+
     public boolean verifyViewAndAddRights(String ConveyorName) {
         searchCoverWear(ConveyorName);
         waitForElementToDisplay(cwCheckbox);
@@ -1928,6 +1934,7 @@ public class CoverWearPage extends BasePage{
         return cwAddNew.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwDelete.isVisible(1000);
 
     }
+
     public boolean verifyViewAndDownloadRights(String ConveyorName) {
         searchCoverWear(ConveyorName);
         waitForElementToDisplay(cwCheckbox);
@@ -1986,6 +1993,7 @@ public class CoverWearPage extends BasePage{
         cwActions.click("Actions");
         return cwDelete.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwExport.isVisible(1000);
     }
+
     public boolean verifyViewDownloadRightsForSpecification(String ConveyorName) {
         cwViewIcon.click("CoverWear");
         SyncUtil.waitFor(10000);
@@ -1997,12 +2005,14 @@ public class CoverWearPage extends BasePage{
         cwActions.click("Actions");
         return cwDelete.isNotVisible(1000) && cwEdit.isNotVisible(1000) && cwExport.isVisible(1000);
     }
+
     public boolean verifyViewRightsForMeasurement(String ConveyorName) {
         cwViewIcon.click("CoverWear");
         waitForElementToDisplay(wearTrendHeading);
         return cwAddNewMeasurement.isNotVisible(1000) && editMeasurement.isNotVisible(1000) && measurementDownload.isNotVisible(1000) && measurementDelete.isNotVisible(1000);
 
     }
+
     public boolean verifyViewAddRightsForMeasurement(String ConveyorName) {
         cwViewIcon.click("CoverWear");
         waitForElementToDisplay(wearTrendHeading);
@@ -2233,23 +2243,21 @@ public class CoverWearPage extends BasePage{
         }
     }
 
-    public void clearFilterClick()
-    {
-        waitForElementVisible(clearFilterBtn,10000,500);
-        clearFilterBtn.click();
+    public void clearFilterClick() {
+        waitForElementVisible(clearFilterBtn, 10000, 500);
+        clearFilterBtn.click("clear filter button");
+        Reporter.log("filter is removed");
     }
 
-    public void verifyFilterIsRemoved()
-    {
-        waitForElementVisible(siteColumn,5000,500);
+    public void verifyFilterIsRemoved() {
+        waitForElementVisible(siteColumn, 5000, 500);
         hoverOverElement(siteColumn);
         Validator.assertTrue(appliedFilter.isNotVisible(10000),"filter is not removed","filter is removed");
     }
 
-    public void columNamesClick()
-    {
+    public void columNamesClick() {
         waitForPageLoad(10000);
-        waitForElementVisible(columnNameBtn,10000,500);
+        waitForElementVisible(columnNameBtn, 10000, 500);
         columnNameBtn.jsClick();
     }
 
@@ -2294,6 +2302,7 @@ public class CoverWearPage extends BasePage{
     }
 
     private List<String> getColumnData(int columnNumber) {
+        SyncUtil.waitFor(5000);
         List<WebElement> rows = driver.findElements(By.xpath("//tbody/tr"));
         System.out.println(rows + " rows");
         List<String> columnData = new ArrayList<>();
@@ -2301,25 +2310,21 @@ public class CoverWearPage extends BasePage{
             WebElement cell = row.findElement(By.xpath("./td[" + columnNumber + "]"));
             columnData.add(cell.getText().trim());
         }
-        System.out.println(columnData + " columnData");
+        System.out.println(columnData + " columnData for first iteration");
         return columnData;
     }
 
     public boolean verifyIncreasingOrderSorting(int columnNumber) {
         List<String> columnDataAfterSortingIncreasing = getColumnData(columnNumber);
-        List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
-        boolean val = false;
 
-        // Normalize data: Trim, convert to lowercase, and remove hidden characters
+        // Filter out empty or special character-only values
         columnDataAfterSortingIncreasing = columnDataAfterSortingIncreasing.stream()
                 .map(String::trim)
+                .filter(data -> !data.isEmpty() && data.matches(".*\\w.*")) // Exclude empty and special character-only values
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());
 
-        expectedSortedDataIncreasing = expectedSortedDataIncreasing.stream()
-                .map(String::trim)
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
+        List<String> expectedSortedDataIncreasing = new ArrayList<>(columnDataAfterSortingIncreasing);
 
         // Sort the expected data in increasing order
         expectedSortedDataIncreasing.sort(null);
@@ -2329,28 +2334,23 @@ public class CoverWearPage extends BasePage{
             System.out.println("Index " + i + ": Actual [" + columnDataAfterSortingIncreasing.get(i)
                     + "] Expected [" + expectedSortedDataIncreasing.get(i) + "]");
         }
-        if ((columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing)))
-            val = true;
-        return val;
 
+        // Check if the data matches the expected sorted order
+        return columnDataAfterSortingIncreasing.equals(expectedSortedDataIncreasing);
     }
 
 
     public boolean verifyDecreasingOrderSorting(int columnNumber) {
         List<String> columnDataAfterSortingDecreasing = getColumnData(columnNumber);
-        List<String> expectedSortedDataDecreasing = new ArrayList<>(columnDataAfterSortingDecreasing);
-        boolean val = false;
 
-        // Normalize data: Trim, convert to lowercase, and remove hidden characters
+        // Filter out empty or special character-only values
         columnDataAfterSortingDecreasing = columnDataAfterSortingDecreasing.stream()
                 .map(String::trim)
+                .filter(data -> !data.isEmpty() && data.matches(".*\\w.*")) // Exclude empty and special character-only values
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());
 
-        expectedSortedDataDecreasing = expectedSortedDataDecreasing.stream()
-                .map(String::trim)
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
+        List<String> expectedSortedDataDecreasing = new ArrayList<>(columnDataAfterSortingDecreasing);
 
         // Sort the expected data in reverse order
         expectedSortedDataDecreasing.sort(Collections.reverseOrder());
@@ -2362,29 +2362,26 @@ public class CoverWearPage extends BasePage{
             System.out.println("Index " + i + ": Actual [" + columnDataAfterSortingDecreasing.get(i)
                     + "] Expected [" + expectedSortedDataDecreasing.get(i) + "]");
         }
-        if ((columnDataAfterSortingDecreasing.equals(expectedSortedDataDecreasing)))
-            val = true;
-        return val;
 
-
+        // Check if the data matches the expected reverse sorted order
+        return columnDataAfterSortingDecreasing.equals(expectedSortedDataDecreasing);
     }
+
 
 
     int redCount = 0;
     int yellowCount = 0;
     int greenCount = 0;
-    public void getCountFromDurometer()
-    {
-
+    public void getCountFromDurometer() {
 
         for(int i=1;i<=8;i++)
         {
             SyncUtil.waitFor(10000);
 //            waitForPageLoad(10000);
-            String durometerXpath = "//table//tr[" + i + "]/td[6]//span"; // Replace this with the actual XPath for durometer value
-            String lifecycleXpath = "//table//tr[" + i + "]/td[8]//span"; // Replace this with the actual XPath for lifecycle value
-            waitForElementVisible(driver.findElement(By.xpath(durometerXpath)),5000,500);
-            waitForElementVisible(driver.findElement(By.xpath(lifecycleXpath)),5000,500);
+            String durometerXpath = "//table//tr[" + i + "]/td[6]//span";
+            String lifecycleXpath = "//table//tr[" + i + "]/td[8]//span";
+            waitForElementVisible(driver.findElement(By.xpath(durometerXpath)), 5000, 500);
+            waitForElementVisible(driver.findElement(By.xpath(lifecycleXpath)), 5000, 500);
 
 
             WebElement durometerElement = driver.findElement(By.xpath(durometerXpath));
@@ -2573,24 +2570,25 @@ public class CoverWearPage extends BasePage{
         waitForElementVisible(btAddMeasurement, 10000, 500);
         waitForElementToBeClickable(btAddMeasurement);
         btAddMeasurement.jsClick();
+//        btAddMeasurement.click("add button");
+
+        SyncUtil.waitFor(2000);
 
     }
 
-    public void verifyAddMeasurementPopupVisible()
-    {
-        waitForElementVisible(measurementPopup,10000,500);
-        Validator.assertTrue(measurementPopup.isVisible(),"the add measurement popup is not visible","the add measurement popup is visible");
+    public void verifyAddMeasurementPopupVisible() {
+        waitForElementVisible(measurementPopup, 10000, 500);
+        Validator.assertTrue(measurementPopup.isVisible(), "the add measurement popup is not visible", "the add measurement popup is visible");
 
     }
 
-    public void verifyAddDetailsFields()
-    {
-        waitForElementVisible(tbDeviceType,10000,500);
-        Validator.assertTrue(tbDeviceType.isVisible(),"The deviceType field is not visible","The deviceType field is  visible");
-        Validator.assertTrue(tbVelocity.isVisible(),"The velocity field is not visible","The velocity field is  visible");
-        Validator.assertTrue(tbCalibrationThickness.isVisible(),"The CalibrationThickness field is not visible","The CalibrationThickness field is  visible");
-        Validator.assertTrue(tbSurfaceTemperature.isVisible(),"The SurfaceTemperature field is not visible","The SurfaceTemperature field is  visible");
-        Validator.assertTrue(tbTestPosition.isVisible(),"The TestPosition field is not visible","The TestPosition field is  visible");
+    public void verifyAddDetailsFields() {
+        waitForElementVisible(tbDeviceType, 10000, 500);
+        Validator.assertTrue(tbDeviceType.isVisible(), "The deviceType field is not visible", "The deviceType field is  visible");
+        Validator.assertTrue(tbVelocity.isVisible(), "The velocity field is not visible", "The velocity field is  visible");
+        Validator.assertTrue(tbCalibrationThickness.isVisible(), "The CalibrationThickness field is not visible", "The CalibrationThickness field is  visible");
+        Validator.assertTrue(tbSurfaceTemperature.isVisible(), "The SurfaceTemperature field is not visible", "The SurfaceTemperature field is  visible");
+        Validator.assertTrue(tbTestPosition.isVisible(), "The TestPosition field is not visible", "The TestPosition field is  visible");
 
     }
     public void addDeviceMeasurementValues(String instrument,String velocity,String calibrationThickness,String surfaceTemperature,String testPosition)
@@ -2885,17 +2883,20 @@ public class CoverWearPage extends BasePage{
         waitForElementToBeClickable(btSave);
         btSave.jsClick();
     }
+
     public void verifySegmentCreation(String positionName) {
         waitForPageLoad(10000);
         searchPosition(positionName);
         waitForElementVisible(txtPosition,20000,1000);
         Validator.assertTrue(txtPosition.getText().equalsIgnoreCase(positionName), "Position is not created", "Position is created");
     }
+
     public void verifySpecificationHeader() {
         waitForPageLoad(5000);
         waitForElementVisible(specificationHeader,10000,1000);
         Validator.assertTrue(specificationHeader.getText().equalsIgnoreCase("Specification"), "Specification header is not visible", "Specification header is visible");
     }
+
     public void verifySpecificationTableFields() {
         waitForPageLoad(5000);
         Validator.assertTrue(btGuazeMeter.isDisplayed(),"Guaze meter is not displayed","Guaze meter is displayed");
@@ -2953,6 +2954,7 @@ public class CoverWearPage extends BasePage{
        waitForElementVisible(crDialog,5000,1000);
        Validator.assertTrue(crDialog.isVisible(),"Dialog is not visible","Dialog is visible");
     }
+
     public void extractCoverWearData() {
        waitForPageLoad(5000);
         getBundle().setProperty("cwConveyorValue", cwConveyorName.getText());
@@ -3426,5 +3428,4 @@ public class CoverWearPage extends BasePage{
             throw new IllegalArgumentException("Invalid date format: " + value, e);
         }
     }
-
 }

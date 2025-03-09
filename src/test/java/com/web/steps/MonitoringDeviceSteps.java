@@ -78,9 +78,13 @@ public class MonitoringDeviceSteps {
         monitoringDevicePage.clickOnZoomIn();
     }
 
-    @QAFTestStep(description = "Add the non-mandatory fields for device with {Brand} {SerialNumber} {RemoteConnection} {CommisioningDate} and {BeltConveyorSaves} and {FirmWareVersion} and {SystemLink}")
-    public void addNonMandatoryDeviceDetails(String brand,String serialNo,String remoteConnection,String comminsionDate,String beltConveyorSave,String firmwareVersion,String systemLink)
-    {monitoringDevicePage.addDeviceDetailsWithNonMandatoryFields(brand,serialNo,remoteConnection,comminsionDate,beltConveyorSave,firmwareVersion,systemLink);}
+    @QAFTestStep(description = "Add the non-mandatory fields for device with {Brand} {SerialNumber} {RemoteConnection} {CommisioningDate} and {BeltConveyorSaves} and {FirmWareVersion} {LastServiceDateField} {LastServiceDate} {Comment} {InstallationDate}")
+    public void addNonMandatoryDeviceDetails(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion,String lastServiceDateField,String lastServiceDate,String comment,String installationDate) {
+        conveyorPage.previousBtnClick();
+        monitoringDevicePage.addDeviceDetailsWithNonMandatoryFields(brand, serialNo, remoteConnection, comminsionDate, beltConveyorSave, firmwareVersion,lastServiceDateField,lastServiceDate,comment);
+        coverWearPage.selectGivenDate(installationDate);
+
+    }
 
     ///
     @QAFTestStep(description="Click on location symbol and verify location pop up details for {MonitoringDevice}")

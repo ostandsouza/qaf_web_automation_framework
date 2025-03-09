@@ -14,7 +14,7 @@ public class CoverWearSteps {
 
     @QAFTestStep(description = "User navigates to cover wear from conveyor tile details with {ConveyorName} {CustCorpName} {CustSite}")
     public void verifyCoverWearNav(String conveyorName, String custCorp, String custSIte) {
-        String conveyorId= CoverWearPage.getInstance().apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId= CoverWearPage.getInstance().apiBase.getConveyorID(CoverWearPage.getInstance().apiBase.getConveyorsAPI(conveyorName));
         if(conveyorId != null) {
             String ultrasonicId = CoverWearPage.getInstance().apiBase.getUltrasonicId(CoverWearPage.getInstance().apiBase.getUltrasonicAPI(conveyorId));
             CoverWearPage.getInstance().apiBase.deleteUltrasonicAPI(ultrasonicId);

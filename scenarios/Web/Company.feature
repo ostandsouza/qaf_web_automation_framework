@@ -40,8 +40,6 @@ Scenario: Verify closing of Image viewer panel
 Scenario: Verify Address autoSuggest functionality should working as expected after maximizing the map.
 
 
-    Given User is at Login page
-         When Login with '${UserName}' and '${Password}'
          Then Verify user is on home page of the application
          And Verify add company Link should be visible in the left navigation bar
          And Verify user navigates to Add Company page on clicking the Add Company link in navigation bar

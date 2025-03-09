@@ -1,5 +1,6 @@
 package com.web.steps;
 
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
@@ -16,7 +17,9 @@ public class HeavyEquipmentSteps extends BasePage {
     MonitoringDevicePage monitoringDevicePage = new MonitoringDevicePage();
     ConveyorPage conveyorPage = new ConveyorPage();
     UsersPage userPage = new UsersPage();
+    CordInspectPage cordInspectPage=new CordInspectPage();
 
+    String[] heavyEquipmentColNames = {"Name", "Model", "Year of Manufacture", "Serial Number", "Distributor Shop", "Category"};
 
     @QAFTestStep(description = "Navigate to the Heavy Equipment list page")
     public void navigateToTheHeavyEquipmentListPage() {
@@ -25,20 +28,27 @@ public class HeavyEquipmentSteps extends BasePage {
 
     @QAFTestStep(description = "Navigate to the Heavy Equipment add page")
     public void navigateToTheHeavyEquipmentAddPage() {
-        heavyEquipmentPage.navigateAddHeavyEquipmentPage();
+
+        Validator.assertTrue(heavyEquipmentPage.navigateAddHeavyEquipmentPage(),"User does not permission to add a Heavy Equipment record","User has permission to add a Heavy Equipment record");
     }
 
     @QAFTestStep(description = "Navigate to edit heavy equipment page")
     public void editFabricSplice() {
         fabricSplicePage.editRecord();
-//        heavyEquipmentPage.verifyHeavyEquipmentEditPageNavigation();
+        heavyEquipmentPage.verifyEditPage();
     }
 
     @QAFTestStep(description = "Search for the heavy equipment {HeavyEquipmentName}")
     public void searchHeavyEquipment(String heavyEquipment) {
-//        heavyEquipmentPage.goToHeavyEquipmentPageAndWait();
+//        heavyEquipmentPage.navigateAddHeavyEquipmentPage();
+        heavyEquipmentPage.navigateHeavyEquipmentListPage();
+        heavyEquipmentPage.goToHeavyEquipmentPageAndWait();
         Validator.assertTrue(fabricSplicePage.searchForTheRecord(heavyEquipment), "The heavy equipment created is not found ", "The heavy equipment created is found");
 
+    }
+    @QAFTestStep(description = "Navigate to heavy equipment page and wait")
+    public void navigateToHeavyEquipmentPageAndWait() {
+        heavyEquipmentPage.goToHeavyEquipmentPageAndWait();
     }
 
     @QAFTestStep(description = "Create a heavy equipment with {HeavyEquipmentName} {Category} {Model} {Year} {SerialNumber} {DistShopName} {ImageName} and click on cancel")
@@ -82,8 +92,8 @@ public class HeavyEquipmentSteps extends BasePage {
     @QAFTestStep(description = "Click on save button and verify the Heavy Equipment {EditHeavyEquipmentName} is edited")
     public void saveAndVerifyTheHeavyEquipmentEdited(String editHeavyEquipmentName) {
         coverWearPage.btnSaveClick();
-//        heavyEquipmentPage.goToHeavyEquipmentPageAndWait();
-        SyncUtil.waitFor(40000);
+        heavyEquipmentPage.goToHeavyEquipmentPageAndWait();
+//        SyncUtil.waitFor(40000);
         Validator.assertTrue(fabricSplicePage.searchForTheRecord(editHeavyEquipmentName), "The heavy equipment name is not edited", "The heavy equipment name is edited");
 
     }
@@ -125,12 +135,68 @@ public class HeavyEquipmentSteps extends BasePage {
     public void editInternalToolsPermission(String add,String edit, String delete, String view, String download)
     {
         userPage.editInternalToolsPermission(add,edit,delete,view,download);
-        coverWearPage.btnSaveClick();
+    }
+    @QAFTestStep(description = "Verify user does not have edit download delete rights")
+    public void verifyPermissionRightsForHeavyEquipment()
+    {
+        Validator.assertTrue(fabricSplicePage.verifyActionBtnPermissions(),"User has  permission to edit,delete and download","User has no permission to edit,delete and download");
+    }
+    @QAFTestStep(description = "Verify only the records with searched year {Year} appears in the table")
+    public void verifySearchedRecordVisibility(String year)
+    {
+        int noOfInspections = Integer.parseInt(MiscUtils.regexExtractor(heavyEquipmentPage.paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        heavyEquipmentPage.verifyHeavyEquipmentList(noOfInspections, year, 5);
+    }
+    @QAFTestStep(description = "Verify the header and all the column names in heavy equipment page")
+    public void verifyHeavyEquipmentTableHeaders()
+    {
+       heavyEquipmentPage.verifyHeavyEquipmentData();
     }
     @QAFTestStep(description = "Verify the heavy equipment count with respect to pagination")
     public void validateTheHeavyEquipmentCountWrtPagination()
     {
         heavyEquipmentPage.validateHeavyEquipmentCountWrtPagination();
+    }
+
+    @QAFTestStep(description = "Click on column header and verify sorting functionality for heavy equipment list page")
+    public void verifytheSortingFunctionality()
+    {
+        cordInspectPage.clickOnColumnsHeader(true,heavyEquipmentColNames,3);
+    }
+
+    @QAFTestStep(description = "Click on each column header of heavyEquipment list and verify filter icon fields")
+    public void clickAndVerifyHeavyEquipmentFilterFunctionality() {
+        conveyorPage.columnNameFilterBtnClick(heavyEquipmentColNames);
+    }
+    @QAFTestStep(description = "Click on Heavy equipment link in breadcrumb")
+    public void clickHeavyEquipBreadCrumb()
+    {
+        heavyEquipmentPage.heavyEquipmentBreadCrumbClick();
+    }
+    @QAFTestStep(description = "Click on the  scanner icon in list and verify fields {EditHeavyEquipmentName}")
+    public void clickOnScanQRInListAndVerify(String deviceName) {
+        heavyEquipmentPage.clickScannerIcon();
+        monitoringDevicePage.verifyScanQR(deviceName);
+    }
+
+    @QAFTestStep(description = "Click on the page number and verify it navigates to respective page")
+    public void clickAndVerifyPaginationFunctionality() {
+        heavyEquipmentPage.clickAndVerifyPaginationFunction();
+    }
+    @QAFTestStep(description = "Click on pagination dropdown and verify records")
+    public void verifyNoOfRecords() {
+        heavyEquipmentPage.verifyNoOfRecordsDisplayed();
+        heavyEquipmentPage.clickDefaultPaginationCount();
+    }
+    @QAFTestStep(description = "Verify heavy equipment card visibility")
+    public void verifyHeavyEquipCard() {
+        heavyEquipmentPage.verifyHeavyEquipmentCardVisibility();
+    }
+
+    @QAFTestStep(description = "Refresh the screen")
+    public void refreshPageFunctionality()
+    {
+        heavyEquipmentPage.browserRefresh();
     }
 
 

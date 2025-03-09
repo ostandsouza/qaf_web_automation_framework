@@ -14,7 +14,8 @@
     "user_ms": "https://user-management.service.stage.cloud1.ws.continental-industry.com",
     "file_ms": "https://file-management.service.dev2.contiplus.net",
     "minuteman_ms": "https://minuteman-management.service.dev2.contiplus.net",
-    "monitoring_ms": "https://monitoring-device-management.service.dev2.contiplus.net",
+    "heavyEquipment_ms": "https://heavy-equipment.service.dev2.contiplus.net",
+    "monitoring_ms": "https://monitoring-device-management.service.dev2.contiplus.net"
     "cordInspect_ms": "https://inspect-device-scan.service.dev2.contiplus.net",
     "inspection_findings_ms": "https://inspection-finding-management.service.dev2.contiplus.net",
     "iotDashboard_ms": "https://iot-dashboard-aggregator.service.dev2.contiplus.net",

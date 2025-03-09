@@ -172,7 +172,7 @@ public class CordInspectSteps {
     @QAFTestStep(description = "Click on column header and verify sorting functionality")
     public void verifytheSortingFunctionality()
     {
-        cordInspectPage.clickOnColumnsHeader(true,BeltScanColNames);
+        cordInspectPage.clickOnColumnsHeader(true,BeltScanColNames,2);
     }
     @QAFTestStep(description = "Click on clear filter button and verify filter is removed")
     public void verifyClearFilterFunctionality()
@@ -195,6 +195,21 @@ public class CordInspectSteps {
     @QAFTestStep(description = "Verify belt scan record is on edit mode")
     public void beltScanIsInTheEditMode() {
         cordInspectPage.beltScanIsInEditMode();
+    }
+
+    @QAFTestStep(description="Verify the deleted Belt Scan {Device} in list screen")
+    public void verifyMonitoringDevice(String device){
+        cordInspectPage.verifyDeletedMonitoringDevice(device);
+    }
+
+    @QAFTestStep(description = "Submit the belt scan form")
+    public void submitTheBeltScanForm() {
+        conveyorPage.clickCreateBtn();
+    }
+
+    @QAFTestStep(description="Verify the belt scan for {ConveyorName} is present in list screen")
+    public void verifyBeltScanCreation(String conveyor){
+        Validator.assertTrue(cordInspectPage.searchBeltScan(conveyor),"Belt Scan was not found","Belt Scan was found and verified successfully");
     }
 
     @QAFTestStep(description = "Edit all Belt Scan General details with {DateOfScan} {DeviceType} {ReasonForScan} {SiteName} {ConveyorName} {NotifyCCM} {File1} for {FieldName1} and {File2} for {FieldName2}")

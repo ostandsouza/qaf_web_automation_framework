@@ -433,12 +433,45 @@ public class CordInspectPage extends BasePage {
 
     }
 
-    public void clickOnColumnsHeader(boolean isIncreasingOrder, String[] columnNames) {
+	public void goToBeltScanListPage(){
+		SyncUtil.waitFor(5000);
+		beltScanCard.isVisible(10000,"BeltScan Card");
+		beltScanCard.click("BeltScan Card");
+		waitForPageLoad(10000);
+		SyncUtil.waitFor(5000);
+		Validator.assertTrue(driver.getCurrentUrl().contains("/secure/dashboard/belt-scans"),"User is not navigated to beltScan listing page","User is not navigated to beltScan listing page");
+		waitForPageLoad(10000);
+		scrollPageDown();
+		String val = "";
+		for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime(); ) {
+			if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+				break;
+			}
+			val = pagination.getText();
+			SyncUtil.waitFor(5000);
+		}
+	}
+
+    public void gotoBeltScanScreenWait() {
+        goToBeltScanListPage();
+        scrollPageDown();
+        String val = "";
+        for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime(); ) {
+            if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+                break;
+            }
+            val = pagination.getText();
+            SyncUtil.waitFor(5000);
+        }
+    }
+
+
+    public void clickOnColumnsHeader(boolean isIncreasingOrder, String[] columnNames,int innerIndexVal) {
         scrollPageup();
 
         // Initialize indices for both loops
         int outerIndex = 0;
-        int innerIndex = 2;
+        int innerIndex = innerIndexVal;
 
         // Continue until either list is exhausted or a limit is reached
         while (outerIndex < columnNames.length && innerIndex <= 10) {
@@ -497,7 +530,18 @@ public class CordInspectPage extends BasePage {
 
     }
 
-    public String[] camelCaseConvertor(String[] columnArray) {
+	public boolean searchBeltScan(String conveyorName) {
+		gotoBeltScanScreenWait();
+		waitForPageLoad(10000);
+		btSearchinput.type(conveyorName, "Conveyor Search");
+		SyncUtil.waitFor(10000);
+		waitForElementVisible(cbCheckbox, 20000, 1000);
+		waitForElementToDisplay(cbCheckbox);
+		return cbCheckbox.isVisible("Conveyor Found");
+	}
+
+
+	public String[] camelCaseConvertor(String[] columnArray) {
         String[] camelCaseColNames = Arrays.stream(columnArray)
                 .map(str -> {
                     String[] words = str.split(" ");
@@ -521,7 +565,7 @@ public class CordInspectPage extends BasePage {
         ddlActions.jsClick("Action");
         waitForElementToBeClickable(btnDelete);
         Validator.assertTrue(btnDelete.isVisible(), "Delete button is not visible", "Delete button is visible");
-        btnDelete.click("Delete Item");
+        btnDelete.jsClick("Delete Item");
         btnYes.click("Confirm delete");
         SyncUtil.waitFor(3000);
         waitForElementToDisplay(noList);
@@ -529,6 +573,14 @@ public class CordInspectPage extends BasePage {
 //		waitForElementVisible(deleteSuccessMsg,10000,1000);
 //		Validator.assertTrue(deleteSuccessMsg.isVisible("Delete pop up"),"Delete successfully is not visible","Deleted successfully is visible");
         btSearchinput.type(" ");
+    }
+
+
+    public void verifyDeletedMonitoringDevice(String calc) {
+        gotoBeltScanScreenWait();
+        waitForPageLoad(10000);
+        btSearchinput.type(calc, "Conveyor Search");
+        Validator.assertTrue(noList.isVisible(),"Delete Belt Scan was still found in list screen","Belt Scan deleted successfully");
     }
 
     public void validateCordInspCountWrtPaginationAndTile(){

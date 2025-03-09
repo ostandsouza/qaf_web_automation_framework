@@ -218,6 +218,12 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=(//li//span[text()='Users'])[1]")
     public CustomElement users;
 
+    @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
+    public CustomElement btAddCorp;
+    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
+    public CustomElement drCompanyDropdownLoader;
+
+
 
     public void goToSiteListScreen() {
         if (!sites.isVisible())
@@ -250,6 +256,11 @@ public class SitePage  extends BasePage {
         btViewIcon.jsClick("Site Details");
         waitForElementToDisplay(siteHeader);
         siteHeader.isEnable("File Manager");
+    }
+    public void goToAddSitePage()
+    {
+        btAddCorp.jsClick("Add Corp");
+        waitForElementToDisplay(drCompanyDropdownLoader);
     }
 
     public void deleteSite(String siteName) {

@@ -5,22 +5,27 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
+import com.web.pages.CorporatePage;
+import com.web.pages.FabricSplicePage;
 import com.web.pages.MonitoringDevicePage;
 import com.web.pages.SitePage;
 
-public class SiteSteps  {
+public class SiteSteps {
 
     SitePage sitePage = new SitePage();
-    ConveyorPage conveyorPage=new ConveyorPage();
+    ConveyorPage conveyorPage = new ConveyorPage();
+    FabricSplicePage fabricSplicePage=new FabricSplicePage();
     MonitoringDevicePage monitoringDevicePage=new MonitoringDevicePage();
+    CorporatePage corporatePage=new CorporatePage();
+
 
     @QAFTestStep(description="Delete Customer site with {CustSiteName}")
     public void deleteCustomerSite(String custSiteName){
         sitePage.deleteSite(custSiteName);
     }
 
-    @QAFTestStep(description="Verify Deleted Customer site with {CustSiteName}")
-    public void verifyDeleteCustomerSite(String custSiteName){
+    @QAFTestStep(description = "Verify Deleted Customer site with {CustSiteName}")
+    public void verifyDeleteCustomerSite(String custSiteName) {
         sitePage.verifySiteDelete(custSiteName);
     }
 
@@ -60,6 +65,7 @@ public class SiteSteps  {
         conveyorPage.saveButtonClick();
 
     }
+
     @QAFTestStep(description = "Verify user is getting site notification in last in first out format for {Value1} {Value2}")
     public void clickAndVerifyNotificationSiteOrder(String value1,String value2)
     {
@@ -76,6 +82,7 @@ public class SiteSteps  {
         sitePage.unSubscribe(site2);
 
     }
+
     @QAFTestStep(description = "Unsubscribe the site {Site1}")
     public void unsubscribeSite(String site1)
     {
@@ -219,6 +226,7 @@ public class SiteSteps  {
         sitePage.markAllAsReadLnkClick();
     }
 
+
     @QAFTestStep(description="Navigate to Site list page")
     public void navigateToSiteListPage(){
         sitePage.goToSiteListScreenAndWait();
@@ -248,7 +256,6 @@ public class SiteSteps  {
     public void verifyViewEditAndDeletePermissionRightForSite(String siteName) {
         Validator.assertTrue(sitePage.verifyViewAddEditAndDeleteRights(siteName), "Delete And view Permission for iste is failing", "Delete and view permission for site is verified successfully");
     }
-
 
     @QAFTestStep(description="Verify card display in home screen for basic permission")
     public void verifyCardsDisplay() {

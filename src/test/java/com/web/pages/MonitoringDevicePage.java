@@ -15,6 +15,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Reporter;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.math.MathContext;
@@ -68,191 +70,187 @@ public class MonitoringDevicePage extends BasePage {
 	@FindBy(locator="xpath=//input[@placeholder='Search']")
 	public CustomElement btSearchinput;
 
-	@FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
-	public CustomElement home;
-	@FindBy(locator = "xpath=(//li//span[text()='Monitoring Devices'])[1]")
-	public CustomElement monitoringDeviceList;
-	@FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
-	public CustomElement crCheckbox;
-	@FindBy(locator="xpath=(//button/chevrondownicon)[2]")
-	public CustomElement btActions;
+    @FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
+    public CustomElement home;
+    @FindBy(locator = "xpath=(//li//span[text()='Monitoring Devices'])[1]")
+    public CustomElement monitoringDeviceList;
+    @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
+    public CustomElement crCheckbox;
 
-	@FindBy(locator="xpath=//li//span[text()='Edit']")
-	public CustomElement btEdit;
+    @FindBy(locator = "xpath=//li//span[text()='Edit']")
+    public CustomElement btEdit;
 
-	@FindBy(locator="xpath=//span[text()='Delete']")
-	public CustomElement btDelete;
+    @FindBy(locator = "xpath=//span[text()='Delete']")
+    public CustomElement btDelete;
 
-	@FindBy(locator="xpath=//span[text()='Scan QR']")
-	public CustomElement btScan;
-	@FindBy(locator="xpath=//li//span[text()='Export PDF']")
-	public CustomElement btExportPdf;
-	@FindBy(locator="xpath=//li//span[text()='Export CSV']")
-	public CustomElement btExportCsv;
+    @FindBy(locator = "xpath=//span[text()='Scan QR']")
+    public CustomElement btScan;
+    @FindBy(locator = "xpath=//li//span[text()='Export PDF']")
+    public CustomElement btExportPdf;
+    @FindBy(locator = "xpath=//li//span[text()='Export CSV']")
+    public CustomElement btExportCsv;
 
-	@FindBy(locator="xpath=//th[@id='site-col']")
-	public CustomElement siteColumn;
+    @FindBy(locator = "xpath=//th[@id='site-col']")
+    public CustomElement siteColumn;
 
-	@FindBy(locator = "//button[contains(@class, \"p-column-filter-menu-button-active\")]")
-	public CustomElement appliedFilter;
+    @FindBy(locator = "//button[contains(@class, \"p-column-filter-menu-button-active\")]")
+    public CustomElement appliedFilter;
 
-	@FindBy(locator = "xpath=(//button[@icon='ctp-icon-Clear-Filters'])[2]")
-	public CustomElement clearFilterBtn;
+    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Clear-Filters'])[2]")
+    public CustomElement clearFilterBtn;
 
-	@FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
-	public CustomElement paginationEntry;
+    @FindBy(locator = "xpath=//p-columnfilterformelement//input")
+    public CustomElement filterText;
+    @FindBy(locator = "xpath=//span[text()='Apply']")
+    public CustomElement applyBtn;
+    @FindBy(locator = "xpath=//button[@icon='ctp-icon-map-marker']")
+    public CustomElement locationIcon;
+    @FindBy(locator = "xpath=//div[@role='dialog']")
+    public CustomElement dialogBox;
+    @FindBy(locator = "xpath=//div[contains(@class,'p-dialog-header')]//span")
+    public CustomElement locationPopHeader;
+    @FindBy(locator = "xpath=//div[contains(@class,'p-dialog-header')]//button")
+    public CustomElement locationPopCloseBtn;
+    @FindBy(locator = "xpath=//button[text()='Map']")
+    public CustomElement locationPopMapBtn;
+    @FindBy(locator = "xpath=//button[text()='Satellite']")
+    public CustomElement locationPopSatelliteBtn;
+    @FindBy(locator = "xpath=//button[@aria-label='Toggle fullscreen view']")
+    public CustomElement locationPopFullScreenBtn;
+    @FindBy(locator = "xpath=//button[@aria-label='Zoom in']")
+    public CustomElement locationPopZoomInBtn;
+    @FindBy(locator = "xpath=//button[@aria-label='Zoom out']")
+    public CustomElement locationPopZoomOutBtn;
+    @FindBy(locator = "xpath=//label[text()='Latitude']/..//input")
+    public CustomElement locationPopLatBtn;
+    @FindBy(locator = "xpath=//label[text()='Longitude']/..//input")
+    public CustomElement locationPopLonBtn;
 
-	@FindBy(locator="xpath=//p-columnfilterformelement//input")
-	public CustomElement filterText;
-	@FindBy(locator="xpath=//span[text()='Apply']")
-	public CustomElement applyBtn;
-	@FindBy(locator="xpath=//button[@icon='ctp-icon-map-marker']")
-	public CustomElement locationIcon;
-	@FindBy(locator="xpath=//div[@role='dialog']")
-	public CustomElement dialogBox;
-	@FindBy(locator="xpath=//div[contains(@class,'p-dialog-header')]//span")
-	public CustomElement locationPopHeader;
-	@FindBy(locator="xpath=//div[contains(@class,'p-dialog-header')]//button")
-	public CustomElement locationPopCloseBtn;
-	@FindBy(locator="xpath=//button[text()='Map']")
-	public CustomElement locationPopMapBtn;
-	@FindBy(locator="xpath=//button[text()='Satellite']")
-	public CustomElement locationPopSatelliteBtn;
-	@FindBy(locator="xpath=//button[@aria-label='Toggle fullscreen view']")
-	public CustomElement locationPopFullScreenBtn;
-	@FindBy(locator="xpath=//button[@aria-label='Zoom in']")
-	public CustomElement locationPopZoomInBtn;
-	@FindBy(locator="xpath=//button[@aria-label='Zoom out']")
-	public CustomElement locationPopZoomOutBtn;
-	@FindBy(locator="xpath=//label[text()='Latitude']/..//input")
-	public CustomElement locationPopLatBtn;
-	@FindBy(locator="xpath=//label[text()='Longitude']/..//input")
-	public CustomElement locationPopLonBtn;
+    @FindBy(locator = "xpath=//button[@aria-label='Drag Pegman onto the map to open Street View']/div")
+    public CustomElement locationPopPegManBtn;
+    @FindBy(locator = "xpath=//button[@aria-label='Drag Pegman onto the map to open Street View']//img[3]")
+    public CustomElement locationPopPegManImg;
+    @FindBy(locator = "xpath=//button[@aria-label='Exit the Street View']")
+    public CustomElement streetViewExitBtn;
+    @FindBy(locator = "xpath=//div[@aria-label='Street View']")
+    public CustomElement locationPopStreetView;
+    @FindBy(locator = "xpath=(//div[@title='wTest123']//img)[1]")
+    public CustomElement monitoringDeviceIcon;
 
-	@FindBy(locator="xpath=//button[@aria-label='Drag Pegman onto the map to open Street View']/div")
-	public CustomElement locationPopPegManBtn;
-	@FindBy(locator="xpath=//button[@aria-label='Drag Pegman onto the map to open Street View']//img[3]")
-	public CustomElement locationPopPegManImg;
-	@FindBy(locator="xpath=//button[@aria-label='Exit the Street View']")
-	public CustomElement streetViewExitBtn;
-	@FindBy(locator="xpath=//div[@aria-label='Street View']")
-	public CustomElement locationPopStreetView;
-	@FindBy(locator="xpath=(//div[@title='wTest123']//img)[1]")
-	public CustomElement monitoringDeviceIcon;
+    @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
+    public CustomElement btAddMonitoringDevice;
 
-	@FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
-	public CustomElement btAddMonitoringDevice;
+    @FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component' and contains(., \"Monitoring Devices\")]")
+    public CustomElement monitoringDeviceBreadCrumb;
 
-	@FindBy(locator = "xpath=//app-monitoring-device-landing//span[text()='Monitoring Devices']")
-	public CustomElement monitoringDeviceBreadCrumb;
+    @FindBy(locator = "xpath=//input[@formcontrolname='deviceName']")
+    public CustomElement tbDeviceName;
+    @FindBy(locator = "xpath=(//p-dropdown//div[contains(@class,\"master-data-dropdown\")])[1]")
+    public CustomElement deviceTypeDropDown;
+    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    public CustomElement tbDeviceTypedropdown;
 
-	@FindBy(locator = "xpath=//input[@formcontrolname='deviceName']")
-	public CustomElement tbDeviceName;
-	@FindBy(locator= "xpath=(//p-dropdown//div[contains(@class,\"master-data-dropdown\")])[1]")
-	public CustomElement deviceTypeDropDown;
-	@FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
-	public CustomElement tbDeviceTypedropdown;
+    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='installationDate']//input")
+    public CustomElement tbInstallationDate;
+    @FindBy(locator = "xpath=//google-map")
+    public CustomElement mapGoogle;
+    @FindBy(locator = "xpath=//div[@aria-label='Map']")
+    public CustomElement mapContainer;
 
-	@FindBy(locator= "xpath=//p-calendar[@formcontrolname='installationDate']//input")
-	public CustomElement tbInstallationDate;
-	@FindBy(locator= "xpath=//google-map")
-	public CustomElement mapGoogle;
-	@FindBy(locator= "xpath=//div[@aria-label='Map']")
-	public CustomElement mapContainer;
+    @FindBy(locator = "//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
+    public CustomElement mapLocation;
+    @FindBy(locator = "//div[@role='dialog']")
+    public CustomElement positionDialog;
+    @FindBy(locator = "//input[@formcontrolname='latitude' and contains(@class, 'p-filled')]")
+    public CustomElement tbLatValue;
+    @FindBy(locator = "//input[@formcontrolname='longitude' and contains(@class, 'p-filled')]")
+    public CustomElement tbLongValue;
 
-	@FindBy(locator ="//div[@class='map-container']//div[@class='gm-style']/div/div[2]")
-	public CustomElement mapLocation;
-	@FindBy(locator = "//div[@role='dialog']")
-	public CustomElement positionDialog;
-	@FindBy(locator = "//input[@formcontrolname='latitude' and contains(@class, 'p-filled')]")
-	public CustomElement tbLatValue;
-	@FindBy(locator = "//input[@formcontrolname='longitude' and contains(@class, 'p-filled')]")
-	public CustomElement tbLongValue;
+    @FindBy(locator = "xpath=(//button/span[text()='Actions'])[2]")
+    public CustomElement btActionsLabel;
+    @FindBy(locator = "xpath=//p-multiselect[@placeholder='Columns selection']")
+    public CustomElement btColumnSelectionLabel;
+    @FindBy(locator = "xpath=(//button[@icon='pi pi-refresh'])[2]")
+    public CustomElement btRefreshIcon;
 
-	@FindBy(locator="xpath=(//button/span[text()='Actions'])[2]")
-	public CustomElement btActionsLabel;
-	@FindBy(locator="xpath=//p-multiselect[@placeholder='Columns selection']")
-	public CustomElement btColumnSelectionLabel;
-	@FindBy(locator="xpath=(//button[@icon='pi pi-refresh'])[2]")
-	public CustomElement btRefreshIcon;
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and contains(text(),\"Add Location\")]")
+    public CustomElement addLocationTitle;
+    @FindBy(locator = "xpath=(//app-conveyor-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
+    public CustomElement conveyorDDL;
+    @FindBy(locator = "xpath=(//app-company-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
+    public CustomElement associatedDistDDL;
+    @FindBy(locator = "xpath=(//app-company-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[3]")
+    public CustomElement siteDDL;
+    @FindBy(locator = "xpath=//span[text()='Device Location']")
+    public CustomElement deviceLocationLabel;
+    //	@FindBy(locator = "xpath=(//span[text()='Cancel'])[2]")
+//	public CustomElement btnCancel;
+    @FindBy(locator = "xpath=//span[text()='Create']")
+    public CustomElement btnCreate;
+    @FindBy(locator = "xpath=//div[@aria-label='New Device']")
+    public CustomElement monitoringDeviceMapIcon;
+    @FindBy(locator = "xpath=//div[@aria-label='Head']")
+    public CustomElement monitoringDeviceMapHeadIcon;
+    @FindBy(locator = "xpath=//div[@aria-label='Tail']")
+    public CustomElement monitoringDeviceMapTailIcon;
 
-	@FindBy(locator= "xpath=//span[contains(@class,\"p-steps-title\") and contains(text(),\"Add Location\")]")
-	public CustomElement addLocationTitle;
-	@FindBy(locator= "xpath=(//app-conveyor-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
-	public CustomElement conveyorDDL;
-	@FindBy(locator= "xpath=(//app-company-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
-	public CustomElement associatedDistDDL;
-	@FindBy(locator= "xpath=(//app-company-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[3]")
-	public CustomElement siteDDL;
-	@FindBy(locator= "xpath=//span[text()='Device Location']")
-	public CustomElement deviceLocationLabel;
-	@FindBy(locator = "xpath=(//span[text()='Cancel'])[2]")
-	public CustomElement btnCancel;
-	@FindBy(locator = "xpath=//span[text()='Create']")
-	public CustomElement btnCreate;
-	@FindBy(locator = "xpath=//div[@aria-label='New Device']")
-	public CustomElement monitoringDeviceMapIcon;
-	@FindBy(locator = "xpath=//div[@aria-label='Head']")
-	public CustomElement monitoringDeviceMapHeadIcon;
-	@FindBy(locator = "xpath=//div[@aria-label='Tail']")
-	public CustomElement monitoringDeviceMapTailIcon;
+    @FindBy(locator = "xpath=//input[@formcontrolname='deviceBrand']")
+    public CustomElement tbDeviceBrand;
+    @FindBy(locator = "xpath=//input[@formcontrolname='serialNumber']")
+    public CustomElement tbSerialNo;
+    @FindBy(locator = "xpath=//input[@formcontrolname='firmwareVersion']")
+    public CustomElement tbFirmwareVersion;
+    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='commisioningDate']//input")
+    public CustomElement tbcommisioningDate;
+    @FindBy(locator = "xpath=//input[@formcontrolname='beltConveyorSaves']")
+    public CustomElement tbBeltConveyorSaves;
 
-	@FindBy(locator = "xpath=//input[@formcontrolname='deviceBrand']")
-	public CustomElement tbDeviceBrand;
-	@FindBy(locator = "xpath=//input[@formcontrolname='serialNumber']")
-	public CustomElement tbSerialNo;
-	@FindBy(locator = "xpath=//input[@formcontrolname='firmwareVersion']")
-	public CustomElement tbFirmwareVersion;
-	@FindBy(locator= "xpath=//p-calendar[@formcontrolname='commisioningDate']//input")
-	public CustomElement tbcommisioningDate;
-	@FindBy(locator= "xpath=//input[@formcontrolname='beltConveyorSaves']")
-	public CustomElement tbBeltConveyorSaves;
+    @FindBy(locator = "xpath=(//p-dropdown//div[contains(@class,'master-data-dropdown')])[2]")
+    public CustomElement remoteConnectionDropDown;
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"Local only\"]")
+    public CustomElement ddlSelectLocalOnly;
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"3G/4G router\"]")
+    public CustomElement ddlSelect3G4GRouter;
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"VPN through mine site\"]")
+    public CustomElement ddlSelectVPNMineSite;
 
-	@FindBy(locator= "xpath=(//p-dropdown//div[contains(@class,'master-data-dropdown')])[2]")
-	public CustomElement remoteConnectionDropDown;
-	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"Local only\"]")
-	public CustomElement ddlSelectLocalOnly;
-	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"3G/4G router\"]")
-	public CustomElement ddlSelect3G4GRouter;
-	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"VPN through mine site\"]")
-	public CustomElement ddlSelectVPNMineSite;
+    @FindBy(locator = "xpath=//input[@formcontrolname='systemSoftwareLink']")
+    public CustomElement tbSystemSoftwareLink;
+    @FindBy(locator = "xpath=//button[@icon='ctp-icon-link' and @disabled]")
+    public CustomElement disabledLinkIcon;
+    @FindBy(locator = "xpath=//button[@icon='ctp-icon-link']")
+    public CustomElement enabledLinkIcon;
 
-	@FindBy(locator = "xpath=//input[@formcontrolname='systemSoftwareLink']")
-	public CustomElement tbSystemSoftwareLink;
-	@FindBy(locator = "xpath=//button[@icon='ctp-icon-link' and @disabled]")
-	public CustomElement disabledLinkIcon;
-	@FindBy(locator = "xpath=//button[@icon='ctp-icon-link']")
-	public CustomElement enabledLinkIcon;
+    @FindBy(locator = "xpath=//button[@icon='ctp-icon-Instaloled-Devices']")
+    public CustomElement iotIcon;
 
-	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Instaloled-Devices']")
-	public CustomElement iotIcon;
+    @FindBy(locator = "xpath=(//div[@id='chartArea'])[1]")
+    public CustomElement iotChart1;
 
-	@FindBy(locator = "xpath=(//div[@id='chartArea'])[1]")
-	public CustomElement iotChart1;
+    @FindBy(locator = "xpath=(//div[@id='chartArea'])[2]")
+    public CustomElement iotChart2;
 
-	@FindBy(locator = "xpath=(//div[@id='chartArea'])[2]")
-	public CustomElement iotChart2;
+    @FindBy(locator = "xpath=(//div[@id='chartArea'])[3]")
+    public CustomElement iotChart3;
 
-	@FindBy(locator = "xpath=(//div[@id='chartArea'])[3]")
-	public CustomElement iotChart3;
+    @FindBy(locator = "xpath=(//button[@disabled]//span[text()='Actions'])[1]")
+    public CustomElement actionBtnDisabled;
+    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    public CustomElement forwardNavBtn;
+    @FindBy(locator = "xpath=//angledoublerighticon")
+    public CustomElement btPgDoubleForwardBtn;
+    @FindBy(locator = "xpath=//angledoublelefticon")
+    public CustomElement btPgDoubleBackwardBtn;
+    @FindBy(locator = "xpath=//p-dropdown//span")
+    public CustomElement paginationDropDownValue;
 
-	@FindBy(locator = "xpath=(//button[@disabled]//span[text()='Actions'])[1]")
-	public CustomElement actionBtnDisabled;
-	@FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
-	public CustomElement forwardNavBtn;
-	@FindBy(locator="xpath=//angledoublerighticon")
-	public CustomElement btPgDoubleForwardBtn;
-	@FindBy(locator="xpath=//angledoublelefticon")
-	public CustomElement btPgDoubleBackwardBtn;
-	@FindBy(locator="xpath=//p-dropdown//span")
-	public CustomElement paginationDropDownValue;
+    @FindBy(locator = "xpath=//p-paginator//button[contains(@class,'p-highlight')]")
+    public CustomElement btPgHighlightedValue;
+    @FindBy(locator = "xpath=(//th[@psortablecolumn][3]//div)[1]")
+    public CustomElement btxValue;
+    @FindBy(locator = "xpath=//div[@class='p-multiselect-label']")
+    public CustomElement btyValue;
 
-	@FindBy(locator="xpath=//p-paginator//button[contains(@class,'p-highlight')]")
-	public CustomElement btPgHighlightedValue;
-	@FindBy(locator="xpath=(//th[@psortablecolumn][3]//div)[1]")
-	public CustomElement btxValue;
-	@FindBy(locator="xpath=//div[@class='p-multiselect-label']")
-	public CustomElement btyValue;
 	@FindBy(locator="xpath=(//app-toggle-button[1]//button[1])[2]")
 	public CustomElement listViewIcon;
 	@FindBy(locator="xpath=//p-table")
@@ -320,13 +318,15 @@ public class MonitoringDevicePage extends BasePage {
 	@FindBy(locator = "xpath=//div[contains(@class,'p-panel-header')]//div//div")
 	public CustomElement ripInsertThumbnailHeader;
 
-    @FindBy(locator="xpath=//span[text()='Edit']")
+    @FindBy(locator = "xpath=//span[text()='Edit']")
     public CustomElement editBtn;
-    @FindBy(locator="xpath=//span[text()='Scan QR']")
+    @FindBy(locator = "xpath=//span[text()='Scan QR']")
     public CustomElement scanQRBtn;
-    @FindBy(locator="xpath=//span[text()='Delete']")
+    @FindBy(locator = "xpath=//span[text()='Delete']")
     public CustomElement deleteBtn;
 
+    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+    public CustomElement btActions;
     @FindBy(locator = "xpath=//p-tieredmenusub//ul[@role=\"menu\"]")
     public CustomElement btActionsPopup;
 
@@ -336,70 +336,70 @@ public class MonitoringDevicePage extends BasePage {
     @FindBy(locator = "xpath=//p-multiselectitem//li[contains(., 'Belt/Conveyor Saves') and .//div[contains(@class, 'p-checkbox')]]")
     public CustomElement cbBeltSaves;
 
-    @FindBy(locator="xpath=//div[contains(@class,\"p-dialog-header\")]//span")
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-dialog-header\")]//span")
     public CustomElement scanHeader;
-    @FindBy(locator="xpath=//qrcode//div[@class=\"qrcode\"]")
+    @FindBy(locator = "xpath=//qrcode//div[@class=\"qrcode\"]")
     public CustomElement scannerImg;
     @FindBy(locator = "//button[contains(@class,\"p-dialog-header-close\")]")
     public CustomElement btnDialogClose;
     @FindBy(locator = "//button[@type=\"button\"]//span[text()=\"Download\"]")
     public CustomElement btnDownload;
-    @FindBy(locator="xpath=(//span[contains(@class,'pi-spinner')])[2]")
+    @FindBy(locator = "xpath=(//span[contains(@class,'pi-spinner')])[2]")
     public CustomElement downloadSpinner;
+    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='installationDate']//input[@placeholder=\"MM/DD/YYYY\"]")
+    public CustomElement tbInstallationDateFormat;
+    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='commisioningDate']//input[@placeholder=\"MM/DD/YYYY\"]")
+    public CustomElement tbCommissioningDateFormat;
 
-	@FindBy(locator= "xpath=//p-calendar[@formcontrolname='installationDate']//input[@placeholder=\"MM/DD/YYYY\"]")
-	public CustomElement tbInstallationDateFormat;
-	@FindBy(locator= "xpath=//p-calendar[@formcontrolname='commisioningDate']//input[@placeholder=\"MM/DD/YYYY\"]")
-	public CustomElement tbCommissioningDateFormat;
-
-	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"LoadSense\"]")
-	public CustomElement ddlSelectLoadSense;
-	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"RipProtect\"]")
-	public CustomElement ddlSelectRipProtect;
-	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"MultiProtect\"]")
-	public CustomElement ddlSelectMultiProtect;
-	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"CordProtect\"]")
-	public CustomElement ddlSelectCordProtect;
-	@FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"Other\"]")
-	public CustomElement ddlSelectOther;
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"LoadSense\"]")
+    public CustomElement ddlSelectLoadSense;
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"RipProtect\"]")
+    public CustomElement ddlSelectRipProtect;
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"MultiProtect\"]")
+    public CustomElement ddlSelectMultiProtect;
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"CordProtect\"]")
+    public CustomElement ddlSelectCordProtect;
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"Other\"]")
+    public CustomElement ddlSelectOther;
 
     @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Add Device\"]")
     public CustomElement addDeviceTitle;
 
-    @FindBy(locator= "xpath=//span[contains(@class,\"p-steps-title\") and contains(text(),\"Update Device\")]")
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and contains(text(),\"Update Device\")]")
     public CustomElement updateDeviceTitle;
-    @FindBy(locator= "xpath=//button[@disabled]//span[text()=\"Create\"]")
+    @FindBy(locator = "xpath=//button[@disabled]//span[text()=\"Create\"]")
     public CustomElement createBtnDisabled;
-    @FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]")
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-confirm-dialog\")]")
     public CustomElement warningDialogBox;
-    @FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]//div//button//span[text()=\"No\"]")
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-confirm-dialog\")]//div//button//span[text()=\"No\"]")
     public CustomElement btnNo;
-    @FindBy(locator="xpath=//div[contains(@class,\"p-confirm-dialog\")]//div//button//span[text()=\"Yes\"]")
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-confirm-dialog\")]//div//button//span[text()=\"Yes\"]")
     public CustomElement btnYes;
-
+    @FindBy(locator = "xpath=//button[contains(@class,\"p-button-outlined\")]//span[text()='Cancel']")
+    public CustomElement btnCancel;
     @FindBy(locator = "xpath=//span[text()='Next']")
     public CustomElement btNext;
     @FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Running \"]")
     public CustomElement statusOptionRunning;
-    @FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Not in Operation \"]")
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Not in Operation \"]")
     public CustomElement statusOptionNotInOperation;
-    @FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Prior to Commissioning \"]")
+    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Prior to Commissioning \"]")
     public CustomElement statusOptionPriorToCommissioning;
-    @FindBy(locator= "xpath=//div[contains(@class,\"p-datepicker-group-container\")]")
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-datepicker-group-container\")]")
     public CustomElement calendarPopup;
-    @FindBy(locator= "xpath=//div//button[contains(@class,\"p-datepicker-month\")]\n")
+    @FindBy(locator = "xpath=//div//button[contains(@class,\"p-datepicker-month\")]\n")
     public CustomElement monthField;
-    @FindBy(locator= "xpath=//div//div[contains(@class,\"p-monthpicker\")]")
+    @FindBy(locator = "xpath=//div//div[contains(@class,\"p-monthpicker\")]")
     public CustomElement monthChart;
-    @FindBy(locator= "xpath=//div//button[contains(@class,\"p-datepicker-prev\")]")
+    @FindBy(locator = "xpath=//div//button[contains(@class,\"p-datepicker-prev\")]")
     public CustomElement prevBtn;
-    @FindBy(locator= "xpath=//div//button[contains(@class,\"p-datepicker-next\")]")
+    @FindBy(locator = "xpath=//div//button[contains(@class,\"p-datepicker-next\")]")
     public CustomElement nextBtn;
-    @FindBy(locator= "xpath=//div//button[contains(@class,\"p-datepicker-year\")]")
+    @FindBy(locator = "xpath=//div//button[contains(@class,\"p-datepicker-year\")]")
     public CustomElement yearField;
-    @FindBy(locator= "xpath=//div//div[contains(@class,\"p-yearpicker\")]")
+    @FindBy(locator = "xpath=//div//div[contains(@class,\"p-yearpicker\")]")
     public CustomElement yearChart;
-    @FindBy(locator= "xpath=(//td//span[contains(@class, 'p-disabled')])[1]")
+    @FindBy(locator = "xpath=(//td//span[contains(@class, 'p-disabled')])[1]")
     public CustomElement disabledDate;
     @FindBy(locator = "xpath=//span[text()='Create']")
     public CustomElement btCreate;
@@ -409,22 +409,53 @@ public class MonitoringDevicePage extends BasePage {
     public CustomElement btCreateStyle;
     @FindBy(locator = "xpath=//div//span[contains(@class,\"title\")and contains(text(),\"Device Location\")]")
     public CustomElement deviceLocationHeader;
-    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
     public CustomElement crViewIcon;
 	@FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
 	public CustomElement buttonLoader;
+    @FindBy(locator = "xpath=//div[@class=\"menu-cord\"]//div//span[text()=\"MultiProtect\"]")
+    public CustomElement menuList;
 
-	@FindBy(locator = "xpath=//span[text()='Yes']")
-	public CustomElement crYesConfirmation;
+    @FindBy(locator = "xpath=//p-tabview//li//a//span[contains(@class,\"tab-heading\") and text()=\"RIP Insert Image\" ]  ")
+    public CustomElement ripInsertImageTab;
+    @FindBy(locator = "xpath=//p-tabview//li//a//span[contains(@class,\"tab-heading\") and text()=\"Latest alarm for this Insert\" ]  ")
+    public CustomElement ripInsertAlarmTab;
+    @FindBy(locator = "xpath=//p-tabview//li[contains(@class,\"p-highlight\")]//a//span[contains(@class,\"tab-heading\") and text()=\"Latest alarm for this Insert\" ]  ")
+    public CustomElement ripInsertAlarmTabActivated;
 
-	@FindBy(locator = "xpath=//td[contains(text(),'No')]")
-	public CustomElement noList;
+    @FindBy(locator = "xpath=(//div//h6[contains(text(),\"Position:\")])[1]")
+    public CustomElement ripInsertPositionText;
+    @FindBy(locator = "xpath=(//div//h6[contains(text(),\"Position:\")]/following-sibling::span[contains(text(),'Image generated')])[1]")
+    public CustomElement ripInsertImgGeneratedTxt;
+    @FindBy(locator = "xpath=(//div[@class=\"p-card-content\"]//div[contains(text(),\" Estimated width\")])[1]")
+    public CustomElement ripInsertEstimatedWidth;
+    @FindBy(locator = "xpath=(//div[@class=\"p-card-content\"]//app-image-viewer//span//img[contains(@class,\"p-image\")])[1]")
+    public CustomElement ripInsertImageDisplayed;
 
 	@FindBy(locator = "xpath=//div[@class='menu-cord']//div//span[text()='Conveyor Details']")
 	public CustomElement conveyorDetailsMenu;
-	@FindBy(locator = "xpath=//div[@class='menu-cord']//div//span[text()='CordProtect']")
-	public CustomElement menuList;
-	String[] menuListNames={"Main Page","Splices","Damages","Segments"};
+    @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
+    public CustomElement paginationEntry;
+    @FindBy(locator = "xpath=//tr[1]//td//div//p-button[@type=\"button\" and @icon=\"ctp-icon-Arrow-Right\"]")
+    public CustomElement viewMoreBtn;
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-panel-header\")]//i[contains(@class,\"pi-arrow-right\")]")
+    public CustomElement viewNextBtn;
+    @FindBy(locator = "xpath=//div[contains(@class,\"p-panel-header\")]//i[contains(@class,\"pi-arrow-left\")]")
+    public CustomElement viewPrevBtn;
+
+    @FindBy(locator = "xpath=//textarea[@formcontrolname=\"comment\"]")
+    public CustomElement tbComment;
+    @FindBy(locator = "xpath=//td//span[contains(@class,\"p-highlight\") ]")
+    public CustomElement selectedLastServiceDate;
+
+    @FindBy(locator = "xpath=//span[text()='Yes']")
+    public CustomElement crYesConfirmation;
+
+    @FindBy(locator = "xpath=//td[contains(text(),'No')]")
+    public CustomElement noList;
+
+    String[] menuListNames = {"Main Page", "Conveyor Details", "Splices", "Rip Inserts", "Damages", "Segments"};
+
 	public void clickCarouselLeftIcon(){
 		waitForElementVisible(carouselLeftIcon,5000,500);
 		carouselLeftIcon.click("Carsouel Left");
@@ -468,117 +499,94 @@ public class MonitoringDevicePage extends BasePage {
         }
     }
 
-	public boolean searchMonitoringDevice(String monitoringDeviceName){
-		goToMonitoringDeviceListScreenAndWait();
-		btSearchinput.type(monitoringDeviceName, "Monitoring Device Name Search");
-		waitForElementToDisplay(crCheckbox);
-		return crCheckbox.isVisible("Conveyor Found");
-	}
+    public boolean searchMonitoringDevice(String monitoringDeviceName){
+        goToMonitoringDeviceListScreenAndWait();
+        btSearchinput.type(monitoringDeviceName, "Monitoring Device Name Search");
+        waitForElementToDisplay(crCheckbox);
+        return crCheckbox.isVisible("Conveyor Found");
+    }
 
-	public void editMonitoringDevice(String device, String newdevice){
-		goToMonitoringDeviceEditScreen(device);
-		waitForElementToDisplay(tbDeviceName);
-		tbDeviceName.type(newdevice,"Device name");
-		btSave.click();
-		waitForElementToInvisible(buttonLoader,10000);
-	}
+    public boolean goToMonitoringDeviceEditScreen(String device) {
+        searchMonitoringDevice(device);
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.check("Select Device");
+        btActions.click("Actions");
+        waitForElementVisible(editBtn, 10000, 500);
+        editBtn.click("Edit");
+        waitForPageLoad(10000);
+        return updateDeviceTitle.isVisible(10000, "Update Device title");
+    }
 
-	public boolean deleteMonitoringDevice(String calc){
-		searchMonitoringDevice(calc);
-		crCheckbox.check("Monitoring Checkbox");
-		btActions.click("Actions");
-		waitForElementVisible(deleteBtn, 20000,500);
-		deleteBtn.click("Delete");
-		crYesConfirmation.click("Confirm");
-		waitForElementToDisplay(noList);
-		return noList.isVisible();
-	}
+    public void editMonitoringDevice(String device, String newdevice) {
+        goToMonitoringDeviceEditScreen(device);
+        waitForElementToDisplay(tbDeviceName);
+        tbDeviceName.type(newdevice, "Device name");
+        btSave.click();
+        waitForElementToInvisible(buttonLoader, 10000);
+    }
 
-	public void verifyDeletedMonitoringDevice(String calc) {
-		goToMonitoringDeviceListScreen();
-		waitForPageLoad(10000);
-		btSearchinput.type(calc, "Calc Search");
-		Validator.assertTrue(noList.isVisible(),"Delete Monitoring Device was still found in list screen","Monitoring Device deleted successfully");
-	}
+    public boolean deleteMonitoringDevice(String calc) {
+        searchMonitoringDevice(calc);
+        crCheckbox.check("Monitoring Checkbox");
+        btActions.click("Actions");
+        waitForElementVisible(deleteBtn, 20000, 500);
+        deleteBtn.click("Delete");
+        crYesConfirmation.click("Confirm");
+        waitForElementToDisplay(noList);
+        return noList.isVisible();
+    }
 
-	public void clickCheckBox(){
-		waitForElementToDisplay(crCheckbox);
-		crCheckbox.click();
-	}
-	public void verifyMonDevActionBtnFuntionalityOnSelection(){
-		waitForElementToDisplay(btActions);
-		btActions.click("Action Button");
-		waitForElementToDisplay(btDelete);
-		Validator.assertTrue(btExportPdf.isDisplayed(),"Export Pdf is not visible","Export Pdf is visible");
-		Validator.assertTrue(btExportCsv.isDisplayed(),"Export Csv is not visible","Export Csv is visible");
-		Validator.assertTrue(btDelete.isDisplayed(),"Delete is not visible","Delete is visible");
-		Validator.assertTrue(btEdit.isDisplayed(),"Edit is not visible","Edit is visible");
-		Validator.assertTrue(btScan.isDisplayed(),"Scan is not visible","Scan is visible");
-	}
-	public void verifyMonDevActionBtnFuntionalityOnDefault(){
-		waitForElementToDisplay(btActions);
-		btActions.click("Action Button");
-		waitForElementToDisplay(btExportPdf);
-		Validator.assertTrue(btExportPdf.isDisplayed(),"Export Pdf is not visible","Export Pdf is visible");
-		Validator.assertTrue(btExportCsv.isDisplayed(),"Export Csv is not visible","Export Csv is visible");
-	}
+    public void verifyDeletedMonitoringDevice(String calc) {
+        goToMonitoringDeviceListScreen();
+        waitForPageLoad(10000);
+        btSearchinput.type(calc, "Calc Search");
+        Validator.assertTrue(noList.isVisible(), "Delete Monitoring Device was still found in list screen", "Monitoring Device deleted successfully");
+    }
 
-	////
-	public void verifyColumnFilterClick(int noOfCoverWears,String cloumnName,String filter)
-	{
-		waitForElementVisible(driver.findElement(By.xpath("//th[@id='"+cloumnName+"']")),5000,500);
-		hoverOverElement(driver.findElement(By.xpath("//th[@id='"+cloumnName+"']")));
-		waitForElementVisible(appliedFilter,10000,500);
-		for (int i = 1; i <= noOfCoverWears; i++)
-		{
-			String tdText = driver.findElement(By.xpath("//table//tr["+ i +"]/td[3]")).getText(); // Get the text of the td element
+    public void clickCheckBox() {
+        waitForElementToDisplay(crCheckbox);
+        crCheckbox.click();
+    }
 
-			if (tdText.startsWith(filter)) // Check if the text starts with 'w'
-			{
-				// If the filter is applied, assert it for this row
-				Validator.assertTrue(true, "Filter is not applied for row ","filter is applied");
-			} else {
-				// If the filter is not applied, assert it for this row
-				System.out.println("No filter applied for row " + i);
-				// Add your assertion code here
-			}
-		}
-	}
-	public void clearFilterClick()
-	{
-		waitForElementVisible(clearFilterBtn,10000,500);
-		clearFilterBtn.click();
-	}
+    public void verifyMonDevActionBtnFuntionalityOnSelection() {
+        waitForElementToDisplay(btActions);
+        btActions.click("Action Button");
+        waitForElementToDisplay(btDelete);
+        Validator.assertTrue(btExportPdf.isDisplayed(), "Export Pdf is not visible", "Export Pdf is visible");
+        Validator.assertTrue(btExportCsv.isDisplayed(), "Export Csv is not visible", "Export Csv is visible");
+        Validator.assertTrue(btDelete.isDisplayed(), "Delete is not visible", "Delete is visible");
+        Validator.assertTrue(btEdit.isDisplayed(), "Edit is not visible", "Edit is visible");
+        Validator.assertTrue(btScan.isDisplayed(), "Scan is not visible", "Scan is visible");
+    }
 
-	public void verifyFilterIsRemoved(String cloumnName)
-	{
-		waitForElementVisible(driver.findElement(By.xpath("//th[@id='"+cloumnName+"']")),5000,500);
-		hoverOverElement(driver.findElement(By.xpath("//th[@id='"+cloumnName+"']")));
-		Validator.assertTrue(appliedFilter.isNotVisible(10000),"filter is not removed","filter is removed");
-	}
-	public void applyColumnFilterClick(String cloumnName,String filterName,String filter)
-	{
-		waitForElementVisible(driver.findElement(By.xpath("//th[@id='"+cloumnName+"']")),5000,500);
-		hoverOverElement(driver.findElement(By.xpath("//th[@id='"+cloumnName+"']")));
-		waitForElementVisible(driver.findElement(By.xpath("//p-columnfilter[@field='"+filterName+"']")),5000,500);
-		driver.findElement(By.xpath("//p-columnfilter[@field='"+filterName+"']")).click();
-		waitForElementVisible(filterText,5000,500);
-		filterText.type(filter);
-		waitForElementVisible(applyBtn,5000,500);
-		applyBtn.click();
-	}
+    public void verifyMonDevActionBtnFuntionalityOnDefault() {
+        waitForElementToDisplay(btActions);
+        btActions.click("Action Button");
+        waitForElementToDisplay(btExportPdf);
+        Validator.assertTrue(btExportPdf.isDisplayed(), "Export Pdf is not visible", "Export Pdf is visible");
+        Validator.assertTrue(btExportCsv.isDisplayed(), "Export Csv is not visible", "Export Csv is visible");
+    }
 
-	public void clickOnZoomIn()
-	{
-		waitForElementVisible(locationPopZoomInBtn,5000,500);
-		locationPopZoomInBtn.jsClick();
+    ////
+    public void verifyColumnFilterClick(int noOfCoverWears, String cloumnName, String filter) {
+        waitForElementVisible(driver.findElement(By.xpath("//th[@id='" + cloumnName + "']")), 5000, 500);
+        hoverOverElement(driver.findElement(By.xpath("//th[@id='" + cloumnName + "']")));
+        waitForElementVisible(appliedFilter, 10000, 500);
+        for (int i = 1; i <= noOfCoverWears; i++) {
+            String tdText = driver.findElement(By.xpath("//table//tr[" + i + "]/td[3]")).getText(); // Get the text of the td element
 
-	}
-	public void clickOnZoomOut()
-	{
-		waitForElementVisible(locationPopZoomOutBtn,5000,500);
-		locationPopZoomOutBtn.jsClick();
-	}
+            if (tdText.startsWith(filter)) // Check if the text starts with 'w'
+            {
+                // If the filter is applied, assert it for this row
+                Validator.assertTrue(true, "Filter is not applied for row ", "filter is applied");
+            } else {
+                // If the filter is not applied, assert it for this row
+                System.out.println("No filter applied for row " + i);
+                // Add your assertion code here
+            }
+        }
+    }
+
 	public void addDeviceDetailsWithNonMandatoryFields(String brand,String serialNo,String remoteConnection,String comminsionDate,String beltConveyorSave,String firmwareVersion,String systemLink)
 	{
 		waitForElementVisible(tbDeviceBrand,10000,500);
@@ -594,75 +602,130 @@ public class MonitoringDevicePage extends BasePage {
 		Validator.assertTrue(tbSystemSoftwareLink.isDisplayed(),"Access to System Software is not visible","Access to System Software is visible");
 		tbSystemSoftwareLink.sendKeys(systemLink,"Access to System Software");
 	}
-	public void verifyRemoteConnectionDDL()
-	{
-		remoteConnectionDropDown.click("Remote Connection");
-		Validator.assertTrue(ddlSelectLocalOnly.isVisible(10000,"local only option")&&ddlSelect3G4GRouter.isVisible(10000,"3G/4G Router option")&&
-				ddlSelectVPNMineSite.isVisible(10000,"VPN Mine Site option"),"All the options of remote connection dropdown are not visible","All the options of remote connection dropdown are visible");
-		remoteConnectionDropDown.click("Remote Connection");
-		SyncUtil.waitFor(2000);
-	}
 
-	/////
-	public void clickAndVerifyLocationPopUp(String monitoringDevice)
-	{
-		SyncUtil.waitFor(3000);
-		waitForElementVisible(locationIcon,5000,500);
-		locationIcon.click();
-		waitForElementVisible(dialogBox,5000,1000);
-		Validator.assertTrue(dialogBox.isDisplayed(),"Dialogbox is not displayed","Dialogbox is displayed");
-		Validator.assertTrue(locationPopHeader.getText().equalsIgnoreCase(monitoringDevice),"Location Pop Up header mismatch","Location Pop Up header matched");
-		Validator.assertTrue(locationPopCloseBtn.isDisplayed(),"Close Button is not visible","Close Button is visible");
-		Validator.assertTrue(locationPopMapBtn.isDisplayed(),"Map Button is not visible","Map Button is visible");
-		Validator.assertTrue(locationPopSatelliteBtn.isDisplayed(),"Satellite Button is not visible","Satellite Button is visible");
-		Validator.assertTrue(locationPopFullScreenBtn.isDisplayed(),"Full Screen Button is not visible","Full Screen Button is visible");
-		Validator.assertTrue(locationPopZoomInBtn.isDisplayed(),"Zoom In Button is not visible","Zoom In Button is visible");
-		Validator.assertTrue(locationPopZoomOutBtn.isDisplayed(),"Zoom Out Button is not visible","Zoom Out Button is visible");
-		Validator.assertTrue(locationPopPegManBtn.isDisplayed(),"PegMan Button is not visible","PegMan Button is visible");
-		Map<String, Object> val = DashboardPage.getInstance().apiBase.getMonitoringDeviceAPI(monitoringDevice);
-		Validator.assertTrue(locationPopLatBtn.isDisplayed(),"Latitude Button is not visible","Latitude Button is visible");
-		Validator.assertTrue(locationPopLonBtn.isDisplayed(),"Longitude Button is not visible","Longitude Button is visible");
+    public void clearFilterClick() {
+        waitForElementVisible(clearFilterBtn, 10000, 500);
+        clearFilterBtn.click();
+    }
 
-		BigDecimal displayedLatitudeRounded = new BigDecimal(locationPopLatBtn.getAttribute("value")).round(new MathContext(8, RoundingMode.HALF_UP));
-		String formattedDisplayedLatitude = displayedLatitudeRounded.toPlainString();
-		BigDecimal displayedLongitudeRounded = new BigDecimal(locationPopLonBtn.getAttribute("value")).round(new MathContext(8, RoundingMode.HALF_UP));
-		String formattedDisplayedLongitude= displayedLongitudeRounded.toPlainString();
+    public void verifyFilterIsRemoved(String cloumnName) {
+        waitForElementVisible(driver.findElement(By.xpath("//th[@id='" + cloumnName + "']")), 5000, 500);
+        hoverOverElement(driver.findElement(By.xpath("//th[@id='" + cloumnName + "']")));
+        Validator.assertTrue(appliedFilter.isNotVisible(10000), "filter is not removed", "filter is removed");
+    }
 
-		String apiLatitude = String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("latitude"));
-		String apiLongitude = String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("longitude"));
+    public void applyColumnFilterClick(String cloumnName, String filterName, String filter) {
+        waitForElementVisible(driver.findElement(By.xpath("//th[@id='" + cloumnName + "']")), 5000, 500);
+        hoverOverElement(driver.findElement(By.xpath("//th[@id='" + cloumnName + "']")));
+        waitForElementVisible(driver.findElement(By.xpath("//p-columnfilter[@field='" + filterName + "']")), 5000, 500);
+        driver.findElement(By.xpath("//p-columnfilter[@field='" + filterName + "']")).click();
+        waitForElementVisible(filterText, 5000, 500);
+        filterText.type(filter);
+        waitForElementVisible(applyBtn, 5000, 500);
+        applyBtn.click();
+    }
 
-		String latitudeToVerify = formattedDisplayedLatitude.length() > 5 ? formattedDisplayedLatitude.substring(0, 5) : formattedDisplayedLatitude;
-		String longitudeToVerify = formattedDisplayedLongitude.length() > 5 ? formattedDisplayedLongitude.substring(0, 5) : formattedDisplayedLongitude;
-		String apiLatitudeToVerify = apiLatitude.length() > 5 ? apiLatitude.substring(0, 5) : apiLatitude;
-		String apiLongitudeToVerify = apiLongitude.length() > 5 ? apiLongitude.substring(0, 5) : apiLongitude;
+    public void clickOnZoomIn() {
+        waitForElementVisible(locationPopZoomInBtn, 5000, 500);
+        locationPopZoomInBtn.jsClick();
+    }
 
-		Validator.assertTrue(
-				latitudeToVerify.equals(apiLatitudeToVerify),
-				"Latitude Button is not visible or the latitude value does not match",
-				"Latitude Button is visible and the latitude value matches"
-		);
-		Validator.assertTrue(
-				longitudeToVerify.equals(apiLongitudeToVerify),
-				"Longitude Button is not visible or the Longitude value does not match",
-				"Longitude Button is visible and the Longitude value matches"
-		);
+    public void clickOnZoomOut() {
+        waitForElementVisible(locationPopZoomOutBtn, 5000, 500);
+        locationPopZoomOutBtn.jsClick();
+    }
 
+    public void verifyRemoteConnectionDDL() {
+        remoteConnectionDropDown.jsClick("Remote Connection");
+        Validator.assertTrue(ddlSelectLocalOnly.isVisible(10000, "local only option") && ddlSelect3G4GRouter.isVisible(10000, "3G/4G Router option") &&
+                ddlSelectVPNMineSite.isVisible(10000, "VPN Mine Site option"), "All the options of remote connection dropdown are not visible", "All the options of remote connection dropdown are visible");
+        remoteConnectionDropDown.click("Remote Connection");
+    }
 
-	}
-	public void verifyMapAndSatelliteBtn()
-	{
-		waitForElementVisible(locationPopMapBtn,5000,500);
-		locationPopMapBtn.click("Location Pop Map button");
-		Validator.assertTrue(locationPopMapBtn.getAttribute("aria-checked").equalsIgnoreCase("true"),"Map Button is not checked","Map Button is checked");
-		Validator.assertTrue(locationPopSatelliteBtn.getAttribute("aria-checked").equalsIgnoreCase("false"),"Map Button is not checked","Map Button is checked");
-		locationPopSatelliteBtn.click("Location Pop Satellite button");
-		Validator.assertTrue(locationPopSatelliteBtn.getAttribute("aria-checked").equalsIgnoreCase("true"),"Map Button is not checked","Map Button is checked");
-		Validator.assertTrue(locationPopMapBtn.getAttribute("aria-checked").equalsIgnoreCase("false"),"Map Button is not checked","Map Button is checked");
-	}
-	public void verifyPegManFunctionality()
-	{
-		waitForElementVisible(locationPopPegManBtn,5000,500);
-		hoverOverElement(locationPopPegManBtn);
+    public void verifyManualDateSelection(String lastServiceDateField, String inputDate) {
+        waitForElementVisible(driver.findElement(By.xpath("//p-calendar[@formcontrolname='" + lastServiceDateField + "']//input")), 10000, 500);
+        driver.findElement(By.xpath("//p-calendar[@formcontrolname='" + lastServiceDateField + "']//input")).click();
+        driver.findElement(By.xpath("//p-calendar[@formcontrolname='" + lastServiceDateField + "']//input")).sendKeys(inputDate);
+        verifyManualCalenderDateSelection(inputDate);
+    }
+
+    public void addDeviceDetailsWithNonMandatoryFields(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion, String lastServiceDateField, String lastServiceDate, String comment) {
+        waitForElementVisible(tbDeviceBrand, 10000, 500);
+        tbDeviceBrand.sendKeys(brand, "Device brand");
+        tbSerialNo.sendKeys(serialNo, "serialNumber");
+        tbFirmwareVersion.sendKeys(firmwareVersion, "Firmware Version");
+        verifyRemoteConnectionDDL();
+        dropdownSelectSearch(remoteConnectionDropDown, tbDeviceTypedropdown, remoteConnection);
+        waitForElementVisible(tbcommisioningDate, 10000, 500);
+        tbcommisioningDate.click("commisioningDate");
+        coverWearPage.selectGivenDate(comminsionDate);
+        tbBeltConveyorSaves.sendKeys(beltConveyorSave, "Belt/Conveyor Saves");
+        verifyManualDateSelection(lastServiceDateField, lastServiceDate);
+        tbComment.sendKeys(comment);
+        waitForElementVisible(tbInstallationDate, 10000, 500);
+        tbInstallationDate.click("installation date");
+
+    }
+
+    /////
+    public void clickAndVerifyLocationPopUp(String monitoringDevice) {
+        waitForElementVisible(locationIcon, 5000, 500);
+        locationIcon.click();
+        waitForElementVisible(dialogBox, 5000, 1000);
+        Validator.assertTrue(dialogBox.isDisplayed(), "Dialogbox is not displayed", "Dialogbox is displayed");
+        Validator.assertTrue(locationPopHeader.getText().equalsIgnoreCase(monitoringDevice), "Location Pop Up header mismatch", "Location Pop Up header matched");
+        Validator.assertTrue(locationPopCloseBtn.isDisplayed(), "Close Button is not visible", "Close Button is visible");
+        Validator.assertTrue(locationPopMapBtn.isDisplayed(), "Map Button is not visible", "Map Button is visible");
+        Validator.assertTrue(locationPopSatelliteBtn.isDisplayed(), "Satellite Button is not visible", "Satellite Button is visible");
+        Validator.assertTrue(locationPopFullScreenBtn.isDisplayed(), "Full Screen Button is not visible", "Full Screen Button is visible");
+        Validator.assertTrue(locationPopZoomInBtn.isDisplayed(), "Zoom In Button is not visible", "Zoom In Button is visible");
+        Validator.assertTrue(locationPopZoomOutBtn.isDisplayed(), "Zoom Out Button is not visible", "Zoom Out Button is visible");
+        Validator.assertTrue(locationPopPegManBtn.isDisplayed(), "PegMan Button is not visible", "PegMan Button is visible");
+        Map<String, Object> val = DashboardPage.getInstance().apiBase.getMonitoringDeviceAPI(monitoringDevice);
+        Validator.assertTrue(locationPopLatBtn.isDisplayed(), "Latitude Button is not visible", "Latitude Button is visible");
+        Validator.assertTrue(locationPopLonBtn.isDisplayed(), "Longitude Button is not visible", "Longitude Button is visible");
+
+        BigDecimal displayedLatitudeRounded = new BigDecimal(locationPopLatBtn.getAttribute("value")).round(new MathContext(8, RoundingMode.HALF_UP));
+        String formattedDisplayedLatitude = displayedLatitudeRounded.toPlainString();
+        BigDecimal displayedLongitudeRounded = new BigDecimal(locationPopLonBtn.getAttribute("value")).round(new MathContext(8, RoundingMode.HALF_UP));
+        String formattedDisplayedLongitude = displayedLongitudeRounded.toPlainString();
+
+        String apiLatitude = String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("latitude"));
+        String apiLongitude = String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("longitude"));
+
+        String latitudeToVerify = formattedDisplayedLatitude.length() > 5 ? formattedDisplayedLatitude.substring(0, 5) : formattedDisplayedLatitude;
+        String longitudeToVerify = formattedDisplayedLongitude.length() > 5 ? formattedDisplayedLongitude.substring(0, 5) : formattedDisplayedLongitude;
+        String apiLatitudeToVerify = apiLatitude.length() > 5 ? apiLatitude.substring(0, 5) : apiLatitude;
+        String apiLongitudeToVerify = apiLongitude.length() > 5 ? apiLongitude.substring(0, 5) : apiLongitude;
+
+        Validator.assertTrue(
+                latitudeToVerify.equals(apiLatitudeToVerify),
+                "Latitude Button is not visible or the latitude value does not match",
+                "Latitude Button is visible and the latitude value matches"
+        );
+        Validator.assertTrue(
+                formattedDisplayedLongitude.contains(
+                        String.valueOf(((Map<String, Object>) val.get("monitoringLocation")).get("longitude"))
+                ),
+                "Longitude Button is not visible or the Longitude value does not match",
+                "Longitude Button is visible and the Longitude value matches"
+        );
+
+    }
+
+    public void verifyMapAndSatelliteBtn() {
+        waitForElementVisible(locationPopMapBtn, 5000, 500);
+        locationPopMapBtn.click("Location Pop Map button");
+        Validator.assertTrue(locationPopMapBtn.getAttribute("aria-checked").equalsIgnoreCase("true"), "Map Button is not checked", "Map Button is checked");
+        Validator.assertTrue(locationPopSatelliteBtn.getAttribute("aria-checked").equalsIgnoreCase("false"), "Map Button is not checked", "Map Button is checked");
+        locationPopSatelliteBtn.click("Location Pop Satellite button");
+        Validator.assertTrue(locationPopSatelliteBtn.getAttribute("aria-checked").equalsIgnoreCase("true"), "Map Button is not checked", "Map Button is checked");
+        Validator.assertTrue(locationPopMapBtn.getAttribute("aria-checked").equalsIgnoreCase("false"), "Map Button is not checked", "Map Button is checked");
+    }
+
+    public void verifyPegManFunctionality() {
+        waitForElementVisible(locationPopPegManBtn, 5000, 500);
+        hoverOverElement(locationPopPegManBtn);
 //        Validator.assertTrue(locationPopPegManBtn.getAttribute("title").equalsIgnoreCase("Drag Pegman onto the map to open Street View"),"Map Button is not checked","Map Button is checked");
 		SyncUtil.waitFor(2000);
 //        Actions element = new Actions(driver);
@@ -682,20 +745,20 @@ public class MonitoringDevicePage extends BasePage {
 ////        element.dragAndDropBy(locationPopPegManBtn,mapGoogle.getCoordinates());
 //        System.out.println(locationPopPegManBtn.getLocation().x);
 //        System.out.println(locationPopPegManBtn.getLocation().y);
-		System.out.println(mapGoogle.getLocation().x+mapGoogle.getSize().width/2);
-		System.out.println(mapGoogle.getLocation().y+mapGoogle.getSize().height/2);
-		System.out.println(driver.manage().window().getSize().width/2);
-		System.out.println(driver.manage().window().getSize().height/2);
+        System.out.println(mapGoogle.getLocation().x + mapGoogle.getSize().width / 2);
+        System.out.println(mapGoogle.getLocation().y + mapGoogle.getSize().height / 2);
+        System.out.println(driver.manage().window().getSize().width / 2);
+        System.out.println(driver.manage().window().getSize().height / 2);
 ////        element.dragAndDropBy(locationPopPegManBtn,locationPopPegManBtn.getLocation().x-(mapGoogle.getLocation().x+mapGoogle.getSize().width/2),locationPopPegManBtn.getLocation().y-(mapGoogle.getLocation().y+mapGoogle.getSize().height/2)).perform();
 //        System.out.println(locationPopPegManImg.getCoordinates().toString());
 //        SyncUtil.waitFor(10000);
-		locationPopPegManBtn.jsDragAndDrop(driver.manage().window().getSize().width/2,driver.manage().window().getSize().height/2);
-		Validator.assertTrue(locationPopStreetView.isDisplayed(),"Street view is not displayed","Street view is displayed");
-		clickOnZoomOut();
-		clickOnZoomIn();
-		streetViewExitBtn.click();
-		Validator.assertTrue(locationPopMapBtn.isDisplayed(),"Map view is not displayed","Map view is displayed");
-	}
+        locationPopPegManBtn.jsDragAndDrop(driver.manage().window().getSize().width / 2, driver.manage().window().getSize().height / 2);
+        Validator.assertTrue(locationPopStreetView.isDisplayed(), "Street view is not displayed", "Street view is displayed");
+        clickOnZoomOut();
+        clickOnZoomIn();
+        streetViewExitBtn.click();
+        Validator.assertTrue(locationPopMapBtn.isDisplayed(), "Map view is not displayed", "Map view is displayed");
+    }
 
 	public void goToAddMonitoringDevice()
 	{
@@ -706,28 +769,6 @@ public class MonitoringDevicePage extends BasePage {
 		SyncUtil.waitFor(5000);
 		waitForPageLoad(15000);
 		Validator.assertTrue(driver.getCurrentUrl().contains("/device/add/basic-info"), "User is not navigated to Add monitoring device page", "User is navigated to Add monitoring device page");
-	}
-//	public void addDeviceDetailsWithMandatoryFields(String deviceName,String deviceType)
-//	{
-//		waitForElementToDisplay(tbDeviceName);
-//		waitForElementToBeClickable(tbDeviceName);
-//		tbDeviceName.sendKeys(deviceName,"Device name");
-//		dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
-//		waitForElementVisible(tbInstallationDate,10000,500);
-//		tbInstallationDate.click("installation date");
-//	}
-
-	public void addDeviceDetailsWithMandatoryFields(String deviceName, String deviceType, String status) {
-		waitForElementToDisplay(tbDeviceName);
-		waitForElementToBeClickable(tbDeviceName);
-		tbDeviceName.sendKeys(deviceName, "Device name");
-		verifyDeviceTypeDDL();
-		dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
-		clickAndVerifyStatusDropDown();
-		waitForElementVisible(driver.findElement(By.xpath("//ul[@role='listbox']//p-dropdownitem//li[contains(text(),'" + status + "')]")), 10000, 500);
-		//        statusOptionRunning.isVisible(10000,"Running");
-//		        statusOptionRunning.click("Running");
-				driver.findElement(By.xpath("//ul[@role='listbox']//p-dropdownitem//li[contains(text(),'"+status+"')]")).click();
 	}
 
 		public void verifyTableHeaderPanel()
@@ -747,45 +788,6 @@ public class MonitoringDevicePage extends BasePage {
 		monitoringDeviceCardHeader.click("Monitoring Card");
 	}
 
-
-	public void navigateToAddLocation()
-	{
-		waitForElementVisible(addLocationTitle,10000,500);
-		addLocationTitle.jsClick("Add Location");
-		Validator.assertTrue(driver.getCurrentUrl().contains("/device/add/location"),"User is not navigated to add location page","User is navigated to add location page");
-	}
-	public void selectConveyor(String conveyorName)
-	{
-		waitForElementVisible(conveyorDDL,10000,500);
-		dropdownSelectSearch(conveyorDDL,tbDeviceTypedropdown,conveyorName);
-	}
-	public void verifyContentsOfAddLocationPage()
-	{
-		waitForElementVisible(deviceLocationLabel,10000,500);
-		Validator.assertTrue(deviceLocationLabel.isDisplayed(),"Device Location is not visible","Device Location is visible");
-		Validator.assertTrue(associatedDistDDL.isDisplayed(),"Associated Distributor Field is not visible","Associated Distributor Field is visible");
-		Validator.assertTrue(siteDDL.isDisplayed(),"Site Field is not visible","Site Field is visible");
-		Validator.assertTrue(conveyorDDL.isDisplayed(),"Conveyor Field is not visible","Conveyor Field is visible");
-		Validator.assertTrue(locationPopLatBtn.isDisplayed(),"Latitude Button is not visible","Latitude Button is visible");
-		Validator.assertTrue(locationPopLonBtn.isDisplayed(),"Longitude Button is not visible","Longitude Button is visible");
-		Validator.assertTrue(locationPopMapBtn.isDisplayed(),"Map Button is not visible","Map Button is visible");
-		Validator.assertTrue(locationPopSatelliteBtn.isDisplayed(),"Satellite Button is not visible","Satellite Button is visible");
-		Validator.assertTrue(locationPopFullScreenBtn.isDisplayed(),"Full Screen Button is not visible","Full Screen Button is visible");
-		Validator.assertTrue(locationPopZoomInBtn.isDisplayed(),"Zoom In Button is not visible","Zoom In Button is visible");
-		Validator.assertTrue(locationPopZoomOutBtn.isDisplayed(),"Zoom Out Button is not visible","Zoom Out Button is visible");
-		Validator.assertTrue(locationPopPegManBtn.isDisplayed(),"PegMan Button is not visible","PegMan Button is visible");
-		Validator.assertTrue(btnCreate.isDisplayed(),"Create Button is not visible","Create Button is visible");
-		Validator.assertTrue(btnCancel.isDisplayed(),"Cancel Button is not visible","Cancel Button is visible");
-	}
-	public void clickOnMap()
-	{
-		waitForElementVisible(mapLocation,10000,500);
-		waitForElementToBeClickable(mapLocation);
-		System.out.println("click");
-		mapLocation.jsClick();
-//        Actions element = new Actions(driver);
-//        element.click(mapLocation);
-	}
 	public void verifyPrefilledLatLongValuesDisplayed()
 	{
 		SyncUtil.waitFor(5000);
@@ -1157,20 +1159,57 @@ public class MonitoringDevicePage extends BasePage {
 		cordInspectPage.verifyMenuListItems();
 	}
 
-    public void verifyActionDropdownForSingleSelection()
-    {
-        waitForElementVisible(btActions,10000,500);
+    public void navigateToAddLocation() {
+        waitForElementVisible(addLocationTitle, 10000, 500);
+        addLocationTitle.jsClick("Add Location");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/secure/device/add/location"), "User is not navigated to add location page", "User is navigated to add location page");
+    }
+
+    public void selectConveyor(String conveyorName) {
+        waitForElementVisible(conveyorDDL, 10000, 500);
+        dropdownSelectSearch(conveyorDDL, tbDeviceTypedropdown, conveyorName);
+    }
+
+    public void verifyContentsOfAddLocationPage() {
+        waitForElementVisible(deviceLocationLabel, 10000, 500);
+        Validator.assertTrue(deviceLocationLabel.isDisplayed(), "Device Location is not visible", "Device Location is visible");
+        Validator.assertTrue(associatedDistDDL.isDisplayed(), "Associated Distributor Field is not visible", "Associated Distributor Field is visible");
+        Validator.assertTrue(siteDDL.isDisplayed(), "Site Field is not visible", "Site Field is visible");
+        Validator.assertTrue(conveyorDDL.isDisplayed(), "Conveyor Field is not visible", "Conveyor Field is visible");
+        Validator.assertTrue(locationPopLatBtn.isDisplayed(), "Latitude Button is not visible", "Latitude Button is visible");
+        Validator.assertTrue(locationPopLonBtn.isDisplayed(), "Longitude Button is not visible", "Longitude Button is visible");
+        Validator.assertTrue(locationPopMapBtn.isDisplayed(), "Map Button is not visible", "Map Button is visible");
+        Validator.assertTrue(locationPopSatelliteBtn.isDisplayed(), "Satellite Button is not visible", "Satellite Button is visible");
+        Validator.assertTrue(locationPopFullScreenBtn.isDisplayed(), "Full Screen Button is not visible", "Full Screen Button is visible");
+        Validator.assertTrue(locationPopZoomInBtn.isDisplayed(), "Zoom In Button is not visible", "Zoom In Button is visible");
+        Validator.assertTrue(locationPopZoomOutBtn.isDisplayed(), "Zoom Out Button is not visible", "Zoom Out Button is visible");
+        Validator.assertTrue(locationPopPegManBtn.isDisplayed(), "PegMan Button is not visible", "PegMan Button is visible");
+        Validator.assertTrue(btnCreate.isDisplayed(), "Create Button is not visible", "Create Button is visible");
+        Validator.assertTrue(btnCancel.isDisplayed(), "Cancel Button is not visible", "Cancel Button is visible");
+    }
+
+    public void clickOnMap() {
+        waitForElementVisible(mapLocation, 10000, 500);
+        waitForElementToBeClickable(mapLocation);
+        System.out.println("click");
+        mapLocation.jsClick();
+//        Actions element = new Actions(driver);
+//        element.click(mapLocation);
+    }
+
+    public void verifyActionDropdownForSingleSelection() {
+        waitForElementVisible(btActions, 10000, 500);
         btActions.isVisible("Action");
         btActions.jsClick("Action");
-        Validator.assertTrue(editBtn.isVisible() && deleteBtn.isVisible(),"Edit and delete options are not visible for single checkbox selection","Edit and delete options are  visible for single checkbox selection");
+        Validator.assertTrue(editBtn.isVisible() && deleteBtn.isVisible(), "Edit and delete options are not visible for single checkbox selection", "Edit and delete options are  visible for single checkbox selection");
 
     }
-    public void verifyActionDropdownForMultipleSelection()
-    {
-        waitForElementVisible(btActions,10000,500);
+
+    public void verifyActionDropdownForMultipleSelection() {
+        waitForElementVisible(btActions, 10000, 500);
         btActions.isVisible("Action");
         btActions.jsClick("Action");
-        Validator.assertTrue(deleteBtn.isVisible(),"Only delete options is not visible for multiple checkbox selection","Only delete options is visible for multiple checkbox selection");
+        Validator.assertTrue(deleteBtn.isVisible(), "Only delete options is not visible for multiple checkbox selection", "Only delete options is visible for multiple checkbox selection");
 
     }
 
@@ -1197,16 +1236,30 @@ public class MonitoringDevicePage extends BasePage {
         Validator.assertTrue(btnDownload.isVisible(10000,"download"),"download button is not present","download button is  present");
     }
 
+    public void verifyScanQR(String deviceName) {
+        waitForElementVisible(scanHeader, 10000, 500);
+        System.out.println(scanHeader.getText() + "header");
+        Validator.assertTrue(scanHeader.getText().contains(deviceName), "Scan QR does not contain the header", "Scan QR Contains the header");
+        Validator.assertTrue(scannerImg.isVisible(10000, "scannerImg"), "Scan Img is not present", "Scan Img is present");
+        Validator.assertTrue(btnDialogClose.isVisible(10000, "scannerImg"), "close button is not visible", "close button is visible");
+        Validator.assertTrue(btnDownload.isVisible(10000, "download"), "download button is not present", "download button is  present");
+        waitForElementVisible(scanHeader, 10000, 500);
+        System.out.println(scanHeader.getText() + "header");
+        Validator.assertTrue(scanHeader.getText().contains(deviceName), "Scan QR does not contain the header", "Scan QR Contains the header");
+        Validator.assertTrue(scannerImg.isVisible(10000, "scannerImg"), "Scan Img is not present", "Scan Img is present");
+        Validator.assertTrue(btnDialogClose.isVisible(10000, "scannerImg"), "close button is not visible", "close button is visible");
+        Validator.assertTrue(btnDownload.isVisible(10000, "download"), "download button is not present", "download button is  present");
+    }
+
     public void downloadButtonClick() {
         waitForElementToBeClickable(btnDownload);
         btnDownload.click("Download QR Code");
         waitForElementToInvisible(downloadSpinner, 30000);
     }
 
-    public void verifyMonitoringDeviceBreadCrumb()
-    {
+    public void verifyMonitoringDeviceBreadCrumb() {
         waitForPageLoad(15000);
-        waitForElementVisible(monitoringDeviceBreadCrumb,10000,500);
+        waitForElementVisible(monitoringDeviceBreadCrumb, 10000, 500);
         Assert.assertTrue(monitoringDeviceBreadCrumb.isDisplayed(), "Breadcrumb element is not displayed");
         assertEquals(monitoringDeviceBreadCrumb.getText(), "Home\nMonitoring Devices\nAdd", "Breadcrumb text does not match expected");
     }
@@ -1219,61 +1272,80 @@ public class MonitoringDevicePage extends BasePage {
         SyncUtil.waitFor(3000);
     }
 
-    public void addDeviceDetailsWithMandatoryFields(String deviceName, String deviceType) {
+    public void addDeviceDetailsWithMandatoryFields(String deviceName, String deviceType, String status) {
         waitForElementToDisplay(tbDeviceName);
         waitForElementToBeClickable(tbDeviceName);
         tbDeviceName.sendKeys(deviceName, "Device name");
         verifyDeviceTypeDDL();
         dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
-        waitForElementVisible(tbInstallationDate, 10000, 500);
-        tbInstallationDate.click("installation date");
+        clickAndVerifyStatusDropDown();
+        waitForElementVisible(driver.findElement(By.xpath("//ul[@role=\"listbox\"]//p-dropdownitem//li[contains(text(),'" + status + "')]")), 10000, 500);
+//        statusOptionRunning.isVisible(10000,"Running");
+//        statusOptionRunning.click("Running");
+        driver.findElement(By.xpath("//ul[@role=\"listbox\"]//p-dropdownitem//li[contains(text(),'" + status + "')]")).click();
     }
 
-    public void addDeviceDetailsWithNonMandatoryFields(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion) {
+    public void verifyManualCalenderDateSelection(String inputDate) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(inputDate, inputFormatter);
+        String formattedDate = date.format(outputFormatter);
+        calendarPopup.isVisible(10000, "calender");
+        Validator.assertTrue(selectedLastServiceDate.getAttribute("data-date").contains(formattedDate), "The manually entered date is not getting selected in the calender!", "The manually entered date is getting selected in the calender!");
+
+    }
+
+    public void addDeviceDetWithNonMandatoryFields(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion, String lastServiceDateField, String lastServiceDate, String comment) {
+
         waitForElementVisible(tbDeviceBrand, 10000, 500);
         tbDeviceBrand.sendKeys(brand, "Device brand");
         tbSerialNo.sendKeys(serialNo, "serialNumber");
         tbFirmwareVersion.sendKeys(firmwareVersion, "Firmware Version");
         verifyRemoteConnectionDDL();
         dropdownSelectSearch(remoteConnectionDropDown, tbDeviceTypedropdown, remoteConnection);
-        waitForElementVisible(tbcommisioningDate,10000,500);
+        waitForElementVisible(tbcommisioningDate, 10000, 500);
         tbcommisioningDate.click("commisioningDate");
         coverWearPage.selectGivenDate(comminsionDate);
-        tbBeltConveyorSaves.sendKeys(beltConveyorSave,"Belt/Conveyor Saves");
+        tbBeltConveyorSaves.sendKeys(beltConveyorSave, "Belt/Conveyor Saves");
+        tbBeltConveyorSaves.sendKeys(beltConveyorSave, "Belt/Conveyor Saves");
+        verifyManualDateSelection(lastServiceDateField, lastServiceDate);
+        tbComment.sendKeys(comment);
+        waitForElementVisible(tbInstallationDate, 10000, 500);
+        tbInstallationDate.click("installation date");
+
     }
 
-    public void verifySaveBtnIsEnabled()
-    {Validator.assertTrue(createBtnDisabled.isNotVisible(10000),"Create button is enabled","Create button is enabled");}
+    public void verifySaveBtnIsEnabled() {
+        Validator.assertTrue(createBtnDisabled.isNotVisible(10000), "Create button is enabled", "Create button is enabled");
+    }
 
-
-    public void cancelBtnClick()
-    {
-        waitForElementVisible(btnCancel,10000,500);
+    public void cancelBtnClick() {
+        waitForElementVisible(btnCancel, 10000, 500);
         waitForElementToBeClickable(btnCancel);
         btnCancel.jsClick("Cancel");
 
     }
 
-    public void verifyWarningPopupAndExit()
-    {
-        warningDialogBox.isVisible(10000,"Warning Dialog");
+    public void verifyWarningPopupAndExit() {
+        warningDialogBox.isVisible(10000, "Warning Dialog");
         SyncUtil.waitFor(5000);
-        btnYes.isVisible(10000,"yes button");
+        btnYes.isVisible(10000, "yes button");
         waitForElementToBeClickable(btnYes);
         btnYes.jsClick("Yes");
     }
+
     public void clickOnNextBtn() {
         btNext.click();
         waitForPageLoad(15000);
         SyncUtil.waitFor(5000);
-        Validator.assertTrue(deviceLocationHeader.isVisible(10000,"Device Location Header"),"User is not navigated to device location page","User is not navigated to device location page");
+        Validator.assertTrue(deviceLocationHeader.isVisible(10000, "Device Location Header"), "User is not navigated to device location page", "User is not navigated to device location page");
     }
-    public void clickAndVerifyStatusDropDown()
-    {
-        statusDropDown.isVisible(10000,"Status Dropdown");
+
+    public void clickAndVerifyStatusDropDown() {
+        statusDropDown.isVisible(10000, "Status Dropdown");
         statusDropDown.click("Status Dropdown");
-        Validator.assertTrue(statusOptionRunning.isVisible(10000,"Running option")&&statusOptionNotInOperation.isVisible(10000,"Not In Operation option")&&
-                statusOptionPriorToCommissioning.isVisible(10000,"Prior to commissioning"),"All the options of status dropdown are not visible","All the options of status dropdown  are visible");
+        Validator.assertTrue(statusOptionRunning.isVisible(10000, "Running option") && statusOptionNotInOperation.isVisible(10000, "Not In Operation option") &&
+                statusOptionPriorToCommissioning.isVisible(10000, "Prior to commissioning"), "All the options of status dropdown are not visible", "All the options of status dropdown  are visible");
 
     }
 
@@ -1294,52 +1366,54 @@ public class MonitoringDevicePage extends BasePage {
         calendarPopup.isVisible(10000, "Calendar Popup");
 
     }
-    public String getPreviousMonth()
-    {
+
+    public String getPreviousMonth() {
         LocalDate currentDate = LocalDate.now();
         // Get previous month
         LocalDate previousMonthDate = currentDate.minusMonths(1);
         Month previousMonth = previousMonthDate.getMonth();
         return previousMonth.toString();
     }
-    public String getNextMonth()
-    {
+
+    public String getNextMonth() {
         LocalDate currentDate = LocalDate.now();
         // Get next month
         LocalDate nextMonthDate = currentDate.plusMonths(1);
         Month nextMonth = nextMonthDate.getMonth();
         return nextMonth.toString();
     }
+
     private int getPreviousYear() {
         return LocalDate.now().getYear() - 1;
     }
+
     private int getNextYear() {
         return LocalDate.now().getYear() + 1;
     }
-    public void clickAndVerifyMonthChart()
-    {
-        monthField.isVisible(10000,"Month Field");
-        prevBtn.isVisible(10000,"Previous button");
+
+    public void clickAndVerifyMonthChart() {
+        monthField.isVisible(10000, "Month Field");
+        prevBtn.isVisible(10000, "Previous button");
         prevBtn.jsClick("Previous button");
-        Validator.assertTrue(monthField.getText().equalsIgnoreCase(getPreviousMonth()),"Previous month is not displayed","Previous month is  displayed");
+        Validator.assertTrue(monthField.getText().equalsIgnoreCase(getPreviousMonth()), "Previous month is not displayed", "Previous month is  displayed");
         SyncUtil.waitFor(5000);
 
-        waitForElementVisible(nextBtn,10000,500);
-        nextBtn.isVisible(10000,"Next button");
+        waitForElementVisible(nextBtn, 10000, 500);
+        nextBtn.isVisible(10000, "Next button");
         nextBtn.jsClick("Next button");
         SyncUtil.waitFor(5000);
         waitForElementToBeClickable(nextBtn);
         nextBtn.click("Next button");
-        Validator.assertTrue(monthField.getText().equalsIgnoreCase(getNextMonth()),"Next month is not displayed","Next month is  displayed");
+        Validator.assertTrue(monthField.getText().equalsIgnoreCase(getNextMonth()), "Next month is not displayed", "Next month is  displayed");
 
         monthField.click("Month");
-        Validator.assertTrue(monthChart.isVisible(10000,"Month Chart"),"Month chart is not displayed","Month chart is displayed");
+        Validator.assertTrue(monthChart.isVisible(10000, "Month Chart"), "Month chart is not displayed", "Month chart is displayed");
 
 
     }
-    public void verifyYearBtnFunctionality()
-    {
-        prevBtn.isVisible(10000,"Previous button");
+
+    public void verifyYearBtnFunctionality() {
+        prevBtn.isVisible(10000, "Previous button");
         prevBtn.jsClick("Previous button");
         Validator.assertTrue(
                 Integer.parseInt(yearField.getText()) == getPreviousYear(),
@@ -1348,8 +1422,8 @@ public class MonitoringDevicePage extends BasePage {
         );
         SyncUtil.waitFor(5000);
 
-        waitForElementVisible(nextBtn,10000,500);
-        nextBtn.isVisible(10000,"Next button");
+        waitForElementVisible(nextBtn, 10000, 500);
+        nextBtn.isVisible(10000, "Next button");
         nextBtn.jsClick("Next button");
         SyncUtil.waitFor(5000);
         waitForElementToBeClickable(nextBtn);
@@ -1360,72 +1434,73 @@ public class MonitoringDevicePage extends BasePage {
                 "Next year is displayed"
         );
     }
-    public void clickAndVerifyYearChart()
-    {
-        yearField.isVisible(10000,"year field");
+
+    public void clickAndVerifyYearChart() {
+        yearField.isVisible(10000, "year field");
         yearField.jsClick("year field");
-        Validator.assertTrue(yearChart.isVisible(10000,"year Chart"),"year chart is not displayed","year chart is displayed");
+        Validator.assertTrue(yearChart.isVisible(10000, "year Chart"), "year chart is not displayed", "year chart is displayed");
     }
+
     // Get the previous date
-    public  int getPreviousDate() {
+    public int getPreviousDate() {
         LocalDate previousDate = LocalDate.now().minusDays(1);
         return previousDate.getDayOfMonth();
     }
 
     // Get the next date
-    public  int getNextDate() {
+    public int getNextDate() {
         LocalDate nextDate = LocalDate.now().plusDays(1);
         return nextDate.getDayOfMonth();
     }
-    public void verifyPastDatesSelection()
-    {
-        int prevDate=getPreviousDate();
-        System.out.println(getPreviousDate()+"getPreviousDate");
 
-        Validator.assertTrue(driver.findElement(By.xpath("(//table[contains(@class,\"p-datepicker-calendar\")]//tr//td//span[text()='"+prevDate+"'])[1]")).isEnabled(),"Previous dates are disabled","Previous dates are enabled");
-        int nextDate=getNextDate();
-        System.out.println(getNextDate()+"getNextDate");
-        Validator.assertTrue(driver.findElement(By.xpath("(//table[contains(@class, 'p-datepicker-calendar')]//tr//td//span[contains(text(), '"+nextDate+"') and contains(@class, 'p-disabled')])[1]")).isDisplayed(),"Next dates are enabled","Next dates are disabled");
+    public void verifyPastDatesSelection() {
+        int prevDate = getPreviousDate();
+        System.out.println(getPreviousDate() + "getPreviousDate");
+
+        Validator.assertTrue(driver.findElement(By.xpath("(//table[contains(@class,\"p-datepicker-calendar\")]//tr//td//span[text()='" + prevDate + "'])[1]")).isEnabled(), "Previous dates are disabled", "Previous dates are enabled");
+        int nextDate = getNextDate();
+        System.out.println(getNextDate() + "getNextDate");
+        Validator.assertTrue(driver.findElement(By.xpath("(//table[contains(@class, 'p-datepicker-calendar')]//tr//td//span[contains(text(), '" + nextDate + "') and contains(@class, 'p-disabled')])[1]")).isDisplayed(), "Next dates are enabled", "Next dates are disabled");
 
     }
-    public void verifyBeltConveyorSave()
-    {
-        waitForElementVisible(tbBeltConveyorSaves,10000,500);
-        tbBeltConveyorSaves.sendKeys(Keys.ARROW_UP,"upward arrow");
+
+    public void verifyBeltConveyorSave() {
+        waitForElementVisible(tbBeltConveyorSaves, 10000, 500);
+        tbBeltConveyorSaves.sendKeys(Keys.ARROW_UP, "upward arrow");
         SyncUtil.waitFor(5000);
-        Validator.assertTrue(tbBeltConveyorSaves.getAttribute("value").equalsIgnoreCase("1"),"User doesn't get positive values on clicking up arrow","User gets positive values on clicking up arrow");
-        tbBeltConveyorSaves.sendKeys(Keys.ARROW_DOWN,"upward arrow");
+        Validator.assertTrue(tbBeltConveyorSaves.getAttribute("value").equalsIgnoreCase("1"), "User doesn't get positive values on clicking up arrow", "User gets positive values on clicking up arrow");
+        tbBeltConveyorSaves.sendKeys(Keys.ARROW_DOWN, "upward arrow");
         SyncUtil.waitFor(3000);
-        tbBeltConveyorSaves.sendKeys(Keys.ARROW_DOWN,"upward arrow");
+        tbBeltConveyorSaves.sendKeys(Keys.ARROW_DOWN, "upward arrow");
         SyncUtil.waitFor(3000);
-        Validator.assertTrue(tbBeltConveyorSaves.getAttribute("value").equalsIgnoreCase("-1"),"User doesn't get negative values on clicking up arrow","User gets negative values on clicking up arrow");
-        tbBeltConveyorSaves.sendKeys(Keys.ARROW_UP,"upward arrow");
-        tbBeltConveyorSaves.sendKeys(Keys.ARROW_UP,"upward arrow");
-        tbBeltConveyorSaves.sendKeys(Keys.ARROW_DOWN,"upward arrow");
-        Validator.assertTrue(tbBeltConveyorSaves.getAttribute("value").equalsIgnoreCase("0"),"User doesn't get zero values between positive and negative numbers","User gets zero values between positive and negative numbers");
+        Validator.assertTrue(tbBeltConveyorSaves.getAttribute("value").equalsIgnoreCase("-1"), "User doesn't get negative values on clicking up arrow", "User gets negative values on clicking up arrow");
+        tbBeltConveyorSaves.sendKeys(Keys.ARROW_UP, "upward arrow");
+        tbBeltConveyorSaves.sendKeys(Keys.ARROW_UP, "upward arrow");
+        tbBeltConveyorSaves.sendKeys(Keys.ARROW_DOWN, "upward arrow");
+        Validator.assertTrue(tbBeltConveyorSaves.getAttribute("value").equalsIgnoreCase("0"), "User doesn't get zero values between positive and negative numbers", "User gets zero values between positive and negative numbers");
 
     }
-    public void verifyCreateAndCancelBtn()
-    {
-        Validator.assertTrue(createBtnDisabled.isVisible(10000,"Create"),"Create button is not disabled when the mandatory fields are not filled",
+
+    public void verifyCreateAndCancelBtn() {
+        Validator.assertTrue(createBtnDisabled.isVisible(10000, "Create"), "Create button is not disabled when the mandatory fields are not filled",
                 "Create button is disabled when the mandatory fields are not filled");
-        Validator.assertTrue(btnCancel.isVisible(10000,"Cancel"),"Cancel button is not displayed","Cancel button is displayed");
+        Validator.assertTrue(btnCancel.isVisible(10000, "Cancel"), "Cancel button is not displayed", "Cancel button is displayed");
 
 
     }
-    public void verifySaveAndCancelBtn()
-    {
-        Validator.assertTrue(btSave.isVisible(10000,"Save"),"Save button is not disabled when the mandatory fields are not filled",
+
+    public void verifySaveAndCancelBtn() {
+        Validator.assertTrue(btSave.isVisible(10000, "Save"), "Save button is not disabled when the mandatory fields are not filled",
                 "Save button is disabled when the mandatory fields are not filled");
-        Validator.assertTrue(btnCancel.isVisible(10000,"Cancel"),"Cancel button is not displayed","Cancel button is displayed");
+        Validator.assertTrue(btnCancel.isVisible(10000, "Cancel"), "Cancel button is not displayed", "Cancel button is displayed");
 
 
     }
-    public void verifyBtnColors()
-    {
-        Validator.assertTrue(btCancelStyle.isVisible(10000,"cancel button"),"Cancel button does not have orange border","Cancel button has orange border");
-        waitForElementVisible(btCreateStyle,10000,500);
-        Validator.assertTrue(btCreateStyle.isEnabled(),"is disabled","is enabled");
+
+    public void verifyBtnColors() {
+        Validator.assertTrue(btCancelStyle.isVisible(10000, "cancel button"), "Cancel button does not have orange border", "Cancel button has orange border");
+        waitForElementVisible(btCreateStyle, 10000, 500);
+        Validator.assertTrue(btCreateStyle.isEnabled(), "is disabled", "is enabled");
 
         String createBtnColor = btCreateStyle.getCssValue("background-color");
         String cancelBtnColor = btCancelStyle.getCssValue("background-color");
@@ -1433,51 +1508,41 @@ public class MonitoringDevicePage extends BasePage {
         String expectedCreateBtnColor = "rgba(255, 165, 0, 1)";  // Orange #FFA500 in rgba
         String expectedCancelBtnColor = "rgba(255, 255, 255, 1)";  // White #FFF in rgba
 
-        Validator.assertTrue(createBtnColor.equalsIgnoreCase(expectedCreateBtnColor),"Create button background color is incorrect!","Create button background color is correct!");
-        Validator.assertTrue(cancelBtnColor.equalsIgnoreCase(expectedCancelBtnColor),"Cancel button background color is incorrect!","Cancel button background color is correct!");
+        Validator.assertTrue(createBtnColor.equalsIgnoreCase(expectedCreateBtnColor), "Create button background color is incorrect!", "Create button background color is correct!");
+        Validator.assertTrue(cancelBtnColor.equalsIgnoreCase(expectedCancelBtnColor), "Cancel button background color is incorrect!", "Cancel button background color is correct!");
 
     }
 
-    public boolean goToMonitoringDeviceEditScreen(String device) {
-        searchMonitoringDevice(device);
-        waitForElementToDisplay(crCheckbox);
-        crCheckbox.check("Select Device");
-        btActions.click("Actions");
-        waitForElementVisible(editBtn, 10000,500);
-        editBtn.click("Edit");
-        waitForPageLoad(10000);
-        return updateDeviceTitle.isVisible(10000,"Update Device title");
-    }
 
     public boolean goToCorporateEditScreen() {
         waitForElementToDisplay(crCheckbox);
         crCheckbox.check("Select Device");
         btActions.click("Actions");
-        waitForElementVisible(editBtn, 10000,500);
+        waitForElementVisible(editBtn, 10000, 500);
         editBtn.click("Edit");
         waitForPageLoad(10000);
-        return updateDeviceTitle.isVisible(10000,"Update Device title");
+        return updateDeviceTitle.isVisible(10000, "Update Device title");
     }
 
     public void goToMonitoringDeviceDetailScreen() {
         waitForElementToDisplay(crViewIcon);
         crViewIcon.click("Conveyor Detail");
         waitForPageLoad(10000);
-        tbDeviceName.isVisible(10000,"Device Name");
-    }
-    public void verifyDeviceTypeInViewMode(String deviceType)
-    {
-        deviceTypeField.isVisible(10000,"Device Type");
-        Validator.assertTrue(deviceTypeField.getText("device type").equalsIgnoreCase(deviceType),"The device type dropdown value is incorrect!","The device type dropdown value is correct!");
+        tbDeviceName.isVisible(10000, "Device Name");
     }
 
-    public boolean navigateToCordProtect(){
+    public void verifyDeviceTypeInViewMode(String deviceType) {
+        deviceTypeField.isVisible(10000, "Device Type");
+        Validator.assertTrue(deviceTypeField.getText("device type").equalsIgnoreCase(deviceType), "The device type dropdown value is incorrect!", "The device type dropdown value is correct!");
+    }
+
+    public boolean navigateToCordProtect() {
         iotIcon.isEnable("IoT icon");
-        iotIcon.click("cord Protect");
-        return iotChart1.isVisible();
+        iotIcon.jsClick("cord Protect");
+        return iotChart1.isNotVisible(5000);
     }
 
-    public boolean verifyCordProtect(){
+    public boolean verifyCordProtect() {
         waitForElementToDisplay(iotChart1);
         waitForElementToDisplay(iotChart2);
         waitForElementToDisplay(iotChart3);
@@ -1485,5 +1550,180 @@ public class MonitoringDevicePage extends BasePage {
         scrollPageDown();
         SyncUtil.waitFor(2000);
         return iotChart1.isVisible() && iotChart2.isVisible() && iotChart3.isVisible();
+    }
+
+    public void verifyMenuListItems() {
+        for (String listName : menuListNames) {
+            SyncUtil.waitFor(3000);
+            Validator.assertTrue(driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='" + listName + "']")).isDisplayed(), "'" + listName + "' link is not visible", "'" + listName + "' link is visible");
+        }
+
+    }
+
+    public void clickAndVerifyFloatingMenuIcon() {
+        menuList.isVisible(10000, "MenuList");
+        waitForElementToBeClickable(menuList);
+        menuList.click("menuList");
+        verifyMenuListItems();
+    }
+
+    public void ripInsertListClick(String listItem, String nestedItem) {
+        try {
+            //  check if the expanded element is visible
+            boolean isExpanded = isElementVisible(ripInsertListExpanded, 10000);
+
+            if (isExpanded) {
+                Reporter.log("Rip Insert menu item is already expanded.");
+            } else {
+                Reporter.log("Rip Insert menu item is not expanded. Expanding now...");
+                waitForElementToBeClickable(ripInsertList);
+                ripInsertList.click("Rip Insert");
+                SyncUtil.waitFor(2000);
+            }
+
+            // Perform the list item click action
+            listItemClick(listItem, nestedItem);
+        } catch (Exception e) {
+            Reporter.log("An unexpected exception occurred: " + e.getMessage());
+        }
+    }
+
+    private boolean isElementVisible(WebElement element, int timeout) {
+        try {
+            if (element != null) {
+                return element.isDisplayed();
+            }
+        } catch (NoSuchElementException e) {
+            Reporter.log("Element not found or not visible: " + e.getMessage());
+        } catch (Exception e) {
+            Reporter.log("Unexpected exception while checking visibility: " + e.getMessage());
+        }
+        return false;
+    }
+
+
+    public void listItemClick(String listItem, String nestedItem) {
+        SyncUtil.waitFor(1000);
+        waitForElementVisible(driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='" + listItem + "']/../..//ul//li//a//span[text()='" + nestedItem + "']")), 10000, 500);
+        waitForElementToBeClickable(driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='" + listItem + "']/../..//ul//li//a//span[text()='" + nestedItem + "']")));
+        driver.findElement(By.xpath("//div//ul[@class=\"cord-menu-layout\"]//a//span[text()='" + listItem + "']/../..//ul//li//a//span[text()='" + nestedItem + "']")).click();
+        SyncUtil.waitFor(5000);
+        waitForPageLoad(10000);
+
+    }
+
+    public void verifyRipInsertThumbnailsList() {
+        breadCrumbText.isVisible(10000, "BreadCrumb");
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue(breadCrumbText.getText().contains("RIP Insert"), "User is not navigated to Rip Insert thumbnails!", "User is navigated to Rip Insert thumbnails!");
+        List<WebElement> elements = driver.findElements(By.xpath("//app-rip-insert-thumbnail//div//p-card"));
+        for (int i = 1; i < elements.size(); i++) {
+            Validator.assertTrue(driver.findElement(By.xpath("(//app-rip-insert-thumbnail//div//p-card)['" + i + "']")).isDisplayed(), "Rip Inserts are not visible", "'" + i + "' rip insert is displayed in rip insert list");
+        }
+
+    }
+
+    public void clickAndVerifyRipInsertDetailPage() {
+        scrollPageup();
+        ripInsertData.isVisible(10000, "Rip Insert Record");
+        ripInsertData.click("Rip Insert Record");
+        waitForPageLoad(10000);
+        breadCrumbText.isVisible(10000, "Bread Crumb");
+        Validator.assertTrue(ripInsertThumbnailHeader.isVisible(10000, "Thumbnails Header"), "User is not navigated to Rip Insert detail page!", "User is  navigated to Rip Insert detail page!");
+        waitForPageLoad(10000);
+    }
+
+    public void verifyRipInsertTableNavigation() {
+        breadCrumbText.isVisible(10000, "BreadCrumb");
+        Validator.assertTrue(breadCrumbText.getText().contains("Table of Rip Inserts"), "User is not navigated to Rip Insert table page!", "User is  navigated to Rip Insert table page!");
+    }
+
+    public void verifyAlarmHistoryNavigation() {
+        breadCrumbText.isVisible(10000, "BreadCrumb");
+        Validator.assertTrue(breadCrumbText.getText().contains("RIP Events"), "User is not navigated to Alarm History page!", "User is navigated to Alarm History page");
+    }
+
+    public void verifyRipInsertData() {
+        Validator.assertTrue(ripInsertImageTab.isVisible(10000, "Rip Insert Image"), "Rip Insert image tab is not visible", "Rip Insert image tab is visible");
+        Validator.assertTrue(ripInsertAlarmTab.isVisible(10000, "Rip Insert Alarm"), "Rip Insert alarm tab is not visible", "Rip Insert alarm tab is visible");
+        Validator.assertTrue(ripInsertPositionText.isVisible(10000, "position"), "Rip Insert position is visible", "Rip Insert position is visible");
+        Validator.assertTrue(ripInsertImgGeneratedTxt.isVisible(10000, "generated Image"), "Rip Insert generated image tab is not visible", "Rip Insert generated image tab is visible");
+        Validator.assertTrue(ripInsertImageDisplayed.isVisible(10000, "Image"), "Rip Insert image is not visible", "Rip Insert image is visible");
+        Validator.assertTrue(ripInsertEstimatedWidth.isVisible(10000, "estimated width of rip insert"), "estimated width for rip insert is not visible", "estimated width for rip insert is  visible");
+
+    }
+
+    public void verifyRipInsertDataInTabularColumn() {
+        waitForPageLoad(10000);
+        int paginationCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        for (int i = 1; i < paginationCount; i++) {
+            Validator.assertTrue(driver.findElement(By.xpath("//tr['" + i + "']//td")).isDisplayed(), "ripInsert Data found", "ripInsert Data found");
+        }
+    }
+
+    public void clickOnViewButton() {
+        viewMoreBtn.isVisible(10000, "view more");
+        viewMoreBtn.jsClick("View More");
+        waitForPageLoad(10000);
+    }
+
+    public void clickAndVerifyForwardNavigation() {
+        viewNextBtn.isVisible(10000, "Next Button");
+        viewNextBtn.jsClick("next button");
+        ripInsertThumbnailHeader.isVisible(10000, "Rip Insert Header");
+        Validator.assertTrue(ripInsertThumbnailHeader.getText().contains("2"), "user cannot navigate between rip inserts with forward arrow", "user can navigate between rip inserts with forward arrow");
+    }
+
+    public void clickAndVerifyBackwardNavigation() {
+        viewPrevBtn.isVisible(10000, "Prev Button");
+        viewPrevBtn.jsClick("prev button");
+        ripInsertThumbnailHeader.isVisible(10000, "Rip Insert Header");
+        Validator.assertTrue(ripInsertThumbnailHeader.getText().contains("1"), "user cannot navigate between rip inserts with backward arrow", "user can navigate between rip inserts with backward arrow");
+    }
+
+    public void clickAndVerifyLatestAlarmLink() {
+        ripInsertAlarmTab.isVisible(10000, "Latest alarm link");
+        ripInsertAlarmTab.jsClick("Latest alarm link");
+        Validator.assertTrue(ripInsertAlarmTabActivated.isVisible(10000, "RipInsertAlarmTabActivated"), "Latest alarm for this insert link is not activated", "Latest alarm for this insert link is visible and is activated");
+    }
+
+    public void editComment(String editComment) {
+        tbComment.isVisible(10000, "comments tab");
+        tbComment.type(editComment);
+    }
+
+    public void verifyViewComment(String comment) {
+        tbComment.isVisible(10000, "comments tab");
+        System.out.println(tbComment.getAttribute("value") + "value is");
+        Validator.assertTrue(tbComment.getAttribute("value").equalsIgnoreCase(comment), "User cannot view the updated comment!", "User can view the updated comment!");
+
+    }
+
+    public void verifyDeviceBreadCrumb(String deviceName, String breadCrumb) {
+        breadCrumbText.isVisible(10000, "BreadCrumb");
+        SyncUtil.waitFor(3000);
+        System.out.println(breadCrumbText.getText() + "bc text");
+        Validator.assertTrue(breadCrumbText.getText().contains("Home\nMonitoring Devices\n" + deviceName + "\n" + breadCrumb), "User is not navigated to '" + breadCrumb + "'!", "User is navigated to '" + breadCrumb + "'!");
+    }
+
+    public void splicesListClick(String listItem, String nestedItem) {
+        try {
+            //  check if the expanded element is visible
+            boolean isExpanded = isElementVisible(ripInsertListExpanded, 10000);
+
+            if (isExpanded) {
+                Reporter.log("Rip Insert menu item is already expanded.");
+            } else {
+                Reporter.log("Rip Insert menu item is not expanded. Expanding now...");
+                waitForElementToBeClickable(ripInsertList);
+                ripInsertList.click("Rip Insert");
+                SyncUtil.waitFor(2000);
+            }
+
+            // Perform the list item click action
+            listItemClick(listItem, nestedItem);
+        } catch (Exception e) {
+            Reporter.log("An unexpected exception occurred: " + e.getMessage());
+        }
     }
 }

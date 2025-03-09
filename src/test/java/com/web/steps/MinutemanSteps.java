@@ -51,15 +51,15 @@ public class MinutemanSteps {
 //        minutemanPage.clickOnPulley();
 //        SyncUtil.waitFor(5000);
         minutemanPage.clickNext();
-       SyncUtil.waitFor(1000);
+        SyncUtil.waitFor(1000);
 //
         minutemanPage.clickNext();
         SyncUtil.waitFor(10000);
 //        System.out.println("This is flight : "+minutemanPage.getFlightConfiguration(stations));
 //        flightInfoPage=minutemanPage.getFlightConfiguration(stations);
 //
-       minutemanPage.clickNext();
-       SyncUtil.waitFor(15000);
+        minutemanPage.clickNext();
+        SyncUtil.waitFor(15000);
         minutemanPage.clickOnFinalReport();
         SyncUtil.waitFor(2000);
         System.out.println("This is data : "+minutemanPage.getTransitionLength());

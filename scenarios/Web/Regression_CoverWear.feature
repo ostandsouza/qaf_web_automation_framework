@@ -121,8 +121,6 @@ Scenario: Verify the functionality of clear filter
  @key:CoverWear_Value
  Scenario: ZxVerify the pagination functionality
 
-   Given User is at Login page
-   When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     Then Verify pagination dropdown
     And Verify pagination forward arrow button
@@ -133,8 +131,6 @@ Scenario: Verify the functionality of clear filter
   @key:CovereWear_Management_Position_Metric
   Scenario: Verify metric to imperial conversion
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And   Verify data value in header as metric
     And  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${PositionName}' '${BeltWidth}'
@@ -150,8 +146,6 @@ Scenario: Verify the functionality of clear filter
 @key:CovereWear_Management_Position_Imperial
 Scenario: Verify imperial to metric conversion
 
-   Given User is at Login page
-   When  Login with '${UserName}' and '${Password}'
     And   Navigate to coverWear list screen and wait for data load
     And Add data value in header as imperial
     And   Verify data value in header as imperial
@@ -237,7 +231,7 @@ Scenario: Verify Specification details for position
     And Click on conveyor position '${Position}' and navigate to position screen
     Then Verify the Position headings as '${Position}'
     And Verify the Specification format as '${BeltConstruction}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}'
-    And Verify the date of installation format as '${InstalledDate}'
+    And Verify the date of installation format as '${Date}'
     And Verify the durometer value format as '${NewDurometerValue}'
     And Verify date of installation '${Date}' and specification '${BeltConstruction}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' is same in technical data
 
@@ -332,8 +326,6 @@ Scenario: Observe life displayed in projection table should be displayed in year
 @key:CoverWear_Management_Add_Position
 Scenario: ZVerify temperature and Tons conveyed are not mandatory values in position
 
-   Given User is at Login page
-   When Login with '${UserName}' and '${Password}'
    And Navigate to coverWear list screen and wait for data load
    And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
    And Click on conveyor position '${Position}' and navigate to position screen
@@ -363,8 +355,6 @@ Scenario: Verify user is able to save temperature value and tons conveyed value 
 @key:CoverWear_AddMeasurementDetails
 Scenario: Verify user is able to add device details while adding measurement
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And Search for the conveyor '${ConveyorName}' in cover wear listing screen and navigate
     Then Click on conveyor position '${Position}' and navigate to position screen
     And Click on add new measurement and verify the pop-up to add measurement is visible
@@ -381,7 +371,6 @@ Scenario: Verify user is able to add device details while adding measurement
 @sheetName:Regression
 @key:CoverWear_BreadCrumb
 Scenario: ZVerify the breadcrumb functionality of the page
-
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -457,8 +446,6 @@ Scenario: Verify the functionality of sorting
 @key:Conveyor_CoverWear_Management
 Scenario: Verify user is able to add Tons conveyed with values as '0'
 
-  Given User is at Login page
-  When  Login with '${UserName}' and '${Password}'
     And  Navigate to coverWear list screen and wait for data load
     And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
     And Click on Add New Position

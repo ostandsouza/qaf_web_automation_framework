@@ -8,14 +8,18 @@ import com.web.pages.*;
 
 import java.util.Map;
 
+import java.util.Map;
+
 
 public class BeltMonitoringSteps {
 
     LoginPage loginPage = new LoginPage();
     MonitoringDevicePage monitoringDevicePage = new MonitoringDevicePage();
     ConveyorPage conveyorPage = new ConveyorPage();
-    CoverWearPage coverWearPage=new CoverWearPage();
-    UsersPage userPage=new UsersPage();
+    CoverWearPage coverWearPage = new CoverWearPage();
+    UsersPage userPage = new UsersPage();
+    HeavyEquipmentPage heavyEquipmentPage=new HeavyEquipmentPage();
+    CorporatePage corporatePage=new CorporatePage();
 
 
     @QAFTestStep(description = "Navigate to Belt Monitoring List screen")
@@ -95,21 +99,21 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.verifyMonitoringDeviceBreadCrumb();
     }
 
-    @QAFTestStep(description = "Add the device details with mandatory field {DeviceName} {DeviceType} {InstallationDate} and {ConveyorName}")
-    public void addDeviceDetailsWithMan(String deviceName,String deviceType,String date,String conveyorName)
-    {
+    @QAFTestStep(description = "Add the device details with mandatory field {DeviceName} {DeviceType} {Status} and {ConveyorName}")
+    public void addDeviceDetailsWithMan(String deviceName, String deviceType, String status, String conveyorName) {
 //        String companyId = monitoringDevicePage.apiBase.getCompanyID(monitoringDevicePage.apiBase.getCompanyAPI(deviceName));
 //        monitoringDevicePage.apiBase.deleteCompanyAPI(companyId);
-        monitoringDevicePage.addDeviceDetailsWithMandatoryFields(deviceName,deviceType);
-        coverWearPage.selectGivenDate(date);
+        monitoringDevicePage.addDeviceDetailsWithMandatoryFields(deviceName, deviceType,status);
         monitoringDevicePage.navigateToAddLocation();
         monitoringDevicePage.selectConveyor(conveyorName);
     }
 
-    @QAFTestStep(description = "Add the non-mandatory fields for device with {Brand} {SerialNumber} {RemoteConnection} {CommisioningDate} and {BeltConveyorSaves} and {FirmWareVersion}")
-    public void addNonMandatoryDeviceDetails(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion) {
+    @QAFTestStep(description = "Add the non-mandatory fields for device with {Brand} {SerialNumber} {RemoteConnection} {CommisioningDate} and {BeltConveyorSaves} and {FirmWareVersion} {LastServiceDateField} {LastServiceDate} {Comment} {InstallationDate}")
+    public void addNonMandatoryDeviceDetails(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion,String lastServiceDateField,String lastServiceDate,String comment,String installationDate) {
         conveyorPage.previousBtnClick();
-        monitoringDevicePage.addDeviceDetailsWithNonMandatoryFields(brand, serialNo, remoteConnection, comminsionDate, beltConveyorSave, firmwareVersion);
+        monitoringDevicePage.addDeviceDetailsWithNonMandatoryFields(brand, serialNo, remoteConnection, comminsionDate, beltConveyorSave, firmwareVersion,lastServiceDateField,lastServiceDate,comment);
+        coverWearPage.selectGivenDate(installationDate);
+
     }
 
     @QAFTestStep(description = "Verify save button is enabled")
@@ -263,6 +267,104 @@ public class BeltMonitoringSteps {
         Validator.assertTrue(monitoringDevicePage.searchMonitoringDevice(device),"Monitoring Device was not found","Monitoring Device was found and verified successfully");
     }
 
+    @QAFTestStep(description="Navigate to cord protect iot window")
+    public void verifyCordProtectWindow(){
+        Validator.assertTrue(monitoringDevicePage.navigateToCordProtect(),"IOT dashboard verification failed", "Iot dashboard verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the cord protect details page")
+    public void verifyCordProtectDetails(){
+        Validator.assertTrue(monitoringDevicePage.verifyCordProtect(),"IOT dashboard verification failed", "Iot dashboard verified successfully");
+    }
+    @QAFTestStep(description="Click on floating menu icon and verify user can get list of links")
+    public void clickFloatingMenuAndVerifyLinks(){
+        monitoringDevicePage.clickAndVerifyFloatingMenuIcon();
+    }
+    @QAFTestStep(description="Click on Rip Insert thumbnails {RipInsert} {RipInsertThumbNails} and verify user is able to to see Rip Inserts")
+    public void clickAndVerifyRipInsertsThumbnailsVisible(String listItem,String nestedItem){
+        monitoringDevicePage.ripInsertListClick(listItem,nestedItem);
+        monitoringDevicePage.verifyRipInsertThumbnailsList();
+    }
+    @QAFTestStep(description = "Click on a Rip Insert and verify Rip Insert detail page pf the selected Rip Insert is displayed")
+    public void verifyRipInsertDetailPageNavigation()
+    {monitoringDevicePage.clickAndVerifyRipInsertDetailPage();}
+
+    @QAFTestStep(description = "Click on RipInsertTable  {RipInsert} {RipInsertTable} and verify user is able to navigate to rip insert table")
+    public void clickAndVerifyRipInsertsTable(String listItem,String nestedItem)
+    {
+        monitoringDevicePage.clickAndVerifyFloatingMenuIcon();
+        monitoringDevicePage.ripInsertListClick(listItem,nestedItem);
+//        monitoringDevicePage.listItemClick(listItem,nestedItem);
+        monitoringDevicePage.verifyRipInsertTableNavigation();
+    }
+    @QAFTestStep(description = "Click on AlarmHistory {RipInsert} {AlarmHistory} and verify user is able to see RIP Events")
+    public void clickAndVerifyAlarmHistory(String listItem,String nestedItem)
+    {
+        monitoringDevicePage.clickAndVerifyFloatingMenuIcon();
+        monitoringDevicePage.listItemClick(listItem,nestedItem);
+        monitoringDevicePage.verifyAlarmHistoryNavigation();
+    }
+
+    @QAFTestStep(description = "Verify the Rip Insert data for the selected Rip Insert")
+    public void verifyRipInsertPageData()
+    {
+        monitoringDevicePage.verifyRipInsertData();
+    }
+    @QAFTestStep(description = "Verify the number of Rip Inserts are visible under tabular view")
+    public void verifyRipInsertDataVisibleUnderColumn()
+    {
+        monitoringDevicePage.verifyRipInsertDataInTabularColumn();
+    }
+    @QAFTestStep(description = "Verify the column names of Rip Insert Table")
+    public void verifyRipInsertColNames()
+    {
+        heavyEquipmentPage.verifyHeavyEquipmentData();
+    }
+    @QAFTestStep(description = "Click on more button and verify rip insert image with all the options")
+    public void clickOnMoreBtnAndVerifyRipInsertImage()
+    {
+        monitoringDevicePage.clickOnViewButton();
+        monitoringDevicePage.verifyRipInsertData();
+    }
+    @QAFTestStep(description = "Verify user can navigate between rip inserts with forward arrow")
+    public void verifyRipInsertNavigationWithForwardArrow()
+    {
+        monitoringDevicePage.clickAndVerifyForwardNavigation();
+    }
+    @QAFTestStep(description = "Verify user can navigate between rip inserts with backward arrow")
+    public void verifyRipInsertNavigationWithBackwardArrow()
+    {
+        monitoringDevicePage.clickAndVerifyBackwardNavigation();
+    }
+    @QAFTestStep(description = "Verify the Latest alarm for this insert link is visible and is activated")
+    public void verifyLatestAlarmLinkActivated()
+    {
+        monitoringDevicePage.clickAndVerifyLatestAlarmLink();
+    }
+    @QAFTestStep(description = "Navigate to edit page and verify user can edit the comment {EditComment}")
+    public void editAndVerifyComment(String editComment)
+    {
+        monitoringDevicePage.goToCorporateEditScreen();
+        monitoringDevicePage.editComment(editComment);
+        corporatePage.btnSaveClick();
+    }
+    @QAFTestStep(description = "Verify user can view the comment {EditComment}")
+    public void clickAndVerifyViewComment(String comment)
+    {
+        monitoringDevicePage.verifyViewComment(comment);
+    }
+    @QAFTestStep(description = "Click on any past installation date user should be able to select only past date")
+    public void verifyPastInstallationDateSelection() {
+        monitoringDevicePage.verifyRemoteConnectionDDL();
+        monitoringDevicePage.clickInstallationDateCalendarPopup();
+        monitoringDevicePage.verifyPastDatesSelection();
+    }
+    @QAFTestStep(description = "Verify user is able to manually enter input for date field {DateField} {Date} and is supported")
+    public void verifyManualInputForDateField(String dateField,String date) {
+        monitoringDevicePage.verifyRemoteConnectionDDL();
+        monitoringDevicePage.verifyManualDateSelection(dateField,date);
+    }
+
     @QAFTestStep(description="Edit monitoring device {Device} to {NewDevice}")
     public void editMonitoringDeviceTo(String device, String newdevice){
         monitoringDevicePage.editMonitoringDevice(device, newdevice);
@@ -278,7 +380,13 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.verifyDeletedMonitoringDevice(device);
     }
 
-
+    @QAFTestStep(description = "Click on menu item {RipInsert} {RipInsertThumbNails} and verify breadcrumb for {DeviceName} with {RipInsertBreadCrumb}")
+    public void verifyRipInsertBreadCrumb(String listItem,String nestedItem,String deviceName,String breadcrumb )
+    {
+        monitoringDevicePage.clickAndVerifyFloatingMenuIcon();
+        monitoringDevicePage.ripInsertListClick(listItem,nestedItem);
+        monitoringDevicePage.verifyDeviceBreadCrumb(deviceName,breadcrumb);
+    }
 
 
 }

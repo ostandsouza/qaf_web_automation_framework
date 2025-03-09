@@ -922,8 +922,13 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="//div[@role='dialog']")
     public CustomElement imageViewerPanel;
 
-    @FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component' and contains(., \"Conveyors\")]")
+    //    @FindBy(locator = "xpath=//div[@class='p-breadcrumb p-component' and contains(., \"Conveyors\")]")
+//    public CustomElement conveyorBreadCrumb;
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"  and contains(., \"Conveyors\")]")
     public CustomElement conveyorBreadCrumb;
+
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
+    public CustomElement breadCrumb;
 
     @FindBy(locator = "xpath=(//label[@for='firstname2 '])[1]")
     public CustomElement txtGPSHead;
@@ -1089,7 +1094,7 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator = "//th[@id=\"name-col\"]")
     public CustomElement thNameColumn;
-    @FindBy(locator = "//p-columnfilter[@field='name']")
+    @FindBy(locator = "//th//div[text()=' Name ']//p-columnfilter")
     public CustomElement nameFilterIcon;
 
     @FindBy(locator = "//p-columnfilter[@field='name']//button[contains(@class,\"p-column-filter-menu-button-active\")]")
@@ -1330,15 +1335,15 @@ public class ConveyorPage extends BasePage{
 
     @FindBy(locator="xpath=//span[text()='Confirmation']/../../div//button//span[text()='Yes']")
     public CustomElement btnYes;
-    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+
+    @FindBy(locator = "xpath=//p-columnfilterformelement//p-calendar//span//div[contains(@class,\"yearpicker\")]")
+    public CustomElement yearPickerDialog;
+
     public CustomElement ddlActions;
     @FindBy(locator = "xpath=//span[text()='Delete']")
     public CustomElement btnDelete;
     @FindBy(locator = "xpath=(//div[contains(text(),'Success')])[1]")
     public CustomElement deleteSuccessMsg;
-
-    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
-    public CustomElement breadCrumb;
 
     String[] columnNames={"Name","Site","Corporate","Last Modified","Installed Belt","Remaining Life by Time","Remaining Cover %","Inspection Items",
             "Belt Manufacturer","Number of Plies","Number of Cords","Cord Pitch","Cord Diameter","Length","Splice Type","Splice Quantity","Installation Date","Belt Speed","Tons Per Hour Peak","Material",
@@ -1349,12 +1354,14 @@ public class ConveyorPage extends BasePage{
     String[] DevicesColumnNames={"Name","Device Type","Site","Conveyor","Carcass","Belt Width","Region","Territory","Location",
             "Status","Installation Date","Last Service Date","Belt/Conveyor Saves"};
 
-    String[] checkedDevicesColumnNames={"Name","Device Type","Site","Conveyor","Carcass","Territory","Location",
-            "Status","Installation Date","Last Service Date","Belt/Conveyor Saves"};
+    String[] checkedDevicesColumnNames = {"Name", "Device Type", "Serial Number", "Site", "Conveyor", "Carcass", "Territory", "Location",
+            "Status", "Last Service Date", "Belt/Conveyor Saves"};
 
     String[] monitoringDeviceColName={"name","deviceType","site","conveyor","territory","carcass","status","installedDate","location","lastServiceDate","beltConveyorSaves"};
 
     String[] BeltScanColNames = {"Date Of Scan", "Device Type", "Site", "Conveyor", "Territory", "CCM"};
+    String[] heavyEquipmentColNames = {"Name", "Model", "Year of Manufacture", "Serial Number", "Distributor Shop", "Category"};
+
 
 
     public void goToConveyorListScreen(){
@@ -1421,8 +1428,9 @@ public class ConveyorPage extends BasePage{
 
         waitForElementToDisplay(tbConveyorname);
         waitForElementToBeClickable(tbConveyorname);
-        tbConveyorname.sendKeys(conveyorName,"conveyor name");
-        dropdownSelectSearch(drDistShopdropdown, tbSitedropdown, distShopName);
+        tbConveyorname.sendKeys(conveyorName, "conveyor name");
+        if(!distShopName.isEmpty())
+            dropdownSelectSearch(drDistShopdropdown, tbAssociatedSitedropdown, distShopName);
         dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
     }
     public void enterConveyorDetails(String conveyorName, String distShopName, String custSiteName) {
@@ -2048,6 +2056,7 @@ public class ConveyorPage extends BasePage{
         Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/conveyor"),"URL missMatch","URL validation passed");
         return crLift.isVisible("Conveyor Lift") && crDrivePower.isVisible("Driver Power");
     }
+
     public boolean verifyWearLifePage() {
         crWearLifeTab.click("Wear Life Tab");
         waitForElementVisible(crTonsPerYear,5000,1000);
@@ -2068,12 +2077,14 @@ public class ConveyorPage extends BasePage{
         Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/pulleys"),"URL missMatch","URL validation passed");
         return crHeadPulleyDiameter.isVisible("Head Pulley Diameter") &&  crHeadPulleyWidth.isVisible("Head Pulley Width");
     }
+
     public boolean verifyTransitionPage() {
         crTransitionTab.click("Transition Zone Tab");
         waitForElementVisible(crHeadTransitionLength,5000,1000);
         Validator.assertTrue(driver.getCurrentUrl().contains("secure/conveyor/add/transitions"),"URL missMatch","URL validation passed");
         return crHeadTransitionLength.isVisible("Flat-to-trough Transition Length") && crHeadPulleyLift.isVisible("Pulley Lift");
     }
+
     public boolean verifyRemarksPage() {
         crRemarksTab.click("Remarks Tab");
         waitForElementVisible(crAdditionalRemarks,5000,1000);
@@ -2254,14 +2265,12 @@ public class ConveyorPage extends BasePage{
 
     }
 
-    public void verifyNavigationToConveyorSiteCard()
-    {
+    public void verifyNavigationToConveyorSiteCard() {
 
-		SyncUtil.waitFor(50000);
-            waitForPageLoad(10000);
-            waitForElementVisible(siteHeader,10000,500);
-            Validator.assertTrue(siteHeader.isVisible(),"User is not navigated to site page on save and close","User is navigated to site detail page on save and close");
-            Validator.assertTrue(driver.getCurrentUrl().contains("/secure/sites/details"),"User is not navigated to site page on save and close","User is navigated to site  page on save and close");
+        waitForPageLoad(10000);
+        waitForElementVisible(siteHeader, 10000, 500);
+        Validator.assertTrue(siteHeader.isVisible(), "User is not navigated to site page on save and close", "User is navigated to site detail page on save and close");
+        Validator.assertTrue(driver.getCurrentUrl().contains("/secure/sites/details"), "User is not navigated to site page on save and close", "User is navigated to site  page on save and close");
 
     }
 
@@ -2311,14 +2320,52 @@ public class ConveyorPage extends BasePage{
 //        Validator.assertTrue(Integer.toString(conveyorCount).equals(conveyorCardCount.getText()),"Conveyor Card Count and pagination does not match","Conveyor Card Count and pagination matches");
 //        getBundle().setProperty("mainCardCountKey", conveyorCount);
 //    }
-    public void extractMainCardCount(String moduleName)
-    {
+    public void extractMainCardCount(String moduleName) {
         int extractedCardCount = Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='" + moduleName + "']/..//div//span)[1]")).getText());
         int paginationCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
-        System.out.println(extractedCardCount+"value"+paginationCount);
+        System.out.println(extractedCardCount + "value" + paginationCount);
 //        Validator.assertTrue(extractedCardCount==paginationCount,"Card Count and pagination does not match","Card Count and pagination matches");
         getBundle().setProperty("mainCardCountKey", extractedCardCount);
     }
+
+    public void extractMainCardCount(String moduleName,String moduleLevel)
+    {
+        SyncUtil.waitFor(5000);
+        waitForElementVisible(driver.findElement(By.xpath("(//app-card//div[@class=\"header\" and text()='"+moduleName+"']/..//div//span)[1]")),10000,500);
+        String extractedMainCardCount=driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='"+moduleName+"']/..//div//span)[1]")).getText();
+        getBundle().setProperty(moduleLevel+"'mainCardCountKey",extractedMainCardCount);
+        Reporter.log(getBundle().getProperty(moduleLevel+"'mainCardCountKey").toString()+"is the initial main card count");
+    }
+
+    public void verifyMainCardCountAfterAddition(String operation,String moduleName,int value,String moduleLevel)
+    {
+        SyncUtil.waitFor(3000);
+        String extractedCrdCountAfterAddition=getBundle().getProperty(moduleLevel+"'mainCardCountKey").toString();
+        int mainCardCountAfterAdd;
+        if(operation.equalsIgnoreCase("add"))
+            mainCardCountAfterAdd=Integer.parseInt(extractedCrdCountAfterAddition)+value;
+        else if(operation.equalsIgnoreCase("delete"))
+            mainCardCountAfterAdd=Integer.parseInt(extractedCrdCountAfterAddition)-value;
+        else
+            mainCardCountAfterAdd=Integer.parseInt(extractedCrdCountAfterAddition);
+        int updatedMainCardCount=Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='"+moduleName+"']/..//div//span)[1]")).getText());
+        Reporter.log(updatedMainCardCount+"is the  main card count after adding");
+        Validator.assertTrue(mainCardCountAfterAdd==updatedMainCardCount,"The main card count is not updated after '"+operation+"' operation","The main card count is updated after '"+operation+"' operation");
+    }
+
+    public void verifyConveyorCountAfterAddition() {
+        int paginationValue = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        Integer extractedValue = Integer.parseInt(getBundle().getProperty("conveyorListCount").toString());
+        Integer expectedValue = extractedValue + 1;
+        System.out.println(expectedValue + " values " + paginationValue);
+        Validator.assertTrue(expectedValue.equals(paginationValue), "Expected value is not returned", "Expected value is returned");
+    }
+
+    public void extractConveyorCount() {
+        int conveyorCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        getBundle().setProperty("conveyorListCount", conveyorCount);
+    }
+
     public void extractConveyorCardCountForDetailPage(String moduleName)
     {
         SyncUtil.waitFor(4000);
@@ -2649,6 +2696,8 @@ public class ConveyorPage extends BasePage{
             columnNamesArray = DevicesColumnNames;
         } else if (this.getCurrentURL().contains("/secure/dashboard/belt-scans")) {
             columnNamesArray = BeltScanColNames;
+        } else if (this.getCurrentURL().contains("/secure/dashboard/heavy-equipment")) {
+            columnNamesArray = heavyEquipmentColNames;
         } else
             columnNamesArray = columnNames;
         for (String columnName : columnNamesArray) {
@@ -2661,11 +2710,13 @@ public class ConveyorPage extends BasePage{
 
     public void verifyCheckedColumnNames() {
         String[] columnHeader;
-        if (this.getCurrentURL().contains("/secure/dashboard/devices")) {
+        if (breadCrumb.getText().contains("Devices")) {
             columnHeader = checkedDevicesColumnNames;
-        } else if (this.getCurrentURL().contains("/secure/dashboard/belt-scans")) {
+        } else if (breadCrumb.getText().contains("Belt Scans")) {
             columnHeader = BeltScanColNames;
-        } else
+        } else if (breadCrumb.getText().contains("Heavy Equipment"))
+            columnHeader = heavyEquipmentColNames;
+        else
             columnHeader = BeltScanColNames;
 //        waitForPageLoad(10000);
         setImplicitWait(20000, TimeUnit.MILLISECONDS);
@@ -2677,11 +2728,16 @@ public class ConveyorPage extends BasePage{
         }
 
     }
-    public void selectTwoColumnsAndVerify()
-    {
-        String[] trimmedArray = Arrays.copyOf(checkedDevicesColumnNames, 9);
-        for(String colName:trimmedArray)
-        {
+
+    public void selectTwoColumnsAndVerify() {
+        //uncheck the first length-2 column names
+        String[] columnsArray = checkedDevicesColumnNames;
+        if (breadCrumb.getText().contains("Heavy Equipment")) {
+            columnsArray = heavyEquipmentColNames;
+        }
+        int length = columnsArray.length - 2;
+        String[] trimmedArray = Arrays.copyOf(columnsArray, length);
+        for (String colName : trimmedArray) {
             waitForElementVisible(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + colName + "') and .//div[contains(@class, 'p-checkbox')]]")), 20000, 500);
             driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + colName + "') and .//div[contains(@class, 'p-checkbox')]]")).click();
 //            Validator.assertTrue(driver.findElement(By.xpath("//p-multiselectitem//li[contains(., '" + colName + "') and .//div[contains(@class, 'p-checkbox')]//div//checkicon]")).verifyNotPresent(),"'"+colName+"'is not unchecked","'"+colName+"'is unchecked");
@@ -2790,6 +2846,27 @@ public class ConveyorPage extends BasePage{
         waitForElementToBeClickable(nameFilterIcon);
         waitForElementToBeClickable(nameFilterIcon);
         nameFilterIcon.click();
+
+    }
+
+    public void verifyYearFilterApplied(int noOfCoverWears, String searchText) {
+        for (int i = 1; i <= noOfCoverWears; i++) {
+            String columnData = driver.findElement(By.xpath("//tr['" + i + "']//td[6]")).getText();
+            if (columnData.equalsIgnoreCase(searchText)) {
+                Validator.assertTrue(true, "Year Filter is not applied for row ", "Year filter is applied");
+            }
+
+        }
+    }
+
+    public void verifyYearOfManufactureFilter(String year) {
+        yearPickerDialog.isVisible(10000, "Year Picker");
+        waitForElementVisible(driver.findElement(By.xpath("//p-columnfilterformelement//p-calendar//span//div[contains(@class,\"yearpicker\")]//span[contains(text()," + year + ")]")), 10000, 500);
+        driver.findElement(By.xpath("//p-columnfilterformelement//p-calendar//span//div[contains(@class,\"yearpicker\")]//span[contains(text()," + year + ")]")).click();
+        int noOfConveyors = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        verifyYearFilterApplied(noOfConveyors, year);
+
+
     }
 
     public void columnNameFilterBtnClick(String[] columnsArray) {
@@ -2801,17 +2878,21 @@ public class ConveyorPage extends BasePage{
                 continue;
             }
             hoverOverElement(driver.findElement(By.xpath("//th//div[(text()=' " + colName + " ')]")));
-            waitForElementVisible(driver.findElement(By.xpath("//div[text()=' " + colName + " ']//p-columnfilter")), 10000, 500);
+//            waitForElementVisible(driver.findElement(By.xpath("//div[text()=' " + colName + " ']//p-columnfilter")), 10000, 500);
             waitForElementToBeClickable(driver.findElement(By.xpath("//div[text()=' " + colName + " ']//p-columnfilter")));
             driver.findElement(By.xpath("//div[text()=' " + colName + " ']//p-columnfilter")).click();
             if (colName.equalsIgnoreCase("status") || colName.equalsIgnoreCase("deviceType") || colName.equalsIgnoreCase("carcass")) {
                 verifyStatusFilterIcon(colName);
-            } else if (colName.equalsIgnoreCase("installedDate") || colName.equalsIgnoreCase("lastServiceDate") || colName.equalsIgnoreCase("Date Of Scan")) {
+            } else if (colName.equalsIgnoreCase("Last Service Date") || colName.equalsIgnoreCase("lastServiceDate") || colName.equalsIgnoreCase("Date Of Scan")) {
                 verifyDateFilterIconFields(colName);
+            } else if (colName.equalsIgnoreCase("Year of Manufacture")) {
+                verifyYearOfManufactureFilter("2020");
+                coverWearPage.clearFilterClick();
+
             } else {
                 verifyFilterFields(colName);
-                if (colName.equalsIgnoreCase("Site") || colName.equalsIgnoreCase("Conveyor")) {
-                    applyColFilter(filterType, "CM");
+                if (colName.equalsIgnoreCase("Site") || colName.equalsIgnoreCase("Conveyor") || colName.equalsIgnoreCase("Name") || colName.equalsIgnoreCase("Model") || colName.equalsIgnoreCase("Serial Number")) {
+                    applyColFilter(filterType, "F");
                     coverWearPage.clearFilterClick();
                 } else if (colName.equalsIgnoreCase("Territory")) {
                     filterType = "Contains";
@@ -2822,13 +2903,13 @@ public class ConveyorPage extends BasePage{
                     filterType = "Equals";
                     applyColFilter(filterType, "Sand_Master");
                     coverWearPage.clearFilterClick();
-
+                } else if (colName.equalsIgnoreCase("Distributor Shop")) {
+                    filterType = "Contains";
+                    applyColFilter(filterType, "Shop");
+                    coverWearPage.clearFilterClick();
                 }
             }
-
-
         }
-
 
     }
 
@@ -3025,7 +3106,7 @@ public class ConveyorPage extends BasePage{
         Validator.assertTrue(driver.getCurrentUrl().contains("/secure/conveyor/update/conveyor-lite"),"User is not navigated to conveyor-lite page ","User is  navigated to conveyor-lite page");
         waitForElementToBeClickable(crBeltSpeed);
         crBeltSpeed.clear();
-        crBeltSpeed.type("500");
+        crBeltSpeed.type("600");
 
     }
     public void updateBtnClick()
@@ -3716,6 +3797,16 @@ public void verifyUnPinnedSubList(String value) {
         Validator.assertTrue(notificationSiteName.getText().equalsIgnoreCase(siteName), "Site value misMatch", "Site value matched");
         Validator.assertTrue(notificationConveyorName.getText().equalsIgnoreCase(conveyorName), "Conveyor value misMatch", "Conveyor value matched");
         Validator.assertTrue(notificationUserName.getText().contains(userName), "User value misMatch", "User value matched");
+    }
+
+    public void verifyPaginationCountAndCardCount(String moduleLevel)
+    {
+        int deviceCount = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
+        System.out.println(deviceCount+"pagination device count is");
+        Reporter.log(deviceCount+" is the pagination count");
+        int extractedCrdCount=Integer.parseInt(getBundle().getProperty(moduleLevel+"'mainCardCountKey").toString());
+        Validator.assertTrue(deviceCount==extractedCrdCount,"The pagination count does not match with the card count!","The pagination count matches with the card count!");
+
     }
 
 }

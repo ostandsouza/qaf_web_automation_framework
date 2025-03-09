@@ -60,6 +60,9 @@
   "findings_controller": {
     "finding": "/finding"
   },
+  "heavyEquipment_controller": {
+  "count": "/count"
+  },
   "monitoring_controller": {
     "list": "/monitoring-devices"
   },

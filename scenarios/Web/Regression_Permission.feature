@@ -18,7 +18,7 @@ Feature: Regression for Login feature
     Then Click on profile and select logout button
     Then Login with '${MktMgrUser}' and '${Password1}'
     Then Verify card display in home screen for basic permission
-    THen Verify option display in left navigation menu
+    Then Verify option display in left navigation menu
     Then Verify only view permission right for site '${siteName}'
     Then Verify only view permission right for corporate '${CorporateName}'
     And  Navigate to Corporate details screen for corporate '${CorporateName}'

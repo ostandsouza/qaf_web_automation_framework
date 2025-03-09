@@ -282,12 +282,12 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         JavascriptExecutor exe = (JavascriptExecutor) driver;
         return exe.executeScript(script, args);
     }
-
+    
     public void dropdownSelectSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
         waitForElementVisible(dropDownButton,10000,500);
         waitForElementToBeClickable(dropDownButton);
         setImplicitWait(20000,TimeUnit.MILLISECONDS);
-        dropDownButton.jsClick("dropdown");
+		dropDownButton.jsClick("dropdown");
         waitForElementToBeClickable(dropDownButton);
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
@@ -330,6 +330,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         setImplicitWait(1000,TimeUnit.MILLISECONDS);
         Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
     }
+
 
     public void browserRefresh() {
         driver.navigate().refresh();

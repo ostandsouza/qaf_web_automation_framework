@@ -12,13 +12,14 @@ import java.util.concurrent.TimeUnit;
 public class ConveyorSteps {
 
     ConveyorPage conveyorPage = new ConveyorPage();
+    MonitoringDevicePage monitoringDevicePage = new MonitoringDevicePage();
     CorporatePage corporatePage = new CorporatePage();
     CoverWearPage coverWearPage=new CoverWearPage();
     SitePage sitePage = new SitePage();
     CordInspectPage cordInspectPage=new CordInspectPage();
     UsersPage userpage = new UsersPage();
 
-    String[] monitoringDeviceColName = {"name", "deviceType", "site", "conveyor", "territory", "carcass", "status", "installedDate", "location", "lastServiceDate", "beltConveyorSaves"};
+    String[] monitoringDeviceColName = {"Name", "Device Type","Serial Number", "Site", "Conveyor", "Territory", "Carcass","Location", "Last Service Date", "Belt/Conveyor Saves"};
 
 
     @QAFTestStep(description = "Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
@@ -30,7 +31,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Create a new conveyor with {ConveyorName1} and {DistShopAusName} and {CustSiteNZName}")
     public void createAnewConveyorWithRequiredFields(String conveyorName, String distShopName, String custSiteName) {
-        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(conveyorName));
         conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         System.out.println("after delete apiBase");
 
@@ -102,7 +103,7 @@ public class ConveyorSteps {
 //        Validator.assertTrue(conveyorPage.conveyorFileImport(fileName).contains("2"),"Not all conveyors were imported successfully","All conveyors imported successfully");
         Object[][] obj = MiscUtils.getExcelData(fileName, custSiteName);
         for (int i = obj.length; i > 0; i--) {
-            String conveyorId = conveyorPage.apiBase.getConveyorsAPI(((Map<String, String>) obj[i - 1][0]).get("Name"));
+            String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(((Map<String, String>) obj[i - 1][0]).get("Name")));
             conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         }
         conveyorPage.conveyorFileImport(fileName);
@@ -1060,4 +1061,19 @@ public class ConveyorSteps {
     public void clickOnEachFilterIconAndVerifyFilterFields() {
         conveyorPage.columnNameFilterBtnClick(monitoringDeviceColName);
     }
+    @QAFTestStep(description = "Extract the main card count in {Home} page for {ModuleName}")
+    public void extractInitialMainCardCount(String moduleLevel,String moduleName) {
+        conveyorPage.extractMainCardCount(moduleName,moduleLevel);
+    }
+    @QAFTestStep(description = "Verify the main card count after operation {Addition} for {Sites} with count {Value} at module level {ModuleLevel}")
+    public void extractAddedMainCardCount(String operation,String moduleName,int value,String moduleLevel) {
+        conveyorPage.verifyMainCardCountAfterAddition(operation,moduleName,value,moduleLevel);
+    }
+    @QAFTestStep(description = "Verify correct pagination and card count is displayed at {HomeLevel} page for {Sites}")
+    public void verifyPaginationCountAndCardCountAtModuleLevel(String moduleLevel,String moduleName) {
+        conveyorPage.extractMainCardCount(moduleName,moduleLevel);
+        conveyorPage.verifyPaginationCountAndCardCount(moduleLevel);
+    }
+
+
 }
