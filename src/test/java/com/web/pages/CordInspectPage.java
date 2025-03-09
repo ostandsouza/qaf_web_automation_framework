@@ -56,6 +56,14 @@ public class CordInspectPage extends BasePage {
 	public CustomElement crDeleteFileUpload;
 	@FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')]/../../preceding-sibling::div)[1]")
 	public CustomElement crUploadedFileName;
+	@FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')])[2]")
+	public CustomElement crBackUpDeleteFileUpload;
+	@FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')]/../../preceding-sibling::div)[2]")
+	public CustomElement crBackUUploadedFileName;
+	@FindBy(locator = "xpath=//div[@class=\"p-carousel-items-content\"]/following-sibling::button[contains(@class,\"p-carousel-next \")]\n")
+	public CustomElement carouselNextBtn;
+	@FindBy(locator = "xpath=//div[@class=\"p-carousel-items-content\"]//div[contains(@class, \"p-carousel-item\")]//app-card//div[contains(@class, \"header\") and normalize-space(text())=\"Belt Scans\"]")
+	public CustomElement beltScanCard;
 	@FindBy(locator = "xpath=//em[text()='Date of scan cannot be empty']")
 	public CustomElement errorMsgDos;
 	@FindBy(locator = "xpath=//em[text()='Select device type']")
@@ -84,10 +92,7 @@ public class CordInspectPage extends BasePage {
 	public CustomElement uploadAnalysisFileCMMMsg;
 	@FindBy(locator = "xpath=//label[text()='Upload Scanning Report']/../div[text()=' To be uploaded by the CCM ']")
 	public CustomElement uploadScanningReportCCMMsg;
-	@FindBy(locator = "xpath=//div[@class=\"p-carousel-items-content\"]/following-sibling::button[contains(@class,\"p-carousel-next \")]\n")
-	public CustomElement carouselNextBtn;
-	@FindBy(locator = "xpath=//div[@class=\"p-carousel-items-content\"]//div[contains(@class, \"p-carousel-item\")]//app-card//div[contains(@class, \"header\") and normalize-space(text())=\"Belt Scans\"]")
-	public CustomElement beltScanCard;
+
 	@FindBy(locator = "xpath=//textarea[@formcontrolname='notes']")
 	public CustomElement addScanningFilesNote;
 	@FindBy(locator = "xpath=(//div//span//button[@icon='ctp-icon-Add-circle'])[2]")
@@ -265,10 +270,7 @@ public class CordInspectPage extends BasePage {
 	public CustomElement floatingDownWardArrow;
 	@FindBy(locator = "xpath=//div[@class='menu-cord']//div//span[text()='Main Page']")
 	public CustomElement mainPageMenu;
-	@FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')])[2]")
-	public CustomElement crBackUpDeleteFileUpload;
-	@FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')]/../../preceding-sibling::div)[2]")
-	public CustomElement crBackUUploadedFileName;
+
 	@FindBy(locator = "xpath=//textarea[@formcontrolname='notes']")
 	public CustomElement ccmNotes;
 

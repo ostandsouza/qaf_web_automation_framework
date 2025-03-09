@@ -407,7 +407,6 @@ public class CorporatePage extends BasePage{
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(btSiteShopCardNo);
-        SyncUtil.waitFor(4000);
         btSiteShopCardNo.isVisible("Shop Details");
         Reporter.log(companyName + "distributor shop is created" , MessageTypes.Pass);
     }
@@ -429,7 +428,7 @@ public class CorporatePage extends BasePage{
         dropdownSelectSearch(drCustomerCorporate, tbSitedropdown, CustCorpName);
         dropdownSelectSearch(drAssociatedCustomerCorporate, tbAssociatedSitedropdown, DistShopIndName);
         dropdownSelectSearch(drTerritorybutton, tbSitedropdown, DistCorpIndTerritory);
-//        drTerritoryManagerbutton.type(manager);
+        drTerritoryManagerbutton.type(manager);
         addCorporateDetails(companyName, address);
         saveCorp();
         waitForElementToDisplay(btSiteShopCardNo);

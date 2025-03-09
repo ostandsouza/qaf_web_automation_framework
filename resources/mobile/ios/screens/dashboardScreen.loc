@@ -1,4 +1,4 @@
-dashboard.home.btn = accessibility id=Home
+    dashboard.home.btn = accessibility id=Home
 dashboard.search.icon = xpath=//XCUIElementTypeOther[@name="Home"]/following-sibling:: XCUIElementTypeButton[4]
 dashboard.profile.icon = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]/../../following-sibling:: XCUIElementTypeOther[1]/XCUIElementTypeButton[1]
 dashboard.home.icon = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]/../../following-sibling:: XCUIElementTypeOther[1]/XCUIElementTypeButton[1]

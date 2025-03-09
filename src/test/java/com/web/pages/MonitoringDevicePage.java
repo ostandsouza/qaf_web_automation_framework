@@ -1228,6 +1228,7 @@ public class MonitoringDevicePage extends BasePage {
         waitForElementVisible(tbInstallationDate, 10000, 500);
         tbInstallationDate.click("installation date");
     }
+
     public void addDeviceDetailsWithNonMandatoryFields(String brand, String serialNo, String remoteConnection, String comminsionDate, String beltConveyorSave, String firmwareVersion) {
         waitForElementVisible(tbDeviceBrand, 10000, 500);
         tbDeviceBrand.sendKeys(brand, "Device brand");

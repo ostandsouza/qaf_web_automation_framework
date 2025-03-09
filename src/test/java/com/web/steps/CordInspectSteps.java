@@ -27,8 +27,10 @@ public class CordInspectSteps {
     @QAFTestStep(description = "Navigate to Add Belt Scan Page and verify navigation")
     public void verifyNavigationToAddBeltScan() {
         cordInspectPage.goToAddBeltScans();
-        Validator.assertTrue(cordInspectPage.getCurrentURL().contains("/secure/belt-scans/add/general-info"),"User is not navigated to Add Belt Scan page!","User is navigated to Add Belt Scan page!");
+        Validator.assertTrue(cordInspectPage.getCurrentURL().contains("/secure/belt-scans/add/general-info"), "User is not navigated to Add Belt Scan page!",
+                "User is navigated to Add Belt Scan page!");
     }
+
     @QAFTestStep(description = "Add Belt Scan details with {DateOfScan} {DeviceType} {ReasonForScan} {SiteName} {ConveyorName} {NotifyCCM} {File1} and {File2}")
     public void addBeltScan(String dateOfScan, String deviceType, String reasonForScan, String siteName, String conveyorName, String notifyCcm, String file1, String file2) {
         cordInspectPage.addBeltScanInfo(deviceType, reasonForScan, siteName, conveyorName, notifyCcm);

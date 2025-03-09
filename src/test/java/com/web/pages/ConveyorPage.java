@@ -36,6 +36,7 @@ public class ConveyorPage extends BasePage{
     UsersPage userPage=new UsersPage();
     CordInspectPage cordInspectPage = new CordInspectPage();
     InspectionPage inspectionpage = new InspectionPage();
+
     @FindBy(locator = "xpath=//span[text()='Add Conveyor']")
     public CustomElement addConveyors;
 
@@ -1381,7 +1382,7 @@ public class ConveyorPage extends BasePage{
         goToConveyorListScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(600); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(180); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }
@@ -2566,11 +2567,11 @@ public class ConveyorPage extends BasePage{
         crTopCoverThickness.clear();
         crTopCoverThickness.type(topCoverThickness);
         waitForElementToBeClickable(crUpdate);
-        crUpdate.jsClick();
+        crUpdate.click();
         waitForElementToDisplay(crUpdateMsg);
         Validator.assertTrue(crUpdateMsg.isVisible(),"Update Message is not visible","Update Message is visible");
         System.out.println("save clicked");
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(3000);
         scrollPageup();
     }
 
@@ -3247,8 +3248,8 @@ public class ConveyorPage extends BasePage{
     public void clickCreateBtn() {
         waitForElementVisible(btCreate, 10000, 500);
         waitForElementToBeClickable(btCreate);
-        btCreate.jsClick();
-        waitForElementToInvisible(buttonLoader,40000);
+        btCreate.click();
+        waitForElementToInvisible(buttonLoader,10000);
     }
 
     public void saveButtonClick()

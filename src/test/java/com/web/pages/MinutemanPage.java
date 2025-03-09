@@ -1163,7 +1163,7 @@ public class MinutemanPage extends BasePage{
         gotoMinutemanScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(300); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
             if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
                 break;
             }

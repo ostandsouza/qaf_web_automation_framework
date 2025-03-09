@@ -156,9 +156,6 @@ Scenario: Verify Inspection Delete
 @key:CoverWear_Management
 Scenario: Verify Cover Wear Management
 
-
-       Given User is at Login page
-       When  Login with '${UserName}' and '${Password}'
        When  Add Cover Wear for conveyor '${ConveyorName}' and site '${CustSiteName}' with data '${FullName}' '${PositionName}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
        Then  Verify Cover wear measurement for conveyor '${ConveyorName}'
        When  Add Cover wear position for conveyor '${ConveyorName}' with data '${SegmentName}' '${TopBottom}' '${TonsCovered}' '${PositionDurometer}'
@@ -339,8 +336,6 @@ Scenario: Verify the add fabric splice screen
 @dataFile:resources/data/SteelCord.json
 Scenario: Verify the Steel Cord Calculation functionality across the application
 
-    Given User is at Login page
-    When Login with '${UserName}' and '${Password}'
     And Navigate to the Steel Cord Splice Generator list page
     And Navigate to the Steel Cord Splice Generator add page
     Then Create and Calculate The Steel Cord Splice with values '${Market}' '${SpliceKit}' '${CustomerName}' '${ConveyorName}' '${ApproverName}' '${BeltRating}' '${BeltWidth}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' '${OverAllBeltThickness}' '${CordDiameter}' '${CordPitch}' '${NumberOfCords}'
@@ -409,8 +404,6 @@ Scenario: Verify the Belt-Info Textile functionality
 @key:FreeTools
 Scenario: Verify free tools functionality
 
-     Given User is at Login page
-     When  Login with normal user '${UserName}' and '${Password}'
      And   Navigate to free tools capacity and verify the fields
      Then  Verify all the calculated data for conveyor capacity for entered data '${BeltWidth}' '${Density}' '${SurchrgeAngle}' '${BeltSpeed}' '${Tonnage}' '${TroughAngle}' '${ConveyorLoad}'
      Then  Navigate to free tools troughability and verify the fields

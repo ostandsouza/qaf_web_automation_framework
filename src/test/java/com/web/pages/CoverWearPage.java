@@ -177,10 +177,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Belt Length']/parent::div//input")
     public CustomElement cwBeltLength;
 
-    @FindBy(locator="xpath=//label[contains(text(),'Top Cover Thickness Nominal')]/parent::div//input")
+    @FindBy(locator="xpath=(//label[text()='Top Cover Thickness Nominal ']/parent::div//input)")
     public CustomElement cwTopCoverThicknessInput;
 
-    @FindBy(locator="xpath=//label[text()='Bottom Cover Thickness Nominal']/parent::div//input")
+    @FindBy(locator="xpath=(//label[text()='Bottom Cover Thickness Nominal ']/parent::div//input)")
     public CustomElement cwBottomCoverThicknessInput;
 
     @FindBy(locator="xpath=//label[text()='Top Cover Compound']/parent::div//span")
@@ -198,10 +198,10 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Durometer (New Belt)']/parent::div//input")
     public CustomElement cwSpecDurometer;
 
-    @FindBy(locator="xpath=//label[text()='Top Cover Compound']/parent::div//div[@role='button']")
+    @FindBy(locator="xpath=//label[text()='Top Cover Compound']/parent::div//div[@role='button']//*[name()='svg']")
     public CustomElement cwTopCoverCompound;
 
-    @FindBy(locator="xpath=//label[text()='Bottom Cover Compound']/parent::div//div[@role='button']")
+    @FindBy(locator="xpath=//label[text()='Bottom Cover Compound']/parent::div//div[@role='button']//*[name()='svg']")
     public CustomElement cwBottomCoverCompound;
 
     @FindBy(locator="xpath=//label[text()='Tons Conveyed']/parent::div//input")
@@ -261,7 +261,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//tr/td[contains(@class,'datapoint') and contains(@class,'existing') and contains(@class,'ng-star')]")
     public List<CustomElement> previousDataPoints;
 
-    @FindBy(locator="xpath=(//span[text()='(Installed date)']/..)[2]")
+    @FindBy(locator="xpath=//span[text()='(Installed date)']/..")
     public CustomElement installationDateField;
 
     @FindBy(locator="xpath=//span[text()='(Prev. Measurement)']/..")
@@ -303,7 +303,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//div[@class='p-progress-spinner']")
     public CustomElement progressLoader;
 
-    @FindBy(locator="xpath=(//app-image-viewer//img)[3]")
+    @FindBy(locator="xpath=(//app-image-viewer/img)[1]")
     public CustomElement imageViewer;
 
     @FindBy(locator="xpath=(//span/button[contains(@icon,'pi-download')])[2]")
@@ -527,7 +527,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//span[contains(@id, \"p-panel-5_header\") and contains(text(), \"Sites\")]")
     public CustomElement siteHeader;
 
-    @FindBy(locator="xpath=//nav[@class='p-breadcrumb p-component']")
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement coverWearBreadCrumb;
 
     @FindBy(locator="xpath=//span[@class='p-menuitem-text ng-star-inserted'][normalize-space()='Home']")
@@ -614,7 +614,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator = "(//app-card//div[text()='Cover Wear']/following-sibling::div[contains(@class,'footer-count')]/div[3]/div[@class='conti-round'])[1]")
     public CustomElement redCountValue;
 
-    @FindBy(locator="xpath=//div[@class='p-breadcrumb p-component']")
+    @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement cowerWearBreadcrumb;
 
     @FindBy(locator="xpath=//span[text()='CS Common Regression']")
@@ -759,7 +759,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//div[@class='col-6 durometer']")
     public CustomElement hdNewDurometerValue;
 
-    @FindBy(locator="xpath=//span[text()='VCV Common Regression']")
+    @FindBy(locator="xpath=//span[text()='CV Common Regression']")
     public CustomElement hdCoverWearBreadCrumb;
 
     @FindBy(locator="xpath=//span[text()='Installed Belt']")
@@ -978,10 +978,10 @@ public class CoverWearPage extends BasePage{
 //app-card//app-durometer//div//div[@class="bottom-label"]//span[1]
 // (//app-card//*//div[(@class="header")]/../../*//app-durometer//div[@class="center-label"]//span)[3]
 
-    @FindBy(locator = "xpath=(//div[@class='container']/div[@class='label-container']/div[@class='bottom-label']/span)[2]")
+    @FindBy(locator = "xpath=(//div[@class='container']/div[@class='label-container']/div[@class='bottom-label']/span)[1]")
     public CustomElement cardRemainingLifeValue;
 
-    @FindBy(locator = "xpath=(//app-card//div[contains(@class,'footer')]//span[contains(@class,'coverWear')])[2]")
+    @FindBy(locator = "xpath=(//app-card//div[contains(@class,'footer')]//span[contains(@class,'coverWear')])[1]")
     public CustomElement cardDurometerValue;
 
     @FindBy(locator = "xpath=//div[@class='ng-star-inserted'][normalize-space()='Position']")
@@ -1085,8 +1085,7 @@ public class CoverWearPage extends BasePage{
         else cwPositionBottomRadio.check("Bottom Radio");
         cwInstalledDate.click("Date Picker");
         cwTodayDate.click("Current Date");
-        SyncUtil.waitFor(4000);
-        cwPositionSave.jsClick("Save Position");
+        cwPositionSave.click("Save Position");
         cwPositionSave.waitForNotVisible(7000);
         SyncUtil.waitFor(3000);
     }
@@ -1113,7 +1112,6 @@ public class CoverWearPage extends BasePage{
     }
 
     public boolean searchPosition(String segmentName){
-        cwSearchInput.clear();
         cwSearchInput.type(segmentName, "Position Search");
         waitForElementToDisplay(cwCheckbox);
         return cwCheckbox.isVisible("Position Found");
@@ -1179,7 +1177,6 @@ public class CoverWearPage extends BasePage{
     }
     public void verifyCoverWearDeletePosition(String position) {
         waitForElementVisible(cwSearchInput,5000,100);
-        SyncUtil.waitFor(3000);
         cwSearchInput.type(position, "Cover Wear Position Search");
         Validator.assertTrue(noList.isVisible(),"Delete Cover Wear position was still found in cover wear list screen","Cover Wear position deleted successfully");
     }
@@ -1309,7 +1306,6 @@ public class CoverWearPage extends BasePage{
 
     public void verifyImageUpload(){
         waitForElementToInvisible(progressLoader,20000);
-        SyncUtil.waitFor(5000);
         Validator.assertFalse(imageViewer.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
     }
 
@@ -3290,6 +3286,7 @@ public class CoverWearPage extends BasePage{
         btnDialogClose.jsClick();
         waitForPageLoad(10000);
     }
+
     public void verifyCoverWearReportData(String conveyorName, String siteName) {
         PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + conveyorName + "_" + siteName + ".pdf");
         try {
