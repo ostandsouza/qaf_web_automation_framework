@@ -1,0 +1,24 @@
+{
+  "name": "Conveyor Inspect Regression Corp",
+  "companyType": {
+    "category": "Customer",
+    "sortKey": "CUSTOMER",
+    "name": "Customer Corporate",
+    "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX"
+  },
+  "location": {
+    "zipcode": "69120",
+    "country": "Germany",
+    "state": "Baden-Württemberg",
+    "city": "Karlsruhe",
+    "latitude": 49.4131918,
+    "longitude": 8.677442799999998
+  },
+  "street": " ",
+  "territory": "",
+  "territoryManager": "",
+  "customerCorporate": null,
+  "distributorCorporate": null,
+  "associatedDistributor": null,
+  "image": ""
+}

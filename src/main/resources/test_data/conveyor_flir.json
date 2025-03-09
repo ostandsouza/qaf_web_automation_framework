@@ -1,0 +1,364 @@
+{
+  "name": "C1 Conveyor Inspect Flir",
+  "customer": {
+    "location": {
+      "zipcode": "38723",
+      "country": "Germany",
+      "state": "Niedersachsen",
+      "city": "Seesen",
+      "latitude": 51.84452289999999,
+      "longitude": 10.18937
+    },
+    "createdDate": 1682409883559,
+    "companyId": "01GYVQ387310NYN8D750Z3BTE9",
+    "customerCorporate": {
+      "companyId": "01G6MK06E0M2WRCD51EHAYD4MA",
+      "companyType": {
+        "name": "Customer Corporate",
+        "category": "Customer",
+        "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX"
+      },
+      "street": "4a Kastanienallee, ",
+      "conveyorsCount": 25,
+      "name": "Conveyor Inspect Flir Corp",
+      "location": {
+        "zipcode": "38889",
+        "country": "Germany",
+        "state": "Sachsen-Anhalt",
+        "city": "Oberharz am Brocken",
+        "latitude": 51.7557889,
+        "longitude": 10.8355848
+      },
+      "territory": {
+        "market": {}
+      }
+    },
+    "updatedBy": {
+      "userId": "8ada2c68-238e-4e7a-9e98-d7daee95d1ad",
+      "fullName": "Conti Automation",
+      "image": ""
+    },
+    "associatedDistributor": "",
+    "name": "Conveyor Inspect Flir Site",
+    "distributorCorporate": "",
+    "companyType": {
+      "name": "Customer Site",
+      "sortKey": "CUSTOMER",
+      "companyTypeId": "01FEN46X9FV4FK4ZTCNGQWZRDB",
+      "category": "Customer"
+    },
+    "image": "",
+    "territory": {
+      "market": {
+        "name": "EMEA",
+        "marketId": "01FGQ58DVEWRY3C9SR4RXJG9AJ"
+      },
+      "name": "Germany",
+      "territoryId": "01FSYG8G8E7KJEH2372QRA273S",
+      "marketId": "01FGQ58DVEWRY3C9SR4RXJG9AJ"
+    },
+    "territoryManager": {
+      "name": "Teritory Germany Automation",
+      "userId": "75c0ad25-fa8e-4ba8-8734-c328c8a3730f"
+    },
+    "updatedDate": 1682409883559,
+    "street": " "
+  },
+  "isDroneInspection": true,
+  "lastWeatherSyncAt": 1684090434872,
+  "droneInspectData": {
+    "trendData": [
+      {
+        "lastInspected": 1689292800000,
+        "totalErrors": 18,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 18,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "lastInspected": 1706140800000,
+        "totalErrors": 14,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 14,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      }
+    ],
+    "errorDetails": [
+      {
+        "count": 0,
+        "code": 1,
+        "percentage": 0
+      },
+      {
+        "count": 0,
+        "code": 2,
+        "percentage": 0
+      },
+      {
+        "count": 0,
+        "code": 3,
+        "percentage": 0
+      },
+      {
+        "count": 14,
+        "code": 4,
+        "percentage": 100
+      }
+    ]
+  },
+  "aiModelPath": "ctp-object-detection-models-stage/models/baseline-yolo",
+  "idlerImpact": {
+    "diameter": "",
+    "angle": "",
+    "numberOfIdlers": ""
+  },
+  "idlerReturn": {
+    "angle": "45",
+    "numberOfIdlers": "1000",
+    "diameter": "150",
+    "runSpacing": "3"
+  },
+  "idlerCarry": {
+    "angle": "45",
+    "numberOfIdlers": "2000",
+    "diameter": "150",
+    "runSpacing": "1.5"
+  },
+  "location": {
+    "head": {
+      "latitude": 51.843462615258694,
+      "longitude": 10.191660297711085
+    },
+    "tail": {
+      "latitude": 51.827476401841764,
+      "longitude": 10.228576400545032
+    }
+  },
+  "frictionFactor": "",
+  "beltSpecification": {
+    "width": {
+      "name": "1000",
+      "code": "1000",
+      "dataId": "USER-INPUT",
+      "imperial": "39.37",
+      "metric": "1000",
+      "dataType": "CONVEYOR_BELT_WIDTH"
+    },
+    "rating": "",
+    "length": "",
+    "bottomCoverThickness": "",
+    "topCoverThickness": "",
+    "ratingType": "BreakingStrength"
+  },
+  "conveyorDetails": {
+    "gearRatioOne": "",
+    "drivePower": "",
+    "length": "3000",
+    "gearRatio": " : ",
+    "percentLoad": "",
+    "speed": "4",
+    "driveFrequency": "",
+    "maximumTemperature": "",
+    "lift": "",
+    "angle": "",
+    "minimumTemperature": "",
+    "conveyingCapacity": "",
+    "gearRatioTwo": ""
+  },
+  "isDroneInspection": true,
+  "lastWeatherSyncAt": 1707961131670,
+  "beltSpeed": "4",
+  "processedFrameUrl": "https://ci-cdn.stage.contiplus.net/",
+  "materialName": {
+    "name": "Kalk",
+    "code": "Kalk",
+    "dataId": "USER-INPUT",
+    "imperial": "Kalk",
+    "metric": "Kalk",
+    "dataType": "CONVEYOR_MATERIAL"
+  },
+  "idlerOffset": {
+    "name": "In-Line",
+    "code": "I",
+    "dataId": "01FHG14TTVWJTVK3W8D6ZDV9J2",
+    "dataType": "CONVEYOR_IDLER_OFFSET_TYPE"
+  },
+  "takeUpInformation": {
+    "type": "",
+    "travel": "",
+    "estimatedWeight": ""
+  },
+  "beltManufacturer": {
+    "name": "Continental",
+    "code": "1",
+    "dataId": "01FHG08SEDQVXNV219NX9B13C5",
+    "dataType": "CONVEYOR_BELT_MANUFATURER"
+  },
+  "stations": [
+    {
+      "station": null,
+      "takeup": null,
+      "id": "1",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "2",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "3",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "4",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "5",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "6",
+      "drive": null,
+      "hideRow": true
+    }
+  ],
+  "droneInspectData": {
+    "operationType": "INSERT",
+    "trendData": [
+      {
+        "lastInspected": 1689292800000,
+        "totalErrors": 18,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 18,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "lastInspected": 1706140800000,
+        "totalErrors": 14,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 14,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      }
+    ],
+    "droneDataUploadDate": 1706140800000,
+    "totalErrorCount": 14,
+    "errorDetails": [
+      {
+        "count": 0,
+        "code": 1,
+        "percentage": 0
+      },
+      {
+        "count": 0,
+        "code": 2,
+        "percentage": 0
+      },
+      {
+        "count": 0,
+        "code": 3,
+        "percentage": 0
+      },
+      {
+        "count": 14,
+        "code": 4,
+        "percentage": 100
+      }
+    ],
+    "status": 4
+  },
+  "isValid": true,
+  "status": "active",
+  "updatedDate": "2023-04-25T18:44:18.213Z"
+}

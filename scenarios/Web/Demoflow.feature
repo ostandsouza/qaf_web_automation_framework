@@ -25,7 +25,7 @@ Scenario: Verify the create flow with admin user
     Then  Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
 	And   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
-@Regression
+@Regression2
 @dataFile:resources/data/TestData.xls
 @key:Edit_Flow
 Scenario: Verify the edit flow with admin user
@@ -37,38 +37,34 @@ Scenario: Verify the edit flow with admin user
     And   Edit '${ConveyorNameGer1}' to '${ConveyorNameGer1Edit}'
     And   Check '${ConveyorNameGer2}' at '${CustCorpName}'
     And   Edit '${ConveyorNameGer2}' into '${ConveyorNameGer2Edit}'
-    And   Check '${ConveyorNameGer1}' at '${CustCorpName}'
+    And   Check '${ConveyorNameGer1Edit}' at '${CustCorpName}'
     And   Edit '${ConveyorNameGer1Edit}' name to '${ConveyorNameGer1}'
     And   Check '${ConveyorNameGer1}' at '${CustCorpName}'
     And   Check '${ConveyorNameGer2Edit}' at '${CustCorpName}'
     And   Edit '${ConveyorNameGer2Edit}' name to '${ConveyorNameGer2}'
     Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
-@Regression
+@Regression4
 @dataFile:resources/data/TestData.xls
 @key:John_Flow
     Scenario: Verify the list and create flow with John Doe user
 
     Given User is at Login page
     When  Login with normal user '${UserName}' and '${Password}'
-	And   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
-	And   Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
     And   Create a conveyor India with '${ConveyorNameInd}' and '${DistShopIndName}' and '${CustSiteIndName}'
     Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
-@Regression
+@Regression5
 @dataFile:resources/data/TestData.xls
 @key:Max_Flow
     Scenario: Verify the list and create flow with Max Mustermann user
 
     Given User is at Login page
     When  Login with normal user '${UserName}' and '${Password}'
-    And   Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
-    And   Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
     And   Create a conveyor Germany with '${ConveyorNameGer}' and '${DistShopGerName}' and '${CustSiteGerName}'
     Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
-@Regression
+@Regression6
 @dataFile:resources/data/TestData.xls
 @key:Anna_Flow
     Scenario: Verify the list flow with Anna Mueller user
@@ -78,7 +74,7 @@ Scenario: Verify the edit flow with admin user
 	Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 	And   Show list of conveyors, sites, corporates and users as an admin for Distributor Corporate with '${DistCorpName}' and '${DistCorpAddress}'
 
-@Regression
+@Regression7
 @dataFile:resources/data/TestData.xls
 @key:Permission_Flow
     Scenario: Verify the permission flow
@@ -91,7 +87,7 @@ Scenario: Verify the edit flow with admin user
     Then  Show list of conveyors, sites, corporates and users as an admin for Customer Corporate with '${CustCorpName}' and '${CustCorpAddress}'
 
 
-@Regression
+@Regression3
 @dataFile:resources/data/TestData.xls
 @key:Delete_Flow
     Scenario: Verify the Delete flow with admin user

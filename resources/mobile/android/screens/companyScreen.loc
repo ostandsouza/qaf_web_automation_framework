@@ -1,0 +1,120 @@
+dashboard.addImg.btn = xpath=//android.view.View[@content-desc='Corporate Definition']/preceding-sibling::android.widget.ImageView
+dashboard.sites.card = xpath=//android.widget.ImageView[contains(@content-desc,'Sites')]
+dashboard.conveyors.card = xpath=//android.widget.ImageView[contains(@content-desc,'Conveyors')]
+dashboard.coverWear.card = xpath=//android.widget.ImageView[contains(@content-desc,'Cover Wear')]
+dashboard.inspections.card = xpath=//android.widget.ImageView[contains(@content-desc,'Inspections')]
+dashboard.camera.icon = accessibility id=Camera
+dashboard.gallery.btn = accessibility id=Gallery
+dashboard.alert.popup = xpath=//android.widget.TextView[@resource-id='merchant-name']
+dashboard.permission.dismiss = xpath=//android.widget.TextView[@resource-id='merchant-name']
+dashboard.ok.btn = accessibility id=OK
+dashboard.cancel.btn = accessibility id=CANCEL
+dashboard.firstSearch.map = xpath=//android.widget.ScrollView/../..//android.widget.ScrollView/android.view.View[4]
+
+
+dashboard.firstSearch.dropdown = xpath=//android.widget.ScrollView/../../following-sibling::android.view.View[1]/android.view.View[1]
+coverWear.firstSearch.dropdown = xpath=//android.widget.EditText/android.widget.ScrollView/android.view.View[1]
+dashboard.search.txt = xpath=//android.view.View[contains(@content-desc,'results found')]
+
+dashboard.firstSearch.list = xpath=(//android.view.View/android.widget.Button/../following-sibling::android.view.View[1]/android.view.View/android.view.View[1]/android.view.View/android.view.View)[1]
+dashboard.secondSearch.list=xpath=(//android.view.View/android.widget.Button/../following-sibling::android.view.View[1]/android.view.View/android.view.View[2]/android.view.View/android.view.View)[1]
+dashboard.firstSearch.corpType=xpath=//android.view.View/android.widget.Button/../following-sibling::android.view.View/android.view.View/android.view.View[1]
+
+site.search.firstResult = xpath=//android.view.View/android.view.View/android.widget.ImageView[(@content-desc)][1]//android.view.View[1]
+
+
+dashboard.conveyor.firstSearch = xpath=//android.widget.Button/../following-sibling::android.view.View[1]/android.view.View[1]/android.view.View[1]
+corporate.edit.btn = xpath=//android.widget.ImageView[@content-desc='Edit']
+dashboard.coverWear.Btn = xpath=//android.view.View[contains(@content-desc,'Cover Wear')]
+dashboard.coverWear.position = xpath=//android.view.View[contains(@content-desc,'Durometer')]
+dashboard.coverWear.headerTxt = xpath=//android.widget.TextView[@resource-id='merchant-name']
+dashboard.coverWear.positions = xpath=//android.view.View[contains(@content-desc,'Durometer')]/following-sibling::android.view.View/android.view.View/android.widget.ImageView
+dashboard.coverWear.firstPosition= xpath=//android.view.View[contains(@content-desc,'Durometer')]/following-sibling::android.view.View/android.view.View/android.widget.ImageView[1]
+dashboard.coverWear.checkbox=xpath=(//android.view.View//android.view.View//android.widget.ImageView//android.widget.CheckBox)[1]
+company.search.back = xpath=//android.widget.Button
+company.filter.icon = xpath=//android.view.View[@content-desc='Filters']/following-sibling::android.widget.ImageView
+company.filter.close = xpath=//android.view.View[@content-desc='Filters']/following-sibling::android.widget.Button[1]
+company.filter.ascending = xpath=//android.view.View[@content-desc='A-Z']/preceding-sibling::android.widget.RadioButton[1]
+company.filter.descending = xpath=//android.view.View[@content-desc='Z-A']/preceding-sibling::android.widget.RadioButton[2]
+company.filter.distributor = xpath=//android.view.View[@content-desc='Distributor Corporate']/preceding-sibling::android.widget.RadioButton[3]
+company.filter.customer = xpath=//android.view.View[@content-desc='Customer Corporate']/preceding-sibling::android.widget.RadioButton[4]
+company.filter.market = xpath=//android.view.View[@content-desc='Market']/following-sibling::android.widget.ImageView[1]
+company.filter.corporateType = xpath=//android.view.View[@content-desc='Corporate Name']/following-sibling::android.widget.ImageView[1]
+company.filter.customerCorporate = xpath=//android.view.View[@content-desc='Customer Corporate']/following-sibling::android.widget.ImageView[1]
+company.filter.site = xpath=//android.view.View[@content-desc='Site']/following-sibling::android.widget.ImageView[1]
+filter.first.result = xpath=//android.widget.CheckBox[1]
+company.filter.save = xpath=//android.widget.Button[contains(@content-desc,'Save')]
+filter.corporate.apply = accessibility id=Apply
+site.firstSearch.dropdown = xpath=//android.widget.EditText/android.view.View/android.view.View[1]
+site.territory.firstSearch = xpath=//android.widget.EditText/android.widget.ScrollView/android.view.View[1]
+corporate.details.search = xpath=//android.widget.EditText
+corporate.details.name = xpath=//android.widget.HorizontalScrollView/android.view.View/android.view.View[1]
+conveyor.delete.btn = accessibility id=Delete
+conveyor.delete.txt = xpath=//android.widget.Button[contains(@content-desc,"Are you sure you want to delete this conveyor?")]
+conveyor.details.TechnicalData = xpath=//android.view.View[contains(@content-desc,'Technical Data')]
+conveyor.details.CoverWear = xpath=//android.widget.ImageView[contains(@content-desc,'Cover Wear')]
+conveyor.details.Inspection = xpath=//android.widget.ImageView[contains(@content-desc,'Inspections')]
+conveyor.details.FileManager = xpath=//android.widget.ImageView[contains(@content-desc,'File Manager')]
+filter.dropdown.firstSearch = xpath=(//android.widget.CheckBox[@content-desc])[1]
+filter.dropdown.save = xpath=//android.widget.Button[contains(@content-desc,"Show")]
+sites.map.marker=xpath=//android.view.View[@content-desc="Google Map"]//android.view.View[@content-desc="Map Marker"]
+sites.map.zoomIn=xpath=//android.widget.LinearLayout//android.widget.ImageView[@content-desc="Zoom in"]
+sites.map.zoomOut=xpath=//android.widget.LinearLayout//android.widget.ImageView[@content-desc="Zoom out"]
+site.conveyor.firstSearch=xpath=(//android.view.View/android.view.View/android.view.View[contains(@content-desc,'Last update')])[1]
+
+
+navSite.manager.dropdown= xpath=//android.widget.ScrollView//android.view.View[2]
+navSite.company.name= xpath=//android.widget.ScrollView//android.view.View[10]
+navSite.address.field= xpath=//android.widget.ScrollView//android.view.View[12]
+navSite.company.type= xpath=//android.widget.ScrollView//android.view.View[15]
+
+inspection.inspNext.btn= xpath=//android.widget.Button[@content-desc="Next"]
+inspection.inspPrev.btn= xpath=//android.widget.Button[@content-desc="Previous"]
+
+inspection.addressPermision.okButton= xpath=//android.widget.Button[@content-desc="Ok"]
+inspection.calender.selectDate= xpath=//android.view.View[contains(@content-desc,'SELECT DATE')]
+inspection.calender.cancelButton= xpath=//android.widget.Button[@content-desc="CANCEL"]
+inspection.calender.okButton= xpath=//android.widget.Button[@content-desc="OK"]
+inspection.inspLocation.map= xpath=//android.view.View[@content-desc="Google Map"]
+inspection.signOff.summaryField= xpath=//android.webkit.WebView[1]
+inspection.saveAsDraft.popUp= xpath=//android.view.View[@content-desc='Draft Saved']
+
+coverWear.addPosition.specErrorMsg= xpath=//android.view.View[@content-desc='Complete the Specification page to see/add positions']
+coverWear.addPosition.existingPositionErrorMsg= xpath=//android.view.View[@content-desc='Position already exists']
+
+change.password.retypeErrorMessage= xpath=//android.view.View[@content-desc='The retype password does not match password']
+
+dashboard.conveyorInspect.card = xpath=//android.widget.ImageView[contains(@content-desc,'Conveyor Inspect')]
+dashboard.monitoringDevice.card = xpath=//android.widget.ImageView[contains(@content-desc,'Monitoring Devices')]
+company.filter.cancel = xpath=//android.widget.Button[contains(@content-desc,'Cancel')]
+company.filter.corporatecheckbox= xpath=//android.widget.ScrollView//android.widget.CheckBox
+corporate.details.name = xpath=//android.widget.Button/../following-sibling::android.view.View[1]/android.view.View[1]/android.view.View/android.view.View[1]
+
+site.search.firstResult = xpath=//android.view.View/android.view.View/android.widget.ImageView[(@content-desc)][1]//android.view.View[1]
+conveyor.delete.btn = accessibility id=Delete
+conveyor.delete.txt = xpath=//android.widget.Button[contains(@content-desc,"Are you sure you want to delete this conveyor?")]
+conveyor.details.TechnicalData = xpath=//android.view.View[contains(@content-desc,'Technical Data')]
+conveyor.details.CoverWear = xpath=//android.widget.ImageView[contains(@content-desc,'Cover Wear')]
+conveyor.details.Inspection = xpath=//android.widget.ImageView[contains(@content-desc,'Inspections')]
+conveyor.details.FileManager = xpath=//android.widget.ImageView[contains(@content-desc,'File Manager')]
+filter.dropdown.firstSearch = xpath=(//android.widget.CheckBox[@content-desc])[1]
+filter.dropdown.save = xpath=//android.widget.Button[contains(@content-desc,"Show")]
+address.auto.suggestion = xpath=//android.widget.ScrollView/../..//android.widget.ScrollView/android.view.View[4]
+navSite.manager.dropdown= xpath=//android.widget.ScrollView//android.view.View[2]
+navSite.company.name= xpath=//android.widget.ScrollView//android.view.View[10]
+navSite.address.field= xpath=//android.widget.ScrollView//android.view.View[12]
+navSite.company.type= xpath=//android.widget.ScrollView//android.view.View[15]
+
+inspection.inspNext.btn= xpath=//android.widget.Button[@content-desc="Next"]
+inspection.inspPrev.btn= xpath=//android.widget.Button[@content-desc="Previous"]
+
+inspection.addressPermision.okButton= xpath=//android.widget.Button[@content-desc="Ok"]
+inspection.calender.selectDate= xpath=//android.view.View[contains(@content-desc,'SELECT DATE')]
+inspection.calender.cancelButton= xpath=//android.widget.Button[@content-desc="CANCEL"]
+inspection.calender.okButton= xpath=//android.widget.Button[@content-desc="OK"]
+inspection.inspLocation.map= xpath=//android.view.View[@content-desc="Google Map"]
+inspection.signOff.summaryField= xpath=//android.webkit.WebView[1]
+inspection.saveAsDraft.popUp= xpath=//android.view.View[@content-desc='Draft Saved']
+
+
+

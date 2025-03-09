@@ -1,0 +1,557 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Mobile App-Android" verbose="0" thread-count="2">
+
+    <listeners>
+        <listener class-name="com.common.utils.TestListener" />
+        <listener class-name="com.common.utils.EmailableTestNGReport" />
+    </listeners>
+
+<!--    <test name="User Management - Customer User" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL'}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity1"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="User Management - Permission Flow" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity2"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Corporate Management - Distributor Corporate" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity3"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Corporate Management - Customer Corporate" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity4"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Corporate Management - Distributor Shop" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity5"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Corporate Management - Customer Site" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity6"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Conveyor Flow" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity7"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Inspection Flow" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity8"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Cover Wear Flow" enabled="true" thread-count="2" parallel="methods">-->
+<!--        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>-->
+<!--        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>-->
+<!--        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>-->
+<!--        <parameter name="remote.server" value="127.0.0.1"/>-->
+<!--        <parameter name="remote.port" value="4723" />-->
+<!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>-->
+<!--        <parameter name="driver.name" value="flutterDriver" />-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="Sanity9"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="Add Company" enabled="true" thread-count="1" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile/CompanyMob.feature"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'emulator-5554','platformName':'Android','automationName':'flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'13.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Vishmitha G/Downloads/app-dev-debug.apk','udid':'emulator-5554','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="CTCP-2171"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="User Management - Permission Flow" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="Sanity2"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Corporate Management - Distributor Corporate" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="Sanity3"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Corporate Management - Customer Corporate" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="Sanity4"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Corporate Management - Distributor Shop" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="Sanity5"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Corporate Management - Customer Site" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="Sanity6"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Conveyor Flow" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="Sanity7"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Inspection Flow" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="Sanity8"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Cover Wear Flow" enabled="true" thread-count="2" parallel="methods">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_stg"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL','noReset':true,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="Sanity9"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Add Company" enabled="true">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile/CompanyMob.feature"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M90XAA6L','platformName':'Android','automationName':'flutter','appPackage':'com.continental.contiplus','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Supreetha/Downloads/app-dev-debug.apk','udid':'RZ8M90XAA6L','noReset':false,'autoGrantPermissions':true}"/>
+
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="CTCP-2171"/>
+                <include name="CTCP-2164"/>
+                <include name="CTCP-2180"/>
+                <include name="CTCP-2182"/>
+                <include name="CTCP-2184"/>
+                <include name="CTCP-2181"/>
+                <include name="CTCP-2183"/>
+                <include name="CTCP-2167"/>
+                <include name="CTCP-2169"/>
+                <include name="CTCP-2173"/>
+                <include name="CTCP-2179"/>
+                <include name="CTCP-2176"/>
+
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Add Conveyor" enabled="true">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile/ConveyorMob.feature"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'emulator-5554','platformName':'Android','automationName':'flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'13.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Supreetha/Downloads/app-dev-debug.apk','udid':'emulator-5554','noReset':false,'autoGrantPermissions':true}"/>
+        <!--        <parameter name="flutter.additional.capabilities" value="{'deviceName':'ZA222K9F2M','platformName':'Android','automationName':'flutter','appPackage':'com.continental.contiplus','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'14.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Vishmitha G/Downloads/app-dev-debug.apk','udid':'ZA222K9F2M','noReset':false,'autoGrantPermissions':true}"/>&ndash;&gt;-->
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="CTCP-3275"/>
+                <include name="CTCP-3278"/>
+                <include name="CTCP-3280"/>
+                <include name="CTCP-3274"/>
+                <include name="CTCP-3276"/>
+                <include name="CTCP-3279"/>
+
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Add Site/Shop" enabled="true">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile/SiteMob.feature"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'emulator-5554','platformName':'Android','automationName':'flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'13.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Supreetha/Downloads/app-dev-debug.apk','udid':'emulator-5554','noReset':false,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+                <include name="CTCP-2229"/>
+                <include name="CTCP-2227"/>
+                <include name="CTCP-2234"/>
+                <include name="CTCP-2237"/>
+                <include name="CTCP-2243"/>
+                <include name="CTCP-2226"/>
+                <include name="CTCP-2228"/>
+                <include name="CTCP-2230"/>
+                <include name="CTCP-2231"/>
+                <include name="CTCP-2242"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Corporate List" enabled="true">
+    <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+    <parameter name="scenario.file.loc" value="scenarios/Mobile/CompanyMob.feature"/>
+    <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+    <parameter name="remote.server" value="127.0.0.1"/>
+    <parameter name="remote.port" value="4723" />
+    <parameter name="flutter.additional.capabilities" value="{'deviceName':'emulator-5554','platformName':'Android','automationName':'flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'13.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Supreetha/Downloads/app-dev-debug.apk','udid':'emulator-5554','noReset':false,'autoGrantPermissions':true}"/>
+    <parameter name="driver.name" value="flutterDriver" />
+    <groups>
+    <run>
+                    <include name="CTCP-2165"/>
+                    <include name="CTCP-2168"/>
+                    <include name="CTCP-2172"/>
+                    <include name="CTCP-2174"/>
+    </run>
+    </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+
+        <test name="CoverWear List" enabled="true">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile/CoverWearMob.feature"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M90XAA6L','platformName':'Android','automationName':'flutter','appPackage':'com.continental.contiplus','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Supreetha/Downloads/app-dev-debug.apk','udid':'RZ8M90XAA6L','noReset':false,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+        <run>
+             <include name="CTCP-2442"/>
+            <include name="CTCP-2451"/>
+            <include name="CTCP-2443"/>
+            <include name="CTCP-2444"/>
+            <include name="CTCP-2445"/>
+            <include name="CTCP-2456"/>
+
+            <include name="CTCP-2441"/>
+            <include name="CTCP-2447"/>
+            <include name="CTCP-2457"/>
+            <include name="CTCP-2450"/>
+            <include name="CTCP-2454"/>
+
+        </run>
+        </groups>
+            <classes>
+                <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+            </classes>
+        </test>
+
+    <test name="Add Inspection" enabled="true">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile/InspectionMob.feature"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M90XAA6L','platformName':'Android','automationName':'flutter','appPackage':'com.continental.contiplus','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'C:/Users/Supreetha/Downloads/app-dev-debug.apk','udid':'RZ8M90XAA6L','noReset':false,'autoGrantPermissions':true}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+        <groups>
+            <run>
+
+                <include name="CTCP-2267"/>
+                <include name="CTCP-2280"/>
+                <include name="CTCP-2281"/>
+                <include name="CTCP-2283"/>
+
+                <include name="CTCP-2254"/>
+                <include name="CTCP-2255"/>
+                <include name="CTCP-2256"/>
+                <include name="CTCP-2262"/>
+                <include name="CTCP-2265"/>
+                <include name="CTCP-2257"/>
+                <include name="CTCP-2260"/>
+                <include name="CTCP-2266"/>
+
+                <include name="CTCP-2268"/>
+                <include name="CTCP-2276"/>
+                <include name="CTCP-2278"/>
+                <include name="CTCP-2275"/>
+                <include name="CTCP-2277"/>
+
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="Login Test Cases" enabled="true">
+            <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+            <parameter name="scenario.file.loc" value="scenarios/Mobile/LoginMob.feature"/>
+            <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+            <parameter name="remote.server" value="127.0.0.1"/>
+            <parameter name="remote.port" value="4723" />
+            <parameter name="flutter.additional.capabilities" value="{'deviceName':'0002506R60001EB8','platformName':'Android','automationName':'flutter','appPackage':'com.continental.contiplus','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'10000','maxRetryCount':'5','newCommandTimeout': '360','app':'C:/Users/Vishmitha G/Downloads/app-dev-debug.apk','udid':'0002506R60001EB8','noReset':false,'autoGrantPermissions':true}"/>
+            <parameter name="driver.name" value="flutterDriver" />
+            <groups>
+                <run>
+
+                    <include name="CTCP-2041"/>
+                    <include name="CTCP-2043"/>
+                    <include name="CTCP-2047"/>
+                    <include name="CTCP-2049"/>
+                    <include name="CTCP-2099"/>
+                    <include name="CTCP-2108"/>
+                    <include name="CTCP-2113"/>
+                    <include name="CTCP-2120"/>
+                    <include name="CTCP-2256"/>
+
+                </run>
+            </groups>
+            <classes>
+                <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+            </classes>
+        </test>
+
+        <test name="File Manager Test Cases" enabled="true">
+            <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+            <parameter name="scenario.file.loc" value="scenarios/Mobile/FileManagerMob.feature"/>
+            <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+            <parameter name="remote.server" value="127.0.0.1"/>
+            <parameter name="remote.port" value="4723" />
+            <parameter name="flutter.additional.capabilities" value="{'deviceName':'0002506R60001EB8','platformName':'Android','automationName':'flutter','appPackage':'com.continental.contiplus','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'10000','maxRetryCount':'5','newCommandTimeout': '360','app':'C:/Users/Vishmitha G/Downloads/app-dev-debug.apk','udid':'0002506R60001EB8','noReset':false,'autoGrantPermissions':true}"/>
+            <parameter name="driver.name" value="flutterDriver" />
+            <groups>
+                <run>
+
+                    <include name="CTCP-2137"/>
+                    <include name="CTCP-2142"/>
+                    <include name="CTCP-2144"/>
+
+                </run>
+            </groups>
+            <classes>
+                <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+            </classes>
+        </test>
+
+</suite>

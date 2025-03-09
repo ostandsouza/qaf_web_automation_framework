@@ -1,0 +1,16 @@
+[{
+    "UserName": "contiplus_admin@maildrop.cc",
+    "Password": "Test@12345",
+    "FullName": "Market India Automation",
+    "ProfileType": "Market manager",
+    "Phone": "9876543210",
+    "Email": "marketsmanager2023@gmail.com",
+    "UserPassword": "Abc@123456",
+    "RetypePassword": "Abc@123456",
+    "Region": "APAC",
+    "Add": true,
+    "Edit": true,
+    "Delete": true,
+    "View": true,
+    "Download": true
+  }]

@@ -5,6 +5,7 @@ import org.testng.collections.Lists;
 import org.testng.internal.Utils;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlSuite.ParallelMode;
+import org.testng.reporters.RuntimeBehavior;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -14,6 +15,7 @@ import java.util.*;
 
 import static com.common.utils.MiscUtils.convertTimeToString;
 import static com.common.utils.MiscUtils.getCurrentDateTime;
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 
 public class EmailableTestNGReport implements IReporter {
@@ -60,10 +62,10 @@ public class EmailableTestNGReport implements IReporter {
 
     protected PrintWriter createWriter(String outdir) throws IOException {
         new File(outdir).mkdirs();
-//        String jvmArg = RuntimeBehavior.getDefaultEmailableReport2Name();
-//        if (jvmArg != null && !jvmArg.trim().isEmpty()) {
-//            fileName = jvmArg;
-//        }
+        String jvmArg = RuntimeBehavior.getDefaultEmailableReport2Name();
+        if (jvmArg != null && !jvmArg.trim().isEmpty()) {
+            reportFileName = jvmArg;
+        }
         return new PrintWriter(new BufferedWriter(new FileWriter(new File(outdir, reportFileName))));
     }
 
@@ -148,7 +150,7 @@ public class EmailableTestNGReport implements IReporter {
         writer.println("<div class=\"easy-test-overview\">");
         writer.println("<table class=\"stripe easy-overview\">");
         writer.print("<tr>");
-        writer.print("<th>Features/Devices</th>");
+        writer.print("<th>Features/Modules</th>");
         writer.print("<th>Total</th>");
         writer.print("<th>Passed</th>");
         writer.print("<th>Failed</th>");
@@ -216,7 +218,7 @@ public class EmailableTestNGReport implements IReporter {
                 testIndex++;
             }
 
-            boolean testsInParallel = ParallelMode.TESTS.equals(suiteResult.getParallelMode());
+            boolean testsInParallel = XmlSuite.ParallelMode.TESTS.equals(suiteResult.getParallelMode());
             if (testsInParallel) {
                 Optional<TestResult> maxValue = suiteResult.testResults.stream()
                         .max(Comparator.comparing(TestResult::getDuration));
@@ -267,7 +269,7 @@ public class EmailableTestNGReport implements IReporter {
         int scenarioIndex = 0;
         for (SuiteResult suiteResult : suiteResults) {
             writer.print("<tbody><tr><th colspan=\"6\">");
-            //writer.print(Utils.escapeHtml(suiteResult.getSuiteName()));
+            writer.print(Utils.escapeHtml(suiteResult.getSuiteName()));
             writer.print("</th></tr></tbody>");
 
             for (TestResult testResult : suiteResult.getTestResults()) {
@@ -680,92 +682,92 @@ public class EmailableTestNGReport implements IReporter {
         writer.print(">");
     }
 
-/** Groups {@link TestResult}s by suite. */
-protected static class SuiteResult {
-    private final String suiteName;
-    private final List<TestResult> testResults = Lists.newArrayList();
-    private final ParallelMode mode;
+    /** Groups {@link TestResult}s by suite. */
+    protected  class SuiteResult {
+        private final String suiteName;
+        private final List<TestResult> testResults = Lists.newArrayList();
+        private final ParallelMode mode;
 
-    public SuiteResult(ISuite suite) {
-        suiteName = suite.getName();
-        mode = suite.getXmlSuite().getParallel();
-        for (ISuiteResult suiteResult : suite.getResults().values()) {
-            testResults.add(new TestResult(suiteResult.getTestContext()));
+        public SuiteResult(ISuite suite) {
+            suiteName = suite.getName();
+            mode = suite.getXmlSuite().getParallel();
+            for (ISuiteResult suiteResult : suite.getResults().values()) {
+                testResults.add(new TestResult(suiteResult.getTestContext()));
+            }
+        }
+
+        public String getSuiteName() {
+            return suiteName;
+        }
+
+        /** @return the test results (possibly empty) */
+        public List<TestResult> getTestResults() {
+            return testResults;
+        }
+
+        public ParallelMode getParallelMode() {
+            return mode;
         }
     }
 
-    public String getSuiteName() {
-        return suiteName;
-    }
+    /** Groups {@link ClassResult}s by test, type (configuration or test), and status. */
+    protected  class TestResult {
+        /** Orders test results by class name and then by method name (in lexicographic order). */
+        protected  final Comparator<ITestResult> RESULT_COMPARATOR =
+                Comparator.comparing((ITestResult o) -> o.getTestClass().getName())
+                        .thenComparing(o -> o.getMethod().getMethodName());
 
-    /** @return the test results (possibly empty) */
-    public List<TestResult> getTestResults() {
-        return testResults;
-    }
+        private final String testName;
+        private final Date testStartTime;
+        private final Date testEndTime;
+        private final List<ClassResult> failedConfigurationResults;
+        private final List<ClassResult> failedTestResults;
+        private final List<ClassResult> skippedConfigurationResults;
+        private final List<ClassResult> skippedTestResults;
+        //private final List<ClassResult> retriedTestResults;
+        private final List<ClassResult> passedTestResults;
+        private final int failedTestCount;
+        // private final int retriedTestCount;
+        private final int skippedTestCount;
+        private final int passedTestCount;
+        private final int testCount;
+        private final long duration;
+        private final String includedGroups;
+        private final String excludedGroups;
 
-    public ParallelMode getParallelMode() {
-        return mode;
-    }
-}
+        public TestResult(ITestContext context) {
+            testName = context.getName();
 
-/** Groups {@link ClassResult}s by test, type (configuration or test), and status. */
-protected static class TestResult {
-    /** Orders test results by class name and then by method name (in lexicographic order). */
-    protected static final Comparator<ITestResult> RESULT_COMPARATOR =
-            Comparator.comparing((ITestResult o) -> o.getTestClass().getName())
-                    .thenComparing(o -> o.getMethod().getMethodName());
+            Set<ITestResult> failedConfigurations = context.getFailedConfigurations().getAllResults();
+            Set<ITestResult> failedTests = context.getFailedTests().getAllResults();
+            Set<ITestResult> skippedConfigurations = context.getSkippedConfigurations().getAllResults();
+            Set<ITestResult> skippedTests = context.getSkippedTests().getAllResults();
+            //Set<ITestResult> skippedTests = pruneSkipped(rawSkipped);
+            //Set<ITestResult> retriedTests = pruneRetried(rawSkipped);
 
-    private final String testName;
-    private final Date testStartTime;
-    private final Date testEndTime;
-    private final List<ClassResult> failedConfigurationResults;
-    private final List<ClassResult> failedTestResults;
-    private final List<ClassResult> skippedConfigurationResults;
-    private final List<ClassResult> skippedTestResults;
-    //private final List<ClassResult> retriedTestResults;
-    private final List<ClassResult> passedTestResults;
-    private final int failedTestCount;
-    // private final int retriedTestCount;
-    private final int skippedTestCount;
-    private final int passedTestCount;
-    private final int testCount;
-    private final long duration;
-    private final String includedGroups;
-    private final String excludedGroups;
+            Set<ITestResult> passedTests = context.getPassedTests().getAllResults();
 
-    public TestResult(ITestContext context) {
-        testName = context.getName();
+            failedConfigurationResults = groupResults(failedConfigurations);
+            failedTestResults = groupResults(failedTests);
+            skippedConfigurationResults = groupResults(skippedConfigurations);
+            skippedTestResults = groupResults(skippedTests);
+            //retriedTestResults = groupResults(retriedTests);
+            passedTestResults = groupResults(passedTests);
 
-        Set<ITestResult> failedConfigurations = context.getFailedConfigurations().getAllResults();
-        Set<ITestResult> failedTests = context.getFailedTests().getAllResults();
-        Set<ITestResult> skippedConfigurations = context.getSkippedConfigurations().getAllResults();
-        Set<ITestResult> skippedTests = context.getSkippedTests().getAllResults();
-        //Set<ITestResult> skippedTests = pruneSkipped(rawSkipped);
-        //Set<ITestResult> retriedTests = pruneRetried(rawSkipped);
-
-        Set<ITestResult> passedTests = context.getPassedTests().getAllResults();
-
-        failedConfigurationResults = groupResults(failedConfigurations);
-        failedTestResults = groupResults(failedTests);
-        skippedConfigurationResults = groupResults(skippedConfigurations);
-        skippedTestResults = groupResults(skippedTests);
-        //retriedTestResults = groupResults(retriedTests);
-        passedTestResults = groupResults(passedTests);
-
-        testStartTime = context.getStartDate();
-        testEndTime = context.getEndDate();
+            testStartTime = context.getStartDate();
+            testEndTime = context.getEndDate();
 
 
-        failedTestCount = failedTests.size();
-        skippedTestCount = skippedTests.size();
-        passedTestCount = passedTests.size();
-        testCount = context.getAllTestMethods().length;
+            failedTestCount = failedTests.size();
+            skippedTestCount = skippedTests.size();
+            passedTestCount = passedTests.size();
+            testCount = context.getAllTestMethods().length;
 
-        duration = context.getEndDate().getTime() - context.getStartDate().getTime();
+            duration = context.getEndDate().getTime() - context.getStartDate().getTime();
 
-        includedGroups = formatGroups(context.getIncludedGroups());
-        excludedGroups = formatGroups(context.getExcludedGroups());
-    }
+            includedGroups = formatGroups(context.getIncludedGroups());
+            excludedGroups = formatGroups(context.getExcludedGroups());
+        }
 
 //        private static Set<ITestResult> pruneSkipped(Set<ITestResult> results) {
 //            return results.stream().filter(result -> !result.wasRetried()).collect(Collectors.toSet());
@@ -775,193 +777,193 @@ protected static class TestResult {
 //            return results.stream().filter(ITestResult::wasRetried).collect(Collectors.toSet());
 //        }
 
-    /**
-     * Groups test results by method and then by class.
-     *
-     * @param results All test results
-     * @return Test result grouped by method and class
-     */
-    protected List<ClassResult> groupResults(Set<ITestResult> results) {
-        List<ClassResult> classResults = Lists.newArrayList();
-        if (!results.isEmpty()) {
-            List<MethodResult> resultsPerClass = Lists.newArrayList();
-            List<ITestResult> resultsPerMethod = Lists.newArrayList();
+        /**
+         * Groups test results by method and then by class.
+         *
+         * @param results All test results
+         * @return Test result grouped by method and class
+         */
+        protected List<ClassResult> groupResults(Set<ITestResult> results) {
+            List<ClassResult> classResults = Lists.newArrayList();
+            if (!results.isEmpty()) {
+                List<MethodResult> resultsPerClass = Lists.newArrayList();
+                List<ITestResult> resultsPerMethod = Lists.newArrayList();
 
-            List<ITestResult> resultsList = Lists.newArrayList(results);
-            Collections.sort(resultsList,RESULT_COMPARATOR);
-            Iterator<ITestResult> resultsIterator = resultsList.iterator();
-            assert resultsIterator.hasNext();
+                List<ITestResult> resultsList = Lists.newArrayList(results);
+                Collections.sort(resultsList,RESULT_COMPARATOR);
+                Iterator<ITestResult> resultsIterator = resultsList.iterator();
+                assert resultsIterator.hasNext();
 
-            ITestResult result = resultsIterator.next();
-            resultsPerMethod.add(result);
+                ITestResult result = resultsIterator.next();
+                resultsPerMethod.add(result);
 
-            String previousClassName = result.getTestClass().getName();
-            String previousMethodName = result.getMethod().getMethodName();
-            while (resultsIterator.hasNext()) {
-                result = resultsIterator.next();
+                String previousClassName = result.getTestClass().getName();
+                String previousMethodName = result.getMethod().getMethodName();
+                while (resultsIterator.hasNext()) {
+                    result = resultsIterator.next();
 
-                String className = result.getTestClass().getName();
-                if (!previousClassName.equals(className)) {
-                    // Different class implies different method
-                    assert !resultsPerMethod.isEmpty();
-                    resultsPerClass.add(new MethodResult(resultsPerMethod));
-                    resultsPerMethod = Lists.newArrayList();
-
-                    assert !resultsPerClass.isEmpty();
-                    classResults.add(new ClassResult(previousClassName, resultsPerClass));
-                    resultsPerClass = Lists.newArrayList();
-
-                    previousClassName = className;
-                    previousMethodName = result.getMethod().getMethodName();
-                } else {
-                    String methodName = result.getMethod().getMethodName();
-                    if (!previousMethodName.equals(methodName)) {
+                    String className = result.getTestClass().getName();
+                    if (!previousClassName.equals(className)) {
+                        // Different class implies different method
                         assert !resultsPerMethod.isEmpty();
                         resultsPerClass.add(new MethodResult(resultsPerMethod));
                         resultsPerMethod = Lists.newArrayList();
 
-                        previousMethodName = methodName;
+                        assert !resultsPerClass.isEmpty();
+                        classResults.add(new ClassResult(previousClassName, resultsPerClass));
+                        resultsPerClass = Lists.newArrayList();
+
+                        previousClassName = className;
+                        previousMethodName = result.getMethod().getMethodName();
+                    } else {
+                        String methodName = result.getMethod().getMethodName();
+                        if (!previousMethodName.equals(methodName)) {
+                            assert !resultsPerMethod.isEmpty();
+                            resultsPerClass.add(new MethodResult(resultsPerMethod));
+                            resultsPerMethod = Lists.newArrayList();
+
+                            previousMethodName = methodName;
+                        }
                     }
+                    resultsPerMethod.add(result);
                 }
-                resultsPerMethod.add(result);
+                assert !resultsPerMethod.isEmpty();
+                resultsPerClass.add(new MethodResult(resultsPerMethod));
+                assert !resultsPerClass.isEmpty();
+                classResults.add(new ClassResult(previousClassName, resultsPerClass));
             }
-            assert !resultsPerMethod.isEmpty();
-            resultsPerClass.add(new MethodResult(resultsPerMethod));
-            assert !resultsPerClass.isEmpty();
-            classResults.add(new ClassResult(previousClassName, resultsPerClass));
+            return classResults;
         }
-        return classResults;
-    }
 
-    public String getTestName() {
-        return testName;
-    }
-    public Date getTestStartTime() {
-        return testStartTime;
-    }
+        public String getTestName() {
+            return testName;
+        }
+        public Date getTestStartTime() {
+            return testStartTime;
+        }
 
-    public Date getTestEndTime() {
-        return testEndTime;
-    }
-    /** @return the results for failed configurations (possibly empty) */
-    public List<ClassResult> getFailedConfigurationResults() {
-        return failedConfigurationResults;
-    }
+        public Date getTestEndTime() {
+            return testEndTime;
+        }
+        /** @return the results for failed configurations (possibly empty) */
+        public List<ClassResult> getFailedConfigurationResults() {
+            return failedConfigurationResults;
+        }
 
-    /** @return the results for failed tests (possibly empty) */
-    public List<ClassResult> getFailedTestResults() {
-        return failedTestResults;
-    }
+        /** @return the results for failed tests (possibly empty) */
+        public List<ClassResult> getFailedTestResults() {
+            return failedTestResults;
+        }
 
-    /** @return the results for skipped configurations (possibly empty) */
-    public List<ClassResult> getSkippedConfigurationResults() {
-        return skippedConfigurationResults;
-    }
+        /** @return the results for skipped configurations (possibly empty) */
+        public List<ClassResult> getSkippedConfigurationResults() {
+            return skippedConfigurationResults;
+        }
 
-    /** @return the results for skipped tests (possibly empty) */
-    public List<ClassResult> getSkippedTestResults() {
-        return skippedTestResults;
-    }
+        /** @return the results for skipped tests (possibly empty) */
+        public List<ClassResult> getSkippedTestResults() {
+            return skippedTestResults;
+        }
 
 //        public List<ClassResult> getRetriedTestResults() {
 //            return retriedTestResults;
 //        }
 
-    /** @return the results for passed tests (possibly empty) */
-    public List<ClassResult> getPassedTestResults() {
-        return passedTestResults;
-    }
+        /** @return the results for passed tests (possibly empty) */
+        public List<ClassResult> getPassedTestResults() {
+            return passedTestResults;
+        }
 
-    public int getFailedTestCount() {
-        return failedTestCount;
-    }
+        public int getFailedTestCount() {
+            return failedTestCount;
+        }
 
-    public int getSkippedTestCount() {
-        return skippedTestCount;
-    }
+        public int getSkippedTestCount() {
+            return skippedTestCount;
+        }
 
 //        public int getRetriedTestCount() {
 //            return retriedTestCount;
 //        }
 
-    public int getPassedTestCount() {
-        return passedTestCount;
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public String getIncludedGroups() {
-        return includedGroups;
-    }
-
-    public String getExcludedGroups() {
-        return excludedGroups;
-    }
-    public int getTestCount() {
-        return testCount;
-    }
-
-
-    /**
-     * Formats an array of groups for display.
-     *
-     * @param groups The groups
-     * @return The String value of the groups
-     */
-    protected String formatGroups(String[] groups) {
-        if (groups.length == 0) {
-            return "";
+        public int getPassedTestCount() {
+            return passedTestCount;
         }
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(groups[0]);
-        for (int i = 1; i < groups.length; i++) {
-            builder.append(", ").append(groups[i]);
+        public long getDuration() {
+            return duration;
         }
-        return builder.toString();
-    }
-}
 
-/** Groups {@link MethodResult}s by class. */
-protected static class ClassResult {
-    private final String className;
-    private final List<MethodResult> methodResults;
+        public String getIncludedGroups() {
+            return includedGroups;
+        }
 
-    /**
-     * @param className the class name
-     * @param methodResults the non-null, non-empty {@link MethodResult} list
-     */
-    public ClassResult(String className, List<MethodResult> methodResults) {
-        this.className = className;
-        this.methodResults = methodResults;
-    }
+        public String getExcludedGroups() {
+            return excludedGroups;
+        }
+        public int getTestCount() {
+            return testCount;
+        }
 
-    public String getClassName() {
-        return className;
-    }
 
-    /** @return the non-null, non-empty {@link MethodResult} list */
-    public List<MethodResult> getMethodResults() {
-        return methodResults;
-    }
-}
+        /**
+         * Formats an array of groups for display.
+         *
+         * @param groups The groups
+         * @return The String value of the groups
+         */
+        protected String formatGroups(String[] groups) {
+            if (groups.length == 0) {
+                return "";
+            }
 
-/** Groups test results by method. */
-protected static class MethodResult {
-    private final List<ITestResult> results;
-
-    /** @param results the non-null, non-empty result list */
-    public MethodResult(List<ITestResult> results) {
-        this.results = results;
+            StringBuilder builder = new StringBuilder();
+            builder.append(groups[0]);
+            for (int i = 1; i < groups.length; i++) {
+                builder.append(", ").append(groups[i]);
+            }
+            return builder.toString();
+        }
     }
 
-    /** @return the non-null, non-empty result list */
-    public List<ITestResult> getResults() {
-        return results;
+    /** Groups {@link MethodResult}s by class. */
+    protected  class ClassResult {
+        private final String className;
+        private final List<MethodResult> methodResults;
+
+        /**
+         * @param className the class name
+         * @param methodResults the non-null, non-empty {@link MethodResult} list
+         */
+        public ClassResult(String className, List<MethodResult> methodResults) {
+            this.className = className;
+            this.methodResults = methodResults;
+        }
+
+        public String getClassName() {
+            return className;
+        }
+
+        /** @return the non-null, non-empty {@link MethodResult} list */
+        public List<MethodResult> getMethodResults() {
+            return methodResults;
+        }
     }
-}
+
+    /** Groups test results by method. */
+    protected  class MethodResult {
+        private final List<ITestResult> results;
+
+        /** @param results the non-null, non-empty result list */
+        public MethodResult(List<ITestResult> results) {
+            this.results = results;
+        }
+
+        /** @return the non-null, non-empty result list */
+        public List<ITestResult> getResults() {
+            return results;
+        }
+    }
 
     protected void writeTestDetails() {
 
@@ -978,11 +980,11 @@ protected static class MethodResult {
         writer.print("<tr");
         writer.print(">");
         String paltform= System.getenv("platform") == null ? "Web": System.getenv("platform");
-        String env= System.getenv("ENV")== null ? "dev 2": System.getenv("ENV");
-        String type= System.getenv("type")== null ? "Business flow": System.getenv("type");
-        String automatableUrl= System.getenv("AutomatableUrl")== null ? "#": System.getenv("AutomatableUrl");
+        String env= System.getenv("ENV")== null ? getBundle().getString("env.setup"): System.getenv("ENV");
+        String type= System.getenv("type")== null ? "Sanity flow": System.getenv("type");
+        String automatableUrl= System.getenv("AutomatableUrl")== null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("AutomatableUrl");
         writeColumnValue("Conti Plus", "num");
-        writeColumnValue(paltform, "");
+        writeColumnValue(paltform,"");
         writeColumnValue(env, "num");
         writeColumnValue(type, "num");
         writeColumnHref(automatableUrl, "num");
@@ -999,11 +1001,11 @@ protected static class MethodResult {
         writeTableContents("Project", "Conti Plus");
         String paltform= System.getenv("platform") == null ? "Web": System.getenv("platform");
         writeTableContents("Platform", paltform);
-        String env= System.getenv("ENV")== null ? "dev 2": System.getenv("ENV");
+        String env= System.getenv("ENV")== null ? getBundle().getString("env.setup"): System.getenv("ENV");
         writeTableContents("Env", env);
         String type= System.getenv("type")== null ? "Business flow": System.getenv("type");
         writeTableContents("Type", type);
-        String automatableUrl= System.getenv("AutomatableUrl")== null ? "#": System.getenv("AutomatableUrl");
+        String automatableUrl= System.getenv("AutomatableUrl")== null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("AutomatableUrl");
         writeTableContentLink("Automation Report URL", automatableUrl);
         writer.println("</table>");
         writer.println("</div>");

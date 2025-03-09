@@ -1,0 +1,608 @@
+{
+  "name": "C1 Conveyor Inspect Regression",
+  "customer": {
+    "location": {
+      "zipcode": "23824",
+      "country": "Germany",
+      "state": "Schleswig-Holstein",
+      "city": "Damsdorf",
+      "latitude": 54.05654539999999,
+      "longitude": 10.2941197
+    },
+    "createdDate": 1682409883559,
+    "companyId": "01GYVQ387310NYN8D750Z3BTE9",
+    "customerCorporate": {
+      "companyId": "01G6MK06E0M2WRCD51EHAYD4MA",
+      "companyType": {
+        "name": "Customer Corporate",
+        "category": "Customer",
+        "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX"
+      },
+      "street": "6 Berliner Str., ",
+      "conveyorsCount": 25,
+      "name": "Conveyor Inspect Regression Corp",
+      "location": {
+        "zipcode": "69120",
+        "country": "Germany",
+        "state": "Baden-Württemberg",
+        "city": "Karlsruhe",
+        "latitude": 49.4131918,
+        "longitude": 8.677442799999998
+      },
+      "territory": {
+        "market": {}
+      }
+    },
+    "updatedBy": {
+      "userId": "8ada2c68-238e-4e7a-9e98-d7daee95d1ad",
+      "fullName": "Conti Automation",
+      "image": ""
+    },
+    "associatedDistributor": "",
+    "name": "Conveyor Inspect Regression Site",
+    "distributorCorporate": "",
+    "companyType": {
+      "name": "Customer Site",
+      "sortKey": "CUSTOMER",
+      "companyTypeId": "01FEN46X9FV4FK4ZTCNGQWZRDB",
+      "category": "Customer"
+    },
+    "image": "",
+    "territory": {
+      "market": {
+        "name": "EMEA",
+        "marketId": "01FGQ58DVEWRY3C9SR4RXJG9AJ"
+      },
+      "name": "Germany",
+      "territoryId": "01FSYG8G8E7KJEH2372QRA273S",
+      "marketId": "01FGQ58DVEWRY3C9SR4RXJG9AJ"
+    },
+    "territoryManager": {
+      "name": "Teritory Germany Automation",
+      "userId": "75c0ad25-fa8e-4ba8-8734-c328c8a3730f"
+    },
+    "droneInspectData": {
+      "trendData": [
+        {
+          "lastInspected": 1695254400000,
+          "totalErrors": 571,
+          "errorDetails": [
+            {
+              "count": 84,
+              "code": 1,
+              "percentage": 3
+            },
+            {
+              "count": 3,
+              "code": 2,
+              "percentage": 1
+            },
+            {
+              "count": 136,
+              "code": 3,
+              "percentage": 5
+            },
+            {
+              "count": 348,
+              "code": 4,
+              "percentage": 91
+            }
+          ]
+        },
+        {
+          "lastInspected": 1698883200000,
+          "totalErrors": 570,
+          "errorDetails": [
+            {
+              "count": 84,
+              "code": 1,
+              "percentage": 1
+            },
+            {
+              "count": 4,
+              "code": 2,
+              "percentage": 1
+            },
+            {
+              "count": 135,
+              "code": 3,
+              "percentage": 1
+            },
+            {
+              "count": 347,
+              "code": 4,
+              "percentage": 97
+            }
+          ]
+        },
+        {
+          "lastInspected": 1700092800000,
+          "totalErrors": 570,
+          "errorDetails": [
+            {
+              "count": 84,
+              "code": 1,
+              "percentage": 1
+            },
+            {
+              "count": 4,
+              "code": 2,
+              "percentage": 1
+            },
+            {
+              "count": 135,
+              "code": 3,
+              "percentage": 1
+            },
+            {
+              "count": 347,
+              "code": 4,
+              "percentage": 97
+            }
+          ]
+        },
+        {
+          "lastInspected": 1700179200000,
+          "totalErrors": 569,
+          "errorDetails": [
+            {
+              "count": 84,
+              "code": 1,
+              "percentage": 3
+            },
+            {
+              "count": 4,
+              "code": 2,
+              "percentage": 1
+            },
+            {
+              "count": 136,
+              "code": 3,
+              "percentage": 5
+            },
+            {
+              "count": 345,
+              "code": 4,
+              "percentage": 91
+            }
+          ]
+        },
+        {
+          "lastInspected": 1700352000000,
+          "totalErrors": 570,
+          "errorDetails": [
+            {
+              "count": 84,
+              "code": 1,
+              "percentage": 3
+            },
+            {
+              "count": 4,
+              "code": 2,
+              "percentage": 1
+            },
+            {
+              "count": 135,
+              "code": 3,
+              "percentage": 5
+            },
+            {
+              "count": 347,
+              "code": 4,
+              "percentage": 91
+            }
+          ]
+        },
+        {
+          "lastInspected": 1700524800000,
+          "totalErrors": 570,
+          "errorDetails": [
+            {
+              "count": 84,
+              "code": 1,
+              "percentage": 3
+            },
+            {
+              "count": 4,
+              "code": 2,
+              "percentage": 1
+            },
+            {
+              "count": 136,
+              "code": 3,
+              "percentage": 5
+            },
+            {
+              "count": 346,
+              "code": 4,
+              "percentage": 91
+            }
+          ]
+        },
+        {
+          "lastInspected": 1700611200000,
+          "totalErrors": 570,
+          "errorDetails": [
+            {
+              "count": 84,
+              "code": 1,
+              "percentage": 3
+            },
+            {
+              "count": 5,
+              "code": 2,
+              "percentage": 1
+            },
+            {
+              "count": 135,
+              "code": 3,
+              "percentage": 5
+            },
+            {
+              "count": 346,
+              "code": 4,
+              "percentage": 91
+            }
+          ]
+        }
+      ],
+      "errorDetails": [
+        {
+          "count": 84,
+          "code": 1,
+          "percentage": 1
+        },
+        {
+          "count": 4,
+          "code": 2,
+          "percentage": 1
+        },
+        {
+          "count": 135,
+          "code": 3,
+          "percentage": 1
+        },
+        {
+          "count": 347,
+          "code": 4,
+          "percentage": 97
+        }
+      ]
+    },
+    "updatedDate": 1682409883559,
+    "street": " "
+  },
+  "isDroneInspection": true,
+  "lastWeatherSyncAt": 1684090434872,
+  "droneInspectData": {
+    "operationType": "INSERT",
+    "trendData": [
+      {
+        "lastInspected": 1661990400000,
+        "totalErrors": 112,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 112,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "lastInspected": 1662336000000,
+        "totalErrors": 114,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 114,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "lastInspected": 1662422400000,
+        "totalErrors": 114,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 114,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "lastInspected": 1688601600000,
+        "totalErrors": 225,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 225,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "lastInspected": 1690848000000,
+        "totalErrors": 227,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 227,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "lastInspected": 1695254400000,
+        "totalErrors": 63,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 2,
+            "percentage": 0
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 63,
+            "code": 4,
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "lastInspected": 1700092800000,
+        "totalErrors": 61,
+        "errorDetails": [
+          {
+            "count": 0,
+            "code": 1,
+            "percentage": 0
+          },
+          {
+            "count": 1,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 0,
+            "code": 3,
+            "percentage": 0
+          },
+          {
+            "count": 60,
+            "code": 4,
+            "percentage": 99
+          }
+        ]
+      }
+    ],
+    "droneDataUploadDate": 1700092800000,
+    "totalErrorCount": 61,
+    "errorDetails": [
+      {
+        "count": 0,
+        "code": 1,
+        "percentage": 0
+      },
+      {
+        "count": 1,
+        "code": 2,
+        "percentage": 1
+      },
+      {
+        "count": 0,
+        "code": 3,
+        "percentage": 0
+      },
+      {
+        "count": 60,
+        "code": 4,
+        "percentage": 99
+      }
+    ],
+    "status": 2
+  },
+  "aiModelPath": "ctp-object-detection-models-stage/models/baseline-yolo",
+  "idlerImpact": {
+    "diameter": "",
+    "angle": "",
+    "numberOfIdlers": ""
+  },
+  "idlerReturn": {
+    "angle": "15",
+    "numberOfIdlers": "3000",
+    "diameter": "114838.4726503376",
+    "runSpacing": ""
+  },
+  "takeUpInformation": {
+    "type": "",
+    "travel": "",
+    "estimatedWeight": ""
+  },
+  "beltManufacturer": null,
+  "stations": [
+    {
+      "station": null,
+      "takeup": null,
+      "id": "1",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "2",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "3",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "4",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "5",
+      "drive": null,
+      "hideRow": true
+    },
+    {
+      "station": null,
+      "takeup": null,
+      "id": "6",
+      "drive": null,
+      "hideRow": true
+    }
+  ],
+  "lengthFactor": "",
+  "directionTurnover": "",
+  "location": {
+    "head": {
+      "latitude": 54.05319912142524,
+      "longitude": 10.29549712745338
+    },
+    "tail": {
+      "latitude": 54.05186471542401,
+      "longitude": 10.295115028983556
+    }
+  },
+  "idlerCarry": {
+    "angle": "",
+    "numberOfIdlers": "6000",
+    "diameter": "114838.4726503376",
+    "runSpacing": 1
+  },
+  "frictionFactor": "",
+  "beltSpecification": {
+    "width": null,
+    "rating": "",
+    "length": "",
+    "bottomCoverThickness": null,
+    "topCoverThickness": null,
+    "ratingType": "Rating"
+  },
+  "conveyorDetails": {
+    "driveFrequency": "",
+    "drivePower": "",
+    "maximumTemperature": "",
+    "length": "",
+    "lift": "",
+    "gearRatio": "",
+    "angle": "",
+    "minimumTemperature": "",
+    "conveyingCapacity": "",
+    "percentLoad": "",
+    "speed": ""
+  },
+  "bottomCoverCompound": null,
+  "distributor": "",
+  "beltWidth": null,
+  "coverWearInfo": {
+    "red": 0,
+    "totalPositions": 2,
+    "totalMeasurements": 4,
+    "green": 2,
+    "percentage": 92.39332096474952,
+    "yellow": 0,
+    "beltLife": 71.14285714285714,
+    "durometer": 73,
+    "status": "green"
+  },
+  "isValid": true,
+  "status": "active",
+  "updatedDate": "2023-04-25T18:44:18.213Z"
+}

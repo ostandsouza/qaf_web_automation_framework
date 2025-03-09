@@ -1,0 +1,8 @@
+inspection.inspNext.btn= xpath=//android.widget.Button[@content-desc="Next"]
+inspection.inspPrev.btn= xpath=//android.widget.Button[@content-desc="Previous"]
+
+inspection.addressPermision.okButton= xpath=//android.widget.Button[@content-desc="Ok"]
+inspection.calender.selectDate= xpath=//android.view.View[contains(@content-desc,'SELECT DATE')]
+inspection.calender.cancelButton= xpath=//android.widget.Button[@content-desc="CANCEL"]
+inspection.calender.okButton= xpath=//android.widget.Button[@content-desc="OK"]
+inspection.inspLocation.map= xpath=//android.view.View[@content-desc="Google Map"]

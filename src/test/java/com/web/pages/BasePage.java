@@ -1,30 +1,27 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.APIBase;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
-import com.qmetry.qaf.automation.ui.api.TestBase;
 import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverExpectedConditions;
 import com.qmetry.qaf.automation.ui.util.QAFWebDriverWait;
-import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.util.Reporter;
 //import com.web.component.DropDownListWithoutSearch;
 
 import static org.testng.Assert.assertEquals;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
@@ -32,6 +29,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 	//QAFWebDriver driver;
     QAFWebDriverWait webDriverWait = new QAFWebDriverWait(driver, 90000);
     long implicitWait = Long.parseLong("2");
+
+    public APIBase apiBase = new APIBase();
 
     public BasePage(){
         setImplicitWait(1, TimeUnit.SECONDS);
@@ -74,8 +73,10 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      */
     public void waitForElementToInvisible(WebElement element, int timeOutInSeconds) {
         try{
+            setImplicitWait(2000, TimeUnit.MILLISECONDS);
             QAFWebDriverWait wdWait = new QAFWebDriverWait(driver, timeOutInSeconds);
             wdWait.until(invisibilityOfWebElementLocated(element));
+            setImplicitWait(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             logger.error("exception occured");
         }
@@ -85,14 +86,44 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      * @param element
      */
     public void waitForElementToBeClickable(WebElement element) {
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+        try{
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e) {
+            logger.error("exception occured: "+e);
+        }
     }
 
     /**
      * @param locator
      */
     public void waitForPresenceOfElement(By locator) {
-        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        try{
+            webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        } catch (Exception e) {
+            logger.error("exception occurred: "+e);
+        }
+    }
+
+    /**
+     * @param locator
+     */
+    public void waitForElementToBeClickable(By locator) {
+        try{
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (Exception e) {
+            logger.error("exception occured: "+e);
+        }
+    }
+
+    /**
+     * @param locator
+     */
+    public void waitForPresenceOfElements(By locator) {
+        try{
+        webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+        } catch (Exception e) {
+            logger.error("exception occurred: "+e);
+        }
     }
 
     /**
@@ -116,14 +147,12 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
      * @param unit
      */
     public void setImplicitWait(long timeout, TimeUnit unit) {
-        Reporter.log("timeout[{}]");
         unit = unit == null ? TimeUnit.SECONDS : unit;
         driver.manage().timeouts().implicitlyWait(unit.toMillis(timeout), TimeUnit.MILLISECONDS);
 //        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(timeout));
     }
 
     public void waitForElementVisible(WebElement elem, int timeOutInSeconds, int pollingEveryInMiliSec) {
-        Reporter.log("locator[{}]");
         setImplicitWait(1, TimeUnit.SECONDS);
         QAFWebDriverWait wait = getWait(timeOutInSeconds, pollingEveryInMiliSec);
         wait.until(ExpectedConditions.visibilityOf(elem));
@@ -145,18 +174,28 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
                 try {
                     notDisplayed = !element.isDisplayed();
                 } catch (Exception e) {
-                    Reporter.log("invisible");
+                    System.out.println("invisible");
                 }
                 return notDisplayed;
             }
         };
     }
 
+    public boolean isLocatorVisible(final By element) {
+        boolean notDisplayed = false;
+        try {
+            notDisplayed = !driver.findElement(element).isDisplayed();
+            notDisplayed=true;
+        } catch (Exception e) {
+            System.out.println("invisible");
+        }
+        return notDisplayed;
+    }
+
     /**
      * @param timeOutInMiliSec
      */
     public void hardWait(int timeOutInMiliSec) {
-        Reporter.log("timeOutInMiliSec[{}]");
         try {
             Thread.sleep(timeOutInMiliSec);
         } catch (InterruptedException e) {
@@ -213,46 +252,131 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         SyncUtil.waitFor(1000);
     }
    
-    public void dropdownselect(CustomElement dropDownButton, String dropDownItems, String itemText) {
+    public void dropdownSelect(CustomElement dropDownButton, String dropDownItems, String itemText) {
     	
     	dropDownButton.click();
-    	
-    		List<QAFWebElement> Options = driver.findElements(dropDownItems);
-	       //  waitForPageLoad(4000);
-			for(WebElement ele:Options) {
-				String value = ele.getAttribute("innerText");
-				if(	value.equalsIgnoreCase(itemText)) {
-					ele.click();
-					Reporter.log(ele +" is selected", MessageTypes.Pass);
-					break;
-				}
-			}
+        setImplicitWait(15000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(300);
+        waitForPresenceOfElements(By.xpath(dropDownItems));
+        List<WebElement> Options = driver.findElements(By.xpath(dropDownItems));
+        for(WebElement ele:Options) {
+            waitForElementToBeClickable(ele);
+            String value = ele.getAttribute("innerText");
+            if(	value.equalsIgnoreCase(itemText)) {
+                ele.click();
+                Reporter.log(ele +" is selected", MessageTypes.Pass);
+                break;
+            }
+        }
+        setImplicitWait(5000,TimeUnit.MILLISECONDS);
     }
 
     public void scrollToElemet(WebElement element) {
-        Reporter.log("element[{}]");
         executeScript("window.scrollTo(arguments[0],arguments[1])", element.getLocation().x, element.getLocation().y);
     }
 
     public void scrollIntoView(WebElement element) {
-        Reporter.log("element[{}]");
         executeScript("arguments[0].scrollIntoView()", element);
     }
 
     public Object executeScript(String script, Object... args) {
-        Reporter.log("script[{}]");
         JavascriptExecutor exe = (JavascriptExecutor) driver;
         return exe.executeScript(script, args);
     }
     
-    public void dropdownselectsearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
-		dropDownButton.click();
-		Search.type(itemstosearch);
-        setImplicitWait(40000,TimeUnit.MILLISECONDS);
-		waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
-		driver.findElement("//span[text()='"+itemstosearch+"']").click();
+    public void dropdownSelectSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
+        waitForElementVisible(dropDownButton,10000,500);
+        waitForElementToBeClickable(dropDownButton);
+        setImplicitWait(20000,TimeUnit.MILLISECONDS);
+		dropDownButton.jsClick("dropdown");
+        waitForElementToBeClickable(dropDownButton);
+        SyncUtil.waitFor(100);
+        Search.type(itemstosearch);
+        setImplicitWait(60000,TimeUnit.MILLISECONDS);
+        waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
+        driver.findElement("//span[text()='"+itemstosearch+"']").click();
+//        waitForPresenceOfElement(By.xpath("//li/span[1]"));
+//        driver.findElement("//li/span[1]").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);
-		Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
-	}
-    
+        Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
+    }
+
+    public void dropdownSelectSearchContains(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
+        waitForElementVisible(dropDownButton,10000,500);
+        waitForElementToBeClickable(dropDownButton);
+        setImplicitWait(20000,TimeUnit.MILLISECONDS);
+        dropDownButton.jsClick("dropdown");
+        waitForElementToBeClickable(dropDownButton);
+        SyncUtil.waitFor(100);
+        Search.type(itemstosearch);
+        setImplicitWait(60000,TimeUnit.MILLISECONDS);
+//        waitForPresenceOfElement(By.xpath("//span[contains(text(),'"+itemstosearch+"')]"));
+//        driver.findElement("//span[contains(text(),'"+itemstosearch+"')]").click();
+        waitForPresenceOfElement(By.xpath("//li/span[1]"));
+        driver.findElement("//li/span[1]").click();
+        setImplicitWait(1000,TimeUnit.MILLISECONDS);
+        Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
+    }
+
+    public void dropdownSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
+        dropDownButton.click();
+        waitForElementToBeClickable(dropDownButton);
+        SyncUtil.waitFor(100);
+        Search.type(itemstosearch);
+        setImplicitWait(70000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(5000);
+        setImplicitWait(150000,TimeUnit.MILLISECONDS);
+        waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
+        driver.findElement("//span[text()='"+itemstosearch+"']").click();
+        setImplicitWait(1000,TimeUnit.MILLISECONDS);
+        Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
+    }
+
+
+    public void browserRefresh() {
+        driver.navigate().refresh();
+        SyncUtil.waitFor(2000);
+    }
+
+    public void hoverOverElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
+
+    public void cropImage(WebElement element) {
+        Actions crop = new Actions(driver);
+        crop.dragAndDropBy(element, -50,-100).perform();
+    }
+
+    public void clickAtPosition(WebElement imageElement, int xCoordinate, int yCoordinate) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(imageElement, xCoordinate, yCoordinate).click().build().perform();
+    }
+
+    public void browserBack() {
+        driver.navigate().back();
+    }
+
+    public void dragAndDrop(WebElement fromElement, WebElement toElement) {
+        Actions actions = new Actions(driver);
+        actions.clickAndHold(fromElement)
+                .moveToElement(toElement)
+                .release()
+                .build()
+                .perform(); // Perform the action chain
+    }
+
+    public void dropdownSearchSelect(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
+        dropDownButton.jsClick();
+        SyncUtil.waitFor(100);
+        Search.type(itemstosearch);
+        setImplicitWait(70000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(5000);
+        setImplicitWait(150000,TimeUnit.MILLISECONDS);
+        waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
+        driver.findElement("//span[text()='"+itemstosearch+"']").click();
+        setImplicitWait(1000,TimeUnit.MILLISECONDS);
+        Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
+    }
+
 }

@@ -1,0 +1,27 @@
+    dashboard.home.btn = accessibility id=Home
+dashboard.search.icon = xpath=//XCUIElementTypeOther[@name="Home"]/following-sibling:: XCUIElementTypeButton[4]
+dashboard.profile.icon = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]/../../following-sibling:: XCUIElementTypeOther[1]/XCUIElementTypeButton[1]
+dashboard.home.icon = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]/../../following-sibling:: XCUIElementTypeOther[1]/XCUIElementTypeButton[1]
+dashboard.conveyor.icon = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]/../../following-sibling:: XCUIElementTypeOther[1]/XCUIElementTypeButton[2]
+dashboard.corporate.icon = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]/../../following-sibling:: XCUIElementTypeOther[1]/XCUIElementTypeButton[3]
+dashboard.tool.icon = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]/../../following-sibling:: XCUIElementTypeOther[1]/XCUIElementTypeButton[4]
+dashboard.inspection.icon = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]/../../following-sibling:: XCUIElementTypeOther[1]/XCUIElementTypeButton[5]
+dashboard.addImg.btn = xpath=//XCUIElementTypeScrollView/following-sibling:: XCUIElementTypeImage[1]
+dashboard.sites.card = xpath=//XCUIElementTypeImage[contains(@name,"Sites")]
+dashboard.conveyors.card = xpath=//XCUIElementTypeImage[contains(@name,"Conveyors")]
+dashboard.coverWear.card = xpath=//XCUIElementTypeImage[contains(@name,"Cover Wear")]
+dashboard.inspections.card = xpath=//XCUIElementTypeImage[contains(@name,"Inspections")]
+dashboard.camera.icon = -ios class chain=Camera
+dashboard.gallery.btn = -ios class chain=**/XCUIElementTypeStaticText[`label == "Gallery"`]
+dashboard.alert.popup = -ios class chain=**/XCUIElementTypeStaticText[`label == "“Conti+ 2.0” Would Like to Access the Camera"`]
+dashboard.permission.dismiss = accessibility id=Don’t Allow
+dashboard.ok.btn = accessibility id=OK
+dashboard.cancel.btn = accessibility id=CANCEL
+dashboard.firstSearch.map = xpath=(//XCUIElementTypeScrollView/following-sibling:: XCUIElementTypeStaticText[1])[2]
+dashboard.firstSearch.dropdown = xpath=//XCUIElementTypeTextField[@name="Search"]/following-sibling:: XCUIElementTypeOther/XCUIElementTypeScrollView/following-sibling:: XCUIElementTypeStaticText[1]
+dashboard.search.txt = -ios class chain=**/XCUIElementTypeStaticText[`label CONTAINS "results found"`]
+dashboard.firstSearch.list = xpath=//XCUIElementTypeScrollView/following-sibling:: XCUIElementTypeOther//XCUIElementTypeOther[1]
+dashboard.coverWear.Btn = -ios class chain=**/XCUIElementTypeStaticText[`label CONTAINS "Cover Wear"`]
+dashboard.coverWear.position = xpath=//XCUIElementTypeOther[@name="Positions"]/../following-sibling:: XCUIElementTypeStaticText[1]
+dashboard.coverWear.headerTxt = xpath=//XCUIElementTypeButton/following-sibling:: XCUIElementTypeOther[1]
+dashboard.coverWear.positions = xpath=//XCUIElementTypeOther/XCUIElementTypeImage

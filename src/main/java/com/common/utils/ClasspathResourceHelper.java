@@ -73,7 +73,6 @@ public class ClasspathResourceHelper {
 
 		if (propFile == null) {
 			URL propFileURL = ClasspathResourceHelper.class.getClassLoader().getResource(fileStr); // file on class path
-			Reporter.log("propFileURL[{}]");
 			if (propFileURL != null) {
 				if (propFileURL.toString().contains(".jar")) {
 					try {
@@ -81,20 +80,20 @@ public class ClasspathResourceHelper {
 						propFile = new File(fileStr);
 						FileUtils.copyInputStreamToFile(fileStream, propFile);
 					} catch (IOException e) {
-						Reporter.log("IOException occured while copying input stream to file object. Error[{}]");
+						System.out.println("IOException occured while copying input stream to file object. Error[{}]");
 						propFile = null;
 					}
 				} else {
 					try {
 						propFile = Paths.get(propFileURL.toURI()).toFile();
 					} catch (URISyntaxException use) {
-						Reporter.log("URISyntaxException occured while converting file url to file object. Error[{}]");
+						System.out.println("URISyntaxException occured while converting file url to file object. Error[{}]");
 					}
 				}
 			}
 
 			if (propFile == null) {
-				Reporter.log("{} file is not found");
+				System.out.println("{} file is not found");
 			} else {
 				FILE_PATH_TO_FILE.put(fileStr, propFile);
 			}

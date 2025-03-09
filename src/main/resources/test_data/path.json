@@ -3,10 +3,6 @@
     "user_login": "/user-login",
     "refresh_token": "/refresh-user-token"
   },
-  "auth_controller": {
-    "user_login": "/user-login",
-    "refresh_token": "/refresh-user-token"
-  },
   "conveyor_controller": {
     "conveyor": "/conveyors",
     "conveyor_count": "/conveyors-count",
@@ -21,16 +17,18 @@
     "devices_count": "/devices-count"
   },
   "inspection_controller": {
+    "inspection": "/inspections",
     "inspection_count": "/count"
   },
   "preference_controller": {
     "preference": "/preferences"
   },
   "ultrasonic_controller": {
-    "ultrasonic_count": "/count"
+    "ultrasonic_count": "/count",
+    "ultrasonics": "/ultrasonics"
   },
   "profile_controller": {
-    "profile": "/profiles"
+    "profile": "/users"
   },
   "market_controller": {
     "market": "/markets"
@@ -42,5 +40,36 @@
   },
   "permission_controller": {
     "permission": "/permissions"
+  },
+  "file_controller": {
+    "count": "/files-count",
+    "files": "/files"
+  },
+  "minuteman_controller": {
+    "minuteman": "/minuteman",
+    "count": "/minuteman/count"
+  },
+  "monitoring_controller": {
+  "list": "/monitoring-devices",
+  "count": "/devices-count"
+},
+  "cordInspect_controller": {
+  "list": "/scans",
+  "count": "/scans/count"
+},
+  "findings_controller": {
+    "finding": "/finding"
+  },
+  "heavyEquipment_controller": {
+  "count": "/count"
+  },
+  "monitoring_controller": {
+    "list": "/monitoring-devices"
+  },
+  "iotDashboard_controller": {
+    "count": "/count"
+  },
+  "heavyEquipment_controller": {
+    "count": "/count"
   }
 }

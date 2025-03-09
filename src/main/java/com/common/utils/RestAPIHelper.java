@@ -24,7 +24,7 @@ public class RestAPIHelper {
     private String oauth2Token;
 
     public static void configure() {
-        Reporter.log("Configuring request/response logging");
+        System.out.println("Configuring request/response logging");
     }
     /**
      * Getters and setters for oauth2Token

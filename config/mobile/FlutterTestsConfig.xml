@@ -1,0 +1,63 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Mobile App-Android" verbose="0" parallel="tests" thread-count="2">
+
+    <listeners>
+        <listener class-name="com.common.utils.TestListener" />
+        <listener class-name="com.common.utils.EmailableTestNGReport" />
+    </listeners>
+
+    <test name="Android Mobile Sanity" enabled="true">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/android/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4723" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'RZ8M30TG9DL','platformName':'Android','automationName':'Flutter','appPackage':'net.dextracontiplus.dev','driverClass':'io.appium.java_client.android.AndroidDriver','platformVersion':'11.0','retryBackoffTime':'2000','maxRetryCount':'5','newCommandTimeout': '180','app':'/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug.apk','udid':'RZ8M30TG9DL'}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+
+<!--        <parameter name="flutter.capabilities.platformName" value="Android" />-->
+<!--        <parameter name="flutter.capabilities.udid" value="RZ8M30TG9DL" />-->
+<!--        <parameter name="flutter.capabilities.appPackage" value="net.dextracontiplus.dev" />-->
+<!--        <parameter name="flutter.capabilities.driverClass" value="io.appium.java_client.android.AndroidDriver" />-->
+<!--        <parameter name="flutter.capabilities.platformVersion" value="11.0" />-->
+<!--        <parameter name="flutter.capabilities.automationName" value="Flutter" />-->
+<!--        <parameter name="flutter.capabilities.deviceName" value="RZ8M30TG9DL" />-->
+<!--        <parameter name="flutter.capabilities.app" value="/Users/ostan/Documents/Automation/ctp-contiplus-web-qa-automation-java/resources/app-dev-debug1.apk" />-->
+        <groups>
+            <run>
+                <include name="Testthis"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+
+    <test name="iOS Mobile Sanity" enabled="true">
+        <parameter name="step.provider.pkg" value="com.mobile.flutter.app.steps"/>
+        <parameter name="scenario.file.loc" value="scenarios/Mobile"/>
+        <parameter name="env.resources" value="resources/mobile/flutter;resources/mobile/flutter/screens;resources/mobile/ios/screens;resources/env_dev"/>
+        <parameter name="remote.server" value="127.0.0.1"/>
+        <parameter name="remote.port" value="4724" />
+        <parameter name="flutter.additional.capabilities" value="{'deviceName':'Developer iPad','platformName':'IOS','automationName':'Flutter','udid':'00008103-0018106901E9401E','bundleId':'com.codecraft.conti','driverClass':'io.appium.java_client.ios.IOSDriver','platformVersion':'16.4.1','retryBackoffTime':'2000','maxRetryCount':'5','app':'/Users/ostan/Documents/Automation/Cont+/ctp-contiplus-flutter-app/contiplus/build/ios/Profile-dev-iphoneos/Runner.app'}"/>
+        <parameter name="driver.name" value="flutterDriver" />
+
+        <!--        <parameter name="flutter.capabilities.platformName" value="IOS" />-->
+        <!--        <parameter name="flutter.capabilities.udid" value="00008103-0018106901E9401E" />-->
+        <!--        <parameter name="flutter.capabilities.bundleId" value="com.codecraft.conti" />-->
+        <!--        <parameter name="flutter.capabilities.driverClass" value="io.appium.java_client.ios.IOSDriver" />-->
+        <!--        <parameter name="flutter.capabilities.platformVersion" value="16.4.1" />-->
+        <!--        <parameter name="flutter.capabilities.automationName" value="Flutter" />-->
+        <!--        <parameter name="flutter.capabilities.deviceName" value="Developer iPad" />-->
+        <!--        <parameter name="flutter.capabilities.app" value="/Users/ostan/Documents/Automation/Cont+/ctp-contiplus-flutter-app/contiplus/build/ios/Profile-dev-iphoneos/Runner.app" />-->
+        <groups>
+            <run>
+                <include name="Testthis"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+        </classes>
+    </test>
+</suite>

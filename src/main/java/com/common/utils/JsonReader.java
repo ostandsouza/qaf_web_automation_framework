@@ -35,16 +35,14 @@ public class JsonReader {
 		JSONObject jsonContent = FILE_TO_PROPS.getOrDefault(filePath, null);
 
 		if (jsonContent == null) {
-			Reporter.log("Loading json file[{}]");
-
 			try {
 				jsonContent = (JSONObject) new JSONParser().parse(new FileReader(file));
 				FILE_TO_PROPS.put(filePath, jsonContent);
-				Reporter.log("Loaded json file");
+				System.out.println("Loaded json file");
 			} catch (IOException ioe) {
-				Reporter.log("IOException while reading file to map. Error[{}]");
+				System.out.println("IOException while reading file to map. Error[{}]");
 			} catch (ParseException pe) {
-				Reporter.log("ParseException while parsing file content to JSONObject. Error[{}]");
+				System.out.println("ParseException while parsing file content to JSONObject. Error[{}]");
 			}
 		}
 
@@ -65,8 +63,8 @@ public class JsonReader {
 	public static Object getJsonProperties(String fileName, String header, String... dirs) {
 		File propFile = ClasspathResourceHelper.getPropertyFileByLocale(fileName, ClasspathResourceHelper.FileType.JSON, dirs);
 		JSONObject jsonContent = loadJsonFile(propFile);
-
 		Object val = jsonContent.get(header); // default value (could be null), e.g., props common for all envs
+
 
 		if (env != null && jsonContent.containsKey(env)) {
 			jsonContent = (JSONObject) jsonContent.get(env);
@@ -94,6 +92,22 @@ public class JsonReader {
 	 * system property must be set to use this function
 	 *
 	 * @param fileName
+	 * @param dirs     parent directories
+	 * @return Object for env.key in JSON object. This can be string, JSONArray,
+	 *         int, bool, etc.
+	 */
+	@SuppressWarnings("unchecked")
+	public static Object getWholeJson(String fileName, String... dirs) {
+		File propFile = ClasspathResourceHelper.getPropertyFileByLocale(fileName, ClasspathResourceHelper.FileType.JSON, dirs);
+		JSONObject jsonContent = loadJsonFile(propFile);
+		return jsonContent;
+	}
+
+	/**
+	 * This method loads JSON file and returns env.header key from JSON content. ENV
+	 * system property must be set to use this function
+	 *
+	 * @param fileName
 	 * @param header
 	 * @param dirs     parent directories
 	 * @return Object for env.key in JSON object. This can be string, JSONArray,
@@ -101,13 +115,12 @@ public class JsonReader {
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> getMap(String fileName, String header, String... dirs) {
-		Reporter.log("fileName[{}] header[{}]");
 		Object valObj = getJsonProperties(fileName, header, dirs);
 		Map<String, String> retVal = null;
 
 		if (valObj instanceof Map) {
 			retVal = (Map<String, String>) valObj;
-			Reporter.log("value retrieved");
+			System.out.println("value retrieved");
 		}
 
 		return retVal;
@@ -125,7 +138,6 @@ public class JsonReader {
 	 */
 	@SuppressWarnings("unchecked")
 	public static JSONObject getJsonObject(String fileName, String header, String... dirs) {
-		Reporter.log("fileName[{}] header[{}]");
 
 		Object valObj = getJsonProperties(fileName, header, dirs);
 		JSONObject retVal = null;
@@ -137,7 +149,34 @@ public class JsonReader {
 		}
 
 		if (retVal != null) {
-			Reporter.log("value retrieved");
+			System.out.println("value retrieved");
+		}
+		return retVal;
+	}
+
+	/**
+	 * This method loads JSON file and returns env.header key as a JSONObject from
+	 * JSON content. ENV system property must be set to use this function. If value
+	 * is not JSONObject, it will return null.
+	 *
+	 * @param fileName
+	 * @param dirs     parent directories
+	 * @return JSONObject
+	 */
+	@SuppressWarnings("unchecked")
+	public static JSONObject getJson(String fileName, String... dirs) {
+
+		Object valObj = getWholeJson(fileName, dirs);
+		JSONObject retVal = null;
+
+		if (valObj instanceof Map) {
+			retVal = new JSONObject((Map<String, ?>) valObj);
+		} else if (valObj instanceof JSONObject) {
+			retVal = (JSONObject) valObj;
+		}
+
+		if (retVal != null) {
+			System.out.println("value retrieved");
 		}
 		return retVal;
 	}
@@ -157,6 +196,19 @@ public class JsonReader {
 	}
 
 	/**
+	 * This method loads specified JSON file under test_data folder in class path
+	 * and returns env+header key as a JSONObject from JSON content. ENV system
+	 * property must be set to use this function. If value is not JSONObject, it
+	 * will return null.
+	 *
+	 * @param fileName
+	 * @return JSONObject
+	 */
+	public static JSONObject getJsonTestData(String fileName) {
+		return getJson(fileName,"test_data");
+	}
+
+	/**
 	 * This method loads JSON file and returns env.header key as a Object of T class
 	 * from JSON content. ENV system property must be set to use this function. If
 	 * value is not of T class, it will return null.
@@ -167,13 +219,12 @@ public class JsonReader {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getTypeValue(String fileName, String header, Class<T> t, String... dirs) {
-		Reporter.log("fileName[{}] header[{}] type[{}]");
 		T retVal = null;
 		Object valObj = getJsonProperties(fileName, header, dirs);
 
 		if (t.isAssignableFrom(valObj.getClass())) {
 			retVal = (T) valObj;
-			Reporter.log("value retrieved");
+			System.out.println("value retrieved");
 		}
 
 		return retVal;
@@ -203,14 +254,13 @@ public class JsonReader {
 	 * @return String value
 	 */
 	public static String getString(String fileName, String header, String key, String defaultVal, String... dirs) {
-		Reporter.log("fileName[{}] header[{}] key[{}] defaultVal[{}]");
 		String retVal = defaultVal;
 		JSONObject jsonObj = getJsonObject(fileName, header, dirs);
 
 		if (jsonObj != null) {
 			retVal = jsonObj.get(key).toString();
 		}
-		Reporter.log("retVal[{}]");
+		System.out.println("retVal[{}]");
 
 		return retVal;
 	}

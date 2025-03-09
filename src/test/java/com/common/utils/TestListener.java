@@ -1,5 +1,11 @@
 package com.common.utils;
 
+import com.qmetry.qaf.automation.util.Reporter;
+import com.web.pages.BasePage;
+import com.web.pages.LoginPage;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -19,13 +25,20 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-//        APIBase api = new APIBase();
-//        String userid = api.getUserProfileAPI((String) getBundle().getProperty("email.ind"));
-//        api.deleteProfileAPI(userid);
-//        api.deleteUserAPI(userid);
-//        userid = api.getUserProfileAPI((String) getBundle().getProperty("email.ger"));
-//        api.deleteProfileAPI(userid);
-//        api.deleteUserAPI(userid);
+        Reporter.log("Method " +Thread.currentThread().getStackTrace()[1].getMethodName() );
+        Reporter.log("Test Method Failed " + iTestResult.getMethod().getConstructorOrMethod().getName());
+        //Allure ScreenShotRobot and SaveTestLog
+        try
+        {
+            String scrFile = new BasePage().getTestBase().getDriver().getScreenshotAs(OutputType.BASE64);
+            String val= "data:image/jpg;base64," + scrFile ;
+            org.testng.Reporter.log("<a title ='click to download image' href='" + val + "' onclick='(function(){window.open().document.body.innerHTML = \" <img src=" + val +" height=100% width=100%/>  \"})();return false;'>" +
+                    " <img src='" + val + "' height='100' width='100'/> </a>");
+            Reporter.log("Screenshot captured for test case: " + iTestResult.getMethod().getConstructorOrMethod().getName());
+        } catch (Exception e) {
+            Reporter.log("Failed to capture screenshot "+e);
+        }
+
     }
 
     @Override

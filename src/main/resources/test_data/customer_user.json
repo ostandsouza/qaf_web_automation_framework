@@ -1,0 +1,655 @@
+{
+  "type": "Customer User",
+  "profile": {
+    "customers": [
+      {
+        "name": "ALL",
+        "id": "ALL",
+        "type": "customer_corporate"
+      },
+      {
+        "name": "Cust Automation Common Corp",
+        "id": "01H03PP3Z8PNCAYK5YBMVA7C7N",
+        "type": "customer_corporate",
+        "parent": "ALL"
+      },
+      {
+        "name": "Cust Automation Common India",
+        "id": "01H03PR7S9TWXE9K0CM0DEHMHD",
+        "type": "customer_site",
+        "parent": "01H03PP3Z8PNCAYK5YBMVA7C7N"
+      },
+      {
+        "name": "Test@site",
+        "id": "01H5JGS3N98B4W4HWFJM1B8X10",
+        "type": "customer_site",
+        "parent": "01H03PP3Z8PNCAYK5YBMVA7C7N"
+      }
+    ],
+    "distributors": [],
+    "markets": [
+      {
+        "name": "India",
+        "id": "01FSY1KDK6N1BR2S603B44XN6D",
+        "type": "territory",
+        "parent": "01FB22BWTRYZF3BC6E723G3YNR"
+      },
+      {
+        "name": "India",
+        "id": "01FSY1KDK6N1BR2S603B44XN6D",
+        "type": "territory",
+        "parent": "01FB22BWTRYZF3BC6E723G3YNR"
+      }
+    ],
+    "isValid": true,
+    "profileType": "Customer User",
+    "fullName": "Automation Customer",
+    "phoneNumber": "+919876543210",
+    "email": "territoryindia2023@gmail.com",
+    "corporateType": {
+      "location": {
+        "zipcode": "110001",
+        "country": "India",
+        "state": "Delhi",
+        "city": "Delhi Division",
+        "latitude": 28.612912,
+        "longitude": 77.2295097
+      },
+      "createdDate": 1683751636788,
+      "companyId": "01H03PP3Z8PNCAYK5YBMVA7C7N",
+      "conveyorsCount": 4,
+      "customerCorporate": "",
+      "shopCounts": 1,
+      "updatedBy": {
+        "userId": "f03e38c5-094d-43a4-8b97-86ac6eb9dd9c",
+        "fullName": "Conti Plus",
+        "image": ""
+      },
+      "associatedDistributor": "",
+      "name": "Cust Automation Common Corp",
+      "distributorCorporate": "",
+      "markets": [
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        },
+        {
+          "name": "APAC",
+          "marketId": "01FB22BWTRYZF3BC6E723G3YNR"
+        }
+      ],
+      "companyType": {
+        "name": "Customer Corporate",
+        "sortKey": "CUSTOMER",
+        "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX",
+        "category": "Customer"
+      },
+      "image": "",
+      "territory": "",
+      "sitesCount": 2,
+      "territoryManager": "",
+      "marketIds": [
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR",
+        "01FB22BWTRYZF3BC6E723G3YNR"
+      ],
+      "updatedDate": 1695015584266,
+      "street": "Kartavya Path, India Gate, "
+    },
+    "corporateRole": "Manager",
+    "territoryManager": "",
+    "subscriptionType": [
+      "Engineering",
+      "IOT",
+      "Guest access",
+      "Internal tools",
+      "Basics",
+      "Inspection",
+      "Admin",
+      "Drone"
+    ],
+    "subscriptionEnds": "",
+    "image": "",
+    "marketsWithParent": [
+      {
+        "name": "APAC",
+        "id": "01FB22BWTRYZF3BC6E723G3YNR",
+        "type": "market",
+        "parent": "ALL"
+      },
+      {
+        "name": "India",
+        "id": "01FSY1KDK6N1BR2S603B44XN6D",
+        "type": "territory",
+        "parent": "01FB22BWTRYZF3BC6E723G3YNR"
+      },
+      {
+        "name": "India",
+        "id": "01FSY1KDK6N1BR2S603B44XN6D",
+        "type": "territory",
+        "parent": "01FB22BWTRYZF3BC6E723G3YNR"
+      }
+    ],
+    "permissions": [
+      {
+        "moduleId": "01GCPGK3NQKA2MB71QHDCC59S4",
+        "moduleGuid": "CS-BELT-REVOLUTION",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGK0P3BKM8KA63Q85BD5TT",
+        "moduleGuid": "CS-ROLL-LENGTH",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJHY76E9M06YH41H5DJRV",
+        "moduleGuid": "PRODUCT-INFORMATION--MOBILE",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJX4Z82GABJ0ARKVNY4JD",
+        "moduleGuid": "CS-CAPACITY",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGK24ZPP4YYEN42D5TD1VS",
+        "moduleGuid": "CS-UNITS-CONVERTERS",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJKT7RMZ6GVRJH1NB21D2",
+        "moduleGuid": "DEMO-CUSTOMER--MOBILE",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJYVZA6QVF9CPY39C2CEY",
+        "moduleGuid": "CS-TROUGHABILITY",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGK5C37A7ZDWK1GJCHJ673",
+        "moduleGuid": "CS-WRAP-ANGLE",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJVS7WVNPQMJ0KP4E3ZND",
+        "moduleGuid": "CS-SAFETY-FACTOR-CALCULATOR",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJNJF55CS8G23WKPM7TD2",
+        "moduleGuid": "REQUEST-QUOTE--CONTACT-FORM",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJSGZTYSHWGCPZJJVCX50",
+        "moduleGuid": "CS-SPLICE-INSTRUCTION",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJQJ7Q4TR4TSQSM4N317B",
+        "moduleGuid": "CS-SPLICE-INFORMATION",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHMJVMJ8QW3QBDJ4YWXPK",
+        "moduleGuid": "SITES",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHH3J6K9NB4X3QZ07CQAA",
+        "moduleGuid": "CONVEYORS",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHQV9KY1QG1K4V0FZRQ6X",
+        "moduleGuid": "COVER-WEAR",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHSTANT6SKHMKH9VWV7S7",
+        "moduleGuid": "CONVEYOR-HISTORY",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHJSACGFRDWWDBMWMMFW8",
+        "moduleGuid": "BULK-IMPORT",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHZCE3H53FPWVBWDZSZ3X",
+        "moduleGuid": "3D-CONVEYOR-TRACKER",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHXVATVB7M7HMEDTCS7RS",
+        "moduleGuid": "DEMO-CUSTOMER",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHVPAYDZW0WCRTHKFYNV1",
+        "moduleGuid": "GENERATE-REPORTS",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGHPBPECBN4CHGME7HQAS9",
+        "moduleGuid": "UPLOAD-DOWNLOAD-FILES",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGKGJV3435M63Q0GGT5T3F",
+        "moduleGuid": "CORPORATE-MANAGEMENT",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGKJ4VM2H2260AFZ21HS3E",
+        "moduleGuid": "CONTENT-MANAGEMENT",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGKBGBKTV16Q7GFWHW8Q3T",
+        "moduleGuid": "SPLICE-DESIGN-FABRIC--APPROVER",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGK8E7W19HXKZ536VPY4Y3",
+        "moduleGuid": "SPLICE-DESIGN-FABRIC--USER-DESIGNER",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGK74BZ34H2761KRRX05Q5",
+        "moduleGuid": "CS-STEELCORD-DESIGN-GENERATOR",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGKA57B298W5WVGT519J24",
+        "moduleGuid": "SPLICE-DESIGN-STEEL--USER-DESIGNER",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGKCWQSQNZTV8KXGVR94Q4",
+        "moduleGuid": "SPLICE-DESIGN-STEEL--APPROVER",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJG6KVMNM1TK6183V6E5N",
+        "moduleGuid": "CONVEYOR-INSPECT-MODULE",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJCFV2MFF804MV6RW9ASX",
+        "moduleGuid": "INSPECTION-MODULE",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJ2RJXWBC1NVXDGSKHKEG",
+        "moduleGuid": "MINUTEMAN-ELEVATOR",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJA7Z1THMQMDPJN9GX69S",
+        "moduleGuid": "CS-ECO-LRR-SIMULATOR",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJ6MB0DV20CSE5X3S69ZF",
+        "moduleGuid": "CS-DIGITAL-CATALOGUE",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJ8BZGFGTRPWMY17BZDVR",
+        "moduleGuid": "CS-VALUE-TRAKKER",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJ12TM84NJ4YZRWM71WZ9",
+        "moduleGuid": "MINUTEMAN-CONVEYOR",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJ4JPMNFH8055G8YRVE8D",
+        "moduleGuid": "CS-BELT-INFO",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      },
+      {
+        "moduleId": "01GCPGJE9B636PQYXQ589BHHZZ",
+        "moduleGuid": "BELT-MONITORING-DEVICE",
+        "permission": {
+          "add": true,
+          "edit": true,
+          "delete": true,
+          "view": true,
+          "download": true
+        }
+      }
+    ],
+    "updatedDate": 1696964085144,
+    "userId": "290abfc6-5691-460e-94c8-3096290fe7d9"
+  },
+  "userId": "290abfc6-5691-460e-94c8-3096290fe7d9"
+}

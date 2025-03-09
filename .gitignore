@@ -33,3 +33,7 @@ FleetMatchAutomation.iml
 .project
 .classpath
 demo.java
+img/
+src/main/resources/test_files/video.mov
+src/main/resources/test_files/video.SEQ
+

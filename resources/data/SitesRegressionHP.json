@@ -1,0 +1,53 @@
+[
+  {
+    "UserNameMaster": "contiplus_admin@maildrop.cc",
+    "Password": "Abc@123456",
+    "UserNameCustomer": "customerhp2025@yopmail.com",
+    "UserNameDistributor": "distributorhp2025@yopmail.com",
+    "UserNameMarket": "markethp2025@yopmail.com",
+    "CustSiteIndAddress": "Berlin Brandenburg Airport, Willy-Brandt-Platz, Schönefeld, Germany",
+    "CustCorpName": "Cust Automation Common Corp",
+    "DistShopIndName": "Dist Automation Common India",
+    "TerritoryInd": "India",
+    "Sites": "Sites",
+    "CustSiteImageName": "site.png",
+    "Addition": "add",
+    "Deletion": "delete",
+    "Edit": "edit",
+    "SingleValue": "1",
+    "multipleValue": "2",
+    "HomeLevel": "home",
+    "CorporateLevel": "corporate",
+
+    "CustomerSiteIndNameMaster": "Master_HP_CorpLevel Regression India",
+    "SiteConveyorNameMaster": "Master_HP_Site Regression Conveyor",
+    "EditCustSiteNameMaster": "Master_HP Automation Regression India-Edit",
+    "CustSiteNameDel1Master": "Master_HP_Del Automation Regression India",
+    "CustSiteIndNameDelMaster": "Master_HP_Del Automation Regression India-2",
+    "CustSiteIndNameMaster": "Master_HP Automation Regression India",
+
+    "CustomerSiteIndNameCustomer": "Customer_HP_CorpLevel Regression India",
+    "SiteConveyorNameCustomer": "Customer_HP_Site Regression Conveyor",
+    "EditCustSiteNameCustomer": "Customer_HP Automation Regression India-Edit",
+    "CustSiteNameDel1Customer": "Customer_HP_Del Automation Regression India",
+    "CustSiteIndNameDelCustomer": "Customer_HP_Del Automation Regression India-2",
+    "CustSiteIndNameCustomer": "Customer_HP Automation Regression India",
+    "DistShopIndNameCustomer": "",
+
+    "CustomerSiteIndNameDistributor": "Distributor_HP_CorpLevel Regression India",
+    "SiteConveyorNameDistributor": "Distributor_HP_Site Regression Conveyor",
+    "EditCustSiteNameDistributor": "Distributor_HP Automation Regression India-Edit",
+    "CustSiteNameDel1Distributor": "Distributor_HP_Del Automation Regression India",
+    "CustSiteIndNameDelDistributor": "Distributor_HP_Del Automation Regression India-2",
+    "CustSiteIndNameDistributor": "Distributor_HP Automation Regression India",
+
+    "CustomerSiteIndNameMarket": "Market_HP_CorpLevel Regression India",
+    "SiteConveyorNameMarket": "Market_HP_Site Regression Conveyor",
+    "EditCustSiteNameMarket": "Market_HP Automation Regression India-Edit",
+    "CustSiteNameDel1Market": "Market_HP_Del Automation Regression India",
+    "CustSiteIndNameDelMarket": "Market_HP_Del Automation Regression India-2",
+    "CustSiteIndNameMarket": "Market_HP Automation Regression India"
+  }]
+
+
+

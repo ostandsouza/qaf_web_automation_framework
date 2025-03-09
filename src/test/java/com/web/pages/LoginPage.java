@@ -1,6 +1,7 @@
 package com.web.pages;
 import java.util.concurrent.TimeUnit;
 
+import com.common.utils.APIBase;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,8 +29,19 @@ public class LoginPage extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Login']")
     public CustomElement btnLogIn;
 
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"oldPassword\"]//div//input")
+	public CustomElement tbOldPassword;
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"password\"]//div//input")
+	public CustomElement tbNewPassword;
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"confirmPassword\"]//div//input")
+	public CustomElement tbConfirmPassword;
+	@FindBy(locator = "xpath=//span[text()='Save']")
+	public CustomElement btnSave;
+
+
 	public boolean verifyUserOnLoginPage()  {
 		waitForElementToDisplay(tbUserName);
+		tbUserName.isVisible(10000,"UserName");
 		return tbUserName.isDisplayed();
 	}
 
@@ -53,9 +65,10 @@ public class LoginPage extends BasePage {
 		 * 
 		 * driver = ChromeDriver(desiredcapabilities);
 		 */
-		
-		
-		tbUserName.type(userName, "UserName"); 
+		System.out.println("entered login to app");
+
+		waitForElementVisible(tbUserName,20000,500);
+		tbUserName.type(userName, "UserName");
         tbPassword.type(password, "Password");
         btnLogIn.click("LOGIN");
 		waitForElementToInvisible(btnLogIn,15000);
@@ -65,6 +78,14 @@ public class LoginPage extends BasePage {
 	private QAFExtendedWebDriver ChromeDriver(DesiredCapabilities desiredcapabilities) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public void changePassword(String password,String newPassword,String confirmPassword){
+		tbOldPassword.isVisible(10000,"Current password");
+		tbOldPassword.type(password,"Current password");
+		tbNewPassword.type(newPassword,"New Password");
+		tbConfirmPassword.type(confirmPassword,"Confirm Password");
+		btnSave.click("Save");
+		waitForElementToInvisible(btnSave,75000);
 	}
 
 }
