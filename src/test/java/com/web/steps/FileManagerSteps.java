@@ -90,7 +90,7 @@ public class FileManagerSteps {
     public void navigateToFileManagerForConveyor(String custCorp, String custSite, String conveyorName){
         String companyId = fileManagerPage.apiBase.getCompanyID(fileManagerPage.apiBase.getCompanyAPI(custCorp));
         String siteCompanyId = fileManagerPage.apiBase.getCompanyID(fileManagerPage.apiBase.getCompanyAPI(custSite));
-        String conveyorId = fileManagerPage.apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId = conveyorPage.apiBase.getConveyorID(fileManagerPage.apiBase.getConveyorsAPI(conveyorName));
 //        fileManagerPage.apiBase.deleteConveyorAPI(conveyorId);
 //        SyncUtil.waitFor(3000);
 //        fileManagerPage.apiBase.createConveyorAPI("conveyor1", companyId, siteCompanyId, conveyorName);

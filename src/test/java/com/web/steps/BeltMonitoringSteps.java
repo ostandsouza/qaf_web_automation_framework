@@ -366,14 +366,6 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.verifyManualDateSelection(dateField,date);
     }
 
-    @QAFTestStep(description="Verify the monitoring device {Device} in list screen")
-    public void searchMonitoringDevice(String device){
-        Map<String, Object> obj = monitoringDevicePage.apiBase.getMonitoringDeviceAPI(device);
-        if(obj != null)
-            obj = monitoringDevicePage.apiBase.getMonitoringDeviceDetailsAPI((String) obj.get("monitoringDeviceId"));
-        Validator.assertTrue(monitoringDevicePage.searchMonitoringDevice(device),"Monitoring Device was not found","Monitoring Device was found and verified successfully");
-    }
-
     @QAFTestStep(description="Edit monitoring device {Device} to {NewDevice}")
     public void editMonitoringDeviceTo(String device, String newdevice){
         monitoringDevicePage.editMonitoringDevice(device, newdevice);
@@ -389,8 +381,6 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.verifyDeletedMonitoringDevice(device);
     }
 
-
-
     @QAFTestStep(description = "Click on menu item {RipInsert} {RipInsertThumbNails} and verify breadcrumb for {DeviceName} with {RipInsertBreadCrumb}")
     public void verifyRipInsertBreadCrumb(String listItem,String nestedItem,String deviceName,String breadcrumb )
     {
@@ -398,11 +388,6 @@ public class BeltMonitoringSteps {
         monitoringDevicePage.ripInsertListClick(listItem,nestedItem);
         monitoringDevicePage.verifyDeviceBreadCrumb(deviceName,breadcrumb);
     }
-    @QAFTestStep(description="Verify the deleted monitoring device {Device} in list screen")
-    public void verifyTheDeletedMonitoringDeviceInListScreen(String device){
-        monitoringDevicePage.verifyDeletedMonitoringDevice(device);
-    }
-
 
 
 }

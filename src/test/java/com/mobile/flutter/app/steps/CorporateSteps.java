@@ -163,9 +163,9 @@ public class CorporateSteps {
 
     @QAFTestStep(description = "User navigates to add conveyor with {ConveyorName} {EditConveyorName}")
     public void addConveyorNavigation(String conveyorName, String editConveyorName) {
-        String conveyorId = DashboardPage.getInstance().apiBase.getConveyorsAPI(conveyorName);
+        String conveyorId = DashboardPage.getInstance().apiBase.getConveyorID(DashboardPage.getInstance().apiBase.getConveyorsAPI(conveyorName));
         DashboardPage.getInstance().apiBase.deleteConveyorAPI(conveyorId);
-        conveyorId = DashboardPage.getInstance().apiBase.getConveyorsAPI(editConveyorName);
+        conveyorId = DashboardPage.getInstance().apiBase.getConveyorID(DashboardPage.getInstance().apiBase.getConveyorsAPI(editConveyorName));
         DashboardPage.getInstance().apiBase.deleteConveyorAPI(conveyorId);
         DashboardNativePage.getInstance().refreshPage();
         Validator.assertTrue(DashboardPage.getInstance().goToConveyor(),"Add Conveyor page is not visible","Add Conveyor page is visible");

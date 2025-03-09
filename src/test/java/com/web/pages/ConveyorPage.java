@@ -2551,9 +2551,9 @@ public class ConveyorPage extends BasePage{
 
     }
 
-    public void verifySearchedColumnNames(String columnName) {
-        waitForElementVisible(driver.findElement(By.xpath("//p-multiselectitem//li[contains(@aria-label, '" + columnName + "') and .//div[contains(@class, 'p-checkbox-box')]]")), 10000, 500);
-        Validator.assertTrue(driver.findElement(By.xpath("//p-multiselectitem//li[contains(@aria-label, '" + columnName + "') and .//div[contains(@class, 'p-checkbox-box')]]")).isDisplayed() || cbBeltManufacturerColumn.isVisible() || cbBeltSpeedColumn.isVisible() || cbBeltConstructionColumn.isVisible() || cbBeltWidthColumn.isVisible(), "The column names with searched text  is not visible", "The column names with searched text is  visible");
+    public void verifySearchedColumnNames() {
+        waitForElementVisible(cbInstalledBeltColumn, 10000, 500);
+        Validator.assertTrue(cbInstalledBeltColumn.isVisible() && cbBeltManufacturerColumn.isVisible() && cbBeltSpeedColumn.isVisible() && cbBeltConstructionColumn.isVisible() && cbBeltWidthColumn.isVisible(), "The column names with searched text  is not visible", "The column names with searched text is  visible");
     }
     public void columnSelectionCheckboxClick()
     {
