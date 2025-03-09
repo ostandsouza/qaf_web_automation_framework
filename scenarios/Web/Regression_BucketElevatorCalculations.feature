@@ -7,6 +7,7 @@ Background:
  @Regression1 @CTCP-1079
  @dataFile:resources/data/LegacyMetricBucketElevatorB.json
  Scenario: Verify zbucket elevator calculation for legacy minuteman metric flow
+
      Given User is at Login page
      When  Login with '${UserName}' and '${Password}'
      And   User is at add minuteman bucket elevator page
@@ -23,6 +24,8 @@ Background:
 @Regression2 @CTCP-1079
 @dataFile:resources/data/LegacyImperialBucketElevatorB.json
 Scenario: Verify bucket elevator calculation for legacy minuteman imperial flow
+
+  And   Close warning popup
   And   User is at add minuteman bucket elevator page
   When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
   And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
@@ -36,6 +39,8 @@ Scenario: Verify bucket elevator calculation for legacy minuteman imperial flow
 @Regression3 @CTCP-1079
 @dataFile:resources/data/CipherMetricBucketElevatorB.json
 Scenario: Verify bucket elevator calculation for cipher metric flow
+
+   And   Close warning popup
    And   User is at add minuteman bucket elevator page
    When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
    And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
@@ -49,6 +54,8 @@ Scenario: Verify bucket elevator calculation for cipher metric flow
 @Regression4 @CTCP-1079
 @dataFile:resources/data/CipherImperialBucketElevatorB.json
 Scenario: Verify bucket elevator calculation for cipher imperial flow
+
+    And   Close warning popup
     And   User is at add minuteman bucket elevator page
     When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
     And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
@@ -63,6 +70,8 @@ Scenario: Verify bucket elevator calculation for cipher imperial flow
 @Regression5 @CTCP-1079
 @dataFile:resources/data/MinutemanMetricBucketElevatorB.json
 Scenario: Verify bucket elevator calculation for minuteman metric flow
+
+    And   Close warning popup
     And   User is at add minuteman bucket elevator page
     When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
     And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
@@ -76,8 +85,8 @@ Scenario: Verify bucket elevator calculation for minuteman metric flow
 @Regression6 @CTCP-1079
 @dataFile:resources/data/MinutemanImperialBucketElevatorB.json
 Scenario: Verify bucket elevator calculation for minuteman imperial flow
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
+
+    And   Close warning popup
     And   User is at add minuteman bucket elevator page
     When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
     And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
@@ -90,7 +99,9 @@ Scenario: Verify bucket elevator calculation for minuteman imperial flow
 
  @Regression7
  @dataFile:resources/data/LegacyMetricBucketElevatorA.json
- Scenario: Verify zbucket elevator calculation for legacy minuteman metric flow
+ Scenario: Verify bucket elevator calculation for legacy minuteman metric flow
+
+     And   Close warning popup
      And   User is at add minuteman bucket elevator page
      When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
      And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
@@ -104,8 +115,8 @@ Scenario: Verify bucket elevator calculation for minuteman imperial flow
 @Regression8
 @dataFile:resources/data/LegacyImperialBucketElevatorA.json
 Scenario: Verify bucket elevator calculation for legacy minuteman imperial flow
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
+
+  And   Close warning popup
   And   User is at add minuteman bucket elevator page
   When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
   And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next

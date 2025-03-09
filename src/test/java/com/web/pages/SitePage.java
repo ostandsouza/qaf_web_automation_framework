@@ -253,7 +253,7 @@ public class SitePage  extends BasePage {
     public void goToSiteDetails(String siteName) {
         searchSite(siteName);
         waitForElementToDisplay(btCheckbox);
-        btViewIcon.jsClick("Site Details");
+        btViewIcon.click("Site Details");
         waitForElementToDisplay(siteHeader);
         siteHeader.isEnable("File Manager");
     }
@@ -327,6 +327,14 @@ public class SitePage  extends BasePage {
         crviewicon.click("Site Detail");
         waitForPageLoad(10000);
         siteHeader.isEnable("Site Header");
+    }
+
+    public void editSiteNav(String siteName) {
+        searchSite(siteName);
+        crCheckbox.check("Conveyor Checkbox");
+        waitForElementToDisplay(crActions);
+        crActions.click("Actions");
+        crEdit.jsClick("Edit");
     }
 
     public boolean searchConveyorSiteLevel(String conveyorName) {

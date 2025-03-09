@@ -66,6 +66,13 @@ public class SiteSteps {
 
     }
 
+    @QAFTestStep(description = "Navigate to edit site screen for {Site1}")
+    public void editSite(String site1)
+    {
+        sitePage.editSiteNav(site1);
+
+    }
+
     @QAFTestStep(description = "Verify user is getting site notification in last in first out format for {Value1} {Value2}")
     public void clickAndVerifyNotificationSiteOrder(String value1,String value2)
     {
@@ -108,6 +115,12 @@ public class SiteSteps {
     {
         sitePage.goToSiteListScreenAndWait();
         sitePage.bellIconClick();
+    }
+
+    @QAFTestStep(description = "Navigate to site list page")
+    public void navigateToSitePage()
+    {
+        sitePage.goToSiteListScreen();
     }
 
     @QAFTestStep(description = "Navigate to siteListPage and wait")

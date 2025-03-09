@@ -1470,3 +1470,283 @@ Scenario: Verify user Delete the MD from Customer corporate level and validate t
 
     Then  Navigate to Belt Monitoring List screen
     And   Click on each column header and verify filter icon fields
+
+@100HP @Regression1
+@dataFile:resources/data/LegacyImperialA.json
+Scenario: zVerify minuteman functionality for legacy minuteman calculation at home level
+
+    And   Navigate to minuteman screen from site card
+    And   Extract the minuteman card data
+    And   User is at add minuteman conveyor page '${CalculationName}'
+    When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
+    And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
+    And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
+    And   User enters select belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+    And   User should see all the calculated data of capacity page and click on next
+    And   User should see all the calculated data of Roll data page and click on next
+    And   User should see all the calculated data of pulleys page and click on next
+    And   User should see all the calculated data Add '${TransitionLengthHead}' '${TransitionLengthTail}' of transition page and click on next
+    And   User should see all the calculated data Add '${TakeUpTensionIfKnown}' of take up page and click on next
+    And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+    When  Click on create button for minuteman calculation
+    Then  Verify the minuteman card count
+    When  Navigate the minuteman calculation '${CalculationName}' in list screen
+    And   User navigates to final report screen
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+    And   Verify download report option on final report '${CalculationName}'
+    When  Navigate to minuteman screen from site card
+    And   Edit calculation '${CalculationName}' units to 'Metric' with '${Program}' '${ManufacturingLocation}'
+    And   Navigate the minuteman calculation '${CalculationName}' in list screen
+    Then  Verify the pre populated data in general info page '${Program}' '${ManufacturingLocation}'
+    When  User click on next
+    Then  Verify the pre populated data in inputs page '${BeltWidthM}' '${BeltSpeedM}' '${TonsPerHourPeakM}' '${PickMaterialNameM}' '${MaterialDensityM}' '${AngleOfIdlerM}' '${CarrySideIdlerSpacingM}' '${DriveWrapAngleM}' '${DriveWrapAngleDegreeM}' '${TakeUpTensionM}' '${FrictionFactorM}' '${LengthFactorM}' '${SurchargeAngleM}' '${IdlerOffsetM}' '${DriverDetailsM}' '${TakeUpDetailsM}' '${SpliceTypeM}'
+
+
+@100HP @Regression2
+@dataFile:resources/data/MinutemanMetricA.json
+Scenario: Verify minuteman functionality for minuteman calculation at conveyor level
+
+    And   Close warning popup
+    And   User is at add minuteman conveyor page '${CalculationName}' from conveyor level '${ConveyorName}'
+    And   Extract the minuteman card data
+    And   User is navigates to add minuteman conveyor page from list screen
+    When  User enters general info '${CalculationName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
+    And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
+    And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
+    And   User enters select belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+    And   User should see all the calculated data of capacity page and click on next
+    And   User should see all the calculated data of Roll data page and click on next
+    And   User should see all the calculated data of pulleys page and click on next
+    And   User should see all the calculated data Add '${TransitionLengthHead}' '${TransitionLengthTail}' of transition page and click on next
+    And   User should see all the calculated data Add '${TakeUpTensionIfKnown}' of take up page and click on next
+    And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+    When  Click on create button for minuteman calculation
+    And   User is at add minuteman conveyor page '${CalculationName}' from conveyor level '${ConveyorName}'
+    Then  Verify the minuteman card count
+    When  Edit minuteman calculation '${CalculationName}' to '${NewCalculationName}'
+    Then  Verify all the data shown in the reports with calculated and entered data '${NewCalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+    And   Verify download report option on final report '${NewCalculationName}'
+    When  Navigate to minuteman screen from site card
+    And   Edit calculation '${NewCalculationName}' units to 'Imperial' with '${Program}' '${ManufacturingLocation}'
+    And   Navigate the minuteman calculation '${NewCalculationName}' in list screen
+    Then  Verify the pre populated data in general info page for imperial '${Program}' '${ManufacturingLocation}'
+    When  User click on next
+    Then  Verify the pre populated data in inputs page '${BeltWidthM}' '${BeltSpeedM}' '${TonsPerHourPeakM}' '${PickMaterialNameM}' '${MaterialDensityM}' '${AngleOfIdlerM}' '${CarrySideIdlerSpacingM}' '${DriveWrapAngleM}' '${DriveWrapAngleDegreeM}' '${TakeUpTensionM}' '${FrictionFactorM}' '${LengthFactorM}' '${SurchargeAngleM}' '${IdlerOffsetM}' '${DriverDetailsM}' '${TakeUpDetailsM}' '${SpliceTypeM}'
+
+@100HP @Regression3
+@dataFile:resources/data/CypherMetricA.json
+Scenario: zVerify minuteman functionality for cipher calculation at site level
+
+    And   Close warning popup
+    When  Navigate to minuteman screen from site card
+    And   Extract the minuteman card data
+    And   User is at add minuteman conveyor page '${CalculationName}' from site level '${Site}'
+    And   User is navigates to add minuteman conveyor page from list screen
+    When  User enters general info '${CalculationName}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
+    And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
+    And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
+    And   User enters select belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+    And   User should see all the calculated data of capacity page and click on next
+    And   User should see all the calculated data of Roll data page and click on next
+    And   User should see all the calculated data of pulleys page and click on next
+    And   User should see all the calculated data Add '${TransitionLengthHead}' '${TransitionLengthTail}' of transition page and click on next
+    And   User should see all the calculated data Add '${TakeUpTensionIfKnown}' of take up page and click on next
+    And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+    And   Verify download report option on final report '${CalculationName}'
+    When  Click on create button for minuteman calculation
+    Then  Verify the minuteman card count
+    When  Navigate to minuteman screen from site card
+    And   Edit calculation '${CalculationName}' units to 'Imperial' with '${Program}' '${ManufacturingLocation}'
+    And   Navigate the minuteman calculation '${CalculationName}' in list screen
+    Then  Verify the pre populated data in general info page for imperial '${Program}' '${ManufacturingLocation}'
+    When  User click on next
+    Then  Verify the pre populated data in inputs page '${BeltWidthM}' '${BeltSpeedM}' '${TonsPerHourPeakM}' '${PickMaterialNameM}' '${MaterialDensityM}' '${AngleOfIdlerM}' '${CarrySideIdlerSpacingM}' '${DriveWrapAngleM}' '${DriveWrapAngleDegreeM}' '${TakeUpTensionM}' '${FrictionFactorM}' '${LengthFactorM}' '${SurchargeAngleM}' '${IdlerOffsetM}' '${DriverDetailsM}' '${TakeUpDetailsM}' '${SpliceTypeM}'
+
+
+@100HP @Regression4
+@dataFile:resources/data/CypherImperialB.json
+Scenario: Verify minuteman functionality for load data calculation
+
+    And   Close warning popup
+    When  Navigate to minuteman screen from site card
+    And   Extract the minuteman card data
+    And   User is at add minuteman conveyor page '${CalculationName}'
+    When  Verify the load data functionality in user info for '${CalculationName}' '${Site}' '${ConveyorName}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
+    And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
+    And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
+    And   User enters select belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+    And   User should see all the calculated data of capacity page and click on next
+    And   User should see all the calculated data of Roll data page and click on next
+    And   User should see all the calculated data of pulleys page and click on next
+    And   User should see all the calculated data Add '${TransitionLengthHead}' '${TransitionLengthTail}' of transition page and click on next
+    And   User should see all the calculated data Add '${TakeUpTensionIfKnown}' of take up page and click on next
+    And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+    And   Verify download report option on final report '${CalculationName}'
+    When  Click on create button for minuteman calculation
+    Then  Verify the minuteman card count
+
+@100HP @Regression5
+@dataFile:resources/data/MinutemanPrePopulatedImperial.json
+Scenario: Verify minuteman functionality for private calculation
+
+    And   Close warning popup
+    When  Navigate to minuteman screen from site card
+    And   Extract the minuteman card data
+    And   User is at add minuteman conveyor page '${CalculationName}'
+    When  User enters general info with '${CalculationName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
+    And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
+    And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
+    And   User enters select belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+    And   User should see all the calculated data of capacity page and click on next
+    And   User should see all the calculated data of Roll data page and click on next
+    And   User should see all the calculated data of pulleys page and click on next
+    And   User should see all the calculated data Add '${TransitionLengthHead}' '${TransitionLengthTail}' of transition page and click on next
+    And   User should see all the calculated data Add '${TakeUpTensionIfKnown}' of take up page and click on next
+    And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+    And   Verify download report option on final report '${CalculationName}'
+    When  Click on create button for minuteman calculation
+    And   Verify the minuteman calculation '${CalculationName}' in list screen
+    Then  Verify the minuteman card count
+
+@100HP @Regression6
+@dataFile:resources/data/CypherImperialB.json
+Scenario: Verify minuteman functionality for final report notes
+
+    And   Close warning popup
+    And   User is at add minuteman conveyor page '${CalculationName}'
+    When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
+    And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
+    And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
+    And   User enters select belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+    And   User should see all the calculated data of capacity page and click on next
+    And   User should see all the calculated data of Roll data page and click on next
+    And   User should see all the calculated data of pulleys page and click on next
+    And   User should see all the calculated data Add '${TransitionLengthHead}' '${TransitionLengthTail}' of transition page and click on next
+    And   User should see all the calculated data Add '${TakeUpTensionIfKnown}' of take up page and click on next
+    And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
+    When  Navigate to the pulley and calculate with '1'
+    When  Navigate to the take up and calculate with '1'
+    When  Navigate to the curves and calculate with '1'
+    When  Navigate to the transition and calculate with '1'
+    And   Verify all the notes are present in final report
+    And   Verify download report option on final report '${CalculationName}'
+
+
+@100HP @Regression7
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:minuteman_duplicate
+Scenario: Verify duplicate name creation on the minuteman
+
+    And   Close warning popup
+    And   User is at add minuteman conveyor page
+    When  User enters general info '${CalculationName1}' '${CustSiteName}' '${ConveyorName}' and click on select belt
+    And   User enters select belt details and click on final report
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${CustSiteName}' '${ConveyorName}'
+    When  Click on create button for minuteman calculation
+    Then  Verify the minuteman calculation '${CalculationName1}' in list screen
+    And   User is at add minuteman conveyor page
+    When  User enters general info '${CalculationName2}' '${CustSiteName}' '${ConveyorName2}' and click on select belt
+    And   User enters select belt details and click on final report
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName2}' '${CustSiteName}' '${ConveyorName2}'
+    When  Click on create button for minuteman calculation
+    And   User is at add minuteman conveyor page
+    When  User enters general info '${CalculationName1}' '${CustSiteName}' '${NoConveyor}' and click on select belt
+    And   User enters select belt details and click on final report
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${CustSiteName}' '${NoConveyor}'
+    When  Click on create button and verify failure toast
+    And   User is at add minuteman conveyor page
+    When  User enters general info '${CalculationName1}' '${CustSiteName1}' '${ConveyorName1}' and click on select belt
+    And   User enters select belt details and click on final report
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${CustSiteName1}' '${ConveyorName1}'
+    When  Click on create button for minuteman calculation
+    And   User is at add minuteman conveyor page
+    When  User enters general info '${CalculationName1}' '${NoSite}' '${NoConveyor}' and click on select belt
+    And   User enters select belt details and click on final report
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${NoSite}' '${NoConveyor}'
+    When  Click on create button for minuteman calculation
+    And   User is at add minuteman conveyor page
+    When  User enters general info '${CalculationName1}' '${NoSite}' '${NoConveyor}' and click on select belt
+    And   User enters select belt details and click on final report
+    Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${NoSite}' '${NoConveyor}'
+    When  Click on create button and verify failure toast
+
+@100HP @Regression8
+@dataFile:resources/data/CipherImperialBucketElevatorB.json
+Scenario: Verify bucket elevator functionality for legacy cipher
+
+    And   Close warning popup
+    When  Navigate to minuteman screen from site card
+    And   Extract the minuteman card data
+    When  User is at add minuteman bucket elevator page
+    When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
+    And   User enters select elevator belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+    And   User should see all the calculated data Add '${MaximumTension}' '${MaximumPIW}' '${EffectiveTension}' '${BeltHorsepower}' '${PercentLoaded}' '${CounterweightTension}' '${CounterweightWeight}' '${WeightInEachBucket}' '${MimTailPulleyDiameter}' '${MaximumProjection}' '${AppropriateNumber}' and click on next
+    Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName}' '${Site}' '${ConveyorName}' '${ConveyorType}' '${TradeName}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${BeltWeight}' '${DrivePulley}' '${TakeUpType}' '${MaximumTension}' '${MaximumPIW}' '${EffectiveTension}' '${BeltHorsepower}' '${PercentLoaded}' '${CounterweightTension}' '${CounterweightWeight}' '${WeightInEachBucket}' '${MimTailPulleyDiameter}' '${MaximumProjection}' '${AppropriateNumber}'
+    When  Click on create button for minuteman calculation
+    Then  Verify the minuteman calculation '${CalculationName}' in list screen
+    Then  Verify the minuteman card count
+    When  Navigate the minuteman calculation '${CalculationName}' in list screen
+    And   User enters elevator select belt details and click on final report
+    Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName}' '${Site}' '${ConveyorName}' '${ConveyorType}' '${TradeName}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${BeltWeight}' '${DrivePulley}' '${TakeUpType}' '${MaximumTension}' '${MaximumPIW}' '${EffectiveTension}' '${BeltHorsepower}' '${PercentLoaded}' '${CounterweightTension}' '${CounterweightWeight}' '${WeightInEachBucket}' '${MimTailPulleyDiameter}' '${MaximumProjection}' '${AppropriateNumber}'
+    Then  Verify download report option for bucket elevator on final report '${CalculationName}'
+    When  Navigate to minuteman screen from site card
+    And   Edit bucket calculation '${CalculationName}' units to 'Metric' with '${Program}' '${ManufacturingLocation}'
+    And   Navigate the minuteman calculation '${CalculationName}' in list screen
+    Then  Verify the pre populated data in general info page '${Program}' '${ManufacturingLocation}'
+    When  User click on next
+    Then  Verify the bucket elevator pre populated data in inputs page '${ConveyorTypeM}' '${MaterialDensityM}' '${TonsPerHourPeakM}' '${MaterialLengthM}' '${MaterialProjectionM}' '${BucketSpacingM}' '${BucketWeightM}' '${BucketVolumeM}' '${BucketRowsM}' '${BeltWidthM}' '${BeltHeightM}' '${BeltSpeedM}' '${DrivePulleyM}' '${TakeUpTypeM}'
+
+
+@100HP @Regression9
+@dataFile:resources/data/LegacyMetricBucketElevatorA.json
+Scenario: Verify bucket elevator functionality for legacy minuteman
+
+    And   Close warning popup
+    When  Navigate to minuteman screen from site card
+    And   Extract the minuteman card data
+    When  User is at add minuteman bucket elevator page
+    When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
+    And   User enters select elevator belt details '${TradeName}' '${CoverGrade}' '${Rating}' '${Plies}' '${CoverGaugeUnits}' '${GaugeTopCover}' '${GaugePulleyCover}'
+    And   User should see all the calculated data Add '${MaximumTension}' '${MaximumPIW}' '${EffectiveTension}' '${BeltHorsepower}' '${PercentLoaded}' '${CounterweightTension}' '${CounterweightWeight}' '${WeightInEachBucket}' '${MimTailPulleyDiameter}' '${MaximumProjection}' '${AppropriateNumber}' and click on next
+    Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName}' '${Site}' '${ConveyorName}' '${ConveyorType}' '${TradeName}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${BeltWeight}' '${DrivePulley}' '${TakeUpType}' '${MaximumTension}' '${MaximumPIW}' '${EffectiveTension}' '${BeltHorsepower}' '${PercentLoaded}' '${CounterweightTension}' '${CounterweightWeight}' '${WeightInEachBucket}' '${MimTailPulleyDiameter}' '${MaximumProjection}' '${AppropriateNumber}'
+    Then  Verify download report option for bucket elevator on final report '${CalculationName}'
+    When  Click on create button for minuteman calculation
+    Then  Verify the minuteman calculation '${CalculationName}' in list screen
+    Then  Verify the minuteman card count
+    When  Navigate to minuteman screen from site card
+    And   Edit bucket calculation '${CalculationName}' units to 'Imperial' with '${Program}' '${ManufacturingLocation}'
+    And   Navigate the minuteman calculation '${CalculationName}' in list screen
+    Then  Verify the pre populated data in general info page for imperial '${Program}' '${ManufacturingLocation}'
+    When  User click on next
+    Then  Verify the bucket elevator pre populated data in inputs page '${ConveyorTypeM}' '${MaterialDensityM}' '${TonsPerHourPeakM}' '${MaterialLengthM}' '${MaterialProjectionM}' '${BucketSpacingM}' '${BucketWeightM}' '${BucketVolumeM}' '${BucketRowsM}' '${BeltWidthM}' '${BeltHeightM}' '${BeltSpeedM}' '${DrivePulleyM}' '${TakeUpTypeM}'
+
+@100HP @Regression10
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:minuteman_delete
+Scenario: AVerify delete functionality for minuteman and bucket elevator
+
+    And   Close warning popup
+    When  Navigate to minuteman screen from site card
+    And   Extract the minuteman card data
+    When  Delete minuteman calculation '${CalculationName1}'
+    Then  Verify the deleted minuteman calculation '${CalculationName1}' in list screen
+    Then  Verify for delete minuteman card count
+    When  Delete minuteman calculation '${CalculationName2}'
+    Then  Verify the deleted minuteman calculation '${CalculationName2}' in list screen
+    Then  Verify for delete minuteman card count

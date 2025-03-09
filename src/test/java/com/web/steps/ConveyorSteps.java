@@ -24,7 +24,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Create a conveyor with {ConveyorNameGer} and {DistShopGerName} and {CustShopGerName}")
     public void createAConveyor(String conveyorName, String distShopName, String custSiteName) {
-//        String conveyorId = conveyorPage.apiBase.getConveyorsAPI(conveyorName);
+//        String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(conveyorName));
 //        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         conveyorPage.createConveyor(conveyorName, distShopName, custSiteName);
     }
@@ -75,6 +75,7 @@ public class ConveyorSteps {
 
     @QAFTestStep(description = "Export PDF and CSV data for {ConveyorName2} and {ConveyorName3} and {ConveyorName5} and {ConveyorName6}")
     public void verifyExportConveyor(String conveyor2, String conveyor3, String conveyor5, String conveyor6) {
+        conveyorPage.goToConveyorListScreenAndWait();
         conveyorPage.exportPDFConveyor(conveyor5);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles("conveyor.pdf"), "PDF report was not found", "PDF report was downloaded successfully");
         conveyorPage.verifyPDFContents(conveyor5);

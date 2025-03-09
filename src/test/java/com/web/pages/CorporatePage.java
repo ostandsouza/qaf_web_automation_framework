@@ -356,6 +356,22 @@ public class CorporatePage extends BasePage{
 
     @FindBy(locator = "//label[normalize-space()='Street and No.']")
     public CustomElement textStreet;
+
+    @FindBy(locator = "xpath=//input[@name='inspectionTemplate']")
+    public CustomElement inspectionTemplate;
+
+    @FindBy(locator = "xpath=//app-master-data-picker[@formcontrolname='inspectionTemplate']//span")
+    public CustomElement inspectionTemplateDropdownVal;
+
+    @FindBy(locator = "xpath=//app-master-data-picker[@formcontrolname='inspectionTemplate']//p-dropdown//div[@role='button']")
+    public CustomElement inspectionTemplateDropdown;
+
+    @FindBy(locator = "xpath=(//span[contains(@class,'p-panel-title')])[1]")
+    public CustomElement inspectionHeader;
+
+    @FindBy(locator = "xpath=//div[contains(@class,'p-panel-content')]//div//p-skeleton")
+    public CustomElement inspectionSkeleton;
+
 //    @FindBy(locator = "(//div[@class='card-inner-wrapper' and contains(div, 'Sites')])[1]")
 //    public CustomElement siteCard ;
     @FindBy(locator = "//span[contains(@class,'p-panel-title') and text()='Sites']")
@@ -368,6 +384,15 @@ public class CorporatePage extends BasePage{
     public void goToAddCompany() {
         addCompany.click("Add Company");
         newCompany.isVisible("New Company Header");
+    }
+
+    public void defaultTemplateSelection() {
+        selectCustomerCorp();
+        Validator.assertTrue(inspectionTemplateDropdownVal.getText().equalsIgnoreCase("Default"),"Default inspection template verification failed","Default inspection template verification successful");
+    }
+
+    public void selectTemplate(String template) {
+        dropdownSelectSearch(inspectionTemplateDropdown,tbSitedropdown,template);
     }
 
     public void clickCorporates() {
@@ -383,6 +408,7 @@ public class CorporatePage extends BasePage{
 //        scrollPageup();
         waitForElementToDisplay(btAddCorp);
         btAddCorp.click("Add Corp");
+        newCompany.isVisible("New Company Header");
     }
 
     public boolean verifyAddCorpViewPermission() {
@@ -410,6 +436,7 @@ public class CorporatePage extends BasePage{
 //        drTerritoryManagerbutton.type(manager, "Territory");
         addCorporateDetails(companyName, address);
         saveCorp();
+        SyncUtil.waitFor(5000);
         waitForElementToDisplay(btSiteShopCardNo);
         btSiteShopCardNo.isVisible("Shop Details");
         Reporter.log(companyName + "distributor shop is created" , MessageTypes.Pass);
@@ -420,6 +447,18 @@ public class CorporatePage extends BasePage{
         selectCustomerCorp();
         selectInspectionDefaultTemplate();
         addCorporateDetails(companyName, address);
+        saveCorp();
+        waitForElementToDisplay(corporateHeader);
+        SyncUtil.waitFor(2000);
+        corporateHeader.isEnable("Corporate List");
+        Reporter.log(companyName +" customer corporate is created", MessageTypes.Pass);
+    }
+
+    public void createCustomerCorporate(String companyName, String address, String template) {
+        scrollPageup();
+        selectCustomerCorp();
+        addCorporateDetails(companyName, address);
+        selectTemplate(template);
         saveCorp();
         waitForElementToDisplay(corporateHeader);
         SyncUtil.waitFor(2000);
@@ -440,6 +479,7 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btSiteShopCardNo);
         waitForElementToDisplay(btSiteShopCardNo);
         btSiteShopCardNo.isVisible("Site Details");
+        SyncUtil.waitFor(3000);
         Reporter.log(companyName +" customer site is created", MessageTypes.Pass);
 
     }
@@ -475,8 +515,8 @@ public class CorporatePage extends BasePage{
     public void btnSaveClick() {
         scrollPageDown();
         waitForElementVisible(btSave, 10000, 500);
-        btSave.jsClick("Save");
-        waitForElementToInvisible(buttonLoader, 10000);
+        btSave.click("Save");
+        waitForElementToInvisible(buttonLoader, 15000);
         btSearchinput.isVisible("Corporate list screen");
     }
 
@@ -535,21 +575,34 @@ public class CorporatePage extends BasePage{
 
     public void editCorporateName(String corpName, String editCorpName) {
         goToCorporate();
-        SyncUtil.waitFor(6000);
         goToCorporateEditScreen(corpName);
-        SyncUtil.waitFor(6000);
         setImplicitWait(10000, TimeUnit.MILLISECONDS);
 //        typeOfCompanyLoader.waitForText("Customer Corporate");
         setImplicitWait(5000, TimeUnit.MILLISECONDS);
         tbCompanyName.type(editCorpName, "Edit_companyName");
     }
 
+    public void editCorporate(String corpName) {
+        goToCorporate();
+        goToCorporateEditScreen(corpName);
+        setImplicitWait(10000, TimeUnit.MILLISECONDS);
+    }
+
+    public void verifyEditTemplate(String template) {
+        Validator.assertTrue(inspectionTemplate.getAttribute("value").equalsIgnoreCase(template), "Template verification on edit mode failed", "Template verification on edit mode successful");
+        Validator.assertTrue(!inspectionTemplate.isEnabled(), "Template edit should not be allowed", "Template edit verification was successful");
+    }
+
     public void corporateImgUpload(String fileName) {
-        imageIcon.jsClick("Img_Icon");
+        setImplicitWait(5000, TimeUnit.MILLISECONDS);
+        hoverOverElement(imageAvatar);
+        SyncUtil.waitFor(5000);
+        imageIcon.click("Img_Icon");
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         fileUpload.sendKeys(file_path, "img_upload");
         btSave.click("Save_ImgUpload");
-        waitForElementToInvisible(btSave, 30000);
+        waitForElementToInvisible(buttonLoader, 15000);
+        SyncUtil.waitFor(5000);
     }
 
     public void verifyMarketType(String type) {
@@ -578,7 +631,6 @@ public class CorporatePage extends BasePage{
 
     public void editCustomerSite(String siteName, String editSiteName, String corp) {
         goToCorporateDetails(corp);
-        SyncUtil.waitFor(6000);
         btSearchinput.type(siteName, "Site name");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         waitForElementToDisplay(btCheckbox);
@@ -588,13 +640,11 @@ public class CorporatePage extends BasePage{
         waitForElementToDisplay(btEdit);
         btEdit.jsClick("Edit");
 //        typeOfCompanyLoader.waitForText("Customer Site");
-        SyncUtil.waitFor(10000);
-        tbCompanyName.type(editSiteName);
-        SyncUtil.waitFor(2000);
         scrollPageup();
-        dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
+        SyncUtil.waitFor(1000);
         drTerritoryManagerbutton.type("Territory India Automation", "Territory");
-        scrollPageDown();
+        dropdownSelectSearch(drTerritorybutton, tbSitedropdown, "India");
+        tbCompanyName.type(editSiteName);
     }
     public void editSiteName(String editSiteName)
     {
@@ -613,7 +663,7 @@ public class CorporatePage extends BasePage{
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         btCheckbox.check("Site/Shop Checkbox");
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
-        btActions.jsClick("Actions");
+        btActions.click("Actions");
         waitForElementVisible(btDelete, 10000,500);
         btDelete.jsClick("Delete");
         yesConfirmation.click("Confirm");
@@ -632,6 +682,7 @@ public class CorporatePage extends BasePage{
 
     public void verifyCorporateEdit(String corpName) {
         searchCorporate(corpName);
+        SyncUtil.waitFor(8000);
         Validator.assertFalse(btImg.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
         btName.verifyTextIgnoringNewLineChar(corpName, "Corporate name");
         btviewicon.check("Corp Details");
@@ -641,7 +692,7 @@ public class CorporatePage extends BasePage{
     public void goToCorporateDetails(String corpName) {
         searchCorporate(corpName);
         btviewicon.click("Corp Details");
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(3000);
         waitForElementToDisplay(btSiteShopCardNo);
     }
 
@@ -653,18 +704,18 @@ public class CorporatePage extends BasePage{
         else
             btviewicon.click("Corp Site Details");
         waitForElementToDisplay(btSiteShopCardNo);
+        SyncUtil.waitFor(5000);
     }
 
     public void verifySiteOrShopEdit(String corpName, String siteName) {
         goToCorporateDetails(corpName);
         btSearchinput.type(siteName, "Site/Shop name");
-        SyncUtil.waitFor(3000);
-        waitForElementVisible(detailsImg,10000,500);
+        SyncUtil.waitFor(10000);
         Validator.assertFalse(detailsImg.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
         detailsName.verifyTextIgnoringNewLineChar(siteName, "Site name");
         detailsMoreButton.click("Corp Details");
         siteNameLoader.waitForPartialText(siteName, 15000);
-        imageAvatar.isVisible(10000,"Image Avatar");
+        SyncUtil.waitFor(10000);
         Validator.assertFalse(imageAvatar.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
     }
     public void verifySiteOrShopEditNameDetails(String corpName,String siteName)
@@ -681,6 +732,14 @@ public class CorporatePage extends BasePage{
         goToDistCorporateDetails(corpName);
         btSearchinput.type(siteName, "Site/Shop name");
         Validator.assertTrue(noList.isVisible("No Site/Shop"), "Site/Shop found even after delete", "Site/Shop not found after delete");
+    }
+
+    public void verifySiteOrShopNav(String corpName, String shopName) {
+        goToDistCorporateDetails(corpName);
+        btSearchinput.type(shopName, "Site/Shop name");
+        waitForElementToDisplay(btCheckbox);
+        btviewicon.click();
+        siteNameLoader.waitForPartialText(shopName, 15000);
     }
 
     public void verifyCardDetails(String siteName) {
@@ -828,6 +887,17 @@ public class CorporatePage extends BasePage{
     public boolean verifyEditButtonVisibleOnCorporateDetailsPage(String CorporateName){
         goToCorporateDetails(CorporateName);
         return btEditDetails.isVisible(1000);
+    }
+
+    public void verifyInspectionCardClick(){
+        waitForPageLoad(5000);
+        waitForElementVisible(inspectionCard,5000,1000);
+        waitForElementToBeClickable(inspectionCard);
+        Validator.assertTrue(inspectionCard.isEnable(),"Inspection Card is not clickable","Inspection Card is clickable");
+        inspectionCard.click();
+        waitForPageLoad(5000);
+        Validator.assertTrue(inspectionHeader.isDisplayed(),"Inspection Page is not loaded","Inspection Page is loaded");
+        waitForElementToInvisible(inspectionSkeleton,10000);
     }
 
     public boolean verifyCorporateDetailCardsDisplayForBasics(){

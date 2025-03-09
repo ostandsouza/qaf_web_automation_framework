@@ -1,8 +1,12 @@
 [
   {
     "UserName": "contiplus_admin@maildrop.cc",
-    "Password": "Test@12345",
-    "CalculationName": "Test  PrePopulated",
+    "UserNameCustomer": "customerhp2025@yopmail.com",
+    "UserNameDistributor": "distributorhp2025@yopmail.com",
+    "UserNameMarket": "markethp2025@yopmail.com",
+    "Password": "Abc@123456",
+    "CalculationName": "Test PrePopulated",
+    "Description": "",
     "Program": "Minuteman",
     "ManufacturingLocation": "North America",
     "Units": "Imperial",

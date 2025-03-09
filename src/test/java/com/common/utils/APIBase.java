@@ -69,38 +69,60 @@ public class APIBase {
 
 
     public String getUserProfileAPI(String email) {
-        configureRestAssured();
-        String baseUrl = commonPaths.get("profile_ms");
-        restApiHelper.setBaseURI(baseUrl);
-        if (email != null)
-            queryMaps.put("email", email);
-        headersMap.put("usertoken", accessToken);
-        Map<String, String> profilePaths = JsonReader.getMapTestData("path", "profile_controller");
-        restApiHelper.makeGetRequest(profilePaths.get("profile"), queryMaps, headersMap);
-        Response profileResponse = restApiHelper.getResponse();
+        String next = "0";
         String val = null;
-        if (profileResponse.getStatusCode() == 200) {
-            JsonPath jsnPath = profileResponse.jsonPath();
-            val = (String) jsnPath.getMap("data[0]").get("userId");
+        while(!next.isEmpty()) {
+            configureRestAssured();
+            queryMaps.put("limit", "200");
+            if(!next.equalsIgnoreCase("0"))
+                queryMaps.put("next", next);
+            String baseUrl = commonPaths.get("profile_ms");
+            restApiHelper.setBaseURI(baseUrl);
+            headersMap.put("user-token",accessToken);
+            Map<String, String> profilePaths = JsonReader.getMapTestData("path", "profile_controller");
+            restApiHelper.makeGetRequest(profilePaths.get("profile"), queryMaps, headersMap);
+            Response profileResponse = restApiHelper.getResponse();
+            if (profileResponse.getStatusCode() == 200) {
+                JsonPath jsnPath = profileResponse.jsonPath();
+                try {
+                    System.out.println(profileResponse);
+//                    val = (Map<String, Object>) ((JSONArray) com.jayway.jsonpath.JsonPath.read(inspectionResponse.asString(), "$.data[?(@.name == '" + inspectionName + "')]")).get(0);
+                    val = (String) ((JSONArray) com.jayway.jsonpath.JsonPath.read(profileResponse.asString(), "$.data[?(@.email == '" + email + "')].userId")).get(0);
+                    break;
+                } catch (Exception e) {
+                    next = (String) jsnPath.getMap("pagination").get("next");
+                }
+            }
         }
         tearDown();
         return val;
     }
 
     public boolean isFirstSignIn(String email) {
-        configureRestAssured();
-        String baseUrl = commonPaths.get("profile_ms");
-        restApiHelper.setBaseURI(baseUrl);
-        if (email != null)
-            queryMaps.put("email", email);
-        headersMap.put("usertoken", accessToken);
-        Map<String, String> profilePaths = JsonReader.getMapTestData("path", "profile_controller");
-        restApiHelper.makeGetRequest(profilePaths.get("profile"), queryMaps, headersMap);
-        Response profileResponse = restApiHelper.getResponse();
-        Boolean val = null;
-        if (profileResponse.getStatusCode() == 200) {
-            JsonPath jsnPath = profileResponse.jsonPath();
-            val = (boolean) jsnPath.getMap("data[0]").get("isFirstSignIn");
+        String next = "0";
+        boolean val = false;
+        while(!next.isEmpty()) {
+            configureRestAssured();
+            queryMaps.put("limit", "200");
+            if(!next.equalsIgnoreCase("0"))
+                queryMaps.put("next", next);
+            String baseUrl = commonPaths.get("profile_ms");
+            restApiHelper.setBaseURI(baseUrl);
+            headersMap.put("user-token", accessToken);
+            Map<String, String> profilePaths = JsonReader.getMapTestData("path", "profile_controller");
+            restApiHelper.makeGetRequest(profilePaths.get("profile"), queryMaps, headersMap);
+            Response profileResponse = restApiHelper.getResponse();
+            if (profileResponse.getStatusCode() == 200) {
+                JsonPath jsnPath = profileResponse.jsonPath();
+                try {
+//                    val = (Map<String, Object>) ((JSONArray) com.jayway.jsonpath.JsonPath.read(inspectionResponse.asString(), "$.data[?(@.name == '" + inspectionName + "')]")).get(0);
+                    val = (boolean) ((JSONArray) com.jayway.jsonpath.JsonPath.read(profileResponse.asString(), "$.data[?(@.email == '" + email + "')]..isFirstSignIn")).get(0);
+                    System.out.println("isFirstLogin ="+val);
+                    break;
+                } catch (Exception e) {
+                    next = (String) jsnPath.getMap("pagination").get("next");
+                }
+            }
         }
         tearDown();
         return val;
@@ -205,33 +227,39 @@ public class APIBase {
         tearDown();
     }
 
-    public Response getCompanyAPI(String companyName) {
-        configureRestAssured();
-        if (companyName != null)
-            queryMaps.put("name", companyName);
-        String baseUrl = commonPaths.get("company_ms");
-        restApiHelper.setBaseURI(baseUrl);
-        headersMap.put("user-token", accessToken);
-        Map<String, String> companyPaths = JsonReader.getMapTestData("path", "company_controller");
-        restApiHelper.makeGetRequest(companyPaths.get("companies"), queryMaps, headersMap);
-        Response companyResponse = restApiHelper.getResponse();
-//        String val = null;
-//        JsonPath jsnPath = companyResponse.jsonPath();
-//        if((Integer) jsnPath.getMap("pagination").get("count") != 0) {
-//            val = (String) jsnPath.getMap("data[0]").get("companyId");
-//        }
+    public Map<String, Object> getCompanyAPI(String companyName) {
+        String next = "0";
+        Map<String, Object> val = null;
+        while(!next.isEmpty()) {
+            configureRestAssured();
+            queryMaps.put("limit", "200");
+            queryMaps.put("next", next);
+            String baseUrl = commonPaths.get("company_ms");
+            restApiHelper.setBaseURI(baseUrl);
+            headersMap.put("user-token", accessToken);
+            Map<String, String> companyPaths = JsonReader.getMapTestData("path", "company_controller");
+            restApiHelper.makeGetRequest(companyPaths.get("companies"), queryMaps, headersMap);
+            Response companyResponse = restApiHelper.getResponse();
+            if (companyResponse.getStatusCode() == 200) {
+                JsonPath jsnPath = companyResponse.jsonPath();
+
+                // Get the list of monitoring devices
+                try {
+                    System.out.println(companyName);
+                    val = (Map<String, Object>) ((JSONArray) com.jayway.jsonpath.JsonPath.read(companyResponse.asString(), "$.data[?(@.name == '" + companyName + "')]")).get(0);
+                    System.out.println(((JSONArray) com.jayway.jsonpath.JsonPath.read(companyResponse.asString(), "$.data[?(@.name == '" + companyName + "')]..companyId")).get(0));
+                    break;
+                } catch (Exception e) {
+                    next = (String) jsnPath.getMap("pagination").get("next");
+                }
+            }
+        }
         tearDown();
-//        return val;
-        return companyResponse;
+        return val;
     }
 
-    public String getCompanyID(Response res) {
-        String val = null;
-        JsonPath jsnPath = res.jsonPath();
-        if ((Integer) jsnPath.getMap("pagination").get("count") != 0) {
-            val = (String) jsnPath.getMap("data[0]").get("companyId");
-        }
-        return val;
+    public String getCompanyID(Map<String, Object> res){
+        return res == null ? null : (String) res.get("companyId");
     }
 
 
@@ -251,7 +279,7 @@ public class APIBase {
     public Response getConveyorsAPI(String conveyorName) {
         String next = "0";
         Response val = null;
-        while (!next.isEmpty()) {
+        while(!next.isEmpty()) {
             configureRestAssured();
             queryMaps.put("limit", "200");
             queryMaps.put("next", next);
@@ -263,6 +291,8 @@ public class APIBase {
             Response companyResponse = restApiHelper.getResponse();
             if (companyResponse.getStatusCode() == 200) {
                 JsonPath jsnPath = companyResponse.jsonPath();
+
+                // Get the list of monitoring devices
                 try {
                     ((JSONArray) com.jayway.jsonpath.JsonPath.read(companyResponse.asString(), "$.data[?(@.name == '" + conveyorName + "')]..conveyorId")).get(0);
                     System.out.println(((JSONArray) com.jayway.jsonpath.JsonPath.read(companyResponse.asString(), "$.data[?(@.name == '" + conveyorName + "')]..conveyorId")).get(0));
@@ -277,8 +307,8 @@ public class APIBase {
         return val;
     }
 
-    public String getConveyorID(Response res) {
-        return res == null ? null : (String) ((JSONArray) com.jayway.jsonpath.JsonPath.read(res.asString(), "$.conveyor.conveyorId")).get(0);
+    public String getConveyorID(Response res){
+        return res == null ? null : (String)((JSONArray)com.jayway.jsonpath.JsonPath.read(res.asString(),"$.conveyor.conveyorId")).get(0);
     }
 
     public Map<String, Object> getConveyorsInspectionCount() {
@@ -360,18 +390,54 @@ public class APIBase {
         return secretResponse.getStatusCode();
     }
 
-    public String getInspectionAPI(String inspectionName) {
-        configureRestAssured();
+    public int createInspectionAPI(String fileName, String companyId, String inspectionName) {
         String baseUrl = commonPaths.get("inspection_ms");
         restApiHelper.setBaseURI(baseUrl);
-        headersMap.put("user-token", accessToken);
-        queryMaps.put("inspectionName", inspectionName);
+        JSONObject obj = JsonReader.loadJsonFile(ClasspathResourceHelper.getPropertyFileByLocale(fileName, ClasspathResourceHelper.FileType.JSON, "test_data"));
+        System.out.println(companyId);
+        obj = MiscUtils.getSingleUpdatedPayload(obj,"siteId",companyId);
+        System.out.println(requestBody);
+        requestBody.putAll(MiscUtils.getSingleUpdatedPayload(obj,"inspectionName",inspectionName));
+        System.out.println(requestBody);
+        headersMap.put("user-token",accessToken);
         Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "inspection_controller");
-        Response inspectionResponse = restApiHelper.makeGetRequest(inspectionPaths.get("inspection"), queryMaps, headersMap);
+        Response companyResponse =restApiHelper.makePostRequest(inspectionPaths.get("inspection"), new JSONObject(requestBody), headersMap);
         String val = null;
-        JsonPath jsnPath = inspectionResponse.jsonPath();
-        if ((Integer) jsnPath.getMap("pagination").get("count") != 0) {
-            val = (String) jsnPath.getMap("data[0]").get("inspectionId");
+        if(companyResponse.getStatusCode() == 201) {
+            JsonPath jsnPath = companyResponse.jsonPath();
+            val = (String) jsnPath.get("inspectionId");
+        }
+        tearDown();
+        return companyResponse.getStatusCode();
+    }
+
+
+    public String getInspectionAPI(String inspectionName) {
+        String next = "0";
+        String val = null;
+        while(!next.isEmpty()) {
+            configureRestAssured();
+            queryMaps.put("limit", "200");
+            queryMaps.put("next", next);
+            queryMaps.put("inspectionItemId","INSPECTION");
+            String baseUrl = commonPaths.get("inspection_ms");
+            restApiHelper.setBaseURI(baseUrl);
+            headersMap.put("user-token", accessToken);
+            Map<String, String> inspectionPaths = JsonReader.getMapTestData("path", "inspection_controller");
+            Response inspectionResponse = restApiHelper.makeGetRequest(inspectionPaths.get("inspection"), queryMaps, headersMap);
+            if (inspectionResponse.getStatusCode() == 200) {
+                JsonPath jsnPath = inspectionResponse.jsonPath();
+
+                // Get the list of monitoring devices
+                try {
+                    System.out.println(inspectionResponse);
+//                    val = (Map<String, Object>) ((JSONArray) com.jayway.jsonpath.JsonPath.read(inspectionResponse.asString(), "$.data[?(@.name == '" + inspectionName + "')]")).get(0);
+                    val = (String) ((JSONArray) com.jayway.jsonpath.JsonPath.read(inspectionResponse.asString(), "$.data[?(@.inspectionName == '" + inspectionName + "')]..inspectionId")).get(0);
+                    break;
+                } catch (Exception e) {
+                    next = (String) jsnPath.getMap("pagination").get("next");
+                }
+            }
         }
         tearDown();
         return val;
@@ -439,18 +505,35 @@ public class APIBase {
         tearDown();
     }
 
-    public Response getUltrasonicAPI(String conveyorId) {
-        configureRestAssured();
-        if (conveyorId != null)
-            queryMaps.put("conveyor.conveyorId", conveyorId);
-        String baseUrl = commonPaths.get("ultrasonic_ms");
-        restApiHelper.setBaseURI(baseUrl);
-        headersMap.put("user-token", accessToken);
-        Map<String, String> ultrasonicsPaths = JsonReader.getMapTestData("path", "ultrasonic_controller");
-        restApiHelper.makeGetRequest(ultrasonicsPaths.get("ultrasonics"), queryMaps, headersMap);
-        Response ultrasonicResponse = restApiHelper.getResponse();
+    public Response getUltrasonicAPI(String conveyorName) {
+        String next = "0";
+        Response val = null;
+        while(!next.isEmpty()) {
+            configureRestAssured();
+            queryMaps.put("limit", "200");
+            queryMaps.put("next", next);
+            String baseUrl = commonPaths.get("conveyor_ms");
+            restApiHelper.setBaseURI(baseUrl);
+            headersMap.put("user-token", accessToken);
+            Map<String, String> conveyorPaths = JsonReader.getMapTestData("path", "conveyor_controller");
+            restApiHelper.makeGetRequest(conveyorPaths.get("conveyor"), queryMaps, headersMap);
+            Response ultrasonicsResponse = restApiHelper.getResponse();
+            if (ultrasonicsResponse.getStatusCode() == 200) {
+                JsonPath jsnPath = ultrasonicsResponse.jsonPath();
+
+                // Get the list of monitoring devices
+                try {
+                    ((JSONArray) com.jayway.jsonpath.JsonPath.read(ultrasonicsResponse.asString(), "$.data[?(@.conveyor.name == '" + conveyorName + "')]")).get(0);
+                    System.out.println(((JSONArray) com.jayway.jsonpath.JsonPath.read(ultrasonicsResponse.asString(), "$.data[?(@.conveyor.name == '" + conveyorName + "')]")).get(0));
+                    val = ultrasonicsResponse;
+                    break;
+                } catch (Exception e) {
+                    next = (String) jsnPath.getMap("pagination").get("next");
+                }
+            }
+        }
         tearDown();
-        return ultrasonicResponse;
+        return val;
     }
 
     public String getUltrasonicId(Response res) {

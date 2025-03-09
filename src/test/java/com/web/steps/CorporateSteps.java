@@ -83,6 +83,16 @@ public class CorporateSteps {
         corpPage.editCorporateName(custCorpName, editCustCorpName);
     }
 
+    @QAFTestStep(description="Navigate to edit corporate for {CustCorpName}")
+    public void NavigateEditCustomerCorporate(String custCorpName){
+        corpPage.editCorporate(custCorpName);
+    }
+
+    @QAFTestStep(description="Verify whether inspection template dropdown {InsTemplate} is disabled")
+    public void verifyEditInspectionTemplate(String template){
+        corpPage.verifyEditTemplate(template);
+    }
+
     @QAFTestStep(description="Add {CorpImageName} image to Corporate and save changes")
     public void addImageToCustomerCorp(String corpImageName){
         corpPage.corporateImgUpload(corpImageName);
@@ -118,9 +128,26 @@ public class CorporateSteps {
         corpPage.verifySiteOrShopDelete(distCorpName, distShopIndName);
     }
 
+    @QAFTestStep(description="Navigate to distributor shop detail screen for {distCorpName} with {DistShop}")
+    public void verifyNavDistributorShop(String distCorpName, String distShopIndName){
+        corpPage.verifySiteOrShopNav(distCorpName, distShopIndName);
+    }
+
     @QAFTestStep(description="Navigate to Corporate details screen for corporate {CustCorpName}")
     public void navigateToCorporateDetails(String custCorpName){
         corpPage.goToCorporateDetails(custCorpName);
+    }
+
+    @QAFTestStep(description="Navigate to inspection list from inspection card at corporate level {DistCorpName}")
+    public void navigateToInspectionFromDistrbutor(String distCorpName){
+        corpPage.goToCorporateDetails(distCorpName);
+        corpPage.verifyInspectionCardClick();
+    }
+
+    @QAFTestStep(description="Navigate to inspection list from inspection card at site/shop level {DistCorpName}")
+    public void navigateToInspectionFromSiteShop(){
+        corpPage.verifyInspectionCardClick();
+        SyncUtil.waitFor(3000);
     }
 
     @QAFTestStep(description="Verify card count in details screen for {CustCorpName}")
@@ -176,6 +203,15 @@ public class CorporateSteps {
         corpPage.apiBase.deleteCompanyAPI(companyId);
         corpPage.goToAddCompany();
         corpPage.createCustomerCorporate(CustCorpName, CustCorpAddress);
+        SyncUtil.waitFor(10000);
+    }
+
+    @QAFTestStep(description="Add customer corporate with {CustCorpName} and {CustCorpAddress} {InsTemplate}")
+    public void addCustomerCorporateWithAnd(String CustCorpName, String CustCorpAddress, String template){
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(CustCorpName));
+        corpPage.apiBase.deleteCompanyAPI(companyId);
+        corpPage.goToAddCompany();
+        corpPage.createCustomerCorporate(CustCorpName, CustCorpAddress, template);
         SyncUtil.waitFor(10000);
     }
 
@@ -293,6 +329,11 @@ public class CorporateSteps {
         corpPage.goToAddCompany();
     }
 
+    @QAFTestStep(description = "Verify Default should be selected under inspection template")
+    public void verifyDefaultTemplateSelection() {
+        corpPage.defaultTemplateSelection();
+    }
+
     @QAFTestStep(description = "Verify user navigates to Add Company page on clicking the Add Company link in navigation bar")
     public void verifyNavigationToAddCompanyPage () {
         corpPage.goToAddCompany();
@@ -349,6 +390,10 @@ public class CorporateSteps {
         corpPage.goToAddCorporate();
     }
 
+    @QAFTestStep(description="Navigate to add corporate from list screen")
+    public void goToAddCorporateScreen(){
+        corpPage.goToAddCorporate();
+    }
 
     @QAFTestStep(description="Verify add corporate button from corporate details screen for site view permission")
     public void verifyAddCorpViewPermission(){

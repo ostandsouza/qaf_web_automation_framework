@@ -28,7 +28,7 @@
     "ultrasonics": "/ultrasonics"
   },
   "profile_controller": {
-    "profile": "/profiles"
+    "profile": "/users"
   },
   "market_controller": {
     "market": "/markets"

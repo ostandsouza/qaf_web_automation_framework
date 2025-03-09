@@ -9,6 +9,7 @@ import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.testng.Assert;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -39,7 +40,7 @@ public class PDFHelper {
             pdDocument = PDDocument.load(bf);
         }
         catch(Exception e){
-            e.printStackTrace();
+            Assert.fail("PDF was not found");
         }
         return pdDocument;
     }

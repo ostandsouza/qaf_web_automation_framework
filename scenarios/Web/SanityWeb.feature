@@ -122,14 +122,14 @@ Scenario: Verify the conveyor Edit
 @key:Inspection_Management
 Scenario: Verify Inspection management
 
-     When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
-     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
-     And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}' and save
-     Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
-     When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
-     And   Edit inspection Item status for '${ConveyorName}' to '${EditStatus}'
-     And   Delete inspection Item for '${ConveyorName1}'
-     Then  Verify And validate the changes for '${EditInspectionName}' with '${ActionItemCount}'
+    When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
+    And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
+    Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
+    When  Edit inspection Event from '${InspectionName}' to '${EditInspectionName}'
+    And   Edit inspection Item status for '${ConveyorName}' '${AssetName}' to '${EditStatus}'
+    And   Delete inspection Item for '${ConveyorName1}'
+    Then  Verify And validate the changes for '${EditInspectionName}' with '${ActionItemCount}'
 
 @Sanity11
 @dataFile:resources/data/TestData.xls
@@ -305,7 +305,7 @@ Scenario: Verify the Delete functionality across the application
 
 @Sanity21
 @dataFile:resources/data/FabricSpliceSanity.json
-Scenario: Verify the add fabric splice screen
+Scenario: Verify Add fabric splice screen
 
     Then User is at Add Fabric splice Screen
     And Add a design with '${DesignerName}' '${Market}' '${SpliceKit}' '${CustomerName}' '${ConveyorName}' '${ApproverName}' '${BeltConstruction}'
@@ -334,7 +334,7 @@ Scenario: Verify the add fabric splice screen
 
 @Sanity22
 @dataFile:resources/data/SteelCord.json
-Scenario: Verify the Steel Cord Calculation functionality across the application
+Scenario: Verify Add Steel Cord Calculation functionality across the application
 
     And Navigate to the Steel Cord Splice Generator list page
     And Navigate to the Steel Cord Splice Generator add page
@@ -369,7 +369,7 @@ Scenario: Verify the Steel Cord Calculation functionality across the application
 @dataFile:resources/data/TestData.xls
 @sheetName:Sanity
 @key:Heavy_Equipment
-Scenario: Verify the Heavy Equipment Calculation functionality across the application
+Scenario: Verify Add Heavy Equipment Calculation functionality across the application
 
     And Navigate to the Heavy Equipment list page
     And Navigate to the Heavy Equipment add page
@@ -391,7 +391,7 @@ Scenario: Verify the Heavy Equipment Calculation functionality across the applic
 
 @Sanity24
 @dataFile:resources/data/BeltFormTextileSanity.json
-Scenario: Verify the Belt-Info Textile functionality
+Scenario: Verify Add Belt-Info Textile functionality
 
     And Navigate to the Belt Info Steel list page
     And Navigate to the Belt Info Textile sheet
@@ -402,7 +402,7 @@ Scenario: Verify the Belt-Info Textile functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Sanity
 @key:FreeTools
-Scenario: Verify free tools functionality
+Scenario: Verify Calculations in free tools
 
      And   Navigate to free tools capacity and verify the fields
      Then  Verify all the calculated data for conveyor capacity for entered data '${BeltWidth}' '${Density}' '${SurchrgeAngle}' '${BeltSpeed}' '${Tonnage}' '${TroughAngle}' '${ConveyorLoad}'

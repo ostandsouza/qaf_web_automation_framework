@@ -3,6 +3,7 @@
     "UserName": "contiplus_admin@maildrop.cc",
     "Password": "Abc@123456",
     "CalculationName": "Contiplus Test A - Legacy - Metric",
+    "NewCalculationName": "Contiplus Test A - Edit - Legacy - Metric",
     "Site": "Cust Automation Common India",
     "ConveyorName": "C1 Common Regression",
     "Description": "Automation Test",

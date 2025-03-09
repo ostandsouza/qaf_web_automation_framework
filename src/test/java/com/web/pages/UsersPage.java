@@ -890,9 +890,9 @@ public class UsersPage extends BasePage{
 		waitForElementToDisplay(editBtn);
 		waitForElementToBeClickable(editBtn);
 //		SyncUtil.waitFor(25000);
-		SyncUtil.waitFor(5000);
+		SyncUtil.waitFor(8000);
 		waitForElementToBeClickable(editBtn);
-		editBtn.click();
+		editBtn.jsClick();
 	}
 
 	public void clickOnNextBtn() {

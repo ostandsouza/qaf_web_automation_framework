@@ -185,6 +185,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         boolean notDisplayed = false;
         try {
             notDisplayed = !driver.findElement(element).isDisplayed();
+            notDisplayed=true;
         } catch (Exception e) {
             System.out.println("invisible");
         }

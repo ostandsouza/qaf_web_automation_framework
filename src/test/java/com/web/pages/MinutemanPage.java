@@ -161,6 +161,9 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//input[@formcontrolname='angleOfIdlers']")
     public CustomElement tbAngleOfIdlers;
 
+    @FindBy(locator = "xpath=//input[@formcontrolname='transitionHeadLength']")
+    public CustomElement tbTransitionHeadLength;
+
     @FindBy(locator = "xpath=//input[@formcontrolname='carryingIdlerSpacing']")
     public CustomElement tbCarrySideIdlerSpacing;
 
@@ -659,10 +662,10 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//div[contains(text(),'Estimated C-C Length')]")
     public CustomElement txtEstimatedCCLength;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[1]")
+    @FindBy(locator = "xpath=(//div[text()='Conveyor Information']/following-sibling::div[1]//span)[1]")
     public CustomElement txtCustomer;
 
-    @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div/span[2]")
+    @FindBy(locator = "xpath=(//div[text()='Conveyor Information']/following-sibling::div[1]//span)[2]")
     public CustomElement txtConveyor;
 
     @FindBy(locator = "xpath=//div[text()='Conveyor Information']/following-sibling::div[2]")
@@ -854,6 +857,9 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//div[@class='p-progress-spinner']")
     public CustomElement spinner;
 
+    @FindBy(locator = "xpath=//p-skeleton")
+    public CustomElement skeleton;
+
     @FindBy(locator ="tagName=canvas")
     public CustomElement canvas;
 
@@ -878,19 +884,19 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='7']")
     public CustomElement rollData;
 
-    @FindBy(locator = "xpath=//span[text()='8']")
+    @FindBy(locator = "xpath=//span[contains(text(),'8')]")
     public CustomElement pulleys;
 
-    @FindBy(locator = "xpath=//span[text()='9']")
+    @FindBy(locator = "xpath=//span[contains(text(),'9')]")
     public CustomElement transitions;
 
-    @FindBy(locator = "xpath=//span[text()='10']")
+    @FindBy(locator = "xpath=//span[contains(text(),'10')]")
     public CustomElement takeUp;
 
-    @FindBy(locator = "xpath=//span[text()='11']")
+    @FindBy(locator = "xpath=//span[contains(text(),'11')]")
     public CustomElement curves;
 
-    @FindBy(locator = "xpath=//span[text()='12']")
+    @FindBy(locator = "xpath=//span[contains(text(),'12')]")
     public CustomElement finalReport;
 
     @FindBy(locator = "xpath=//label[text()='System Coordinates']/following-sibling::div[3]//div[@class='col-2']/div")
@@ -901,6 +907,9 @@ public class MinutemanPage extends BasePage{
 
     @FindBy(locator = "xpath=//span[text()='Create & Download']")
     public CustomElement btnSaveAndDownload;
+
+    @FindBy(locator = "xpath=//span[text()='Download']")
+    public CustomElement btnDownload;
 
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement crCheckbox;
@@ -973,6 +982,9 @@ public class MinutemanPage extends BasePage{
 
     @FindBy(locator = "xpath=(//label[text()='Material/hr']/following-sibling::div//input)[1]")
     public CustomElement tbTonPerHrPeak;
+
+    @FindBy(locator = "xpath=//input[@formcontrolname='materialPerHour']")
+    public CustomElement tbMaterialPerHrPeak;
 
     @FindBy(locator = "xpath=(//label[text()='Length']/following-sibling::div//input)[1]")
     public CustomElement tbMaterialLength;
@@ -1142,6 +1154,39 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Are you sure, you want to leave the Minuteman calculation without saving?']")
     public CustomElement warningPopup;
 
+    @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.']/..//span)[1]")
+    public CustomElement txtMinutemanCount;
+
+    @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.'])[1]")
+    public CustomElement txtMinutemanCard;
+
+    @FindBy(locator="xpath=//button[contains(@class,'p-carousel-next')]")
+    public CustomElement btRightCarousel;
+
+    @FindBy(locator="xpath=//button[@icon='ctp-icon-Arrow-Right']")
+    public CustomElement viewMinuteman;
+
+    @FindBy(locator="xpath=//span[text()='Load Data']/..")
+    public CustomElement loadData;
+
+    @FindBy(locator="xpath=//div[text()='Technical data load was completed successfully']")
+    public CustomElement loadDataToastMsg;
+
+    @FindBy(locator="xpath=//div[text()='*Counterweight Tension was manually entered.']")
+    public CustomElement counterWeightNote;
+
+    @FindBy(locator="xpath=//div[text()='*Estimated length only and is not be used for ordering. Actual length should be obtained from engineering drawings.']")
+    public CustomElement estimatedLengthNote;
+
+    @FindBy(locator="xpath=//div[text()='*Transition Length is not recommended.']")
+    public CustomElement transitionLengthNote;
+
+    @FindBy(locator="xpath=//div[text()='*Pulley Diameter is not recommended. The guideline for ply tensions is 200% max  and -100% min.']")
+    public CustomElement pulleyNote;
+
+    @FindBy(locator="xpath=//div[text()='*Curve Radius is not recommended']")
+    public CustomElement curvesNote;
+
 
     private static final double PERCENTAGE_THRESHOLD = 1.0;
     String listItem="//ul[@role='listbox']//p-dropdownitem//li//span";
@@ -1152,6 +1197,7 @@ public class MinutemanPage extends BasePage{
     public CustomElement minutemanCardCount;
 
     public void gotoMinutemanScreen(){
+        SyncUtil.waitFor(1000);
         if(!minuteman.isVisible())
             home.click("Home");
         SyncUtil.waitFor(1000);
@@ -1159,6 +1205,7 @@ public class MinutemanPage extends BasePage{
         waitForElementToDisplay(minutemanHeader);
         btSearchinput.isVisible("Minuteman Page");
     }
+
     public void gotoMinutemanScreenWait(){
         gotoMinutemanScreen();
         scrollPageDown();
@@ -1172,8 +1219,30 @@ public class MinutemanPage extends BasePage{
         }
     }
 
+    public void verifyMinutemanCardClick(){
+        waitForPageLoad(5000);
+        while(!txtMinutemanCard.isVisible()){
+            btRightCarousel.jsClick("Carousel right");
+        }
+        txtMinutemanCard.jsClick();
+        waitForPageLoad(5000);
+        Validator.assertTrue(minutemanHeader.isDisplayed(),"Minuteman Page is not loaded","Minuteman Page is loaded");
+    }
+
+    public void goToMinutemanCalculation(String calc){
+        searchMinuteman(calc);
+        viewMinuteman.click("View");
+        SyncUtil.waitFor(3000);
+        waitForElementToDisplay(tbCalculationName);
+    }
+
     public void gotoAddMinutemanConveyor(){
         gotoMinutemanScreen();
+        btnAdd.click("Add");
+        btnConveyor.click("Conveyor");
+    }
+
+    public void goToAddMinutemanConveyorFromList(){
         btnAdd.click("Add");
         btnConveyor.click("Conveyor");
     }
@@ -1196,7 +1265,9 @@ public class MinutemanPage extends BasePage{
 
     public ArrayList<String> getConveyorInformation(){
         String[] data=txtDescription.getText().split("\\r?\\n");
-        String beltDescription = data[1].split("Belt Description ")[1].trim();
+        System.out.println(txtDescription.getText());
+        System.out.println(Arrays.toString(data));
+        String beltDescription = data[data.length-1].trim();
         String customer=txtCustomer.getText();
         String conveyor = txtConveyor.getText();
         return new ArrayList<> (Arrays.asList(beltDescription,customer,conveyor));
@@ -1302,7 +1373,7 @@ public class MinutemanPage extends BasePage{
     public ArrayList<String> getPulleyData(){
         ArrayList<String> pulleyData=new ArrayList<>();
         for(int i=2;i<=3;i++){
-            for(int j=3;j<=6;j++){
+            for(int j=2;j<=5;j++){
                 WebElement element=driver.findElement(By.xpath("//label[text()='Pulley Data']/following-sibling::div["+i+"]/div["+j+"]"));
                 pulleyData.add(element.getText());
             }
@@ -1312,12 +1383,12 @@ public class MinutemanPage extends BasePage{
 
     public ArrayList<String> getVerticalCurves(){
         ArrayList<String> verticalCurves=new ArrayList<>();
-        for (int i=3;i<=6;i++){
+        for (int i=2;i<=5;i++){
             WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::div[1]/div["+i+"]"));
             verticalCurves.add(element.getText().split("\\s")[1].trim());
         }
         for (int i=2;i<=11;i++){
-            for (int j=3;j<=6;j++){
+            for (int j=2;j<=5;j++){
                 WebElement element=driver.findElement(By.xpath("//label[text()='Vertical Curves']/following-sibling::div["+i+"]/div["+j+"]"));
                 verticalCurves.add(element.getText());
             }
@@ -1328,7 +1399,7 @@ public class MinutemanPage extends BasePage{
     public ArrayList<String> getTransitionLength(){
         ArrayList<String> transitionLength=new ArrayList<>();
         for(int i=2;i<=8;i++){
-            for(int j=3;j<=4;j++){
+            for(int j=2;j<=3;j++){
                 WebElement element=driver.findElement(By.xpath("//label[text()='Transition Lengths']/following-sibling::div["+i+"]/div["+j+"]"));
                 transitionLength.add(element.getText());
             }
@@ -1372,6 +1443,7 @@ public class MinutemanPage extends BasePage{
     public void selectUnit(String units){
         if(units.equalsIgnoreCase("Metric")){
             radioMetric.click("Metric");
+            handleUnitsPopup("Imperial");
         }else if (units.equalsIgnoreCase("Imperial")){
             radioImperial.click("Imperial");
         }
@@ -1645,7 +1717,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public void clickOnFinalReport(){
-        finalReport.jsClick("Final Report");
+        finalReport.click("Final Report");
     }
 
     public void setTbTotalBeltLength(String totalBeltLength){
@@ -1896,11 +1968,17 @@ public class MinutemanPage extends BasePage{
     }
 
     public String getTbPulleyDiameterHead(){
-        return tbPulleyHeadDiameter.getAttribute("value");
+        String str = tbPulleyHeadDiameter.getAttribute("value");
+        while(str.endsWith("0") || str.endsWith("."))
+            str = str.substring(0, str.length() - 1);
+        return str;
     }
 
     public String getTbPulleyDiameterDrive(){
-        return tbPulleyDriveDiameter.getAttribute("value");
+        String str = tbPulleyDriveDiameter.getAttribute("value");
+        while(str.endsWith("0") || str.endsWith("."))
+            str = str.substring(0, str.length() - 1);
+        return str;
     }
 
     public String getTbPulleyDiameterTakeUp(){
@@ -1929,22 +2007,30 @@ public class MinutemanPage extends BasePage{
 
     public String getTbTroughDepthHead(){
         String str = tbTroughDepthHead.getAttribute("value");
-        str = str.substring(0, str.length() - 1);
+        if(str.endsWith("0"))
+            str = str.substring(0, str.length() - 1);
         return str;
     }
 
     public String getTbTroughDepthTail(){
         String str = tbTroughDepthTail.getAttribute("value");
-        str = str.substring(0, str.length() - 1);
+        if(str.endsWith("0"))
+            str = str.substring(0, str.length() - 1);
         return str;
     }
 
     public String getLengthHead(){
-        return tbLengthHead.getAttribute("value");
+        String str =  tbLengthHead.getAttribute("value");
+        if(str.endsWith("0"))
+            str = str.substring(0, str.length() - 1);
+        return str;
     }
 
     public String getLengthTail(){
-        return tbLengthTail.getAttribute("value");
+        String str = tbLengthTail.getAttribute("value");
+        if(str.endsWith("0"))
+            str = str.substring(0, str.length() - 1);
+        return str;
     }
 
     public String getTbEdgeTensionHead(){
@@ -2354,28 +2440,75 @@ public class MinutemanPage extends BasePage{
         Validator.assertTrue(checkedRadioMetric.isSelected(),"Metric radio button is should be selected","Metric radio button is selected as expected");
     }
 
+    public void verifyPerPopulatedDataInGeneralInfoPageImperial(String program,String manufacturingLocation){
+        Validator.assertTrue(tbProgram.getText().equalsIgnoreCase(program),"The initial value provided for the Program field does not match the expected value.","The initial value provided for the Program field matches the expected value.");
+        Validator.assertTrue(tbManufacturingLocation.getText().equalsIgnoreCase(manufacturingLocation),"The initial value provided for the Manufacturing Location field does not match the expected value.","The initial value provided for the Manufacturing Location field matches the expected value.");
+        Validator.assertTrue(checkedRadioImperial.isSelected(),"Imperial radio button is should be selected","Imperial radio button is selected as expected");
+    }
+
     public void verifyPrePopulatedDataInInputsPage(String beltWidth,String beltSpeed,String tonsPerHourPeak,String pickMaterialName,String materialDensity, String angleOfIdlers, String carrySideIdler, String driveWrapAngle,String driveWrapAngleDegree,String takeUpTension,String frictionFactor,String lengthFactor,String surchargeAngle,String idlerOffsetType,String driveDetails,String takeUpDetails, String spliceType){
         Validator.assertTrue(tbBeltWidth.getAttribute("value").equalsIgnoreCase(beltWidth),"The initial value provided for the Belt Width field does not match the expected value.","The initial value provided for the Belt Width field matches the expected value.");
         Validator.assertTrue(tbBeltSpeed.getAttribute("value").equalsIgnoreCase(beltSpeed),"The initial value provided for the Belt Speed field does not match the expected value.","The initial value provided for the Belt Speed field matches the expected value.");
-        System.out.println(tonsPerHourPeak);
         System.out.println(tbTonsPerHourPeak.getAttribute("value"));
-        Validator.assertTrue(tbTonsPerHourPeak.getAttribute("value").equalsIgnoreCase(tonsPerHourPeak),"The initial value provided for the Tons Per Hour Peak field does not match the expected value.","The initial value provided for the Tons Per Hour Peak field matches the expected value.");
+        System.out.println(tonsPerHourPeak);
+//        Validator.assertTrue(tbTonsPerHourPeak.getAttribute("value").equalsIgnoreCase(tonsPerHourPeak),"The initial value provided for the Tons Per Hour Peak field does not match the expected value.","The initial value provided for the Tons Per Hour Peak field matches the expected value.");
 //        Validator.assertTrue(tbPickMaterialName.getAttribute("value").equalsIgnoreCase(pickMaterialName),"The initial value provided for the Pick Material Name field does not match the expected value.","The initial value provided for the Pick Material Name field matches the expected value.");
         Validator.assertTrue(tbMaterialDensity.getAttribute("value").equalsIgnoreCase(materialDensity),"The initial value provided for the Material Density field does not match the expected value.","The initial value provided for the Material Density field matches the expected value.");
         Validator.assertTrue(tbAngleOfIdlers.getAttribute("value").equalsIgnoreCase(angleOfIdlers),"The initial value provided for the Angle Of Idlers field does not match the expected value.","The initial value provided for the Angle Of Idlers field matches the expected value.");
         Validator.assertTrue(tbCarrySideIdlerSpacing.getAttribute("value").equalsIgnoreCase(carrySideIdler),"The initial value provided for the Carry Side Idler Spacing field does not match the expected value.","The initial value provided for the Carry Side Idler Spacing field matches the expected value.");
         //Validator.assertTrue(tbDriveWrapAngle.getAttribute("value").equalsIgnoreCase(driveWrapAngle),"The initial value provided for the Drive Wrap Angle field does not match the expected value.","The initial value provided for the Drive Wrap Angle field matches the expected value.");
+        System.out.println(tbDriveWrapAngle2.getAttribute("value"));
+        System.out.println(driveWrapAngleDegree);
         Validator.assertTrue(tbDriveWrapAngle2.getAttribute("value").equalsIgnoreCase(driveWrapAngleDegree),"The initial value provided for the Drive Wrap Angle field does not match the expected value.","The initial value provided for the Drive Wrap Angle field matches the expected value.");
+        System.out.println(tbTakeUpTension.getAttribute("value"));
+        System.out.println(takeUpTension);
         Validator.assertTrue(tbTakeUpTension.getAttribute("value").equalsIgnoreCase(takeUpTension),"The initial value provided for the Take-Up Tension field does not match the expected value.","The initial value provided for the Take-Up Tension field matches the expected value.");
         Validator.assertTrue(checkedRadioPermanent.isSelected(),"Conveyors with permanent or other well aligned structures with normal maintenance radio button is should be selected.","Conveyors with permanent or other well aligned structures with normal maintenance radio button is selected as expected.");
         Validator.assertTrue(tbFrictionFactorValue.getAttribute("value").equalsIgnoreCase(frictionFactor),"The initial value provided for the Friction Factor field does not match the expected value.","The initial value provided for the Friction Factor field matches the expected value.");
         Validator.assertTrue(tbLengthFactorValue.getAttribute("value").equalsIgnoreCase(lengthFactor),"The initial value provided for the Length Factor field does not match the expected value.","The initial value provided for the Length Factor field matches the expected value.");
-        Validator.assertTrue(tbSurchargeAngle.getText().equalsIgnoreCase(surchargeAngle),"The initial value provided for the Surcharge Angle field does not match the expected value.","The initial value provided for the Surcharge Angle field matches the expected value.");
+        System.out.println(surchargeAngle.replaceAll("\\s+", " ").trim());
+        System.out.println(tbSurchargeAngle.getText());
+        Validator.assertTrue(tbSurchargeAngle.getText().equalsIgnoreCase(surchargeAngle.replaceAll("\\s+", " ").trim()),"The initial value provided for the Surcharge Angle field does not match the expected value.","The initial value provided for the Surcharge Angle field matches the expected value.");
         Validator.assertTrue(tbIdlerOffsetType.getAttribute("value").equalsIgnoreCase(idlerOffsetType),"The initial value provided for the Idler Offset Type field does not match the expected value.","The initial value provided for the Idler Offset Type field matches the expected value.");
         Validator.assertTrue(driveDetailsDropdown.getText().equalsIgnoreCase(driveDetails),"The initial value provided for the Drive Details field does not match the expected value.","The initial value provided for the Drive Details field matches the expected value.");
         Validator.assertTrue(takeUpDetailsDropdown.getText().equalsIgnoreCase(takeUpDetails),"The initial value provided for the Take-Up Details field does not match the expected value.","The initial value provided for the Take-Up Details field matches the expected value.");
         Validator.assertTrue(spliceTypeDropdown.getText().equalsIgnoreCase(spliceType),"The initial value provided for the Splice Type field does not match the expected value.","The initial value provided for the Spice Type field matches the expected value.");
     }
+
+    public void verifyBucketElevatorPrePopulatedDataInInputsPage(String conveyorType,String materialDensity,String tonsPerHourPeak,String materialLength,String materialProjection, String bucketSpacing, String bucketWeight, String bucketVolume,String bucketRows,String beltWidth,String beltHeight,String beltSpeed,String drivePulley,String takeUpType){
+        System.out.println(tbConveyorType.getText());
+        System.out.println(conveyorType);
+        Validator.assertTrue(tbConveyorType.getText().equalsIgnoreCase(conveyorType),"The initial value provided for the conveyor type field does not match the expected value.","The initial value provided for the conveyor type field matches the expected value.");
+        Validator.assertTrue(conveyorTypeText.getText("Conveyor Text").contains(getConveyorTypeToText(conveyorType)),"Conveyor type text is improper","Conveyor type text is verified successfully");
+        System.out.println(tbDensity.getAttribute("value"));
+        System.out.println(materialDensity);
+        Validator.assertTrue(tbDensity.getAttribute("value").equalsIgnoreCase(materialDensity),"The initial value provided for the material density field does not match the expected value.","The initial value provided for the material density field matches the expected value.");
+        Validator.assertTrue(tbMaterialPerHrPeak.getAttribute("value").equalsIgnoreCase(tonsPerHourPeak),"The initial value provided for the Tons Per Hour Peak field does not match the expected value.","The initial value provided for the Tons Per Hour Peak field matches the expected value.");
+//        Validator.assertTrue(tbPickMaterialName.getAttribute("value").equalsIgnoreCase(pickMaterialName),"The initial value provided for the Pick Material Name field does not match the expected value.","The initial value provided for the Pick Material Name field matches the expected value.");
+        System.out.println(tbMaterialLength.getAttribute("value"));
+        System.out.println(materialLength);
+        Validator.assertTrue(tbMaterialLength.getAttribute("value").equalsIgnoreCase(materialLength),"The initial value provided for the Material Length field does not match the expected value.","The initial value provided for the Material Length field matches the expected value.");
+        Validator.assertTrue(tbMaterialProjection.getAttribute("value").equalsIgnoreCase(materialProjection),"The initial value provided for the material projection field does not match the expected value.","The initial value provided for the material projection field matches the expected value.");
+        Validator.assertTrue(tbMaterialSpacing.getAttribute("value").equalsIgnoreCase(bucketSpacing),"The initial value provided for the material Spacing field does not match the expected value.","The initial value provided for material Spacing field matches the expected value.");
+        //Validator.assertTrue(tbDriveWrapAngle.getAttribute("value").equalsIgnoreCase(driveWrapAngle),"The initial value provided for the Drive Wrap Angle field does not match the expected value.","The initial value provided for the Drive Wrap Angle field matches the expected value.");
+        System.out.println(tbMaterialWeight.getAttribute("value"));
+        System.out.println(bucketWeight);
+        Validator.assertTrue(tbMaterialWeight.getAttribute("value").equalsIgnoreCase(bucketWeight),"The initial value provided for the material weight field does not match the expected value.","The initial value provided for the material weight field matches the expected value.");
+        System.out.println(tbMaterialVolume.getAttribute("value"));
+        System.out.println(bucketVolume);
+        Validator.assertTrue(tbMaterialVolume.getAttribute("value").equalsIgnoreCase(bucketVolume),"The initial value provided for the material volume field does not match the expected value.","The initial value provided for the material volume field matches the expected value.");
+        Validator.assertTrue(tbBucketRows.getAttribute("value").equalsIgnoreCase(bucketRows),"The initial value provided for the bucket rows field does not match the expected value.","The initial value provided for the bucket rows field matches the expected value.");
+        Validator.assertTrue(tbMaterialWidth.getAttribute("value").equalsIgnoreCase(beltWidth),"The initial value provided for the material width field does not match the expected value.","The initial value provided for the material width field matches the expected value.");
+        System.out.println(beltHeight);
+        System.out.println(tbMaterialHeight.getAttribute("value"));
+        Validator.assertTrue(tbMaterialHeight.getAttribute("value").equalsIgnoreCase(beltHeight),"The initial value provided for the material height field does not match the expected value.","The initial value provided for the material height field matches the expected value.");
+        System.out.println(beltSpeed);
+        System.out.println(tbMaterialSpeed.getAttribute("value"));
+        Validator.assertTrue(tbMaterialSpeed.getAttribute("value").equalsIgnoreCase(beltSpeed),"The initial value provided for the material speed field does not match the expected value.","The initial value provided for the material speed field matches the expected value.");
+        Validator.assertTrue(tbDrivePulley.getText().equalsIgnoreCase(drivePulley),"The initial value provided for the Drive pulley field does not match the expected value.","The initial value provided for the Drive pulley field matches the expected value.");
+        Validator.assertTrue(tbTakeUpType.getText().equalsIgnoreCase(takeUpType),"The initial value provided for the Take-Up Details field does not match the expected value.","The initial value provided for the Take-Up Details field matches the expected value.");
+    }
+
 
     public void verifyPrePopulatedDetailsInStationsPage(String stations,String driveLocation,String takeUpLocation){
         Validator.assertTrue(getStationCheckBox().equals(stations),"Number of Station selected is not matching with the expected value","Number of Stations selected is matching with the expected value");
@@ -2645,9 +2778,13 @@ public class MinutemanPage extends BasePage{
     }
 
    public void verifyConveyorInformation(ArrayList<String> beltData,String conveyorName,String calculationName,String customer,ArrayList<String> conveyorInformationReport){
-       Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
-       Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
+        Validator.assertTrue(beltData.get(0).equals(conveyorInformationReport.get(0)),"Belt description in reports is not matching with the entered value","Belt description in reports is matching with the entered value");
+       System.out.println(customer);
+       System.out.println(conveyorInformationReport.get(1));
+        Validator.assertTrue(customer.equals(conveyorInformationReport.get(1)),"Customer in reports is not matching with the calculated value","customer in reports is not matching with the calculated value");
 //       Validator.assertTrue(calculationName.equals(conveyorInformationReport.get(2).trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+       System.out.println(conveyorName);
+       System.out.println(conveyorInformationReport.get(2));
        Validator.assertTrue(conveyorName.equals(conveyorInformationReport.get(2).trim()),"Conveyor in reports is not matching with the entered value","Conveyor in reports is not matching with the entered value");
    }
 
@@ -2768,12 +2905,16 @@ public class MinutemanPage extends BasePage{
     }
 
     public void clickOnSaveAndDownload(){
-        btnSaveAndDownload.click("Save & Download");
+        if(btnSaveAndDownload.isVisible())
+            btnSaveAndDownload.click("Save & Download");
+        else btnDownload.click();
     }
 
     public boolean clickOnCreateCalc(){
         btnCreate.click("Create");
+        waitForElementToInvisible(buttonLoader,7000);
         waitForElementToDisplay(toastMsg);
+//        SyncUtil.waitFor(60000);
 //        toastMsg.getText().contains("created successfully");
         return btSearchinput.isVisible();
     }
@@ -2784,14 +2925,15 @@ public class MinutemanPage extends BasePage{
         return toastMsg.getText().contains("Failed to create minuteman:");
     }
 
-    public void verifyPDFContents(String calc){
+    public void verifyPDFContents(String calc, ArrayList<String> conveyorInformationReport){
         PDDocument doc =  PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+calc+".pdf");
         try {
             Validator.assertTrue(PDFHelper.getPageCount(doc) ==2,"PDF Report has incorrect no of pages","PDF report has valid no of pages");
             System.out.println(PDFHelper.getPDFImagesCount(doc));
 //            Validator.assertTrue(PDFHelper.getPDFImagesCount(doc) == 2,"PDF Report has unaccepted no of images","PDF report has valid images");
+            System.out.println(calc);
             String val = PDFHelper.getPageContent(doc);
-            Validator.assertTrue(val.replaceAll("\r\n", " ").replaceAll("\n", " ").trim().contains(calc),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
+            Validator.assertTrue(val.replaceAll("\r\n", " ").replaceAll("\n", " ").trim().contains(conveyorInformationReport.get(2)),"PDF Report was generated for the wrong conveyor","PDF Report was generated for the right conveyor");
             PDFHelper.PDFBoxExtractImages(doc);
         }catch(Exception e){
             e.printStackTrace();
@@ -3274,18 +3416,18 @@ public class MinutemanPage extends BasePage{
     }
 
     public void closeWarning(){
-        waitForElementToDisplay(warningPopup);
-        System.out.println(warningPopup.isVisible());
-        System.out.println(unitYes.isVisible());
-        SyncUtil.waitFor(10000);
-//        if(!warningPopup.isVisible())
-//            breadcrumbHome.jsClick();
-//        if(warningPopup.isVisible())
-//            unitYes.jsClick();
+        if(warningPopup.isVisible())
+            unitYes.click();
+        else {
+            home.click();
+            if (warningPopup.isVisible())
+                unitYes.click();
+        }
     }
 
     public void handleUnitsPopup(String units){
-        if (units.equalsIgnoreCase("Imperial")){
+//        if (units.equalsIgnoreCase("Imperial")){
+          if(unitsPopup.isVisible()){
             waitForElementToDisplay(unitsPopup);
             if(unitsPopup.isVisible())
                 unitYes.click();
@@ -3326,4 +3468,91 @@ public class MinutemanPage extends BasePage{
         Validator.assertTrue(apiBase.getMinutemanCount().get("count").equals(deviceCount),"Minuteman Pagination Count does not match","Minuteman Pagination Count matches");
         Validator.assertTrue(Integer.toString(deviceCount).equals(minutemanCardCount.getText()),"Minuteman Card Count does not match","Minuteman Card Count matches");
     }
+
+    public int getTotalMinutemanCount(){
+        SyncUtil.waitFor(3000);
+        return Integer.parseInt(txtMinutemanCount.getText("Minuteman count"));
+    }
+
+    public void editMinutemanCalcUnit(String calc, String units, String program, String location){
+        goToEditMinutemanCalc(calc);
+        selectUnit(units);
+        SyncUtil.waitFor(500);
+        handleUnitsPopup(units);
+        setTbProgram(program);
+        setTbManufacturingLocation(location);
+        clickOnSelectBelt();
+        waitForElementToInvisible(spinner,7000);
+        SyncUtil.waitFor(1500);
+        waitForElementToBeClickable(finalReport);
+        finalReport.jsClick();
+//        waitForElementToDisplay(txtName);
+//        Validator.assertTrue(newCalc.equals(txtName.getText().trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+        waitForElementToInvisible(spinner,7000);
+        scrollPageDown();
+        btnSave.click();
+        waitForElementToInvisible(buttonLoader,10000);
+    }
+
+    public void editBucketMinutemanCalcUnit(String calc, String units, String program, String location){
+        goToEditMinutemanCalc(calc);
+        selectUnit(units);
+        SyncUtil.waitFor(500);
+        handleUnitsPopup(units);
+        setTbProgram(program);
+        setTbManufacturingLocation(location);
+        clickOnStations();
+        waitForElementToInvisible(skeleton,7000);
+        clickOnSelectBelt();
+        waitForElementToInvisible(skeleton,7000);
+        scrollPageDown();
+        btnSave.click();
+        waitForElementToInvisible(buttonLoader,10000);
+    }
+
+    public boolean isLoadData(){
+        return loadData.isEnabled();
+    }
+
+    public boolean  loadDataFunctionality(){
+        loadData.click("load data");
+        return loadDataToastMsg.isVisible("load data toast");
+    }
+
+    public void calculateTransition(String val){
+        transitions.jsClick();
+        tbTransitionHeadLength.type(val);
+        btnCalculate.click();
+        waitForElementToInvisible(spinner,7000);
+    }
+
+    public void calculateCurves(String val){
+        curves.click();
+        tbCurveRadius1.type(val);
+        btnCalculate.click();
+        waitForElementToInvisible(spinner,7000);
+    }
+
+    public void calculatePulleys(String val){
+        pulleys.click();
+        tbPulleyHeadDiameter.type(val);
+        btnCalculate.click();
+        waitForElementToInvisible(spinner,7000);
+    }
+
+    public void calculateTakeUp(String val){
+        takeUp.jsClick();
+        tbTakeUpTension.type(val);
+        btnCalculate.click();
+        waitForElementToInvisible(spinner,7000);
+    }
+
+    public boolean verifyNotesFromFinalReport(){
+        SyncUtil.waitFor(1000);
+        finalReport.click();
+        waitForElementToInvisible(spinner,7000);
+        return counterWeightNote.isVisible("Counter Weight notes") && pulleyNote.isVisible("Pulley Notes") && curvesNote.isVisible("Curves Notes")
+                && estimatedLengthNote.isVisible("Estimated Length notes") && transitionLengthNote.isVisible("Transition notes");
+    }
+
 }

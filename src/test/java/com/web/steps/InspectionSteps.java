@@ -1,16 +1,20 @@
 package com.web.steps;
 
+import com.common.component.Condition;
+import com.common.component.InspectionItemSequencing;
+import com.common.component.Item;
 import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
+import io.cucumber.java.bs.I;
+import org.testng.Assert;
 
-import org.json.simple.JSONObject;
-
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
@@ -24,15 +28,16 @@ public class InspectionSteps {
 	CorporatePage corporatePage=new CorporatePage();
 	ConveyorPage conveyorPage=new ConveyorPage();
 	CoverWearPage coverWearPage = new CoverWearPage();
+	InspectionItemSequencing sortingInspectionItem = new InspectionItemSequencing();
 
 	@QAFTestStep(description="Select Inspection on the Navigation Pane")
 	public void selectInspectionOnTheNavigationPane(){
 		inspectionpage.goToInspection();
 	}
-	
+
 	@QAFTestStep(description="Verify list page")
 	public void verifyListPage(){
-	   inspectionpage.verifyListPage();
+		inspectionpage.verifyListPage();
 	}
 
 	@QAFTestStep(description="Add inspection Event for conveyor {ConveyorName} with {InspectionName} {CustSiteName} {FullName}")
@@ -41,61 +46,97 @@ public class InspectionSteps {
 //		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
 //		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
 //		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+		sortingInspectionItem.clearItems();
 		inspectionpage.goToInspection();
-		inspectionpage.addInspection(inspectionName,custSiteName,fullName);
+		inspectionpage.	addInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName,custSiteName,fullName);
 	}
 
 	@QAFTestStep(description="Add inspection Event for conveyor {ConveyorName} with {InspectionName}")
 	public void createAddInspection(String conveyorName, String inspectionName){
+
 //		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
 //		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
 //		inspectionId = inspectionpage.apiBase.getInspectionAPI(conveyorName);
 //		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
+		sortingInspectionItem.clearItems();
 		inspectionpage.addInspection(inspectionName);
 	}
-	
-	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
-	public void createAddInspectionItemMandatoryFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
+
+	@QAFTestStep(description="Fill inspection Item mandatory parameter for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void fillMandatoryParameterItemDefault(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
 		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
-		inspectionpage.saveInspectionItem();
 	}
 
-	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {FailureMode1} {Condition1} {Status} {lat} {long} {observation} {recommendation} {address} {img}")
-	public void createAddInspectionItemOptionalFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status, String lat, String longitude, String observation, String recommendation, String address, String img){
+	@QAFTestStep(description="Fill inspection Item optional parameter for conveyor {ConveyorName} for {InspectionName} with {observation} {recommendation} {address} {img}")
+	public void fillMandatoryOptionalItemDefault(String conveyorName, String inspectionName, String observation, String recommendation, String address, String img){
+		inspectionpage.addItemOptionalField(observation,recommendation,address,img);
+	}
+
+	@QAFTestStep(description="Fill inspection Item mandatory parameter for VMC conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void fillMandatoryParameterItemVMC(String conveyorName, String inspectionName,String assetName, String assetDetail, String condition, String status, String observation){
+		inspectionpage.addItemMandatoryFieldVMC(conveyorName,assetName, assetDetail, condition, status, observation);
+	}
+
+	@QAFTestStep(description="Fill inspection Item optional parameter for VMC conveyor {ConveyorName} for {InspectionName} with {recommendation} {address} {img}")
+	public void fillMandatoryOptionalItemVMC(String conveyorName, String inspectionName,String recommendation, String address, String img){
+		inspectionpage.addItemOptionalFieldVMC(recommendation,address,img);
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
+	public void createAddInspectionItemMandatoryFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status){
+		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
 		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
-		inspectionpage.addItemOptionalField(lat,longitude,observation,recommendation,address,img);
-		inspectionpage.saveInspectionItem();
+		inspectionpage.createInspectionItem();
+	}
+
+	@QAFTestStep(description="Add inspection Item for VMC conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {Condition} {Status} {observation}")
+	public void createAddInspectionItemMandatoryFieldVMC(String conveyorName, String inspectionName,String assetName, String assetDetail, String condition, String status, String observation){
+		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
+		inspectionpage.addItemMandatoryFieldVMC(conveyorName,assetName, assetDetail, condition, status, observation);
+		inspectionpage.createInspectionItem();
+	}
+
+	@QAFTestStep(description="Add inspection Item for VMC conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {Condition1} {Status} {observation} {recommendation} {address} {img}")
+	public void createAddInspectionItemOptionalFieldsVMC(String conveyorName, String inspectionName,String assetName, String assetDetail, String condition, String status, String observation, String recommendation, String address, String img){
+		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
+		inspectionpage.addItemMandatoryFieldVMC(conveyorName,assetName, assetDetail, condition, status, observation);
+		inspectionpage.addItemOptionalFieldVMC(recommendation,address,img);
+		inspectionpage.createInspectionItem();
+	}
+
+	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {FailureMode1} {Condition1} {Status} {observation} {recommendation} {address} {img}")
+	public void createAddInspectionItemOptionalFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status, String observation, String recommendation, String address, String img){
+		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
+		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
+		inspectionpage.addItemOptionalField(observation,recommendation,address,img);
+		inspectionpage.createInspectionItem();
 	}
 
 	@QAFTestStep(description="Verify And validate the changes for {InspectionName} with {ItemCount}")
 	public void verifyInspectionItem(String inspectionName, String itemCount){
-		System.out.println("here");
-		SyncUtil.waitFor(200000);
-		inspectionpage.verifyInspection(inspectionName,itemCount);
+		inspectionpage.verifyInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName,itemCount);
+		SyncUtil.waitFor(1000);
+		sortingInspectionItem.addItems(inspectionpage.getRowData());
 	}
-	
+
 	@QAFTestStep(description="Download inspection {InspectionName} from inspection list with {CustSiteName} {ConveyorName}")
 	public void downloadPDF(String inspectionName, String custSIteName, String conveyorName) {
-		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
-		inspectionpage.searchInspection(inspectionName);
+//		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
+		inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
 		inspectionpage.downloadPDF();
-		SyncUtil.waitFor(5000);
-		System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd")+"-"+custSIteName+"-Multiple-"+conveyorName+".pdf");
-		System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+conveyorName+".pdf");
-		Validator.assertTrue(MiscUtils.checkDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+inspectionName+".pdf"),"PDF report was not found","PDF report was downloaded successfully");
+		Validator.assertTrue(MiscUtils.checkDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName+".pdf"),"PDF report was not found","PDF report was downloaded successfully");
 	}
 
 	@QAFTestStep(description="Verify data displayed in report for {FullName} {CustSiteName} {ConveyorName} {InspectionName}")
 	public void verifyDownloadPDF(String fullName, String custSIteName, String conveyorName, String inspectionName) {
-		String inspectionId = inspectionpage.apiBase.getInspectionAPI(inspectionName);
-		inspectionpage.verifyPDFContents(fullName, custSIteName, conveyorName,inspectionName,inspectionId);
+		inspectionpage.verifyPDFContents(fullName, custSIteName, conveyorName,LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
 		MiscUtils.deleteDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+"-"+custSIteName+"-Multiple-"+inspectionName+".pdf");
 	}
 
 	@QAFTestStep(description="Delete inspection {InspectionName} from inspection list")
 	public void InspectionDelete(String inspectionName) {
-		inspectionpage.searchInspection(inspectionName);
-	    inspectionpage.inspectionDelete();
+		inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+		inspectionpage.inspectionDelete();
 	}
 
 	@QAFTestStep(description="Verify inspection {InspectionName} is deleted from inspection list")
@@ -105,18 +146,18 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Edit inspection Event from {InspectionName} to {EditInspectionName}")
 	public void editInspectionName(String inspectionName, String editInspectionName){
-		inspectionpage.editInspectionName(inspectionName,editInspectionName);
+		inspectionpage.editInspectionName(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName,LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+editInspectionName);
 	}
 
-	@QAFTestStep(description="Edit inspection Item status for {ConveyorName} to {EditStatus}")
-	public void editInspectionItem(String inspectionName, String editStatus){
-		inspectionpage.editInspectionItem(inspectionName,editStatus);
+	@QAFTestStep(description="Edit inspection Item status for {ConveyorName} {Asset} to {EditStatus}")
+	public void editInspectionItem(String conveyorName, String assetName, String editStatus){
+		sortingInspectionItem.updateItem(conveyorName, assetName, null, editStatus.equalsIgnoreCase("Completed"));
+		inspectionpage.editInspectionItem(assetName,editStatus);
 	}
 
 	@QAFTestStep(description="Delete inspection Item for {ConveyorName1}")
 	public void deleteInspectionItem(String inspectionName){
 		inspectionpage.deleteInspectionItem(inspectionName);
-		inspectionpage.saveInspectionEvent();
 	}
 
 	@QAFTestStep(description="Verify navigation to inspection tile")
@@ -142,6 +183,13 @@ public class InspectionSteps {
 	@QAFTestStep(description="Verify if is able to switch from group view to list view")
 	public void verifySwitchView(){
 		inspectionpage.verifySwitchView();
+		SyncUtil.waitFor(2000);
+	}
+
+	@QAFTestStep(description="Verify if is able to switch from list view to group view")
+	public void verifyGroupSwitchView(){
+		inspectionpage.verifyGroupSwitchView();
+		SyncUtil.waitFor(2000);
 	}
 
 	@QAFTestStep(description="Verify the columns under list view")
@@ -149,9 +197,17 @@ public class InspectionSteps {
 		inspectionpage.verifyListViewColumns();
 	}
 
+	@QAFTestStep(description="Navigate to add inspection screen")
+	public void verifyAddInspectionNav(){
+		inspectionpage.goToInspection();
+		inspectionpage.verifyAddInspectionFromList();
+		sortingInspectionItem.clearItems();
+	}
+
 	@QAFTestStep(description="Navigate to Add Inspection screen from list screen")
 	public void verifyToAddInspectionNav(){
 		inspectionpage.verifyAddInspectionFromList();
+		sortingInspectionItem.clearItems();
 	}
 
 	@QAFTestStep(description="Verify placeholder for inspection name")
@@ -164,9 +220,20 @@ public class InspectionSteps {
 		inspectionpage.verifyDefaultInspectionDate();
 	}
 
-	@QAFTestStep(description="Verify Site {0} selection from dropdown")
-	public void verifySiteSelectionFromDropdown(String siteName){
-		inspectionpage.verifySiteSelection(siteName);
+	@QAFTestStep(description="Verify Site {0} selection from dropdown for default template")
+	public void verifySiteSelectionFromDropdownDefault(String siteName){
+		Validator.assertTrue(inspectionpage.verifySiteSelectionForDefault(siteName),"One or more flag cards for default template are missing", "Flag cards verified successfully");
+	}
+
+	@QAFTestStep(description="Verify Site {0} selection from dropdown for VMC template")
+	public void verifySiteSelectionFromDropdownVMC(String siteName){
+		Validator.assertTrue(inspectionpage.verifySiteSelectionForVMC(siteName),"One or more flag cards for VMC template are missing", "Flag cards verified successfully");
+	}
+
+
+	@QAFTestStep(description="Verify the inspection name functionality for site {0}")
+	public void verifyInspectionName(String siteName){
+		inspectionpage.verifyInspectionName(siteName);
 	}
 
 	@QAFTestStep(description="Verify default Site selection {0}")
@@ -255,7 +322,7 @@ public class InspectionSteps {
 	@QAFTestStep(description="Edit inspection Item status for {ConveyorName} to {EditStatus} from list view")
 	public void editInspectionItemFromList(String conveyorName, String editStatus){
 		inspectionpage.editInspectionItemList(conveyorName);
-		inspectionpage.editInspectionIemStatus(editStatus);
+		inspectionpage.editInspectionItemStatus(editStatus);
 	}
 
 	@QAFTestStep(description="Verify the status changes {EditStatus} for {EditInspectionName}")
@@ -283,12 +350,12 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Verify inspection item {ConveyorName} is deleted from inspection list")
 	public void verifyInspectionItemDelete(String inspectionName){
-		inspectionpage.verifyDeleteInspectionItem(inspectionName);
+		inspectionpage.verifyDeleteItem(inspectionName);
 	}
 
 	@QAFTestStep(description="Enter inspection name as {InspectionName}")
 	public void enterInspectionName(String inspectionName){
-		inspectionpage.enterInspectionName(inspectionName);
+		inspectionpage.enterInspectionName(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
 	}
 
 	@QAFTestStep(description="Navigate to inspection list screen and wait for data load")
@@ -343,6 +410,7 @@ public class InspectionSteps {
 	public void addInspectionEventForConveyor(String conveyorName, String inspectionName, String custSiteName, String fullName){
 		inspectionpage.goToInspection();
 		inspectionpage.addInspection(inspectionName,custSiteName,fullName);
+		SyncUtil.waitFor(2000);
 	}
 
 	@QAFTestStep(description="Add duplicate inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {FailureMode} {Condition} {Status}")
@@ -358,8 +426,14 @@ public class InspectionSteps {
 		inspectionpage.viewAndVerifyCorporatePage();
 	}
 
+
 	@QAFTestStep(description = "Click on inspections and verify user is able to open inspections")
 	public void verifyTheInspectionCardClick() {
+		inspectionpage.verifyInspectionCardClick();
+	}
+
+	@QAFTestStep(description = "Navigate to inspection list from inspection card at home level")
+	public void verifyInspectionCardNav() {
 		inspectionpage.verifyInspectionCardClick();
 	}
 
@@ -607,10 +681,10 @@ public class InspectionSteps {
 		Validator.assertTrue(inspectionpage.getConveyorHeaderFromItem().equalsIgnoreCase(conveyorName),"Inspector item header verification failed","Inspector item header verified successfully");
 	}
 
-	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and verify the coordinates")
-	public void verifyLatLongFromItem(String conveyorName){
-		inspectionpage.verifyLonLatFromItem();
-	}
+//	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and verify the coordinates")
+//	public void verifyLatLongFromItem(String conveyorName){
+//		inspectionpage.verifyLonLatFromItem();
+//	}
 
 	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} and verify the map header for conveyor with location")
 	public void verifyMapHeaderWithLocationFromItem(String conveyorName){
@@ -644,33 +718,154 @@ public class InspectionSteps {
 		int good = (int) response.get("good");
 		System.out.println(good);
 		getBundle().setProperty("good",good);
-		int poor = (int) response.get("poor");
-		System.out.println(poor);
-		getBundle().setProperty("poor",poor);
 		int fault = (int) response.get("fault");
 		System.out.println(fault);
 		getBundle().setProperty("fault",fault);
+		int poor = (int) response.get("poor");
+		System.out.println(poor);
+		getBundle().setProperty("poor",poor);
 		int critical = (int) response.get("critical");
 		System.out.println(critical);
 		getBundle().setProperty("critical",critical);
-		inspectionpage.verifyInspectionCounts(totalInspections, toBeCompleted, good, poor, fault, critical);
+		inspectionpage.verifyInspectionCounts(totalInspections, toBeCompleted, good, fault, poor, critical);
+	}
+
+
+	@QAFTestStep(description="Extract the inspection card count")
+	public void verifyInspectionCardCount(){
+		int totalInspections = inspectionpage.getTotalInspectionCount();
+		System.out.println(totalInspections);
+		getBundle().setProperty("totalInspections",totalInspections);
+		int toBeCompleted = inspectionpage.getToBeCompletedInspectionCount();
+		System.out.println(toBeCompleted);
+		getBundle().setProperty("toBeCompleted",toBeCompleted);
+		int good = inspectionpage.getInspectionGoodCount();
+		System.out.println(good);
+		getBundle().setProperty("good",good);
+		int fault = inspectionpage.getInspectionFaultCount();
+		System.out.println(fault);
+		getBundle().setProperty("fault",fault);
+		int poor = inspectionpage.getInspectionPoorCount();
+		System.out.println(poor);
+		getBundle().setProperty("poor",poor);
+		int critical = inspectionpage.getInspectionCriticalCount();
+		System.out.println(critical);
+		getBundle().setProperty("critical",critical);
+	}
+
+	@QAFTestStep(description="Extract the inspection dashboard count for VMC")
+	public void verifyInspectionDashboardCountVMC(){
+		int totalInspections = inspectionpage.getDashboardTotalCount();
+		System.out.println(totalInspections);
+		getBundle().setProperty("totalInspections",totalInspections);
+		int good = inspectionpage.getDashboardGoodCount();
+		System.out.println(good);
+		getBundle().setProperty("good",good);
+		int fault = inspectionpage.getDashboardFaultCount();
+		System.out.println(fault);
+		getBundle().setProperty("fault",fault);
+		int critical = inspectionpage.getDashboardCriticalCount();
+		System.out.println(critical);
+		getBundle().setProperty("critical",critical);
+	}
+
+	@QAFTestStep(description="Extract the inspection dashboard count")
+	public void verifyInspectionDashboardCount(){
+		int totalInspections = inspectionpage.getDashboardTotalCount();
+		System.out.println(totalInspections);
+		getBundle().setProperty("totalInspections",totalInspections);
+		int good = inspectionpage.getDashboardGoodCount();
+		System.out.println(good);
+		getBundle().setProperty("good",good);
+		int fault = inspectionpage.getDashboardFaultCount();
+		System.out.println(fault);
+		getBundle().setProperty("fault",fault);
+		int poor = inspectionpage.getDashboardPoorCount();
+		System.out.println(poor);
+		getBundle().setProperty("poor",poor);
+		int critical = inspectionpage.getDashboardCriticalCount();
+		System.out.println(critical);
+		getBundle().setProperty("critical",critical);
+	}
+
+	@QAFTestStep(description="Verify the incremental tile count changes for {ChangeTotal},{ChangeTobeComplated},{ChangeGood},{ChangeFault},{ChangeCritical}")
+	public void verifyInspectionCountChangeVMC(String changeTotal, String changeTobeComplated, String changeGood, String changeFault, String changeCritical){
+		String totalInspections = String.valueOf((int) getBundle().getProperty("totalInspections") + Integer.parseInt(changeTotal));
+		String toBeCompleted = String.valueOf((int) getBundle().getProperty("toBeCompleted") + Integer.parseInt(changeTobeComplated));
+		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
+		String fault = String.valueOf((int) getBundle().getProperty("fault") + Integer.parseInt(changeFault));
+		String critical = String.valueOf((int) getBundle().getProperty("critical") + Integer.parseInt(changeCritical));
+		System.out.println(changeTotal);
+		System.out.println(changeTobeComplated);
+		System.out.println(changeGood);
+		System.out.println(changeFault);
+		System.out.println(changeCritical);
+		getBundle().setProperty("totalInspections",Integer.parseInt(totalInspections));
+		getBundle().setProperty("toBeCompleted",Integer.parseInt(toBeCompleted));
+		getBundle().setProperty("good",Integer.parseInt(good));
+		getBundle().setProperty("fault",Integer.parseInt(fault));
+		getBundle().setProperty("critical",Integer.parseInt(critical));
+		inspectionpage.verifyInspectionCountChangeVMC(totalInspections, toBeCompleted, good, fault, critical);
 	}
 
 	@QAFTestStep(description="Verify the incremental tile count changes for {ChangeTotal},{ChangeTobeComplated},{ChangeGood},{ChangePoor},{ChangeFault},{ChangeCritical}")
-	public void verifyInspectionCountChange(String changeTotal, String changeTobeComplated, String changeGood, String changePoor, String changeFault, String changeCritical){
+	public void verifyInspectionCountChangeDefault(String changeTotal, String changeTobeComplated, String changeGood, String changePoor, String changeFault, String changeCritical){
 		String totalInspections = String.valueOf((int) getBundle().getProperty("totalInspections") + Integer.parseInt(changeTotal));
 		String toBeCompleted = String.valueOf((int) getBundle().getProperty("toBeCompleted") + Integer.parseInt(changeTobeComplated));
 		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
 		String poor = String.valueOf((int) getBundle().getProperty("poor") + Integer.parseInt(changePoor));
 		String fault = String.valueOf((int) getBundle().getProperty("fault") + Integer.parseInt(changeFault));
 		String critical = String.valueOf((int) getBundle().getProperty("critical") + Integer.parseInt(changeCritical));
-		getBundle().setProperty("totalInspections",totalInspections);
-		getBundle().setProperty("toBeCompleted",toBeCompleted);
-		getBundle().setProperty("good",good);
-		getBundle().setProperty("poor",poor);
-		getBundle().setProperty("fault",fault);
-		getBundle().setProperty("critical",critical);
+		System.out.println(changeTotal);
+		System.out.println(changeTobeComplated);
+		System.out.println(changeGood);
+		System.out.println(changeFault);
+		System.out.println(changePoor);
+		System.out.println(changeCritical);
+		getBundle().setProperty("totalInspections",Integer.parseInt(totalInspections));
+		getBundle().setProperty("toBeCompleted",Integer.parseInt(toBeCompleted));
+		getBundle().setProperty("good",Integer.parseInt(good));
+		getBundle().setProperty("poor",Integer.parseInt(poor));
+		getBundle().setProperty("fault",Integer.parseInt(fault));
+		getBundle().setProperty("critical",Integer.parseInt(critical));
 		inspectionpage.verifyInspectionCountChange(totalInspections, toBeCompleted, good, poor, fault, critical);
+	}
+
+	@QAFTestStep(description="Verify the dashboard tile count changes for {ChangeTotal},{ChangeGood},{ChangePoor},{ChangeFault},{ChangeCritical}")
+	public void verifyDashboardCountChangeDefault(String changeTotal, String changeGood, String changePoor, String changeFault, String changeCritical){
+		String totalInspections = String.valueOf((int) getBundle().getProperty("totalInspections") + Integer.parseInt(changeTotal));
+		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
+		String poor = String.valueOf((int) getBundle().getProperty("poor") + Integer.parseInt(changePoor));
+		String fault = String.valueOf((int) getBundle().getProperty("fault") + Integer.parseInt(changeFault));
+		String critical = String.valueOf((int) getBundle().getProperty("critical") + Integer.parseInt(changeCritical));
+		System.out.println(changeTotal);
+		System.out.println(changeGood);
+		System.out.println(changeFault);
+		System.out.println(changePoor);
+		System.out.println(changeCritical);
+		getBundle().setProperty("totalInspections",Integer.parseInt(totalInspections));
+		getBundle().setProperty("good",Integer.parseInt(good));
+		getBundle().setProperty("poor",Integer.parseInt(poor));
+		getBundle().setProperty("fault",Integer.parseInt(fault));
+		getBundle().setProperty("critical",Integer.parseInt(critical));
+		inspectionpage.verifyDashboardCountChange(totalInspections, good, poor, fault, critical);
+	}
+
+	@QAFTestStep(description="Verify the dashboard tile count changes for {ChangeTotal},{ChangeGood},{ChangeFault},{ChangeCritical}")
+	public void verifyDashboardCountChangeVMC(String changeTotal, String changeGood, String changeFault, String changeCritical){
+		String totalInspections = String.valueOf((int) getBundle().getProperty("totalInspections") + Integer.parseInt(changeTotal));
+		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
+		String fault = String.valueOf((int) getBundle().getProperty("fault") + Integer.parseInt(changeFault));
+		String critical = String.valueOf((int) getBundle().getProperty("critical") + Integer.parseInt(changeCritical));
+		System.out.println(changeTotal);
+		System.out.println(changeGood);
+		System.out.println(changeFault);
+		System.out.println(changeCritical);
+		getBundle().setProperty("totalInspections",Integer.parseInt(totalInspections));
+		getBundle().setProperty("good",Integer.parseInt(good));
+		getBundle().setProperty("fault",Integer.parseInt(fault));
+		getBundle().setProperty("critical",Integer.parseInt(critical));
+		inspectionpage.verifyDashboardCountChangeVMC(totalInspections, good, fault, critical);
 	}
 
 	@QAFTestStep(description="Verify the inspection count with list count")
@@ -715,27 +910,683 @@ public class InspectionSteps {
 	@QAFTestStep(description="Verify whether the inspection event {InspectionName} is deleted from list view")
 	public void inspectionEvent(String inspectionName) {
 		inspectionpage.browserRefresh();
-		Validator.assertFalse(inspectionpage.searchInspection(inspectionName),"Inspection event is present in inspection event list","Inspection event is deleted from inspection list");
+		Validator.assertFalse(inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName),"Inspection event is present in inspection event list","Inspection event is deleted from inspection list");
+	}
+
+	@QAFTestStep(description="Verify whether the inspection event {InspectionName} is present in list view")
+	public void isInspectionEvent(String inspectionName) {
+		Validator.assertTrue(inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName),"Inspection event is not present in inspection event list","Inspection event is present in inspection list");
 	}
 
 	@QAFTestStep(description = "Search and verify the {Value} is present")
 	public void searchTheResult(String value) {
 		inspectionpage.searchResult(value);
 	}
+
 	@QAFTestStep(description = "Click on Clear filter Icon")
 	public void clickTheClickFilter() {
-		inspectionpage.clickClickFilter();
-	}
-	@QAFTestStep(description = "Navigate to inspection list screen and wait to load data")
-	public void verifyInspectionListNavAndWait() {
-		inspectionpage.goToInspectionScreenAndWait();
-	}
-	@QAFTestStep(description = "Verify the inspection count with respect to pagination")
-	public void validateTheInspectionCountWrtPagination()
-	{
-		inspectionpage.validateInspectionCountWrtPagination();
+		inspectionpage.clickClearFilter();
 	}
 
+	@QAFTestStep(description = "Verify column filter with {ColumnName} and {ColumnNumber}")
+	public void clickTheColumnFilter(String columnName, String columnNumber) {
+		inspectionpage.verifyColumnFunctionality(columnName, columnNumber);
+	}
+
+
+	@QAFTestStep(description = "Verify the last modified date for newly created inspection {InspectionName}")
+	public void clickLastModifiedDate(String InspName) {
+		inspectionpage.verifyLastModifiedDate(InspName);
+	}
+
+	@QAFTestStep(description = "Verify the condition column filter {Condition} {ColumnNum}")
+	public void verifyConditionFilter(String condition, String columnNum) {
+		inspectionpage.verifyConditionFilter(condition,columnNum);
+	}
+
+	@QAFTestStep(description = "Verify the status column filter {Status}")
+	public void verifyStatusFilter(String status) {
+		inspectionpage.verifyStatusFilter(status);
+	}
+
+	@QAFTestStep(description = "Verify name filter functionality with {InspectionName} and {ColumnNumber}")
+	public void verifyNameColumnFilter(String inspName, String columnNumber) {
+		inspectionpage.verifyNameFilterFunctionality(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspName, columnNumber);
+		inspectionpage.verifyPaginationCount(1);
+	}
+
+	@QAFTestStep(description = "Verify date filter functionality with {InspectionDate} and {ColumnNumber}")
+	public void verifyDateColumnFilter(String inspDate, String columnNumber) {
+		inspectionpage.verifyInspectionDateFilterFunctionality(inspDate, columnNumber);
+	}
+
+	@QAFTestStep(description = "Verify corporate filter functionality with {Corporate} and {ColumnNumber}")
+	public void verifyCorpColumnFilter(String corp, String columnNumber) {
+		inspectionpage.verifyInspectionCorporateFilterFunctionality(corp, columnNumber);
+	}
+
+	@QAFTestStep(description = "Verify site filter functionality with {Site} and {ColumnNumber}")
+	public void verifySiteColumnFilter(String site, String columnNumber) {
+		inspectionpage.verifyInspectionSiteFilterFunctionality(site, columnNumber);
+	}
+
+	@QAFTestStep(description = "Verify conveyor filter functionality with {Conveyor} and {ColumnNumber}")
+	public void verifyConveyorColumnFilter(String conveyor, String columnNumber) {
+		inspectionpage.verifyInspectionConveyorFilterFunctionality(conveyor, columnNumber);
+	}
+
+	@QAFTestStep(description = "Verify inspector filter functionality with {Inspector} and {ColumnNumber}")
+	public void verifyInspectorColumnFilter(String inspector, String columnNumber) {
+		inspectionpage.verifyInspectionInspectorFilterFunctionality(inspector, columnNumber);
+	}
+
+	@QAFTestStep(description = "Verify last modified filter functionality with {LastModified} and {ColumnNumber}")
+	public void verifyLastModifiedColumnFilter(String lastModified, String columnNumber) {
+		inspectionpage.verifyInspectionLastModifiedFilterFunctionality(lastModified, columnNumber);
+	}
+
+	@QAFTestStep(description="Verify the inspection creation with success message")
+	public void verifyInspectionEventCreation(){
+		sortingInspectionItem.clearItems();
+		inspectionpage.verifyInspectionEventCreation();
+	}
+
+	@QAFTestStep(description="Verify the inspection items columns")
+	public void verifyInspectionItemsColumn(){
+		Validator.assertTrue(inspectionpage.verifyInspectionItemsColumns(), "Inspection item column for default template is failing", "Inspection item column for default template verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the inspection items columns for VMC")
+	public void verifyInspectionItemsColumnVMC(){
+		Validator.assertTrue(inspectionpage.verifyInspectionItemsColumnsVMC(), "Inspection item column for VMC template is failing", "Inspection item column for default VMC verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the add inspection item navigation")
+	public void verifyAddInspectionItem(){
+		Validator.assertTrue(inspectionpage.verifyAddInspectionItem(), "Inspection add item popup for default template is failing", "Inspection item add popup for default template verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the close add inspection item popup")
+	public void verifyCloseInspectionItem(){
+		Validator.assertTrue(inspectionpage.verifyCloseInspectionItem(), "Inspection add item close popup for default template is failing", "Inspection add item close add popup for default template verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the sorting order for inspection items")
+	public void verifySortingInspectionItem(){
+		inspectionpage.clickClearFilter();
+		List<Item> items = sortingInspectionItem.getSortedItems();
+		items.forEach(System.out::println);
+		inspectionpage.verifyItemSequencingDefault(items);
+	}
+
+	@QAFTestStep(description="Verify the sorting order for inspection items for VMC")
+	public void verifySortingInspectionItemVMC(){
+		inspectionpage.clickClearFilter();
+		sortingInspectionItem.switchComparator(true);
+		List<Item> items = sortingInspectionItem.getSortedItems();
+		items.forEach(System.out::println);
+		inspectionpage.verifyItemSequencingVMC(items);
+	}
+
+	@QAFTestStep(description="Verify the column condition functionality from list screen for column {ColumnNum} and site {CustSiteName}")
+	public void verifyColumnConditionItems(String columnNum, String siteName){
+		inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+siteName);
+		List<Item> items = sortingInspectionItem.getSortedItems();
+		inspectionpage.verifyConditionFilter(items,columnNum);
+		inspectionpage.clickClearFilter();
+	}
+
+	@QAFTestStep(description="Verify the column status functionality from list screen {Status1} for column {ColumnNum} and site {CustSiteName}")
+	public void verifyColumnStatusItems(String status1, String columnNum, String siteName){
+		inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+siteName);
+		inspectionpage.verifyStatusFilter(status1,sortingInspectionItem.getNotCompletedItems().stream().count());
+		inspectionpage.verifyPaginationCount(1);
+		inspectionpage.clickClearFilter();
+	}
+
+	@QAFTestStep(description="Verify the column conveyor functionality from list screen for column {ColumnNum} and site {CustSiteName} {Count}")
+	public void verifyColumnConveyorItems(String columnNum, String siteName, String count){
+		inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+siteName);
+		List<Item> items = sortingInspectionItem.getSortedItems();
+		inspectionpage.verifyConveyorColumn(String.valueOf(items.stream().map(x -> x.conveyorName()).distinct().count()),columnNum);
+		inspectionpage.clickClearFilter();
+	}
+
+	@QAFTestStep(description="Verify the edit button functionality in list view for inspection {CustName}")
+	public void verifyTheEditButtonFunctionalityInInspectionListForInspection(String CustName){
+		inspectionpage.editInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+CustName);
+	}
+
+	@QAFTestStep(description="Verify the edit button functionality in inspection view mode for inspection {CustName}")
+	public void verifyTheEditButtonFunctionalityInInspectionViewModeForInspection(String CustName){
+		inspectionpage.editInspectionFromViewMode(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+CustName);
+	}
+
+	@QAFTestStep(description="Verify the site dropdown is disabled on edit mode")
+	public void verifyTheSiteDropdownIsDisabledOnEditMode(){
+		inspectionpage.isSiteDisabledOnEdit();
+	}
+
+	@QAFTestStep(description="Edit Inspection event name to {0}")
+	public void editInspectionEventNameTo(String newInspectionName){
+		inspectionpage.editInspectionName(newInspectionName);
+		inspectionpage.saveInspectionEvent();
+	}
+
+	@QAFTestStep(description="Search inspection Item with conveyor {ConveyorName} {AssetName} {Condition}")
+	public void searchInspectionItem(String conveyorName, String assetName, String condition){
+		SyncUtil.waitFor(5000);
+		sortingInspectionItem.clearItems();
+		sortingInspectionItem.addItems(inspectionpage.getRowData());
+		inspectionpage.searchInspectionItem(conveyorName, assetName, condition);
+		SyncUtil.waitFor(5000);
+	}
+
+	@QAFTestStep(description="Search inspection Item from list view with conveyor {ConveyorName} {AssetName} {Condition}")
+	public void searchInspectionItemFromList(String conveyorName, String assetName, String condition){
+		sortingInspectionItem.clearItems();
+//		sortingInspectionItem.addItems(inspectionpage.getRowData());
+		inspectionpage.searchInspectionItem(conveyorName, assetName, condition);
+		SyncUtil.waitFor(1000);
+	}
+
+	@QAFTestStep(description="Verify the conveyor and asset field are disabled on edit mode")
+	public void verifyTheConveyorAndAssetFieldAreDisabledOnEditMode(){
+		inspectionpage.goToEditInspectionItem();
+	}
+
+	@QAFTestStep(description="Edit inspection Item condition for conveyor {ConveyorName} and {AssetName} to {Condition}")
+	public void editInspectionItemDefault(String conveyorName, String assetName, String newCondition){
+		sortingInspectionItem.updateItem(conveyorName, assetName, newCondition, null);
+		inspectionpage.editInspectionConditionItem(newCondition);
+		inspectionpage.saveInspectionItem();
+	}
+
+	@QAFTestStep(description="Navigate to Inspection detail page of the Inspection event {CustSiteName}")
+	public void navigateToInspectionEventDetailPage(String custSiteName){
+		inspectionpage.goToInspectionDetailScreen(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+custSiteName);
+	}
+
+	@QAFTestStep(description="Delete default inspection Item for {ConveyorName} and {assetName}")
+	public void verifyDeleteInspectionItem(String conveyorName, String assetName){
+		sortingInspectionItem.deleteItem(conveyorName,assetName);
+		inspectionpage.deleteBtnClick();
+		Validator.assertFalse(inspectionpage.isDeleteBtn(),"The delete button is still visible","The delete button is not visible");
+	}
+
+	@QAFTestStep(description = "Verify asset filter functionality with {Asset} and {ColumnNumber}")
+	public void verifyAssetColumnFilter(String asset, String columnNumber) {
+		inspectionpage.verifyInspectionAssetFilterFunctionality(asset, columnNumber);
+	}
+
+	@QAFTestStep(description = "Clear filter for inspection items")
+	public void clickClearFilter() {
+		inspectionpage.clickClearFilter();
+	}
+
+	@QAFTestStep(description = "Verify the clear filter functionality {header}")
+	public void verifyClearFilter(String header) {
+		Validator.assertTrue(inspectionpage.getColumnFunctionality(header).equalsIgnoreCase("none"),"Clear filter functionality is not working as expected","Clear filter functionality verified successfully");
+		inspectionpage.verifyResetPaginationCount(1);
+	}
+
+	@QAFTestStep(description = "Verify change column selection and disable {photo}")
+	public void verifyColumnSelection(String column) {
+		Validator.assertFalse(inspectionpage.columnSelection(column),"Column is visible even after column de-selection","Column selection verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the search functionality of the inspection item with {searchTxt}")
+	public void verifyTheSearchFunctionalityOfTheInspectionItemWith(String searchTxt){
+		Validator.assertTrue(inspectionpage.searchForInspectionItem(searchTxt),"Search inspection type is not working as expected","Search inspection item verified successfully");
+	}
+
+	@QAFTestStep(description="Select the inspection item with conveyor {ConveyorName1}")
+	public void selectingInspectionItems(String conveyorName){
+		inspectionpage.	selectingInspection(conveyorName);
+	}
+
+	@QAFTestStep(description="Select the inspection event {InspectionName1}")
+	public void selectingInspectionEvents(String inspectionName){
+		inspectionpage.selectingInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+	}
+
+	@QAFTestStep(description="Verify the action dropdown for multi event selection")
+	public void verifyInspectionActionBtnMulti(){
+		inspectionpage.verifyMultiEventActionBtn();
+	}
+
+	@QAFTestStep(description="Verify delete button for multi inspection events")
+	public void verifyDeleteInspectionMulti(){
+		inspectionpage.verifyDeleteBtnClick();
+	}
+
+	@QAFTestStep(description="Verify the action dropdown for single event selection")
+	public void verifyInspectionActionBtnSingle(){
+		inspectionpage.verifySingleEventActionBtn();
+	}
+
+	@QAFTestStep(description="Verify the export functionality of the multiple inspection item for inspection {InspectionName}")
+	public void exportPDFReportMultiRecords(String inspectionName){
+		inspectionpage.exportPDFForMultiRecordItems();
+	}
+
+	@QAFTestStep(description="Verify the export functionality of the single inspection item for inspection {InspectionName}")
+	public void exportPDFReportSingleRecords(String inspectionName){
+		inspectionpage.exportPDFForSingleRecordItems();
+	}
+
+	@QAFTestStep(description="Verify the pdf content of inspection report for inspection {InspectionName} with conveyor {ConveyorName1}")
+	public void verifyPDFItemReportContents(String inspectionName, String conveyorName){
+		inspectionpage.verifyPDFConveyor(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName, conveyorName);
+	}
+
+	@QAFTestStep(description="Delete inspection items record for inspection {InspectionName}")
+	public void deleteInspectionItems(String inspectionName){
+		inspectionpage.deleteInspectionItem();
+	}
+
+	@QAFTestStep(description="Verify the {InspectionName} is not visible in item list")
+	public void verifyInspectionEventPresent(String inspectionName){
+		inspectionpage.verifyDeleteInspectionItem(inspectionName);
+	}
+
+	@QAFTestStep(description="Verify the delete functionality of the inspection item for conveyor {ConveyorName1}")
+	public void verifyInspectionItems(String conveyor){
+		inspectionpage.verifyDeleteInspectionItem(conveyor);
+	}
+
+	@QAFTestStep(description="Verify the status when to be completed for {InspectionName} with {StatusCount}")
+	public void verifyToBeCompletedStatus(String inspectionName, String statusCount){
+		inspectionpage.verifyStatusForToBeCompleted(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName, statusCount);
+	}
+
+	@QAFTestStep(description="Verify the status when completed for {InspectionName}")
+	public void verifyCompletedStatus(String inspectionName){
+		inspectionpage.verifyStatusForCompleted(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+	}
+
+	@QAFTestStep(description="Verify the conditions flag column for inspection {InspectionName} with {FlagCount}")
+	public void verifyFlagColumn(String inspectionName, String flagCount){
+		inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+		System.out.println(sortingInspectionItem.getSortedItems());
+		inspectionpage.verifyFlagColumn(sortingInspectionItem.getSortedItems(),flagCount);
+	}
+
+	@QAFTestStep(description="Expand the inspection event to display inspection items for {InspectionName}")
+	public void verifyExpandFunctionality(String inspectionName){
+		inspectionpage.verifyInspectionExpand(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+	}
+
+	@QAFTestStep(description="Verify the column displayed for expanded list table")
+	public void verifyColumnsForExpandedListItem(){
+		inspectionpage.verifyExpandedListViewColumns();
+	}
+
+	@QAFTestStep(description="Verify the all inspection items are present in expanded view")
+	public void verifyAllExpandedListItem(){
+		inspectionpage.verifyAllInspectionItems(sortingInspectionItem.getSortedItems());
+	}
+
+	@QAFTestStep(description="Verify the all inspection items are present in expanded view for VMC")
+	public void verifyAllExpandedListItemVMC(){
+		sortingInspectionItem.switchComparator(true);
+		List<Item> items = sortingInspectionItem.getSortedItems();
+		items.forEach(System.out::println);
+		inspectionpage.verifyAllInspectionItemsVMC(items);
+	}
+
+	@QAFTestStep(description="Verify the location column for map popup in expanded view")
+	public void verifyLocationExpandedListItem(){
+		inspectionpage.verifyExpandedListMapLocation();
+	}
+
+	@QAFTestStep(description="Verify the inspection event pagination count")
+	public void verifyPaginationCount(){
+		Map<String, Object> response = inspectionpage.apiBase.getConveyorsInspectionCount();
+		String totalInspectionEvents = String.valueOf((int)response.get("totalInspections"));
+		System.out.println(totalInspectionEvents);
+		inspectionpage.inspectionEventsListCount(totalInspectionEvents);
+	}
+
+	@QAFTestStep(description="Verify inspection event navigation to next pagination screen")
+	public void verifyPaginationNavigation(){
+		inspectionpage.inspectionPaginationFunctionality();
+	}
+
+	@QAFTestStep(description="Verify inspection event the page limit functionality")
+	public void verifyPaginationLimit(){
+		inspectionpage.inspectionPaginationLimit();
+	}
+
+	@QAFTestStep(description="Verify the search functionality of the inspection event with {SearchTxt}")
+	public void searchInspectionEventAndClick(String searchTxt){
+		Validator.assertTrue(inspectionpage.searchForInspectionEvent(searchTxt),"Search filter is failing", "Search filter verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the search functionality of the dashboard event with {SearchTxt}")
+	public void searchDashboardEventAndClick(String searchTxt){
+		Validator.assertTrue(inspectionpage.searchForDashboardEvent(searchTxt),"Search filter is failing", "Search filter verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the total inspection event count with list")
+	public void verifyInspectionCardCountWithList(){
+		inspectionpage.verifyInspectionListWithCardCount((int) getBundle().getProperty("totalInspections"));
+	}
+
+	@QAFTestStep(description="Add filter functionality with status {TobeCompleted}")
+	public void AddFilterToBeCompleted(String status){
+		inspectionpage.addItemStatusFilter(status);
+	}
+
+	@QAFTestStep(description="Add filter functionality with condition {val}")
+	public void verifyFilterCondition(String condition){
+		inspectionpage.addItemConditionFilter(condition);
+	}
+
+	@QAFTestStep(description="Verify the condition column item filter with {0} {1}")
+	public void verifyTheConditionColumnItemFilterWith(String condition, String columnNumber){
+		inspectionpage.verifyItemConditionFilter(condition,columnNumber);
+	}
+
+	@QAFTestStep(description="Verify the filter functionality with status {TobeCompleted}")
+	public void verifyInspectionCountWithFilterToBeCompleted(String status){
+		inspectionpage.addItemStatusFilter(status);
+		System.out.println((int) getBundle().getProperty("toBeCompleted"));
+		SyncUtil.waitFor(1000);
+		inspectionpage.verifyInspectionListWithCardCount((int) getBundle().getProperty("toBeCompleted"));
+	}
+
+	@QAFTestStep(description="Verify the filter functionality with condition {val}")
+	public void verifyInspectionCountWithFilterCondition(String condition){
+		inspectionpage.addItemStatusFilter("to be completed");
+		inspectionpage.addItemConditionFilter(condition);
+		SyncUtil.waitFor(1000);
+		inspectionpage.verifyInspectionListWithCardCount((int) getBundle().getProperty(condition.toLowerCase()));
+	}
+
+	@QAFTestStep(description="Verify all the column for inspection item list")
+	public void verifyColumnsInspectionItems(){
+		Validator.assertTrue(inspectionpage.verifyColumnInspectionItems(),"All columns are not present in inspection item list", "All columns in inspection item list verified successfully");
+	}
+
+	@QAFTestStep(description="Enable all columns from column selection")
+	public void enableAllColumnSelection(){
+		inspectionpage.enableAllColumnSelection();
+	}
+
+	@QAFTestStep(description="Verify edit inspection item from list {ConveyorName} to {EditStatus}")
+	public void editInspectionItemFromItemList(String conveyorName, String newStatus){
+		inspectionpage.verifyEditInspectionItemListNav(conveyorName, newStatus);
+	}
+
+	@QAFTestStep(description="Verify deleted inspection item from list {ConveyorName} for {Asset}")
+	public void deleteInspectionItemFromItemList(String conveyorName, String asset){
+		sortingInspectionItem.deleteItem(conveyorName, asset);
+		inspectionpage.verifyDeleteInspectionItemListNav(asset);
+	}
+
+	@QAFTestStep(description="Add inspection event from api with file {FileName} for conveyor {CustSiteName} for {InspectionName}")
+	public void addInspectionEventAPI(String fileName, String custSiteName, String inspectionName){
+		inspectionpage.apiBase.deleteInspectionAPI(corpPage.apiBase.getInspectionAPI(inspectionName));
+		inspectionpage.refreshTable();
+		String companyId = inspectionpage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(custSiteName));
+		Validator.assertTrue(inspectionpage.apiBase.createInspectionAPI(fileName, companyId, inspectionName) == 201,"Inspection event creation via api failed", "Inspection via api created successfully");
+	}
+
+	@QAFTestStep(description="Refresh the item table contents")
+	public void refreshTable(){
+		inspectionpage.refreshTable();
+		SyncUtil.waitFor(2000);
+	}
+
+	@QAFTestStep(description="Verify data displayed in report header and footer for {FullName} {CustSiteName} {InspectionName}")
+	public void verifyPDFHeader(String fullName, String custSIteName, String inspectionName) {
+		inspectionpage.verifyPDFHeader(fullName, custSIteName, LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " " + inspectionName);
+	}
+
+	@QAFTestStep(description="Verify data displayed in inspection table for {Inspection}")
+	public void verifyPDFInspectionDetails(String inspectionName) {
+		List<Item> items = sortingInspectionItem.getSortedItems();
+		items.forEach(System.out::println);
+		String conveyor = items.get(0).conveyorName();
+		String asset = items.get(0).asset();
+		String detail = items.get(0).condition().toString();
+		String status = items.get(0).isCompleted() ? "Completed": "To Be Completed";
+		inspectionpage.verifyPDFInspection(conveyor,asset,detail,status,LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+		conveyor = items.get(1).conveyorName();
+		asset = items.get(1).asset();
+		detail = items.get(1).condition().toString();
+		status = items.get(1).isCompleted() ? "Completed": "To Be Completed";
+		inspectionpage.verifyPDFInspection(conveyor,asset,detail,status,LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+		MiscUtils.deleteDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName+".pdf");
+	}
+
+	@QAFTestStep(description="Verify data displayed in inspection table for {Inspection} for VMC")
+	public void verifyPDFInspectionDetailsVMC(String inspectionName) {
+		sortingInspectionItem.switchComparator(true);
+		List<Item> items = sortingInspectionItem.getSortedItems();
+		items.forEach(System.out::println);
+		String conveyor = items.get(0).conveyorName();
+		String asset = items.get(0).asset();
+		String detail = items.get(0).condition().toString();
+		String status = items.get(0).isCompleted() ? "Completed": "To Be Completed";
+		inspectionpage.verifyPDFInspection(conveyor,asset,detail,status,LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+		conveyor = items.get(1).conveyorName();
+		asset = items.get(1).asset();
+		detail = items.get(1).condition().toString();
+		status = items.get(1).isCompleted() ? "Completed": "To Be Completed";
+		inspectionpage.verifyPDFInspection(conveyor,asset,detail,status,LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+		MiscUtils.deleteDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName+".pdf");
+	}
+
+	@QAFTestStep(description="Verify the inspection pdf report for metric for {InspectionName}")
+	public void inspectionReportMetric(String inspectionName) {
+		inspectionpage.verifyMetricUnitPDF(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+		MiscUtils.deleteDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName+".pdf");
+	}
+
+	@QAFTestStep(description="Verify the inspection pdf report for imperial for {InspectionName}")
+	public void inspectionReportImperial(String inspectionName) {
+		inspectionpage.verifyImperialUnitPDF(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+		MiscUtils.deleteDownloadedFiles(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName+".pdf");
+	}
+
+	@QAFTestStep(description="Switch the unit conversion to {imperial}")
+	public void switchUnits(String units) {
+		inspectionpage.switchUnits(units);
+	}
+
+	@QAFTestStep(description="Verify the asset display sequence for VMC")
+	public void assetDisplaySequenceVMC() {
+		Validator.assertTrue(inspectionpage.assetDisplaySequenceVMC(),"Asset display sequence is not correct for VMC", "Asset display sequence for VMC verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the asset tail pulley detail sequence")
+	public void assetDetailTailPulleyVMC() {
+		Validator.assertTrue(inspectionpage.assetTailPulleyVMC(),"Asset details display sequence is not correct for asset tail pulley", "Asset details display sequence for tail pulley asset verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the asset belt detail sequence")
+	public void assetDetailBeltVMC() {
+		Validator.assertTrue(inspectionpage.assetBeltVMC(),"Asset details display sequence is not correct for asset belt", "Asset details display sequence for belt asset verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the asset other pulley detail sequence")
+	public void assetDetailOtherPulleyVMC() {
+		Validator.assertTrue(inspectionpage.assetOtherPulleyVMC(),"Asset details display sequence is not correct for asset other pulley", "Asset details display sequence for other pulley verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the asset belt alignment detail sequence")
+	public void assetDetailBeltAlignmentVMC() {
+		Validator.assertTrue(inspectionpage.assetBeltAlignmentVMC(),"Asset details display sequence is not correct for asset belt alignment", "Asset details display sequence for belt alignment verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the asset idlers detail sequence")
+	public void assetDetailIdlersVMC() {
+		Validator.assertTrue(inspectionpage.assetIdlersVMC(),"Asset details display sequence is not correct for asset idlers", "Asset details display sequence for idlers verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the asset driver pulley detail sequence")
+	public void assetDetailDriverPulleyVMC() {
+		Validator.assertTrue(inspectionpage.assetDrivePulleyVMC(),"Asset details display sequence is not correct for asset driver pulley", "Asset details display sequence for driver pulley verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the asset sequencing logic for default template")
+	public void assetDisplaySequenceDefault() {
+		Validator.assertTrue(inspectionpage.assetDefault(),"Asset display sequence is not correct for default template", "Asset display sequence for default template verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the details field for selected asset {ConveyorName} {Asset}")
+	public void assetDetailDisplaySequenceDefault(String conveyorName, String assetName) {
+		if(assetName.equalsIgnoreCase("Chutes/Load Area"))
+			Validator.assertTrue(inspectionpage.assetDetailsDefaultForChutes(conveyorName),"Asset details display sequence is not correct for for chute/load area", "Asset details display sequence for for chute/load area verified successfully");
+		else if(assetName.equalsIgnoreCase("Counterweight"))
+			Validator.assertTrue(inspectionpage.assetDetailsDefaultForCounterweight(conveyorName),"Asset details display sequence is not correct for counterweight", "Asset details display sequence for counterweight verified successfully");
+		else Validator.assertTrue(inspectionpage.assetDetailsDefaultForConveyorStructure(conveyorName),"Asset details display sequence is not correct for conveyor structure", "Asset details display sequence for conveyor structure verified successfully");
+
+	}
+
+	@QAFTestStep(description="Verify the failure mode for selected asset {ConveyorName} {Asset}")
+	public void assetFailureModeSequenceDefault(String conveyorName, String assetName) {
+		if(assetName.equalsIgnoreCase("Chutes/Load Area"))
+			Validator.assertTrue(inspectionpage.assetFailureModeDefaultForChutes(conveyorName),"Failure mode display sequence for chute/load area is not correct", "Failure mode sequence for for chute/load area verified successfully");
+		else if(assetName.equalsIgnoreCase("Counterweight"))
+			Validator.assertTrue(inspectionpage.assetFailureModeDefaultForCounterweight(conveyorName),"Failure mode display sequence is not correct for counterweight", "Failure mode display sequence for counterweight verified successfully");
+		else Validator.assertTrue(inspectionpage.assetFailureModeDefaultForConveyorStructure(conveyorName),"Failure mode display sequence is not correct for conveyor structure", "Failure mode display sequence for conveyor structure verified successfully");
+
+	}
+
+	@QAFTestStep(description="Verify condition for asset {Asset} with {Details} and conveyor {ConveyorName} for default")
+	public void verifyAssetDetailConditionDefault(String asset, String details, String conveyorName) {
+		List<String> condition = List.of(Condition.Critical.toString(), Condition.Poor.toString(), Condition.Fault.toString(), Condition.Good.toString());
+		Validator.assertTrue(inspectionpage.verifyDetailsWithConditionDefault(asset, details, conveyorName, condition),"Condition dropdown sequence is not correct for default template", "Condition dropdown display sequence for for default template verified successfully");
+	}
+
+	@QAFTestStep(description="Verify condition for asset {Asset} with {Details} and conveyor {ConveyorName} for VMC")
+	public void verifyAssetDetailConditionVMC(String asset, String details, String conveyorName) {
+		List<String> condition = List.of(Condition.Critical.toString(), Condition.Fault.toString(), Condition.Good.toString());
+		Validator.assertTrue(inspectionpage.verifyDetailsWithConditionVMC(asset, details, conveyorName, condition),"Condition dropdown sequence is not correct for VMC template", "Condition dropdown display sequence for for VMC template verified successfully");
+		if(asset.equalsIgnoreCase("Idlers"))
+			Validator.assertTrue(inspectionpage.verifyGeneralMsg(),"General message not found", "General message verified successfully");
+		else Validator.assertTrue(inspectionpage.verifyNoGeneralMsg(),"General message was found", "General message verified successfully");
+	}
+
+	@QAFTestStep(description="Verify condition for asset {Asset} with {Details} and conveyor {ConveyorName} for VMC belt")
+	public void verifyAssetDetailConditionVMCOff(String asset, String details, String conveyorName) {
+		List<String> condition = List.of(Condition.Fault.toString(), Condition.Good.toString());
+		Validator.assertTrue(inspectionpage.verifyDetailsWithConditionVMC(asset, details, conveyorName, condition),"Condition dropdown sequence is not correct for VMC template", "Condition dropdown display sequence for for VMC template verified successfully");
+		Validator.assertTrue(inspectionpage.verifyBeltAlignmentMsg(),"Belt alignment message not found", "Belt alignment message verified successfully");
+	}
+
+	@QAFTestStep(description="Verify for the condition {Critical} observation field is mandatory")
+	public void verifyObservationMandatory(String condition) {
+		Validator.assertTrue(inspectionpage.verifyObservationAsterisk(condition),"Observation asterisk was not found", "Observation as mandatory verified successfully");
+		Validator.assertTrue(inspectionpage.verifyObservationMandatory(),"After entering observation field create btn is still disabled", "After entering observation field create btn verified successfully");
+
+	}
+
+	@QAFTestStep(description="Verify for the condition {Good} observation field is optional")
+	public void verifyObservationOptional(String condition) {
+		Validator.assertTrue(inspectionpage.verifyObservationNonMandatory(condition),"Observation was mandatory", "Observation as optional verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the image zoom in capabilities")
+	public void verifyImageZoomIn() {
+		inspectionpage.imageZoomInFunctionality();
+	}
+
+	@QAFTestStep(description="Verify the image zoom out capabilities")
+	public void verifyImageZoomOut() {
+		inspectionpage.imageZoomOutFunctionality();
+	}
+
+	@QAFTestStep(description="Verify the site logo functionality in pdf report for {InspectionName}")
+	public void verifyPDFReportSiteLogo(String inspectionName) throws IOException {
+		inspectionpage.getPdfImages(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+	}
+
+	@QAFTestStep(description="Verify the site and item logo functionality in pdf report for {InspectionName}")
+	public void verifyPDFReportInspectionLogo(String inspectionName) throws IOException {
+		inspectionpage.getPdfImages(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
+	}
+
+	@QAFTestStep(description="Verify the duplicate inspection item for VMC {ConveyorName} with {AssetName1} {AssetDetails}")
+	public void verifyDuplicateInspectionItems(String conveyorName, String assetName, String assetDetails) throws IOException {
+		inspectionpage.verifyDuplicateItemRecordsVMC(conveyorName,assetName,assetDetails);
+	}
+
+	@QAFTestStep(description="Verify the export functionality of the inspection dashboard")
+	public void exportPDFDashboard(){
+		inspectionpage.exportPDFDashboard();
+	}
+
+	@QAFTestStep(description="Verify the pdf content of inspection report for coporate {CustCorpName} with conveyor {FullName}")
+	public void verifyExportPDFDashboard(String corpName, String fullName){
+		inspectionpage.verifyPDFDashboardContents(corpName, fullName);
+	}
+
+	@QAFTestStep(description="Verify the header of the inspection dashboard screen")
+	public void verifyDashboardHeader(){
+		Validator.assertTrue(inspectionpage.verifyDashboardHeader(),"Dashboard Header is not visible", "Dashboard header verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the options available in inspection dashboard screen")
+	public void verifyOptionsAvailableInDashboard(){
+		Validator.assertTrue(inspectionpage.verifyDashboardOptions(),"Dashboard Header is not visible", "Dashboard header verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the action dropdown for inspection dashboard")
+	public void verifyActionDropdownDashboard(){
+		Validator.assertTrue(inspectionpage.verifyActionDropdownDashbaord(),"Dashboard action export pdf is not visible", "Dashboard action export pdf verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the event cards in dashboard screen")
+	public void verifyEventCards(){
+		Validator.assertTrue(inspectionpage.verifyConditionCards(),"Dashboard event cards is not visible", "Dashboard event cards verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the event cards in dashboard screen for VMC")
+	public void verifyEventCardsVMC(){
+		Validator.assertTrue(inspectionpage.verifyConditionCardsVMC(),"Dashboard event cards is not visible", "Dashboard event cards verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the item list table in dashboard screen")
+	public void verifyEventTable(){
+		Validator.assertTrue(inspectionpage.verifyDashboardTable(),"Dashboard event list table is not visible", "Dashboard event list table verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the item list table in dashboard screen for VMC")
+	public void verifyEventTableVMC(){
+		Validator.assertTrue(inspectionpage.verifyDashboardTableVMC(),"Dashboard event list table is not visible", "Dashboard event list table verified successfully");
+	}
+
+
+	@QAFTestStep(description="Verify the site selection functionality for {CustSiteName}")
+	public void verifyDashboardSiteSelection(String siteName){
+		Validator.assertTrue(inspectionpage.verifySiteSelection(siteName).equalsIgnoreCase(siteName),"Dashboard site selection failed", "Dashboard site selection verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the from field date functionality for {CustSiteName}")
+	public void verifyDashboardFromDateSelection(String siteName){
+		System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+		Validator.assertTrue(inspectionpage.verifyDateSelection(siteName).equalsIgnoreCase(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))),"Dashboard from date selection failed", "Dashboard from date selection verified successfully");
+	}
+
+	@QAFTestStep(description="Verify the to field date functionality for {CustSiteName}")
+	public void verifyDashboardToDateSelection(String siteName){
+		System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+		Validator.assertTrue(inspectionpage.verifyEndDateSelection(siteName).equalsIgnoreCase(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))),"Dashboard from date selection failed", "Dashboard from date selection verified successfully");
+	}
+
+	@QAFTestStep(description="Verify all the column for inspection dashboard event table list")
+	public void verifyDashboardEventTable(){
+		Validator.assertTrue(inspectionpage.verifyDashboardTable(),"Dashboard event table verification failed", "Dashboard event table verified successfully");
+	}
+
+	@QAFTestStep(description="Verify all the column for inspection dashboard event table list for VMC")
+	public void verifyDashboardEventTableVMC(){
+		Validator.assertTrue(inspectionpage.verifyDashboardTableVMC(),"Dashboard event table verification failed", "Dashboard event table verified successfully");
+	}
 }
 
 

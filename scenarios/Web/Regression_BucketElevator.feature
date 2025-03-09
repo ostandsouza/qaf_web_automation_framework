@@ -109,7 +109,7 @@ Scenario: Verify duplicate name creation on the bucket elevator
      And   User is at add minuteman bucket elevator page
      When  User enters elevator general info '${CalculationName1}' '${CustSiteName}' '${ConveyorName}' and click on next
      And   User enters elevator select belt details and click on final report
-         Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName1}' '${CustSiteName}' '${ConveyorName}'
+     Then  Verify all the elevator data shown in the reports with calculated and entered data '${ConveyorType}' '${CalculationName1}' '${CustSiteName}' '${ConveyorName}'
      When  Click on create button for minuteman calculation
      Then  Verify the minuteman calculation '${CalculationName1}' in list screen
      And   User is at add minuteman bucket elevator page

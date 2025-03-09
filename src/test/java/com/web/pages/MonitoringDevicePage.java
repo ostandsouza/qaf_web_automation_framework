@@ -765,6 +765,7 @@ public class MonitoringDevicePage extends BasePage {
 		waitForElementVisible(btAddMonitoringDevice,20000,500);
 		waitForElementToBeClickable(btAddMonitoringDevice);
 		Validator.assertTrue(btAddMonitoringDevice.isVisible(),"Add Icon is not visible","Add Icon is visible");
+		SyncUtil.waitFor(2000);
 		btAddMonitoringDevice.jsClick("Add icon");
 		SyncUtil.waitFor(5000);
 		waitForPageLoad(15000);
@@ -1531,16 +1532,19 @@ public class MonitoringDevicePage extends BasePage {
         tbDeviceName.isVisible(10000, "Device Name");
     }
 
+
     public void verifyDeviceTypeInViewMode(String deviceType) {
         deviceTypeField.isVisible(10000, "Device Type");
         Validator.assertTrue(deviceTypeField.getText("device type").equalsIgnoreCase(deviceType), "The device type dropdown value is incorrect!", "The device type dropdown value is correct!");
     }
 
-    public boolean navigateToCordProtect() {
-        iotIcon.isEnable("IoT icon");
-        iotIcon.jsClick("cord Protect");
-        return iotChart1.isNotVisible(5000);
-    }
+	public boolean navigateToCordProtect(){
+		iotIcon.isEnable("IoT icon");
+		iotIcon.click("cord Protect");
+		SyncUtil.waitFor(5000);
+		waitForElementToDisplay(iotChart1);
+		return iotChart1.isVisible();
+	}
 
     public boolean verifyCordProtect() {
         waitForElementToDisplay(iotChart1);

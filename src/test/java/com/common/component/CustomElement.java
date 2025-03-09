@@ -102,7 +102,7 @@ public class CustomElement extends QAFWebComponent {
     public void actionClick(String... objName) {
         try {
             Actions act = new Actions(this.getWrappedDriver());
-            act.moveToElement(this,0,150).click().build().perform();
+            act.moveToLocation(this.getSize().width/2, this.getSize().height/2).click().build().perform();
             if (objName.length > 0)
                 Reporter.log("Clicked on " + objName, MessageTypes.Info);
         } catch (Exception e) {
@@ -210,13 +210,7 @@ public class CustomElement extends QAFWebComponent {
      * @return True if element is enabled otherwise False
      */
     public boolean isEnable(String... objName) {
-        boolean result = false;
-        try {
-            if (this.isEnabled())
-                result = true;
-
-        } catch (Exception ignore) {
-        }
+        boolean result = this.isEnable();
         if (objName.length > 0)
             if (result)
                 Reporter.log("'" + objName[0] + "'" + " is enabled", MessageTypes.Info);
@@ -224,6 +218,22 @@ public class CustomElement extends QAFWebComponent {
                 Reporter.log("'" + objName[0] + "'" + " is not enabled", MessageTypes.Fail);
         return result;
     }
+
+    /**
+     * Checks if the element i enabled
+     * @return True if element is enabled otherwise False
+     */
+    public boolean isEnable() {
+        boolean result = false;
+        try {
+            if (this.isEnabled())
+                result = true;
+
+        } catch (Exception ignore) {
+        }
+        return result;
+    }
+
 
     /**
      * Checks visibility of the object

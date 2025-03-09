@@ -23,7 +23,7 @@ public class FileManagerSteps {
 //        fileManagerPage.apiBase.getRootFileID(fileRes).forEach(x -> fileManagerPage.apiBase.deleteFilesAPI(x));
         sitePage.goToSiteDetails(siteName);
         fileManagerPage.goToFileManager();
-//        fileManagerPage.createFolder(folderName);
+        fileManagerPage.createFolder(folderName);
     }
 
     @QAFTestStep(description="Upload file {ImgName} into the folder {FolderName}")
@@ -90,7 +90,7 @@ public class FileManagerSteps {
     public void navigateToFileManagerForConveyor(String custCorp, String custSite, String conveyorName){
         String companyId = fileManagerPage.apiBase.getCompanyID(fileManagerPage.apiBase.getCompanyAPI(custCorp));
         String siteCompanyId = fileManagerPage.apiBase.getCompanyID(fileManagerPage.apiBase.getCompanyAPI(custSite));
-        String conveyorId = conveyorPage.apiBase.getConveyorID(fileManagerPage.apiBase.getConveyorsAPI(conveyorName));
+        String conveyorId = fileManagerPage.apiBase.getConveyorID(fileManagerPage.apiBase.getConveyorsAPI(conveyorName));
 //        fileManagerPage.apiBase.deleteConveyorAPI(conveyorId);
 //        SyncUtil.waitFor(3000);
 //        fileManagerPage.apiBase.createConveyorAPI("conveyor1", companyId, siteCompanyId, conveyorName);

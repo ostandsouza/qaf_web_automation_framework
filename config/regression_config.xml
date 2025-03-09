@@ -1070,5 +1070,133 @@
 			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
 		</classes>
 	</test>
-
+    <test name="Inspection" enabled="true">
+        <parameter name="step.provider.pkg" value="com.web.steps" />
+        <parameter name="scenario.file.loc" value="scenarios/Web/Regression_InspectionNew.feature" />
+        <parameter name="step.provider.sharedinstance" value="true" />
+        <parameter name="env.resources" value="resources/env_stg" />
+        <groups>
+            <run>
+                <include name="Regression1" />
+                <include name="Regression2" />
+                <include name="Regression3" />
+                <include name="Regression4" />
+                <include name="Regression5" />
+                <include name="Regression6" />
+                <include name="Regression7" />
+                <include name="Regression8" />
+                <include name="Regression9" />
+                <include name="Regression10" />
+                <include name="Regression11" />
+                <include name="Regression12" />
+                <include name="Regression13" />
+                <include name="Regression14" />
+                <include name="Regression15" />
+                <include name="Regression16" />
+                <include name="Regression17" />
+                <include name="Regression18" />
+                <include name="Regression19" />
+                <include name="Regression20" />
+                <include name="Regression21" />
+                <include name="Regression22" />
+                <include name="Regression23" />
+                <include name="Regression24" />
+                <include name="Regression25" />
+                <include name="Regression26" />
+                <include name="Regression27" />
+                <include name="Regression28" />
+                <include name="Regression29" />
+                <include name="Regression30" />
+                <include name="Regression31" />
+                <include name="Regression32" />
+                <include name="Regression33" />
+                <include name="Regression34" />
+                <include name="Regression35" />
+                <include name="Regression36" />
+                <include name="Regression37" />
+                <include name="Regression38" />
+                <include name="Regression39" />
+                <include name="Regression40" />
+                <include name="Regression41" />
+                <include name="Regression42" />
+                <include name="Regression43" />
+                <include name="Regression44" />
+                <include name="Regression45" />
+                <include name="Regression46" />
+                <include name="Regression47" />
+                <include name="Regression48" />
+                <include name="Regression49" />
+                <include name="Regression50" />
+                <include name="Regression51" />
+                <include name="Regression52" />
+                <include name="Regression53" />
+                <include name="Regression54" />
+                <include name="Regression55" />
+                <include name="Regression56" />
+                <include name="Regression57" />
+                <include name="Regression58" />
+                <include name="Regression59" />
+                <include name="Regression60" />
+                <include name="Regression61" />
+                <include name="Regression62" />
+                <include name="Regression63" />
+                <include name="Regression64" />
+                <include name="Regression65" />
+                <include name="Regression66" />
+                <include name="Regression67" />
+                <include name="Regression68" />
+                <include name="Regression69" />
+                <include name="Regression70" />
+                <include name="Regression71" />
+                <include name="Regression72" />
+                <include name="Regression73" />
+                <include name="Regression74" />
+                <include name="Regression75" />
+                <include name="Regression76" />
+                <include name="Regression77" />
+                <include name="Regression78" />
+                <include name="Regression79" />
+                <include name="Regression80" />
+                <include name="Regression81" />
+                <include name="Regression82" />
+                <include name="Regression83" />
+                <include name="Regression84" />
+                <include name="Regression85" />
+                <include name="Regression86" />
+                <include name="Regression87" />
+                <include name="Regression88" />
+                <include name="Regression89" />
+                <include name="Regression90" />
+                <include name="Regression91" />
+                <include name="Regression92" />
+                <include name="Regression93" />
+                <include name="Regression94" />
+                <include name="Regression95" />
+                <include name="Regression96" />
+                <include name="Regression97" />
+                <include name="Regression98" />
+                <include name="Regression99" />
+                <include name="Regression100" />
+                <include name="Regression101" />
+                <include name="Regression102" />
+                <include name="Regression103" />
+                <include name="Regression104" />
+                <include name="Regression105" />
+                <include name="Regression106" />
+                <include name="Regression107" />
+                <include name="Regression108" />
+                <include name="Regression109" />
+                <include name="Regression110" />
+                <include name="Regression111" />
+                <include name="Regression112" />
+                <include name="Regression113" />
+                <include name="Regression114" />
+                <include name="Regression115" />
+                <include name="Regression116" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+        </classes>
+    </test>
 </suite>

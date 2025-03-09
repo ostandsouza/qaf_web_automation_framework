@@ -186,9 +186,9 @@ public class CommonSteps {
         String userid = app.apiBase.getUserProfileAPI(email);
         app.apiBase.deleteProfileAPI(userid);
         app.apiBase.deleteUserAPI(userid);
-        ArrayList<HashMap<String, Object>> companyRes = ((ArrayList<HashMap<String, Object>>)(app.apiBase.getCompanyAPI(siteName).jsonPath().get("data")));
+        HashMap<String, Object> companyRes = ((HashMap<String, Object>)(app.apiBase.getCompanyAPI(siteName)));
         String userId= app.apiBase.createUserAPI(email, pwd, phone, userName);
-        app.apiBase.createProfileAPI(userType, userId, new JSONObject(companyRes.get(0)).toString());
+        app.apiBase.createProfileAPI(userType, userId, new JSONObject(companyRes).toString());
     }
 
     @QAFTestStep(description = "Create as territory user account from via with {UserName} {Email} {Password} {Phone} and {UserType}")

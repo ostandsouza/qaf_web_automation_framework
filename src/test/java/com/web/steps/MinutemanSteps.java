@@ -5,13 +5,20 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.NotYetImplementedException;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
+import com.web.pages.ConveyorPage;
 import com.web.pages.MinutemanPage;
+import com.web.pages.SitePage;
 
 import java.util.ArrayList;
+
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 
 public class MinutemanSteps {
     MinutemanPage minutemanPage=new MinutemanPage();
+    ConveyorPage conveyorPage=new ConveyorPage();
+    SitePage sitePage=new SitePage();
+
     ArrayList<String> inputDataPage=new ArrayList<>();
 
     ArrayList<Float> flightInfoPage=new ArrayList<>();
@@ -40,6 +47,26 @@ public class MinutemanSteps {
         System.out.println(minutemanId);
         minutemanPage.apiBase.deleteMinutemanAPI(minutemanId);
         minutemanPage.gotoAddMinutemanConveyor();
+    }
+
+    @QAFTestStep(description = "User is at add minuteman conveyor page {CalculationName} from conveyor level {ConveyorName}")
+    public void userIsAtAddMinutemanConveyorPageFromConveyorLevel(String calc, String conveyor){
+        String minutemanId = minutemanPage.apiBase.getMinutemanAPI(calc);
+        System.out.println(minutemanId);
+        minutemanPage.apiBase.deleteMinutemanAPI(minutemanId);
+        conveyorPage.goToConveyorDetailScreen(conveyor);
+        SyncUtil.waitFor(5000);
+        minutemanPage.verifyMinutemanCardClick();
+    }
+
+    @QAFTestStep(description = "User is at add minuteman conveyor page {CalculationName} from site level {Site}")
+    public void userIsAtAddMinutemanConveyorPageFromSiteLevel(String calc, String site){
+        String minutemanId = minutemanPage.apiBase.getMinutemanAPI(calc);
+        System.out.println(minutemanId);
+        minutemanPage.apiBase.deleteMinutemanAPI(minutemanId);
+        sitePage.goToSiteDetails(site);
+        SyncUtil.waitFor(5000);
+        minutemanPage.verifyMinutemanCardClick();
     }
 
     @QAFTestStep(description = "Station Page {CalculationName} {BeltWidth} {BeltSpeed} {TonsPerHourPeak} {PickMaterialName} {MaterialDensity} {AngleOfIdler} {CarrySideIdlerSpacing} {DriveWrapAngle} {DriveWrapAngleDegree} {TakeUpTension} {FrictionFactor} {LengthFactor} {SurchargeAngle} {IdlerOffset} {DriverDetails} {TakeUpDetails} {SpliceType} {Stations} {DriveLocation} {TakeUpLocation} {HorzOffset} {ElevOffset} {SectionAngle} {EstimatedCCLength} {TypeOfConfiguration} {TradeName} {CoverGrade} {Rating} {Plies} {CoverGaugeUnits} {GaugeTopCover} {GaugePulleyCover} {CalculationName} {ConveyorName}")
@@ -85,17 +112,51 @@ public class MinutemanSteps {
 //        SyncUtil.waitFor(10000);
     }
 
-    @QAFTestStep(description = "User enters general info {CalculationName} {Site} {ConveyorName} {Description} {Program} {ManufacturingLocation} {Units} and click on next")
-    public void userEntersGeneralInfo(String calculationName, String site, String conveyorName, String description, String program, String manufacturingLocation, String units){
+    @QAFTestStep(description="User enters general info {0} {1} {2} {3} {4} {5} {6} and click on next")
+    public void userEntersGeneralInfoAndClickOnNext(String calculationName, String site, String conveyorName, String description, String program, String manufacturingLocation, String units){
 //        SyncUtil.waitFor(5000);
         minutemanPage.setTbCalculationName(calculationName);
+        minutemanPage.selectUnit(units);
+        SyncUtil.waitFor(500);
+        minutemanPage.handleUnitsPopup(units);
         minutemanPage.setSiteDropdown(site);
         minutemanPage.setConveyorDropdown(conveyorName);
         minutemanPage.setTbDescription(description);
         minutemanPage.setTbProgram(program);
         minutemanPage.setTbManufacturingLocation(manufacturingLocation);
+        minutemanPage.clickNext();
+    }
+
+    @QAFTestStep(description = "User enters general info {CalculationName} {ConveyorName} {Description} {Program} {ManufacturingLocation} {Units} and click on next")
+    public void userEntersGeneralInfo(String calculationName, String conveyorName, String description, String program, String manufacturingLocation, String units){
+//        SyncUtil.waitFor(5000);
+        minutemanPage.setTbCalculationName(calculationName);
         minutemanPage.selectUnit(units);
+        SyncUtil.waitFor(500);
         minutemanPage.handleUnitsPopup(units);
+        minutemanPage.setConveyorDropdown(conveyorName);
+        minutemanPage.setTbDescription(description);
+        minutemanPage.setTbProgram(program);
+        minutemanPage.setTbManufacturingLocation(manufacturingLocation);
+        minutemanPage.clickNext();
+    }
+
+    @QAFTestStep(description = "User is navigates to add minuteman conveyor page from list screen")
+    public void navigateToMinutemanConveyor(){
+        minutemanPage.goToAddMinutemanConveyorFromList();
+    }
+
+
+    @QAFTestStep(description="User enters general info with {0} {1} {2} {3} {4} and click on next")
+    public void userEntersGeneralInfoAndClickOnNext(String calculationName, String description, String program, String manufacturingLocation, String units){
+//        SyncUtil.waitFor(5000);
+        minutemanPage.setTbCalculationName(calculationName);
+        minutemanPage.selectUnit(units);
+        SyncUtil.waitFor(500);
+        minutemanPage.handleUnitsPopup(units);
+        minutemanPage.setTbDescription(description);
+        minutemanPage.setTbProgram(program);
+        minutemanPage.setTbManufacturingLocation(manufacturingLocation);
         minutemanPage.clickNext();
     }
 
@@ -145,30 +206,16 @@ public class MinutemanSteps {
 
     @QAFTestStep(description = "User enters select belt details {TradeName} {CoverGrade} {Rating} {Plies} {CoverGaugeUnits} {GaugeTopCover} {GaugePulleyCover}")
     public void userEntersSelectBeltDetails(String tradeName, String coverGrade, String rating, String plies, String coverGaugeUnits, String gaugeTopCover, String gaugePulleyCover){
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
-        SyncUtil.waitFor(1500);
+        minutemanPage.waitForElementToInvisible(minutemanPage.skeleton,4000);
         minutemanPage.setTradeNameDropdown(tradeName);
-        SyncUtil.waitFor(1500);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
+        minutemanPage.waitForElementToInvisible(minutemanPage.skeleton,4000);
         minutemanPage.setCoverGradeDropdown(coverGrade);
-        SyncUtil.waitFor(1500);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setRatingDropdown(rating);
-        SyncUtil.waitFor(1500);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setPliesDropdown(plies);
-        SyncUtil.waitFor(1500);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setCoverGaugeUnitDropdown(coverGaugeUnits);
-        SyncUtil.waitFor(1500);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setGaugeTopCoverDropdown(gaugeTopCover);
-        SyncUtil.waitFor(1500);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setGaugePulleyCoverDropdown(gaugePulleyCover);
-        SyncUtil.waitFor(1500);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
-//        SyncUtil.waitFor(7000);
+        minutemanPage.waitForElementToInvisible(minutemanPage.skeleton,7000);
         calculatedData=minutemanPage.getCalculatedDataInSelectBelt();
         minutemanPage.clickNext();
     }
@@ -184,6 +231,11 @@ public class MinutemanSteps {
         minutemanPage.verifyPerPopulatedDataInGeneralInfoPage(program,manufacturingLocation);
     }
 
+    @QAFTestStep(description = "Verify the pre populated data in general info page for imperial {Program} {ManufacturingLocation}")
+    public void verifyPrePopulatedDataInGeneralInfoPageImperial(String program,String manufacturingLocation){
+        minutemanPage.verifyPerPopulatedDataInGeneralInfoPageImperial(program,manufacturingLocation);
+    }
+
     @QAFTestStep(description = "User click on next")
     public void clickOnNextButton(){
         minutemanPage.clickNext();
@@ -192,6 +244,11 @@ public class MinutemanSteps {
     @QAFTestStep(description = "Verify the pre populated data in inputs page {BeltWidth} {BeltSpeed} {TonsPerHourPeak} {PickMaterialName} {MaterialDensity} {AngleOfIdler} {CarrySideIdlerSpacing} {DriveWrapAngle} {DriveWrapAngleDegree} {TakeUpTension} {FrictionFactor} {LengthFactor} {SurchargeAngle} {IdlerOffset} {DriverDetails} {TakeUpDetails} {SpliceType}")
     public void verifyPrePopulatedDataInInputPage(String beltWidth,String beltSpeed,String tonsPerHourPeak,String pickMaterialName,String materialDensity, String angleOfIdlers, String carrySideIdler, String driveWrapAngle,String driveWrapAngleDegree,String takeUpTension,String frictionFactor,String lengthFactor,String surchargeAngle,String idlerOffsetType,String driveDetails,String takeUpDetails, String spliceType){
         minutemanPage.verifyPrePopulatedDataInInputsPage(beltWidth,beltSpeed,tonsPerHourPeak,pickMaterialName,materialDensity,angleOfIdlers,carrySideIdler,driveWrapAngle,driveWrapAngleDegree,takeUpTension,frictionFactor,lengthFactor,surchargeAngle,idlerOffsetType,driveDetails,takeUpDetails,spliceType);
+    }
+
+    @QAFTestStep(description = "Verify the bucket elevator pre populated data in inputs page {ConveyorType} {MaterialDensity} {TonsPerHourPeak} {MaterialLength} {MaterialProjection} {BucketSpacing} {BucketWeight} {BucketVolume} {BucketRows} {BeltWidth} {BeltHeight} {BeltSpeed} {DrivePulley} {TakeUpType}")
+    public void verifyBucketElevatorPrePopulatedDataInInputPage(String conveyorType,String materialDensity,String tonsPerHourPeak,String materialLength,String materialProjection, String bucketSpacing, String bucketWeight, String bucketVolume,String bucketRows,String beltWidth,String beltHeight,String beltSpeed,String drivePulley,String takeUpType){
+        minutemanPage.verifyBucketElevatorPrePopulatedDataInInputsPage(conveyorType,materialDensity,tonsPerHourPeak,materialLength,materialProjection,bucketSpacing,bucketWeight,bucketVolume,bucketRows,beltWidth,beltHeight,beltSpeed,drivePulley,takeUpType);
     }
 
     @QAFTestStep(description = "Verify the pre populated data in stations page {Stations} {DriveLocation} {TakeUpLocation}")
@@ -273,7 +330,7 @@ public class MinutemanSteps {
 
     @QAFTestStep(description = "User should see all the calculated data Add {TransitionLengthHead} {TransitionLengthTail} of transition page and click on next")
     public void UserShouldSeeAllTheCalculatedDataOfTransitionPageAndClickOnNext(String transitionLengthHead,String transitionLengthTail){
-        SyncUtil.waitFor(500);
+        SyncUtil.waitFor(1000);
 //        minutemanPage.setTbLengthHead(transitionLengthHead);
 //        minutemanPage.setTbLengthTail(transitionLengthTail);
 //        minutemanPage.clickOnCalculate();
@@ -323,13 +380,30 @@ public class MinutemanSteps {
         minutemanPage.verifyPulleyData(pulleysPageData,minutemanPage.getPulleyData());
     }
 
+    @QAFTestStep(description = "Verify all the data shown in the reports with calculated and entered data {CalculationName} {TonsPerHourPeak} {MaterialDensity} {SurchargeAngle} {BeltWidth} {BeltSpeed} {CarrySideIdlerSpacing} {DriveLocation} {TakeUpLocation} {TakeUpDetails}")
+    public void verifyAllTheDataShownInTheReportsWithCalculatedData(String calculationName,String tonsPerHourPeak,String materialDensity,String surchargeAngle,String beltWidth,String beltSpeed,String carrySideIdlerSpacing,String driveLocation,String takeUpLocation,String takeUpDetails){
+        minutemanPage.verifyConveyorInformation(conveyorBeltDataInRollDataPage,"",calculationName,"",minutemanPage.getConveyorInformation());
+        minutemanPage.verifySystemCoordinates(flightInfoPage,minutemanPage.getSystemCoordinates());
+        minutemanPage.verifyMaterialData(tonsPerHourPeak,materialDensity,inputDataPage,minutemanPage.getMaterialData());
+        minutemanPage.verifyInputBeltData(beltWidth,beltSpeed,minutemanPage.getInputBeltData(),conveyorBeltDataInRollDataPage);
+        minutemanPage.verifySystemData(capacity,carrySideIdlerSpacing,driveLocation,takeUpLocation,inputDataPage,minutemanPage.getSystemData());
+        minutemanPage.verifyCalculateData(calculatedData,conveyorROllDataInRollDataPage,minutemanPage.getCalculatedData());
+        minutemanPage.verifyBeltData(conveyorBeltDataInRollDataPage,minutemanPage.getBeltData());
+        minutemanPage.verifyRollData(conveyorROllDataInRollDataPage,minutemanPage.getRollData());
+        minutemanPage.verifyVulcanizedSpliceData(conveyorSpliceDimensionsDataInRollDataPage,minutemanPage.getVulcanizedSpliceData());
+        minutemanPage.verifyTakeUpTravel(reviewCalculatedTakeUpTravelDataTakeUpPage,calculatedTakeUpDataInTakeUpPage,takeUpDetails,minutemanPage.getTakeUpTravel());
+        minutemanPage.verifyTransitionLength(transitionsPageData,minutemanPage.getTransitionLength());
+        minutemanPage.verifyVerticalCurve(calculatedVerticalCurvesDataInCurvesPage,minutemanPage.getVerticalCurves());
+        minutemanPage.verifyPulleyData(pulleysPageData,minutemanPage.getPulleyData());
+    }
+
     @QAFTestStep(description="Verify download report option on final report {CalculationName}")
     public void verifyDownloadReportOptionOnFinalReport(String calc){
         minutemanPage.clickOnSaveAndDownload();
         SyncUtil.waitFor(3000);
         minutemanPage.waitForElementToInvisible(minutemanPage.spinner,15000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(calc+".pdf"), "PDF report was not found", "PDF report was downloaded successfully");
-        minutemanPage.verifyPDFContents(calc);
+        minutemanPage.verifyPDFContents(calc, minutemanPage.getConveyorInformation());
     }
 
     @QAFTestStep(description="Click on create button for minuteman calculation")
@@ -354,7 +428,7 @@ public class MinutemanSteps {
 
     @QAFTestStep(description="Delete minuteman calculation {CalculationName}")
     public void deleteMinutemanCalc(String newCalc){
-        Validator.assertTrue(minutemanPage.deleteMinutemanCalc(newCalc),"Minuteman calculation was not found","Minuteman calculation was found and verified successfully");
+        Validator.assertTrue(minutemanPage.deleteMinutemanCalc(newCalc),"Minuteman calculation was found","Minuteman calculation was not found and verified successfully");
     }
 
     @QAFTestStep(description="Verify the deleted minuteman calculation {CalculationName} in list screen")
@@ -620,28 +694,16 @@ public class MinutemanSteps {
 
     @QAFTestStep(description = "User enters select elevator belt details {TradeName} {CoverGrade} {Rating} {Plies} {CoverGaugeUnits} {GaugeTopCover} {GaugePulleyCover}")
     public void userEntersElevatorSelectBeltDetails(String tradeName, String coverGrade, String rating, String plies, String coverGaugeUnits, String gaugeTopCover, String gaugePulleyCover){
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,90000);
-        SyncUtil.waitFor(1000);
+        minutemanPage.waitForElementToInvisible(minutemanPage.skeleton,4000);
         minutemanPage.setTradeNameDropdown(tradeName);
-        SyncUtil.waitFor(1000);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
-        SyncUtil.waitFor(1000);
+        minutemanPage.waitForElementToInvisible(minutemanPage.skeleton,4000);
         minutemanPage.setCoverGradeDropdown(coverGrade);
-        SyncUtil.waitFor(1000);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setRatingDropdown(rating);
-        SyncUtil.waitFor(1000);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setPliesDropdown(plies);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setCoverGaugeUnitDropdown(coverGaugeUnits);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         minutemanPage.setGaugePulleyCoverDropdown(gaugePulleyCover);
-        SyncUtil.waitFor(2000);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
-        SyncUtil.waitFor(1000);
         minutemanPage.setGaugeTopCoverDropdown(gaugeTopCover);
-        SyncUtil.waitFor(7000);
+        minutemanPage.waitForElementToInvisible(minutemanPage.skeleton,7000);
         calculatedData=minutemanPage.getCalculatedDataInElevatorSelectBelt();
         minutemanPage.clickNext();
     }
@@ -651,7 +713,7 @@ public class MinutemanSteps {
         MiscUtils.deleteDownloadedFiles("[\\D\\S]+.pdf");
         minutemanPage.clickOnSaveAndDownload();
         SyncUtil.waitFor(3000);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,15000);
+        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,20000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(calc+".pdf"), "PDF report was not found", "PDF report was downloaded successfully");
         minutemanPage.verifyPDFContentsBucketElevator(calc);
     }
@@ -685,10 +747,17 @@ public class MinutemanSteps {
         minutemanPage.clickOnFinalReport();
     }
 
+    @QAFTestStep(description = "User navigates to final report screen")
+    public void finalReportNav(){
+        SyncUtil.waitFor(1500);
+//        calculatedData=minutemanPage.getCalculatedDataInSelectBelt();
+        minutemanPage.clickOnFinalReport();
+    }
+
     @QAFTestStep(description = "User enters elevator select belt details and click on final report")
     public void userEnterElevatorBeltDetails(){
         minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
-        SyncUtil.waitFor(1500);
+        SyncUtil.waitFor(1000);
 //        calculatedData=minutemanPage.getCalculatedDataInSelectBelt();
         minutemanPage.clickOnSelectBelt();
     }
@@ -698,5 +767,81 @@ public class MinutemanSteps {
         minutemanPage.verifyConveyorInformation(conveyorName,calculationName,site,minutemanPage.getConveyorInformation());
     }
 
+    @QAFTestStep(description="Extract the minuteman card data")
+    public void extractMinutemanCardCount(){
+        int totalMinuteman = minutemanPage.getTotalMinutemanCount();
+        System.out.println(totalMinuteman);
+        getBundle().setProperty("totalMinuteman",totalMinuteman);
+    }
+
+    @QAFTestStep(description="Verify the minuteman card count")
+    public void verifyMinutemanCardCount(){
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue((int) getBundle().getProperty("totalMinuteman") + 1 == minutemanPage.getTotalMinutemanCount(),"Minuteman Tile Count is not matching", "Minuteman Tile Count is matching") ;
+    }
+
+    @QAFTestStep(description="Verify for delete minuteman card count")
+    public void verifyDeleteMinutemanCardCount(){
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue((int) getBundle().getProperty("totalMinuteman") - 1 == minutemanPage.getTotalMinutemanCount(),"Minuteman Tile Count is not matching", "Minuteman Tile Count is matching") ;
+        getBundle().setProperty("totalMinuteman",(int) getBundle().getProperty("totalMinuteman") - 1);
+    }
+
+    @QAFTestStep(description="Edit calculation {CalculationName} units to {1} with {2} {3}")
+    public void verifyEditMinutemanUnit(String calcName, String units, String program, String location){
+        minutemanPage.editMinutemanCalcUnit(calcName,units,program,location);
+    }
+
+    @QAFTestStep(description="Edit bucket calculation {CalculationName} units to {1} with {2} {3}")
+    public void verifyBucketElevatorEditUnit(String calcName, String units, String program, String location){
+        minutemanPage.editBucketMinutemanCalcUnit(calcName,units,program,location);
+    }
+
+    @QAFTestStep(description="Navigate the minuteman calculation {CalculationName} in list screen")
+    public void navigateTheMinutemanCalculationInListScreen(String calcName){
+        minutemanPage.goToMinutemanCalculation(calcName);
+    }
+
+    @QAFTestStep(description="Verify the load data functionality in user info for {CalculationName} {Site} {ConveyorName} {Program} {ManufacturingLocation} {Units} and click on next")
+    public void verifyLoadDataFunctionality(String calcName, String site, String conveyorName, String program, String manufacture, String units){
+        minutemanPage.setTbCalculationName(calcName);
+        minutemanPage.selectUnit(units);
+        SyncUtil.waitFor(500);
+        minutemanPage.handleUnitsPopup(units);
+        minutemanPage.setSiteDropdown(site);
+        Validator.assertTrue(!minutemanPage.isLoadData(),"Load data should not be enabled", "Load data verified successfully");
+        minutemanPage.setConveyorDropdown(conveyorName);
+        Validator.assertTrue(minutemanPage.isLoadData(),"Load data should be enabled", "Load data verified successfully");
+//        Validator.assertTrue(minutemanPage.loadDataFunctionality(),"Load data was not successful", "Load data verified successfully");
+        minutemanPage.setTbProgram(program);
+        minutemanPage.setTbManufacturingLocation(manufacture);
+        minutemanPage.clickNext();
+    }
+
+
+    @QAFTestStep(description="Navigate to the curves and calculate with {0}")
+    public void navigateTheCurvesForCalculation(String val){
+        minutemanPage.calculateCurves(val);
+    }
+
+    @QAFTestStep(description="Navigate to the pulley and calculate with {0}")
+    public void navigateThePulleyForCalculation(String val){
+        minutemanPage.calculatePulleys(val);
+    }
+
+    @QAFTestStep(description="Navigate to the take up and calculate with {0}")
+    public void navigateTheTakeUpForCalculation(String val){
+        minutemanPage.calculateTakeUp(val);
+    }
+
+    @QAFTestStep(description="Navigate to the transition and calculate with {0}")
+    public void navigateTheTransitionForCalculation(String val){
+        minutemanPage.calculateTransition(val);
+    }
+
+    @QAFTestStep(description="Verify all the notes are present in final report")
+    public void verifyNotesFromReports(){
+        Validator.assertTrue(minutemanPage.verifyNotesFromFinalReport(),"All notes are visible in final report", "Notes from final reports verified successfully");
+    }
 }
 

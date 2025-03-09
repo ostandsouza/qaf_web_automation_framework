@@ -1,10 +1,13 @@
 [
   {
     "UserName": "contiplus_admin@maildrop.cc",
-    "Password": "Test@12345",
+    "UserNameCustomer": "customerhp2025@yopmail.com",
+    "UserNameDistributor": "distributorhp2025@yopmail.com",
+    "UserNameMarket": "markethp2025@yopmail.com",
+    "Password": "Abc@123456",
     "CalculationName": "Test Case B - Cipher - Imperial",
-    "Site": "Cust Automation Regression India",
-    "ConveyorName": "C1 Automation Regression",
+    "Site": "Cust Automation Common India",
+    "ConveyorName": "C1 Common Bulk Regression",
     "Description": "Automation Test",
     "Program": "Legacy Cypher",
     "ManufacturingLocation": "United States",

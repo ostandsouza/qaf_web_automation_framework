@@ -1424,8 +1424,7 @@ public class ConveyorPage extends BasePage{
     }
 
     public void enterConveyorMandatoryDetails(String conveyorName, String distShopName, String custSiteName) {
-        addConveyors.jsClick("Add Conveyor");
-
+        addConveyors.click("Add Conveyor");
         waitForElementToDisplay(tbConveyorname);
         waitForElementToBeClickable(tbConveyorname);
         tbConveyorname.sendKeys(conveyorName, "conveyor name");
@@ -1455,7 +1454,7 @@ public class ConveyorPage extends BasePage{
 
     public boolean searchConveyor(String conveyorName){
         goToConveyorListScreenAndWait();
-        inspectionpage.clickClickFilter();
+        inspectionpage.clickClearFilter();
         waitForPageLoad(20000);
         btSearchinput.type(conveyorName, "Conveyor Search");
 //        SyncUtil.waitFor(10000);

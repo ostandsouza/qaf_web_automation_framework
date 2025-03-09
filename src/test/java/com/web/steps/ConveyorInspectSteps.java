@@ -1,6 +1,7 @@
 package com.web.steps;
 
 import com.common.utils.SyncUtil;
+import com.mobile.flutter.app.pages.CoverWearPage;
 import com.mobile.flutter.app.pages.DashboardPage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
@@ -30,7 +31,7 @@ public class ConveyorInspectSteps {
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
         companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custSite));
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
-        String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorInspectPage.apiBase.getConveyorsAPI(conveyorName));
+        String conveyorId = conveyorInspectPage.apiBase.getConveyorID(conveyorInspectPage.apiBase.getConveyorsAPI(conveyorName));
         conveyorInspectPage.apiBase.deleteConveyorAPI(conveyorId);
         companyId = conveyorInspectPage.apiBase.createCustomerCorpAPI(corpFileName);
         String siteCompanyId = conveyorInspectPage.apiBase.createCustomerSiteAPI(siteFileName, companyId);
@@ -252,7 +253,7 @@ public class ConveyorInspectSteps {
 
     @QAFTestStep(description="Verify maintenance action findings {ConveyorName}")
     public void verifyMaintenanceFindings(String conveyorName){
-        String conveyorId = conveyorPage.apiBase.getConveyorID(DashboardPage.getInstance().apiBase.getConveyorsAPI(conveyorName));
+        String conveyorId = DashboardPage.getInstance().apiBase.getConveyorID(conveyorInspectPage.apiBase.getConveyorsAPI(conveyorName));;
         HashMap<String, Object> finding = DashboardPage.getInstance().apiBase.getFindingsAPI(conveyorId);
         conveyorInspectPage.maintenanceFindings(finding);
     }
@@ -299,7 +300,7 @@ public class ConveyorInspectSteps {
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
         companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custSite));
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
-        String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorInspectPage.apiBase.getConveyorsAPI(conveyorName));
+        String conveyorId = conveyorInspectPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(conveyorName));
         conveyorInspectPage.apiBase.deleteConveyorAPI(conveyorId);
         companyId= conveyorInspectPage.apiBase.createCustomerCorpAPI("customer_corp");
         String siteCompanyId= conveyorInspectPage.apiBase.createCustomerSiteAPI("customer_site", companyId);
