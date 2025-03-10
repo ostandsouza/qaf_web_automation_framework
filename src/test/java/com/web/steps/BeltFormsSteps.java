@@ -7,7 +7,7 @@ import com.web.pages.UsersPage;
 
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
-public class BeltFormsSteps {
+public class BeltformsSteps {
 
     LoginPage loginPage = new LoginPage();
     BeltFormsPge beltpage = new BeltFormsPge();
