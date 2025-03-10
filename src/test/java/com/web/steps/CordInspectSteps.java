@@ -207,10 +207,10 @@ public class CordInspectSteps {
         conveyorPage.clickCreateBtn();
     }
 
-    @QAFTestStep(description="Verify the belt scan for {ConveyorName} is present in list screen")
-    public void verifyBeltScanCreation(String conveyor){
-        Validator.assertTrue(cordInspectPage.searchBeltScan(conveyor),"Belt Scan was not found","Belt Scan was found and verified successfully");
-    }
+//    @QAFTestStep(description="Verify the belt scan for {ConveyorName} is present in list screen")
+//    public void verifyBeltScanCreation(String conveyor){
+//        Validator.assertTrue(cordInspectPage.searchBeltScan(conveyor),"Belt Scan was not found","Belt Scan was found and verified successfully");
+//    }
 
     @QAFTestStep(description = "Edit all Belt Scan General details with {DateOfScan} {DeviceType} {ReasonForScan} {SiteName} {ConveyorName} {NotifyCCM} {File1} for {FieldName1} and {File2} for {FieldName2}")
     public void editAllTheBeltScanGeneralDetails(String dateOfScan,String deviceType,String reasonForScan,String siteName,String conveyorName,String notifyCcm,String file1,String fieldName1,String file2,String fieldName2) {

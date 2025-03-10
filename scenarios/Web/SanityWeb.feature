@@ -197,7 +197,7 @@ Scenario: Verify File manager
 @dataFile:resources/data/TestData.xls
 @sheetName:Sanity
 @key:Conveyor_Inspect
-Scenario: Verify Conveyor Inspect
+Scenario: Verify Drone files upload for Conveyor Inspect
 
     When  Assign Object detection model '${DetectionModel}' for Corporate '${CustCorpName}' with site '${CustSiteName}' and conveyor '${ConveyorName}'
     And   Upload drone files with '${Side}' '${colorMap}' '${irName}' '${rgbName}'
@@ -269,7 +269,7 @@ Scenario: Verify the Delete functionality across the application
 
     Then  Navigate to Belt Monitoring List page for '${DeviceName}'
     And   Navigate to Add monitoring device screen
-    And   Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${InstallationDate}' and '${ConveyorName}'
+    And   Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${Status}' and '${ConveyorName}'
     And   Click on save button and verify device '${DeviceName}' is created successfully
     When  Edit monitoring device '${DeviceName}' to '${NewDeviceName}'
     Then  Verify the monitoring device '${NewDeviceName}' in list screen

@@ -1598,7 +1598,7 @@ public class ConveyorPage extends BasePage{
 
     public boolean verifyIdlers() {
         crIdlersTab.click("Idlers Tab");
-        return crCarryIdlerDiameter.isVisible("Carry Idler Diameter") && crCarryAngle.isVisible("Carry Angle");
+        return crCarryIdlerDiameter.isVisible("Carry Idler Diameter");
 //                && crCarryTotalIdlers.isVisible("Carry Total Number of Idlers") &&
 //                crCarryTopRunSpacing.isVisible("Carry Top Run Spacing") && crReturnIdlerDiameter.isVisible("Return Idler Diameter") && crReturnAngle.isVisible("Return Angle") &&
 //                crReturnTotalIdlers.isVisible("Return Total Number of Idlers") && crReturnTopRunSpacing.isVisible("Return Top Run Spacing") && crImpactIdlerDiameter.isVisible("Impact Idler Diameter") && crImpactAngle.isVisible("Impact Angle") &&

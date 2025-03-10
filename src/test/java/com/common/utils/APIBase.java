@@ -85,7 +85,7 @@ public class APIBase {
             if (profileResponse.getStatusCode() == 200) {
                 JsonPath jsnPath = profileResponse.jsonPath();
                 try {
-                    System.out.println(profileResponse);
+//                    System.out.println(profileResponse);
 //                    val = (Map<String, Object>) ((JSONArray) com.jayway.jsonpath.JsonPath.read(inspectionResponse.asString(), "$.data[?(@.name == '" + inspectionName + "')]")).get(0);
                     val = (String) ((JSONArray) com.jayway.jsonpath.JsonPath.read(profileResponse.asString(), "$.data[?(@.email == '" + email + "')].userId")).get(0);
                     break;

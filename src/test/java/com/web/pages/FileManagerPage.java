@@ -336,7 +336,8 @@ public class FileManagerPage extends BasePage {
         driver.findElement(By.xpath("//a[text()='"+fileName+"']")).click();
         waitForElementToDisplay(pdfPopup);
         pdfPopup.isVisible("pdf");
-        closePopup.click();
+        if(closePopup.isVisible())
+            closePopup.click();
     }
 
     public void openFile(String folderName, String fileName) {

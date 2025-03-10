@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+import static java.io.File.separator;
 
 public class FabricSplicePage extends BasePage {
 
@@ -247,7 +248,7 @@ public class FabricSplicePage extends BasePage {
         dropdownSearch(drProductionLocationKit, tbFabricSpliceSearchInput, spliceKit);
         dropdownSelectSearch(drSiteDropdown, tbFabricSpliceSearchInput, customerName);
         dropdownSelectSearch(drConveyorDropdown, tbFabricSpliceSearchInput, conveyorName);
-        SyncUtil.waitFor(10000);
+        SyncUtil.waitFor(5000);
         setImplicitWait(20000, TimeUnit.MILLISECONDS);
         drApproverDropdown.click("Approver List");
         SyncUtil.waitFor(3000);
@@ -453,7 +454,7 @@ public class FabricSplicePage extends BasePage {
     }
 
     public void verifyPDFContentsSpliceDesign(String reqFile, String designId, String siteName, String conveyorName) {
-        PDDocument doc = PDFHelper.getPDFData(reqFile);
+        PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+reqFile);
         try {
             String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
             System.out.println(val);

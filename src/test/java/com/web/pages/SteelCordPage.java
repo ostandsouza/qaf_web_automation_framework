@@ -496,7 +496,7 @@ public class SteelCordPage extends BasePage {
 		waitForPageLoad(10000);
 	}
 	public void verifyPDFContentsSpliceDesign(String reqFile, String designId, String siteName, String conveyorName) {
-		PDDocument doc = PDFHelper.getPDFData(reqFile);
+		PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+reqFile);
 		try {
 			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
 			System.out.println(val);

@@ -750,7 +750,7 @@ public class CorporatePage extends BasePage{
     }
 
     public void deleteCorporate(String corpName) {
-//        goToCorporate();
+        goToCorporate();
         waitForElementVisible(btSearchinput, 10000,500);
         btSearchinput.type(corpName);
         btCheckbox.click();

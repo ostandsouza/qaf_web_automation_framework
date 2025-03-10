@@ -298,10 +298,10 @@ public class ConveyorInspectSteps {
     public void assigningModel(String model, String custCorp, String custSite, String conveyorName){
         String companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custCorp));
         conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
-        companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custSite));
-        conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
-        String conveyorId = conveyorInspectPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(conveyorName));
-        conveyorInspectPage.apiBase.deleteConveyorAPI(conveyorId);
+//        companyId = conveyorInspectPage.apiBase.getCompanyID(conveyorInspectPage.apiBase.getCompanyAPI(custSite));
+//        conveyorInspectPage.apiBase.deleteCompanyAPI(companyId);
+//        String conveyorId = conveyorInspectPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(conveyorName));
+//        conveyorInspectPage.apiBase.deleteConveyorAPI(conveyorId);
         companyId= conveyorInspectPage.apiBase.createCustomerCorpAPI("customer_corp");
         String siteCompanyId= conveyorInspectPage.apiBase.createCustomerSiteAPI("customer_site", companyId);
         conveyorInspectPage.apiBase.createConveyorAPI("conveyor", companyId, siteCompanyId);

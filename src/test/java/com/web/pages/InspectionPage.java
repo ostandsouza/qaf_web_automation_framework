@@ -1440,6 +1440,7 @@ public class InspectionPage extends BasePage {
 
 	public void verifyDeleteInspection(String inspectionName) {
 		goToInspectionScreenAndWait();
+		SyncUtil.waitFor(2000);
 		btSearchinput.type(inspectionName, "Inspection Search");
 		Validator.assertTrue(noList.isVisible("No Inspection"), "Inspection list was found", "Inspection list was not found");
 		noList.isVisible("No Inspection List");
@@ -3377,10 +3378,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(chutesDetails);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(chutesDetails);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(chutesDetails);
 	}
 
 	public boolean assetDetailsDefaultForCounterweight(String conveyorName) {
@@ -3392,10 +3393,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(counterweightDetails);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(counterweightDetails);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(counterweightDetails);
 	}
 
 	public boolean assetDetailsDefaultForConveyorStructure(String conveyorName) {
@@ -3407,10 +3408,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(conveyorStructureDetails);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(conveyorStructureDetails);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(conveyorStructureDetails);
 	}
 
 	public boolean assetFailureModeDefaultForChutes(String conveyorName) {
@@ -3422,10 +3423,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(chutesFailureMode);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(chutesFailureMode);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(chutesFailureMode);
 	}
 
 	public boolean assetFailureModeDefaultForCounterweight(String conveyorName) {
@@ -3437,10 +3438,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(chutesFailureMode);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(chutesFailureMode);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(chutesFailureMode);
 	}
 
 	public boolean assetFailureModeDefaultForConveyorStructure(String conveyorName) {
@@ -3452,10 +3453,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(chutesFailureMode);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(chutesFailureMode);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(chutesFailureMode);
 	}
 
 	public boolean assetDrivePulleyVMC() {
@@ -3482,9 +3483,9 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(conditions);
-		return dropdownValues.stream().distinct().toList().equals(conditions);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(conditions);
 	}
 
 	public boolean verifyDetailsWithConditionDefault(String asset, String details, String conveyorName, List<String> conditions){
@@ -3495,9 +3496,9 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(conditions);
-		return dropdownValues.stream().distinct().toList().equals(conditions);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(conditions);
 	}
 
 	public boolean verifyObservationAsterisk(String condition) {
