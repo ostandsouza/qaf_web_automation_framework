@@ -22,6 +22,7 @@
 		<testng.version>7.1.0</testng.version>
 		<assist.version>3.28.0-GA</assist.version>
 		<test.results.dir>test-results</test.results.dir>
+		<test.output.dir>test-output</test.output.dir>
 		<run.time>${maven.build.timestamp}</run.time>
 		<lib.dir>${project.basedir}/lib</lib.dir>
 		<resource.dir>${project.basedir}/resources</resource.dir>
@@ -226,7 +227,7 @@
 						<org.uncommons.reportng.xml-dialect>testng</org.uncommons.reportng.xml-dialect>
 						<org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
 						<log4j.configuration>file:///${resource.dir}/log4j.properties</log4j.configuration>
-						<outputDir>${output.dir}</outputDir>
+						<outputDir>${test.output.dir}</outputDir>
 						<test.results.dir>${output.dir}/html</test.results.dir>
 						<json.report.root.dir>${test.results.dir}</json.report.root.dir>
 						<json.report.dir>${output.dir}/json</json.report.dir>

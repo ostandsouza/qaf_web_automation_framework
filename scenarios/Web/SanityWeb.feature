@@ -197,7 +197,7 @@ Scenario: Verify File manager
 @dataFile:resources/data/TestData.xls
 @sheetName:Sanity
 @key:Conveyor_Inspect
-Scenario: Verify Drone files upload for Conveyor Inspect
+Scenario: Verify Files upload for Conveyor Inspect
 
     When  Assign Object detection model '${DetectionModel}' for Corporate '${CustCorpName}' with site '${CustSiteName}' and conveyor '${ConveyorName}'
     And   Upload drone files with '${Side}' '${colorMap}' '${irName}' '${rgbName}'
@@ -240,6 +240,7 @@ Scenario: Verify the Delete functionality across the application
  @dataFile:resources/data/LegacyMetricSanity.json
  Scenario: Verify Complete minuteman functionality
 
+     And   Close warning popup
      And   User is at add minuteman conveyor page '${CalculationName}'
      When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
      And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
@@ -404,6 +405,7 @@ Scenario: Verify Add Belt-Info Textile functionality
 @key:FreeTools
 Scenario: Verify Calculations in free tools
 
+     And   Close warning popup
      And   Navigate to free tools capacity and verify the fields
      Then  Verify all the calculated data for conveyor capacity for entered data '${BeltWidth}' '${Density}' '${SurchrgeAngle}' '${BeltSpeed}' '${Tonnage}' '${TroughAngle}' '${ConveyorLoad}'
      Then  Navigate to free tools troughability and verify the fields

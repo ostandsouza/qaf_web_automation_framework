@@ -11,7 +11,7 @@
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
 		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_stg" />
+		<parameter name="env.resources" value="resources/env_dev" />
 		<groups>
 			<run>
 				<include name="Sanity1" />
@@ -27,7 +27,7 @@
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
 		<parameter name="step.provider.sharedinstance" value="true" />
-		<parameter name="env.resources" value="resources/env_stg" />
+		<parameter name="env.resources" value="resources/env_dev" />
 		<groups>
 			<run>
 				<include name="Sanity3" />
@@ -63,7 +63,7 @@
 		<parameter name="step.provider.pkg" value="com.web.steps" />
 		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
 		<parameter name="step.provider.sharedinstance" value="false" />
-		<parameter name="env.resources" value="resources/env_stg" />
+		<parameter name="env.resources" value="resources/env_dev" />
 		<groups>
 			<run>
 				<include name="Sanity16" />

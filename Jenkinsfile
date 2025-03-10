@@ -70,7 +70,7 @@ pipeline {
           steps {
                script{
                     env.FAILURE_STAGE = 'publish_HTML'
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/customized-emailable-report.html', keepAll: true, reportDir: 'test-results/**', reportFiles: 'customized-emailable-report.html', reportName: 'htmlReport', reportTitles: 'htmlReport'])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/customized-emailable-report.html', keepAll: true, reportDir: 'test-output', reportFiles: 'customized-emailable-report.html', reportName: 'htmlReport', reportTitles: 'htmlReport'])
                     println("${currentBuild.result}")
                 }
             }
@@ -89,7 +89,7 @@ pipeline {
             script {
                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
                     def jobName = currentBuild.fullDisplayName
-                    emailext body: '''${FILE,path="test-results/**/customized-emailable-report.html"}''',
+                    emailext body: '''${FILE,path="test-output/customized-emailable-report.html"}''',
                     mimeType: 'text/html',
                     subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
                     to: "${env.mailRecipients}",
@@ -103,7 +103,7 @@ pipeline {
             script {
                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
                     def jobName = currentBuild.fullDisplayName
-                    emailext body: '''${FILE,path="test-results/**/customized-emailable-report.html"}''',
+                    emailext body: '''${FILE,path="test-output/customized-emailable-report.html"}''',
                     mimeType: 'text/html',
                     subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
                     to: "${env.mailRecipients}",
@@ -116,7 +116,7 @@ pipeline {
             script {
                     def now = new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone('IST'))
                     def jobName = currentBuild.fullDisplayName
-                    emailext body: '''${FILE,path="test-results/**/customized-emailable-report.html"}''',
+                    emailext body: '''${FILE,path="test-output/customized-emailable-report.html"}''',
                     mimeType: 'text/html',
                     subject: "[Jenkins] Conti+ Test Automation Report on ${now}",
                     to: "${env.mailRecipients}",
