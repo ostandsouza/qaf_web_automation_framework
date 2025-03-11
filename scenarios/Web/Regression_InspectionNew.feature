@@ -7,7 +7,7 @@ Launch the application through '/'
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_CorpTemplateDefault
-Scenario: zVerify inspection default template functionality for customer corporate
+Scenario: zzVerify inspection default template functionality for customer corporate
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -24,7 +24,7 @@ Scenario: zVerify inspection default template functionality for customer corpora
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_CorpTemplateVMC
-Scenario: yVerify inspection VMC template functionality for customer corporate
+Scenario: zyVerify inspection VMC template functionality for customer corporate
 
     And   Navigation of corporate list screen
     And   Navigate to add corporate from list screen
@@ -55,10 +55,8 @@ Scenario: xVerify inspection list page navigation
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_CorpTemplateDefault
-Scenario: zzVerify inspection card
+Scenario: Verify inspection card
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to inspection list screen
     Then  Verify tile count for total critical poor fault good and to be completed
 
@@ -120,7 +118,6 @@ Scenario: Verify inspection card count functionality for delete event at home le
     And   Extract the inspection card count
     And   Delete inspection '${InspectionName5}' from inspection list
     And   Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${ChangeGood}','${ChangeFault}','${ChangeCritical}'
-    Then  Verify the inspection list count
 
 @Regression8 @card
 @dataFile:resources/data/TestData.xls

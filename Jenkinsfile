@@ -79,9 +79,9 @@ pipeline {
     post {
         always {
             script {
-               env.mailRecipients = 'ostan@codecraft.co.in, oston.prithesh.dsouza-EXT@continental.com, vishmitha.2.g-ext@continental.com, supreetha.g-ext@continental.com, piyush.sharma@continental.com, supreetha.g@codecraft.co.in, vishmitha.g@codecraft.co.in, vivekkumar_si@hcl.com, prathiksha.adappa@continental.com'
+               def summary = junit testResults: 'test-results/junitreports/TEST-*.xml'
 
-               def summary = junit testResults: 'test-results/TEST-*.xml'
+               env.mailRecipients = 'ostan@codecraft.co.in, oston.prithesh.dsouza-EXT@continental.com, vishmitha.2.g-ext@continental.com, supreetha.g-ext@continental.com, piyush.sharma@continental.com, supreetha.g@codecraft.co.in, vishmitha.g@codecraft.co.in, vivekkumar_si@hcl.com, prathiksha.adappa@continental.com'
             }
         }
          success{
