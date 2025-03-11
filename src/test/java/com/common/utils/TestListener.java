@@ -39,8 +39,8 @@ public class TestListener implements ITestListener {
         {
             File scrFile = new BasePage().getTestBase().getDriver().getScreenshotAs(OutputType.FILE);
             BufferedImage originalImage = ImageIO.read(scrFile);
-            int newWidth = originalImage.getWidth() / 4;
-            int newHeight = originalImage.getHeight() / 4;
+            int newWidth = originalImage.getWidth() / 2;
+            int newHeight = originalImage.getHeight() / 2;
             BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
             Graphics2D g = resizedImage.createGraphics();
             g.drawImage(originalImage, 0, 0, newWidth, newHeight, null);

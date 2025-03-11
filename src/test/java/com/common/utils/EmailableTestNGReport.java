@@ -982,7 +982,7 @@ public class EmailableTestNGReport implements IReporter {
         String paltform= System.getenv("platform") == null ? "Web": System.getenv("platform");
         String env= System.getenv("ENV")== null ? getBundle().getString("env.setup"): System.getenv("ENV");
         String type= System.getenv("type")== null ? "Sanity flow": System.getenv("type");
-        String automatableUrl= System.getenv("AutomatableUrl")== null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("AutomatableUrl");
+        String automatableUrl= System.getenv("BUILD_URL") == null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("BUILD_URL")+ "htmlReport/";
         writeColumnValue("Conti Plus", "num");
         writeColumnValue(paltform,"");
         writeColumnValue(env, "num");
@@ -1005,7 +1005,7 @@ public class EmailableTestNGReport implements IReporter {
         writeTableContents("Env", env);
         String type= System.getenv("type")== null ? "Business flow": System.getenv("type");
         writeTableContents("Type", type);
-        String automatableUrl= System.getenv("AutomatableUrl")== null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("AutomatableUrl");
+        String automatableUrl= System.getenv("BUILD_URL")== null ? "http://localhost:63342/ctp-contiplus-web-qa-automation-java/QAF_Template_PROJECT/dashboard.htm": System.getenv("BUILD_URL")+ "htmlReport/";
         writeTableContentLink("Automation Report URL", automatableUrl);
         writer.println("</table>");
         writer.println("</div>");

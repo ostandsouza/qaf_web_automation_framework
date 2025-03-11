@@ -782,7 +782,7 @@ public class UsersPage extends BasePage{
 	public void setpermissionmm1() {
 		waitForPageLoad(5000);
 		btNext.click();
-		SyncUtil.waitFor(7000);
+		SyncUtil.waitFor(5000);
 		cbAllcheckboxAdd.click();
 		cbAllcheckboxEdit.click();
 		cbAllcheckboxDelete.click();
@@ -796,7 +796,8 @@ public class UsersPage extends BasePage{
 		waitForElementToBeClickable(btCreate);
 		btCreate.click();
 		waitForElementToBeClickable(btCreate);
-		SyncUtil.waitFor(15000);
+		waitForElementToInvisible(buttonLoader,30000);
+		SyncUtil.waitFor(2000);
 		waitForElementToDisplay(btSearchinput);
 		Reporter.log("User is created",MessageTypes.Pass);
 		System.out.println("wait done after assertion");

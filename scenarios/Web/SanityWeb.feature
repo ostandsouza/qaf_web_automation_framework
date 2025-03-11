@@ -13,6 +13,7 @@ Scenario: Verify the create market manager with all permission
     When  Login with '${UserName}' and '${Password}'
     And   Create a Market manager '${FullName}' and '${Phone}' and '${Email}' and '${ProfileType}' and '${UserPassword}' and '${RetypePassword}'
     And   Add territory as '${Region}' for the user
+    And   Add territory as '${Region1}' for the user
     And   Add permission rights with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and create user
     Then  Verify '${FullName}' user with market manager for market as '${Region}' and permission rights as '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}'
 
