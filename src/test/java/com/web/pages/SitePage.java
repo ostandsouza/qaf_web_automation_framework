@@ -271,6 +271,7 @@ public class SitePage  extends BasePage {
         waitForElementVisible(btDelete, 10000, 500);
         btDelete.click("Delete");
         yesConfirmation.click("Confirm");
+        SyncUtil.waitFor(2000);
     }
 
     public void verifySiteDelete(String siteName) {

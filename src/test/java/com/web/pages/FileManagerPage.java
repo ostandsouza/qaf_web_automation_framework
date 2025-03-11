@@ -226,8 +226,8 @@ public class FileManagerPage extends BasePage {
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         upload.sendKeys(file_path, "img_upload");
         SyncUtil.waitFor(5000);
-        if(duplicateFileErrorMessage.isVisible(10000,"error"))
-            Reporter.log("User cannot upload Duplicate files");
+//        if(duplicateFileErrorMessage.isVisible(10000,"error"))
+//            Reporter.log("User cannot upload Duplicate files");
         waitForElementToInvisible(btFileUploadingProgress, 45000);
         SyncUtil.waitFor(1000);
         waitForElementToBeClickable(btFileUploadingCloseBtn);

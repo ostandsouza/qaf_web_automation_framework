@@ -667,6 +667,7 @@ public class CorporatePage extends BasePage{
         waitForElementVisible(btDelete, 10000,500);
         btDelete.jsClick("Delete");
         yesConfirmation.click("Confirm");
+        SyncUtil.waitFor(2000);
     }
 
     public void searchCorporate(String corpName) {

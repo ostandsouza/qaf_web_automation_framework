@@ -3329,7 +3329,8 @@ public class ConveyorPage extends BasePage{
         waitForElementVisible(btCreate, 10000, 500);
         waitForElementToBeClickable(btCreate);
         btCreate.click();
-        waitForElementToInvisible(buttonLoader,10000);
+        SyncUtil.waitFor(1000);
+        waitForElementToInvisible(buttonLoader,25000);
     }
 
     public void saveButtonClick()

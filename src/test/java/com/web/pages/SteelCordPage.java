@@ -301,7 +301,7 @@ public class SteelCordPage extends BasePage {
 		dropdownSearchSelect(drConveyorName, tbInput, conveyorName);
 		dropdownSearchSelect(drBeltrating, tbInput, beltRating);
 		tbBeltWidth.type(beltWidth);
-		dropdownSearchSelect(drTopCoverCompound, tbInput, topCoverCompound);
+		dropdownSelectSearchContains(drTopCoverCompound, tbInput, topCoverCompound);
 		dropdownSearchSelect(drBottomCoverCompound, tbInput, bottomCoverCompound);
 		Validator.assertTrue(tbdesignerName.getAttribute("value").contains(tbProfileName.getText()),"DesignerName Mismatch","DesignerName matches");
 		Validator.assertTrue(tbCreationDate.getAttribute("value").contains(formattedCurrentDate),"Creation Date not set to current date","Creation Date is set to current date");

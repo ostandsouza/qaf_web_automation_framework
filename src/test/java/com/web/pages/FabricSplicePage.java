@@ -268,7 +268,7 @@ public class FabricSplicePage extends BasePage {
     public void addFabricSpliceDesignDetails(String beltWidth, String beltType, String topCoverCompound, String bottomCoverCompound, String topCoverThickness, String bottomCoverThickness, String overallThickess, String biasAngle) {
         tbBeltWidth.isVisible(10000, "Belt Width");
         tbBeltWidth.type(beltWidth);
-        dropdownSearch(drBeltType, tbFabricSpliceSearchInput, beltType);
+        dropdownSelectSearchContains(drBeltType, tbFabricSpliceSearchInput, beltType);
         dropdownSearch(drTopCoverCompound, tbFabricSpliceSearchInput, topCoverCompound);
         dropdownSearch(drTopCoverThickness, tbFabricSpliceSearchInput, topCoverThickness);
         dropdownSearch(drBottomCoverCompound, tbFabricSpliceSearchInput, bottomCoverCompound);

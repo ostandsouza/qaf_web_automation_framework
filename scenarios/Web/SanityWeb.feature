@@ -94,6 +94,7 @@ Scenario: Verify the conveyor management
 @key:Conveyor_BulkUpload
 Scenario: Verify the conveyor bulk upload
 
+    And   Close warning popup
     When  Download bulk upload template for distributor '${DistCorpName}' and with sites '${CustSiteName}' and '${CustSite2Name}'
     And   Add two conveyor via bulk upload in site '${CustSiteName}' with file '${FileName}'
     Then  Validate conveyor '${CustSiteName}' should display in list with same data as filled in exel sheet '${FileName}'
