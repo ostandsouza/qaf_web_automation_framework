@@ -285,10 +285,9 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
     
     public void dropdownSelectSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
-        waitForElementVisible(dropDownButton,10000,500);
         waitForElementToBeClickable(dropDownButton);
         setImplicitWait(20000,TimeUnit.MILLISECONDS);
-		dropDownButton.jsClick("dropdown");
+		dropDownButton.click("dropdown");
         waitForElementToBeClickable(dropDownButton);
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
@@ -302,17 +301,13 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
 
     public void dropdownSelectSearchContains(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
-        waitForElementVisible(dropDownButton,10000,500);
-        waitForElementToBeClickable(dropDownButton);
-        setImplicitWait(20000,TimeUnit.MILLISECONDS);
-        dropDownButton.jsClick("dropdown");
+        dropDownButton.click("dropdown");
         waitForElementToBeClickable(dropDownButton);
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(60000,TimeUnit.MILLISECONDS);
 //        waitForPresenceOfElement(By.xpath("//span[contains(text(),'"+itemstosearch+"')]"));
 //        driver.findElement("//span[contains(text(),'"+itemstosearch+"')]").click();
-        waitForPresenceOfElement(By.xpath("//li/span[1]"));
         driver.findElement("//li/span[1]").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);
         Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
@@ -366,7 +361,7 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
 
     public void dropdownSearchSelect(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
-        dropDownButton.jsClick();
+        dropDownButton.click();
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(70000,TimeUnit.MILLISECONDS);

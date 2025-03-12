@@ -30,6 +30,20 @@ public class TestListener implements ITestListener {
 
     }
 
+    private static BufferedImage resizeImage(BufferedImage originalImage, int width, int height) {
+        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = resizedImage.createGraphics();
+
+        // High-quality rendering hints
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.drawImage(originalImage, 0, 0, width, height, null);
+        g.dispose();
+        return resizedImage;
+    }
+
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         Reporter.log("Method " +Thread.currentThread().getStackTrace()[1].getMethodName() );
@@ -39,14 +53,10 @@ public class TestListener implements ITestListener {
         {
             File scrFile = new BasePage().getTestBase().getDriver().getScreenshotAs(OutputType.FILE);
             BufferedImage originalImage = ImageIO.read(scrFile);
-            int newWidth = originalImage.getWidth() / 2;
-            int newHeight = originalImage.getHeight() / 2;
-            BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g = resizedImage.createGraphics();
-            g.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
-            g.dispose();
+            BufferedImage halfSizeImage = resizeImage(originalImage, originalImage.getWidth() / 2, originalImage.getHeight() / 2);
+            BufferedImage quarterSizeImage = resizeImage(halfSizeImage, originalImage.getWidth() / 4, originalImage.getHeight() / 4);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(resizedImage, "jpg", baos);
+            ImageIO.write(quarterSizeImage, "jpg", baos);
             byte[] imageBytes = baos.toByteArray();
             String val= "data:image/jpg;base64," + Base64.getEncoder().encodeToString(imageBytes);
 //            String scrFile = new BasePage().getTestBase().getDriver().getScreenshotAs(OutputType.BASE64);
