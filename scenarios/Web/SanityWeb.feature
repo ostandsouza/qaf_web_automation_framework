@@ -286,8 +286,6 @@ Scenario: Verify the Delete functionality across the application
  @key:CordProtect
  Scenario: Verify Cord protect functionality
 
-   Given User is at Login page
-   When  Login with normal user '${UserName}' and '${Password}'
     And   Navigate to Belt Monitoring List screen
     Then  Verify the monitoring device '${DeviceName}' in list screen
     When  Navigate to cord protect iot window

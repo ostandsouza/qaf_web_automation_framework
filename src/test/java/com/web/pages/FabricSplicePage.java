@@ -260,6 +260,7 @@ public class FabricSplicePage extends BasePage {
 //        waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),10000,500);
 //        driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")).click();
 //        scrollPageDown();
+        SyncUtil.waitFor(500);
         dropdownSelect(drApproverDropdown,listItems,approverName);
 //        waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),5000,500);
 //        scrollIntoView(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")));

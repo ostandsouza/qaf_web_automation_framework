@@ -482,7 +482,7 @@ public class MonitoringDevicePage extends BasePage {
     public void goToMonitoringDeviceListScreen() {
         if (!monitoringDeviceList.isVisible())
             home.click("Home");
-        monitoringDeviceList.jsClick("Monitoring devices List");
+        monitoringDeviceList.click("Monitoring devices List");
         SyncUtil.waitFor(1000);
         btSearchinput.isVisible("Monitoring devices List Page");
     }
