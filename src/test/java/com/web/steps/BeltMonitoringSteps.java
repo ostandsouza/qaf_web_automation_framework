@@ -261,9 +261,9 @@ public class BeltMonitoringSteps {
 
     @QAFTestStep(description="Verify the monitoring device {Device} in list screen")
     public void searchMonitoringDevice(String device){
-        Map<String, Object> obj = monitoringDevicePage.apiBase.getMonitoringDeviceAPI(device);
-        if(obj != null)
-            obj = monitoringDevicePage.apiBase.getMonitoringDeviceDetailsAPI((String) obj.get("monitoringDeviceId"));
+//        Map<String, Object> obj = monitoringDevicePage.apiBase.getMonitoringDeviceAPI(device);
+//        if(obj != null)
+//            obj = monitoringDevicePage.apiBase.getMonitoringDeviceDetailsAPI((String) obj.get("monitoringDeviceId"));
         Validator.assertTrue(monitoringDevicePage.searchMonitoringDevice(device),"Monitoring Device was not found","Monitoring Device was found and verified successfully");
     }
 

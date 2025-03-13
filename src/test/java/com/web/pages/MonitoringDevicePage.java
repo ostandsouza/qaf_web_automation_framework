@@ -483,6 +483,7 @@ public class MonitoringDevicePage extends BasePage {
         if (!monitoringDeviceList.isVisible())
             home.click("Home");
         monitoringDeviceList.jsClick("Monitoring devices List");
+        SyncUtil.waitFor(1000);
         btSearchinput.isVisible("Monitoring devices List Page");
     }
 
@@ -503,7 +504,7 @@ public class MonitoringDevicePage extends BasePage {
         goToMonitoringDeviceListScreenAndWait();
         btSearchinput.type(monitoringDeviceName, "Monitoring Device Name Search");
         waitForElementToDisplay(crCheckbox);
-        return crCheckbox.isVisible("Conveyor Found");
+        return crCheckbox.isVisible("Monitoring device Found");
     }
 
     public boolean goToMonitoringDeviceEditScreen(String device) {

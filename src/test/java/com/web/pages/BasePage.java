@@ -288,7 +288,6 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         waitForElementToBeClickable(dropDownButton);
         setImplicitWait(20000,TimeUnit.MILLISECONDS);
 		dropDownButton.click("dropdown");
-        waitForElementToBeClickable(dropDownButton);
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(60000,TimeUnit.MILLISECONDS);
@@ -302,7 +301,6 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
     public void dropdownSelectSearchContains(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
         dropDownButton.click("dropdown");
-        waitForElementToBeClickable(dropDownButton);
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(60000,TimeUnit.MILLISECONDS);
@@ -315,7 +313,6 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
     public void dropdownSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
         dropDownButton.click();
-        waitForElementToBeClickable(dropDownButton);
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(70000,TimeUnit.MILLISECONDS);

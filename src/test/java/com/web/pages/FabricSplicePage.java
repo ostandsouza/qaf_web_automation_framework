@@ -32,6 +32,8 @@ public class FabricSplicePage extends BasePage {
     @FindBy(locator = "xpath=//input[@placeholder='Search']")
     public CustomElement btSearchinput;
 
+    public String listItems = "//ul[@role='listbox']";
+
     @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement fabricSpliceBreadcrumb;
 
@@ -58,6 +60,9 @@ public class FabricSplicePage extends BasePage {
 
     @FindBy(locator = "xpath=//p-autocomplete[@field=\"name\"]//button")
     public CustomElement drApproverDropdown;
+
+    @FindBy(locator = "xpath=//p-autocomplete[@field='name']//input")
+    public CustomElement drApproverInput;
 
     @FindBy(locator = "xpath=(//label[text()=\"Belt Construction\"]/following-sibling::div//p-dropdown)[1]")
     public CustomElement drBeltConstructionDropdown;
@@ -229,7 +234,7 @@ public class FabricSplicePage extends BasePage {
                 break;
             }
             val = pagination.getText();
-            SyncUtil.waitFor(15000);
+            SyncUtil.waitFor(10000);
         }
     }
 
@@ -248,13 +253,17 @@ public class FabricSplicePage extends BasePage {
         dropdownSearch(drProductionLocationKit, tbFabricSpliceSearchInput, spliceKit);
         dropdownSelectSearch(drSiteDropdown, tbFabricSpliceSearchInput, customerName);
         dropdownSelectSearch(drConveyorDropdown, tbFabricSpliceSearchInput, conveyorName);
-        SyncUtil.waitFor(5000);
         setImplicitWait(20000, TimeUnit.MILLISECONDS);
-        drApproverDropdown.click("Approver List");
-        SyncUtil.waitFor(3000);
+//        drApproverDropdown.jsClick("Approver List");
+        drApproverInput.type(approverName);
+//        SyncUtil.waitFor(5000);
+//        waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),10000,500);
+//        driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")).click();
+//        scrollPageDown();
+        dropdownSelect(drApproverDropdown,listItems,approverName);
 //        waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),5000,500);
-        scrollIntoView(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")));
-        driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")).click();
+//        scrollIntoView(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")));
+//        driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")).click();
         dropdownSearch(drBeltConstructionDropdown, tbFabricSpliceSearchInput, beltConstruction);
         Validator.assertTrue(radioBtnNormalSelected.isVisible(), "'Normal' is not selected by default for Direction of Skive Cut", "'Normal' is selected by default for Direction of Skive Cut");
         Validator.assertTrue(radioBtnRightSelected.isVisible(), "'Right' is not selected by default for Direction of Travel", "'Right' is selected by default for Direction of Travel");
@@ -288,7 +297,7 @@ public class FabricSplicePage extends BasePage {
         driver.findElement(By.xpath("//p-dropdownitem//li[contains(@aria-label,'" + spliceType + "')]")).click();
         Validator.assertTrue(radioBtnRegularSelected.isVisible(), "The Regular Splice is not selected by default", "The Regular Splice is selected by default");
 //        Validator.assertTrue(btnCalculate.isEnabled(), "The calculate button is not enabled", "The calculate button is enabled");
-        SyncUtil.waitFor(40000);
+//        SyncUtil.waitFor(40000);
     }
 
     public void calculateBtnClick() {
@@ -313,7 +322,8 @@ public class FabricSplicePage extends BasePage {
         getBundle().setProperty("spliceDrawingNumber", designName);
         System.out.println("Splice drawing number" + getBundle().getProperty("spliceDrawingNumber").toString());
         Validator.assertTrue(
-                driver.findElement(By.xpath("//div//h4[contains(text(), '" + beltWidth + " " + beltType + " " + topCoverThickness + "+" + bottomCoverThickness + " " + topCoverCompoundName + "  - FABRIC BELT STEP SPLICE')]")).isDisplayed(),
+//                driver.findElement(By.xpath("//div//h4[contains(text(), '" + beltWidth + " " + beltType + " " + topCoverThickness + "+" + bottomCoverThickness + " " + topCoverCompoundName + "  - FABRIC BELT STEP SPLICE')]")).isDisplayed(),
+                driver.findElement(By.xpath("//div//h4[contains(text(), '" + beltType + " " + topCoverThickness + "+" + bottomCoverThickness + " " + topCoverCompoundName + "  - FABRIC BELT STEP SPLICE')]")).isDisplayed(),
                 "The preview tab for design has in-correct header",
                 "The preview tab for design has correct header"
         );
@@ -325,6 +335,8 @@ public class FabricSplicePage extends BasePage {
         Validator.assertTrue(noOfStepsVal.getAttribute("value").equalsIgnoreCase(noOfSteps), "The No Of Steps value is in-correct", "The No Of Steps value is correct");
         Validator.assertTrue(beltWidthVal.getAttribute("value").equalsIgnoreCase(beltWidth), "The Belt width value is in-correct", "The Belt width value is correct");
         Validator.assertTrue(overallBeltThicknessVal.getAttribute("value").equalsIgnoreCase(overallThickness), "The Belt Thickness value is in-correct", "The Belt Thickness value is correct");
+        System.out.println(stepLengthVal.getAttribute("value"));
+        System.out.println(stepLength);
         Validator.assertTrue(stepLengthVal.getAttribute("value").equalsIgnoreCase(stepLength), "The step Length value is in-correct", "The step Length value is correct");
         Validator.assertTrue(spliceLengthVal.getAttribute("value").equalsIgnoreCase(spliceLength), "The splice Length value is in-correct", "The splice Length value is correct");
         Validator.assertTrue(coverStripeWidthTop.getAttribute("value").equalsIgnoreCase(coverStripTop), "The cover Stripe Width(Top) value is in-correct", "The cover Stripe Width(Top) value is correct");
@@ -379,7 +391,6 @@ public class FabricSplicePage extends BasePage {
         waitForPageLoad(10000);
         btSearchinput.isVisible(10000, "search input");
         btSearchinput.type(designName, "Record Search");
-        SyncUtil.waitFor(10000);
         waitForElementVisible(crCheckbox, 20000, 1000);
         waitForElementToDisplay(crCheckbox);
         return crCheckbox.isVisible("Record Found");

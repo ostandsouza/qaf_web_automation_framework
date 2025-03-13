@@ -687,6 +687,7 @@ public class CorporatePage extends BasePage{
         Validator.assertFalse(btImg.getAttribute("src").equalsIgnoreCase("/assets/img/upload_default.png"), "New Image was not uploaded", "New Img was successfully added");
         btName.verifyTextIgnoringNewLineChar(corpName, "Corporate name");
         btviewicon.check("Corp Details");
+        SyncUtil.waitFor(5000);
         verifyImageUpload();
     }
 

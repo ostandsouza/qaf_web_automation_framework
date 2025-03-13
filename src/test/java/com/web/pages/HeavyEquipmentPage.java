@@ -156,14 +156,14 @@ public class HeavyEquipmentPage extends BasePage {
         waitForElementToDisplay(cbCheckbox);
         waitForElementToDisplay(btviewicon);
         btviewicon.jsClick("View Details");
-        SyncUtil.waitFor(30000);
+
         Validator.assertTrue(driver.getCurrentUrl().contains("/secure/heavy-equipment/view/"), "User is not navigated to view heavy equipment page!", "User is not navigated to view heavy equipment page!");
     }
 
     public boolean navigateAddHeavyEquipmentPage() {
         btAdd.click();
         waitForPageLoad(5000);
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(2000);
         waitForElementVisible(bcAddHeavyEquipmentLink, 5000, 500);
         System.out.println(bcAddHeavyEquipmentLink.getText());
         Validator.assertTrue(bcAddHeavyEquipmentLink.isVisible(), "Page is not redirected to SteelCord-Add page", "Redirected to SteelCord-Add page");
@@ -181,24 +181,24 @@ public class HeavyEquipmentPage extends BasePage {
     }
 
     public void editHeavyEquipmentDetails(String name, String category) {
-        btnSaveDisabled.isNotVisible(5000);
-        tbName.isVisible(10000, "name");
-        tbName.clear();
-        tbName.type(name);
-        SyncUtil.waitFor(10000);
-        waitForElementVisible(drCategory, 10000, 500);
+        btnSaveDisabled.isNotVisible(2000);
+//        tbName.isVisible(10000, "name");
+        SyncUtil.waitFor(2000);
         dropdownSelectSearch(drCategory, tbFabricSpliceSearchInput, category);
+        tbName.type(name);
+        waitForElementVisible(drCategory, 10000, 500);
     }
 
     public void uploadDocument(String fileName) {
         addButton.isVisible(10000, "addButton");
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         upload.sendKeys(file_path, "img_upload");
-        SyncUtil.waitFor(5000);
         waitForElementToInvisible(btFileUploadingProgress, 45000);
         SyncUtil.waitFor(1000);
-        waitForElementToBeClickable(btFileUploadingCloseBtn);
-        btFileUploadingCloseBtn.click("Upload Close Btn");
+        if(btFileUploadingCloseBtn.isVisible()) {
+            waitForElementToBeClickable(btFileUploadingCloseBtn);
+            btFileUploadingCloseBtn.click("Upload Close Btn");
+        }
 
     }
 
@@ -231,7 +231,6 @@ public class HeavyEquipmentPage extends BasePage {
         waitForElementToDisplay(btSearchinput);
         btSearchinput.type(item, "Search Item");
         waitForElementToDisplay(cbCheckbox);
-        SyncUtil.waitFor(3000);
         cbCheckbox.click("Checkbox");
         ddlActions.jsClick("Action");
         waitForElementToBeClickable(btnDelete);
@@ -252,7 +251,6 @@ public class HeavyEquipmentPage extends BasePage {
 
     public void verifyFileDownloadFun(String file) {
         waitForPageLoad(10000);
-        SyncUtil.waitFor(2000);
         downloadThePDF();
         SyncUtil.waitFor(3000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(file), "File report was not found", "File report was downloaded successfully");
@@ -263,11 +261,10 @@ public class HeavyEquipmentPage extends BasePage {
         while (heavyEquipmentCard.isNotVisible(3000)) {
             cordInspectPage.clickCarouselNextBtn();
         }
-        SyncUtil.waitFor(10000);
         heavyEquipmentCard.jsClick("BeltScan Card");
         waitForPageLoad(10000);
-        SyncUtil.waitFor(10000);
     }
+
     public void verifyHeavyEquipmentCardVisibility()
     {
         while (heavyEquipmentCard.isNotVisible(3000)) {
@@ -410,7 +407,6 @@ public class HeavyEquipmentPage extends BasePage {
     private void validatePagination(WebElement dropdownButton, String expectedText) {
         scrollPageDown();
         clickPaginationDropdown();
-        SyncUtil.waitFor(3000);
         dropdownButton.click();
         System.out.println(paginationEntry.getText()+"text is");
         int paginationSelectedRecordCount = Integer.parseInt(

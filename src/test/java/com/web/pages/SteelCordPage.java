@@ -215,7 +215,7 @@ public class SteelCordPage extends BasePage {
 	public CustomElement statusApproved;
 	@FindBy(locator = "xpath=//label[text()='Splice Design Drawing No.']/../div//input")
 	public CustomElement tbSpliceDesignDrawingNo;
-	@FindBy(locator = "xpath=//button//span[text()='Save as Draft']")
+	@FindBy(locator = "xpath=//button//span[contains(text(),'Draft')]")
 	public CustomElement btnSaveDraftButtonSteelCord;
 	@FindBy(locator = "xpath=//button//span[contains(@class,'pi-spinner')]")
 	public CustomElement btnLoader;

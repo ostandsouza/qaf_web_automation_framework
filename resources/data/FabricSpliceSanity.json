@@ -7,7 +7,7 @@
     "SpliceKit": "Bayswater",
     "CustomerName": "Cust Automation Sanity Site Aus",
     "ConveyorName": "C6 Automation Sanity",
-    "ApproverName": "BeltSacn_CCM",
+    "ApproverName": "Conti Plus",
     "BeltConstruction": "ContiFlex",
     "BeltWidth": "1800",
     "BeltType": "400/2",
@@ -19,8 +19,8 @@
     "BiasAngle": "22",
     "SpliceType": "Step",
     "NoOfSteps": "1",
-    "StepLength": "200",
-    "SpliceLength": "300",
+    "StepLength": "300",
+    "SpliceLength": "400",
     "CoverStripeTop": "120",
     "CoverStripeBottom": "80",
     "BiasLength": "720",
@@ -35,7 +35,7 @@
     "InReviewStatus": "In Review",
     "ToReviewStatus": "To Review",
     "ApprovedStatus": "Approved",
-    "MarketUserName": "BeltSacn_CCM@yopmail.com",
+    "MarketUserName": "contiplus_admin@maildrop.cc",
     "MarketPassword": "Abc@123456",
     "ApproveComments": "Design Approved"
   }

@@ -1486,7 +1486,7 @@ public class ConveyorPage extends BasePage{
         crDelete.click("Delete");
         crYesConfirmation.click("Confirm");
         waitForElementToDisplay(noList);
-        SyncUtil.waitFor(2000);
+        SyncUtil.waitFor(5000);
     }
 
     public void clearConveyorSearch() {

@@ -33,7 +33,7 @@ public class HeavyEquipmentSteps extends BasePage {
     }
 
     @QAFTestStep(description = "Navigate to edit heavy equipment page")
-    public void editFabricSplice() {
+    public void editHeavyEquipmentSplice() {
         fabricSplicePage.editRecord();
         heavyEquipmentPage.verifyEditPage();
     }
