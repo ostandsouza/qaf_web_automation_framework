@@ -496,7 +496,15 @@ public class CorporatePage extends BasePage{
         tbAddress.type(Address,"Address bar");
         waitForElementToDisplay(tbMapFirstSearchOption);
         tbAddress.click("Address bar");
-        tbMapFirstSearchOption.click(" search result");
+        if(tbMapFirstSearchOption.isVisible())
+            tbMapFirstSearchOption.click(" search result");
+        else{
+            tbAddress.type(Address,"Address bar");
+            waitForElementToDisplay(tbMapFirstSearchOption);
+            tbAddress.click("Address bar");
+            tbMapFirstSearchOption.click(" search result");
+        }
+
     }
 
     public void saveCorp() {
