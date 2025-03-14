@@ -139,6 +139,9 @@ public class FileManagerPage extends BasePage {
     @FindBy(locator="xpath=//pdf-viewer/div[1]")
     public CustomElement pdfPopup;
 
+    @FindBy(locator="xpath=//div[text()='File is still in scanning status. Please try again after some time.']")
+    public CustomElement pdfScanning;
+
     @FindBy(locator="xpath=//button[contains(@class,'p-dialog-header-icon')]")
     public CustomElement closePopup;
 
@@ -431,21 +434,25 @@ public class FileManagerPage extends BasePage {
         return MiscUtils.regexExtractor(memory, "(|[^|]*)$").trim();
     }
     public void openImageDocument(String fileName){
-        SyncUtil.waitFor(4000);
+        SyncUtil.waitFor(1000);
         documentViewIcon.isVisible(10000,"View Icon");
         documentViewIcon.click();
+        SyncUtil.waitFor(1000);
         waitForElementToDisplay(imgPopup);
         imgPopup.isVisible("Image");
         closePopup.click();
     }
     public void openPdfDocument(String fileName)
     {
-        SyncUtil.waitFor(4000);
+        SyncUtil.waitFor(1000);
         documentViewIcon.isVisible(10000,"View Icon");
         documentViewIcon.click();
-        waitForElementToDisplay(pdfPopup);
-        pdfPopup.isVisible("pdf");
-        closePopup.click();
+        SyncUtil.waitFor(1000);
+        if(!pdfScanning.isVisible()) {
+            waitForElementToDisplay(pdfPopup);
+            pdfPopup.isVisible("pdf");
+            closePopup.click();
+        }
     }
     public void verifyFileManagerBreadCrumb(String corpName,String moduleRecordName,String conveyorName)
     {

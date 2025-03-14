@@ -2982,7 +2982,6 @@ public class CoverWearPage extends BasePage{
 
     public void btnSaveClick()
     {
-        SyncUtil.waitFor(5000);
         waitForElementVisible(btnSave,10000,500);
         btnSave.jsClick();
         waitForPageLoad(10000);

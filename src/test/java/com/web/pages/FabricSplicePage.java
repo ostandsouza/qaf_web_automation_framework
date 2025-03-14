@@ -413,16 +413,14 @@ public class FabricSplicePage extends BasePage {
     }
 
     public void editRecord() {
-        SyncUtil.waitFor(10000);
         crCheckbox.isVisible(10000, "record");
 //        waitForElementVisible(crCheckbox,10000,500);
         crCheckbox.check("Select Corporate");
         btActions.jsClick("Actions");
-        SyncUtil.waitFor(8000);
+        waitForElementToDisplay(btEdit);
         waitForElementVisible(btEdit, 10000, 500);
         btEdit.isVisible(10000, "Edit");
         waitForElementToBeClickable(btEdit);
-        SyncUtil.waitFor(3000);
         btEdit.click("Edit");
     }
     public boolean verifyActionBtnPermissions()

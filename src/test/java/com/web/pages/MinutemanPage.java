@@ -1201,7 +1201,7 @@ public class MinutemanPage extends BasePage{
         if(!minuteman.isVisible())
             home.click("Home");
         SyncUtil.waitFor(1000);
-        minuteman.click("Minuteman");
+        minuteman.jsClick("Minuteman");
         waitForElementToDisplay(minutemanHeader);
         btSearchinput.isVisible("Minuteman Page");
     }

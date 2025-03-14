@@ -8,6 +8,7 @@ import com.mobile.flutter.app.pages.DashboardPage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.CSVUtil;
 import com.qmetry.qaf.automation.util.Validator;
+import groovyjarjarantlr4.v4.codegen.model.Sync;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -515,6 +516,8 @@ public class MonitoringDevicePage extends BasePage {
         waitForElementVisible(editBtn, 10000, 500);
         editBtn.click("Edit");
         waitForPageLoad(10000);
+        SyncUtil.waitFor(2000);
+        waitForElementToDisplay(tbDeviceName);
         return updateDeviceTitle.isVisible(10000, "Update Device title");
     }
 

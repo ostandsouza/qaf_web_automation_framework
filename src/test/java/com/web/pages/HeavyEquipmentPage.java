@@ -135,7 +135,7 @@ public class HeavyEquipmentPage extends BasePage {
                 break;
             }
             val = pagination.getText();
-            SyncUtil.waitFor(15000);
+            SyncUtil.waitFor(10000);
         }
     }
 
@@ -184,9 +184,9 @@ public class HeavyEquipmentPage extends BasePage {
         btnSaveDisabled.isNotVisible(2000);
 //        tbName.isVisible(10000, "name");
         SyncUtil.waitFor(2000);
+        waitForElementVisible(drCategory, 10000, 500);
         dropdownSelectSearch(drCategory, tbFabricSpliceSearchInput, category);
         tbName.type(name);
-        waitForElementVisible(drCategory, 10000, 500);
     }
 
     public void uploadDocument(String fileName) {
@@ -213,6 +213,7 @@ public class HeavyEquipmentPage extends BasePage {
         tbModel.type(model);
         tbYearOfManufacture.isVisible(10000, "YearOfManufacture");
         tbYearOfManufacture.click("YearOfManufacture");
+        SyncUtil.waitFor(500);
         coverWearPage.selectYear(year);
         tbSerialNumber.isVisible(10000, "SerialNumber");
         tbSerialNumber.type(serialNumber);
@@ -237,6 +238,7 @@ public class HeavyEquipmentPage extends BasePage {
         Validator.assertTrue(btnDelete.isVisible(), "Delete button is not visible", "Delete button is visible");
         btnDelete.click("Delete Item");
         btnYes.click("Confirm delete");
+        SyncUtil.waitFor(2000);
         waitForElementToDisplay(noList);
         noList.isVisible("No Item Found");
         waitForElementVisible(deleteSuccessMsg, 10000, 1000);
@@ -252,7 +254,7 @@ public class HeavyEquipmentPage extends BasePage {
     public void verifyFileDownloadFun(String file) {
         waitForPageLoad(10000);
         downloadThePDF();
-        SyncUtil.waitFor(3000);
+        SyncUtil.waitFor(5000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(file), "File report was not found", "File report was downloaded successfully");
         MiscUtils.deleteDownloadedFiles(file);
     }
