@@ -901,7 +901,7 @@ public class CorporatePage extends BasePage{
 
     public void verifyInspectionCardClick(){
         waitForPageLoad(5000);
-        waitForElementVisible(inspectionCard,5000,1000);
+        waitForElementToDisplay(inspectionCard);
         waitForElementToBeClickable(inspectionCard);
         Validator.assertTrue(inspectionCard.isEnable(),"Inspection Card is not clickable","Inspection Card is clickable");
         inspectionCard.click();

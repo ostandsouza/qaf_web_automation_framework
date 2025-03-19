@@ -308,7 +308,7 @@ Scenario: Verify the functionality of last modified date column
     And   Add inspection Item for conveyor '${ConveyorName2}' for '${CustSiteName}' with '${AssetName1}' '${AssetDetail1}' '${FailureMode1}' '${Condition1}' '${Status}'
     And   Add inspection Item for conveyor '${ConveyorName3}' for '${CustSiteName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
     And   Add inspection Item for conveyor '${ConveyorName4}' for '${CustSiteName}' with '${AssetName3}' '${AssetDetail3}' '${FailureMode3}' '${Condition3}' '${Status}'
-    And   Verify the last modified date for newly created inspection '${InspectionNam1}'
+    And   Verify the last modified date for newly created inspection '${InspectionName1}'
 
 @Regression21
 @dataFile:resources/data/TestData.xls
@@ -819,8 +819,6 @@ Scenario: Verify action button functionality for event list screen
 @key:Inspection_NameColumnVMC
 Scenario: zVerify the functionality of inspection name column
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
     And   Verify name filter functionality with '${InspectionName1}' and '${ColumnNumber}'
@@ -1134,7 +1132,7 @@ Scenario: zVerify inspection item edit and delete functionality on edit mode
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteInspectionVMC
-Scenario: zVerify inspection item delete functionality
+Scenario: zuVerify inspection item delete functionality
 
     When  Navigate to Inspection detail page of the Inspection event '${EditInspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${EditInspectionName}'
@@ -1509,8 +1507,10 @@ Scenario: Verify action button functionality for event list screen
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionDashboardVMC
-Scenario: zVerify inspection dashboard screen for VMC
+Scenario: zzVerify inspection dashboard screen for VMC
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     And   Add customer corporate with '${CustCorpName}' and '${CustCorpAddress}' '${InsTemplate}'
     And   Create a Customer site '${CustSiteName}' and '${CustSiteAddress}' and '${CustCorpName}' and '${DistShopName}' and '${FullName}' and '${TerritoryInd}'
     And   Create a conveyor with '${ConveyorName1}' and '${DistShopName}' and '${CustSiteName}'
@@ -1547,10 +1547,8 @@ Scenario: Verify elements displayed on inspection dashboard screen for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionDashboardDefault
-Scenario: yVerify inspection dashboard screen for default
+Scenario: zyVerify inspection dashboard screen for default
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     And   Add customer corporate with '${CustCorpName}' and '${CustCorpAddress}' '${InsTemplate}'
     And   Create a Customer site '${CustSiteName}' and '${CustSiteAddress}' and '${CustCorpName}' and '${DistShopName}' and '${FullName}' and '${TerritoryInd}'
     And   Create a conveyor with '${ConveyorName1}' and '${DistShopName}' and '${CustSiteName}'

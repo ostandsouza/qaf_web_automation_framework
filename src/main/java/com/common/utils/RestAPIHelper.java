@@ -3,6 +3,7 @@ package com.common.utils;
 import com.qmetry.qaf.automation.util.Reporter;
 import io.restassured.RestAssured;
 import io.restassured.config.EncoderConfig;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
@@ -15,6 +16,9 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+import static io.restassured.config.LogConfig.logConfig;
 
 public class RestAPIHelper {
     private RequestSpecification requestSpec;
@@ -81,6 +85,8 @@ public class RestAPIHelper {
     public RequestSpecification newRequest(String basePath) {
         setBasePath(basePath);
         requestSpec = RestAssured.given();
+        if (getBundle().getString("disable.restassured.logs").equalsIgnoreCase("true"))
+            requestSpec = requestSpec.noFilters();
         queryParams = new HashMap<>();
         headers = new HashMap<>();
 
@@ -622,7 +628,7 @@ public class RestAPIHelper {
         // Get new RestAssured request using request path
         RequestSpecification newRequest = newRequest(basePath);
         disableContentCharSet();
-        newRequest.contentType(ContentType.JSON).log();
+        newRequest.contentType(ContentType.JSON);
 
         // set query string/body/params
         if (headerParams != null) {
@@ -637,6 +643,8 @@ public class RestAPIHelper {
             response = postRequest();
         }
 
+        System.out.println("Response code is : "+response.getStatusCode()+" for POST API : "+RestAssured.baseURI+basePath);
+
         return response;
     }
 
@@ -650,9 +658,10 @@ public class RestAPIHelper {
      */
     protected Response makeGetRequest(String basePath, Map<String, ? extends Object> requestParams, Map<String, ? extends Object> headerParams) {
         // Get new RestAssured request using request path
+
         RequestSpecification newRequest = newRequest(basePath);
         disableContentCharSet();
-        newRequest.contentType(ContentType.JSON).log();
+        newRequest.contentType(ContentType.JSON);
 
         // set query string/body/params
         if (headerParams != null) {
@@ -665,6 +674,8 @@ public class RestAPIHelper {
 
         // Make a GET/POST request and get a response
         Response response = getResponse();
+
+        System.out.println("Response code is : "+response.getStatusCode()+" for GET API : "+RestAssured.baseURI+basePath);
 
         return response;
     }
@@ -691,7 +702,7 @@ public class RestAPIHelper {
         // Get new RestAssured request using request path
         RequestSpecification newRequest = newRequest(basePath);
         disableContentCharSet();
-        newRequest.contentType(ContentType.JSON).log();
+        newRequest.contentType(ContentType.JSON);
 
         // set query string/body/params
         if (headerParams != null) {
@@ -700,6 +711,8 @@ public class RestAPIHelper {
 
         // Make a GET/POST request and get a response
         Response response = deleteRequest();
+
+        System.out.println("Response code is : "+response.getStatusCode()+" for DELETE API : "+RestAssured.baseURI+basePath);
 
         return response;
     }
@@ -716,7 +729,7 @@ public class RestAPIHelper {
         // Get new RestAssured request using request path
         RequestSpecification newRequest = newRequest(basePath);
         disableContentCharSet();
-        newRequest.contentType(ContentType.JSON).log();
+        newRequest.contentType(ContentType.JSON);
 
         // set query string/body/params
         if (headerParams != null) {
@@ -730,6 +743,8 @@ public class RestAPIHelper {
         } else {
             response = putRequest();
         }
+
+        System.out.println("Response code is : "+response.getStatusCode()+" for PUT API : "+RestAssured.baseURI+basePath);
 
         return response;
     }

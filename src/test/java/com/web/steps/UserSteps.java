@@ -156,8 +156,8 @@ public class UserSteps extends BasePage {
 
     @QAFTestStep(description = "Create a Market manager {FullName} and {Phone} and {Email} and {ProfileType} and {UserPassword} and {RetypePassword}")
     public void createMarketManager(String FullNameInd, String Phone, String EmailInd, String ProfileType, String UserPassword, String RetypePassword) {
-//        String userid = userpage.apiBase.getUserProfileAPI(EmailInd);
-//        userpage.apiBase.deleteUserAPI(userid);
+        String userid = userpage.apiBase.getUserProfileAPI(EmailInd);
+        userpage.apiBase.deleteUserAPI(userid);
         userpage.usersclick();
         userpage.addClick();
         userpage.setfullname(FullNameInd);
@@ -171,8 +171,8 @@ public class UserSteps extends BasePage {
 
     @QAFTestStep(description = "Create a Distributor User {FullName} and {Phone} and {EmailDist} and {ProfileTypeDist} and {UserPassword} and {RetypePassword} and {CoporateRole} and {DistCorpName} and {DistShopName} and {CustSiteName}")
     public void createDistributorUserForIndiaJohnDoe(String FullName, String Phone, String EmailDist, String ProfileTypeDist, String UserPassword, String RetypePassword, String CoporateRole, String DistCorpName, String DistShopName, String CustSiteName) {
-//        String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
-//        userpage.apiBase.deleteUserAPI(userid);
+        String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
+        userpage.apiBase.deleteUserAPI(userid);
         userpage.usersclick();
         userpage.addClick();
         userpage.setfullname(FullName);

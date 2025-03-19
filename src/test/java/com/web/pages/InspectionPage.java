@@ -2471,10 +2471,10 @@ public class InspectionPage extends BasePage {
 		System.out.println(inspCritical);
 		Validator.assertTrue(txtInspCount.getText().equalsIgnoreCase(inspCount) ,"Inspection Tile Count is not matching", "Inspection Tile Count is matching");
 		Validator.assertTrue(txtInspCompleteCount.getText().equalsIgnoreCase(inspComplete) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspGoodCount.getText().equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspFaultCount.getText().equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspPoorCount.getText().equalsIgnoreCase(inspPoor) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspCriticalCount.getText().equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspGoodCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspFaultCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspPoorCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspPoor) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspCriticalCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
 	}
 
 
@@ -2521,9 +2521,9 @@ public class InspectionPage extends BasePage {
 		System.out.println(inspCritical);
 		Validator.assertTrue(txtInspCount.getText().equalsIgnoreCase(inspCount) ,"Inspection Tile Count is not matching", "Inspection Tile Count is matching");
 		Validator.assertTrue(txtInspCompleteCount.getText().equalsIgnoreCase(inspComplete) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspGoodCount.getText().equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspFaultCount.getText().equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspCriticalCount.getText().equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspGoodCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspFaultCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspCriticalCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
 	}
 
 	public void verifyDashboardCountChangeVMC(String inspCount, String inspGood, String inspFault, String inspCritical) {
