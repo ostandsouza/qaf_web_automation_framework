@@ -337,10 +337,12 @@ public class FileManagerPage extends BasePage {
         driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         verifyFilePresent(fileName);
         driver.findElement(By.xpath("//a[text()='"+fileName+"']")).click();
-        waitForElementToDisplay(pdfPopup);
-        pdfPopup.isVisible("pdf");
-        if(closePopup.isVisible())
-            closePopup.click();
+        if(!pdfScanning.isVisible()) {
+            waitForElementToDisplay(pdfPopup);
+            pdfPopup.isVisible("pdf");
+            if (closePopup.isVisible())
+                closePopup.click();
+        }
     }
 
     public void openFile(String folderName, String fileName) {

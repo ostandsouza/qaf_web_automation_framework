@@ -352,7 +352,7 @@ public class MinutemanSteps {
 
     @QAFTestStep(description = "User should see all the calculated data Add {CurveRadius1} {CurveRadius2} {CurveRadius3} {CurveRadius4} of curves and click on next")
     public void UserShouldSeeAllTheCalculatedDataOfCurvesPageAndClickOnNext(String curveRadius1,String curveRadius2,String curveRadius3,String curveRadius4){
-        SyncUtil.waitFor(500);
+        SyncUtil.waitFor(2000);
 //        minutemanPage.setTbCurveRadius1(curveRadius1);
 //        minutemanPage.setTbCurveRadius2(curveRadius2);
 //        minutemanPage.setTbCurveRadius3(curveRadius3);
