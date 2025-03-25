@@ -81,7 +81,7 @@ pipeline {
             script {
                def summary = junit testResults: 'test-results/junitreports/TEST-*.xml'
 
-               env.mailRecipients = 'ostan@codecraft.co.in, oston.prithesh.dsouza-EXT@continental.com, vishmitha.2.g-ext@continental.com, supreetha.g-ext@continental.com, piyush.sharma@continental.com, supreetha.g@codecraft.co.in, vishmitha.g@codecraft.co.in, vivekkumar_si@hcl.com, prathiksha.adappa@continental.com'
+               env.mailRecipients = 'ostan@codecraft.co.in, oston.prithesh.dsouza-EXT@continental.com, vishmitha.2.g-ext@continental.com, supreetha.g-ext@continental.com, piyush.sharma@continental.com, supreetha.g@codecraft.co.in, vishmitha.g@codecraft.co.in, vivekkumar_si@hcl.com, prathiksha.adappa@continental.com, shashidhar.madhuranath@continental.com, chetak.r.m@contitech.de, sakti.prasad.debnath@ptg.contitech.in'
             }
         }
          success{

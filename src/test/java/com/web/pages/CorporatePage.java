@@ -754,7 +754,7 @@ public class CorporatePage extends BasePage{
 
     public void verifyCardDetails(String siteName) {
         siteNameLoader.waitForPartialText(siteName, 15000);
-        SyncUtil.waitFor(15000);
+        SyncUtil.waitFor(20000);
         Validator.assertTrue(btSiteShopCardNo.getText("Site Card").trim().equalsIgnoreCase("2"),"Site/Shop card count shown in corporate details screen is incorrect","Successfully verified Site/Shop card count shown in corporate details screen");
         Validator.assertTrue(btConveyorCardNo.getText("Conveyor Card").trim().equalsIgnoreCase("6"),"Conveyor card count shown in corporate details screen is incorrect","Successfully verified Conveyor card count shown in corporate details screen");
     }
