@@ -254,7 +254,7 @@ public class HeavyEquipmentPage extends BasePage {
     public void verifyFileDownloadFun(String file) {
         waitForPageLoad(10000);
         downloadThePDF();
-        SyncUtil.waitFor(8000);
+        SyncUtil.waitFor(15000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(file), "File report was not found", "File report was downloaded successfully");
         MiscUtils.deleteDownloadedFiles(file);
     }

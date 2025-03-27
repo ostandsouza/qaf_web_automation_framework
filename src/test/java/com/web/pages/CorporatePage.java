@@ -671,6 +671,7 @@ public class CorporatePage extends BasePage{
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
         btCheckbox.check("Site/Shop Checkbox");
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
+        scrollPageup();
         btActions.click("Actions");
         waitForElementVisible(btDelete, 10000,500);
         btDelete.jsClick("Delete");
