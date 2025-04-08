@@ -36,6 +36,7 @@ public class APIBase {
 
     public void configureRestAssured() {
         System.out.println("Configuring RestAssured");
+        RestAssured.useRelaxedHTTPSValidation();
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         if (getBundle().getString("jenkins.execution").equalsIgnoreCase("true"))
             RestAssured.proxy("cias.geoaws.com", 8080);
