@@ -5,6 +5,7 @@ import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.util.Reporter;
 import org.openqa.selenium.remote.RemoteWebElement;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,13 +69,14 @@ public class CustomIOSElement extends CustomMobileElement{
      */
     @SuppressWarnings("rawtypes")
     public void scrollDownToiOSElement(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             Map<String, Object> args1 = new HashMap<>();
             args1.put("direction", "down");
             args1.put("element", ((RemoteWebElement) this).getId());
             getAppiumDriver().executeScript("mobile: scroll", args1);
 
-            Reporter.log("Scroll on " + objName, MessageTypes.Info);
+            Reporter.log("Scroll on " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to scroll due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -90,13 +92,14 @@ public class CustomIOSElement extends CustomMobileElement{
      */
     @SuppressWarnings("rawtypes")
     public void scrollUpToiOSElement(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             Map<String, Object> args2 = new HashMap<>();
             args2.put("direction", "up");
             args2.put("element", ((RemoteWebElement) this).getId());
             getAppiumDriver().executeScript("mobile: swipe", args2);
 
-            Reporter.log("Scroll direction " + objName, MessageTypes.Info);
+            Reporter.log("Scroll direction " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to scroll due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -112,12 +115,13 @@ public class CustomIOSElement extends CustomMobileElement{
      */
     @SuppressWarnings("rawtypes")
     public void scrollUpOniOS(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             Map<String, Object> args0 = new HashMap<>();
             args0.put("direction", "up");
             getAppiumDriver().executeScript("mobile: scroll", args0);
 
-            Reporter.log("Scroll direction " + objName, MessageTypes.Info);
+            Reporter.log("Scroll direction " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to scroll due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -133,6 +137,7 @@ public class CustomIOSElement extends CustomMobileElement{
      */
     @SuppressWarnings("rawtypes")
     public void swipeLeftOniOSElement(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             Map<String, Object> args2 = new HashMap<>();
@@ -140,7 +145,7 @@ public class CustomIOSElement extends CustomMobileElement{
             args2.put("element", ((RemoteWebElement) this).getId());
             getAppiumDriver().executeScript("mobile: swipe", args2);
 
-            Reporter.log("Swipe direction " + objName, MessageTypes.Info);
+            Reporter.log("Swipe direction " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to swipe due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -156,6 +161,7 @@ public class CustomIOSElement extends CustomMobileElement{
      */
     @SuppressWarnings("rawtypes")
     public void swipeRightOniOSElement(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             Map<String, Object> args3 = new HashMap<>();
@@ -163,7 +169,7 @@ public class CustomIOSElement extends CustomMobileElement{
             args3.put("element", ((RemoteWebElement) this).getId());
             getAppiumDriver().executeScript("mobile: swipe", args3);
 
-            Reporter.log("Swipe direction " + objName, MessageTypes.Info);
+            Reporter.log("Swipe direction " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to swipe due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -240,6 +246,7 @@ public class CustomIOSElement extends CustomMobileElement{
      */
     @SuppressWarnings("rawtypes")
     public void longPress(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             Map<String, Object> args = new HashMap<>();
@@ -247,7 +254,7 @@ public class CustomIOSElement extends CustomMobileElement{
             args.put("duration", 5);
             getAppiumDriver().executeScript("mobile: touchAndHold", args);
 
-            Reporter.log("Long Press on " + objName, MessageTypes.Info);
+            Reporter.log("Long Press on " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to long press due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -263,6 +270,7 @@ public class CustomIOSElement extends CustomMobileElement{
      */
     @SuppressWarnings("rawtypes")
     public void zoomIn(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             Map<String, Object> args1 = new HashMap<>();
@@ -271,7 +279,7 @@ public class CustomIOSElement extends CustomMobileElement{
             args1.put("velocity", 5);
             getAppiumDriver().executeScript("mobile: pinch", args1);
 
-            Reporter.log("Zoom in on " + objName, MessageTypes.Info);
+            Reporter.log("Zoom in on " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to zoom due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -287,6 +295,7 @@ public class CustomIOSElement extends CustomMobileElement{
      */
     @SuppressWarnings("rawtypes")
     public void zoomOut(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             Map<String, Object> args2 = new HashMap<>();
@@ -295,7 +304,7 @@ public class CustomIOSElement extends CustomMobileElement{
             args2.put("velocity", -0.5);
             getAppiumDriver().executeScript("mobile: pinch", args2);
 
-            Reporter.log("Zoom out on " + objName, MessageTypes.Info);
+            Reporter.log("Zoom out on " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to zoom due to exception " + e.getMessage(), MessageTypes.Fail);

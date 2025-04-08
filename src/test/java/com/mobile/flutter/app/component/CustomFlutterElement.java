@@ -10,6 +10,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -74,14 +75,15 @@ public class CustomFlutterElement extends FlutterElement {
      *@author Ostan dsouza
      */
     public void click(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try{
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 this.click();
-                Reporter.log("Clicked on " + objName, MessageTypes.Info);
+                Reporter.log("Clicked on " + curObjName, MessageTypes.Info);
             }
             else throw new RuntimeException(this+" element for click not found");
         } catch (Exception e) {
-            Reporter.log("Failed to click on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to click on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -93,12 +95,13 @@ public class CustomFlutterElement extends FlutterElement {
      *@author Ostan dsouza
      */
     public String getText(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             if (waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 return this.getText();
             } else throw new RuntimeException(this + " element for sendkeys not found ");
         } catch (Exception e) {
-            Reporter.log("Failed to get text from "+ objName + "due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to get text from "+ curObjName + "due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -143,13 +146,14 @@ public class CustomFlutterElement extends FlutterElement {
      *@author Ostan dsouza
      */
     public void singleTap(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             int val = getAppiumDriver() instanceof AndroidDriver ? 1: 1;
             getAppiumDriver().executeScript("flutter: longTap", this.getId(), new HashMap<String, Object>() {{
                 put("durationMilliseconds", val);
                 put("frequency", 1000);
             }});
-            Reporter.log("Taped on " + objName, MessageTypes.Info);
+            Reporter.log("Taped on " + curObjName, MessageTypes.Info);
         } catch (Exception e) {
             Reporter.log("Failed to tap due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
@@ -163,6 +167,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan dsouza
      */
     public void doubleTap(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 int val = getAppiumDriver() instanceof AndroidDriver ? 1 : 10;
@@ -174,12 +179,12 @@ public class CustomFlutterElement extends FlutterElement {
                     }});
                     count--;
                 }
-                Reporter.log("Double taped on " + objName, MessageTypes.Info);
+                Reporter.log("Double taped on " + curObjName, MessageTypes.Info);
             }
             else throw new RuntimeException(this+" element for doubleTap not found");
 
         } catch (Exception e) {
-            Reporter.log("Failed to double tap on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to double tap on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
 
@@ -192,6 +197,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author: Ostan Dsouza
      */
     public void slideSeekbar(int percentage, String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 int val = getAppiumDriver() instanceof AndroidDriver ? 10 : 100;
@@ -203,12 +209,12 @@ public class CustomFlutterElement extends FlutterElement {
                     put("durationMilliseconds", val);
                     put("frequency", 1000);
                 }});
-                Reporter.log("Slide gesture on " + objName, MessageTypes.Info);
+                Reporter.log("Slide gesture on " + curObjName, MessageTypes.Info);
             }
             else throw new RuntimeException(this+" element for Slide seekbar not found");
 
         } catch (Exception e) {
-            Reporter.log("Failed to perform slide gesture on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to perform slide gesture on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -220,6 +226,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan dsouza
      */
     public void longPress(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 int val = getAppiumDriver() instanceof AndroidDriver ? 5000 : 5000;
@@ -227,12 +234,12 @@ public class CustomFlutterElement extends FlutterElement {
                     put("durationMilliseconds", val);
                     put("frequency", 500);
                 }});
-                Reporter.log("Press gesture on " + objName, MessageTypes.Info);
+                Reporter.log("Press gesture on " + curObjName, MessageTypes.Info);
             }
             else throw new RuntimeException(this+" element for long press not found");
 
         } catch (Exception e) {
-            Reporter.log("Failed to perform press gesture on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to perform press gesture on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -246,6 +253,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan Dsouza
      */
     public void scrollToElement(CustomFlutterElement element, DIRECTION dir, String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             if(element.waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 boolean flag = this.isVisible();
@@ -261,12 +269,12 @@ public class CustomFlutterElement extends FlutterElement {
                     if (flag && Double.compare(getElementPosition().get("dy") instanceof Long ? (long) ((Long) getElementPosition().get("dy")).doubleValue() : (double) getElementPosition().get("dy"), 650d) > 0)
                         element.scroll(dir, center);
                 }
-                Reporter.log("Scroll gesture on " + objName, MessageTypes.Info);
+                Reporter.log("Scroll gesture on " + curObjName, MessageTypes.Info);
             }
             else throw new RuntimeException(this+" element for get center not found");
 
         } catch (Exception e) {
-            Reporter.log("Failed to perform scroll gesture on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to perform scroll gesture on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -279,6 +287,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan Dsouza
      */
     public void slideToElement(DIRECTION dir, String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 Map center = (Map) getAppiumDriver().executeScript("flutter:getCenter", this.getId());
@@ -289,7 +298,7 @@ public class CustomFlutterElement extends FlutterElement {
             else throw new RuntimeException(this+" element for slide not found");
 
         } catch (Exception e) {
-            Reporter.log("Failed to perform slide gesture on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to perform slide gesture on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -351,17 +360,18 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan Dsouza
      */
     public void scrollIntoView(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 getAppiumDriver().executeScript("flutter: scrollIntoView", this.getId(), new HashMap<String, Object>() {{
                     put("alignment", 0.1);
                 }});
-                Reporter.log("Scroll gesture on " + objName, MessageTypes.Info);
+                Reporter.log("Scroll gesture on " + curObjName, MessageTypes.Info);
             }
             else throw new RuntimeException(this+" element for scroll not found");
 
         } catch (Exception e) {
-            Reporter.log("Failed to perform scroll gesture on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to perform scroll gesture on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -374,6 +384,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan Dsouza
      */
     public void dragGesture(CustomFlutterElement elementTo, String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout")) && elementTo.waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
                 int val = getAppiumDriver() instanceof AndroidDriver ? 10 : 100;
@@ -394,12 +405,12 @@ public class CustomFlutterElement extends FlutterElement {
                         put("frequency", 1000);
                     }});
                 }
-                Reporter.log("Drag gesture on " + objName, MessageTypes.Info);
+                Reporter.log("Drag gesture on " + curObjName, MessageTypes.Info);
             }
             else throw new RuntimeException(this+" element for drag n drop not found");
 
         } catch (Exception e) {
-            Reporter.log("Failed to perform drag gesture on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to perform drag gesture on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -427,13 +438,14 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan dsouza
      */
     public boolean isVisible(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             int val = getAppiumDriver() instanceof AndroidDriver? 3000: 3000;
             getAppiumDriver().executeScript("flutter:waitFor", this.getId(), val);
-            Reporter.log("'" + objName[0] + "'" + " is visible", MessageTypes.Info);
+            Reporter.log(curObjName +" is visible", MessageTypes.Info);
             return true;
         } catch (Exception ignored) {
-            Reporter.log("'" + objName[0] + "'" + " is not visible", MessageTypes.Fail);
+            Reporter.log(curObjName + " is not visible", MessageTypes.Fail);
             return false;
         }
     }
@@ -445,6 +457,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan dsouza
      */
     public Map<Object, Object> getElementProperties(String... objName){
+        String curObjName = Arrays.toString(objName);
         try {
             Map<Object, Object> list;
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
@@ -461,12 +474,13 @@ public class CustomFlutterElement extends FlutterElement {
             return list;
 
         } catch (Exception e) {
-            Reporter.log("Failed to get element size for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to get element size for " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
 
     public ArrayList<Map<Object, Object>> getRenderObject(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             ArrayList<Map<Object, Object>> obj;
             if (waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
@@ -480,7 +494,7 @@ public class CustomFlutterElement extends FlutterElement {
             } else throw new RuntimeException(this + " element for render props not found");
             return obj;
         } catch (Exception e) {
-            Reporter.log("Failed to get element size for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to get element size for " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -494,6 +508,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan dsouza
      */
     public HashMap<String, Integer> getElementSize(String... objName){
+        String curObjName = Arrays.toString(objName);
         try {
             String str;
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
@@ -515,11 +530,11 @@ public class CustomFlutterElement extends FlutterElement {
             m = p.matcher(str.split(",")[1]);
             if (m.find())
                 map.put("width", parseInt(m.group(1).replace(".", "")));
-            Reporter.log("Element size for " + objName, MessageTypes.Info);
+            Reporter.log("Element size for " + curObjName, MessageTypes.Info);
             return map;
 
         } catch (Exception e) {
-            Reporter.log("Failed to get element size for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to get element size for " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -531,6 +546,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan Dsouza
      */
     public Map<String, Object> getElementPosition(String... objName){
+        String curObjName = Arrays.toString(objName);
         try {
             Map point;
             if(waitSecsForElement(getBundle().getInt("flutter.wait.timeout"))) {
@@ -538,11 +554,11 @@ public class CustomFlutterElement extends FlutterElement {
             }
             else throw new RuntimeException(this+" element for coordinates not found");
 
-            Reporter.log("Element position for " + objName, MessageTypes.Info);
+            Reporter.log("Element position for " + curObjName, MessageTypes.Info);
             return point;
 
         } catch (Exception e) {
-            Reporter.log("Failed to get element position for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to get element position for " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -556,13 +572,14 @@ public class CustomFlutterElement extends FlutterElement {
      * @author: Ostan Dsouza
      */
     public  boolean waitSecsForElement(int secs, String... objName){
+        String curObjName = Arrays.toString(objName);
         try {
             int timeout = secs * 1000;
             getAppiumDriver().executeScript("flutter:waitFor", this.getId(), timeout);
-            Reporter.log("'" + objName + "'" + " is visible", MessageTypes.Info);
+            Reporter.log(curObjName + " is visible", MessageTypes.Info);
             return true;
         } catch (Exception ignored) {
-            Reporter.log("'" + objName + "'" + " is not visible", MessageTypes.Info);
+            Reporter.log(curObjName + " is not visible", MessageTypes.Info);
             return false;
         }
     }
@@ -574,6 +591,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan dsouza
      */
     public boolean waitForTheElementToBeVisible(int timeout, String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             boolean isVisible = false;
             for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(timeout); stop > System.nanoTime(); ) {
@@ -588,11 +606,11 @@ public class CustomFlutterElement extends FlutterElement {
                     }
                 }
             }
-            Reporter.log("'" + objName + "'" + " is visible", MessageTypes.Pass);
+            Reporter.log(curObjName + " is visible", MessageTypes.Pass);
             return isVisible;
 
         } catch (Exception e) {
-            Reporter.log("'" + objName + "'" + " is not visible", MessageTypes.Fail);
+            Reporter.log(curObjName + " is not visible", MessageTypes.Fail);
             throw e;
         }
     }
@@ -604,6 +622,7 @@ public class CustomFlutterElement extends FlutterElement {
      * @author Ostan dsouza
      */
     public boolean waitForTheElementToBeInvisible(int timeout, String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             boolean isInvisible = false;
             for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(timeout); stop > System.nanoTime(); ) {
@@ -618,15 +637,16 @@ public class CustomFlutterElement extends FlutterElement {
                 }
                 break;
             }
-            Reporter.log("'" + objName + "'" + " is invisible", MessageTypes.Info);
+            Reporter.log("'" + curObjName + "'" + " is invisible", MessageTypes.Info);
             return isInvisible;
 
         } catch (Exception e) {
-            Reporter.log("'" + objName + "'" + " is not invisible", MessageTypes.Info);
+            Reporter.log("'" + curObjName + "'" + " is not invisible", MessageTypes.Info);
             throw e;
         }
     }
     public HashMap<String, Integer> getElementColor(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             String colorDescription;
             System.out.println(((Map<Object, Object>) getAppiumDriver().executeScript(
@@ -667,11 +687,11 @@ public class CustomFlutterElement extends FlutterElement {
                 colorMap.put("alpha", Integer.parseInt(m.group(4)));
             }
 
-            Reporter.log("Element color for " + objName, MessageTypes.Info);
+            Reporter.log("Element color for " + curObjName, MessageTypes.Info);
             return colorMap;
 
         } catch (Exception e) {
-            Reporter.log("Failed to get element color for " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to get element color for " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }

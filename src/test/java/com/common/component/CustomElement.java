@@ -18,6 +18,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -83,13 +84,14 @@ public class CustomElement extends QAFWebComponent {
      * @param objName Name of object for reporting purpose. It's optional
      */
     public void jsClick(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             JavascriptExecutor executor = this.getWrappedDriver();
             executor.executeScript("arguments[0].click();", this);
             if (objName.length > 0)
-                Reporter.log("Clicked on " + objName, MessageTypes.Info);
+                Reporter.log("Clicked on " + curObjName, MessageTypes.Info);
         } catch (Exception e) {
-            Reporter.log("Failed to click on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to click on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -100,13 +102,14 @@ public class CustomElement extends QAFWebComponent {
      * @param objName Name of object for reporting purpose. It's optional
      */
     public void actionClick(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             Actions act = new Actions(this.getWrappedDriver());
             act.moveToLocation(this.getSize().width/2, this.getSize().height/2).click().build().perform();
             if (objName.length > 0)
-                Reporter.log("Clicked on " + objName, MessageTypes.Info);
+                Reporter.log("Clicked on " + curObjName, MessageTypes.Info);
         } catch (Exception e) {
-            Reporter.log("Failed to click on " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to click on " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
     }
@@ -152,13 +155,14 @@ public class CustomElement extends QAFWebComponent {
      */
     public String jsText(String... objName) {
         String text;
+        String curObjName = Arrays.toString(objName);
         try {
             text = (String) ((JavascriptExecutor) getWrappedDriver()).executeScript("return arguments[0].value;",this);
 
-            Reporter.log("Getting text from " + objName, MessageTypes.Info);
+            Reporter.log("Getting text from " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
-            Reporter.log("Failed to get text from " + objName + " due to exception " + e.getMessage(), MessageTypes.Fail);
+            Reporter.log("Failed to get text from " + curObjName + " due to exception " + e.getMessage(), MessageTypes.Fail);
             throw e;
         }
         return text;
@@ -210,12 +214,13 @@ public class CustomElement extends QAFWebComponent {
      * @return True if element is enabled otherwise False
      */
     public boolean isEnable(String... objName) {
+        String curObjName = Arrays.toString(objName);
         boolean result = this.isEnable();
         if (objName.length > 0)
             if (result)
-                Reporter.log("'" + objName[0] + "'" + " is enabled", MessageTypes.Info);
+                Reporter.log(curObjName + " is enabled", MessageTypes.Info);
             else
-                Reporter.log("'" + objName[0] + "'" + " is not enabled", MessageTypes.Fail);
+                Reporter.log(curObjName + " is not enabled", MessageTypes.Fail);
         return result;
     }
 
@@ -258,12 +263,13 @@ public class CustomElement extends QAFWebComponent {
      * @return True if object is visible otherwise False
      */
     public boolean isVisible(String... objName) {
+        String curObjName = Arrays.toString(objName);
         boolean result = this.isVisible();
         if (objName.length > 0)
             if (result)
-                Reporter.log("'" + objName[0] + "'" + " is visible", MessageTypes.Info);
+                Reporter.log(curObjName+ " is visible", MessageTypes.Info);
             else
-                Reporter.log("'" + objName[0] + "'" + " is not visible", MessageTypes.Fail);
+                Reporter.log(curObjName + " is not visible", MessageTypes.Fail);
         return result;
     }
 
@@ -291,12 +297,13 @@ public class CustomElement extends QAFWebComponent {
      * @return True if object is visible otherwise False
      */
     public boolean isVisible(long timeOut, String... objName) {
+        String curObjName = Arrays.toString(objName);
         boolean result = this.isVisible(timeOut);
         if (objName.length > 0)
             if (result)
-                Reporter.log("'" + objName[0] + "'" + " is visible", MessageTypes.Info);
+                Reporter.log(curObjName+ " is visible", MessageTypes.Info);
             else
-                Reporter.log("'" + objName[0] + "'" + " is not visible", MessageTypes.Fail);
+                Reporter.log(curObjName+ " is not visible", MessageTypes.Fail);
 
         return result;
     }
@@ -395,6 +402,7 @@ public class CustomElement extends QAFWebComponent {
         });
     }
     public void jsDragAndDropEle(WebElement source, WebElement destination, String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             JavascriptExecutor js = (JavascriptExecutor) getWrappedDriver();
             String script = "function createEvent(typeOfEvent) {\n" +
@@ -445,12 +453,12 @@ public class CustomElement extends QAFWebComponent {
             js.executeScript(script, source, destination);
 
             if (objName.length > 0) {
-                System.out.println("Dragged and dropped " + objName[0] + " to " + objName[1]);
+                System.out.println("Dragged and dropped " + curObjName + " to " + objName[1]);
             }
 
         } catch (Exception e) {
             if (objName.length > 0) {
-                System.err.println("Failed to drag and drop " + objName[0] + " to " + objName[1] + " due to exception " + e.getMessage());
+                System.err.println("Failed to drag and drop " + curObjName + " to " + objName[1] + " due to exception " + e.getMessage());
             } else {
                 System.err.println("Failed to perform drag and drop due to exception " + e.getMessage());
             }
