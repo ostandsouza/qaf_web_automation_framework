@@ -7,6 +7,8 @@ import com.qmetry.qaf.automation.util.Reporter;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 
+import java.util.Arrays;
+
 public class CustomAndroidElement extends CustomMobileElement {
 
     public CustomAndroidElement(String locator) {
@@ -41,6 +43,7 @@ public class CustomAndroidElement extends CustomMobileElement {
      */
     @SuppressWarnings("rawtypes")
     public void scrollDownOnAndroid(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             Dimension frame =getAppiumDriver().manage().window().getSize();
             int centerX = frame.width/2;
@@ -53,7 +56,7 @@ public class CustomAndroidElement extends CustomMobileElement {
                     "percent", 1
             ));
 
-            Reporter.log("Scroll direction " + objName, MessageTypes.Info);
+            Reporter.log("Scroll direction " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to scroll due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -115,6 +118,7 @@ public class CustomAndroidElement extends CustomMobileElement {
      */
     @SuppressWarnings("rawtypes")
     public void scrollUpOnAndroid(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
             Dimension frame =getAppiumDriver().manage().window().getSize();
             int centerX = frame.width/2;
@@ -126,7 +130,7 @@ public class CustomAndroidElement extends CustomMobileElement {
                     "percent", 1
             ));
 
-            Reporter.log("Scroll direction " + objName, MessageTypes.Info);
+            Reporter.log("Scroll direction " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to scroll due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -142,6 +146,7 @@ public class CustomAndroidElement extends CustomMobileElement {
      */
     @SuppressWarnings("rawtypes")
     public void swipeLeftOnAndroid(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             int centerY = this.getRect().y + (this.getSize().height/2);
@@ -156,7 +161,7 @@ public class CustomAndroidElement extends CustomMobileElement {
                     "percent", 0.75
             ));
 
-            Reporter.log("Swipe direction " + objName, MessageTypes.Info);
+            Reporter.log("Swipe direction " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to swipe due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -195,6 +200,7 @@ public class CustomAndroidElement extends CustomMobileElement {
      */
     @SuppressWarnings("rawtypes")
     public void swipeRightOnAndroid(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             int centerY = this.getRect().y + (this.getSize().height/2);
@@ -209,7 +215,7 @@ public class CustomAndroidElement extends CustomMobileElement {
                     "percent", 0.75
             ));
 
-            Reporter.log("Swipe direction " + objName, MessageTypes.Info);
+            Reporter.log("Swipe direction " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to swipe due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -306,11 +312,12 @@ public class CustomAndroidElement extends CustomMobileElement {
      */
     @SuppressWarnings("rawtypes")
     public void longPress(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             getAppiumDriver().executeScript("mobile: longClickGesture", ImmutableMap.of(
                     "elementId", ((RemoteWebElement) this).getId()));
-            Reporter.log("Long Press on " + objName, MessageTypes.Info);
+            Reporter.log("Long Press on " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to long press due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -326,13 +333,14 @@ public class CustomAndroidElement extends CustomMobileElement {
      */
     @SuppressWarnings("rawtypes")
     public void zoomIn(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             getAppiumDriver().executeScript("mobile: pinchOpenGesture", ImmutableMap.of(
                     "elementId", ((RemoteWebElement) this).getId(),
                     "percent", 1
             ));
-            Reporter.log("Zoom in on " + objName, MessageTypes.Info);
+            Reporter.log("Zoom in on " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to zoom due to exception " + e.getMessage(), MessageTypes.Fail);
@@ -348,13 +356,14 @@ public class CustomAndroidElement extends CustomMobileElement {
      */
     @SuppressWarnings("rawtypes")
     public void zoomOut(String... objName) {
+        String curObjName = Arrays.toString(objName);
         try {
 
             getAppiumDriver().executeScript("mobile: pinchCloseGesture", ImmutableMap.of(
                     "elementId", ((RemoteWebElement) this).getId(),
                     "percent", 1
             ));
-            Reporter.log("Zoom out on " + objName, MessageTypes.Info);
+            Reporter.log("Zoom out on " + curObjName, MessageTypes.Info);
 
         } catch (Exception e) {
             Reporter.log("Failed to zoom due to exception " + e.getMessage(), MessageTypes.Fail);
