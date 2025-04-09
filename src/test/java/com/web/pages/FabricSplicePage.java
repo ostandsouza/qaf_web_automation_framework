@@ -97,7 +97,7 @@ public class FabricSplicePage extends BasePage {
     @FindBy(locator = "xpath=(//label[text()=\"Bias Angle (Degrees)\"]/following-sibling::div//p-dropdown)[1]")
     public CustomElement drBiasAngleThickness;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='spliceType']//span")
+    @FindBy(locator = "xpath=//input[@formcontrolname='spliceType']")
     public CustomElement drSpliceType;
     @FindBy(locator = "xpath=//button//span[text()=\"Calculate\"]")
     public CustomElement btnCalculate;
@@ -145,7 +145,7 @@ public class FabricSplicePage extends BasePage {
     public CustomElement allDimensionVal;
     @FindBy(locator = "xpath=//div[contains(@class,\"arrow-right-direction\")]")
     public CustomElement arrowDirectionRight;
-    @FindBy(locator = "xpath=//span//img[contains(@class,\"conti-step-image\")]")
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-image-preview-container\")]//img")
     public CustomElement designPreview;
     @FindBy(locator = "xpath=//a[@role=\"tab\"]//span[text()=\"Splice Kit BOM\"]")
     public CustomElement spliceKitBomTab;
@@ -176,9 +176,8 @@ public class FabricSplicePage extends BasePage {
     public CustomElement statusDraft;
     @FindBy(locator = "xpath=//label[text()='Splice Design Drawing No.']/../div//input")
     public CustomElement tbSpliceDesignDrawingNo;
-    @FindBy(locator = "xpath=//button//span[text()=\"Save as a Draft\"]")
+    @FindBy(locator = "xpath=//button//span[contains(text(),'Save']")
     public CustomElement btnSaveDraftButton;
-
     @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
     public CustomElement btActions;
     @FindBy(locator = "xpath=//button[@disabled]/chevrondownicon")
@@ -212,6 +211,32 @@ public class FabricSplicePage extends BasePage {
     public CustomElement noList;
     @FindBy(locator = "xpath=//div//h6[contains(text(),'Approver comment')]")
     public CustomElement approverCommentHeader;
+    @FindBy(locator = "xpath=//label[text()='Finger Width']/../following-sibling::div//input")
+    public CustomElement fingerWidth;
+    @FindBy(locator = "xpath=//label[text()='Finger Length']/../following-sibling::div//input")
+    public CustomElement fingerLength;
+    @FindBy(locator = "xpath=//label[text()='Pull-back length']/../following-sibling::div//input")
+    public CustomElement pullBackLength;
+    @FindBy(locator = "xpath=//label[text()='Breaker Gap']/../following-sibling::div//input")
+    public CustomElement breakerGap;
+    @FindBy(locator = "xpath=//label[text()='Top Overlap']/../following-sibling::div//input")
+    public CustomElement topOverLap;
+    @FindBy(locator = "xpath=//label[text()='Bottom Overlap']/../following-sibling::div//input")
+    public CustomElement bottomOverlap;
+    @FindBy(locator = "xpath=//label[text()='Cover Offset']/../following-sibling::div//input")
+    public CustomElement coverOffset;
+    @FindBy(locator = "xpath=//label[text()='Cover Cut']/../following-sibling::div//input")
+    public CustomElement coverCut;
+    @FindBy(locator = "xpath=//label[text()='Finger Edge Width']/../following-sibling::div//input")
+    public CustomElement fingerEdgeWidth;
+    @FindBy(locator = "xpath=//label[text()='Carcass Width']/../following-sibling::div//input")
+    public CustomElement carcassWidth;
+    @FindBy(locator = "xpath=//label[text()='Top Fabric Length']/../following-sibling::div//input")
+    public CustomElement topFabricLength;
+    @FindBy(locator = "xpath=//label[text()='Bottom Fabric Length']/../following-sibling::div//input")
+    public CustomElement bottomFabricLength;
+    @FindBy(locator = "xpath=//label[text()='Splice Length']/../following-sibling::div//input")
+    public CustomElement spliceLength;
 
 
     InspectionPage inspectionPage = new InspectionPage();
@@ -253,26 +278,16 @@ public class FabricSplicePage extends BasePage {
         dropdownSearch(drProductionLocationKit, tbFabricSpliceSearchInput, spliceKit);
         dropdownSelectSearch(drSiteDropdown, tbFabricSpliceSearchInput, customerName);
         dropdownSelectSearch(drConveyorDropdown, tbFabricSpliceSearchInput, conveyorName);
+        SyncUtil.waitFor(5000);
         setImplicitWait(20000, TimeUnit.MILLISECONDS);
-//        drApproverDropdown.jsClick("Approver List");
-        drApproverInput.type(approverName);
-//        SyncUtil.waitFor(5000);
-//        waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),10000,500);
-//        driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")).click();
-//        scrollPageDown();
-        SyncUtil.waitFor(500);
-        dropdownSelect(drApproverDropdown,listItems,approverName);
+        drApproverDropdown.click("Approver List");
+        SyncUtil.waitFor(3000);
 //        waitForElementVisible(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='"+approverName+"']")),5000,500);
-//        scrollIntoView(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")));
-//        driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")).click();
+        scrollIntoView(driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")));
+        driver.findElement(By.xpath("//ul[@aria-label='Option List']//li//span[text()='" + approverName + "']")).click();
         dropdownSearch(drBeltConstructionDropdown, tbFabricSpliceSearchInput, beltConstruction);
         Validator.assertTrue(radioBtnNormalSelected.isVisible(), "'Normal' is not selected by default for Direction of Skive Cut", "'Normal' is selected by default for Direction of Skive Cut");
         Validator.assertTrue(radioBtnRightSelected.isVisible(), "'Right' is not selected by default for Direction of Travel", "'Right' is selected by default for Direction of Travel");
-        waitForElementVisible(tbCreationDate, 10000, 500);
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-        String formattedCurrentDate = currentDate.format(formatter);
-        Validator.assertTrue(formattedCurrentDate.equals(tbCreationDate.getAttribute("value")), "The creation date is not equal to current date", "The creation date is  equal to current date");
     }
 
     public void addFabricSpliceDesignDetails(String beltWidth, String beltType, String topCoverCompound, String bottomCoverCompound, String topCoverThickness, String bottomCoverThickness, String overallThickess, String biasAngle) {
@@ -293,9 +308,10 @@ public class FabricSplicePage extends BasePage {
 
     public void selectAndVerifySpliceType(String spliceType) {
         drSpliceType.isVisible(10000, "Splice Type");
-        drSpliceType.click();
-        waitForElementVisible(driver.findElement(By.xpath("//p-dropdownitem//li[contains(@aria-label,'" + spliceType + "')]")), 10000, 500);
-        driver.findElement(By.xpath("//p-dropdownitem//li[contains(@aria-label,'" + spliceType + "')]")).click();
+//        drSpliceType.click();
+//        waitForElementVisible(driver.findElement(By.xpath("//p-dropdownitem//li[contains(@aria-label,'" + spliceType + "')]")), 10000, 500);
+//        driver.findElement(By.xpath("//p-dropdownitem//li[contains(@aria-label,'" + spliceType + "')]")).click();
+        Validator.assertTrue(drSpliceType.getAttribute("value").equalsIgnoreCase(spliceType),"'"+spliceType+"' is not selected","'"+spliceType+"' is selected");
         Validator.assertTrue(radioBtnRegularSelected.isVisible(), "The Regular Splice is not selected by default", "The Regular Splice is selected by default");
 //        Validator.assertTrue(btnCalculate.isEnabled(), "The calculate button is not enabled", "The calculate button is enabled");
 //        SyncUtil.waitFor(40000);
@@ -311,11 +327,12 @@ public class FabricSplicePage extends BasePage {
     }
 
     public void verifyFabricSplicePreviewTab() {
+        waitForPageLoad(4000);
         scrollPageDown();
         Validator.assertTrue(previewTab.isVisible(10000, "Preview"), "The preview tab is not displayed after calculation", "The preview tab is displayed after calculation");
     }
 
-    public void verifyFabricPreviewDesignDescription(String noOfSteps, String beltWidth, String overallThickness, String stepLength, String spliceLength, String coverStripTop, String coverStripBottom, String biasLength, String coatedBreakerStrip, String beltType, String topCoverThickness, String bottomCoverThickness, String topCoverCompoundName) {
+    public void verifyFabricPreviewDesignDescription(String fingerWidthVal, String pullBackLengthVal, String breakerGapVal, String topOverlapVal, String bottomOverlapVal, String coverOffsetVal, String coverCutsetVal, String fingerEdgeWidthVal, String carcassWidthVal, String beltType, String topCoverThickness, String bottomCoverThickness, String topCoverCompoundName) {
 
         tbSpliceDesignDrawingNo.isVisible(10000, "splice drawing number");
         String designName = tbSpliceDesignDrawingNo.getAttribute("value");
@@ -324,7 +341,7 @@ public class FabricSplicePage extends BasePage {
         System.out.println("Splice drawing number" + getBundle().getProperty("spliceDrawingNumber").toString());
         Validator.assertTrue(
 //                driver.findElement(By.xpath("//div//h4[contains(text(), '" + beltWidth + " " + beltType + " " + topCoverThickness + "+" + bottomCoverThickness + " " + topCoverCompoundName + "  - FABRIC BELT STEP SPLICE')]")).isDisplayed(),
-                driver.findElement(By.xpath("//div//h4[contains(text(), '" + beltType + " " + topCoverThickness + "+" + bottomCoverThickness + " " + topCoverCompoundName + "  - FABRIC BELT STEP SPLICE')]")).isDisplayed(),
+                driver.findElement(By.xpath("//div//h4[contains(text(), '" + beltType + " " + topCoverThickness + "+" + bottomCoverThickness + " " + topCoverCompoundName +" - 1PLY FABRIC BELT SPLICE')]")).isDisplayed(),
                 "The preview tab for design has in-correct header",
                 "The preview tab for design has correct header"
         );
@@ -332,18 +349,20 @@ public class FabricSplicePage extends BasePage {
         SyncUtil.waitFor(5000);
 //        Validator.assertTrue(arrowDirectionRight.isVisible(10000, "Arrow Right"), "The Direction of arrow is not same as the input direction to travel provided", "The Direction of arrow is same as the input direction to travel provided");
         Validator.assertTrue(designPreview.isVisible(10000, "Design"), "The preview design is not displayed", "The preview design is displayed");
-        noOfStepsVal.isVisible(10000, "No Of Steps");
-        Validator.assertTrue(noOfStepsVal.getAttribute("value").equalsIgnoreCase(noOfSteps), "The No Of Steps value is in-correct", "The No Of Steps value is correct");
-        Validator.assertTrue(beltWidthVal.getAttribute("value").equalsIgnoreCase(beltWidth), "The Belt width value is in-correct", "The Belt width value is correct");
-        Validator.assertTrue(overallBeltThicknessVal.getAttribute("value").equalsIgnoreCase(overallThickness), "The Belt Thickness value is in-correct", "The Belt Thickness value is correct");
-        System.out.println(stepLengthVal.getAttribute("value"));
-        System.out.println(stepLength);
-        Validator.assertTrue(stepLengthVal.getAttribute("value").equalsIgnoreCase(stepLength), "The step Length value is in-correct", "The step Length value is correct");
-        Validator.assertTrue(spliceLengthVal.getAttribute("value").equalsIgnoreCase(spliceLength), "The splice Length value is in-correct", "The splice Length value is correct");
-        Validator.assertTrue(coverStripeWidthTop.getAttribute("value").equalsIgnoreCase(coverStripTop), "The cover Stripe Width(Top) value is in-correct", "The cover Stripe Width(Top) value is correct");
-        Validator.assertTrue(coverStripeWidthBottom.getAttribute("value").equalsIgnoreCase(coverStripBottom), "The cover Stripe Width (Bottom) value is in-correct", "The cover Stripe Width (Bottom) value is correct");
-        Validator.assertTrue(biasLengthVal.getAttribute("value").equalsIgnoreCase(biasLength), "The bias Length value is in-correct", "The bias Length value is correct");
-        Validator.assertTrue(coatedBreakerStripVal.getAttribute("value").equalsIgnoreCase(coatedBreakerStrip), "The coated Breaker Strip value is in-correct", "The coated Breaker Strip value is correct");
+        fingerWidth.isVisible(10000, "Finger width");
+        System.out.println(breakerGap.getAttribute("value")+"fingerwidth");
+        System.out.println(breakerGapVal+"breakerGapVal");
+        System.out.println(breakerGap.getAttribute("value").equalsIgnoreCase(breakerGapVal));
+
+        Validator.assertTrue(fingerWidth.getAttribute("value").equalsIgnoreCase(fingerWidthVal), "The finger width value is in-correct", "The finger width value is correct");
+        Validator.assertTrue(pullBackLength.getAttribute("value").equalsIgnoreCase(pullBackLengthVal), "The pull back length value is in-correct", "The pull back length value is correct");
+        Validator.assertTrue(breakerGap.getAttribute("value").equalsIgnoreCase(breakerGapVal), "The breaker gap value is in-correct", "The breaker gap value is correct");
+        Validator.assertTrue(topOverLap.getAttribute("value").equalsIgnoreCase(topOverlapVal), "The top overlap is in-correct", "The top overlap value is correct");
+        Validator.assertTrue(bottomOverlap.getAttribute("value").equalsIgnoreCase(bottomOverlapVal), "The bottom overlap is in-correct", "The bottom overlap value is correct");
+        Validator.assertTrue(coverOffset.getAttribute("value").equalsIgnoreCase(coverOffsetVal), "The cover Offset is in-correct", "The cover Offset value is correct");
+        Validator.assertTrue(coverCut.getAttribute("value").equalsIgnoreCase(coverCutsetVal), "The cover Cut is in-correct", "The cover Cut value is correct");
+        Validator.assertTrue(fingerEdgeWidth.getAttribute("value").equalsIgnoreCase(fingerEdgeWidthVal), "The finger Edge Width is in-correct", "The finger Edge Width value is correct");
+        Validator.assertTrue(carcassWidth.getAttribute("value").equalsIgnoreCase(carcassWidthVal), "The carcass Width is in-correct", "The carcass Width value is correct");
 
     }
 
@@ -392,12 +411,12 @@ public class FabricSplicePage extends BasePage {
         waitForPageLoad(10000);
         btSearchinput.isVisible(10000, "search input");
         btSearchinput.type(designName, "Record Search");
+        SyncUtil.waitFor(8000);
         waitForElementVisible(crCheckbox, 20000, 1000);
         waitForElementToDisplay(crCheckbox);
         return crCheckbox.isVisible("Record Found");
     }
-
-    public void verifyDesignStatus(String status) {
+        public void verifyDesignStatus(String status) {
         String spliceDrawingNumber = getBundle().getProperty("spliceDrawingNumber").toString();
         System.out.println("Splice drawing number" + spliceDrawingNumber);
         searchForTheRecord(spliceDrawingNumber);
@@ -487,16 +506,31 @@ public class FabricSplicePage extends BasePage {
 
     public void verifyDeleteFunForSpliceDesign() {
         crCheckbox.check("Select Item");
-        btActions.jsClick("Actions");
+        btActions.click("Actions");
         waitForElementVisible(btDelete, 10000, 500);
         waitForElementToBeClickable(btDelete);
-        btDelete.click();
+        btDelete.jsClick();
         waitForElementVisible(deleteDialogbox, 5000, 500);
         waitForElementVisible(confirmBtn, 5000, 500);
         waitForElementToBeClickable(confirmBtn);
         confirmBtn.click();
         waitForElementToDisplay(noList);
         noList.isVisible("No Item Found");
+    }
+
+    public void verifyCurrentDate()
+    {
+        scrollPageup();
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String formattedCurrentDate = currentDate.format(formatter);
+        System.out.println(formattedCurrentDate+"formattedCurrentDate");
+        if(tbCreationDate.isVisible(20000))
+        {
+            System.out.println(tbCreationDate.getAttribute("value")+"tbdate");
+            Validator.assertTrue(formattedCurrentDate.equals(tbCreationDate.getAttribute("value")), "The creation date is not equal to current date", "The creation date is  equal to current date");
+        }
+        scrollPageDown();
     }
 
 

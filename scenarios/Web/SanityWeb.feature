@@ -315,7 +315,7 @@ Scenario: Verify Add fabric splice screen
     And Add the design details '${BeltWidth}' '${BeltType}' '${TopCoverCompound}' '${BottomCoverCompound}' '${TopCoverThickness}' '${BottomCoverThickness}' '${OverAllBeltThickness}' '${BiasAngle}'
     And Select Splice Type '${SpliceType}'
     And Click on calculate button and verify preview tab is displayed
-    And Verify the Preview Design tab with calculations '${NoOfSteps}' '${BeltWidth}' '${OverAllBeltThickness}' '${StepLength}' '${SpliceLength}' '${CoverStripeTop}' '${CoverStripeBottom}' '${BiasLength}' '${CoatedBreakerStrip}' '${BeltType}' '${TopCoverThickness}' '${BottomCoverThickness}' '${TopCoverCompoundName}'
+    And Verify the Preview Design tab with calculations '${FingerWidthVal}' '${PullBackLengthVal}' '${BreakerGapVal}' '${TopOverlapVal}' '${BottomOverlapVal}' '${CoverOffsetVal}' '${CoverCutsetVal}' '${FingerEdgeWidthVal}' '${CarcassWidthVal}' '${BeltType}' '${TopCoverThickness}' '${BottomCoverThickness}' '${TopCoverCompoundName}'
     And Verify the Preview Design Notes with calculations '${CureTemperature}' '${CurePressure}' '${CureTime}' '${DimensionUnit}'
     And Click on Splice kit BOM tab and verify
     And Click on Comments log and save as draft
@@ -325,12 +325,14 @@ Scenario: Verify Add fabric splice screen
     And Search for fabric-splice design and verify the status of the design '${InReviewStatus}'
     And Logout from the current user
     When Login with '${MarketUserName}' and '${MarketPassword}'
+    And Navigate to fabric splice list screen
     And Search for fabric-splice design and verify the status of the design '${ToReviewStatus}'
     And Click on view icon
     And Click on Comments Log tab and add approve comments '${ApproveComments}' and approve
     And Search for fabric-splice design and verify the status of the design '${ApprovedStatus}'
     And Logout from the current user
     And Login with '${UserName}' and '${Password}'
+    And Navigate to fabric splice list screen
     And Search for fabric-splice design and verify the status of the design '${ApprovedStatus}'
     And Verify pdf download functionality for Splice Design with '${CustomerName}' '${ConveyorName}'
     Then Verify delete functionality for Splice Design

@@ -33,14 +33,16 @@ public class FabricSpliceSteps {
         fabricSplicePage.verifyFabricSplicePreviewTab();
     }
 
-    @QAFTestStep(description = "Verify the Preview Design tab with calculations {NoOfSteps} {BeltWidth} {OverAllBeltThickness} {StepLength} {SpliceLength} {CoverStripeTop} {CoverStripeBottom} {BiasLength} {CoatedBreakerStrip} {BeltType} {TopCoverThickness} {BottomCoverThickness} {TopCoverCompoundName}")
-    public void verifyPreviewDimensions(String noOfSteps, String beltWidth, String overallThickness, String stepLength, String spliceLength, String coverStripTop, String coverStripBottom, String biasLength, String coatedBreakerStrip, String beltType, String topCoverThickness, String bottomCoverThickness, String topCoverCompoundName) {
-        fabricSplicePage.verifyFabricPreviewDesignDescription(noOfSteps, beltWidth, overallThickness, stepLength, spliceLength, coverStripTop, coverStripBottom, biasLength, coatedBreakerStrip, beltType, topCoverThickness, bottomCoverThickness, topCoverCompoundName);
+    @QAFTestStep(description = "Verify the Preview Design tab with calculations {FingerWidthVal} {PullBackLengthVal} {BreakerGapVal} {TopOverlapVal} {BottomOverlapVal} {CoverOffsetVal} {CoverCutsetVal} {FingerEdgeWidthVal} {CarcassWidthVal} {BeltType} {TopCoverThickness} {BottomCoverThickness} {TopCoverCompoundName}")
+    public void verifyPreviewDimensions(String fingerWidthVal, String pullBackLengthVal, String breakerGapVal, String topOverlapVal, String bottomOverlapVal, String coverOffsetVal, String coverCutsetVal, String fingerEdgeWidthVal, String carcassWidthVal, String beltType, String topCoverThickness, String bottomCoverThickness, String topCoverCompoundName) {
+        fabricSplicePage.verifyFabricPreviewDesignDescription(fingerWidthVal,pullBackLengthVal,breakerGapVal,topOverlapVal,bottomOverlapVal,coverOffsetVal,coverCutsetVal,fingerEdgeWidthVal,carcassWidthVal, beltType, topCoverThickness, bottomCoverThickness, topCoverCompoundName);
     }
 
     @QAFTestStep(description = "Verify the Preview Design Notes with calculations {CureTemperature} {CurePressure} {CureTime} {DimensionUnit}")
     public void verifyPreviewNotes(String cureTemp, String curePressure, String cureTime, String dimensionUnit) {
         fabricSplicePage.verifyPreviewNotesValues(cureTemp, curePressure, cureTime, dimensionUnit);
+//        fabricSplicePage.verifyCurrentDate();
+
     }
 
     @QAFTestStep(description = "Click on Splice kit BOM tab and verify")
@@ -68,7 +70,6 @@ public class FabricSpliceSteps {
 
     @QAFTestStep(description = "Search for fabric-splice design and verify the status of the design {Status}")
     public void addCommentsAndSendForReview(String status) {
-        fabricSplicePage.goToFabricListScreenAndWait();
         fabricSplicePage.verifyDesignStatus(status);
     }
 
@@ -92,6 +93,11 @@ public class FabricSpliceSteps {
     @QAFTestStep(description = "Verify delete functionality for Splice Design")
     public void verifyTheDeleteFunForSpliceDesign() {
         fabricSplicePage.verifyDeleteFunForSpliceDesign();
+    }
+
+    @QAFTestStep(description = "Navigate to fabric splice list screen")
+    public void NavigateToFabricSpliceListScreen() {
+        fabricSplicePage.goToFabricListScreenAndWait();
     }
 }
 

@@ -253,8 +253,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
    
     public void dropdownSelect(CustomElement dropDownButton, String dropDownItems, String itemText) {
-    	
-    	dropDownButton.click();
+        //inspection needs .click method & free tools needs .jsClick() method
+        dropDownButton.click();
         setImplicitWait(15000,TimeUnit.MILLISECONDS);
         SyncUtil.waitFor(300);
         waitForPresenceOfElements(By.xpath(dropDownItems));
