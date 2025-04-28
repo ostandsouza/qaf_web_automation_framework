@@ -191,7 +191,7 @@
 <!--	</test>-->
 <!--	<test name="Permission Flow Test" enabled="true">-->
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb_Old.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
 <!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->

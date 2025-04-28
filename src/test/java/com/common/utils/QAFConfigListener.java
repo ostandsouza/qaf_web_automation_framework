@@ -4,6 +4,11 @@ import com.qmetry.qaf.automation.core.QAFConfigurationListener;
 import com.qmetry.qaf.automation.util.PropertyUtil;
 import org.apache.log4j.Logger;
 
+@Deprecated
+/*
+This is not required and to be deleted in the future.
+Functionality is merged in ExtendedQAFListener class by extending QAFListenerAdapter
+*/
 public class QAFConfigListener implements QAFConfigurationListener {
     private static final org.apache.log4j.Logger logger = Logger.getLogger(QAFConfigListener.class);
 
