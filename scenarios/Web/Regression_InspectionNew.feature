@@ -84,7 +84,7 @@ Scenario: zVerify inspection card count functionality for add inspection at home
     And   Add inspection Event for conveyor '${ConveyorName3}' with '${InspectionName3}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName3}' for '${InspectionName3}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
     When  Navigate to inspection list screen
-    And   Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${ChangeGood}','${NoChange}','${NoChange}','${NoChange}'
+    And   Verify the incremental tile count changes for '${ChangeTotal}','${ChangeGood}','${ChangeGood}','${NoChange}','${NoChange}','${NoChange}'
     And   Add inspection Event for conveyor '${ConveyorName4}' with '${InspectionName4}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName4}' for '${InspectionName4}' with '${AssetName3}' '${AssetDetail3}' '${FailureMode3}' '${Condition3}' '${Status}'
     When  Navigate to inspection list screen
@@ -204,7 +204,7 @@ Scenario: AVerify inspection card count functionality after deleting inspection 
     And   Navigate to the inspection details screen for '${InspectionName2}'
     And   Delete inspection Item for '${AssertName2}'
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
-    And   Verify the incremental tile count changes for '${NoChange}','${ChangeTobeComplated}','${ChangeGood}','${NoChange}','${NoChange}','${NoChange}'
+    And   Verify the incremental tile count changes for '${NoChange}','${NoChange}','${ChangeGood}','${NoChange}','${NoChange}','${NoChange}'
     Then  Navigate to inspection list from inspection card at site/shop level '${CustSiteName}'
     And   Extract the inspection card count
     And   Navigate to the inspection details screen for '${InspectionName3}'
@@ -1032,7 +1032,7 @@ Scenario: Verify the asset belt alignment details sequence for VMC
     And   Verify condition for asset '${AssetName}' with '${AssetDetail3}' and conveyor '${ConveyorName}' for VMC belt
     And   Verify the close add inspection item popup
     And   Verify the add inspection item navigation
-    And   Verify condition for asset '${AssetName}' with '${AssetDetail4}' and conveyor '${ConveyorName}' for VMC belt
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail4}' and conveyor '${ConveyorName}' for VMC belt overall
     And   Verify the close add inspection item popup
 
 @Regression65 @vmc
@@ -1112,8 +1112,10 @@ Scenario: Verify the observation optional scenario
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EditInspectionVMC
-Scenario: zVerify inspection item edit and delete functionality on edit mode
+Scenario: zyVerify inspection item edit and delete functionality on edit mode
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     And   Verify the site dropdown is disabled on edit mode
@@ -1694,7 +1696,7 @@ Scenario: Verify search applied for event table column
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
     Then  Verify the search functionality of the dashboard event with '${AssetName}'
-    And   Verify the pagniation count
+    And   Verify the pagination count
 
 
 @Regression109
@@ -1785,4 +1787,4 @@ Scenario: Verify search applied for event table column for VMC
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
     Then  Verify the search functionality of the dashboard event with '${AssetName}'
-    And   Verify the pagniation count
+    And   Verify the pagination count
