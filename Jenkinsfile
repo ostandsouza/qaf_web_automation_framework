@@ -20,50 +20,29 @@ pipeline {
     }
 
     stages {
-        stage('Get Commit Message') {
+        stage('Lock Execution') {
             steps {
                 script {
-                    env.GIT_COMMIT_MSG = sh(script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
-                    echo "GIT Commit message is : ${env.GIT_COMMIT_MSG}"
-                }
-            }
-        }
-
-        stage('Check Substring in Commit Message') {
-            steps {
-                script {
-                    def searchString = 'buildthis'
-                    if (env.GIT_COMMIT_MSG.toLowerCase().contains(searchString.toLowerCase())) {
-                        echo "Commit message contains the substring: ${searchString} (case-insensitive)"
-                        lock(resource: "build-${env.BRANCH_NAME}") {
-                            stage('Setup') {
-                                steps {
-                                    sshManager this
-                                }
-                            }
-
-                            stage('Test') {
-                                steps {
-                                    sh 'uname -a'
-                                    sh 'printenv'
-                                    sh 'mvn -v'
-                                    sh 'java -version'
-                                    sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
-                                    sh 'sudo apt-get install ./google-chrome*.deb'
-                                    sh 'mvn -s ${WORKSPACE}/settings.xml clean test "-Dchrome.additional.capabilities={\\"goog:chromeOptions\\":{\\"args\\":[\\"--headless\\",\\"--remote-allow-origins=*\\",\\"--disable-gpu\\",\\"--no-sandbox\\",\\"--disable-extensions\\",\\"--disable-dev-shm-usage\\"],\\"extensions\\":[],\\"prefs\\":{\\"download.default_directory\\":\\"${WORKSPACE}/target/downloads\\"}}}"'
-                                }
-                            }
-
-                            stage('Publish HTML') {
-                                steps {
-                                    env.FAILURE_STAGE = 'publish_HTML'
-                                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/customized-emailable-report.html', keepAll: true, reportDir: 'test-results', reportFiles: 'customized-emailable-report.html', reportName: 'htmlReport', reportTitles: 'htmlReport'])
-                                    println("${currentBuild.result}")
-                                }
-                            }
+                    lock(resource: "build-${env.BRANCH_NAME}") {
+                        stage('Setup') {
+                            sshManager this
                         }
-                    } else {
-                        error "Ignoring build as commit message doesn't contain the substring: ${searchString}"
+
+                        stage('Test') {
+                            sh 'uname -a'
+                            sh 'printenv'
+                            sh 'mvn -v'
+                            sh 'java -version'
+                            sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
+                            sh 'sudo apt-get install ./google-chrome*.deb'
+                            sh 'mvn -s ${WORKSPACE}/settings.xml clean test "-Dchrome.additional.capabilities={\\"goog:chromeOptions\\":{\\"args\\":[\\"--headless\\",\\"--remote-allow-origins=*\\",\\"--disable-gpu\\",\\"--no-sandbox\\",\\"--disable-extensions\\",\\"--disable-dev-shm-usage\\"],\\"extensions\\":[],\\"prefs\\":{\\"download.default_directory\\":\\"${WORKSPACE}/target/downloads\\"}}}"'
+                        }
+
+                        stage('publish_HTML') {
+                            env.FAILURE_STAGE = 'publish_HTML'
+                            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/customized-emailable-report.html', keepAll: true, reportDir: 'test-results', reportFiles: 'customized-emailable-report.html', reportName: 'htmlReport', reportTitles: 'htmlReport'])
+                            println("${currentBuild.result}")
+                        }
                     }
                 }
             }
