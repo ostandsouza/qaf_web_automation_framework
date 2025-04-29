@@ -61,7 +61,7 @@ public class ExtendedQAFListener extends QAFListenerAdapter {
             if (downloadDirProp.contains("user.dir")) {
                 String curUserDir = System.getProperty("user.dir");
 //      Replacing / with \\ for windows compatibility
-                downloadDirProp = downloadDirProp.replace("${user.dir}", curUserDir).replaceAll("/","\\\\\\");
+                downloadDirProp = downloadDirProp.replace("${user.dir}", curUserDir).replaceAll("\\\\","\\\\\\\\");
             }
 //      Updating resolved location for chrome
             bundle.setProperty("chrome.additional.capabilities",chromeCaps.replace("${download.default.dir}",downloadDirProp));
