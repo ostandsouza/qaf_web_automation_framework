@@ -15,7 +15,7 @@
 		<groups>
 			<run>
 				<include name="Sanity1" />
-<!--				<include name="Sanity2" />-->
+				<include name="Sanity2" />
 			</run>
 		</groups>
 		<classes>
@@ -23,54 +23,54 @@
 		</classes>
 	</test>
 
-<!--	<test name="Corporate,Conveyor,Inspection,File Manager,Cover Wear,Conveyor Inspect" enabled="true">-->
-<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />-->
-<!--		<parameter name="step.provider.sharedinstance" value="true" />-->
-<!--		<parameter name="env.resources" value="resources/env_dev" />-->
-<!--		<groups>-->
-<!--			<run>-->
-<!--				<include name="Sanity3" />-->
-<!--				<include name="Sanity4" />-->
-<!--				<include name="Sanity5" />-->
-<!--				<include name="Sanity6" />-->
-<!--				<include name="Sanity7" />-->
-<!--				<include name="Sanity8" />-->
-<!--				<include name="Sanity9" />-->
-<!--				<include name="Sanity10" />-->
-<!--				<include name="Sanity11" />-->
-<!--				<include name="Sanity12" />-->
-<!--				<include name="Sanity13" />-->
-<!--				<include name="Sanity14" />-->
-<!--				<include name="Sanity15" />-->
-<!--				<include name="Sanity17" />-->
-<!--				<include name="Sanity18" />-->
-<!--				<include name="Sanity19" />-->
-<!--				<include name="Sanity20" />-->
-<!--				<include name="Sanity21" />-->
-<!--				<include name="Sanity22" />-->
-<!--				<include name="Sanity23" />-->
-<!--				<include name="Sanity24" />-->
-<!--				<include name="Sanity25" />-->
-<!--			</run>-->
-<!--		</groups>-->
-<!--		<classes>-->
-<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
-<!--		</classes>-->
-<!--	</test>-->
+	<test name="Corporate,Conveyor,Inspection,File Manager,Cover Wear,Conveyor Inspect" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="true" />
+		<parameter name="env.resources" value="resources/env_dev" />
+		<groups>
+			<run>
+				<include name="Sanity3" />
+				<include name="Sanity4" />
+				<include name="Sanity5" />
+				<include name="Sanity6" />
+				<include name="Sanity7" />
+				<include name="Sanity8" />
+				<include name="Sanity9" />
+				<include name="Sanity10" />
+				<include name="Sanity11" />
+				<include name="Sanity12" />
+				<include name="Sanity13" />
+				<include name="Sanity14" />
+				<include name="Sanity15" />
+				<include name="Sanity17" />
+				<include name="Sanity18" />
+				<include name="Sanity19" />
+				<include name="Sanity20" />
+				<include name="Sanity21" />
+				<include name="Sanity22" />
+				<include name="Sanity23" />
+				<include name="Sanity24" />
+				<include name="Sanity25" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
 
-<!--	<test name="Delete Functionality" enabled="true">-->
-<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />-->
-<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
-<!--		<parameter name="env.resources" value="resources/env_dev" />-->
-<!--		<groups>-->
-<!--			<run>-->
-<!--				<include name="Sanity16" />-->
-<!--			</run>-->
-<!--		</groups>-->
-<!--		<classes>-->
-<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
-<!--		</classes>-->
-<!--	</test>-->
+	<test name="Delete Functionality" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps" />
+		<parameter name="scenario.file.loc" value="scenarios/Web/SanityWeb.feature" />
+		<parameter name="step.provider.sharedinstance" value="false" />
+		<parameter name="env.resources" value="resources/env_dev" />
+		<groups>
+			<run>
+				<include name="Sanity16" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
+		</classes>
+	</test>
 </suite>
