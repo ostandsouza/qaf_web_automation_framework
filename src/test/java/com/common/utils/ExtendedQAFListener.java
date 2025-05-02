@@ -37,9 +37,9 @@ public class ExtendedQAFListener extends QAFListenerAdapter {
         String key = scenario.getMetaData().get("key").toString();
 
 
-        List<Map<String, String>> itemsMatchingKey = testdata.stream()
-                .map(objArray -> (Map<String, String>) objArray[0])
-                .filter(map -> key.equalsIgnoreCase(map.get("key")))
+        List<Map<String, Object>> itemsMatchingKey = testdata.stream()
+                .map(objArray -> (Map<String, Object>) objArray[0])
+                .filter(map -> key.equalsIgnoreCase((String) map.get("key")))
                 .collect(Collectors.toList());
         logger.info("Found "+itemsMatchingKey.size()+" row/s having key :"+key);
 //        Object env = ConfigurationManager.getBundle().getProperty("env.name");
