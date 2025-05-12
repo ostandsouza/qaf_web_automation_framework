@@ -60,7 +60,7 @@ public class ExtendedQAFListener extends QAFListenerAdapter {
             String chromeCaps = bundle.getProperty("chrome.additional.capabilities").toString();
             if (downloadDirProp.contains("user.dir")) {
                 String curUserDir = System.getProperty("user.dir");
-//          This is required for setting user directory properly for chrome.
+//          This is required for setting user directory properly across MAC/Windows.
                 downloadDirProp = downloadDirProp.replace("${user.dir}", curUserDir).replaceAll("\\\\","\\\\\\\\");
             }
 //      Updating resolved location for chrome

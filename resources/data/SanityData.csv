@@ -124,6 +124,7 @@ Corporate_inspection|stage|Automation Customer|isolated@maildrop.cc|Abc@123456|I
 
 key|Env|UserName|Password|Market|STDReqByCustomer|BeltConstruction|CarcassConstruction|TopCoverCompound|TopCoverGauge|BottomCoverCompound|BottomCoverGauge|BeltWidth|BreakerItems|Overallbeltthickness|Comment
 BeltInfo|dev2|marketsmanager2023@gmail.com|Abc@123456|APAC|INDIA|ContiTitan|2000/2|SHIELD KG|5|GOLD PLUS|4|1800|TC|20|Added Comments
+BeltInfo|stage|marketsmanager2023@gmail.com|Abc@123456|APAC|INDIA|ContiTitan|2000/2|SHIELD KG|5|GOLD PLUS|4|1800|TC|20|Added Comments
 
 key|Env|UserName|Email|Password|ConveyorName|CustCorpName|CustSiteName|AssetName|AssetDetail|FailureMode|EditInspectionName
 Corporate_coverWear|dev2|Automation Customer|isolated@maildrop.cc|Abc@123456|C1-Edit Mobile Sanity|Customer-Edit Automation Mobile Corp|Cust-Edit Automation Mobile Site |Counterweight|Pulleys|Damaged|I1-Edit Mobile Sanity
