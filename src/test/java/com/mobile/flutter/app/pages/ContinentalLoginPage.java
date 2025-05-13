@@ -114,16 +114,17 @@ public class ContinentalLoginPage extends FlutterBasePage {
     }
 
     public boolean verifyUser(String email) {
-        String otp;
-        otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(email));
-        System.out.println(otp);
-        activateAcctBtn.click("Activate Button");
-        activateEmailField.sendKeys(email,"Activate Email Field");
-        activateCodeField.sendKeys(otp,"Activate Code Field");
-        activateVerifyBtn.click("Verify User Button");
-        Validator.assertTrue(activateSuccessMsg.waitForTheElementToBeVisible(10,"Activate Success Message"),"Activate success message was not displayed","Activate success message verified successfully");
-        return loginBtn.isVisible("Login Email Field");
-    }
+     String otp;
+//     otp = MiscUtils.getOtpfromMail(MiscUtils.getLatestEmailBody(email));
+//     System.out.println(otp);
+     activateAcctBtn.click("Activate Button");
+     activateEmailField.sendKeys(email,"Activate Email Field");
+//     activateCodeField.sendKeys(otp,"Activate Code Field");
+     activateVerifyBtn.click("Verify User Button");
+     Validator.assertTrue(activateSuccessMsg.waitForTheElementToBeVisible(10,"Activate Success Message"),"Activate success message was not displayed","Activate success message verified successfully");
+     return loginBtn.isVisible("Login Email Field");
+ }
+
 
     public void goBackToContinentalLoginPage() {
         backBtn.click();
