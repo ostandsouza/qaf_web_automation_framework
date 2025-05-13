@@ -1,0 +1,49 @@
+[
+  {
+    "UserName": "contiplus_admin@maildrop.cc",
+    "Password": "Test@12345",
+    "CustSiteNameEdit": "CI Automation Site-Edit",
+    "CustSiteName": "CI Automation Site",
+    "FullName": "Conti Plus",
+
+    "ConveyorName1": "CI Automation Conveyor",
+    "InspectionName1": "I1 Automation Inspection",
+    "InspectionNameEdit1": "I1-Edit Automation Inspection",
+    "AssetName1": "Counterweight",
+    "AssetDetail1": "Pulleys",
+    "FailureMode1": "Damaged",
+    "Condition1": "Good",
+    "Status": "To Be Completed",
+
+    "ConveyorName2": "CI2 Automation Conveyor",
+    "InspectionName2": "I2 Automation Inspection",
+    "InspectionNameEdit2": "I2-Edit Automation Inspection",
+    "AssetName2": "Chutes/Load Area",
+    "AssetDetail2": "Chute",
+    "FailureMode2": "Broken",
+    "Condition2": "Fault",
+
+    "ConveyorName3": "CI3 Automation Conveyor",
+    "InspectionName3": "I3 Automation Inspection",
+    "InspectionNameEdit3": "I3-Edit Automation Inspection",
+    "AssetName3": "Conveyor Structure",
+    "AssetDetail3": "Roller Frame",
+    "Condition3": "Poor",
+
+    "ConveyorName4": "CI4 Automation Conveyor",
+    "InspectionName4": "I4 Automation Inspection",
+    "InspectionNameEdit4": "I4-Edit Automation Inspection",
+    "AssetName4": "Tracking Frames",
+    "AssetDetail4": "Conveyor Structure",
+    "FailureMode4": "Bent",
+    "Condition4": "Critical",
+
+    "Multi_ConveyorName1": "CI5 Automation Conveyor",
+    "Multi_ConveyorName2": "CI6 Automation Conveyor",
+    "Multi_ConveyorName3": "CI7 Automation Conveyor",
+    "Multi_ConveyorName4": "CI8 Automation Conveyor",
+
+    "Multi_InspectionName1": "I1-Multi Automation Inspection",
+    "Multi_InspectionNameEdit1": "I1-Multi Automation Inspection-Edit"
+  }
+  ]

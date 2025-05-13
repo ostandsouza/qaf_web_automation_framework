@@ -1,0 +1,26 @@
+profile.title.text = flutter-label=profile_name
+profile.details.btn = flutter-valuekey=profile_details
+profile.settings.btn = flutter-valuekey=settings_btn
+profile.logout.btn = flutter-valuekey=logout_btn
+profile.delete.acct = flutter-label=delete_acct
+profile.back.btn = flutter-valuekey=back_btn
+information.name.field = flutter-valuekey=Full Name
+information.phone.field = flutter-valuekey=Phone
+information.email.field = flutter-valuekey=E-mail
+information.type.field = flutter-valuekey=Profile Type
+information.changePwd.btn = flutter-text=Change password
+information.save.btn = flutter-text=Save changes
+information.success.msg = flutter-text=Profile updated successfuly
+pwd.current.field = flutter-valuekey=Current password
+pwd.new.field = flutter-valuekey=New password
+pwd.retype.field = flutter-valuekey=Retype new password
+pwd.success.msg = flutter-text=Password changed successfully
+pwd.save.btn = flutter-text=Save changes
+settings.imperial.btn = flutter-valuekey=Imperial
+settings.metric.btn = flutter-valuekey=Metric
+settings.page.header = flutter-text=Settings
+information.page.header = flutter-text=My Information
+information.current.userName = flutter-valuekey=CurrentUserName
+information.current.userProfileType = flutter-valuekey=CurrentUserProfileType
+change.password.retypeErrorMessage= flutter-text=The retype password does not match password
+profile.settings.header = flutter-text= Settings

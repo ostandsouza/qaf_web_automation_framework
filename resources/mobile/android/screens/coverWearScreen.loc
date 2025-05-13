@@ -1,0 +1,7 @@
+
+coverWear.installation.editBtn= xpath=(//android.view.View//android.widget.ImageView//following-sibling::android.widget.ImageView)[1]
+coverWear.measurement.deleteBtn= xpath=(//android.view.View//android.widget.ImageView//following-sibling::android.widget.ImageView/following-sibling::android.widget.ImageView)[2]
+
+
+
+

@@ -1,0 +1,273 @@
+{
+  "name": "Conveyor Inspect Regression Site",
+  "companyType": {
+    "category": "Customer",
+    "sortKey": "CUSTOMER",
+    "name": "Customer Site",
+    "companyTypeId": "01FEN46X9FV4FK4ZTCNGQWZRDB"
+  },
+  "location": {
+    "zipcode": "23824",
+    "country": "Germany",
+    "state": "Schleswig-Holstein",
+    "city": "Damsdorf",
+    "latitude": 54.05654539999999,
+    "longitude": 10.2941197
+  },
+  "street": " ",
+  "territory": {
+    "market": {
+      "name": "EMEA",
+      "marketId": "01FGQ58DVEWRY3C9SR4RXJG9AJ"
+    },
+    "name": "Germany",
+    "territoryId": "01FSYG8G8E7KJEH2372QRA273S",
+    "marketId": "01FGQ58DVEWRY3C9SR4RXJG9AJ"
+  },
+  "territoryManager": {
+    "name": "Ostan_TM",
+    "userId": "108cab15-a7ed-4174-a467-4613da36c32a"
+  },
+  "customerCorporate": {
+    "companyId": "01GYW6TAQPFEKXH5CV7CQDK2DN",
+    "name": "Conveyor Inspect Regression Corp",
+    "companyType": {
+      "category": "Customer",
+      "sortKey": "CUSTOMER",
+      "name": "Customer Corporate",
+      "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX"
+    },
+    "location": {
+      "zipcode": "69120",
+      "country": "Germany",
+      "state": "Baden-Württemberg",
+      "city": "Karlsruhe",
+      "latitude": 49.4131918,
+      "longitude": 8.677442799999998
+    },
+    "street": " ",
+    "territory": "",
+    "territoryManager": "",
+    "customerCorporate": null,
+    "distributorCorporate": null,
+    "associatedDistributor": null,
+    "image": "",
+    "updatedBy": {
+      "userId": "8ada2c68-238e-4e7a-9e98-d7daee95d1ad",
+      "fullName": "Conti Automation",
+      "image": ""
+    },
+    "updatedDate": 1682426374182
+  },
+  "droneInspectData": {
+    "trendData": [
+      {
+        "lastInspected": 1695254400000,
+        "totalErrors": 571,
+        "errorDetails": [
+          {
+            "count": 84,
+            "code": 1,
+            "percentage": 3
+          },
+          {
+            "count": 3,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 136,
+            "code": 3,
+            "percentage": 5
+          },
+          {
+            "count": 348,
+            "code": 4,
+            "percentage": 91
+          }
+        ]
+      },
+      {
+        "lastInspected": 1698883200000,
+        "totalErrors": 570,
+        "errorDetails": [
+          {
+            "count": 84,
+            "code": 1,
+            "percentage": 1
+          },
+          {
+            "count": 4,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 135,
+            "code": 3,
+            "percentage": 1
+          },
+          {
+            "count": 347,
+            "code": 4,
+            "percentage": 97
+          }
+        ]
+      },
+      {
+        "lastInspected": 1700092800000,
+        "totalErrors": 570,
+        "errorDetails": [
+          {
+            "count": 84,
+            "code": 1,
+            "percentage": 1
+          },
+          {
+            "count": 4,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 135,
+            "code": 3,
+            "percentage": 1
+          },
+          {
+            "count": 347,
+            "code": 4,
+            "percentage": 97
+          }
+        ]
+      },
+      {
+        "lastInspected": 1700179200000,
+        "totalErrors": 569,
+        "errorDetails": [
+          {
+            "count": 84,
+            "code": 1,
+            "percentage": 3
+          },
+          {
+            "count": 4,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 136,
+            "code": 3,
+            "percentage": 5
+          },
+          {
+            "count": 345,
+            "code": 4,
+            "percentage": 91
+          }
+        ]
+      },
+      {
+        "lastInspected": 1700352000000,
+        "totalErrors": 570,
+        "errorDetails": [
+          {
+            "count": 84,
+            "code": 1,
+            "percentage": 3
+          },
+          {
+            "count": 4,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 135,
+            "code": 3,
+            "percentage": 5
+          },
+          {
+            "count": 347,
+            "code": 4,
+            "percentage": 91
+          }
+        ]
+      },
+      {
+        "lastInspected": 1700524800000,
+        "totalErrors": 570,
+        "errorDetails": [
+          {
+            "count": 84,
+            "code": 1,
+            "percentage": 3
+          },
+          {
+            "count": 4,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 136,
+            "code": 3,
+            "percentage": 5
+          },
+          {
+            "count": 346,
+            "code": 4,
+            "percentage": 91
+          }
+        ]
+      },
+      {
+        "lastInspected": 1700611200000,
+        "totalErrors": 570,
+        "errorDetails": [
+          {
+            "count": 84,
+            "code": 1,
+            "percentage": 3
+          },
+          {
+            "count": 5,
+            "code": 2,
+            "percentage": 1
+          },
+          {
+            "count": 135,
+            "code": 3,
+            "percentage": 5
+          },
+          {
+            "count": 346,
+            "code": 4,
+            "percentage": 91
+          }
+        ]
+      }
+    ],
+    "errorDetails": [
+      {
+        "count": 84,
+        "code": 1,
+        "percentage": 1
+      },
+      {
+        "count": 4,
+        "code": 2,
+        "percentage": 1
+      },
+      {
+        "count": 135,
+        "code": 3,
+        "percentage": 1
+      },
+      {
+        "count": 347,
+        "code": 4,
+        "percentage": 97
+      }
+    ]
+  },
+  "distributorCorporate": null,
+  "associatedDistributor": null,
+  "image": ""
+}

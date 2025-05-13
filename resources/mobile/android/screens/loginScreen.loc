@@ -1,0 +1,13 @@
+continental.privacyPolicy.header = xpath=//android.widget.TabWidget//android.view.View[contains(@text,"Privacy Policy")]
+continental.termsOfService.header = xpath=//android.widget.TabWidget//android.view.View[contains(@text,"Terms Of Service")]
+continental.imprint.header = xpath=//android.widget.TabWidget//android.view.View[contains(@text,"Imprint")]
+continental.legalNotice.header = xpath=//android.widget.TabWidget//android.view.View[contains(@text,"Legal Notice")]
+continental.termsOfService.details = xpath=//android.view.View//android.view.View//android.view.View[@text,"Terms Of Service"]//android.widget.ListView
+
+profile.type.text = xpath=//android.widget.FrameLayout/*//android.view.View[contains(@content-desc,"Master")]
+
+
+
+
+
+

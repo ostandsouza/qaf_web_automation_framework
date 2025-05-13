@@ -1,0 +1,38 @@
+[
+  {
+    "UserNameMaster": "contiplus_admin@maildrop.cc",
+    "Password": "Abc@123456",
+    "UserNameCustomer": "customerhp2025@yopmail.com",
+    "UserNameDistributor": "distributorhp2025@yopmail.com",
+    "UserNameMarket": "markethp2025@yopmail.com",
+
+    "CustomerSiteIndNameMaster": "Master_HP_CorpLevel Regression India",
+    "SiteConveyorNameMaster": "Master_HP_Site Regression Conveyor",
+    "DistCorpName": "Dist Automation Common Corp",
+
+    "HeavyEquipmentNameMaster":"HP-Master Regression Equipment",
+    "HeavyEquipmentNameMaster_Edit":"HP-Master Regression Equipment-Edit",
+
+    "HeavyEquipmentNameDistributor":"HP-Distributor Regression Equipment",
+    "HeavyEquipmentNameDistributor_Edit": "HP-Distributor Regression Equipment-Edit",
+
+    "HeavyEquipmentNameCustomer":"HP-Customer Regression Equipment",
+    "DistShopIndNameCustomer": "",
+
+    "HeavyEquipmentNameMarket":"HP-Market Regression Equipment",
+    "HeavyEquipmentNameMarket_Edit": "HP-Market Regression Equipment-Edit",
+
+    "Category": "Belt Puller",
+    "Model": "HP-Regression",
+    "Year": "1998",
+    "SerialNumber": "CH-123",
+    "DistShopName": "Dist Automation Common India",
+    "ImageName": "corp.jpeg",
+    "PdfFile": "conveyors.pdf",
+
+    "Deletion": "delete",
+    "SingleValue": "1",
+    "HomeLevel": "home",
+    "HeavyEquipments": "Heavy Equipment"
+  }
+]

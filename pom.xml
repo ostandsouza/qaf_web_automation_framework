@@ -1,0 +1,275 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.template.automation</groupId>
+	<artifactId>QAF_Template_PROJECT</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>QAF_Template_PROJECT</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<testSuiteFile>config/sanity_config.xml</testSuiteFile>
+		<sourceVersion>11</sourceVersion>
+		<targetVersion>11</targetVersion>
+		<qaf.version>4.0.0-RC3</qaf.version>
+		<restassured.version>5.5.0</restassured.version>
+		<selenium.version>4.14.1</selenium.version>
+		<appium.version>9.0.0</appium.version>
+		<testng.version>7.1.0</testng.version>
+		<assist.version>3.28.0-GA</assist.version>
+		<test.results.dir>test-results</test.results.dir>
+		<run.time>${maven.build.timestamp}</run.time>
+		<lib.dir>${project.basedir}/lib</lib.dir>
+		<resource.dir>${project.basedir}/resources</resource.dir>
+		<output.dir>${test.results.dir}</output.dir>
+		<maven.build.timestamp.format>dd_MMM_yyyy_hh_mm_aa</maven.build.timestamp.format>
+		<testng.report.title>Demo</testng.report.title>
+	</properties>
+	<repositories>
+		<!--		<repository>-->
+		<!--			<id>qaf</id>-->
+		<!--			<url>https://qmetry.github.io/qaf/dist</url>-->
+		<!--		</repository>-->
+		<!--		<repository>-->
+		<!--			<id>jai</id>-->
+		<!--			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases</url>-->
+		<!--		</repository>-->
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.10.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.14.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>${appium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qmetry</groupId>
+			<artifactId>qaf</artifactId>
+			<version>${qaf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qmetry</groupId>
+			<artifactId>qaf-support-flutter</artifactId>
+			<version>${qaf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qmetry</groupId>
+			<artifactId>qaf-support</artifactId>
+			<version>${qaf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.qmetry</groupId>
+					<artifactId>qaf</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.qmetry</groupId>
+			<artifactId>qaf-support-ws</artifactId>
+			<version>${qaf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.30</version>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>5.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-core</artifactId>
+			<version>5.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>5.5.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${restassured.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.15.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qmetry</groupId>
+			<artifactId>qaf-cucumber</artifactId>
+			<version>${qaf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>${assist.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-gmail</artifactId>
+			<version>v1-rev33-1.20.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.22.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.27</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.16.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>test-results</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerVersion>${sourceVersion}</compilerVersion>
+					<source>11</source>
+					<target>11</target>
+				</configuration>
+			</plugin>
+			<!--			<plugin>-->
+			<!--				<groupId>com.nickwongdev</groupId>-->
+			<!--				<artifactId>aspectj-maven-plugin</artifactId>-->
+			<!--				<version>1.12.6</version>-->
+			<!--				<executions>-->
+			<!--					<execution>-->
+			<!--						<id>test-compile</id>-->
+			<!--						<goals>-->
+			<!--							<goal>test-compile</goal>-->
+			<!--						</goals>-->
+			<!--					</execution>-->
+			<!--				</executions>-->
+			<!--				<configuration>-->
+			<!--					<source>${sourceVersion}</source>-->
+			<!--					<target>${targetVersion}</target>-->
+			<!--					<showWeaveInfo>true</showWeaveInfo>-->
+			<!--					<complianceLevel>${sourceVersion}</complianceLevel>-->
+			<!--					<aspectLibraries>-->
+			<!--						<aspectLibrary>-->
+			<!--							<groupId>com.qmetry</groupId>-->
+			<!--							<artifactId>qaf</artifactId>-->
+			<!--						</aspectLibrary>-->
+			<!--					</aspectLibraries>-->
+			<!--				</configuration>-->
+			<!--			</plugin>-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>${testSuiteFile}</suiteXmlFile>
+					</suiteXmlFiles>
+					<testFailureIgnore>true</testFailureIgnore>
+					<skipTests>false</skipTests>
+					<reportsDirectory>${test.results.dir}</reportsDirectory>
+					<systemPropertyVariables>
+						<org.uncommons.reportng.xml-dialect>testng</org.uncommons.reportng.xml-dialect>
+						<org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
+						<log4j.configuration>file:///${resource.dir}/log4j.properties</log4j.configuration>
+						<outputDir>${test.results.dir}</outputDir>
+						<test.results.dir>${output.dir}/html</test.results.dir>
+						<json.report.root.dir>${test.results.dir}</json.report.root.dir>
+						<json.report.dir>${output.dir}/json</json.report.dir>
+						<selenium.screenshots.dir>${output.dir}/img</selenium.screenshots.dir>
+						<selenium.screenshots.relative.path>../img</selenium.screenshots.relative.path>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!--		<pluginManagement>-->
+		<!--			<plugins>-->
+		<!--				<plugin>-->
+		<!--					<groupId>org.eclipse.m2e</groupId>-->
+		<!--					<artifactId>lifecycle-mapping</artifactId>-->
+		<!--					<version>1.0.0</version>-->
+		<!--					<configuration>-->
+		<!--						<lifecycleMappingMetadata>-->
+		<!--							<pluginExecutions>-->
+		<!--								<pluginExecution>-->
+		<!--									<pluginExecutionFilter>-->
+		<!--										<groupId>org.codehaus.mojo</groupId>-->
+		<!--										<artifactId>aspectj-maven-plugin</artifactId>-->
+		<!--										<versionRange>[1.0,)</versionRange>-->
+		<!--										<goals>-->
+		<!--											<goal>test-compile</goal>-->
+		<!--											<goal>compile</goal>-->
+		<!--										</goals>-->
+		<!--									</pluginExecutionFilter>-->
+		<!--									<action>-->
+		<!--										<execute />-->
+		<!--									</action>-->
+		<!--								</pluginExecution>-->
+		<!--							</pluginExecutions>-->
+		<!--						</lifecycleMappingMetadata>-->
+		<!--					</configuration>-->
+		<!--				</plugin>-->
+		<!--			</plugins>-->
+		<!--		</pluginManagement>-->
+	</build>
+</project>

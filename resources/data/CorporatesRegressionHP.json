@@ -1,0 +1,63 @@
+[
+  {
+    "UserNameMaster": "contiplus_admin@maildrop.cc",
+    "Password": "Abc@123456",
+    "UserNameCustomer": "customerhp2025@yopmail.com",
+    "UserNameDistributor": "distributorhp2025@yopmail.com",
+    "UserNameMarket": "markethp2025@yopmail.com",
+
+    "DistShopIndName": "Dist Automation Common India",
+    "CustCorpName": "Cust Automation Common Corp",
+    "CustCorpNameEdit": "Cust Automation Common Corp-Edit",
+
+    "DistCorpName": "Dist Automation Common Corp",
+    "TerritoryInd": "India",
+    "CorporateLevel": "corporate",
+    "Sites": "Sites",
+    "Deletion": "delete",
+    "SingleValue": "1",
+
+
+
+
+
+    "DistCorporateMaster": "Master_HP Dist Regression Corporate",
+    "EditDistCorporateMaster": "Master_HP Dist Regression Corporate-Edit",
+    "DistCorpAddress": "Berlin Brandenburg Airport, Willy-Brandt-Platz, Schönefeld, Germany",
+    "CustCorporateMaster": "Master_HP Cust Regression Corporate",
+    "EditCustCorporateMaster": "Master_HP Cust Regression Corporate-Edit",
+    "CustCorpAddress":"Berlin Brandenburg Airport, Willy-Brandt-Platz, Schönefeld, Germany",
+    "DistShopIndAddress":"Manque Global - Luggage Storage In Mumbai Airport, Chhatrapati Shivaji Maharaj International Airport Road, Navpada, Vile Parle East, Vile Parle, Mumbai, Maharashtra, India",
+    "CustSite_HP_Master": "Master_HP Customer Site",
+    "DistShop_HP_Master": "Master_HP Distributor Shop",
+
+    "CorpImageName": "corp.jpeg",
+
+
+
+
+    "DistCorporateDistributor": "Distributor_HP Dist Regression Corporate",
+    "CustCorporateDistributor": "Distributor_HP Cust Regression Corporate",
+    "CustSite_HP_Distributor": "Distributor_HP Customer Site",
+    "DistCorpName_Distributor": "CA Automation Common Corp",
+    "DistCorpName_Distributor-Edit": "CA Automation Common Corp-Edit",
+
+
+
+    "DistCorporateCustomer": "Customer_HP Dist Regression Corporate",
+    "CustCorporateCustomer": "Customer_HP Cust Regression Corporate",
+    "CustSite_HP_Customer": "Customer_HP Customer Site",
+    "DistShopIndNameCustomer": "",
+    "EditDistCorporateCustomer": "Customer_HP Dist Regression Corporate-Edit",
+
+
+
+
+
+    "DistCorporateMarket": "Market_HP Dist Regression Corporate",
+    "CustCorporateMarket": "Market_HP Cust Regression Corporate",
+    "CustSite_HP_Market": "Market_HP Customer Site",
+    "DistShop_HP_Market": "Market_HP Distributor Shop",
+    "EditDistCorporateMarket": "Market_HP Dist Regression Corporate-Edit"
+  }
+]

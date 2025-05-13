@@ -1,0 +1,24 @@
+{
+  "name": "Conveyor Inspect Sanity Corp",
+  "companyType": {
+    "category": "Customer",
+    "sortKey": "CUSTOMER",
+    "name": "Customer Corporate",
+    "companyTypeId": "01FEN46QV3FW2Z9DXF3XWNN5KX"
+  },
+  "location": {
+    "country": "South Africa",
+    "state": "Mpumalanga",
+    "city": "Nkangala District Municipality",
+    "zipcode": "1050",
+    "latitude": -25.7944583,
+    "longitude": 29.7378982
+  },
+  "street": " ",
+  "territory": "",
+  "territoryManager": "",
+  "customerCorporate": null,
+  "distributorCorporate": null,
+  "associatedDistributor": null,
+  "image": ""
+}

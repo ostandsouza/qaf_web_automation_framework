@@ -1,0 +1,52 @@
+coverWear.coverWear.txt = flutter-text=Cover Wear
+coverWear.specification.header = flutter-text=Specification
+coverWear.search.field = flutter-valuekey=search_box
+coverWear.beltWidth.field = flutter-valuekey=Belt Width
+coverWear.beltLength.field = flutter-valuekey=Belt Length
+coverWear.search.filter = flutter-valuekey=Search
+coverWear.search.results = flutter-type=ListTile
+coverWear.topCoverThickness.field = flutter-valuekey=Top Cover Thickness Nominal
+coverWear.bottomCoverThickness.field = flutter-valuekey=Bottom Cover Thickness Nominal
+coverWear.durometer.field = flutter-valuekey=Durometer (New Belt)
+coverWear.topCoverCompound.field = flutter-valuekey=Top Cover Compound
+coverWear.bottomCoverCompound.field = flutter-valuekey=Bottom Cover Compound
+coverWear.datePicker.field = flutter-type=ContiplusDatePicker
+coverWear.success.msg = flutter-text=Specifications saved correctly
+coverWear.more.button=flutter-valuekey=position_more
+coverWear.delete.text=flutter-text=Delete
+coverWear.list.header=flutter-text=Summary
+coverWear.position.header=flutter-text=Positions
+coverWear.positions.count=flutter-valuekey=Cover Wear Count
+coverWear.first.Position=flutter-valuekey=first_position
+coverWear.remainingLife.value=flutter-valuekey=remaining_life
+coverWear.remainingCover.value=flutter-valuekey=remaining_cover
+coverWear.durometer.value=flutter-valuekey=durometer_value
+coverWear.noOfSections.label=flutter-text=No. of Sections
+coverWear.DateOfInstallation.label=flutter-text=Date of installation
+coverWear.estimatedFailure.label=flutter-text=Estimated Failure Date
+coverWear.topCoverCompound.label=flutter-text=Top Cover Compound
+coverWear.bottomCoverCompound.label=flutter-text=Bottom Cover Compound
+coverWear.position.gaugeTile=flutter-valuekey=gauge_tile
+coverWear.position.top=flutter-valuekey=top_position
+coverWear.position.remainingLife=flutter-valuekey=position_remainingLife
+coverWear.specification.siteLabel=flutter-valuekey=Site
+coverWear.position.bottom=flutter-valuekey=position_1_bottom
+coverWear.positionDetails.header=flutter-valuekey=position_details_header
+coverWear.tempAdjusted.header=flutter-text=Temperature Adjusted Measurements
+coverWear.default.installation=flutter-text=Installation
+coverWear.position.addBtn = flutter-valuekey=AddPosition
+coverWear.addPosition.segementName = flutter-valuekey=Segment Name
+coverWear.addPosition.topBtn = flutter-valuekey=Top
+coverWear.addPosition.bottomBtn = flutter-valuekey=Bottom
+coverWear.addPosition.tonsConveyed = flutter-valuekey=Tons Conveyed
+coverWear.addPosition.shoreADuromater = flutter-valuekey=Shore A Durometer (New)
+coverWear.addPosition.popHeader = flutter-text=Add Position
+
+CoverWear.button.saveDraft=flutter-text=Save Draft
+CoverWear.installation.deviceInfo=flutter-text=Device Info
+CoverWear.instrument.label=flutter-valuekey=Instrument / Device Type
+CoverWear.velocity.label=flutter-valuekey=Velocity
+CoverWear.surfaceTemp.label=flutter-valuekey=Surface Temperature
+CoverWear.addNewMeasurement.button=flutter-valuekey=addNewMeasurement
+CoverWear.addNewMeasurement.header=flutter-text=Add Measurement
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+
+
+<suite name="QAF Demo" verbose="0">
+	<listeners>
+		<listener class-name="com.common.utils.TestListener" />
+	</listeners>
+
+	<test name="BDD Test" enabled="true">
+		<parameter name="cucumber.features" value="scenarios/Web/Demoflow.feature" />
+		<parameter name="cucumber.glue" value="com.web.steps" />
+		<parameter name="cucumber.filter.tags" value="@Regression" />
+		<classes>
+			<class name="com.qmetry.qaf.automation.cucumber.runner.CucumberScenarioFactory" />
+		</classes>
+	</test>
+</suite>
