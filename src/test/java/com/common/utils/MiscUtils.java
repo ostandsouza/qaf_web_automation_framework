@@ -88,32 +88,32 @@ public class MiscUtils {
         }
     }
 
-    public static boolean isNewEmailTriggered(String email) {
-        String[] extract_username = email.split("@");
-        String username = extract_username[0];
-        SyncUtil.waitFor(20000);
-        if (email.contains("gmail"))
-            return GmailHelper.getUnreadMails(GmailHelper.getGmailService(username),"is:unread").isEmpty();
-        else if (email.contains("maildrop"))
-            return MaildropHelper.getMaildropInbox(username).isEmpty();
-        else if (email.contains("mailsac"))
-            return MailsacHelper.getMailsacInbox(email).isEmpty();
-        return false;
-    }
-
-    public static String getLatestEmailBody(String email) {
-        String[] extract_username = email.split("@");
-        String username = extract_username[0];
-        String emailBody = null;
-        SyncUtil.waitFor(10000);
-        if (email.contains("gmail"))
-            emailBody = GmailHelper.getMailBody(GmailHelper.getGmailService(username),"is:unread");
-        else if (email.contains("maildrop"))
-            emailBody = MaildropHelper.getInboxMsg(username, MaildropHelper.getLatestMailId(MaildropHelper.getMaildropInbox(username)));
-        else if (email.contains("mailsac"))
-            emailBody = MailsacHelper.getInboxMsg(email, MailsacHelper.getLatestMailId(MailsacHelper.getMailsacInbox(email)));
-        return emailBody;
-    }
+//    public static boolean isNewEmailTriggered(String email) {
+//        String[] extract_username = email.split("@");
+//        String username = extract_username[0];
+//        SyncUtil.waitFor(20000);
+//        if (email.contains("gmail"))
+//            return GmailHelper.getUnreadMails(GmailHelper.getGmailService(username),"is:unread").isEmpty();
+//        else if (email.contains("maildrop"))
+//            return MaildropHelper.getMaildropInbox(username).isEmpty();
+//        else if (email.contains("mailsac"))
+//            return MailsacHelper.getMailsacInbox(email).isEmpty();
+//        return false;
+//    }
+//
+//    public static String getLatestEmailBody(String email) {
+//        String[] extract_username = email.split("@");
+//        String username = extract_username[0];
+//        String emailBody = null;
+//        SyncUtil.waitFor(10000);
+//        if (email.contains("gmail"))
+//            emailBody = GmailHelper.getMailBody(GmailHelper.getGmailService(username),"is:unread");
+//        else if (email.contains("maildrop"))
+//            emailBody = MaildropHelper.getInboxMsg(username, MaildropHelper.getLatestMailId(MaildropHelper.getMaildropInbox(username)));
+//        else if (email.contains("mailsac"))
+//            emailBody = MailsacHelper.getInboxMsg(email, MailsacHelper.getLatestMailId(MailsacHelper.getMailsacInbox(email)));
+//        return emailBody;
+//    }
 
     public static Object[][] getDownloadedExcelData(String fileName, String sheetName) {
         String file_path = System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+fileName;
