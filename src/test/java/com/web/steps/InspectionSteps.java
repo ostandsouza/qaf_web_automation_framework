@@ -8,8 +8,6 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
-import io.cucumber.java.bs.I;
-import org.testng.Assert;
 
 import java.io.IOException;
 import java.time.LocalDate;
