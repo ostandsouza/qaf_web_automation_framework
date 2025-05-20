@@ -192,17 +192,6 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         return notDisplayed;
     }
 
-    /**
-     * @param timeOutInMiliSec
-     */
-    public void hardWait(int timeOutInMiliSec) {
-        try {
-            Thread.sleep(timeOutInMiliSec);
-        } catch (InterruptedException e) {
-            Reporter.log("InterruptedException occured. Error[{}]", MessageTypes.valueOf(e.getMessage()));
-        }
-    }
-
     public String getCurrentURL() {
         return this.driver.getCurrentUrl();
     }
