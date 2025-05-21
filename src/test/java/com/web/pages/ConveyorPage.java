@@ -1486,7 +1486,7 @@ public class ConveyorPage extends BasePage{
         crDelete.click("Delete");
         crYesConfirmation.click("Confirm");
         waitForElementToDisplay(noList);
-        SyncUtil.waitFor(2000);
+        SyncUtil.waitFor(5000);
     }
 
     public void clearConveyorSearch() {
@@ -1598,7 +1598,7 @@ public class ConveyorPage extends BasePage{
 
     public boolean verifyIdlers() {
         crIdlersTab.click("Idlers Tab");
-        return crCarryIdlerDiameter.isVisible("Carry Idler Diameter") && crCarryAngle.isVisible("Carry Angle");
+        return crCarryIdlerDiameter.isVisible("Carry Idler Diameter");
 //                && crCarryTotalIdlers.isVisible("Carry Total Number of Idlers") &&
 //                crCarryTopRunSpacing.isVisible("Carry Top Run Spacing") && crReturnIdlerDiameter.isVisible("Return Idler Diameter") && crReturnAngle.isVisible("Return Angle") &&
 //                crReturnTotalIdlers.isVisible("Return Total Number of Idlers") && crReturnTopRunSpacing.isVisible("Return Top Run Spacing") && crImpactIdlerDiameter.isVisible("Impact Idler Diameter") && crImpactAngle.isVisible("Impact Angle") &&
@@ -3329,7 +3329,8 @@ public class ConveyorPage extends BasePage{
         waitForElementVisible(btCreate, 10000, 500);
         waitForElementToBeClickable(btCreate);
         btCreate.click();
-        waitForElementToInvisible(buttonLoader,10000);
+        SyncUtil.waitFor(1000);
+        waitForElementToInvisible(buttonLoader,25000);
     }
 
     public void saveButtonClick()

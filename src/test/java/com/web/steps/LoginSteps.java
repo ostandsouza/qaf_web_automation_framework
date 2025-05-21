@@ -59,7 +59,6 @@ public class LoginSteps {
         System.out.println("first login");
         if(loginPage.apiBase.isFirstSignIn(UserName)) {
             loginPage.changePassword(Password, Password, Password);
-            loginPage.loginToApp(UserName, Password);
         }
         System.out.println("before handlecookiepopup");
         dashboardPage.handleCookiePopup();

@@ -8,6 +8,7 @@ import com.mobile.flutter.app.pages.DashboardPage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.CSVUtil;
 import com.qmetry.qaf.automation.util.Validator;
+import groovyjarjarantlr4.v4.codegen.model.Sync;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -482,7 +483,8 @@ public class MonitoringDevicePage extends BasePage {
     public void goToMonitoringDeviceListScreen() {
         if (!monitoringDeviceList.isVisible())
             home.click("Home");
-        monitoringDeviceList.jsClick("Monitoring devices List");
+        monitoringDeviceList.click("Monitoring devices List");
+        SyncUtil.waitFor(1000);
         btSearchinput.isVisible("Monitoring devices List Page");
     }
 
@@ -503,7 +505,7 @@ public class MonitoringDevicePage extends BasePage {
         goToMonitoringDeviceListScreenAndWait();
         btSearchinput.type(monitoringDeviceName, "Monitoring Device Name Search");
         waitForElementToDisplay(crCheckbox);
-        return crCheckbox.isVisible("Conveyor Found");
+        return crCheckbox.isVisible("Monitoring device Found");
     }
 
     public boolean goToMonitoringDeviceEditScreen(String device) {
@@ -514,6 +516,8 @@ public class MonitoringDevicePage extends BasePage {
         waitForElementVisible(editBtn, 10000, 500);
         editBtn.click("Edit");
         waitForPageLoad(10000);
+        SyncUtil.waitFor(2000);
+        waitForElementToDisplay(tbDeviceName);
         return updateDeviceTitle.isVisible(10000, "Update Device title");
     }
 

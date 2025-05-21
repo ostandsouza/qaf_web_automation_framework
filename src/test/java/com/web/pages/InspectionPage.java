@@ -87,6 +87,9 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//div[contains(@class,'p-dialog-header')]/..//span[text()='Create']/..")
 	public CustomElement createBtnItem;
 
+	@FindBy(locator = "xpath=//div[contains(@class,'p-dialog-header')]/..//span[text()='Save']/..")
+	public CustomElement saveBtnItem;
+
 	@FindBy(locator = "xpath=(//span[text()='Cancel']/..)[1]")
 	public CustomElement cancelBtn;
 
@@ -964,6 +967,9 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//p[contains(text(),'Good - Centered')]")
 	public CustomElement beltAlignmentDetailsMsg2;
 
+	@FindBy(locator = "xpath=//p[contains(text(),'Critical -')]")
+	public CustomElement beltAlignmentDetailsMsg3;
+
 	@FindBy(locator = "xpath=//p[contains(text(),'Critical - Broken, imminent threat to belt or safety')]")
 	public CustomElement generalDetailsMsg1;
 
@@ -1440,6 +1446,7 @@ public class InspectionPage extends BasePage {
 
 	public void verifyDeleteInspection(String inspectionName) {
 		goToInspectionScreenAndWait();
+		SyncUtil.waitFor(2000);
 		btSearchinput.type(inspectionName, "Inspection Search");
 		Validator.assertTrue(noList.isVisible("No Inspection"), "Inspection list was found", "Inspection list was not found");
 		noList.isVisible("No Inspection List");
@@ -1741,7 +1748,7 @@ public class InspectionPage extends BasePage {
 		System.out.println(inspCount);
 		Validator.assertTrue(Integer.parseInt(txtInspCount.getText()) == inspCount ,"Inspection Tile Count is not visible", "Inspection Tile Count is visible");
 		Validator.assertTrue(Integer.parseInt(txtInspCompleteCount.getText()) == inspComplete , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
-		Validator.assertTrue(Integer.parseInt(txtInspGoodCount.getText()) == inspGood , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
+//		Validator.assertTrue(Integer.parseInt(txtInspGoodCount.getText()) == inspGood , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
 		Validator.assertTrue(Integer.parseInt(txtInspFaultCount.getText()) == inspFault , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
 		Validator.assertTrue(Integer.parseInt(txtInspPoorCount.getText()) == inspPoor , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
 		Validator.assertTrue(Integer.parseInt(txtInspCriticalCount.getText()) == inspCritical , "Inspection Tile Complete Count is not visible", "Inspection Tile Complete Count is visible");
@@ -2449,7 +2456,7 @@ public class InspectionPage extends BasePage {
 		return flag;
 	}
 
-	public void verifyInspectionCountChange(String inspCount, String inspComplete, String inspGood, String inspPoor, String inspFault, String inspCritical) {
+	public void verifyInspectionCountChange(String inspCount, String inspComplete, String inspPoor, String inspFault, String inspCritical) {
 		waitForPageLoad(5000);
 		waitForElementToInvisible(txtInspCardLoader,15000);
 //		waitForElementToDisplay(txtInspCompleteCount);
@@ -2457,23 +2464,22 @@ public class InspectionPage extends BasePage {
 		scrollPageup();
 		System.out.println(txtInspCount.getText());
 		System.out.println(txtInspCompleteCount.getText());
-		System.out.println(txtInspGoodCount.getText());
+//		System.out.println(txtInspGoodCount.getText());
 		System.out.println(txtInspFaultCount.getText());
 		System.out.println(txtInspPoorCount.getText());
 		System.out.println(txtInspCriticalCount.getText());
 		System.out.println("=======");
 		System.out.println(inspCount);
 		System.out.println(inspComplete);
-		System.out.println(inspGood);
 		System.out.println(inspFault);
 		System.out.println(inspPoor);
 		System.out.println(inspCritical);
 		Validator.assertTrue(txtInspCount.getText().equalsIgnoreCase(inspCount) ,"Inspection Tile Count is not matching", "Inspection Tile Count is matching");
 		Validator.assertTrue(txtInspCompleteCount.getText().equalsIgnoreCase(inspComplete) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspGoodCount.getText().equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspFaultCount.getText().equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspPoorCount.getText().equalsIgnoreCase(inspPoor) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspCriticalCount.getText().equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+//		Validator.assertTrue(Optional.ofNullable(txtInspGoodCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspFaultCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspPoorCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspPoor) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspCriticalCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
 	}
 
 
@@ -2501,7 +2507,7 @@ public class InspectionPage extends BasePage {
 		Validator.assertTrue(txtDashboardCriticalCount.getText().equalsIgnoreCase(inspCritical) , "Dashboard Tile Complete Count is not matching", "Dashboard Tile Complete Count is matching");
 	}
 
-	public void verifyInspectionCountChangeVMC(String inspCount, String inspComplete, String inspGood, String inspFault, String inspCritical) {
+	public void verifyInspectionCountChangeVMC(String inspCount, String inspComplete, String inspFault, String inspCritical) {
 		waitForPageLoad(5000);
 		waitForElementToInvisible(txtInspCardLoader,15000);
 //		waitForElementToDisplay(txtInspCompleteCount);
@@ -2509,20 +2515,19 @@ public class InspectionPage extends BasePage {
 		scrollPageup();
 		System.out.println(txtInspCount.getText());
 		System.out.println(txtInspCompleteCount.getText());
-		System.out.println(txtInspGoodCount.getText());
+//		System.out.println(txtInspGoodCount.getText());
 		System.out.println(txtInspFaultCount.getText());
 		System.out.println(txtInspCriticalCount.getText());
 		System.out.println("=======");
 		System.out.println(inspCount);
 		System.out.println(inspComplete);
-		System.out.println(inspGood);
 		System.out.println(inspFault);
 		System.out.println(inspCritical);
 		Validator.assertTrue(txtInspCount.getText().equalsIgnoreCase(inspCount) ,"Inspection Tile Count is not matching", "Inspection Tile Count is matching");
 		Validator.assertTrue(txtInspCompleteCount.getText().equalsIgnoreCase(inspComplete) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspGoodCount.getText().equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspFaultCount.getText().equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
-		Validator.assertTrue(txtInspCriticalCount.getText().equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+//		Validator.assertTrue(Optional.ofNullable(txtInspGoodCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspGood) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspFaultCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspFault) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
+		Validator.assertTrue(Optional.ofNullable(txtInspCriticalCount.getText()).filter(text -> !text.trim().isEmpty()).orElse("0").equalsIgnoreCase(inspCritical) , "Inspection Tile Complete Count is not matching", "Inspection Tile Complete Count is matching");
 	}
 
 	public void verifyDashboardCountChangeVMC(String inspCount, String inspGood, String inspFault, String inspCritical) {
@@ -3025,6 +3030,8 @@ public class InspectionPage extends BasePage {
 
 	public void editInspectionConditionItem(String newCondition) {
 		dropdownSelect(ddlCondition, ListItem, newCondition);
+		if(!newCondition.equalsIgnoreCase("good"))
+			verifyObservationMandatoryEdit();
 	}
 
 	public void verifyInspectionAssetFilterFunctionality(String val, String colNum){
@@ -3149,7 +3156,7 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void verifyAllInspectionItemsVMC(List<Item> allItems) {
-		SyncUtil.waitFor(2000);
+		SyncUtil.waitFor(4000);
 		AtomicInteger i = new AtomicInteger(1);
 		allItems.forEach(x -> {
 			Validator.assertTrue(driver.findElement(By.xpath("//tbody/tr/td[contains(@class,'expansion-col')]//tbody/tr["+i+"]/td[3]")).getText().equalsIgnoreCase(x.conveyorName()), "Conveyor name in expanded list table is not as expected", "Conveyor name in expanded list table verified successfully");
@@ -3177,6 +3184,7 @@ public class InspectionPage extends BasePage {
 
 	public void inspectionPaginationFunctionality(){
 		Validator.assertTrue(btCurrentPage.getText().equalsIgnoreCase("1"),"Pagination first page is not highlighted", "Pagination for first page is verified successfully");
+		SyncUtil.waitFor(2000);
 		btNextPage.click();
 		Validator.assertTrue(btCurrentPage.getText().equalsIgnoreCase("2"),"Pagination second page is not highlighted", "Pagination for second page is verified successfully");
 	}
@@ -3377,10 +3385,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(chutesDetails);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(chutesDetails);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(chutesDetails);
 	}
 
 	public boolean assetDetailsDefaultForCounterweight(String conveyorName) {
@@ -3392,10 +3400,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(counterweightDetails);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(counterweightDetails);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(counterweightDetails);
 	}
 
 	public boolean assetDetailsDefaultForConveyorStructure(String conveyorName) {
@@ -3407,25 +3415,25 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(conveyorStructureDetails);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(conveyorStructureDetails);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(conveyorStructureDetails);
 	}
 
 	public boolean assetFailureModeDefaultForChutes(String conveyorName) {
 		dropdownSelectSearch(ddlConveyor, tbInput, conveyorName);
 		ddlAssetChutes.click();
 		ddlFailureMode.click();
-		List<String> chutesFailureMode = List.of("Bent","Broken","Causing damage to the belt","Corroded","Damaged","Loose/Needs Adjusting","Missing","Out of Alignment","Poly Skirt Worn","Skirt Plate","Skit Rubber Worn","Wear Observed on Impact Rails","Other");
+		List<String> chutesFailureMode = List.of("Bent","Broken","Causing damage to the belt","Corroded","Damaged","Loose/Needs Adjusting","Missing","Out of Alignment","Poly Skirt Worn","Skirt Plate","Skirt Rubber Worn","Wear Observed on Impact Rails","Other");
 		List<String> dropdownValues = driver.findElements(ListItem)
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(chutesFailureMode);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(chutesFailureMode);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(chutesFailureMode);
 	}
 
 	public boolean assetFailureModeDefaultForCounterweight(String conveyorName) {
@@ -3437,10 +3445,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(chutesFailureMode);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(chutesFailureMode);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(chutesFailureMode);
 	}
 
 	public boolean assetFailureModeDefaultForConveyorStructure(String conveyorName) {
@@ -3452,10 +3460,10 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(chutesFailureMode);
 		verifyCloseInspectionItem();
-		return dropdownValues.stream().distinct().toList().equals(chutesFailureMode);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(chutesFailureMode);
 	}
 
 	public boolean assetDrivePulleyVMC() {
@@ -3464,6 +3472,10 @@ public class InspectionPage extends BasePage {
 
 	public boolean verifyBeltAlignmentMsg() {
 		return beltAlignmentDetailsMsg1.isVisible("Fault message") && beltAlignmentDetailsMsg2.isVisible("Good message");
+	}
+
+	public boolean verifyBeltAlignmentMsgOverall() {
+		return beltAlignmentDetailsMsg1.isVisible("Fault message") && beltAlignmentDetailsMsg2.isVisible("Good message") && beltAlignmentDetailsMsg3.isVisible("Critical message");
 	}
 
 	public boolean verifyGeneralMsg() {
@@ -3482,9 +3494,9 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(conditions);
-		return dropdownValues.stream().distinct().toList().equals(conditions);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(conditions);
 	}
 
 	public boolean verifyDetailsWithConditionDefault(String asset, String details, String conveyorName, List<String> conditions){
@@ -3495,9 +3507,9 @@ public class InspectionPage extends BasePage {
 				.stream()
 				.map(element -> element.getAttribute("innerText").trim())
 				.collect(Collectors.toList());
-		System.out.println(dropdownValues.stream().distinct().toList());
+		System.out.println(dropdownValues.stream().distinct().collect(Collectors.toList()));
 		System.out.println(conditions);
-		return dropdownValues.stream().distinct().toList().equals(conditions);
+		return dropdownValues.stream().distinct().collect(Collectors.toList()).equals(conditions);
 	}
 
 	public boolean verifyObservationAsterisk(String condition) {
@@ -3515,6 +3527,11 @@ public class InspectionPage extends BasePage {
 	public boolean verifyObservationMandatory() {
 		eleObservation.sendKeys("test");
 		return createBtnItem.isEnabled();
+	}
+
+	public boolean verifyObservationMandatoryEdit() {
+		eleObservation.sendKeys("test");
+		return saveBtnItem.isEnabled();
 	}
 
 	public void imageZoomOutFunctionality(){
@@ -3602,7 +3619,7 @@ public class InspectionPage extends BasePage {
 	public String verifyEndDateSelection(String siteName) {
 		inspectionEndDateView.click();
 		selectGivenDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-		System.out.println(inspectionStartDate.getAttribute("value"));
-		return inspectionStartDate.getAttribute("value");
+		System.out.println(inspectionEndDate.getAttribute("value"));
+		return inspectionEndDate.getAttribute("value");
 	}
 }

@@ -8,8 +8,6 @@ import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.*;
-import io.cucumber.java.bs.I;
-import org.testng.Assert;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -114,6 +112,7 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Verify And validate the changes for {InspectionName} with {ItemCount}")
 	public void verifyInspectionItem(String inspectionName, String itemCount){
+		sortingInspectionItem.clearItems();
 		inspectionpage.verifyInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName,itemCount);
 		SyncUtil.waitFor(1000);
 		sortingInspectionItem.addItems(inspectionpage.getRowData());
@@ -739,9 +738,9 @@ public class InspectionSteps {
 		int toBeCompleted = inspectionpage.getToBeCompletedInspectionCount();
 		System.out.println(toBeCompleted);
 		getBundle().setProperty("toBeCompleted",toBeCompleted);
-		int good = inspectionpage.getInspectionGoodCount();
-		System.out.println(good);
-		getBundle().setProperty("good",good);
+//		int good = inspectionpage.getInspectionGoodCount();
+//		System.out.println(good);
+//		getBundle().setProperty("good",good);
 		int fault = inspectionpage.getInspectionFaultCount();
 		System.out.println(fault);
 		getBundle().setProperty("fault",fault);
@@ -758,9 +757,9 @@ public class InspectionSteps {
 		int totalInspections = inspectionpage.getDashboardTotalCount();
 		System.out.println(totalInspections);
 		getBundle().setProperty("totalInspections",totalInspections);
-		int good = inspectionpage.getDashboardGoodCount();
-		System.out.println(good);
-		getBundle().setProperty("good",good);
+//		int good = inspectionpage.getDashboardGoodCount();
+//		System.out.println(good);
+//		getBundle().setProperty("good",good);
 		int fault = inspectionpage.getDashboardFaultCount();
 		System.out.println(fault);
 		getBundle().setProperty("fault",fault);
@@ -792,7 +791,7 @@ public class InspectionSteps {
 	public void verifyInspectionCountChangeVMC(String changeTotal, String changeTobeComplated, String changeGood, String changeFault, String changeCritical){
 		String totalInspections = String.valueOf((int) getBundle().getProperty("totalInspections") + Integer.parseInt(changeTotal));
 		String toBeCompleted = String.valueOf((int) getBundle().getProperty("toBeCompleted") + Integer.parseInt(changeTobeComplated));
-		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
+//		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
 		String fault = String.valueOf((int) getBundle().getProperty("fault") + Integer.parseInt(changeFault));
 		String critical = String.valueOf((int) getBundle().getProperty("critical") + Integer.parseInt(changeCritical));
 		System.out.println(changeTotal);
@@ -802,17 +801,17 @@ public class InspectionSteps {
 		System.out.println(changeCritical);
 		getBundle().setProperty("totalInspections",Integer.parseInt(totalInspections));
 		getBundle().setProperty("toBeCompleted",Integer.parseInt(toBeCompleted));
-		getBundle().setProperty("good",Integer.parseInt(good));
+//		getBundle().setProperty("good",Integer.parseInt(good));
 		getBundle().setProperty("fault",Integer.parseInt(fault));
 		getBundle().setProperty("critical",Integer.parseInt(critical));
-		inspectionpage.verifyInspectionCountChangeVMC(totalInspections, toBeCompleted, good, fault, critical);
+		inspectionpage.verifyInspectionCountChangeVMC(totalInspections, toBeCompleted, fault, critical);
 	}
 
 	@QAFTestStep(description="Verify the incremental tile count changes for {ChangeTotal},{ChangeTobeComplated},{ChangeGood},{ChangePoor},{ChangeFault},{ChangeCritical}")
 	public void verifyInspectionCountChangeDefault(String changeTotal, String changeTobeComplated, String changeGood, String changePoor, String changeFault, String changeCritical){
 		String totalInspections = String.valueOf((int) getBundle().getProperty("totalInspections") + Integer.parseInt(changeTotal));
 		String toBeCompleted = String.valueOf((int) getBundle().getProperty("toBeCompleted") + Integer.parseInt(changeTobeComplated));
-		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
+//		String good = String.valueOf((int) getBundle().getProperty("good") + Integer.parseInt(changeGood));
 		String poor = String.valueOf((int) getBundle().getProperty("poor") + Integer.parseInt(changePoor));
 		String fault = String.valueOf((int) getBundle().getProperty("fault") + Integer.parseInt(changeFault));
 		String critical = String.valueOf((int) getBundle().getProperty("critical") + Integer.parseInt(changeCritical));
@@ -824,11 +823,11 @@ public class InspectionSteps {
 		System.out.println(changeCritical);
 		getBundle().setProperty("totalInspections",Integer.parseInt(totalInspections));
 		getBundle().setProperty("toBeCompleted",Integer.parseInt(toBeCompleted));
-		getBundle().setProperty("good",Integer.parseInt(good));
+//		getBundle().setProperty("good",Integer.parseInt(good));
 		getBundle().setProperty("poor",Integer.parseInt(poor));
 		getBundle().setProperty("fault",Integer.parseInt(fault));
 		getBundle().setProperty("critical",Integer.parseInt(critical));
-		inspectionpage.verifyInspectionCountChange(totalInspections, toBeCompleted, good, poor, fault, critical);
+		inspectionpage.verifyInspectionCountChange(totalInspections, toBeCompleted, poor, fault, critical);
 	}
 
 	@QAFTestStep(description="Verify the dashboard tile count changes for {ChangeTotal},{ChangeGood},{ChangePoor},{ChangeFault},{ChangeCritical}")
@@ -952,6 +951,11 @@ public class InspectionSteps {
 	@QAFTestStep(description = "Verify name filter functionality with {InspectionName} and {ColumnNumber}")
 	public void verifyNameColumnFilter(String inspName, String columnNumber) {
 		inspectionpage.verifyNameFilterFunctionality(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspName, columnNumber);
+		inspectionpage.verifyPaginationCount(1);
+	}
+
+	@QAFTestStep(description="Verify the pagination count")
+	public void verifyThePaginationCount(){
 		inspectionpage.verifyPaginationCount(1);
 	}
 
@@ -1146,7 +1150,7 @@ public class InspectionSteps {
 	}
 
 	@QAFTestStep(description="Select the inspection event {InspectionName1}")
-	public void selectingInspectionEvents(String inspectionName){
+	public void selectTheInspectionEvent(String inspectionName){
 		inspectionpage.selectingInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
 	}
 
@@ -1471,6 +1475,13 @@ public class InspectionSteps {
 		else Validator.assertTrue(inspectionpage.verifyNoGeneralMsg(),"General message was found", "General message verified successfully");
 	}
 
+	@QAFTestStep(description="Verify condition for asset {Asset} with {Details} and conveyor {ConveyorName} for VMC belt overall")
+	public void verifyAssetDetailConditionVMCOffOverall(String asset, String details, String conveyorName) {
+		List<String> condition = List.of(Condition.Critical.toString(),Condition.Fault.toString(), Condition.Good.toString());
+		Validator.assertTrue(inspectionpage.verifyDetailsWithConditionVMC(asset, details, conveyorName, condition),"Condition dropdown sequence is not correct for VMC template", "Condition dropdown display sequence for for VMC template verified successfully");
+		Validator.assertTrue(inspectionpage.verifyBeltAlignmentMsgOverall(),"Belt alignment message not found", "Belt alignment message verified successfully");
+	}
+
 	@QAFTestStep(description="Verify condition for asset {Asset} with {Details} and conveyor {ConveyorName} for VMC belt")
 	public void verifyAssetDetailConditionVMCOff(String asset, String details, String conveyorName) {
 		List<String> condition = List.of(Condition.Fault.toString(), Condition.Good.toString());
@@ -1575,7 +1586,7 @@ public class InspectionSteps {
 	@QAFTestStep(description="Verify the to field date functionality for {CustSiteName}")
 	public void verifyDashboardToDateSelection(String siteName){
 		System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
-		Validator.assertTrue(inspectionpage.verifyEndDateSelection(siteName).equalsIgnoreCase(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))),"Dashboard from date selection failed", "Dashboard from date selection verified successfully");
+		Validator.assertTrue(inspectionpage.verifyEndDateSelection(siteName).equalsIgnoreCase(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))),"Dashboard end date selection failed", "Dashboard end date selection verified successfully");
 	}
 
 	@QAFTestStep(description="Verify all the column for inspection dashboard event table list")

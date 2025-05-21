@@ -157,7 +157,6 @@ public class UserSteps extends BasePage {
     @QAFTestStep(description = "Create a Market manager {FullName} and {Phone} and {Email} and {ProfileType} and {UserPassword} and {RetypePassword}")
     public void createMarketManager(String FullNameInd, String Phone, String EmailInd, String ProfileType, String UserPassword, String RetypePassword) {
         String userid = userpage.apiBase.getUserProfileAPI(EmailInd);
-        userpage.apiBase.deleteProfileAPI(userid);
         userpage.apiBase.deleteUserAPI(userid);
         userpage.usersclick();
         userpage.addClick();
@@ -173,7 +172,6 @@ public class UserSteps extends BasePage {
     @QAFTestStep(description = "Create a Distributor User {FullName} and {Phone} and {EmailDist} and {ProfileTypeDist} and {UserPassword} and {RetypePassword} and {CoporateRole} and {DistCorpName} and {DistShopName} and {CustSiteName}")
     public void createDistributorUserForIndiaJohnDoe(String FullName, String Phone, String EmailDist, String ProfileTypeDist, String UserPassword, String RetypePassword, String CoporateRole, String DistCorpName, String DistShopName, String CustSiteName) {
         String userid = userpage.apiBase.getUserProfileAPI(EmailDist);
-        userpage.apiBase.deleteProfileAPI(userid);
         userpage.apiBase.deleteUserAPI(userid);
         userpage.usersclick();
         userpage.addClick();
@@ -221,7 +219,7 @@ public class UserSteps extends BasePage {
 
     @QAFTestStep(description = "Verify {FullName} user with market manager for market as {Region} and permission rights as {Add} {Edit} {Delete} {View} {Download}")
     public void verifyMarketAndPermissionForUser(String fullName, String region, String add, String edit, String delete, String view, String download) {
-        userpage.goToUsersAndWait();
+        userpage.goToUsers();
         userpage.searchUser(fullName);
         userpage.goToEditUserPage(fullName);
         userpage.Nextclick();
@@ -234,7 +232,7 @@ public class UserSteps extends BasePage {
 
     @QAFTestStep(description = "Verify {FullName} user with distributor user for market as {Region} and permission rights as {Add} {Edit} {Delete} {View} {Download}")
     public void verifyMarketAndPermissionForDistUser(String fullName, String region, String add, String edit, String delete, String view, String download) {
-        userpage.goToUsersAndWait();
+        userpage.goToUsers();
         userpage.searchUser(fullName);
         userpage.goToEditUserPage(fullName);
         userpage.Nextclick();

@@ -28,10 +28,13 @@ test-output/
 node_modules/
 .idea/
 FleetMatchAutomation.iml
+QAF_Template_PROJECT.iml
 **/TempClass.java
 .settings/
 .project
 .classpath
+.DS_Store
+**/.DS_Store
 demo.java
 img/
 src/main/resources/test_files/video.mov

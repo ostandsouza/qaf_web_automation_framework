@@ -91,7 +91,8 @@ public class InspectionItemSequencing {
             sortedItems.add(priorityQueue.poll());
         }
         priorityQueue.addAll(sortedItems);
-        return sortedItems.stream().distinct().toList();
+//        return sortedItems.stream().distinct().toList();
+        return sortedItems.stream().distinct().collect(Collectors.toList());
     }
 
     public List<Item> getNotCompletedItems() {

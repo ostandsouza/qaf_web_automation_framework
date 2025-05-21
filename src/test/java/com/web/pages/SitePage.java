@@ -265,12 +265,14 @@ public class SitePage  extends BasePage {
 
     public void deleteSite(String siteName) {
         searchSite(siteName);
+        SyncUtil.waitFor(2000);
         waitForElementToDisplay(btCheckbox);
         btCheckbox.check("Site/Shop Checkbox");
         btActions.click("Actions");
         waitForElementVisible(btDelete, 10000, 500);
         btDelete.click("Delete");
         yesConfirmation.click("Confirm");
+        SyncUtil.waitFor(3000);
     }
 
     public void verifySiteDelete(String siteName) {

@@ -3,14 +3,12 @@ package com.web.steps;
 import com.common.utils.MiscUtils;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
-import com.web.pages.BasePage;
-import com.web.pages.InspectionPage;
-import com.web.pages.SteelCordPage;
-import com.web.pages.SteelcordgeneratorPage;
+import com.web.pages.*;
 
 public class SteelCordSteps extends BasePage {
 	
 	SteelCordPage steelpage = new SteelCordPage();
+	FabricSplicePage fabricSplicePage= new FabricSplicePage();
 
 
 	@QAFTestStep(description="Navigate to the Steel Cord Splice Generator list page")
@@ -41,6 +39,7 @@ public class SteelCordSteps extends BasePage {
 	@QAFTestStep(description = "Verify the Preview Design tab dimensions calculation values for Steel Cord {NoOfSteps} {BeltWidth} {OverAllBeltThickness} {SplicePattern} {SpliceType} {NumberOfRepeatsA} {NumberOfRepeatsB} {CoverCut} {CordButtGap} {TransitionLength} {BiasLength} {BiasAngle} {StepLength} {SpliceLength} {OverAllSpliceLength}")
 	public void verifyThePreviewDimensionsForSteelCord(String noOfSteps,String beltWidth,String overallThickness,String splicePattern,String spliceType,String numberOfRepeatsA,String numberOfRepeatsB,String coverCut, String cordButtGap, String transitionLength, String biasLength, String biasAngle,String stepLength,String spliceLength,String overallSpliceLength) {
 		steelpage.verifyPreviewDesignDimensionForSteelCord(noOfSteps,beltWidth,overallThickness,splicePattern,spliceType,numberOfRepeatsA,numberOfRepeatsB,coverCut,cordButtGap,transitionLength,biasLength,biasAngle,stepLength,spliceLength,overallSpliceLength);
+//		fabricSplicePage.verifyCurrentDate();
 	}
 	@QAFTestStep(description = "Verify the Preview Design tab Table and Note values for Steel Cord {CordDiameterBelt} {CordDiameterSplice} {NoOfCordsBelt} {NoOfCordsSplice} {CordSpacingBelt} {CordSpacingSplice} {CordPitchBelt} {CordPitchSplice} {AllDimension}")
 	public void verifyThePreviewDesignTableAndNoteForSteelCord(String cordDiameterBelt,String cordDiameterSplice,String noOfCordsBelt,String noOfCordsSplice,String cordSpacingBelt,String cordSpacingSplice,String cordPitchBelt,String cordPitchSplice,String allDimension){
@@ -63,7 +62,7 @@ public class SteelCordSteps extends BasePage {
 
 	@QAFTestStep(description = "Search for steel cord design and verify the status of the design {Status}")
 	public void addCommentsAndSendForReviewForSteelCord(String status) {
-		steelpage.verifyDesignStatus(status);
+		fabricSplicePage.verifyDesignStatus(status);
 	}
 
 	@QAFTestStep(description = "Navigate to edit the Steel Cord Design")
@@ -90,10 +89,7 @@ public class SteelCordSteps extends BasePage {
 	public void verifyThePdfDownloadForSpliceDesign(String siteName,String conveyorName) {
 		steelpage.verifyDownloadPDFSpliceDesign(siteName,conveyorName);
 	}
-	@QAFTestStep(description = "Verify delete functionality for Splice Design")
-	public void verifyTheDeleteFunForSpliceDesign() {
-		steelpage.verifyDeleteFunForSpliceDesign();
-	}
+
 	@QAFTestStep(description="Navigate to the Belt Info Steel list page")
 	public void navigateToTheBeltInfoSteelGenListPage(){
 		steelpage.navigateBeltInfoSteelListPage();

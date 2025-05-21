@@ -307,6 +307,7 @@ public class BeltScanPage extends BasePage{
         waitForElementVisible(btDelete, 20000,500);
         btDelete.click("Delete");
         crYesConfirmation.click("Confirm");
+        SyncUtil.waitFor(2000);
         waitForElementToDisplay(noList);
         return noList.isVisible();
     }

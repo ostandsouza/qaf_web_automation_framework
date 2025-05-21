@@ -192,17 +192,6 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         return notDisplayed;
     }
 
-    /**
-     * @param timeOutInMiliSec
-     */
-    public void hardWait(int timeOutInMiliSec) {
-        try {
-            Thread.sleep(timeOutInMiliSec);
-        } catch (InterruptedException e) {
-            Reporter.log("InterruptedException occured. Error[{}]", MessageTypes.valueOf(e.getMessage()));
-        }
-    }
-
     public String getCurrentURL() {
         return this.driver.getCurrentUrl();
     }
@@ -253,8 +242,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
    
     public void dropdownSelect(CustomElement dropDownButton, String dropDownItems, String itemText) {
-    	
-    	dropDownButton.click();
+        //inspection needs .click method & free tools needs .jsClick() method
+        dropDownButton.click();
         setImplicitWait(15000,TimeUnit.MILLISECONDS);
         SyncUtil.waitFor(300);
         waitForPresenceOfElements(By.xpath(dropDownItems));
@@ -285,11 +274,9 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
     
     public void dropdownSelectSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
-        waitForElementVisible(dropDownButton,10000,500);
         waitForElementToBeClickable(dropDownButton);
         setImplicitWait(20000,TimeUnit.MILLISECONDS);
-		dropDownButton.jsClick("dropdown");
-        waitForElementToBeClickable(dropDownButton);
+		dropDownButton.click("dropdown");
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(60000,TimeUnit.MILLISECONDS);
@@ -302,17 +289,12 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
 
     public void dropdownSelectSearchContains(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
-        waitForElementVisible(dropDownButton,10000,500);
-        waitForElementToBeClickable(dropDownButton);
-        setImplicitWait(20000,TimeUnit.MILLISECONDS);
-        dropDownButton.jsClick("dropdown");
-        waitForElementToBeClickable(dropDownButton);
+        dropDownButton.click("dropdown");
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(60000,TimeUnit.MILLISECONDS);
 //        waitForPresenceOfElement(By.xpath("//span[contains(text(),'"+itemstosearch+"')]"));
 //        driver.findElement("//span[contains(text(),'"+itemstosearch+"')]").click();
-        waitForPresenceOfElement(By.xpath("//li/span[1]"));
         driver.findElement("//li/span[1]").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);
         Reporter.log(itemstosearch +" is selected", MessageTypes.Pass );
@@ -320,11 +302,9 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
     public void dropdownSearch(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
         dropDownButton.click();
-        waitForElementToBeClickable(dropDownButton);
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(70000,TimeUnit.MILLISECONDS);
-        SyncUtil.waitFor(5000);
         setImplicitWait(150000,TimeUnit.MILLISECONDS);
         waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
         driver.findElement("//span[text()='"+itemstosearch+"']").click();
@@ -367,11 +347,10 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
 
     public void dropdownSearchSelect(CustomElement dropDownButton, CustomElement Search, String itemstosearch) {
-        dropDownButton.jsClick();
+        dropDownButton.click();
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(70000,TimeUnit.MILLISECONDS);
-        SyncUtil.waitFor(5000);
         setImplicitWait(150000,TimeUnit.MILLISECONDS);
         waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
         driver.findElement("//span[text()='"+itemstosearch+"']").click();

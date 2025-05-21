@@ -1016,7 +1016,9 @@ public class CoverWearPage extends BasePage{
     public void goToCoverWearScreen() {
         if (!coverWearList.isVisible())
             home.jsClick("Home");
-        coverWearList.jsClick("Cover Wear List");
+        SyncUtil.waitFor(500);
+        coverWearList.click("Cover Wear List");
+        SyncUtil.waitFor(1000);
         coverWearHeader.isVisible("Cover Wear Header");
     }
 
@@ -2980,7 +2982,6 @@ public class CoverWearPage extends BasePage{
 
     public void btnSaveClick()
     {
-        SyncUtil.waitFor(5000);
         waitForElementVisible(btnSave,10000,500);
         btnSave.jsClick();
         waitForPageLoad(10000);

@@ -103,10 +103,10 @@ public class ConveyorSteps {
     public void conveyorBulkUpload(String custSiteName, String fileName) {
 //        Validator.assertTrue(conveyorPage.conveyorFileImport(fileName).contains("2"),"Not all conveyors were imported successfully","All conveyors imported successfully");
         Object[][] obj = MiscUtils.getExcelData(fileName, custSiteName);
-        for (int i = obj.length; i > 0; i--) {
-            String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(((Map<String, String>) obj[i - 1][0]).get("Name")));
-            conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
-        }
+//        for (int i = obj.length; i > 0; i--) {
+//            String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(((Map<String, String>) obj[i - 1][0]).get("Name")));
+//            conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+//        }
         conveyorPage.conveyorFileImport(fileName);
         conveyorPage.acknowledgeImport(obj.length - 1);
     }

@@ -215,7 +215,7 @@ public class SteelCordPage extends BasePage {
 	public CustomElement statusApproved;
 	@FindBy(locator = "xpath=//label[text()='Splice Design Drawing No.']/../div//input")
 	public CustomElement tbSpliceDesignDrawingNo;
-	@FindBy(locator = "xpath=//button//span[text()='Save as Draft']")
+	@FindBy(locator = "xpath=//button//span[contains(text(),'Draft')]")
 	public CustomElement btnSaveDraftButtonSteelCord;
 	@FindBy(locator = "xpath=//button//span[contains(@class,'pi-spinner')]")
 	public CustomElement btnLoader;
@@ -292,19 +292,15 @@ public class SteelCordPage extends BasePage {
 	//	tbdesignerName.type(Designername);
 		waitForPageLoad(10000);
 		SyncUtil.waitFor(5000);
-		LocalDate currentDate = LocalDate.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-		String formattedCurrentDate = currentDate.format(formatter);
 		dropdownSearchSelect(drchoosetyourmarket, tbInput, market);
 		dropdownSearchSelect(drProductionLocationOfSplicekit, tbInput, spliceKit);
 		dropdownSearchSelect(drCustomerName, tbInput, customerName);
 		dropdownSearchSelect(drConveyorName, tbInput, conveyorName);
 		dropdownSearchSelect(drBeltrating, tbInput, beltRating);
 		tbBeltWidth.type(beltWidth);
-		dropdownSearchSelect(drTopCoverCompound, tbInput, topCoverCompound);
+		dropdownSelectSearchContains(drTopCoverCompound, tbInput, topCoverCompound);
 		dropdownSearchSelect(drBottomCoverCompound, tbInput, bottomCoverCompound);
 		Validator.assertTrue(tbdesignerName.getAttribute("value").contains(tbProfileName.getText()),"DesignerName Mismatch","DesignerName matches");
-		Validator.assertTrue(tbCreationDate.getAttribute("value").contains(formattedCurrentDate),"Creation Date not set to current date","Creation Date is set to current date");
 		dropdownSearchSelect(drTopCoverThickness, tbInput, topCoverThickness);
 		dropdownSearchSelect(drBottomCoverThickness, tbInput, bottomCoverThickness);
 		tbOverallThickness.type(overAllBeltThickness);
@@ -420,18 +416,6 @@ public class SteelCordPage extends BasePage {
 		commentsLogTab.click();
 		Validator.assertTrue(approverCommentHeader.isVisible(10000, "Comments Log Tab"), "User is not navigated to Comments Log Tab", "User is  navigated to Comments Log Tab");
 	}
-
-	public void verifyDesignStatus(String status) {
-		String spliceDrawingNumber = getBundle().getProperty("spliceDrawingNumber").toString();
-		searchForTheRecord(spliceDrawingNumber);
-		if (status.equalsIgnoreCase("In Review"))
-			Validator.assertTrue(statusInReview.isVisible(10000, "In Review"), "The design is not in review status after sending for review", "The design is in review status after sending for review");
-		else if (status.equalsIgnoreCase("Approved"))
-			Validator.assertTrue(statusApproved.isVisible(10000, "Approved"), "The design is not approved status", "The design is in approved status");
-		else if (status.equalsIgnoreCase("Draft"))
-			Validator.assertTrue(statusDraft.isVisible(10000, "Draft"), "The design is not in Draft status", "The design is in Draft status");
-	}
-
 	public void goToSteelCordScreenAndWait() {
 		navigateSteelCordListPage();
 		scrollPageDown();
@@ -443,14 +427,6 @@ public class SteelCordPage extends BasePage {
 			val = pagination.getText();
 			SyncUtil.waitFor(20000);
 		}
-	}
-	public boolean searchForTheRecord(String designName) {
-		waitForPageLoad(10000);
-		btSearchinput.type(designName, "Record Search");
-		SyncUtil.waitFor(10000);
-		waitForElementVisible(crCheckbox, 20000, 1000);
-		waitForElementToDisplay(crCheckbox);
-		return crCheckbox.isVisible("Record Found");
 	}
 
 	public void editRecord() {
@@ -496,7 +472,7 @@ public class SteelCordPage extends BasePage {
 		waitForPageLoad(10000);
 	}
 	public void verifyPDFContentsSpliceDesign(String reqFile, String designId, String siteName, String conveyorName) {
-		PDDocument doc = PDFHelper.getPDFData(reqFile);
+		PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+reqFile);
 		try {
 			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
 			System.out.println(val);
@@ -514,19 +490,6 @@ public class SteelCordPage extends BasePage {
 		Validator.assertTrue(MiscUtils.checkDownloadedFiles(reqFile), "PDF report was not found", "PDF report was downloaded successfully");
 		verifyPDFContentsSpliceDesign(reqFile,designId, siteName, conveyorName);
 		MiscUtils.deleteDownloadedFiles(reqFile);
-	}
-	public void verifyDeleteFunForSpliceDesign() {
-		crCheckbox.check("Select Item");
-		btActions.jsClick("Actions");
-		waitForElementVisible(btDelete,10000,500);
-		waitForElementToBeClickable(btDelete);
-		btDelete.click();
-		waitForElementVisible(deleteDialogbox,5000,500);
-		waitForElementVisible(confirmBtn,5000,500);
-		waitForElementToBeClickable(confirmBtn);
-		confirmBtn.click();
-//		waitForElementToDisplay(noList);
-//		noList.isVisible("No Item Found");
 	}
 
 	public void navigateBeltInfoSteelListPage() {

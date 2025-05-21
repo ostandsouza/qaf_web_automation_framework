@@ -1,6 +1,7 @@
 package com.common.utils;
 
 import com.qmetry.qaf.automation.util.Reporter;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -23,6 +24,7 @@ import java.util.Map;
  *
  */
 public class JsonReader {
+	private static final Logger logger = Logger.getLogger(JsonReader.class);
 	private static final Map<String, JSONObject> FILE_TO_PROPS = new HashMap<>();
 	private static String env;
 
@@ -38,11 +40,11 @@ public class JsonReader {
 			try {
 				jsonContent = (JSONObject) new JSONParser().parse(new FileReader(file));
 				FILE_TO_PROPS.put(filePath, jsonContent);
-				System.out.println("Loaded json file");
+				logger.info("Loaded json file:"+file.getAbsolutePath());
 			} catch (IOException ioe) {
-				System.out.println("IOException while reading file to map. Error[{}]");
+				logger.error("IOException while reading file to map. Error[{}]");
 			} catch (ParseException pe) {
-				System.out.println("ParseException while parsing file content to JSONObject. Error[{}]");
+				logger.error("ParseException while parsing file content to JSONObject. Error[{}]");
 			}
 		}
 
@@ -120,7 +122,7 @@ public class JsonReader {
 
 		if (valObj instanceof Map) {
 			retVal = (Map<String, String>) valObj;
-			System.out.println("value retrieved");
+			logger.info("Value retrieved from func: getMap");
 		}
 
 		return retVal;
@@ -149,7 +151,7 @@ public class JsonReader {
 		}
 
 		if (retVal != null) {
-			System.out.println("value retrieved");
+			logger.info("Value retrieved from func: getJsonObject");
 		}
 		return retVal;
 	}
@@ -176,7 +178,7 @@ public class JsonReader {
 		}
 
 		if (retVal != null) {
-			System.out.println("value retrieved");
+			logger.info("Value retrieved from func: getJson");
 		}
 		return retVal;
 	}
@@ -224,7 +226,7 @@ public class JsonReader {
 
 		if (t.isAssignableFrom(valObj.getClass())) {
 			retVal = (T) valObj;
-			System.out.println("value retrieved");
+			logger.info("Value retrieved from func: getTypeValue");
 		}
 
 		return retVal;
@@ -260,8 +262,7 @@ public class JsonReader {
 		if (jsonObj != null) {
 			retVal = jsonObj.get(key).toString();
 		}
-		System.out.println("retVal[{}]");
-
+		logger.info("Value retrieved from func: getString");
 		return retVal;
 	}
 

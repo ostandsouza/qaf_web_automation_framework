@@ -3,12 +3,12 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.template.automation</groupId>
-	<artifactId>QAF_Template_PROJECT</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.contiplus.automation</groupId>
+	<artifactId>QAF_ContiPlus_Automation</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>QAF_Template_PROJECT</name>
+	<name>QAF_ContiPlus_Automation</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,9 +25,9 @@
 		<run.time>${maven.build.timestamp}</run.time>
 		<lib.dir>${project.basedir}/lib</lib.dir>
 		<resource.dir>${project.basedir}/resources</resource.dir>
-		<output.dir>${test.results.dir}/${run.time}</output.dir>
+		<output.dir>${test.results.dir}</output.dir>
 		<maven.build.timestamp.format>dd_MMM_yyyy_hh_mm_aa</maven.build.timestamp.format>
-		<testng.report.title>Demo</testng.report.title>
+		<testng.report.title>Execution Report</testng.report.title>
 	</properties>
 	<repositories>
 		<!--		<repository>-->
@@ -49,7 +49,13 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.10.3</version>
+			<version>2.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.24.3</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -89,24 +95,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.30</version>
-		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-testng</artifactId>
-			<version>5.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-core</artifactId>
-			<version>5.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>5.5.0</version>
-			<scope>compile</scope>
+			<version>2.0.16</version>
 		</dependency>
 		<dependency>
 			<groupId>io.rest-assured</groupId>
@@ -119,11 +114,6 @@
 			<version>1.15.4</version>
 		</dependency>
 		<dependency>
-			<groupId>com.qmetry</groupId>
-			<artifactId>qaf-cucumber</artifactId>
-			<version>${qaf.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
@@ -132,16 +122,6 @@
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>${assist.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.apis</groupId>
-			<artifactId>google-api-services-gmail</artifactId>
-			<version>v1-rev33-1.20.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client</artifactId>
-			<version>1.22.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
@@ -158,11 +138,11 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>3.3.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>cglib</groupId>-->
+<!--			<artifactId>cglib</artifactId>-->
+<!--			<version>3.3.0</version>-->
+<!--		</dependency>-->
 	</dependencies>
 	<build>
 		<plugins>
@@ -182,8 +162,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<compilerVersion>${sourceVersion}</compilerVersion>
-					<source>16</source>
-					<target>16</target>
+					<source>11</source>
+					<target>11</target>
 				</configuration>
 			</plugin>
 			<!--			<plugin>-->
@@ -221,12 +201,12 @@
 					</suiteXmlFiles>
 					<testFailureIgnore>true</testFailureIgnore>
 					<skipTests>false</skipTests>
-					<reportsDirectory>${test.results.dir}/${run.time}</reportsDirectory>
+					<reportsDirectory>${test.results.dir}</reportsDirectory>
 					<systemPropertyVariables>
 						<org.uncommons.reportng.xml-dialect>testng</org.uncommons.reportng.xml-dialect>
 						<org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
 						<log4j.configuration>file:///${resource.dir}/log4j.properties</log4j.configuration>
-						<outputDir>${output.dir}</outputDir>
+						<outputDir>${test.results.dir}</outputDir>
 						<test.results.dir>${output.dir}/html</test.results.dir>
 						<json.report.root.dir>${test.results.dir}</json.report.root.dir>
 						<json.report.dir>${output.dir}/json</json.report.dir>
@@ -236,34 +216,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<!--		<pluginManagement>-->
-		<!--			<plugins>-->
-		<!--				<plugin>-->
-		<!--					<groupId>org.eclipse.m2e</groupId>-->
-		<!--					<artifactId>lifecycle-mapping</artifactId>-->
-		<!--					<version>1.0.0</version>-->
-		<!--					<configuration>-->
-		<!--						<lifecycleMappingMetadata>-->
-		<!--							<pluginExecutions>-->
-		<!--								<pluginExecution>-->
-		<!--									<pluginExecutionFilter>-->
-		<!--										<groupId>org.codehaus.mojo</groupId>-->
-		<!--										<artifactId>aspectj-maven-plugin</artifactId>-->
-		<!--										<versionRange>[1.0,)</versionRange>-->
-		<!--										<goals>-->
-		<!--											<goal>test-compile</goal>-->
-		<!--											<goal>compile</goal>-->
-		<!--										</goals>-->
-		<!--									</pluginExecutionFilter>-->
-		<!--									<action>-->
-		<!--										<execute />-->
-		<!--									</action>-->
-		<!--								</pluginExecution>-->
-		<!--							</pluginExecutions>-->
-		<!--						</lifecycleMappingMetadata>-->
-		<!--					</configuration>-->
-		<!--				</plugin>-->
-		<!--			</plugins>-->
-		<!--		</pluginManagement>-->
 	</build>
 </project>

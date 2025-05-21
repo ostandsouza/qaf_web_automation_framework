@@ -1151,7 +1151,7 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//input[@formcontrolname='name']")
     public CustomElement tbElevatorCalculationName;
 
-    @FindBy(locator = "xpath=//span[text()='Are you sure, you want to leave the Minuteman calculation without saving?']")
+    @FindBy(locator = "xpath=//span[contains(text(),'Are you sure, you want')]")
     public CustomElement warningPopup;
 
     @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.']/..//span)[1]")
@@ -1201,7 +1201,7 @@ public class MinutemanPage extends BasePage{
         if(!minuteman.isVisible())
             home.click("Home");
         SyncUtil.waitFor(1000);
-        minuteman.click("Minuteman");
+        minuteman.jsClick("Minuteman");
         waitForElementToDisplay(minutemanHeader);
         btSearchinput.isVisible("Minuteman Page");
     }

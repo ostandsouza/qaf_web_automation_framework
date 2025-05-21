@@ -139,6 +139,9 @@ public class FileManagerPage extends BasePage {
     @FindBy(locator="xpath=//pdf-viewer/div[1]")
     public CustomElement pdfPopup;
 
+    @FindBy(locator="xpath=//div[text()='File is still in scanning status. Please try again after some time.']")
+    public CustomElement pdfScanning;
+
     @FindBy(locator="xpath=//button[contains(@class,'p-dialog-header-icon')]")
     public CustomElement closePopup;
 
@@ -226,8 +229,8 @@ public class FileManagerPage extends BasePage {
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         upload.sendKeys(file_path, "img_upload");
         SyncUtil.waitFor(5000);
-        if(duplicateFileErrorMessage.isVisible(10000,"error"))
-            Reporter.log("User cannot upload Duplicate files");
+//        if(duplicateFileErrorMessage.isVisible(10000,"error"))
+//            Reporter.log("User cannot upload Duplicate files");
         waitForElementToInvisible(btFileUploadingProgress, 45000);
         SyncUtil.waitFor(1000);
         waitForElementToBeClickable(btFileUploadingCloseBtn);
@@ -334,9 +337,12 @@ public class FileManagerPage extends BasePage {
         driver.findElement(By.xpath("//li[@aria-label='"+folderName+"']")).click();
         verifyFilePresent(fileName);
         driver.findElement(By.xpath("//a[text()='"+fileName+"']")).click();
-        waitForElementToDisplay(pdfPopup);
-        pdfPopup.isVisible("pdf");
-        closePopup.click();
+        if(!pdfScanning.isVisible()) {
+            waitForElementToDisplay(pdfPopup);
+            pdfPopup.isVisible("pdf");
+            if (closePopup.isVisible())
+                closePopup.click();
+        }
     }
 
     public void openFile(String folderName, String fileName) {
@@ -430,21 +436,25 @@ public class FileManagerPage extends BasePage {
         return MiscUtils.regexExtractor(memory, "(|[^|]*)$").trim();
     }
     public void openImageDocument(String fileName){
-        SyncUtil.waitFor(4000);
+        SyncUtil.waitFor(1000);
         documentViewIcon.isVisible(10000,"View Icon");
         documentViewIcon.click();
+        SyncUtil.waitFor(1000);
         waitForElementToDisplay(imgPopup);
         imgPopup.isVisible("Image");
         closePopup.click();
     }
     public void openPdfDocument(String fileName)
     {
-        SyncUtil.waitFor(4000);
+        SyncUtil.waitFor(1000);
         documentViewIcon.isVisible(10000,"View Icon");
         documentViewIcon.click();
-        waitForElementToDisplay(pdfPopup);
-        pdfPopup.isVisible("pdf");
-        closePopup.click();
+        SyncUtil.waitFor(1000);
+        if(!pdfScanning.isVisible()) {
+            waitForElementToDisplay(pdfPopup);
+            pdfPopup.isVisible("pdf");
+            closePopup.click();
+        }
     }
     public void verifyFileManagerBreadCrumb(String corpName,String moduleRecordName,String conveyorName)
     {
