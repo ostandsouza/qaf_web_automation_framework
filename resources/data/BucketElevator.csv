@@ -1,0 +1,3 @@
+key|Env|UserName|Password|DistCorpName|CustSiteName|ConveyorName|CustCorpName|CalculationName|NewCalculationName
+BE_001|dev2|contiplus_admin@maildrop.cc|Abc@123456|Dist Automation Common India|Cust Automation Regression India|C1 Automation Regression|Cust Automation Common Corp|Contiplus Test A - Legacy - New|Contiplus Test A - Legacy - Duplicate
+BE_001|stage|contiplus_admin@maildrop.cc|Abc@123456|Dist Automation Common India|Cust Automation Regression India|C1 Automation Regression|Cust Automation Common Corp|Contiplus Test A - Legacy - New|Contiplus Test A - Legacy - Duplicate

@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static java.io.File.separator;
 import static java.lang.Double.parseDouble;
 
@@ -920,8 +921,14 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator="xpath=//li//span[text()='Edit']")
     public CustomElement crEdit;
 
+    @FindBy(locator="xpath=//li//span[text()='Duplicate']")
+    public CustomElement crDuplicate;
+
     @FindBy(locator="xpath=//span[text()='Delete']")
     public CustomElement crDelete;
+
+    @FindBy(locator="id=duplicateName")
+    public CustomElement crDuplicateInput;
 
     @FindBy(locator = "xpath=//li/a/span[text()='Edit']")
     public CustomElement editBreadCrumb;
@@ -943,6 +950,15 @@ public class MinutemanPage extends BasePage{
 
     @FindBy(locator = "xpath=//div[text()='Select Conveyor Belt']")
     public CustomElement selectBeltHeader;
+
+    @FindBy(locator = "xpath=//label[text()='Conveyor Type']")
+    public CustomElement inputsBucketElevatorHeader;
+
+    @FindBy(locator = "xpath=//label[text()='Review Calculated Outputs and Elevator Capacity']")
+    public CustomElement outputsBucketElevatorHeader;
+
+    @FindBy(locator = "xpath=//span[text()='Minuteman Bucket Elevator']")
+    public CustomElement reportsBucketElevatorHeader;
 
     @FindBy(locator = "xpath=//div[text()='Capacity']")
     public CustomElement capacityHeader;
@@ -1118,6 +1134,9 @@ public class MinutemanPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[1]/td/span[1]")
     public CustomElement txtElevatorMaximumTension;
 
+    @FindBy(locator = "xpath=//input[@id='maximumTension']")
+    public CustomElement txtElevatorMaximumTensionCalculated;
+
     @FindBy(locator = "xpath=//label[text()='Calculated Data']/following-sibling::table/tr[2]/td/span[1]")
     public CustomElement txtElevatorEffectiveTension;
 
@@ -1193,8 +1212,63 @@ public class MinutemanPage extends BasePage{
 
     @FindBy(locator = "xpath=(//button[@pripple]/../span)[1]")
     public CustomElement paginationEntry;
+
+    @FindBy(locator = "xpath=//i[contains(@class,'pi-question-circle')]")
+    public CustomElement helpIcon;
+
+    @FindBy(locator = "xpath=//div[contains(@class,'p-dialog-header')]/span")
+    public CustomElement popupHeader;
+
+    @FindBy(locator = "xpath=//div[contains(@class,'p-dialog-footer')]/p-button[1]/button")
+    public CustomElement helpPrevious;
+
+    @FindBy(locator = "xpath=//div[contains(@class,'p-dialog-footer')]/p-button[2]/button")
+    public CustomElement helpNext;
+
+    @FindBy(locator = "xpath=//button[contains(@class,'p-dialog-header-close')]")
+    public CustomElement dialogClose;
+
     @FindBy(locator = "xpath=(//app-card//div[text()='Minuteman Calc.'])[1]/../div/div/div/span")
     public CustomElement minutemanCardCount;
+
+    @FindBy(locator = "xpath=//div[text()='Failed to create minuteman: Invalid request body']")
+    public CustomElement minutemanInvalidToast;
+
+    @FindBy(locator = "xpath=//span[text()='100%']")
+    public CustomElement outputCapacity100;
+
+    @FindBy(locator = "xpath=//span[text()='Reset']")
+    public CustomElement outputCapacityReset;
+
+    @FindBy(locator = "id=maximumTension")
+    public CustomElement maxTension;
+
+    @FindBy(locator = "id=maximumPIW")
+    public CustomElement maxPIW;
+
+    @FindBy(locator = "id=effectiveTension")
+    public CustomElement maxEffTension;
+
+    @FindBy(locator = "id=beltHorsePower")
+    public CustomElement beltHP;
+
+    @FindBy(locator = "id=percentageLoaded")
+    public CustomElement percentageLoad;
+
+    @FindBy(locator = "id=counterWeightTension")
+    public CustomElement counterWeightTension;
+
+    @FindBy(locator = "id=counterWeight")
+    public CustomElement counterWeight;
+
+    @FindBy(locator = "id=weightEachBucket")
+    public CustomElement bucketWeight;
+
+    @FindBy(locator = "id=materialSpeed")
+    public CustomElement materialPerHour;
+
+    @FindBy(locator = "xpath=//div[contains(@class,'p-panel-content')]//div//p-skeleton")
+    public CustomElement minutemanSkeleton;
 
     public void gotoMinutemanScreen(){
         SyncUtil.waitFor(1000);
@@ -1203,7 +1277,7 @@ public class MinutemanPage extends BasePage{
         SyncUtil.waitFor(1000);
         minuteman.jsClick("Minuteman");
         waitForElementToDisplay(minutemanHeader);
-        btSearchinput.isVisible("Minuteman Page");
+        btSearchinput.isVisible();
     }
 
     public void gotoMinutemanScreenWait(){
@@ -2919,6 +2993,10 @@ public class MinutemanPage extends BasePage{
         return btSearchinput.isVisible();
     }
 
+    public boolean clickOnCreateCalcPartialFilled(){
+        return minutemanInvalidToast.isVisible();
+    }
+
     public boolean verifyFailureOnCreateCalc(){
         btnCreate.click("Create");
         waitForElementToDisplay(toastMsg);
@@ -2976,6 +3054,50 @@ public class MinutemanPage extends BasePage{
         waitForElementToInvisible(buttonLoader,10000);
     }
 
+    public boolean clickOnSaveBtn(){
+        btnSave.click();
+        return toastMsg.isVisible();
+    }
+
+    public boolean isOutputFieldsEnabled(){
+        return maxTension.isEnabled() && maxPIW.isEnabled() && maxEffTension.isEnabled() && beltHP.isEnabled() && percentageLoad.isEnabled() && counterWeightTension.isEnabled()
+                && counterWeight.isEnabled() && bucketWeight.isEnabled() && materialPerHour.isEnabled();
+    }
+
+    public boolean isCreateCalculationButton(){
+        return btnCreate.isVisible() && btnCancel.isVisible();
+    }
+
+    public boolean isEditCalculationButton(){
+        return btnSave.isVisible() && btnCancel.isVisible();
+    }
+
+    public void editBucketMinutemanCalc(String calc, String newCalc){
+        goToEditMinutemanCalc(calc);
+        setTbElevatorCalculationName(newCalc);
+        selectBelt.jsClick();
+//        waitForElementToDisplay(txtName);
+//        Validator.assertTrue(newCalc.equals(txtName.getText().trim()),"Name in reports is not matching with the entered value","Name in reports is not matching with the entered value");
+        waitForElementToInvisible(spinner,7000);
+        scrollPageDown();
+        btnSave.click();
+        waitForElementToInvisible(buttonLoader,10000);
+    }
+
+    public void duplicateMinutemanCalc(String calc, String duplicateCalc){
+        searchMinuteman(calc);
+        SyncUtil.waitFor(1000);
+        crCheckbox.check("Conveyor Checkbox");
+        crActions.click("Actions");
+        waitForElementVisible(crDuplicate, 20000,500);
+        crDuplicate.click("Duplicate");
+        crDuplicateInput.type(duplicateCalc);
+        btnCreate.click("create");
+        SyncUtil.waitFor(1000);
+        waitForElementToInvisible(spinner,7000);
+        crCheckbox.check("Conveyor Checkbox");
+    }
+
     public boolean searchMinuteman(String calc){
         gotoMinutemanScreenWait();
         waitForPageLoad(10000);
@@ -3018,6 +3140,42 @@ public class MinutemanPage extends BasePage{
         btnElevator.click("Elevator");
     }
 
+    public boolean navigateToHelpPage(){
+        helpIcon.click();
+        return popupHeader.isVisible();
+    }
+
+    public boolean closeHelpPage(){
+        dialogClose.click();
+        SyncUtil.waitFor(500);
+        return !popupHeader.isVisible();
+    }
+
+    public boolean navigateToNextHelpPage(){
+        SyncUtil.waitFor(1000);
+        helpNext.click();
+        System.out.println(!helpNext.isEnabled());
+        System.out.println(helpPrevious.isEnabled());
+        System.out.println(popupHeader.verifyText("Help Page 2/2"));
+        return !helpNext.isEnabled() && helpPrevious.isEnabled() && popupHeader.verifyText("Help Page 2/2");
+    }
+
+    public boolean navigateToPreviousHelpPage(){
+        helpPrevious.click();
+        return !helpPrevious.isEnabled() && helpNext.isEnabled() && popupHeader.verifyText("Help Page 1/2");
+    }
+
+    public boolean verifyCancelButton(){
+        clickCancel();
+        waitForElementToDisplay(warningPopup);
+        return warningPopup.isVisible();
+    }
+
+    public boolean verifyWarningPopup(){
+        waitForElementToDisplay(warningPopup);
+        return warningPopup.isVisible();
+    }
+
     public boolean goToAddMinutemanCalc(){
         btnAdd.click("Add");
         btnConveyor.click("Conveyor");
@@ -3042,6 +3200,7 @@ public class MinutemanPage extends BasePage{
     }
 
     public boolean isBeltScreen(){
+        waitForElementToInvisible(skeleton,7000);
         return selectBeltHeader.isVisible("Select Belt Header");
     }
 
@@ -3067,6 +3226,22 @@ public class MinutemanPage extends BasePage{
 
     public boolean isFinalReportScreen(){
         return btnSaveAndDownload.isVisible("Final Report Header");
+    }
+
+    public boolean isBucketElevatorGeneralScreen(){
+        return loadData.isVisible("General info screen");
+    }
+
+    public boolean isBucketElevatorInputsScreen(){
+        return inputsBucketElevatorHeader.isVisible("Inputs Header");
+    }
+
+    public boolean isBucketElevatorOutputsScreen(){
+        return outputsBucketElevatorHeader.isVisible("Outputs Header");
+    }
+
+    public boolean isBucketElevatorFinalScreen(){
+        return reportsBucketElevatorHeader.isVisible("Final Report Header");
     }
 
     public void deleteMinuteman(String name){
@@ -3553,6 +3728,36 @@ public class MinutemanPage extends BasePage{
         waitForElementToInvisible(spinner,7000);
         return counterWeightNote.isVisible("Counter Weight notes") && pulleyNote.isVisible("Pulley Notes") && curvesNote.isVisible("Curves Notes")
                 && estimatedLengthNote.isVisible("Estimated Length notes") && transitionLengthNote.isVisible("Transition notes");
+    }
+
+    public boolean calculatedOutput(){
+        getBundle().setProperty("defaultTension", txtElevatorMaximumTensionCalculated.getAttribute("value"));
+        outputCapacity100.click();
+        SyncUtil.waitFor(1000);
+        waitForElementToInvisible(spinner,7000);
+        getBundle().setProperty("maxTension", txtElevatorMaximumTensionCalculated.getAttribute("value"));
+        return !txtElevatorMaximumTensionCalculated.getAttribute("value").equalsIgnoreCase((String) getBundle().getProperty("defaultTension"));
+    }
+
+    public boolean calculatedOutputReset(){
+        outputCapacityReset.click();
+        SyncUtil.waitFor(1000);
+        waitForElementToInvisible(spinner,7000);
+        return !txtElevatorMaximumTensionCalculated.getAttribute("value").equalsIgnoreCase((String) getBundle().getProperty("maxTension"));
+    }
+
+    public void verifyMinutemanCardAndWaitForCount(){
+        waitForPageLoad(5000);
+        while(!txtMinutemanCard.isVisible()){
+            btRightCarousel.jsClick("Carousel right");
+        }
+        waitForElementToDisplay(txtMinutemanCard);
+        waitForElementToBeClickable(txtMinutemanCard);
+        Validator.assertTrue(txtMinutemanCard.isEnable(),"Inspection Card is not clickable","Inspection Card is clickable");
+        txtMinutemanCard.click();
+        waitForPageLoad(5000);
+        Validator.assertTrue(minutemanHeader.isDisplayed(),"Inspection Page is not loaded","Inspection Page is loaded");
+        waitForElementToInvisible(minutemanSkeleton,10000);
     }
 
 }

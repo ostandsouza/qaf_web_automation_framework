@@ -2,10 +2,11 @@ package com.web.steps;
 
 import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
-import com.qmetry.qaf.automation.step.NotYetImplementedException;
+import com.mobile.flutter.app.pages.DashboardPage;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Validator;
 import com.web.pages.ConveyorPage;
+import com.web.pages.CorporatePage;
 import com.web.pages.MinutemanPage;
 import com.web.pages.SitePage;
 
@@ -16,6 +17,7 @@ import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 
 public class MinutemanSteps {
     MinutemanPage minutemanPage=new MinutemanPage();
+    CorporatePage corpPage=new CorporatePage();
     ConveyorPage conveyorPage=new ConveyorPage();
     SitePage sitePage=new SitePage();
 
@@ -241,6 +243,10 @@ public class MinutemanSteps {
         minutemanPage.clickNext();
     }
 
+    @QAFTestStep(description="User click on previous")
+    public void userClickOnPrevious(){ minutemanPage.clickPrevious();
+    }
+
     @QAFTestStep(description = "Verify the pre populated data in inputs page {BeltWidth} {BeltSpeed} {TonsPerHourPeak} {PickMaterialName} {MaterialDensity} {AngleOfIdler} {CarrySideIdlerSpacing} {DriveWrapAngle} {DriveWrapAngleDegree} {TakeUpTension} {FrictionFactor} {LengthFactor} {SurchargeAngle} {IdlerOffset} {DriverDetails} {TakeUpDetails} {SpliceType}")
     public void verifyPrePopulatedDataInInputPage(String beltWidth,String beltSpeed,String tonsPerHourPeak,String pickMaterialName,String materialDensity, String angleOfIdlers, String carrySideIdler, String driveWrapAngle,String driveWrapAngleDegree,String takeUpTension,String frictionFactor,String lengthFactor,String surchargeAngle,String idlerOffsetType,String driveDetails,String takeUpDetails, String spliceType){
         minutemanPage.verifyPrePopulatedDataInInputsPage(beltWidth,beltSpeed,tonsPerHourPeak,pickMaterialName,materialDensity,angleOfIdlers,carrySideIdler,driveWrapAngle,driveWrapAngleDegree,takeUpTension,frictionFactor,lengthFactor,surchargeAngle,idlerOffsetType,driveDetails,takeUpDetails,spliceType);
@@ -421,6 +427,21 @@ public class MinutemanSteps {
         minutemanPage.editMinutemanCalc(calc, newCalc);
     }
 
+    @QAFTestStep(description="Edit bucket elevator minuteman calculation {CalculationName} to {NewCalculationName}")
+    public void editBucketMinutemanCalculationTo(String calc, String newCalc){
+        minutemanPage.editBucketMinutemanCalc(calc, newCalc);
+    }
+
+    @QAFTestStep(description="Navigate to edit mode for bucket elevator minuteman calculation {CalculationName}")
+    public void navigateToEditBucketMinutemanCalculation(String calc){
+        minutemanPage.goToEditMinutemanCalc(calc);
+    }
+
+    @QAFTestStep(description="Duplicate minuteman calculation {CalculationName} to {NewCalculationName}")
+    public void duplicateMinutemanCalculationTo(String calc, String newCalc){
+        minutemanPage.duplicateMinutemanCalc(calc, newCalc);
+    }
+
     @QAFTestStep(description="Verify the minuteman calculation {NewCalculationName} in list screen")
     public void editMinutemanCalc(String newCalc){
         Validator.assertTrue(minutemanPage.searchMinuteman(newCalc),"Minuteman calculation was not found","Minuteman calculation was found and verified successfully");
@@ -479,6 +500,18 @@ public class MinutemanSteps {
         minutemanPage.setTbElevatorCalculationName(calculationName);
         minutemanPage.clickNext();
         minutemanPage.isInputsScreen();
+    }
+
+    @QAFTestStep(description = "User enters elevator general info {CalculationName} and click on save")
+    public void userEntersLimitedElevatorGeneralInfoSave(String calculationName){
+        SyncUtil.waitFor(2000);
+        minutemanPage.setTbElevatorCalculationName(calculationName);
+        minutemanPage.verifyFailureOnCreateCalc();
+    }
+
+    @QAFTestStep(description = "Verify toast message when partially filled bucket elevator")
+    public void verifyPartiallyFilledBucketElevatorToast(){
+        Validator.assertTrue(minutemanPage.clickOnCreateCalcPartialFilled(),"Invalid minuteman toast message not found", "Invalid minuteman toast verified successfully");
     }
 
     @QAFTestStep(description = "User enters elevator inputs {ConveyorType} {MaterialDensity} {TonsPerHourPeak} {MaterialLength} {MaterialProjection} {MaterialSpacing} {MaterialWeight} {MaterialVolume} {BucketRows} {MaterialWidth} {MaterialHeight} {MaterialSpeed} {DrivePulley} {TakeUpType} and click on next")
@@ -650,6 +683,7 @@ public class MinutemanSteps {
     public void verifyConveyorTypeSelection(String conveyorType){
         minutemanPage.setTbConveyorType(conveyorType);
         minutemanPage.getConveyorTypeText(conveyorType);
+
     }
 
     @QAFTestStep(description = "Verify the take up type dropdown contents")
@@ -664,11 +698,6 @@ public class MinutemanSteps {
         SyncUtil.waitFor(500);
         calculatedElevatorOutputPage=minutemanPage.getCalculatedOutputPage();
         minutemanPage.clickNext();
-    }
-
-    @QAFTestStep(description = "Verify the select belt screen navigation")
-    public void UserSelectBeltNavigation(){
-        minutemanPage.isSelectBeltScreen();
     }
 
     @QAFTestStep(description = "Verify all the data shown in the reports with calculated and entered data {CalculationName} {ConveyorName} {TonsPerHourPeak} {MaterialDensity} {SurchargeAngle} {BeltWidth} {BeltSpeed} {CarrySideIdlerSpacing} {DriveLocation} {TakeUpLocation} {TakeUpDetails}")
@@ -755,11 +784,29 @@ public class MinutemanSteps {
     }
 
     @QAFTestStep(description = "User enters elevator select belt details and click on final report")
-    public void userEnterElevatorBeltDetails(){
+    public void userEnterElevatorBeltDetailsReport(){
         minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
         SyncUtil.waitFor(1000);
 //        calculatedData=minutemanPage.getCalculatedDataInSelectBelt();
         minutemanPage.clickOnSelectBelt();
+    }
+
+    @QAFTestStep(description = "User enters elevator select belt details")
+    public void userEnterElevatorBeltDetails(){
+        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
+        SyncUtil.waitFor(1000);
+        minutemanPage.clickOnStations();
+    }
+
+    @QAFTestStep(description = "User enters elevator select belt details and click on next")
+    public void userEnterElevatorBeltDetailsNext(){
+        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
+        SyncUtil.waitFor(1000);
+//        calculatedData=minutemanPage.getCalculatedDataInSelectBelt();
+        minutemanPage.clickOnStations();
+        SyncUtil.waitFor(1000);
+        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,7000);
+        minutemanPage.clickNext();
     }
 
     @QAFTestStep(description="Verify all the data shown in the reports with calculated and entered data {0} {1} {2}")
@@ -772,6 +819,12 @@ public class MinutemanSteps {
         int totalMinuteman = minutemanPage.getTotalMinutemanCount();
         System.out.println(totalMinuteman);
         getBundle().setProperty("totalMinuteman",totalMinuteman);
+    }
+
+    @QAFTestStep(description="Verify the minuteman card count with the api")
+    public void verifyMinutemanCardCountAPI(){
+        SyncUtil.waitFor(3000);
+        Validator.assertTrue((int) getBundle().getProperty("totalMinuteman") == minutemanPage.getTotalMinutemanCount(),"Minuteman Tile Count is not matching", "Minuteman Tile Count is matching") ;
     }
 
     @QAFTestStep(description="Verify the minuteman card count")
@@ -842,6 +895,121 @@ public class MinutemanSteps {
     @QAFTestStep(description="Verify all the notes are present in final report")
     public void verifyNotesFromReports(){
         Validator.assertTrue(minutemanPage.verifyNotesFromFinalReport(),"All notes are visible in final report", "Notes from final reports verified successfully");
+    }
+
+    @QAFTestStep(description="Verify warning popup on exiting calculation")
+    public void verifyWarningPopup(){
+        Validator.assertTrue(minutemanPage.verifyWarningPopup(),"Warning popup was not seen on exiting calculation form", "Warning popup verified successfully");
+    }
+
+    @QAFTestStep(description="Verify cancel button functionality when partially filled")
+    public void verifyCancelPartial(){
+        Validator.assertTrue(minutemanPage.verifyCancelButton(),"Warning popup was not seen on cancelling partial form", "Warning popup verified successfully");
+    }
+
+    @QAFTestStep(description="Verify cancel button functionality when blank")
+    public void verifyCancelBlank(){
+        Validator.assertFalse(minutemanPage.verifyCancelButton(),"Warning popup was seen on cancelling blank form", "Warning popup verified successfully");
+    }
+
+    @QAFTestStep(description="Verify help button functionality for bucket elevator")
+    public void verifyHelpPage(){
+        Validator.assertTrue(minutemanPage.navigateToHelpPage(),"Help popup was not seen on click help icon", "Help popup verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the next navigation in help page")
+    public void verifyNextHelpPage(){
+        Validator.assertTrue(minutemanPage.navigateToNextHelpPage(),"Help popup next navigation failed", "Help popup next navigation verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the previous navigation in help page")
+    public void verifyPreviousHelpPage(){
+        Validator.assertTrue(minutemanPage.navigateToPreviousHelpPage(),"Help popup previous navigation failed", "Help popup previous navigation verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the close button functionality for help page")
+    public void verifyCloseHelpPage(){
+        Validator.assertTrue(minutemanPage.closeHelpPage(),"Help popup close failed", "Help popup close verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the 100% calculated output capacity on output screen")
+    public void verifyCalculatedOutput(){
+        Validator.assertTrue(minutemanPage.calculatedOutput(),"Calculated output capacity 100% button not working", "Calculated output capacity 100% button verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the reset for calculated output capacity on output screen")
+    public void verifyCalculatedOutputReset(){
+        Validator.assertTrue(minutemanPage.calculatedOutputReset(),"Calculated output capacity reset button not working", "Calculated output capacity reset button successfully");
+    }
+
+    @QAFTestStep(description = "Verify the bucket elevator general info screen navigation")
+    public void verifyGeneralElevatorNavigation(){
+        Validator.assertTrue(minutemanPage.isBucketElevatorGeneralScreen(),"Expected general info screen not found", "General info screen verified successfully");
+    }
+
+    @QAFTestStep(description = "Verify the bucket elevator input screen navigation")
+    public void verifyInputsElevatorNavigation(){
+        Validator.assertTrue(minutemanPage.isBucketElevatorInputsScreen(),"Expected input screen not found", "Input screen verified successfully");
+    }
+
+    @QAFTestStep(description = "Verify the bucket elevator output screen navigation")
+    public void verifyOutputsElevatorNavigation(){
+        Validator.assertTrue(minutemanPage.isBucketElevatorOutputsScreen(),"Expected output screen not found", "Output screen verified successfully");
+    }
+
+    @QAFTestStep(description = "Verify the bucket elevator final report navigation")
+    public void verifyFinalReportBucketElevatorNavigation(){
+        Validator.assertTrue(minutemanPage.isBucketElevatorFinalScreen(),"Expected final report screen not found", "Final Report screen verified successfully");
+    }
+
+    @QAFTestStep(description = "Verify the save functionality on edit mode")
+    public void verifySaveOnEditMode(){
+        Validator.assertTrue(minutemanPage.clickOnSaveBtn(),"Save toast message was not found", "Save toast message verified successfully");
+    }
+
+    @QAFTestStep(description="Navigate to minuteman list from minuteman card at corporate level {DistCorpName} and {type}")
+    public void navigateToInspectionFromDistributor(String distCorpName, String type){
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(distCorpName));
+        int count = corpPage.apiBase.getMinutemanCountAPI(type,companyId);
+        getBundle().setProperty("totalMinuteman",count);
+        System.out.println("count:= "+count);
+        corpPage.goToCorporateDetails(distCorpName);
+        minutemanPage.verifyMinutemanCardAndWaitForCount();
+    }
+
+    @QAFTestStep(description="Navigate to minuteman list from minuteman card at site/shop level {DistCorpName} and {type}")
+    public void navigateToInspectionFromSiteShop(String shopName, String type){
+        String companyId = corpPage.apiBase.getCompanyID(corpPage.apiBase.getCompanyAPI(shopName));
+        int count = corpPage.apiBase.getMinutemanCountAPI(type,companyId);
+        getBundle().setProperty("totalMinuteman",count);
+        System.out.println("count:= "+count);
+        minutemanPage.verifyMinutemanCardAndWaitForCount();
+        SyncUtil.waitFor(3000);
+    }
+
+    @QAFTestStep(description="Navigate to minuteman list from minuteman card at conveyor level {ConveyorName} and {type}")
+    public void navigateToInspectionFromConveyor(String conveyorName, String type){
+        String conveyorId = corpPage.apiBase.getConveyorID(corpPage.apiBase.getConveyorsAPI(conveyorName));
+        int count = corpPage.apiBase.getMinutemanCountAPI(type,conveyorId);
+        getBundle().setProperty("totalMinuteman",count);
+        System.out.println("count:= "+count);
+        minutemanPage.verifyMinutemanCardAndWaitForCount();
+        SyncUtil.waitFor(3000);
+    }
+
+    @QAFTestStep(description = "Verify the fields in calculated outputs are disabled")
+    public void verifyOutputFieldsState(){
+        Validator.assertFalse(minutemanPage.isOutputFieldsEnabled(),"Not all output fields are disabled", "Output fields verified successfully");
+    }
+
+    @QAFTestStep(description = "Verify the cancel and create button are visible when newly creating calculation")
+    public void verifyAddCalculationFormButtons(){
+        Validator.assertTrue(minutemanPage.isCreateCalculationButton(),"Cancel or create button not not found in adding calculations", "Cancel and create button verified successfully");
+    }
+
+    @QAFTestStep(description = "Verify the cancel and save button are visible when editing calculation")
+    public void verifyEditCalculationFormButtons(){
+        Validator.assertTrue(minutemanPage.isEditCalculationButton(),"Cancel or save button not not found in editing calculations", "Cancel and save button verified successfully");
     }
 }
 

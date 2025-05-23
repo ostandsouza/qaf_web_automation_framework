@@ -777,6 +777,49 @@ public class APIBase {
         tearDown();
     }
 
+    public int getMinutemanCountAPI(String type, String companyID) {
+        int val = 0;
+        configureRestAssured();
+        String baseUrl = commonPaths.get("minuteman_ms");
+        restApiHelper.setBaseURI(baseUrl);
+        headersMap.put("user-token", accessToken);
+        queryMaps.put("limit", "200");
+        switch(type){
+            case "customer_corporate":
+                queryMaps.put("site.customerCorporate.companyId", companyID);
+                System.out.println("here");
+                break;
+            case "distributor_corporate":
+                queryMaps.put("site.associatedDistributor.distributorCorporate.companyId", companyID);
+                System.out.println("there");
+                break;
+            case "site":
+                queryMaps.put("site.companyId", companyID);
+                break;
+            case "shop":
+                queryMaps.put("site.associatedDistributor.companyId", companyID);
+                break;
+            case "conveyor":
+                queryMaps.put("conveyor.conveyorId", companyID);
+                break;
+            default:
+                break;
+        }
+        Map<String, String> companyPaths = JsonReader.getMapTestData("path", "minuteman_controller");
+        if (companyID != null) {
+            restApiHelper.makeGetRequest(companyPaths.get("count"), queryMaps, headersMap);
+            Response minutemanResponse = restApiHelper.getResponse();
+            if (minutemanResponse.getStatusCode() == 200) {
+                JsonPath jsnPath = minutemanResponse.jsonPath();
+                val = (int) jsnPath.get("count");
+            }
+        }
+        else
+            System.out.println("minuteman id was null");
+        tearDown();
+        return val;
+    }
+
     public Map<String, Object> getMonitoringDeviceAPI(String monitoringDeviceName) {
         String next = "0";
         Map<String, Object> val = null;
