@@ -1,3 +1,6 @@
+@dataProvider:CSV_DataProvider
+@dataProviderClass:com.common.utils.CSVDataProvider
+
 Feature: Regression for Minuteman feature
 
 
@@ -141,9 +144,9 @@ Scenario: Verify duplicate name creation on the bucket elevator
      When  Click on create button and verify failure toast
 
 @Regression17 @CTCP-4038
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: zVerify user is able to rename the duplicate bucket elevator calculation
 
   Given User is at Login page
@@ -160,9 +163,9 @@ Scenario: zVerify user is able to rename the duplicate bucket elevator calculati
   Then  Verify the minuteman calculation '${EditCalculationName}' in list screen
 
 @Regression18 @CTCP-3331
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify user is able to click cancel button on add screen
 
 #  Given User is at Login page
@@ -176,9 +179,9 @@ Scenario: Verify user is able to click cancel button on add screen
   And   Close warning popup
 
 @Regression19 @CTCP-3353
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify user is able to click help button on input screen
 
 #  Given User is at Login page
@@ -193,9 +196,9 @@ Scenario: Verify user is able to click help button on input screen
   And   Close warning popup
 
   @Regression20 @CTCP-3358
-  @dataFile:resources/data/TestData.xls
-  @sheetName:Regression
-  @key:minuteman_rename
+  @csvDataFile:resources/data/BucketElevator.csv
+  @filter:Env.equalsIgnoreCase('${env.setup}')
+  @key:BE_001
   Scenario: Verify user is able to click help button on input screen
 
 #    Given User is at Login page
@@ -206,9 +209,9 @@ Scenario: Verify user is able to click help button on input screen
 
 
 @Regression21 @CTCP-3382
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify user is able to click calculated outputs button on output screen
 
 #  Given User is at Login page
@@ -222,9 +225,9 @@ Scenario: Verify user is able to click calculated outputs button on output scree
   And   Close warning popup
 
 @Regression22 @CTCP-3388
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify previous and next functionality on all screens
 
 #  Given User is at Login page
@@ -250,9 +253,9 @@ Scenario: Verify previous and next functionality on all screens
   And   Close warning popup
 
 @Regression23 @CTCP-3390
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify user is able to click save button on final screen in edit mode
 
 #  Given User is at Login page
@@ -314,9 +317,9 @@ Scenario: Verify user is able to change to metric on edit mode
     Then  Verify the bucket elevator pre populated data in inputs page '${ConveyorTypeM}' '${MaterialDensityM}' '${TonsPerHourPeakM}' '${MaterialLengthM}' '${MaterialProjectionM}' '${BucketSpacingM}' '${BucketWeightM}' '${BucketVolumeM}' '${BucketRowsM}' '${BeltWidthM}' '${BeltHeightM}' '${BeltSpeedM}' '${DrivePulleyM}' '${TakeUpTypeM}'
 
 @Regression26 @CTCP-3398
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify user is able to move from general info to select belt
 
 #  Given User is at Login page
@@ -327,9 +330,9 @@ Scenario: Verify user is able to move from general info to select belt
   Then  Verify the select belt screen navigation
 
 @Regression27 @CTCP-3609
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify minuteman count from distributor corporate level
 
 #  Given User is at Login page
@@ -339,9 +342,9 @@ Scenario: Verify minuteman count from distributor corporate level
 
 
 @Regression28 @CTCP-3610
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify minuteman count from distributor shop level
 
 #  Given User is at Login page
@@ -351,9 +354,9 @@ Scenario: Verify minuteman count from distributor shop level
   Then  Verify the minuteman card count with the api
 
 @Regression29 @CTCP-3611
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify minuteman count from customer corporate level
 
 #  Given User is at Login page
@@ -362,9 +365,9 @@ Scenario: Verify minuteman count from customer corporate level
   Then  Verify the minuteman card count with the api
 
 @Regression30 @CTCP-3612
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify minuteman count from conveyor level
 
 #  Given User is at Login page
@@ -374,9 +377,9 @@ Scenario: Verify minuteman count from conveyor level
   Then  Verify the minuteman card count with the api
 
 @Regression31 @CTCP-3613
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: zVerify fields in calculated output screen are disabled.
 
 #  Given User is at Login page
@@ -389,9 +392,9 @@ Scenario: zVerify fields in calculated output screen are disabled.
   And   Close warning popup
 
 @Regression32 @CTCP-3865
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify information content in input screen for all programs
 
 #  Given User is at Login page
@@ -405,9 +408,9 @@ Scenario: Verify information content in input screen for all programs
   And   Close warning popup
 
 @Regression33 @CTCP-3972
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify cancel and create button are visible when newly creating calculation
 
 #  Given User is at Login page
@@ -420,9 +423,9 @@ Scenario: Verify cancel and create button are visible when newly creating calcul
   And   Close warning popup
 
 @Regression34 @CTCP-3973
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify warning popup when exiting new calculation
 
 #  Given User is at Login page
@@ -435,9 +438,9 @@ Scenario: Verify warning popup when exiting new calculation
   And   Close warning popup
 
 @Regression35 @CTCP-3974
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify cancel and save button are visible when editing calculation
 
 #  Given User is at Login page
@@ -456,9 +459,9 @@ Scenario: Verify cancel and save button are visible when editing calculation
   And   Close warning popup
 
   @Regression36 @CTCP-3975
-  @dataFile:resources/data/TestData.xls
-  @sheetName:Regression
-  @key:minuteman_rename
+  @csvDataFile:resources/data/BucketElevator.csv
+  @filter:Env.equalsIgnoreCase('${env.setup}')
+  @key:BE_001
   Scenario: Verify warning popup when exiting edit calculation
 
 #    Given User is at Login page
@@ -474,9 +477,9 @@ Scenario: Verify cancel and save button are visible when editing calculation
     And   Close warning popup
 
 @Regression37 @CTCP-4048
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
-@key:minuteman_rename
+@csvDataFile:resources/data/BucketElevator.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:BE_001
 Scenario: Verify minuteman count from site level
 
 #  Given User is at Login page
