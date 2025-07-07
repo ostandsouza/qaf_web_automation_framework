@@ -222,7 +222,7 @@ public class MonitoringDevicePage extends BasePage {
     @FindBy(locator = "xpath=//button[@icon='ctp-icon-link']")
     public CustomElement enabledLinkIcon;
 
-    @FindBy(locator = "xpath=//button[@icon='ctp-icon-Instaloled-Devices']")
+    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Instaloled-Devices'])[1]")
     public CustomElement iotIcon;
 
     @FindBy(locator = "xpath=(//div[@id='chartArea'])[1]")

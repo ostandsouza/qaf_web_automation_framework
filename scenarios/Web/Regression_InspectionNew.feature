@@ -7,7 +7,7 @@ Launch the application through '/'
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_CorpTemplateDefault
-Scenario: zzVerify inspection default template functionality for customer corporate
+Scenario: zzzVerify inspection default template functionality for customer corporate
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -37,7 +37,7 @@ Scenario: zyVerify inspection VMC template functionality for customer corporate
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ListNav
-Scenario: xVerify inspection list page navigation
+Scenario: zxVerify inspection list page navigation
 
     When  Navigate to inspection list screen
     And   Navigate to site list page
@@ -64,7 +64,7 @@ Scenario: Verify inspection card
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_CardSingleInspection
-Scenario: zVerify inspection card count functionality for add inspection at home level for single inspection
+Scenario: zvVerify inspection card count functionality for add inspection at home level for single inspection
 
     When  Navigate to inspection list screen
     And   Extract the inspection card count
@@ -84,7 +84,7 @@ Scenario: zVerify inspection card count functionality for add inspection at home
     And   Add inspection Event for conveyor '${ConveyorName3}' with '${InspectionName3}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName3}' for '${InspectionName3}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
     When  Navigate to inspection list screen
-    And   Verify the incremental tile count changes for '${ChangeTotal}','${ChangeGood}','${ChangeGood}','${NoChange}','${NoChange}','${NoChange}'
+    And   Verify the incremental tile count changes for '${ChangeTotal}','${NoChange}','${ChangeGood}','${NoChange}','${NoChange}','${NoChange}'
     And   Add inspection Event for conveyor '${ConveyorName4}' with '${InspectionName4}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName4}' for '${InspectionName4}' with '${AssetName3}' '${AssetDetail3}' '${FailureMode3}' '${Condition3}' '${Status}'
     When  Navigate to inspection list screen
@@ -94,7 +94,7 @@ Scenario: zVerify inspection card count functionality for add inspection at home
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_CardMultiInspection
-Scenario: uVerify inspection card count functionality for add inspection at home level for multi inspection
+Scenario: zuVerify inspection card count functionality for add inspection at home level for multi inspection
 
     When  Navigate to inspection list screen
     And   Extract the inspection card count
@@ -112,7 +112,7 @@ Scenario: uVerify inspection card count functionality for add inspection at home
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteMultiInspection
-Scenario: Verify inspection card count functionality for delete event at home level for multi inspection
+Scenario: ztVerify inspection card count functionality for delete event at home level for multi inspection
 
     When  Navigate to inspection list screen
     And   Extract the inspection card count
@@ -123,7 +123,7 @@ Scenario: Verify inspection card count functionality for delete event at home le
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_CorporateMultiInspection
-Scenario: Verify inspection card count functionality at corporate level
+Scenario: zsVerify inspection card count functionality at corporate level
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Extract the inspection card count
@@ -140,7 +140,7 @@ Scenario: Verify inspection card count functionality at corporate level
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_SiteMultiInspection
-Scenario: Verify inspection card count functionality at site level
+Scenario: zrVerify inspection card count functionality at site level
 
     When  Navigate to site details for site '${CustSiteName}'
     Then  Navigate to inspection list from inspection card at site/shop level '${CustSiteName}'
@@ -160,7 +160,7 @@ Scenario: Verify inspection card count functionality at site level
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ConveyorMultiInspection
-Scenario: Verify inspection card count functionality at conveyor level
+Scenario: zqVerify inspection card count functionality at conveyor level
 
     And   Create a conveyor with '${ConveyorName8}' and '${DistShopName}' and '${CustSiteName}'
     When  Navigate to conveyor details screen for conveyor '${ConveyorName8}'
@@ -179,7 +179,7 @@ Scenario: Verify inspection card count functionality at conveyor level
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EditInspectionCount
-Scenario: AVerify inspection card count functionality after editing status
+Scenario: zoVerify inspection card count functionality after editing status
 
     When  Navigate to inspection list screen
     And   Extract the inspection card count
@@ -191,7 +191,7 @@ Scenario: AVerify inspection card count functionality after editing status
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteInspectionCount
-Scenario: AVerify inspection card count functionality after deleting inspection item
+Scenario: zpVerify inspection card count functionality after deleting inspection item
 
     When  Navigate to inspection list screen
     And   Extract the inspection card count
@@ -224,7 +224,7 @@ Scenario: AVerify inspection card count functionality after deleting inspection 
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
-Scenario: zVerify the breadcrumb for inspection list
+Scenario: znVerify the breadcrumb for inspection list
 
     When  Navigate to inspection list screen and wait for data load
     Then  Verify the breadcrumb of the page
@@ -236,7 +236,7 @@ Scenario: zVerify the breadcrumb for inspection list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_NameColumn
-Scenario: Verify the functionality of inspection name column
+Scenario: zmVerify the functionality of inspection name column
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -246,7 +246,7 @@ Scenario: Verify the functionality of inspection name column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DateColumn
-Scenario: Verify the functionality of inspection date column
+Scenario: zlVerify the functionality of inspection date column
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -257,7 +257,7 @@ Scenario: Verify the functionality of inspection date column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_CorporateColumn
-Scenario: Verify the functionality of corporate column
+Scenario: zkVerify the functionality of corporate column
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -267,7 +267,7 @@ Scenario: Verify the functionality of corporate column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_SiteColumn
-Scenario: Verify the functionality of site column
+Scenario: zjVerify the functionality of site column
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -278,7 +278,7 @@ Scenario: Verify the functionality of site column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ConveyorColumn
-Scenario: Verify the functionality of conveyor column
+Scenario: ziVerify the functionality of conveyor column
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -288,7 +288,7 @@ Scenario: Verify the functionality of conveyor column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectorColumn
-Scenario: Verify the functionality of inspector column
+Scenario: zhVerify the functionality of inspector column
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -298,7 +298,7 @@ Scenario: Verify the functionality of inspector column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_LastModifiedColumn
-Scenario: Verify the functionality of last modified date column
+Scenario: zgVerify the functionality of last modified date column
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -314,7 +314,7 @@ Scenario: Verify the functionality of last modified date column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Condition
-Scenario: Verify the functionality of condition column
+Scenario: zfVerify the functionality of condition column
 
     When  Navigate to inspection list screen
     Then  Verify the condition column filter '${Condition1}' '${ColumnNumber}'
@@ -326,7 +326,7 @@ Scenario: Verify the functionality of condition column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Status
-Scenario: Verify the functionality of status column
+Scenario: zeVerify the functionality of status column
 
     When  Navigate to inspection list screen
     Then  Verify the status column filter '${Status1}'
@@ -336,7 +336,7 @@ Scenario: Verify the functionality of status column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ReportDownload
-Scenario: Verify the download functionality
+Scenario: zdVerify the download functionality
 
     When  Navigate to inspection list screen
     Then  Download inspection '${InspectionName7}' from inspection list with '${CustSiteName}' '${ConveyorName7}'
@@ -345,7 +345,7 @@ Scenario: Verify the download functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_AddSingleInspection
-Scenario: zVerify single conveyor inspection functionality
+Scenario: zcVerify single conveyor inspection functionality
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for default template
@@ -370,7 +370,7 @@ Scenario: zVerify single conveyor inspection functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_AddMultiInspection
-Scenario: yVerify multi conveyor inspection functionality
+Scenario: zbVerify multi conveyor inspection functionality
 
     When  Navigate to inspection list screen
     When  Extract the inspection card count
@@ -398,7 +398,7 @@ Scenario: yVerify multi conveyor inspection functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EditInspectionDefault
-Scenario: xVerify inspection item edit and delete functionality on edit mode
+Scenario: zaVerify inspection item edit and delete functionality on edit mode
 
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
@@ -418,7 +418,7 @@ Scenario: xVerify inspection item edit and delete functionality on edit mode
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteInspectionDefault
-Scenario: Verify uinspection item delete functionality
+Scenario: yzVerify uinspection item delete functionality
 
     When  Navigate to Inspection detail page of the Inspection event '${EditInspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${EditInspectionName}'
@@ -430,7 +430,7 @@ Scenario: Verify uinspection item delete functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemClearFilter
-Scenario: Verify uinspection item clear filter functionality
+Scenario: yyVerify uinspection item clear filter functionality
 
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
@@ -443,7 +443,7 @@ Scenario: Verify uinspection item clear filter functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemColumnSelection
-Scenario: Verify uinspection item column selection functionality
+Scenario: yxVerify uinspection item column selection functionality
 
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     And   Verify change column selection and disable '${ColumnName1}'
@@ -453,7 +453,7 @@ Scenario: Verify uinspection item column selection functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemSearch
-Scenario: Verify vinspection item search functionality
+Scenario: ywVerify vinspection item search functionality
 
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     And   Verify the search functionality of the inspection item with '${Asset}'
@@ -464,7 +464,7 @@ Scenario: Verify vinspection item search functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemPDF
-Scenario: Verify multiple inspection items export functionality
+Scenario: yvVerify multiple inspection items export functionality
 
     Then  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     When  Select the inspection item with conveyor '${Asset1}'
@@ -477,7 +477,7 @@ Scenario: Verify multiple inspection items export functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemDelete
-Scenario: Verify multiple inspection items delete functionality
+Scenario: yuVerify multiple inspection items delete functionality
 
     And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     And   Select the inspection item with conveyor '${Asset1}'
@@ -490,7 +490,7 @@ Scenario: Verify multiple inspection items delete functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_GreenTick
-Scenario: Verify the status green tick icon for completed event
+Scenario: ytVerify the status green tick icon for completed event
 
     When  Navigate to add inspection screen
     And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
@@ -507,7 +507,7 @@ Scenario: Verify the status green tick icon for completed event
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Flags
-Scenario: WVerify the condition flags functionality
+Scenario: ysVerify the condition flags functionality
 
     When  Navigate to add inspection screen
     And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
@@ -518,7 +518,7 @@ Scenario: WVerify the condition flags functionality
     Then  Verify the conditions flag column for inspection '${InspectionName}' with '${FlagCount}'
     And   Verify the edit button functionality in list view for inspection '${InspectionName}'
     When  Edit inspection Item status for '${ConveyorName}' '${AssetName1}' to '${Status}'
-    When  Edit inspection Item status for '${ConveyorName}' '${AssetName3}' to '${Status1}'
+    When  Edit inspection Item status for '${ConveyorName}' '${AssetName2}' to '${Status1}'
     And   Navigate to inspection list screen
     Then  Verify the conditions flag column for inspection '${InspectionName}' with '${FlagCount}'
 
@@ -526,7 +526,7 @@ Scenario: WVerify the condition flags functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Expand
-Scenario: Verify the expand event functionality
+Scenario: yrVerify the expand event functionality
 
     Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
     When  Navigate to inspection list screen
@@ -539,7 +539,7 @@ Scenario: Verify the expand event functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
-Scenario: Verify the pagination functionality
+Scenario: yqVerify the pagination functionality
 
     When  Navigate to inspection list screen
     And   Verify inspection event navigation to next pagination screen
@@ -551,7 +551,7 @@ Scenario: Verify the pagination functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ClearFilter
-Scenario: Verify the clear filter functionality in event list
+Scenario: ypVerify the clear filter functionality in event list
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -563,7 +563,7 @@ Scenario: Verify the clear filter functionality in event list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ColumnSelection
-Scenario: Verify inspection event column selection functionality
+Scenario: yoVerify inspection event column selection functionality
 
     When  Navigate to inspection list screen
     And   Verify change column selection and disable '${ColumnName1}'
@@ -573,7 +573,7 @@ Scenario: Verify inspection event column selection functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Search
-Scenario: Verify inspection event search functionality
+Scenario: ynVerify inspection event search functionality
 
     When  Navigate to inspection list screen
     And   Verify the search functionality of the inspection event with '${InspectionName}'
@@ -584,7 +584,7 @@ Scenario: Verify inspection event search functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
-Scenario: Verify inspection card count with pagination count
+Scenario: ymVerify inspection card count with pagination count
 
     When  Navigate to inspection list screen and wait for data load
     And   Extract the inspection card count
@@ -600,7 +600,7 @@ Scenario: Verify inspection card count with pagination count
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteItem
-Scenario: Verify inspection item delete functionality from event and verifying in item list
+Scenario: ylVerify inspection item delete functionality from event and verifying in item list
 
     When  Navigate to inspection list screen
     And   Verify the edit button functionality in list view for inspection '${InspectionName}'
@@ -608,6 +608,7 @@ Scenario: Verify inspection item delete functionality from event and verifying i
     Then  Delete default inspection Item for '${ConveyorName}' and '${AssetName}'
     When  Navigate to inspection list screen
     And   Verify if is able to switch from group view to list view
+    And   Search for inspection Item from list page for inspection '${InspectionName}'
     And   Verify asset filter functionality with '${AssetName}' and '${ColumnNumber}'
     And   Add filter functionality with condition '${Condition}'
     Then  Verify the delete functionality of the inspection item for conveyor '${ConveyorName}'
@@ -616,7 +617,7 @@ Scenario: Verify inspection item delete functionality from event and verifying i
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemColumnSort
-Scenario: Verify inspection item column functionality from item list
+Scenario: yjVerify inspection item column functionality from item list
 
     When  Navigate to inspection list screen
     When  Verify if is able to switch from group view to list view
@@ -661,7 +662,7 @@ Scenario: Verify inspection item column functionality from item list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemActions
-Scenario: Verify inspection item action functionality from item list
+Scenario: wVerify inspection item action functionality from item list
 
     When  Navigate to inspection list screen
     When  Verify if is able to switch from group view to list view
@@ -679,7 +680,7 @@ Scenario: Verify inspection item action functionality from item list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Refresh
-Scenario: Verify inspection item refresh functionality from item list
+Scenario: vVerify inspection item refresh functionality from item list
 
     When  Navigate to inspection list screen and wait for data load
     When  Add inspection event from api with file '${FileName}' for conveyor '${CustSiteName}' for '${InspectionName}'
@@ -712,7 +713,7 @@ Scenario: zVerify download pdf functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_PDFMultiInspection
-Scenario: Verify unit conversion in pdf
+Scenario: yVerify unit conversion in pdf
 
     When  Navigate to inspection list screen
     And   Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
@@ -725,7 +726,7 @@ Scenario: Verify unit conversion in pdf
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_PDFMultiInspection
-Scenario: Verify item report pdf download
+Scenario: xVerify item report pdf download
 
     When  Navigate to inspection list screen
     And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
@@ -740,7 +741,7 @@ Scenario: Verify item report pdf download
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DefaultSequence
-Scenario: Verify asset sequence for default template
+Scenario: wVerify asset sequence for default template
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for default template
@@ -764,7 +765,7 @@ Scenario: Verify asset sequence for default template
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionImage
-Scenario: Verify image zoom functionality
+Scenario: vVerify image zoom functionality
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for default template
@@ -778,7 +779,7 @@ Scenario: Verify image zoom functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_SiteLogo
-Scenario: Verify usite logo functionality in pdf
+Scenario: uVerify usite logo functionality in pdf
 
     When  Navigate to add inspection screen
     Then  Navigate to edit site screen for '${CustSiteName}'
@@ -790,7 +791,7 @@ Scenario: Verify usite logo functionality in pdf
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionLogo
-Scenario: Verify site and inspection item logo functionality in pdf
+Scenario: tVerify site and inspection item logo functionality in pdf
 
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     And   Select the inspection item with conveyor '${AssetName}'
@@ -801,7 +802,7 @@ Scenario: Verify site and inspection item logo functionality in pdf
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EventDelete
-Scenario: Verify action button functionality for event list screen
+Scenario: sVerify action button functionality for event list screen
 
     When  Navigate to inspection list screen
     And   Select the inspection event '${InspectionName1}'
@@ -817,7 +818,7 @@ Scenario: Verify action button functionality for event list screen
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_NameColumnVMC
-Scenario: zVerify the functionality of inspection name column
+Scenario: Verify the functionality of inspection name column
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -922,7 +923,7 @@ Scenario: yVerify multi conveyor inspection functionality for VMC template
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_tailPulleySeq
-Scenario: Verify the asset display sequence for VMC
+Scenario: ybVerify the asset display sequence for VMC
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -936,7 +937,7 @@ Scenario: Verify the asset display sequence for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_tailPulleySeq
-Scenario: zVerify the asset tail pulley details sequence for VMC
+Scenario: yaVerify the asset tail pulley details sequence for VMC
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -961,7 +962,7 @@ Scenario: zVerify the asset tail pulley details sequence for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_beltDetailSeq
-Scenario: Verify the asset belt details sequence for VMC
+Scenario: xVerify the asset belt details sequence for VMC
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -989,7 +990,7 @@ Scenario: Verify the asset belt details sequence for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_otherPulleySeq
-Scenario: Verify the asset other pulley details sequence for VMC
+Scenario: vVerify the asset other pulley details sequence for VMC
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -1014,7 +1015,7 @@ Scenario: Verify the asset other pulley details sequence for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_BeltAlignmentSeq
-Scenario: Verify the asset belt alignment details sequence for VMC
+Scenario: uVerify the asset belt alignment details sequence for VMC
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -1039,7 +1040,7 @@ Scenario: Verify the asset belt alignment details sequence for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_IdlersDetailsSeq
-Scenario: Verify the asset idlers details sequence for VMC
+Scenario: uVerify the asset idlers details sequence for VMC
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -1056,7 +1057,7 @@ Scenario: Verify the asset idlers details sequence for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_drivePulleySeq
-Scenario: Verify the asset drive pulley details sequence for VMC
+Scenario: tVerify the asset drive pulley details sequence for VMC
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -1078,7 +1079,7 @@ Scenario: Verify the asset drive pulley details sequence for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_drivePulleySeq
-Scenario: Verify the observation mandatory scenario
+Scenario: sVerify the observation mandatory scenario
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -1097,7 +1098,7 @@ Scenario: Verify the observation mandatory scenario
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_drivePulleySeq
-Scenario: Verify the observation optional scenario
+Scenario: rVerify the observation optional scenario
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -1112,10 +1113,8 @@ Scenario: Verify the observation optional scenario
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EditInspectionVMC
-Scenario: zyVerify inspection item edit and delete functionality on edit mode
+Scenario: qVerify inspection item edit and delete functionality on edit mode
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     And   Verify the site dropdown is disabled on edit mode
@@ -1134,7 +1133,7 @@ Scenario: zyVerify inspection item edit and delete functionality on edit mode
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteInspectionVMC
-Scenario: zuVerify inspection item delete functionality
+Scenario: pVerify inspection item delete functionality
 
     When  Navigate to Inspection detail page of the Inspection event '${EditInspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${EditInspectionName}'
@@ -1146,8 +1145,10 @@ Scenario: zuVerify inspection item delete functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemClearFilterVMC
-Scenario: Verify uinspection item clear filter functionality
+Scenario: zzVerify uinspection item clear filter functionality
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     Then  Verify column filter with '${Asset}' and '${ColumnNumber}'
@@ -1159,7 +1160,7 @@ Scenario: Verify uinspection item clear filter functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemColumnSelectionVMC
-Scenario: Verify uinspection item column selection functionality
+Scenario: zxVerify uinspection item column selection functionality
 
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     And   Verify change column selection and disable '${ColumnName1}'
@@ -1169,7 +1170,7 @@ Scenario: Verify uinspection item column selection functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemSearchVMC
-Scenario: Verify vinspection item search functionality
+Scenario: zwVerify vinspection item search functionality
 
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     And   Verify the search functionality of the inspection item with '${Asset}'
@@ -1179,7 +1180,7 @@ Scenario: Verify vinspection item search functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemPdfVMC
-Scenario: Verify multiple inspection items export functionality
+Scenario: zvVerify multiple inspection items export functionality
 
     Then  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     When  Select the inspection item with conveyor '${Asset1}'
@@ -1192,7 +1193,7 @@ Scenario: Verify multiple inspection items export functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemDeleteVMC
-Scenario: Verify multiple inspection items delete functionality
+Scenario: zuVerify multiple inspection items delete functionality
 
     And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     And   Select the inspection item with conveyor '${Asset1}'
@@ -1205,7 +1206,7 @@ Scenario: Verify multiple inspection items delete functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_GreenTickVMC
-Scenario: Verify the status green tick icon for completed event
+Scenario: ztVerify the status green tick icon for completed event
 
     When  Navigate to add inspection screen
     And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
@@ -1222,7 +1223,7 @@ Scenario: Verify the status green tick icon for completed event
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_FlagsVMC
-Scenario: WVerify the condition flags functionality
+Scenario: zsVerify the condition flags functionality
 
     When  Navigate to add inspection screen
     And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
@@ -1241,7 +1242,7 @@ Scenario: WVerify the condition flags functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ExpandVMC
-Scenario: Verify the expand event functionality
+Scenario: zrVerify the expand event functionality
 
     Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
     When  Navigate to inspection list screen
@@ -1254,7 +1255,7 @@ Scenario: Verify the expand event functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
-Scenario: Verify the pagination functionality
+Scenario: zqVerify the pagination functionality
 
     When  Navigate to inspection list screen
     And   Verify inspection event navigation to next pagination screen
@@ -1266,7 +1267,7 @@ Scenario: Verify the pagination functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ClearFilterVMC
-Scenario: Verify the clear filter functionality in event list
+Scenario: zpVerify the clear filter functionality in event list
 
     When  Navigate to inspection list screen
     Then  Verify column filter with '${ColumnName}' and '${ColumnNumber}'
@@ -1278,7 +1279,7 @@ Scenario: Verify the clear filter functionality in event list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ColumnSelectionVMC
-Scenario: Verify inspection event column selection functionality
+Scenario: zoVerify inspection event column selection functionality
 
     When  Navigate to inspection list screen
     And   Verify change column selection and disable '${ColumnName1}'
@@ -1288,7 +1289,7 @@ Scenario: Verify inspection event column selection functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Search_VMC
-Scenario: Verify inspection event search functionality
+Scenario: znVerify inspection event search functionality
 
     When  Navigate to inspection list screen
     And   Verify the search functionality of the inspection event with '${InspectionName}'
@@ -1299,7 +1300,7 @@ Scenario: Verify inspection event search functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
-Scenario: Verify inspection card count with pagination count
+Scenario: zmVerify inspection card count with pagination count
 
     When  Navigate to inspection list screen and wait for data load
     And   Extract the inspection card count
@@ -1315,7 +1316,7 @@ Scenario: Verify inspection card count with pagination count
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteItem_VMC
-Scenario: Verify inspection item delete functionality from event and verifying in item list
+Scenario: zlVerify inspection item delete functionality from event and verifying in item list
 
     When  Navigate to inspection list screen
     And   Verify the edit button functionality in list view for inspection '${InspectionName}'
@@ -1323,6 +1324,7 @@ Scenario: Verify inspection item delete functionality from event and verifying i
     Then  Delete default inspection Item for '${ConveyorName}' and '${AssetName}'
     When  Navigate to inspection list screen
     And   Verify if is able to switch from group view to list view
+    And   Search for inspection Item from list page for inspection '${InspectionName}'
     And   Verify asset filter functionality with '${AssetName}' and '${ColumnNumber}'
     And   Add filter functionality with condition '${Condition}'
     Then  Verify the delete functionality of the inspection item for conveyor '${ConveyorName}'
@@ -1331,7 +1333,7 @@ Scenario: Verify inspection item delete functionality from event and verifying i
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemColumnSortVMC
-Scenario: Verify inspection item column functionality from item list
+Scenario: zkVerify inspection item column functionality from item list
 
     When  Navigate to inspection list screen
     When  Verify if is able to switch from group view to list view
@@ -1376,7 +1378,7 @@ Scenario: Verify inspection item column functionality from item list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemActionsVMC
-Scenario: Verify inspection item action functionality from item list
+Scenario: zjVerify inspection item action functionality from item list
 
     When  Navigate to inspection list screen
     When  Verify if is able to switch from group view to list view
@@ -1394,10 +1396,8 @@ Scenario: Verify inspection item action functionality from item list
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_PDFMultiInspectionVMC
-Scenario: zVerify download pdf functionality
+Scenario: ziVerify download pdf functionality
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to add inspection screen
     Then  Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for VMC conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName1}' '${AssetDetail1}' '${Condition1}' '${Status}' '${Observation1}'
@@ -1417,7 +1417,7 @@ Scenario: zVerify download pdf functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_PDFMultiInspectionVMC
-Scenario: Verify unit conversion in pdf
+Scenario: zhVerify unit conversion in pdf
 
     When  Navigate to inspection list screen
     And   Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
@@ -1430,7 +1430,7 @@ Scenario: Verify unit conversion in pdf
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_PDFMultiInspectionVMC
-Scenario: Verify item report pdf download
+Scenario: zgVerify item report pdf download
 
     When  Navigate to inspection list screen
     And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
@@ -1445,7 +1445,7 @@ Scenario: Verify item report pdf download
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DuplicateItemsVMC
-Scenario: Verify duplicate inspection item in VMC
+Scenario: zfVerify duplicate inspection item in VMC
 
     Then  Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for VMC conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${Condition}' '${Status}' '${Observation}'
@@ -1456,7 +1456,7 @@ Scenario: Verify duplicate inspection item in VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionImageVMC
-Scenario: Verify image zoom functionality
+Scenario: zeVerify image zoom functionality
 
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -1470,7 +1470,7 @@ Scenario: Verify image zoom functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_SiteLogoVMC
-Scenario: Verify usite logo functionality in pdf
+Scenario: zdVerify usite logo functionality in pdf
 
     When  Navigate to add inspection screen
     Then  Navigate to edit site screen for '${CustSiteName}'
@@ -1482,7 +1482,7 @@ Scenario: Verify usite logo functionality in pdf
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionLogoVMC
-Scenario: Verify site and inspection item logo functionality in pdf
+Scenario: zcVerify site and inspection item logo functionality in pdf
 
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     And   Select the inspection item with conveyor '${AssetName}'
@@ -1493,7 +1493,7 @@ Scenario: Verify site and inspection item logo functionality in pdf
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EventDeleteVMC
-Scenario: Verify action button functionality for event list screen
+Scenario: zbVerify action button functionality for event list screen
 
     When  Navigate to inspection list screen
     And   Select the inspection event '${InspectionName1}'
@@ -1509,7 +1509,7 @@ Scenario: Verify action button functionality for event list screen
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionDashboardVMC
-Scenario: zzVerify inspection dashboard screen for VMC
+Scenario: zyVerify inspection dashboard screen for VMC
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -1535,7 +1535,7 @@ Scenario: zzVerify inspection dashboard screen for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionDashboardVMC
-Scenario: Verify elements displayed on inspection dashboard screen for VMC
+Scenario: zxVerify elements displayed on inspection dashboard screen for VMC
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1549,7 +1549,7 @@ Scenario: Verify elements displayed on inspection dashboard screen for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionDashboardDefault
-Scenario: zyVerify inspection dashboard screen for default
+Scenario: zwVerify inspection dashboard screen for default
 
     And   Add customer corporate with '${CustCorpName}' and '${CustCorpAddress}' '${InsTemplate}'
     And   Create a Customer site '${CustSiteName}' and '${CustSiteAddress}' and '${CustCorpName}' and '${DistShopName}' and '${FullName}' and '${TerritoryInd}'
@@ -1573,7 +1573,7 @@ Scenario: zyVerify inspection dashboard screen for default
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionDashboardDefault
-Scenario: Verify elements displayed on inspection dashboard screen for default
+Scenario: zvVerify elements displayed on inspection dashboard screen for default
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1587,7 +1587,7 @@ Scenario: Verify elements displayed on inspection dashboard screen for default
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForVMC
-Scenario: Verify inspection dashboard export functionality for VMC
+Scenario: zuVerify inspection dashboard export functionality for VMC
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1598,7 +1598,7 @@ Scenario: Verify inspection dashboard export functionality for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForDefault
-Scenario: Verify inspection dashboard export functionality for Default
+Scenario: zsVerify inspection dashboard export functionality for Default
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1609,7 +1609,7 @@ Scenario: Verify inspection dashboard export functionality for Default
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForDefault
-Scenario: Verify select site functionality from inspection dashboard
+Scenario: zrVerify select site functionality from inspection dashboard
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1620,7 +1620,7 @@ Scenario: Verify select site functionality from inspection dashboard
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForDefault
-Scenario: Verify select from field functionality from inspection dashboard
+Scenario: zqVerify select from field functionality from inspection dashboard
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1631,7 +1631,7 @@ Scenario: Verify select from field functionality from inspection dashboard
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForDefault
-Scenario: Verify select to field functionality from inspection dashboard
+Scenario: zpVerify select to field functionality from inspection dashboard
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1641,7 +1641,7 @@ Scenario: Verify select to field functionality from inspection dashboard
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForDefault
-Scenario: Verify export pdf when date range is selected
+Scenario: zoVerify export pdf when date range is selected
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1656,7 +1656,7 @@ Scenario: Verify export pdf when date range is selected
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForDefault
-Scenario: Verify sorting applied for event table column
+Scenario: znVerify sorting applied for event table column
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1666,7 +1666,7 @@ Scenario: Verify sorting applied for event table column
     Then  Verify the clear filter functionality 'Asset'
     And   Verify column filter with 'Failure Mode' and '${ColumnNumber2}'
     When  Clear filter for inspection items
-    And   Verify the clear filter functionality 'Falure Mode'
+    And   Verify the clear filter functionality 'Failure Mode'
     And   Verify column filter with 'Inspection Item %' and '${ColumnNumber3}'
     When  Clear filter for inspection items
     And   Verify the clear filter functionality 'Inspection Item %'
@@ -1678,7 +1678,7 @@ Scenario: Verify sorting applied for event table column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForDefault
-Scenario: Verify filter applied for event table column
+Scenario: zmVerify filter applied for event table column
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1691,7 +1691,7 @@ Scenario: Verify filter applied for event table column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForDefault
-Scenario: Verify search applied for event table column
+Scenario: zlVerify search applied for event table column
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1703,7 +1703,7 @@ Scenario: Verify search applied for event table column
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForVMC
-Scenario: Verify select site functionality from inspection dashboard for VMC
+Scenario: zjVerify select site functionality from inspection dashboard for VMC
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
@@ -1714,7 +1714,7 @@ Scenario: Verify select site functionality from inspection dashboard for VMC
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DashboardPDFForVMC
-Scenario: Verify select from field functionality from inspection dashboard for VMC
+Scenario: ziVerify select from field functionality from inspection dashboard for VMC
 
     And   Navigate to inspection list from inspection card at corporate level '${CustCorpName}'
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard

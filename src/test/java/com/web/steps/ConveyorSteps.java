@@ -9,6 +9,8 @@ import com.web.pages.*;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static java.io.File.separator;
+
 public class ConveyorSteps {
 
     ConveyorPage conveyorPage = new ConveyorPage();
@@ -82,7 +84,7 @@ public class ConveyorSteps {
         corporatePage.clickCorporates();
         conveyorPage.exportCSVConveyor(conveyor2);
         SyncUtil.waitFor(8000);
-        Validator.assertTrue(MiscUtils.checkDownloadedFiles("download.csv"), "CSV report was not found", "CSV report was downloaded successfully");
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("^Conveyor-.*\\.csv$"), "CSV report was not found", "CSV report was downloaded successfully");
         conveyorPage.verifyCSVContents(conveyor2);
     }
 
@@ -1076,5 +1078,63 @@ public class ConveyorSteps {
         conveyorPage.verifyPaginationCountAndCardCount(moduleLevel);
     }
 
+    @QAFTestStep(description = "Verify the Conveyor Bulk Import bread crumb")
+    public void verifyConveyorBulkImportBreadcrumb() {
+        conveyorPage.verifyConveyorBulkBreadCrumb();
+    }
+
+    @QAFTestStep(description="Delete the conveyor uploaded file")
+    public void deleteTheConveyorUploadedFile(){
+        Validator.assertTrue(conveyorPage.verifyDeleteFile(),"Uploaded file is still present","Uploaded file delete verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the scroll functionality in multi dropdown")
+    public void scrollMultiDropdown(){
+        Validator.assertTrue(conveyorPage.isMultiDropdownScrollable(),"Multi dropdown list is not scrollable","Multi dropdown list scroll verified successfully");
+    }
+
+    @QAFTestStep(description="Verify the bulk import arrow functionality")
+    public void bulkImportArrow(){
+        Validator.assertTrue(conveyorPage.isRegionHidden(),"Bulk Import arrow functionality","Bulk Import arrow verified successfully");
+    }
+
+    @QAFTestStep(description = "Download single site template for distributor {DistCorpName} and with sites {CustSiteName}")
+    public void verifySingleTemplateDownload(String distCorpName, String custSiteName) {
+        conveyorPage.checkDownloadTemplateForOneSite(distCorpName, custSiteName);
+        SyncUtil.waitFor(20000);
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"), "Conveyor bulk upload template for single site was not found", "Conveyor bulk upload template for single site was downloaded successfully");
+    }
+
+    @QAFTestStep(description = "Download multi site template for distributor {DistCorpName} and with sites {CustSiteName} and {CustSite2Name}")
+    public void verifyMultiTemplateDownload(String distCorpName, String custSiteName, String custSite2Name) {
+        conveyorPage.checkDownloadTemplateForMultipleSite(distCorpName, custSiteName, custSite2Name);
+        SyncUtil.waitFor(20000);
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"), "Conveyor bulk upload template for multiple sites was not found", "Conveyor bulk upload template for single site was downloaded successfully");
+    }
+
+    @QAFTestStep(description = "Verify the conveyor profile column is not present in bulk import template {FileName} for site {CustSiteName}")
+    public void verifyBulkImportTemplate(String fileName, String custSiteName) {
+        Validator.assertFalse(MiscUtils.getHeaders(System.getProperty("user.dir")+separator+"target"+separator+"downloads"+separator+fileName, custSiteName).contains("Profile Conveyor"), "Profile Conveyor column was found in template", "Profile Conveyor column was verified successfully");
+        MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");
+    }
+
+    @QAFTestStep(description="Verify user is able to upload file with name {file}")
+    public void verifyTheUploadFile(String fileName){
+        conveyorPage.conveyorFileImportWithoutSave(fileName);
+
+    }
+
+    @QAFTestStep(description = "Verify the multi site selection when close button is clicked")
+    public void verifyCloseBtnMultiDropdownAllSites() {
+        conveyorPage.verifyCloseBtnOnMultiDropdown();
+    }
+
+    @QAFTestStep(description = "Download bulk upload template for all sites")
+    public void verifyTemplateDownloadAllSites() {
+        conveyorPage.checkDownloadTemplateForAllSite();
+        SyncUtil.waitFor(20000);
+        Validator.assertTrue(MiscUtils.checkDownloadedFiles("ConveyorTemplate-Metric.xlsx"), "Conveyor bulk upload template for multiple sites was not found", "Conveyor bulk upload template for single site was downloaded successfully");
+        MiscUtils.deleteDownloadedFiles("[\\D\\S]+.xlsx");
+    }
 
 }

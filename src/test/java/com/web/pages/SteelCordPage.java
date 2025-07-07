@@ -385,6 +385,8 @@ public class SteelCordPage extends BasePage {
 		Validator.assertTrue(crossSectionalViewHeader.isDisplayed(),"Vulcanization Chart Header is not visible","Vulcanization Chart Header is visible");
 		Validator.assertTrue(crossSectionalViewImg.isDisplayed(),"Vulcanization Chart Image is not visible","Vulcanization Chart Image is visible");
 		Validator.assertTrue(vulcanizationParamHeader.isDisplayed(),"Vulcanization Param Header is not visible","Vulcanization Param Header is visible");
+		System.out.println(temperatureVal.getAttribute("value"));
+		System.out.println(temperature);
 		Validator.assertTrue(temperatureVal.getAttribute("value").equalsIgnoreCase(temperature), "The Temperature value is in-correct", "The Temperature value is correct");
 		Validator.assertTrue(pressureVal.getAttribute("value").equalsIgnoreCase(pressure), "The Pressure value is in-correct", "The Pressure value is correct");
 		System.out.println(vulcanizationTimeVal.getAttribute("value")+valcanizationTime);

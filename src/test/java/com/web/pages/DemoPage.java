@@ -251,7 +251,7 @@ public class DemoPage extends BasePage {
     @FindBy(locator = "xpath=//i[@class='pi pi-user']/following-sibling::h6")
     public CustomElement profileOption;
 
-    @FindBy(locator = "xpath=//i[@class='pi pi-power-off']/following-sibling::h6")
+    @FindBy(locator = "xpath=//h6[text()='Logout']")
     public CustomElement logoutOption;
 
     @FindBy(locator = "xpath=//div[text()=' User information ']")

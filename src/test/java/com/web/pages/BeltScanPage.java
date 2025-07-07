@@ -51,7 +51,7 @@ public class BeltScanPage extends BasePage{
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
     public CustomElement btnAdd;
 
-    @FindBy(locator= "xpath=//p-calendar[@formcontrolname='dateOfScan']//input[@placeholder=\"dd/mmm/yyyy\"]")
+    @FindBy(locator= "xpath=//p-calendar[@formcontrolname='dateOfScan']//input[@placeholder=\"dd mmm yyyy\"]")
     public CustomElement tbDateOfScan;
 
     @FindBy(locator= "xpath=(//p-dropdown[@formcontrolname=\"deviceType\"]//div[contains(@class,\"p-dropdown\")])[1]")

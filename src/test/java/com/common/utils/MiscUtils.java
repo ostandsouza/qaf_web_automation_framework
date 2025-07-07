@@ -7,6 +7,11 @@ import com.jayway.jsonpath.Option;
 import com.qmetry.qaf.automation.util.PoiExcelUtil;
 import com.qmetry.qaf.automation.util.Reporter;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -310,5 +315,25 @@ public class MiscUtils {
             }
         }
         return name;
+    }
+
+    public static List<String> getHeaders(String filePath, String sheetName) {
+        List<String> headers = new ArrayList<>();
+        try (InputStream inputStream = new FileInputStream(filePath);
+             Workbook workbook = new XSSFWorkbook(inputStream)) {
+
+            Sheet sheet = workbook.getSheet(sheetName);
+            if (sheet != null) {
+                Row headerRow = sheet.getRow(0);
+                if (headerRow != null) {
+                    for (Cell cell : headerRow) {
+                        headers.add(cell.getStringCellValue());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return headers;
     }
 }

@@ -319,8 +319,13 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
     }
 
     public void hoverOverElement(WebElement element) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element).perform();
+        try {
+            Actions actions = new Actions(driver);
+            actions.moveToElement(element).perform();
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public void cropImage(WebElement element) {

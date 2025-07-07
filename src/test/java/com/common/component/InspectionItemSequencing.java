@@ -32,7 +32,7 @@ public class InspectionItemSequencing {
     }
 
     public void addItem(String conveyorName, String asset, String condition, boolean isCompleted){
-        priorityQueue.add(new Item(conveyorName, asset, assignFlag(condition), isCompleted));
+        priorityQueue.add(new Item(conveyorName, asset, assignFlag(condition), condition.equalsIgnoreCase("good") || isCompleted));
     }
 
     public void addItems(List<Item> item){
@@ -58,7 +58,7 @@ public class InspectionItemSequencing {
             if (item.conveyorName().equals(conveyorName) && item.asset().equals(asset)) {
                 Condition updatedCondition = (newCondition != null) ? assignFlag(newCondition) : item.condition();
                 boolean updatedStatus = (newStatus != null) ? newStatus : item.isCompleted();
-                tempList.add(new Item(conveyorName, asset, updatedCondition, updatedStatus));
+                tempList.add(new Item(conveyorName, asset, updatedCondition, updatedCondition == Condition.Good || updatedStatus));
             } else {
                 tempList.add(item);
             }

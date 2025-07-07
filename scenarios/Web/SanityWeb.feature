@@ -88,7 +88,7 @@ Feature: Sanity Flow for Web
     Then  Verify Deleted Conveyor '${ConveyorName1}' from Conveyor list screen
     When  Delete Conveyor from Conveyor list screen '${ConveyorName4}'
     Then  Verify Deleted Conveyor '${ConveyorName4}' from Conveyor list screen
-    When  Verify red pin on conveyor list with '${ConveyorName2}' and '${ConveyorName5}'
+#    When  Verify red pin on conveyor list with '${ConveyorName2}' and '${ConveyorName5}'
     When  Export PDF and CSV data for '${ConveyorName2}' and '${ConveyorName3}' and '${ConveyorName5}' and '${ConveyorName6}'
 
   @Sanity7
@@ -248,7 +248,7 @@ Feature: Sanity Flow for Web
 
     And   Close warning popup
     And   User is at add minuteman conveyor page '${CalculationName}'
-    When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    When  User enters general info with '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
     And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
     And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
     And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next

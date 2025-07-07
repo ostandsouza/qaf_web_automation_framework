@@ -562,7 +562,7 @@ public class CordInspectPage extends BasePage {
         SyncUtil.waitFor(3000);
         cbCheckbox.click("Checkbox");
         Validator.assertTrue(coverWearPage.verifyActionBtnState(), "Action button is not enabled after selecting the record", "Action button is enabled");
-        ddlActions.jsClick("Action");
+        ddlActions.click("Action");
         waitForElementToBeClickable(btnDelete);
         Validator.assertTrue(btnDelete.isVisible(), "Delete button is not visible", "Delete button is visible");
         btnDelete.jsClick("Delete Item");
@@ -820,7 +820,7 @@ public class CordInspectPage extends BasePage {
 		waitForElementToDisplay(cbCheckbox);
 		SyncUtil.waitFor(3000);
 		Validator.assertTrue(cbCheckbox.isVisible(), "Checkbox is not visible", "Checkbox is visible");
-		Validator.assertTrue(driver.findElement(By.xpath("//td[text()=' " + item + " ']")).isDisplayed(), "Search element is not visible", "Search element is visible");
+		Validator.assertTrue(driver.	findElement(By.xpath("//td[text()=' " + item + " ']")).isDisplayed(), "Search element is not visible", "Search element is visible");
 	}
 	public void goToCordInspectListScreen() {
 		if (!cordInspectList.isVisible())

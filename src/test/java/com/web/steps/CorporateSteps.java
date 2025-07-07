@@ -145,7 +145,7 @@ public class CorporateSteps {
     }
 
     @QAFTestStep(description="Navigate to inspection list from inspection card at site/shop level {DistCorpName}")
-    public void navigateToInspectionFromSiteShop(){
+    public void navigateToInspectionListFromInspectionCardAtSiteShopLevel(String str0){
         corpPage.verifyInspectionCardClick();
         SyncUtil.waitFor(3000);
     }
@@ -269,9 +269,9 @@ public class CorporateSteps {
 
     @QAFTestStep(description="Create a conveyor with {ConveyorName} and {CustSiteName}")
     public void verifyNavigationFromSiteToConveyor(String conveyorName, String custSiteName){
-        String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(conveyorName));
-        System.out.println(conveyorId);
-        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
+//        String conveyorId = conveyorPage.apiBase.getConveyorID(conveyorPage.apiBase.getConveyorsAPI(conveyorName));
+//        System.out.println(conveyorId);
+//        conveyorPage.apiBase.deleteConveyorAPI(conveyorId);
         corpPage.goToAddConveyor();
         corpPage.createConveyor(conveyorName,custSiteName);
     }

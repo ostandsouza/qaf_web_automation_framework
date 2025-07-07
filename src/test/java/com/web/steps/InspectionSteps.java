@@ -85,6 +85,7 @@ public class InspectionSteps {
 		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
 		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
 		inspectionpage.createInspectionItem();
+		inspectionpage.verifyCloseInspectionItem();
 	}
 
 	@QAFTestStep(description="Add inspection Item for VMC conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {Condition} {Status} {observation}")
@@ -92,6 +93,7 @@ public class InspectionSteps {
 		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
 		inspectionpage.addItemMandatoryFieldVMC(conveyorName,assetName, assetDetail, condition, status, observation);
 		inspectionpage.createInspectionItem();
+		inspectionpage.verifyCloseInspectionItem();
 	}
 
 	@QAFTestStep(description="Add inspection Item for VMC conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {Condition1} {Status} {observation} {recommendation} {address} {img}")
@@ -100,6 +102,7 @@ public class InspectionSteps {
 		inspectionpage.addItemMandatoryFieldVMC(conveyorName,assetName, assetDetail, condition, status, observation);
 		inspectionpage.addItemOptionalFieldVMC(recommendation,address,img);
 		inspectionpage.createInspectionItem();
+		inspectionpage.verifyCloseInspectionItem();
 	}
 
 	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {FailureMode1} {Condition1} {Status} {observation} {recommendation} {address} {img}")
@@ -108,6 +111,7 @@ public class InspectionSteps {
 		inspectionpage.addItemMandatoryField(conveyorName,assetName, assetDetail, failureMode, condition, status);
 		inspectionpage.addItemOptionalField(observation,recommendation,address,img);
 		inspectionpage.createInspectionItem();
+		inspectionpage.verifyCloseInspectionItem();
 	}
 
 	@QAFTestStep(description="Verify And validate the changes for {InspectionName} with {ItemCount}")
@@ -116,6 +120,7 @@ public class InspectionSteps {
 		inspectionpage.verifyInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName,itemCount);
 		SyncUtil.waitFor(1000);
 		sortingInspectionItem.addItems(inspectionpage.getRowData());
+		System.out.println(sortingInspectionItem.getSortedItems());
 	}
 
 	@QAFTestStep(description="Download inspection {InspectionName} from inspection list with {CustSiteName} {ConveyorName}")
@@ -136,6 +141,7 @@ public class InspectionSteps {
 	public void InspectionDelete(String inspectionName) {
 		inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
 		inspectionpage.inspectionDelete();
+		SyncUtil.waitFor(2000);
 	}
 
 	@QAFTestStep(description="Verify inspection {InspectionName} is deleted from inspection list")
@@ -150,7 +156,7 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Edit inspection Item status for {ConveyorName} {Asset} to {EditStatus}")
 	public void editInspectionItem(String conveyorName, String assetName, String editStatus){
-		sortingInspectionItem.updateItem(conveyorName, assetName, null, editStatus.equalsIgnoreCase("Completed"));
+		sortingInspectionItem.updateItem(conveyorName, assetName, editStatus.equalsIgnoreCase("Completed") ? "Good" : "Critical", editStatus.equalsIgnoreCase("Completed"));
 		inspectionpage.editInspectionItem(assetName,editStatus);
 	}
 
@@ -757,9 +763,9 @@ public class InspectionSteps {
 		int totalInspections = inspectionpage.getDashboardTotalCount();
 		System.out.println(totalInspections);
 		getBundle().setProperty("totalInspections",totalInspections);
-//		int good = inspectionpage.getDashboardGoodCount();
-//		System.out.println(good);
-//		getBundle().setProperty("good",good);
+		int good = inspectionpage.getDashboardGoodCount();
+		System.out.println(good);
+		getBundle().setProperty("good",good);
 		int fault = inspectionpage.getDashboardFaultCount();
 		System.out.println(fault);
 		getBundle().setProperty("fault",fault);
@@ -1089,6 +1095,7 @@ public class InspectionSteps {
 	@QAFTestStep(description="Search inspection Item from list view with conveyor {ConveyorName} {AssetName} {Condition}")
 	public void searchInspectionItemFromList(String conveyorName, String assetName, String condition){
 		sortingInspectionItem.clearItems();
+		SyncUtil.waitFor(1500);
 //		sortingInspectionItem.addItems(inspectionpage.getRowData());
 		inspectionpage.searchInspectionItem(conveyorName, assetName, condition);
 		SyncUtil.waitFor(1000);
@@ -1116,6 +1123,11 @@ public class InspectionSteps {
 		sortingInspectionItem.deleteItem(conveyorName,assetName);
 		inspectionpage.deleteBtnClick();
 		Validator.assertFalse(inspectionpage.isDeleteBtn(),"The delete button is still visible","The delete button is not visible");
+	}
+
+	@QAFTestStep(description = "Search for inspection Item from list page for inspection {InspectionName}")
+	public void searchInspectionItemFormList(String inspectionName) {
+		inspectionpage.searchInspectionItemList(inspectionName);
 	}
 
 	@QAFTestStep(description = "Verify asset filter functionality with {Asset} and {ColumnNumber}")

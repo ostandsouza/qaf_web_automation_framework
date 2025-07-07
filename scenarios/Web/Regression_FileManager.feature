@@ -7,7 +7,7 @@ Launch the application through '/'
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:FileManager_Navigation
-Scenario: Verify Conveyor level with file manager navigation
+Scenario: zzVerify Conveyor level with file manager navigation
 
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}'
@@ -224,8 +224,8 @@ Scenario: Verify Conveyor level a file manager delete from top view
 @key:FileManager_Navigation
 Scenario: Verify site level with file manager navigation
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+#    Given User is at Login page
+#    When  Login with '${UserName}' and '${Password}'
     Then  Navigate to file manager for site '${CustSiteName}'
 
 

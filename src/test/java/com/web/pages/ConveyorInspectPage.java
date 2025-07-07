@@ -61,7 +61,7 @@ public class ConveyorInspectPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Edit']")
     public CustomElement btEdit;
 
-    @FindBy(locator="xpath=//span[contains(@class,'pi-cog')]")
+    @FindBy(locator="xpath=//button[contains(@class,'ctp-icon-settings-filled') or @icon = 'pi pi-cog']")
     public CustomElement btSettings;
 
     @FindBy(locator="xpath=//span[text()='Set Temperature Range']")
@@ -143,13 +143,13 @@ public class ConveyorInspectPage extends BasePage{
     @FindBy(locator="xpath=//button[contains(@class,'p-link')]/timesicon")
     public CustomElement modelClose;
 
-    @FindBy(locator="xpath=//label[text()='Select company']/following-sibling::div//p-dropdown")
+    @FindBy(locator="xpath=//label[text()='Select company']/following-sibling::div//p-dropdown/div")
     public CustomElement companyDropdown;
 
-    @FindBy(locator="xpath=//label[text()='Select Site']/following-sibling::div//p-dropdown")
+    @FindBy(locator="xpath=//label[text()='Select Site']/following-sibling::div//p-dropdown/div")
     public CustomElement siteDropdown;
 
-    @FindBy(locator="xpath=//label[text()='Select Conveyor']/following-sibling::div//p-dropdown")
+    @FindBy(locator="xpath=//label[text()='Select Conveyor']/following-sibling::div//p-dropdown/div")
     public CustomElement conveyorDropdown;
 
     @FindBy(locator="xpath=//label[text()='Model Name']/parent::div//p-dropdown//div[@role='button']")
@@ -639,7 +639,7 @@ public class ConveyorInspectPage extends BasePage{
         dropdownSelect(modelName, ListItem, model);
         saveChanges.jsClick("Save");
         waitForElementToInvisible(spinnerModel,10000);
-        modelClose.click("Close");
+//        modelClose.click("Close");
     }
 
     public void uploadDroneImgFiles(String side, String colorMap, String ir_Name, String rgb_Name){

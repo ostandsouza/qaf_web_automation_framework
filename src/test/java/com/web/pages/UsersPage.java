@@ -693,15 +693,15 @@ public class UsersPage extends BasePage{
         waitForElementToInvisible(cbSpinner, 20000);
         driver.findElement(By.xpath("//span[contains(text(),'" + mainModule + "')]/..//button")).click();
         if (add.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[1]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[1]")).click();
         if (edit.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[2]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[2]")).click();
         if (delete.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[3]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[3]")).click();
         if (view.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[4]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[4]")).click();
         if (download.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../..//tr/td//span[contains(text(),'" + subModule + "')]/../..//div[contains(@class,'p-checkbox ')])[5]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[5]")).click();
     }
 
     /**
@@ -724,15 +724,15 @@ public class UsersPage extends BasePage{
             waitForElementToInvisible(cbSpinner, 20000);
         }
         if (add.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[1]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[1]")).click();
         if (edit.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[2]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[2]")).click();
         if (delete.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[3]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[3]")).click();
         if (view.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[4]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[4]")).click();
         if (download.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../..//div[contains(@class,'p-checkbox ')])[5]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[5]")).click();
     }
 
     public void setTerritory(String region) {

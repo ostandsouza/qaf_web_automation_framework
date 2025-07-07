@@ -57,7 +57,13 @@ public class MinutemanSteps {
         System.out.println(minutemanId);
         minutemanPage.apiBase.deleteMinutemanAPI(minutemanId);
         conveyorPage.goToConveyorDetailScreen(conveyor);
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(7000);
+        minutemanPage.verifyMinutemanCardClick();
+    }
+
+    @QAFTestStep(description = "Navigate to minuteman from the card")
+    public void userIsAtAddMinutemanFromCard(){
+        SyncUtil.waitFor(7000);
         minutemanPage.verifyMinutemanCardClick();
     }
 
@@ -67,7 +73,7 @@ public class MinutemanSteps {
         System.out.println(minutemanId);
         minutemanPage.apiBase.deleteMinutemanAPI(minutemanId);
         sitePage.goToSiteDetails(site);
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(7000);
         minutemanPage.verifyMinutemanCardClick();
     }
 
@@ -114,8 +120,8 @@ public class MinutemanSteps {
 //        SyncUtil.waitFor(10000);
     }
 
-    @QAFTestStep(description="User enters general info {0} {1} {2} {3} {4} {5} {6} and click on next")
-    public void userEntersGeneralInfoAndClickOnNext(String calculationName, String site, String conveyorName, String description, String program, String manufacturingLocation, String units){
+    @QAFTestStep(description="User enters general info with {CalculationName} {SiteName} {ConveyorName} {Description} {Program} {ManufacturingLocation} {Units} and click on next")
+    public void userEntersGeneralInfoWithAndClickOnNext(String calculationName, String site, String conveyorName, String description, String program, String manufacturingLocation, String units){
 //        SyncUtil.waitFor(5000);
         minutemanPage.setTbCalculationName(calculationName);
         minutemanPage.selectUnit(units);
@@ -150,7 +156,7 @@ public class MinutemanSteps {
 
 
     @QAFTestStep(description="User enters general info with {0} {1} {2} {3} {4} and click on next")
-    public void userEntersGeneralInfoAndClickOnNext(String calculationName, String description, String program, String manufacturingLocation, String units){
+    public void userEntersGeneralInfoAndClickOnNextWith(String calculationName, String description, String program, String manufacturingLocation, String units){
 //        SyncUtil.waitFor(5000);
         minutemanPage.setTbCalculationName(calculationName);
         minutemanPage.selectUnit(units);

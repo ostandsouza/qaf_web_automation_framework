@@ -656,6 +656,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create
     Scenario: ZVerify user is able to navigate to cover wear list from home page
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         Then Verify user is on the home page of the application
         And Click on coverWear card and verify it navigates to coverWear list page
         And Verify the breadCrumb of coverWear page
@@ -666,6 +668,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create
     Scenario: YVerify search functionality is working as expected
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And wait for conveyors to load
         And Create a conveyor with '${ConveyorName}' and '${SiteName}'
         And Navigate to cover wear listing screen
@@ -682,6 +686,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create
     Scenario: XVerify action button Edit functionality is working as expected
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And Click on coverWear card and verify it navigates to coverWear list page
         Then Wait for the list to load
         And Click on actions dropdown button and edit the '${ConveyorName}'
@@ -692,6 +698,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create
     Scenario:Verify user is able to delete cover wear measurement
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And Navigate to coverWear list screen and wait for data load
         And Navigation to Cover Wear Details Screen for conveyor '${ConveyorName}'
         Then Scroll the page down
@@ -704,6 +712,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create
     Scenario:UVerify user is able to delete entire cover wear record
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And Delete Cover wear measurement for conveyor '${ConveyorName}'
         Then Wait for the list to load
         And Verify Delete Cover wear measurement for conveyor '${ConveyorName}'
@@ -717,6 +727,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create
     Scenario:TVerify user is able to delete entire cover wear record
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And wait for conveyors to load
         And Create a conveyor with '${CoverWearConveyor}' and '${SiteName}'
         And Navigate to coverWear list screen and wait for data load
@@ -734,6 +746,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create_Tech
     Scenario: SVerify added conveyor technical data should reflected on cover wear specification screen
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         Then Go to Add Cover Wear for conveyor '${ConveyorName}' and site '${SiteName}' with data '${AddPosition}'
         And Click on the edit button
         And Verify the technical data is loaded for the coverWear '${ConveyorName}' with data '${BeltWidth}' '${TopCoverThickness}' '${TopCoverCompound}'
@@ -744,6 +758,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create
     Scenario: RVerify without technical data of conveyor, user should able to add mandatory parameter in cover wear specification screen
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And wait for conveyors to load
         And Create a conveyor with '${TechConveyorName}' and '${SiteName}'
         Then Add Cover Wear for conveyor '${TechConveyorName}' and site '${SiteName}' with data '${FullName}' '${AddPosition}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
@@ -759,6 +775,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create_MetricAdd
     Scenario: QUnit selected (In metric)Fill all mandatory parameter with data position selected as default 7, add measurement and download the report
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And Verify data value in header as metric
         And wait for conveyors to load
         And Create a conveyor with '${ConveyorName}' and '${SiteName}'
@@ -794,6 +812,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create_MetricAdd
     Scenario: PUnit selected (In metric)Fill all mandatory parameter with data position selected as 50mm/2inch , add measurement and download the report
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And Verify data value in header as metric
         When Navigate to coverWear list screen and wait for data load
         And Wait for the list to load
@@ -863,6 +883,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create_ImperialAdd
     Scenario: NUnit selected (In Imperial)Fill all mandatory parameter with data position selected as default 7, add measurement and download the report
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And wait for conveyors to load
         And Create a conveyor with '${ConveyorName}' and '${SiteName}'
         Then Add Cover Wear for conveyor '${ConveyorName}' and site '${SiteName}' with data '${FullName}' '${AddPosition}' '${TopCoverThickness}' '${BottomCoverThickness}' '${Durometer}' '${TopCoverCompound}' '${BottomCoverCompound}'
@@ -934,6 +956,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create_ImperialAdd
     Scenario: LUnit selected (In Imperial)Fill all mandatory parameter with data position selected as custom, add measurement and download the report
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And Add data value in header as imperial
         When Navigate to coverWear list screen and wait for data load
         And Wait for the list to load
@@ -969,6 +993,8 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     @key:CoverWear_Create_Tech
     Scenario: KVerify delete button functionality is working as expected
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}'
         And Click on coverWear card and verify it navigates to coverWear list page
         And Wait for the list to load
         And Extract the main card count for '${Module}'
@@ -1370,14 +1396,16 @@ Scenario: SVerify user delete the multiple belt scan,check belt scan is deleted 
     Then  Navigate to Belt Monitoring List screen
     And   Click on each column header and verify filter icon fields
 
-@100HP @Regression1
+@100HP @Regression29
 @dataFile:resources/data/LegacyImperialA.json
-Scenario: zVerify minuteman functionality for legacy minuteman calculation at home level
+Scenario: ZVerify minuteman functionality for legacy minuteman calculation at home level
 
+    Given User is at Login page
+    When  Login with '${UserNameCustomer}' and '${Password}'
     And   Navigate to minuteman screen from site card
     And   Extract the minuteman card data
     And   User is at add minuteman conveyor page '${CalculationName}'
-    When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    When  User enters general info with '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
     And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
     And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
     And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
@@ -1403,15 +1431,17 @@ Scenario: zVerify minuteman functionality for legacy minuteman calculation at ho
     Then  Verify the pre populated data in inputs page '${BeltWidthM}' '${BeltSpeedM}' '${TonsPerHourPeakM}' '${PickMaterialNameM}' '${MaterialDensityM}' '${AngleOfIdlerM}' '${CarrySideIdlerSpacingM}' '${DriveWrapAngleM}' '${DriveWrapAngleDegreeM}' '${TakeUpTensionM}' '${FrictionFactorM}' '${LengthFactorM}' '${SurchargeAngleM}' '${IdlerOffsetM}' '${DriverDetailsM}' '${TakeUpDetailsM}' '${SpliceTypeM}'
 
 
-@100HP @Regression2
+@100HP @Regression30
 @dataFile:resources/data/MinutemanMetricA.json
-Scenario: Verify minuteman functionality for minuteman calculation at conveyor level
+Scenario: YVerify minuteman functionality for minuteman calculation at conveyor level
 
+    Given User is at Login page
+    When  Login with '${UserNameCustomer}' and '${Password}'
     And   Close warning popup
     And   User is at add minuteman conveyor page '${CalculationName}' from conveyor level '${ConveyorName}'
     And   Extract the minuteman card data
     And   User is navigates to add minuteman conveyor page from list screen
-    When  User enters general info '${CalculationName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    When  User enters general info with '${CalculationName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
     And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
     And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
     And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
@@ -1424,7 +1454,8 @@ Scenario: Verify minuteman functionality for minuteman calculation at conveyor l
     And   User should see all the calculated data Add '${CurveRadius1}' '${CurveRadius2}' '${CurveRadius3}' '${CurveRadius4}' of curves and click on next
     Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
     When  Click on create button for minuteman calculation
-    And   User is at add minuteman conveyor page '${CalculationName}' from conveyor level '${ConveyorName}'
+    And   Navigate to conveyor details screen for conveyor '${ConveyorName}'
+    And   Navigate to minuteman from the card
     Then  Verify the minuteman card count
     When  Edit minuteman calculation '${CalculationName}' to '${NewCalculationName}'
     Then  Verify all the data shown in the reports with calculated and entered data '${NewCalculationName}' '${Site}' '${ConveyorName}' '${TonsPerHourPeak}' '${MaterialDensity}' '${SurchargeAngle}' '${BeltWidth}' '${BeltSpeed}' '${CarrySideIdlerSpacing}' '${DriveLocation}' '${TakeUpLocation}' '${TakeUpDetails}'
@@ -1436,10 +1467,12 @@ Scenario: Verify minuteman functionality for minuteman calculation at conveyor l
     When  User click on next
     Then  Verify the pre populated data in inputs page '${BeltWidthM}' '${BeltSpeedM}' '${TonsPerHourPeakM}' '${PickMaterialNameM}' '${MaterialDensityM}' '${AngleOfIdlerM}' '${CarrySideIdlerSpacingM}' '${DriveWrapAngleM}' '${DriveWrapAngleDegreeM}' '${TakeUpTensionM}' '${FrictionFactorM}' '${LengthFactorM}' '${SurchargeAngleM}' '${IdlerOffsetM}' '${DriverDetailsM}' '${TakeUpDetailsM}' '${SpliceTypeM}'
 
-@100HP @Regression3
+@100HP @Regression31
 @dataFile:resources/data/CypherMetricA.json
-Scenario: zVerify minuteman functionality for cipher calculation at site level
+Scenario: XVerify minuteman functionality for cipher calculation at site level
 
+    Given User is at Login page
+    When  Login with '${UserNameCustomer}' and '${Password}'
     And   Close warning popup
     When  Navigate to minuteman screen from site card
     And   Extract the minuteman card data
@@ -1468,9 +1501,9 @@ Scenario: zVerify minuteman functionality for cipher calculation at site level
     Then  Verify the pre populated data in inputs page '${BeltWidthM}' '${BeltSpeedM}' '${TonsPerHourPeakM}' '${PickMaterialNameM}' '${MaterialDensityM}' '${AngleOfIdlerM}' '${CarrySideIdlerSpacingM}' '${DriveWrapAngleM}' '${DriveWrapAngleDegreeM}' '${TakeUpTensionM}' '${FrictionFactorM}' '${LengthFactorM}' '${SurchargeAngleM}' '${IdlerOffsetM}' '${DriverDetailsM}' '${TakeUpDetailsM}' '${SpliceTypeM}'
 
 
-@100HP @Regression4
+@100HP @Regression32
 @dataFile:resources/data/CypherImperialB.json
-Scenario: Verify minuteman functionality for load data calculation
+Scenario: VVerify minuteman functionality for load data calculation
 
     And   Close warning popup
     When  Navigate to minuteman screen from site card
@@ -1492,7 +1525,7 @@ Scenario: Verify minuteman functionality for load data calculation
     When  Click on create button for minuteman calculation
     Then  Verify the minuteman card count
 
-@100HP @Regression5
+@100HP @Regression33
 @dataFile:resources/data/MinutemanPrePopulatedImperial.json
 Scenario: Verify minuteman functionality for private calculation
 
@@ -1517,7 +1550,7 @@ Scenario: Verify minuteman functionality for private calculation
     And   Verify the minuteman calculation '${CalculationName}' in list screen
     Then  Verify the minuteman card count
 
-@100HP @Regression6
+@100HP @Regression34
 @dataFile:resources/data/CypherImperialB.json
 Scenario: Verify minuteman functionality for final report notes
 
@@ -1543,7 +1576,7 @@ Scenario: Verify minuteman functionality for final report notes
     And   Verify download report option on final report '${CalculationName}'
 
 
-@100HP @Regression7
+@100HP @Regression35
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:minuteman_duplicate
@@ -1582,10 +1615,12 @@ Scenario: Verify duplicate name creation on the minuteman
     Then  Verify all the data shown in the reports with calculated and entered data '${CalculationName1}' '${NoSite}' '${NoConveyor}'
     When  Click on create button and verify failure toast
 
-@100HP @Regression8
+@100HP @Regression36
 @dataFile:resources/data/CipherImperialBucketElevatorB.json
 Scenario: Verify bucket elevator functionality for legacy cipher
 
+    Given User is at Login page
+    When  Login with '${UserNameCustomer}' and '${Password}'
     And   Close warning popup
     When  Navigate to minuteman screen from site card
     And   Extract the minuteman card data
@@ -1610,7 +1645,7 @@ Scenario: Verify bucket elevator functionality for legacy cipher
     Then  Verify the bucket elevator pre populated data in inputs page '${ConveyorTypeM}' '${MaterialDensityM}' '${TonsPerHourPeakM}' '${MaterialLengthM}' '${MaterialProjectionM}' '${BucketSpacingM}' '${BucketWeightM}' '${BucketVolumeM}' '${BucketRowsM}' '${BeltWidthM}' '${BeltHeightM}' '${BeltSpeedM}' '${DrivePulleyM}' '${TakeUpTypeM}'
 
 
-@100HP @Regression9
+@100HP @Regression37
 @dataFile:resources/data/LegacyMetricBucketElevatorA.json
 Scenario: Verify bucket elevator functionality for legacy minuteman
 
@@ -1634,7 +1669,7 @@ Scenario: Verify bucket elevator functionality for legacy minuteman
     When  User click on next
     Then  Verify the bucket elevator pre populated data in inputs page '${ConveyorTypeM}' '${MaterialDensityM}' '${TonsPerHourPeakM}' '${MaterialLengthM}' '${MaterialProjectionM}' '${BucketSpacingM}' '${BucketWeightM}' '${BucketVolumeM}' '${BucketRowsM}' '${BeltWidthM}' '${BeltHeightM}' '${BeltSpeedM}' '${DrivePulleyM}' '${TakeUpTypeM}'
 
-@100HP @Regression10
+@100HP @Regression38
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:minuteman_delete

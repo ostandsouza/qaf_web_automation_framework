@@ -660,7 +660,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=(//a[contains(text(),'.pdf')])[1]")
     public CustomElement crRefrenceDocument;
 
-    @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
+    @FindBy(locator = "xpath=//div[contains(text(),'Showing')]")
     public CustomElement pagination;
 
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
@@ -1344,6 +1344,24 @@ public class ConveyorPage extends BasePage{
     public CustomElement btnDelete;
     @FindBy(locator = "xpath=(//div[contains(text(),'Success')])[1]")
     public CustomElement deleteSuccessMsg;
+
+    @FindBy(locator = "xpath=//div[@aria-label='All items unselected']")
+    public CustomElement crMultiDropdownAll;
+
+    @FindBy(locator = "xpath=//button[@aria-label='Close']")
+    public CustomElement crMultiDropdownClose;
+
+    @FindBy(locator = "xpath=//div[@role='region']")
+    public CustomElement conveyorBulkRegion;
+
+    @FindBy(locator = "xpath=//button[@aria-label='Bulk Import']")
+    public CustomElement bulkImportArrow;
+
+    @FindBy(locator = "xpath=//p-multiselectitem/li")
+    public List<CustomElement> multiDropdownList;
+
+    @FindBy(locator = "xpath=//input[@type='file']")
+    public CustomElement fileUpload;
 
     String[] columnNames={"Name","Site","Corporate","Last Modified","Installed Belt","Remaining Life by Time","Remaining Cover %","Inspection Items",
             "Belt Manufacturer","Number of Plies","Number of Cords","Cord Pitch","Cord Diameter","Length","Splice Type","Splice Quantity","Installation Date","Belt Speed","Tons Per Hour Peak","Material",
@@ -3807,6 +3825,63 @@ public void verifyUnPinnedSubList(String value) {
         int extractedCrdCount=Integer.parseInt(getBundle().getProperty(moduleLevel+"'mainCardCountKey").toString());
         Validator.assertTrue(deviceCount==extractedCrdCount,"The pagination count does not match with the card count!","The pagination count matches with the card count!");
 
+    }
+
+    public void checkDownloadTemplateForAllSite() {
+        goToBulkImport();
+        crMultipleSitesRadio.click("Multiple Site Radio");
+        crSiteDropdown.jsClick();
+        crMultiDropdownAll.click();
+        crTemplateDownload.click("Download Template");
+    }
+
+    public void verifyCloseBtnOnMultiDropdown() {
+        goToBulkImport();
+        crMultipleSitesRadio.click("Multiple Site Radio");
+        crSiteDropdown.jsClick();
+        crMultiDropdownClose.click();
+        tbMultipleSiteDropdown.assertNotVisible("Site close btn");
+    }
+
+    public boolean conveyorFileImportWithoutSave(String fileName) {
+        String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "excel_data").getAbsolutePath();
+        crFileUpload.sendKeys(file_path, "File Path");
+        crDeleteFileUpload.assertVisible("Delete File upload");
+        crUploadedFileName.assertVisible("File Uploaded Name");
+        return crSave.isEnabled();
+    }
+
+    public void verifyConveyorBulkBreadCrumb()
+    {
+        waitForPageLoad(15000);
+        waitForElementVisible(breadCrumb,10000,500);
+        Assert.assertTrue(breadCrumb.isDisplayed(), "Breadcrumb element is not displayed");
+        assertEquals(breadCrumb.getText(), "Add Conveyor\nBulk Import", "Breadcrumb text does not match expected");
+
+    }
+
+    public boolean verifyDeleteFile()
+    {
+        waitForPageLoad(15000);
+        waitForElementVisible(crDeleteFileUpload,10000,500);
+        crDeleteFileUpload.click();
+        return !crSave.isEnabled();
+
+    }
+
+    public boolean isMultiDropdownScrollable()
+    {
+        crMultipleSitesRadio.click("Multiple Site Radio");
+        crSiteDropdown.jsClick();
+        SyncUtil.waitFor(1000);
+        scrollIntoView(multiDropdownList.get(multiDropdownList.size() - 1));
+        return (multiDropdownList.get(multiDropdownList.size() - 1).isVisible("Last Element"));
+    }
+
+    public boolean isRegionHidden()
+    {
+        bulkImportArrow.click("Bulk Import Arrow");
+        return conveyorBulkRegion.getAttribute("aria-hidden").equalsIgnoreCase("true");
     }
 
 }

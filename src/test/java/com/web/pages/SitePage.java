@@ -109,7 +109,7 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=//td[contains(text(),'No')]")
     public CustomElement noList;
 
-    @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
+    @FindBy(locator = "xpath=//div[contains(text(),'Showing')]")
     public CustomElement pagination;
 
     @FindBy(locator = "xpath=(//app-card//div[text()='File Manager'])[1]")
@@ -620,7 +620,8 @@ public class SitePage  extends BasePage {
     }
 
     public boolean verifyLeftNavigationHomeForBasicsView() {
-        home.click("Home");
+        if (!sites.isVisible())
+            home.click("Home");
         SyncUtil.waitFor(1000);
         return sitesNav.isVisible() && conveyors.isVisible() && coverWear.isVisible() && fileManager.isNotVisible(500) && inspections.isNotVisible(500) && conveyorInspect.isNotVisible(500) && beltScans.isNotVisible(500) && monitoringDevices.isNotVisible(500) && heavyEquipment.isNotVisible(500) && minuteman.isNotVisible(500);
     }

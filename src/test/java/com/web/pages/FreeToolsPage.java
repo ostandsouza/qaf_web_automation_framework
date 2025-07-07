@@ -29,7 +29,7 @@ public class FreeToolsPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Safety Factor Calculator']")
     public CustomElement safetyFactorCalculator;
 
-    @FindBy(locator = "xpath=//span[text()='Units Converter']")
+    @FindBy(locator = "xpath=//span[text()='Unit Converter']")
     public CustomElement unitsConverter;
 
     @FindBy(locator = "xpath=//span[text()='Belt Revolution']")
@@ -369,6 +369,8 @@ public class FreeToolsPage extends BasePage{
         dropdownSelect(point2WrapAngle, ListItem, point2);
         calculate.click();
         SyncUtil.waitFor(5000);
+        System.out.println(wrapAngleResult.getAttribute("value"));
+        System.out.println(wrapAngle);
         return wrapAngleResult.getAttribute("value").equalsIgnoreCase(wrapAngle);
     }
 }

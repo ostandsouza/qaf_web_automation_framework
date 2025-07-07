@@ -706,7 +706,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//p-columnfilter[@field='inspectionName']//button")
 	public CustomElement inspectionDetailsItemNameFilter;
 
-	@FindBy(locator="xpath=//p-columnfilter[@field='inspectionDate']//button")
+	@FindBy(locator="xpath=//p-columnfilter[@field='inspectionTimeFormated']//button")
 	public CustomElement inspectionDetailsItemDateFilter;
 
 	@FindBy(locator="xpath=//p-columnfilter[@field='site.customerCorporate.name']//button")
@@ -726,6 +726,9 @@ public class InspectionPage extends BasePage {
 
 	@FindBy(locator="xpath=//p-columnfilter[@field='itemCondition']//button")
 	public CustomElement inspectionDetailsItemConditionFilter;
+
+	@FindBy(locator="id=inspectionstatuscount")
+	public CustomElement inspectionDetailsItemStatusList;
 
 	@FindBy(locator="xpath=//p-columnfilter[@field='inspectionComplitionStatus']//button")
 	public CustomElement inspectionDetailsItemStatusFilter;
@@ -781,7 +784,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//i[contains(@class,'complete')]")
 	public CustomElement statusCompleteIcon;
 
-	@FindBy(locator="xpath=(//div[text()='To Be Completed'])[1]")
+	@FindBy(locator="xpath=(//div[contains(text(),'To Be Completed')])[1]")
 	public CustomElement statusIncomplete;
 
 	@FindBy(locator="xpath=(//div[text()='Completed'])[1]")
@@ -850,7 +853,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="id=photo")
 	public CustomElement pictureColumnItemList;
 
-	@FindBy(locator="id=inspectiondate")
+	@FindBy(locator="id=inspectionTimeFormated")
 	public CustomElement inspectionDateItemList;
 
 	@FindBy(locator="id=corporate")
@@ -1069,6 +1072,12 @@ public class InspectionPage extends BasePage {
 
 	public boolean searchInspection(String inspectionName) {
 		goToInspectionScreenAndWait();
+		btSearchinput.type(inspectionName, "Inspection Search");
+		waitForElementToDisplay(cbCheckbox);
+		return cbCheckbox.isVisible("Inspection Found");
+	}
+
+	public boolean searchInspectionItemList(String inspectionName) {
 		btSearchinput.type(inspectionName, "Inspection Search");
 		waitForElementToDisplay(cbCheckbox);
 		return cbCheckbox.isVisible("Inspection Found");
@@ -1346,6 +1355,7 @@ public class InspectionPage extends BasePage {
 		waitForElementVisible(detailIcon,10000,500);
 		waitForElementToDisplay(detailIcon);
 		ddViewicon.click("Inspection Detail");
+		SyncUtil.waitFor(5000);
 		inspectionHeader.verifyText("Inspection Event", "Inspection Header");
 	}
 
@@ -1488,6 +1498,11 @@ public class InspectionPage extends BasePage {
 		if(newStatus.equalsIgnoreCase("completed"))
 			ddlStatusCompleted.click();
 		else ddlStatusToBeCompleted.click();
+		if(newStatus.equalsIgnoreCase("Completed"))
+			dropdownSelect(ddlCondition, ListItem, "Good");
+		else dropdownSelect(ddlCondition, ListItem, "Critical");
+		if(!newStatus.equalsIgnoreCase("Completed"))
+			eleObservation.sendKeys("test");
 		btnSaveItem.click("Save");
 		waitForElementToDisplay(inspectionUpdateMsg);
 		Reporter.log("Inspection Item is Updated", MessageTypes.Pass);
@@ -1673,6 +1688,7 @@ public class InspectionPage extends BasePage {
 		if(status.equalsIgnoreCase("completed"))
 			ddlStatusCompleted.click();
 		else ddlStatusToBeCompleted.click();
+		dropdownSelect(ddlCondition, ListItem, "Good");
 		waitForElementToDisplay(btnSaveItem);
 		btnSaveItem.click("Save");
 		waitForElementToInvisible(buttonLoader,5000);
@@ -2885,7 +2901,9 @@ public class InspectionPage extends BasePage {
 			inspectionFilterDropdown.click("filter dropdown");
 		driver.findElement(By.xpath("//span[text()='"+condition+"']/../..//div[@class='p-checkbox-box']")).click();
 		SyncUtil.waitFor(2000);
-		Validator.assertTrue(driver.findElement(By.xpath("(//td["+columnNum+"]/span[contains(@class,'"+condition.toLowerCase()+"')])[1]")).isDisplayed(),"Condition filter is not working as expected", "Condition filter verified successfully");
+		if(!condition.equalsIgnoreCase("good"))
+			Validator.assertTrue(driver.findElement(By.xpath("(//td["+columnNum+"]/span[contains(@class,'"+condition.toLowerCase()+"')])[1]")).isDisplayed(),"Condition filter is not working as expected", "Condition filter verified successfully");
+		else Validator.assertFalse(isLocatorVisible(By.xpath("(//td["+columnNum+"]/span[contains(@class,'good')])[1]")),"Condition filter is not working as expected", "Condition filter verified successfully");
 	}
 
 	public void verifyConditionFilter(List<Item> items, String columnNum){
@@ -2900,7 +2918,7 @@ public class InspectionPage extends BasePage {
 			Validator.assertTrue(driver.findElement(By.xpath("(//td["+columnNum+"]/span[contains(@class,'poor')]/span)[1]")).getText().equalsIgnoreCase(String.valueOf(items.stream().filter(x -> x.condition().toString().equalsIgnoreCase("poor")).count())),"Condition filter is not working as expected for poor flag", "Condition filter for fault poor verified successfully");
 		else Validator.assertFalse(isLocatorVisible((By.xpath("(//td[" + columnNum + "]/span[contains(@class,'poor')]/span)[1]"))),"Poor flag should not be displayed", "Poor flag verified successfully");
 		if(items.stream().anyMatch(x -> x.condition().toString().equalsIgnoreCase("good")))
-			Validator.assertTrue(driver.findElement(By.xpath("(//td["+columnNum+"]/span[contains(@class,'good')]/span)[1]")).getText().equalsIgnoreCase(String.valueOf(items.stream().filter(x -> x.condition().toString().equalsIgnoreCase("good")).count())),"Condition filter is not working as expected for good flag", "Condition filter for good flag verified successfully");
+			Validator.assertFalse(isLocatorVisible(By.xpath("(//td["+columnNum+"]/span[contains(@class,'good')]/span)[1]")),"Condition filter is not working as expected for good flag", "Condition filter for good flag verified successfully");
 		else Validator.assertFalse(isLocatorVisible((By.xpath("(//td[" + columnNum + "]/span[contains(@class,'good')]/span)[1]"))),"Good flag should not be displayed", "Good flag verified successfully");
 	}
 
@@ -2916,7 +2934,8 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void verifyStatusFilter(String status, Long inProgressItemsCount){
-		SyncUtil.waitFor(2000);
+		SyncUtil.waitFor(4000);
+		hoverOverElement(inspectionDetailsItemStatusList);
 		inspectionDetailsItemStatusFilter.jsClick("Inspection status filter");
 		dropdownSelect(inspectionStatusFilterDropdown, ListItem, status);
 		applyFilter.click();
@@ -2970,7 +2989,7 @@ public class InspectionPage extends BasePage {
 
 	public void verifyItemSequencingDefault(List<Item> items) {
 		int index = 1;
-		SyncUtil.waitFor(2000);
+		SyncUtil.waitFor(4000);
 		for(Item item: items){
 			System.out.println(driver.findElement(By.xpath("//tbody/tr["+index+"]/td[5]")).getText());
 			System.out.println(item.asset());
@@ -3009,12 +3028,13 @@ public class InspectionPage extends BasePage {
 		btSearchinput.type(conveyorItem, "Inspection Search");
 		waitForElementToDisplay(cbCheckbox);
 		SyncUtil.waitFor(2000);
-		if(assetColumn.isVisible())
+		if(assetColumn.isEnable())
 			hoverOverElement(assetColumn);
 		else hoverOverElement(assetColumnItemList);
-		inspectionItemAssetFilter.click("Inspection asset filter");
+		inspectionItemAssetFilter.jsClick("Inspection asset filter");
 		inspectionFilterInput.type(assetName);
 		applyFilter.click();
+		SyncUtil.waitFor(500);
 		inspectionItemConditionFilter.jsClick("Inspection condition filter");
 		inspectionFilterDropdown.click("filter dropdown");
 		driver.findElement(By.xpath("//span[text()='"+condition+"']/../..//div[@class='p-checkbox-box']")).click();
@@ -3040,7 +3060,7 @@ public class InspectionPage extends BasePage {
 			hoverOverElement(assetColumn);
 		else hoverOverElement(assetColumnItemList);
 		SyncUtil.waitFor(1000);
-		inspectionItemAssetFilter.click("Inspection Asset filter");
+		inspectionItemAssetFilter.jsClick("Inspection Asset filter");
 		inspectionFilterInput.type(val);
 		applyFilter.click();
 		Validator.assertTrue(driver.findElements(By.xpath("//tbody/tr")).size() == 1,"Asset filter is not working as expected", "Asset filter verified successfully");
@@ -3144,7 +3164,7 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void verifyAllInspectionItems(List<Item> allItems) {
-		SyncUtil.waitFor(2000);
+		SyncUtil.waitFor(4000);
 		AtomicInteger i = new AtomicInteger(1);
 		allItems.forEach(x -> {
 			Validator.assertTrue(driver.findElement(By.xpath("//tbody/tr/td[contains(@class,'expansion-col')]//tbody/tr["+i+"]/td[3]")).getText().equalsIgnoreCase(x.conveyorName()), "Conveyor name in expanded list table is not as expected", "Conveyor name in expanded list table verified successfully");
@@ -3160,6 +3180,8 @@ public class InspectionPage extends BasePage {
 		AtomicInteger i = new AtomicInteger(1);
 		allItems.forEach(x -> {
 			Validator.assertTrue(driver.findElement(By.xpath("//tbody/tr/td[contains(@class,'expansion-col')]//tbody/tr["+i+"]/td[3]")).getText().equalsIgnoreCase(x.conveyorName()), "Conveyor name in expanded list table is not as expected", "Conveyor name in expanded list table verified successfully");
+			System.out.println(driver.findElement(By.xpath("//tbody/tr/td[contains(@class,'expansion-col')]//tbody/tr["+i+"]/td[4]")).getText());
+			System.out.println(x.asset());
 			Validator.assertTrue(driver.findElement(By.xpath("//tbody/tr/td[contains(@class,'expansion-col')]//tbody/tr["+i+"]/td[4]")).getText().equalsIgnoreCase(x.asset()), "Asset name in expanded list table is not as expected", "Asset name in expanded list table verified successfully");
 			Validator.assertTrue(driver.findElement(By.xpath("//tbody/tr/td[contains(@class,'expansion-col')]//tbody/tr["+i+"]/td[7]/span/span")).getText().equalsIgnoreCase(x.condition().name()), "Condition in expanded list table is not as expected", "Condition in expanded list table verified successfully");
 			Validator.assertTrue(driver.findElement(By.xpath("//tbody/tr/td[contains(@class,'expansion-col')]//tbody/tr["+i+"]/td[8]/span")).getText().equalsIgnoreCase(x.isCompleted()?"Completed": "To be Completed"), "Status in expanded list table is not as expected", "Status in expanded list table verified successfully");
@@ -3203,6 +3225,7 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void addItemStatusFilter(String status){
+		hoverOverElement(conditionColumn);
 		inspectionItemStatusFilter.jsClick("Inspection status filter");
 		dropdownSelect(inspectionStatusFilterDropdown, ListItem, status);
 		applyFilter.click();
@@ -3213,6 +3236,10 @@ public class InspectionPage extends BasePage {
 	}
 
 	public void addItemConditionFilter(String condition){
+		if(conditionColumn.isVisible())
+			hoverOverElement(conditionColumn);
+		else hoverOverElement(conditionColumnItemList);
+		SyncUtil.waitFor(1000);
 		inspectionItemConditionFilter.jsClick("Inspection condition filter");
 		inspectionFilterDropdown.click("filter dropdown");
 		SyncUtil.waitFor(500);

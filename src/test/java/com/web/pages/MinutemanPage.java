@@ -2981,7 +2981,10 @@ public class MinutemanPage extends BasePage{
     public void clickOnSaveAndDownload(){
         if(btnSaveAndDownload.isVisible())
             btnSaveAndDownload.click("Save & Download");
-        else btnDownload.click();
+        else {
+            scrollPageup();
+            btnDownload.click();
+        }
     }
 
     public boolean clickOnCreateCalc(){
