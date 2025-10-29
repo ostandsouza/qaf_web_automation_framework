@@ -79,16 +79,16 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator= "xpath=//label[text()='Site']/following::span[1]")
     public CustomElement drSitedropdown;
 
-    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbSitedropdown;
 
-    @FindBy(locator= "xpath=//div[contains(@class,'p-multiselect-filter-container')]//input[contains(@class,'p-multiselect-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-multiselect-filter')]")
     public CustomElement tbMultipleSiteDropdown;
 
-    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbAssociatedSitedropdown;
 
-    @FindBy(locator= "xpath=//p-dropdown[@datakey='companyId']/div/div")
+    @FindBy(locator= "xpath=(//p-select[@datakey='companyId']//*[name()='svg']/..)[1]")
     public CustomElement drDistShopdropdown;
 
     @FindBy(locator = "xpath=//span[@class='p-menuitem-text ng-star-inserted'][text()='Home']")
@@ -150,18 +150,18 @@ public class ConveyorPage extends BasePage{
 
 //    @FindBy(locator = "xpath=//span[text()=' Installed Belt']")
 //    public CustomElement crInstalledBeltTab;
-    @FindBy(locator = "xpath=//a//span[contains(text(),'Installed Belt')]")
+    @FindBy(locator = "xpath=//p-tab//span[contains(text(),'Installed Belt')]")
     public CustomElement crInstalledBeltTab;
 
 //    @FindBy(locator = "xpath=//span[text()=' Material']")
 //    public CustomElement crMaterialTab;
 
-    @FindBy(locator = "xpath=//a//span[contains(text(),'Material')]")
+    @FindBy(locator = "xpath=//p-tab//span[contains(text(),'Material')]")
     public CustomElement crMaterialTab;
 
 //    @FindBy(locator = "xpath=//span[text()=' Conveyor']")
 //    public CustomElement crConveyorTab;
-    @FindBy(locator = "xpath=//a//span[text()='Conveyor']")
+    @FindBy(locator = "xpath=//p-tab//span[text()='Conveyor']")
     public CustomElement crConveyorTab;
 
     @FindBy(locator = "xpath=//li[@id='5']//a//span[contains(text(),'Conveyor')]")
@@ -169,12 +169,12 @@ public class ConveyorPage extends BasePage{
 
 //    @FindBy(locator = "xpath=//span[text()=' Wear Life']")
 //    public CustomElement crWearLifeTab;
-    @FindBy(locator = "xpath=//a//span[contains(text(),'Wear Life')]")
+    @FindBy(locator = "xpath=//p-tab//span[contains(text(),'Wear Life')]")
     public CustomElement crWearLifeTab;
 
 //    @FindBy(locator = "xpath=//span[text()=' Idlers']")
 //    public CustomElement crIdlersTab;
-    @FindBy(locator = "xpath=//a//span[contains(text(),'Idlers')]")
+    @FindBy(locator = "xpath=//p-tab//span[contains(text(),'Idlers')]")
     public CustomElement crIdlersTab;
 
 //    @FindBy(locator = "xpath=//span[text()=' Pulleys']")
@@ -182,7 +182,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[contains(text(),'Pulleys')]")
     public CustomElement crPulleysTab;
 
-    @FindBy(locator = "xpath=//span[text()=' Transition Zone']")
+    @FindBy(locator = "xpath=//span[text()='Transition Zone']")
     public CustomElement crTransitionZoneTab;
 
     @FindBy(locator = "xpath=//span[contains(text(),'Remarks')]")
@@ -666,7 +666,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement crCheckbox;
 
-    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator="xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement crActions;
 
@@ -682,7 +682,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Export PDF']")
     public CustomElement crExportPDF;
 
-    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator="xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement crviewicon;
 
     @FindBy(locator = "xpath=//span[text()='Save']")
@@ -706,7 +706,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Distributor']/..//div[@aria-label='dropdown trigger']")
     public CustomElement crDistributorDropdown;
 
-    @FindBy(locator = "xpath=//label[text()='Site']/..//div[@aria-label='dropdown trigger' or contains(@class,'p-multiselect-trigger')]")
+    @FindBy(locator = "xpath=//label[text()='Site']/..//div[@aria-label='dropdown trigger' or contains(@class,'p-multiselect-dropdown')]")
     public CustomElement crSiteDropdown;
 
     @FindBy(locator = "xpath=(//label[text()='Multiple Site']/..//input)[1]")
@@ -730,10 +730,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Save']")
     public CustomElement crSave;
 
-    @FindBy(locator = "xpath=//i[contains(@class,'ctp-icon-Delete')]")
+    @FindBy(locator = "xpath=//i[contains(@class,'ctp-icon-delete-action')]")
     public CustomElement crDeleteFileUpload;
 
-    @FindBy(locator = "xpath=//i[contains(@class,'ctp-icon-Delete')]/../preceding-sibling::div")
+    @FindBy(locator = "xpath=//i[contains(@class,'ctp-icon-delete-action')]/../preceding-sibling::div")
     public CustomElement crUploadedFileName;
 
     @FindBy(locator = "xpath=//div[contains(text(),'Conveyors will be created.')]")
@@ -975,10 +975,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator = "//input[@id='lng' and contains(@class, 'p-filled')]")
     public CustomElement tbLongValue;
 
-    @FindBy(locator = "//p-dropdown[@class='p-element p-inputwrapper']//div[@aria-label='dropdown trigger']")
+    @FindBy(locator = "//p-select[@class='p-element p-inputwrapper']//div[@aria-label='dropdown trigger']")
     public CustomElement ddlLocationType;
 
-    @FindBy(locator = "//p-dropdown[@class='p-element p-inputwrapper p-inputwrapper-filled']//div[@class='p-dropdown p-component']")
+    @FindBy(locator = "//p-select[@class='p-element p-inputwrapper p-inputwrapper-filled']//div[@class='p-dropdown p-component']")
     public CustomElement ddlLocationTwoType;
 
     @FindBy(locator = "//li[@aria-label=\"Head\"]")
@@ -1129,19 +1129,19 @@ public class ConveyorPage extends BasePage{
     public CustomElement filterPopup;
     @FindBy(locator = "xpath=//span[text()='Table Layout Settings']/ancestor::div[contains(@role, 'dialog')]")
     public CustomElement layoutDialog;
-    @FindBy(locator = "xpath=//div//label[text()='Belt Width ']/..//p-dropdown[contains(@class,'p-inputwrapper-filled')]")
+    @FindBy(locator = "xpath=//div//label[text()='Belt Width ']/..//p-select[contains(@class,'p-inputwrapper-filled')]")
     public CustomElement tbPrefilledBeltWidth;
-    @FindBy(locator = "xpath=//div//label[text()='Belt Width ']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
+    @FindBy(locator = "xpath=//div//label[text()='Belt Width ']/..//p-select[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
     public CustomElement tbDisabledPrefilledBeltWidth;
     @FindBy(locator = "xpath=//div//label[text()='Belt Speed ']/..//div//input[contains(@class,\"p-filled\") and @disabled]")
     public CustomElement tbPrefilledBeltSpeed;
     @FindBy(locator = "xpath=//div//label[text()='Material Density ']/..//div//input[contains(@class,\"p-filled\") and @disabled]")
     public CustomElement tbMaterialDensity;
-    @FindBy(locator = "xpath=//div//label[text()='Belt Manufacturer']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
+    @FindBy(locator = "xpath=//div//label[text()='Belt Manufacturer']/..//p-select[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
     public CustomElement tbPrefilledBeltManufacturer;
-    @FindBy(locator = "xpath=//div//label[text()='Belt Construction']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
+    @FindBy(locator = "xpath=//div//label[text()='Belt Construction']/..//p-select[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
     public CustomElement tbPrefilledBeltConstruction;
-    @FindBy(locator = "xpath=//div//label[text()='Description']/..//p-dropdown[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
+    @FindBy(locator = "xpath=//div//label[text()='Description']/..//p-select[contains(@class,\"p-inputwrapper-filled\")]//div//div//input[@disabled]")
     public CustomElement tbPrefilledDescription;
     @FindBy(locator = "xpath=//div//label[text()='Bulk Density']/..//div//input[contains(@class,\"p-filled\") and @disabled]")
     public CustomElement tbPrefilledBulkDensity;
@@ -1252,7 +1252,7 @@ public class ConveyorPage extends BasePage{
     public CustomElement rdBtnCopy;
     @FindBy(locator = "xpath=//th[text()=' Errors ']")
     public CustomElement txtErrors;
-    @FindBy(locator = "xpath=//label[text()='Distributor']/..//p-dropdown[@datakey='companyId']")
+    @FindBy(locator = "xpath=//label[text()='Distributor']/..//p-select[@datakey='companyId']")
     public CustomElement drpDownDistributor;
     @FindBy(locator = "xpath=//div[contains(@class,'p-dropdown-panel')]")
     public CustomElement drpDownDistPopUp;
@@ -1282,10 +1282,10 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//p-multiselect//div[text()=' By Event ']")
     public CustomElement chHeaderByEvent;
 
-    @FindBy(locator = "xpath=(//p-calendar[@placeholder='MM/DD/YYYY']//input)[1]")
+    @FindBy(locator = "xpath=(//p-datepicker[@placeholder='MM/DD/YYYY']//input)[1]")
     public CustomElement tbFromDate;
 
-    @FindBy(locator = "xpath=(//p-calendar[@placeholder='MM/DD/YYYY']//input)[2]")
+    @FindBy(locator = "xpath=(//p-datepicker[@placeholder='MM/DD/YYYY']//input)[2]")
     public CustomElement tbToDate;
 
     @FindBy(locator = "xpath=//span[@class='p-button-icon pi pi-refresh']")
@@ -1336,7 +1336,7 @@ public class ConveyorPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Confirmation']/../../div//button//span[text()='Yes']")
     public CustomElement btnYes;
 
-    @FindBy(locator = "xpath=//p-columnfilterformelement//p-calendar//span//div[contains(@class,\"yearpicker\")]")
+    @FindBy(locator = "xpath=//p-columnfilterformelement//p-datepicker//span//div[contains(@class,\"yearpicker\")]")
     public CustomElement yearPickerDialog;
 
     public CustomElement ddlActions;
@@ -1407,8 +1407,10 @@ public class ConveyorPage extends BasePage{
         goToConveyorListScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(180); stop>System.nanoTime();) {
-            if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
+            int extractedCardCount = Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='Conveyors']/..//div//span)[1]")).getText());
+            int paginationCount = Integer.parseInt(MiscUtils.regexExtractor(pagination.getText(), "(\\d+)(?!.*\\d)"));
+            if (val.equalsIgnoreCase(pagination.getText("Pagination")) && extractedCardCount == paginationCount) {
                 break;
             }
             val = pagination.getText();
@@ -1448,6 +1450,7 @@ public class ConveyorPage extends BasePage{
         tbConveyorname.sendKeys(conveyorName, "conveyor name");
         if(!distShopName.isEmpty())
             dropdownSelectSearch(drDistShopdropdown, tbAssociatedSitedropdown, distShopName);
+        SyncUtil.waitFor(500);
         dropdownSelectSearch(drSitedropdown, tbSitedropdown, custSiteName);
     }
     public void enterConveyorDetails(String conveyorName, String distShopName, String custSiteName) {
@@ -1521,6 +1524,7 @@ public class ConveyorPage extends BasePage{
 
     public void exportPDFConveyor(String conveyorName) {
         searchConveyor(conveyorName);
+        SyncUtil.waitFor(500);
         crCheckbox.check("Conveyor Checkbox");
         crActions.click("Actions");
         crExportPDF.jsClick("Export PDF");
@@ -1540,6 +1544,7 @@ public class ConveyorPage extends BasePage{
         goToConveyorListScreen();
         btSearchinput.type(conveyorName, "Conveyor Search");
         Validator.assertTrue(noList.isVisible(),"Delete conveyor was still found in Conveyor list screen","Conveyor deleted successfully");
+        btSearchinput.clear();
     }
 
     public void verifyTechnicalData(String conveyorName) {
@@ -1706,6 +1711,7 @@ public class ConveyorPage extends BasePage{
         crFileUpload.sendKeys(file_path, "File Path");
         crDeleteFileUpload.assertVisible("Delete File upload");
         crUploadedFileName.assertVisible("File Uploaded Name");
+        SyncUtil.waitFor(2000);
         crSave.jsClick("Save File Upload");
         Validator.assertTrue(analysingConveyors.isDisplayed(),"Analysis Bar is not displayed","Analysis Bar is displayed");
         waitForElementToInvisible(analysingConveyors,15000);
@@ -1738,6 +1744,7 @@ public class ConveyorPage extends BasePage{
         Object[][] obj = MiscUtils.getExcelData(fileName,siteName);
         for( int i = obj.length-1;i>0;i--)
             Validator.assertTrue(searchConveyor(((Map<String,String>)obj[i][0]).get("Name")),"Imported Conveyor was not created successfully","Imported conveyor created successfully");
+        btSearchinput.clear();
     }
 
     public void editConveyorDetails(String newConveyorName) {
@@ -2878,8 +2885,8 @@ public class ConveyorPage extends BasePage{
 
     public void verifyYearOfManufactureFilter(String year) {
         yearPickerDialog.isVisible(10000, "Year Picker");
-        waitForElementVisible(driver.findElement(By.xpath("//p-columnfilterformelement//p-calendar//span//div[contains(@class,\"yearpicker\")]//span[contains(text()," + year + ")]")), 10000, 500);
-        driver.findElement(By.xpath("//p-columnfilterformelement//p-calendar//span//div[contains(@class,\"yearpicker\")]//span[contains(text()," + year + ")]")).click();
+        waitForElementVisible(driver.findElement(By.xpath("//p-columnfilterformelement//p-datepicker//span//div[contains(@class,\"yearpicker\")]//span[contains(text()," + year + ")]")), 10000, 500);
+        driver.findElement(By.xpath("//p-columnfilterformelement//p-datepicker//span//div[contains(@class,\"yearpicker\")]//span[contains(text()," + year + ")]")).click();
         int noOfConveyors = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?!.*\\d)"));
         verifyYearFilterApplied(noOfConveyors, year);
 

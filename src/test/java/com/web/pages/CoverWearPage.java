@@ -76,7 +76,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=(//td[9]/button)[1]")
     public CustomElement cwDownload;
 
-    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator="xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement cwViewIcon;
 
     @FindBy(locator="xpath=//input[@placeholder='Search']")
@@ -94,7 +94,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//td//p-tablecheckbox")
     public CustomElement cwCheckboxes;
 
-    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator="xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement cwActions;
 
@@ -125,7 +125,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Site']/parent::div//div[@role='button']")
     public CustomElement cwSiteDropDown;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement cwInput;
 
     @FindBy(locator="xpath=//label[text()='Conveyor']/parent::div//div[@role='button']")
@@ -140,7 +140,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Position']/parent::div//div[@role='button']")
     public CustomElement cwPositionDropDown;
 
-    public String ListItem = "//ul[@role='listbox']//li//span";
+    public String ListItem = "//ul[@role='listbox']//li//span[not(@aria-hidden)]";
 
     @FindBy(locator="xpath=//label[text()='Temperature (°C)']/parent::div//input")
     public CustomElement cwTemperature;
@@ -249,7 +249,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//div[text()='Missing reading(s) values.']")
     public CustomElement errorMessage;
 
-    @FindBy(locator="xpath=//p-dropdownitem")
+    @FindBy(locator="xpath=//p-selectitem")
     public List<CustomElement> allDropdownElements;
 
     @FindBy(locator="xpath=//tr/td[contains(@class,'datapoint') and not(contains(@class,'existing'))]/input")
@@ -285,7 +285,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//input[@formcontrolname='temperature']")
     public CustomElement temperatureField;
 
-    @FindBy(locator="xpath=//p-calendar[@formcontrolname='measurementDate']//input")
+    @FindBy(locator="xpath=//p-datepicker[@formcontrolname='measurementDate']//input")
     public CustomElement inspectionDate;
 
     @FindBy(locator="xpath=//input[@formcontrolname='tonsConveyedPrevious']")
@@ -324,30 +324,30 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Specification']")
     public CustomElement specificationHeader;
 
-    @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-prev')]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-prev-button')]")
     public CustomElement calendarPrev;
 
-    @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-next')]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-next-button')]")
     public CustomElement calendarNext;
 
-    @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-month')]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-select-month')]")
     public CustomElement calendarMonth;
 
-    @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-year')]")
+    @FindBy(locator="xpath=//button[contains(@class,'p-datepicker-select-year')]")
     public CustomElement calendarYear;
 
-    @FindBy(locator = "xpath=//p-calendar//span[contains(@class,\"p-datepicker-decade\")]")
+    @FindBy(locator = "xpath=//p-datepicker//span[contains(@class,\"p-datepicker-decade\")]")
     public CustomElement calendarDecadeYear;
 
-    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='dateRangeFrom']//input")
+    @FindBy(locator = "xpath=//p-datepicker[@formcontrolname='dateRangeFrom']//input")
     public CustomElement dateRangeFrom;
 
-    @FindBy(locator="xpath=//p-calendar[@formcontrolname='dateRangeTo']//input")
+    @FindBy(locator="xpath=//p-datepicker[@formcontrolname='dateRangeTo']//input")
     public CustomElement dateRangeTo;
 
     @FindBy(locator="xpath=//label[text()='Position']/parent::div//input")
     public CustomElement positionInput;
-    @FindBy(locator="xpath=//label[text()='Position']/parent::div//div/chevrondownicon")
+    @FindBy(locator="xpath=//label[text()='Position']/parent::div//div/*[name()='svg']/..")
     public CustomElement positionDropdown;
 
     @FindBy(locator="xpath=//div[contains(@class,'p-multiselect-header')]//div[contains(@class,'p-checkbox-box')]")
@@ -356,7 +356,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//button[contains(@class,'p-multiselect-close')]")
     public CustomElement multiSelectCloseBtn;
 
-    @FindBy(locator="xpath=//label[text()='Include']/parent::div//div/chevrondownicon")
+    @FindBy(locator="xpath=//label[text()='Include']/parent::div//div/*[name()='svg']/..")
     public CustomElement includePositionTypes;
 
     @FindBy(locator="xpath=//span[text()='Apply']")
@@ -765,7 +765,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Installed Belt']")
     public CustomElement hdInstalledBelt;
 
-    @FindBy(locator="xpath=//label[text()='Installation Date']/..//p-calendar//input")
+    @FindBy(locator="xpath=//label[text()='Installation Date']/..//p-datepicker//input")
     public CustomElement  ddInstallationDateValue;
 
     @FindBy(locator="xpath=(//label[text()='Belt Construction']/../app-master-data-picker//div//input)[1]")
@@ -830,7 +830,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//input[@value='top']//../../div[2]")
     public CustomElement rbtTop;
 
-    @FindBy(locator="xpath=//p-calendar[@formcontrolname='installedDate']")
+    @FindBy(locator="xpath=//p-datepicker[@formcontrolname='installedDate']")
     public CustomElement tbInstalledDate;
 
     @FindBy(locator = "xpath=//p-dialog//span[text()='Save']")
@@ -865,7 +865,7 @@ public class CoverWearPage extends BasePage{
     @FindBy(locator="xpath=//app-master-data-picker[@parentmasterformcontrolname='bottomCoverThicknessActual']//../../label")
     public CustomElement txtBottomCoverThicknessActual;
 
-    @FindBy(locator="xpath=//p-dropdown[@formcontrolname='numberOfDatapoints']/../label")
+    @FindBy(locator="xpath=//p-select[@formcontrolname='numberOfDatapoints']/../label")
     public CustomElement txtNoOfDatapoints;
 
     @FindBy(locator="xpath=//input[@formcontrolname='durometer']/../../label")
@@ -1646,10 +1646,10 @@ public class CoverWearPage extends BasePage{
             }
         }
         SyncUtil.waitFor(500);
-        waitForElementVisible(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")),10000,500);
-        waitForElementToBeClickable(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")));
-        System.out.println(driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")).getText()+"year selected");
-        driver.findElement(By.xpath("//div[contains(@class,'p-yearpicker')]//span[contains(text(),'" + year + "')]")).click();
+        waitForElementVisible(driver.findElement(By.xpath("//div[contains(@class,'p-datepicker-year-view')]//span[contains(text(),'" + year + "')]")),10000,500);
+        waitForElementToBeClickable(driver.findElement(By.xpath("//div[contains(@class,'p-datepicker-year-view')]//span[contains(text(),'" + year + "')]")));
+        System.out.println(driver.findElement(By.xpath("//div[contains(@class,'p-datepicker-year-view')]//span[contains(text(),'" + year + "')]")).getText()+"year selected");
+        driver.findElement(By.xpath("//div[contains(@class,'p-datepicker-year-view')]//span[contains(text(),'" + year + "')]")).click();
     }
 
 

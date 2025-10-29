@@ -134,15 +134,15 @@ Feature: Regression for Login feature
   @sheetName:Regression
   @key:Regression_Permission_4
   Scenario: Verify view and edit permission for user account for conveyor module
-    Given Login with '${UserName}' and '${Password}'
-    When User clicks on Users link present in navigation bar
-    Then Search '${FullName}' User on List page and then edit the same and navigate to permission screen
-    Then Reset all permissions
-    Then Add permission rights under '${MainModule}' with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and Update user
-    Then Add permission rights under '${MainModule1}' with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and Update user
-    Then Add permission rights under '${MainModule2}' '${SubModule}' with '${Add1}' '${Edit1}' '${Delete1}' '${View1}' '${Download1}' and Update user
-    Then Click on Update btn
-    Then Click on profile and select logout button
+#    Given Login with '${UserName}' and '${Password}'
+#    When User clicks on Users link present in navigation bar
+#    Then Search '${FullName}' User on List page and then edit the same and navigate to permission screen
+#    Then Reset all permissions
+#    Then Add permission rights under '${MainModule}' with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and Update user
+#    Then Add permission rights under '${MainModule1}' with '${Add}' '${Edit}' '${Delete}' '${View}' '${Download}' and Update user
+#    Then Add permission rights under '${MainModule2}' '${SubModule}' with '${Add1}' '${Edit1}' '${Delete1}' '${View1}' '${Download1}' and Update user
+#    Then Click on Update btn
+#    Then Click on profile and select logout button
     Then Login with '${MktMgrUser}' and '${Password1}'
     Then Verify only view and edit permission right for conveyors '${ConveyorName}'
     Then Navigate to conveyor details screen for conveyor '${ConveyorName}'

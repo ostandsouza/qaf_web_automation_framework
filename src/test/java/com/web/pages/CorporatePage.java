@@ -72,7 +72,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//button//span[text()='Create']")
     public CustomElement btnCreate;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='companyType']/div/span")
     public CustomElement drCompanyDropdownLoader;
 
     @FindBy(locator = "xpath=(//div[@role='button'])[1]")
@@ -101,13 +101,13 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//li[text()=' No results found ']")
     public CustomElement drTerritoryLoader;
 
-    @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[1]")
+    @FindBy(locator = "xpath=//p-select[@datakey='territoryId']//*[name()='svg']/..")
     public CustomElement drTerritorybutton;
 
     @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
     public CustomElement drTerritoryvalue;
 
-    @FindBy(locator = "xpath=//p-autocomplete[@field='name']//input")
+    @FindBy(locator = "xpath=//p-autocomplete[@optionlabel='name']//input")
     public CustomElement drTerritoryManagerbutton;
 
     @FindBy(locator = "xpath=//input[@id='autocomplete-address']")
@@ -116,13 +116,13 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//div[contains(@class, 'pac-container')]/div[1]")
     public CustomElement tbMapFirstSearchOption;
 
-    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbSitedropdown;
 
-    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbAssociatedSitedropdown;
 
-    @FindBy(locator= "xpath=//p-dropdown[@datakey='companyId']/div/div[2]")
+    @FindBy(locator= "xpath=//p-select[@datakey='companyId']/div/div[2]")
     public CustomElement drDistShopdropdown;
 
     @FindBy(locator="xpath=(//div[@role='button'])[2]")
@@ -140,7 +140,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
 
-    @FindBy(locator="xpath=(//button/chevrondownicon)[2]/..")
+    @FindBy(locator="xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
 
@@ -150,10 +150,10 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=//span[text()='Delete']")
     public CustomElement btDelete;
 
-    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator="xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement btviewicon;
 
-    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[2]")
+    @FindBy(locator="xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[2]")
     public CustomElement btviewicon2;
 
     @FindBy(locator = "xpath=//span[text()='Save']")
@@ -168,7 +168,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//input[@id='file-input']")
     public CustomElement fileUpload;
 
-    @FindBy(locator = "xpath=//span[text()='Save']")
+    @FindBy(locator = "xpath=(//span[text()='Save'])[1]")
     public CustomElement btSave;
 
     @FindBy(locator = "xpath=(//img[contains(@class,'avatar-section-img')])[2]")
@@ -239,7 +239,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator="xpath=(//td[10]/div)[1]")
     public CustomElement detailsConveyorNumber;
 
-    @FindBy(locator="xpath=(//td[11]/button)[1]")
+    @FindBy(locator="xpath=(//td[12]//button)[1]")
     public CustomElement detailsMoreButton;
 
     @FindBy(locator = "xpath=//td[contains(text(),'No')]")
@@ -363,7 +363,7 @@ public class CorporatePage extends BasePage{
     @FindBy(locator = "xpath=//app-master-data-picker[@formcontrolname='inspectionTemplate']//span")
     public CustomElement inspectionTemplateDropdownVal;
 
-    @FindBy(locator = "xpath=//app-master-data-picker[@formcontrolname='inspectionTemplate']//p-dropdown//div[@role='button']")
+    @FindBy(locator = "xpath=//app-master-data-picker[@formcontrolname='inspectionTemplate']//p-select//div[@role='button']")
     public CustomElement inspectionTemplateDropdown;
 
     @FindBy(locator = "xpath=(//span[contains(@class,'p-panel-title')])[1]")
@@ -388,6 +388,7 @@ public class CorporatePage extends BasePage{
 
     public void defaultTemplateSelection() {
         selectCustomerCorp();
+        SyncUtil.waitFor(1500);
         Validator.assertTrue(inspectionTemplateDropdownVal.getText().equalsIgnoreCase("Default"),"Default inspection template verification failed","Default inspection template verification successful");
     }
 
@@ -579,6 +580,7 @@ public class CorporatePage extends BasePage{
         btActions.click("Actions");
         waitForElementVisible(btEdit, 10000,500);
         btEdit.click("Edit");
+        SyncUtil.waitFor(10000);
     }
 
     public void editCorporateName(String corpName, String editCorpName) {
@@ -608,6 +610,7 @@ public class CorporatePage extends BasePage{
         imageIcon.click("Img_Icon");
         String file_path = ClasspathResourceHelper.getPropertyFile(fileName, "test_files").getAbsolutePath();
         fileUpload.sendKeys(file_path, "img_upload");
+        SyncUtil.waitFor(500);
         btSave.click("Save_ImgUpload");
         waitForElementToInvisible(buttonLoader, 15000);
         SyncUtil.waitFor(5000);
@@ -667,8 +670,10 @@ public class CorporatePage extends BasePage{
 
     public void deleteSiteOrShop(String custCorp, String custSite) {
         goToDistCorporateDetails(custCorp);
+        waitForElementToDisplay(btSearchinput);
         btSearchinput.type(custSite, "Site/Shop name");
         setImplicitWait(30000,TimeUnit.MILLISECONDS);
+        SyncUtil.waitFor(500);
         btCheckbox.check("Site/Shop Checkbox");
         setImplicitWait(5000,TimeUnit.MILLISECONDS);
         scrollPageup();
@@ -683,6 +688,7 @@ public class CorporatePage extends BasePage{
         goToCorporate();
         waitForElementToDisplay(btSearchinput);
         btSearchinput.type(corpName, "Corporate Search");
+        SyncUtil.waitFor(4000);
     }
 
     public void verifyImageUpload(){
@@ -716,7 +722,8 @@ public class CorporatePage extends BasePage{
         else
             btviewicon.click("Corp Site Details");
         waitForElementToDisplay(btSiteShopCardNo);
-        SyncUtil.waitFor(5000);
+        SyncUtil.waitFor(7000);
+        waitForElementToDisplay(btSiteShopCardNo);
     }
 
     public void verifySiteOrShopEdit(String corpName, String siteName) {

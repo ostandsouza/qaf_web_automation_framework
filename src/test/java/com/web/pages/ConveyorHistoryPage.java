@@ -24,10 +24,10 @@ public class ConveyorHistoryPage extends BasePage{
     @FindBy(locator = "xpath=//div[contains(text(),'By Conveyor')]")
     public CustomElement byConveyorDropdown;
 
-    @FindBy(locator = "xpath=(//p-calendar[contains(@placeholder,'MM/DD/YYYY')])[1]")
+    @FindBy(locator = "xpath=(//p-datepicker[contains(@placeholder,'MM/DD/YYYY')])[1]")
     public CustomElement fromCalendar;
 
-    @FindBy(locator = "xpath=(//p-calendar[contains(@placeholder,'MM/DD/YYYY')])[2]")
+    @FindBy(locator = "xpath=(//p-datepicker[contains(@placeholder,'MM/DD/YYYY')])[2]")
     public CustomElement toCalendar;
 
     @FindBy(locator = "xpath=//span[@class='p-button-icon pi pi-refresh']")
@@ -66,7 +66,7 @@ public class ConveyorHistoryPage extends BasePage{
     @FindBy(locator = "xpath=//span[contains(text(),'Age & Failure mode')]/..")
     public CustomElement tabAgeFailureMode;
 
-    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='tension'])")
+    @FindBy(locator = "xpath=(//p-select[@formcontrolname='tension'])")
     public CustomElement TensionDropdown;
 
     @FindBy(locator = "xpath=//div[contains(@class,'p-panel-header')]/h4")
@@ -109,13 +109,13 @@ public class ConveyorHistoryPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='No']/..")
     public CustomElement btnNo;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='fabricType']")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='fabricType']")
     public CustomElement   selectFabricType;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='otherSpecials']")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='otherSpecials']")
     public CustomElement selectOtherSpecials;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='tensionUnit']")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='tensionUnit']")
     public CustomElement selectTensionUnit;
 
     @FindBy(locator = "xpath=//input[@formcontrolname='width']")
@@ -124,23 +124,23 @@ public class ConveyorHistoryPage extends BasePage{
     @FindBy(locator = "xpath=//input[@formcontrolname='pulleyCover']")
     public CustomElement tbPulleyCover;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='pulleyCover']")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='pulleyCover']")
     public CustomElement selectPulleyCover;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='plies']")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='plies']")
     public CustomElement selectPlies;
 
     @FindBy(locator = "xpath=//input[@formcontrolname='topCover']")
     public CustomElement tbTopCover;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='topCover']")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='topCover']")
     public CustomElement selectTopCover;
 
 
-    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='dateInstalled']")
+    @FindBy(locator = "xpath=//p-datepicker[@formcontrolname='dateInstalled']")
     public CustomElement calendarDateInstalled;
 
-    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='dateFailed']")
+    @FindBy(locator = "xpath=//p-datepicker[@formcontrolname='dateFailed']")
     public CustomElement calendarDateFailed;
 
     @FindBy(locator = "xpath=//input[@formcontrolname='yearsOnSystem']")
@@ -256,7 +256,7 @@ public class ConveyorHistoryPage extends BasePage{
     @FindBy(locator = "xpath=//span[text()='Delete']")
     public CustomElement btnDelete;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='componentType']")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='componentType']")
     public CustomElement selectComponentType;
 
     @FindBy(locator = "xpath=//input[@formcontrolname='refNumberUseedPart']")
@@ -292,7 +292,7 @@ public class ConveyorHistoryPage extends BasePage{
     @FindBy(locator = "xpath=(//label[text()='Conveyor']/following::input)[1]")
     public CustomElement conveyorTextBox;
 
-    @FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator="xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement crviewicon;
 
     @FindBy(locator = "xpath=(//div[text()='Conveyor History']/..//div[contains(@class,'text-area')]/span)[1]")
@@ -305,7 +305,7 @@ public class ConveyorHistoryPage extends BasePage{
     public CustomElement conveyorInspect;
 
 
-    String textInput="//ul[@role='listbox']//li//span";
+    String textInput="//ul[@role='listbox']//li//span[not(@aria-hidden)]";
     String textInput1="//ul[@role='listbox']//li";
 
     String initialDate;

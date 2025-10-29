@@ -23,7 +23,7 @@ public class BeltInfoPage extends BasePage {
     @FindBy(locator = "xpath=//label[text()='Market ']/parent::div//div[@role='button']")
     public CustomElement ddlMarket;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-select-filter p-component p-inputtext')]")
     public CustomElement tbinput;
 
     @FindBy(locator = "xpath=//label[text()='Std. Requested by Customer ']/parent::div//div[@role='button']")

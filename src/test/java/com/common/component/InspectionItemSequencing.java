@@ -16,6 +16,10 @@ public class InspectionItemSequencing {
             "Conveyor Belt", "Cleaning Equipment", "Rollers/Idlers", "Pulley", "Chutes/Load Area", "Roller Frames", "Tracking Frames", "Counterweight", "Drive Motor", "Conveyor Structure", "Other"
     );
 
+    private static final List<String> ASSET_PRIORITY_ORDER_TC = List.of(
+            "Tail", "Center", "Head", "Belt"
+    );
+
     private static final Comparator<Item> comparator1 = Comparator
             .comparing(Item::conveyorName)
             .thenComparing(Item::condition)
@@ -25,7 +29,12 @@ public class InspectionItemSequencing {
             .comparing(Item::conveyorName)
             .thenComparing(item -> ASSET_PRIORITY_ORDER_VMC.indexOf(item.asset()));
 
-    PriorityQueue<Item> priorityQueue = new PriorityQueue<>(comparator1);
+    private static final Comparator<Item> comparator3 = Comparator
+            .comparing(Item::conveyorName)
+            .thenComparing(item -> ASSET_PRIORITY_ORDER_TC.indexOf(item.asset()));
+
+    private static PriorityQueue<Item> priorityQueue = new PriorityQueue<>(comparator1);
+
 
     public void clearItems(){
         priorityQueue.clear();
@@ -101,9 +110,22 @@ public class InspectionItemSequencing {
                 .collect(Collectors.toList());
     }
 
-    public void switchComparator(boolean useAlternate) {
+    public void switchComparator(InspectionType type) {
         List<Item> tempList = new ArrayList<>(priorityQueue);
-        priorityQueue = new PriorityQueue<>(useAlternate ? comparator2 : comparator1);
+
+        switch (type) {
+            case VMC:
+                priorityQueue = new PriorityQueue<>(comparator2);
+                break;
+            case TC:
+                priorityQueue = new PriorityQueue<>(comparator3);
+                break;
+            case DEFAULT:
+            default:
+                priorityQueue = new PriorityQueue<>(comparator1);
+                break;
+        }
+
         priorityQueue.addAll(tempList);
     }
 

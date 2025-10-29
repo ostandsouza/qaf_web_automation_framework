@@ -33,7 +33,7 @@ public class SteelCordPage extends BasePage {
 	@FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
 	public CustomElement btAdd;
 
-	@FindBy(locator = "xpath=//p-calendar//input")
+	@FindBy(locator = "xpath=//p-datepicker//input")
 	public CustomElement tbCreationDate;
 	@FindBy(locator = "xpath=//input[@name='designerName']")
 	public CustomElement tbdesignerName;
@@ -45,7 +45,7 @@ public class SteelCordPage extends BasePage {
 //	@FindBy(locator = "xpath=(//label[text()=\"Choose Your Market\"]/following-sibling::div//p-dropdown)[1]")
 //	public CustomElement drChooseMarketDropDown;
 
-	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+	@FindBy(locator = "xpath=//input[contains(@class,'p-select-filter p-component p-inputtext')]")
 	public CustomElement tbInput;
 
 	@FindBy(locator = "xpath= (//label[text()='Production Location of Splice Kit']/../div//span)[1]")
@@ -229,7 +229,7 @@ public class SteelCordPage extends BasePage {
 	@FindBy(locator="xpath=//input[@name='drawing_num']")
 	public CustomElement spliceDrawingNumberVal;
 
-	@FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+	@FindBy(locator = "xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
 	public CustomElement btActions;
 
 	@FindBy(locator = "xpath=//li//span[text()='Edit']/..")
@@ -237,7 +237,7 @@ public class SteelCordPage extends BasePage {
 	@FindBy(locator = "xpath=//app-breadcrumb//ol")
 	public CustomElement steelCordBreadcrumb;
 
-	@FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+	@FindBy(locator="xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
 	public CustomElement btviewicon;
 
 	@FindBy(locator = "xpath=//button//span[text()='Approve']")

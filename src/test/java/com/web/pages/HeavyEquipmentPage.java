@@ -29,18 +29,18 @@ public class HeavyEquipmentPage extends BasePage {
     public CustomElement btAdd;
     @FindBy(locator = "xpath=//nav[@class='p-breadcrumb p-component']")
     public CustomElement bcAddHeavyEquipmentLink;
-    @FindBy(locator = "xpath=//p-calendar//input")
+    @FindBy(locator = "xpath=//p-datepicker//input")
     public CustomElement tbCreationDate;
     @FindBy(locator = "xpath=//span[contains(text(),'Showing')]")
     public CustomElement pagination;
     @FindBy(locator = "xpath=//p-breadcrumb//nav[@data-pc-name=\"breadcrumb\"]")
     public CustomElement fabricSpliceBreadcrumb;
 
-    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='category']/div/div)[1]")
+    @FindBy(locator = "xpath=(//p-select[@formcontrolname='category']/div/*[name()='svg']/..)[1]")
     public CustomElement drCategory;
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbFabricSpliceSearchInput;
-    @FindBy(locator = "xpath=(//p-dropdown[@formcontrolname='category']/div/div)[1]")
+    @FindBy(locator = "xpath=(//p-select[@formcontrolname='category']/div/div)[1]")
     public CustomElement addButton;
 
     @FindBy(locator = "id=file-upload")
@@ -53,7 +53,7 @@ public class HeavyEquipmentPage extends BasePage {
     public CustomElement tbName;
     @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement cbCheckbox;
-    @FindBy(locator = "xpath=//button/chevrondownicon")
+    @FindBy(locator = "xpath=//button/*[name()='svg']/..")
     public CustomElement ddlActions;
     @FindBy(locator = "xpath=//span[text()='Delete']")
     public CustomElement btnDelete;
@@ -67,13 +67,13 @@ public class HeavyEquipmentPage extends BasePage {
     public CustomElement tbModel;
     @FindBy(locator = "xpath=//input[@formcontrolname='serialNumber']")
     public CustomElement tbSerialNumber;
-    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='yearOfManufacture']")
+    @FindBy(locator = "xpath=//p-datepicker[@formcontrolname='yearOfManufacture']")
     public CustomElement tbYearOfManufacture;
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='distributorShop']/div/div")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='distributorShop']//*[name()='svg']/..")
     public CustomElement drDistShopDropdown;
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='category']/div/div")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='category']/div/*[name()='svg']/..")
     public CustomElement drCategoryDropdown;
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbSearchDropdown;
     @FindBy(locator = "xpath=//span[text()='Create']")
     public CustomElement btCreate;

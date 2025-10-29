@@ -57,7 +57,7 @@ public class IotDashboardPage extends BasePage {
 	@FindBy(locator="xpath=//div[contains(@class,'hidden-md')]//span[text()='Actions']/..")
 	public CustomElement btnActions;
 
-	@FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+	@FindBy(locator="xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
 	public CustomElement crActions;
 
 	@FindBy(locator = "xpath=//span[text()='Clear Filters']")
@@ -81,16 +81,16 @@ public class IotDashboardPage extends BasePage {
 	@FindBy(locator = "id=dashboardName")
 	public CustomElement dashboardField;
 
-	@FindBy(locator = "xpath=//p-dropdown[@datakey='companyId']//div[@role='button']")
+	@FindBy(locator = "xpath=//p-select[@datakey='companyId']//div[@role='button']")
 	public CustomElement siteDropdown;
 
-	@FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+	@FindBy(locator= "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
 	public CustomElement tbDropdownInput;
 
 	@FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
 	public CustomElement buttonLoader;
 
-	@FindBy(locator = "xpath=//p-dropdown[@datakey='conveyorId']//div[@role='button']")
+	@FindBy(locator = "xpath=//p-select[@datakey='conveyorId']//div[@role='button']")
 	public CustomElement conveyorDropdown;
 
 	@FindBy(locator = "xpath=(//span[text()='Create']/..)[1]")
@@ -105,7 +105,7 @@ public class IotDashboardPage extends BasePage {
 	@FindBy(locator="xpath=//div[@aria-label='dropdown trigger']/preceding-sibling::span")
 	public CustomElement btPageLimit;
 
-	public String ListItem = "//ul[@role='listbox']//li//span";
+	public String ListItem = "//ul[@role='listbox']//li//span[not(@aria-hidden)]";
 
 	@FindBy(locator="xpath=//div[@aria-label='dropdown trigger']")
 	public CustomElement btPageDropdown;
@@ -164,7 +164,7 @@ public class IotDashboardPage extends BasePage {
 	@FindBy(locator = "xpath=//button/span[text()='Edit']/..")
 	public CustomElement widgetEdit;
 
-	@FindBy(locator = "xpath=//p-calendar")
+	@FindBy(locator = "xpath=//p-datepicker")
 	public CustomElement timeSelector;
 
 	@FindBy(locator = "xpath=//button[text()=' Configure ']")
@@ -185,10 +185,10 @@ public class IotDashboardPage extends BasePage {
 	@FindBy(locator = "xpath=//li//span[text()='Delete']")
 	public CustomElement moreDelete;
 
-	@FindBy(locator = "xpath=//p-dropdown[@datakey='monitoringDeviceId']//div[@role='button']")
+	@FindBy(locator = "xpath=//p-select[@datakey='monitoringDeviceId']//div[@role='button']")
 	public CustomElement monitoringDropdown;
 
-	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+	@FindBy(locator = "xpath=//input[contains(@class,'p-select-filter p-component p-inputtext')]")
 	public CustomElement dropdownInput;
 
 	@FindBy(locator = "xpath=//label[contains(text(),'Title')]/..//input")

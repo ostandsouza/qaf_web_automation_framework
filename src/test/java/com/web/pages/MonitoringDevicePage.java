@@ -146,12 +146,12 @@ public class MonitoringDevicePage extends BasePage {
 
     @FindBy(locator = "xpath=//input[@formcontrolname='deviceName']")
     public CustomElement tbDeviceName;
-    @FindBy(locator = "xpath=(//p-dropdown//div[contains(@class,\"master-data-dropdown\")])[1]")
+    @FindBy(locator = "xpath=(//p-select//div[contains(@class,'p-select-dropdown')])[1]")
     public CustomElement deviceTypeDropDown;
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbDeviceTypedropdown;
 
-    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='installationDate']//input")
+    @FindBy(locator = "xpath=//p-datepicker[@formcontrolname='installationDate']//input")
     public CustomElement tbInstallationDate;
     @FindBy(locator = "xpath=//google-map")
     public CustomElement mapGoogle;
@@ -174,13 +174,13 @@ public class MonitoringDevicePage extends BasePage {
     @FindBy(locator = "xpath=(//button[@icon='pi pi-refresh'])[2]")
     public CustomElement btRefreshIcon;
 
-    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and contains(text(),\"Add Location\")]")
+    @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-item-label\") and contains(text(),\"Add Location\")]")
     public CustomElement addLocationTitle;
-    @FindBy(locator = "xpath=(//app-conveyor-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
+    @FindBy(locator = "xpath=(//app-conveyor-picker//p-select//div[contains(@class,\"p-select-dropdown\")])[1]")
     public CustomElement conveyorDDL;
-    @FindBy(locator = "xpath=(//app-company-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[1]")
+    @FindBy(locator = "xpath=(//app-company-picker//p-select//div[contains(@class,\"p-select-dropdown\")])[1]")
     public CustomElement associatedDistDDL;
-    @FindBy(locator = "xpath=(//app-company-picker//p-dropdown//div[contains(@class,\"p-dropdown\")])[3]")
+    @FindBy(locator = "xpath=(//app-company-picker//p-select//div[contains(@class,\"p-select-dropdown\")])[3]")
     public CustomElement siteDDL;
     @FindBy(locator = "xpath=//span[text()='Device Location']")
     public CustomElement deviceLocationLabel;
@@ -201,7 +201,7 @@ public class MonitoringDevicePage extends BasePage {
     public CustomElement tbSerialNo;
     @FindBy(locator = "xpath=//input[@formcontrolname='firmwareVersion']")
     public CustomElement tbFirmwareVersion;
-    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='commisioningDate']//input")
+    @FindBy(locator = "xpath=//p-datepicker[@formcontrolname='commisioningDate']//input")
     public CustomElement tbcommisioningDate;
     @FindBy(locator = "xpath=//input[@formcontrolname='beltConveyorSaves']")
     public CustomElement tbBeltConveyorSaves;
@@ -222,7 +222,7 @@ public class MonitoringDevicePage extends BasePage {
     @FindBy(locator = "xpath=//button[@icon='ctp-icon-link']")
     public CustomElement enabledLinkIcon;
 
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Instaloled-Devices'])[1]")
+    @FindBy(locator = "xpath=(//p-button[@icon='ctp-icon-Instaloled-Devices'])[1]")
     public CustomElement iotIcon;
 
     @FindBy(locator = "xpath=(//div[@id='chartArea'])[1]")
@@ -236,7 +236,7 @@ public class MonitoringDevicePage extends BasePage {
 
     @FindBy(locator = "xpath=(//button[@disabled]//span[text()='Actions'])[1]")
     public CustomElement actionBtnDisabled;
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator = "xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement forwardNavBtn;
     @FindBy(locator = "xpath=//angledoublerighticon")
     public CustomElement btPgDoubleForwardBtn;
@@ -300,9 +300,9 @@ public class MonitoringDevicePage extends BasePage {
 	public CustomElement tableSecondField;
 	@FindBy(locator = "xpath=//span[text()='View Device']")
 	public CustomElement viewMode;
-	@FindBy(locator = "xpath=//label[text()='Status']/..//p-dropdown//div[@role]")
+	@FindBy(locator = "xpath=//label[text()='Status']/..//p-select//div[@role]")
 	public CustomElement statusDropDown;
-	@FindBy(locator = "xpath=//label[text()='Status']/..//p-dropdown//span")
+	@FindBy(locator = "xpath=//label[text()='Status']/..//p-select//span")
 	public CustomElement inpStatusDropDown;
 	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Folder-empty']")
 	public CustomElement fileManagerIcon;
@@ -326,7 +326,7 @@ public class MonitoringDevicePage extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Delete']")
     public CustomElement deleteBtn;
 
-    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator = "xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
     public CustomElement btActions;
     @FindBy(locator = "xpath=//p-tieredmenusub//ul[@role=\"menu\"]")
     public CustomElement btActionsPopup;
@@ -347,20 +347,22 @@ public class MonitoringDevicePage extends BasePage {
     public CustomElement btnDownload;
     @FindBy(locator = "xpath=(//span[contains(@class,'pi-spinner')])[2]")
     public CustomElement downloadSpinner;
-    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='installationDate']//input[@placeholder=\"MM/DD/YYYY\"]")
+    @FindBy(locator = "xpath=//p-datepicker[@formcontrolname='installationDate']//input[@placeholder=\"MM/DD/YYYY\"]")
     public CustomElement tbInstallationDateFormat;
-    @FindBy(locator = "xpath=//p-calendar[@formcontrolname='commisioningDate']//input[@placeholder=\"MM/DD/YYYY\"]")
+    @FindBy(locator = "xpath=//p-datepicker[@formcontrolname='commisioningDate']//input[@placeholder=\"MM/DD/YYYY\"]")
     public CustomElement tbCommissioningDateFormat;
 
-    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"LoadSense\"]")
+    @FindBy(locator = "xpath=//li//span[text()='LoadSense']")
     public CustomElement ddlSelectLoadSense;
-    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"RipProtect\"]")
+    @FindBy(locator = "xpath=//li//span[text()=\"RipProtect\"]")
     public CustomElement ddlSelectRipProtect;
-    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"MultiProtect\"]")
+    @FindBy(locator = "xpath=//li//span[text()=\"MultiProtect\"]")
     public CustomElement ddlSelectMultiProtect;
-    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"CordProtect\"]")
+    @FindBy(locator = "xpath=//li//span[text()=\"CordProtect\"]")
     public CustomElement ddlSelectCordProtect;
-    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li//span[text()=\"Other\"]")
+    @FindBy(locator = "xpath=//li//span[text()=\"SurfaceProtect\"]")
+    public CustomElement ddlSurfaceProtect;
+    @FindBy(locator = "xpath=//li//span[text()=\"Other\"]")
     public CustomElement ddlSelectOther;
 
     @FindBy(locator = "xpath=//span[contains(@class,\"p-steps-title\") and text()=\" Add Device\"]")
@@ -380,12 +382,14 @@ public class MonitoringDevicePage extends BasePage {
     public CustomElement btnCancel;
     @FindBy(locator = "xpath=//span[text()='Next']")
     public CustomElement btNext;
-    @FindBy(locator= "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Running \"]")
+    @FindBy(locator= "xpath=//li[text()=\" Running \"]")
     public CustomElement statusOptionRunning;
-    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Not in Operation \"]")
+    @FindBy(locator = "xpath=//li[text()=\" Not in Operation \"]")
     public CustomElement statusOptionNotInOperation;
-    @FindBy(locator = "xpath=//ul[@role=\"listbox\"]//p-dropdownitem//li[text()=\" Prior to Commissioning \"]")
+    @FindBy(locator = "xpath=//li[text()=\" Prior to Commissioning \"]")
     public CustomElement statusOptionPriorToCommissioning;
+    @FindBy(locator = "xpath=//li[text()=\" Manufacturing \"]")
+    public CustomElement statusOptionManufacturing;
     @FindBy(locator = "xpath=//div[contains(@class,\"p-datepicker-group-container\")]")
     public CustomElement calendarPopup;
     @FindBy(locator = "xpath=//div//button[contains(@class,\"p-datepicker-month\")]\n")
@@ -410,7 +414,7 @@ public class MonitoringDevicePage extends BasePage {
     public CustomElement btCreateStyle;
     @FindBy(locator = "xpath=//div//span[contains(@class,\"title\")and contains(text(),\"Device Location\")]")
     public CustomElement deviceLocationHeader;
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator = "xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement crViewIcon;
 	@FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
 	public CustomElement buttonLoader;
@@ -647,9 +651,9 @@ public class MonitoringDevicePage extends BasePage {
     }
 
     public void verifyManualDateSelection(String lastServiceDateField, String inputDate) {
-        waitForElementVisible(driver.findElement(By.xpath("//p-calendar[@formcontrolname='" + lastServiceDateField + "']//input")), 10000, 500);
-        driver.findElement(By.xpath("//p-calendar[@formcontrolname='" + lastServiceDateField + "']//input")).click();
-        driver.findElement(By.xpath("//p-calendar[@formcontrolname='" + lastServiceDateField + "']//input")).sendKeys(inputDate);
+        waitForElementVisible(driver.findElement(By.xpath("//p-datepicker[@formcontrolname='" + lastServiceDateField + "']//input")), 10000, 500);
+        driver.findElement(By.xpath("//p-datepicker[@formcontrolname='" + lastServiceDateField + "']//input")).click();
+        driver.findElement(By.xpath("//p-datepicker[@formcontrolname='" + lastServiceDateField + "']//input")).sendKeys(inputDate);
         verifyManualCalenderDateSelection(inputDate);
     }
 
@@ -857,7 +861,7 @@ public class MonitoringDevicePage extends BasePage {
 		int noOfViewIcon = Integer.parseInt(MiscUtils.regexExtractor(paginationEntry.getText(), "(\\d+)(?=\\s+of)"));
 
 		for (int i = 1; i <= noOfViewIcon; i++) {
-			Validator.assertTrue(driver.findElement(By.xpath("(//button[@icon='ctp-icon-Arrow-Right'])[" + i + "]")).isDisplayed(),
+			Validator.assertTrue(driver.findElement(By.xpath("(//p-button[@icon='ctp-icon-Arrow-Right']/button)[" + i + "]")).isDisplayed(),
 					"Forward button at position " + i + " is not displayed",
 					"Forward button at position " + i + " is displayed");
 		}
@@ -1172,6 +1176,7 @@ public class MonitoringDevicePage extends BasePage {
 
     public void selectConveyor(String conveyorName) {
         waitForElementVisible(conveyorDDL, 10000, 500);
+        SyncUtil.waitFor(500);
         dropdownSelectSearch(conveyorDDL, tbDeviceTypedropdown, conveyorName);
     }
 
@@ -1271,7 +1276,7 @@ public class MonitoringDevicePage extends BasePage {
 
     public void verifyDeviceTypeDDL() {
         deviceTypeDropDown.jsClick("Device Type");
-        Validator.assertTrue(ddlSelectLoadSense.isVisible(10000, "LoadSense option") && ddlSelectCordProtect.isVisible(10000, "CordProtect option") && ddlSelectRipProtect.isVisible(10000, "RipProtect option") &&
+        Validator.assertTrue(ddlSelectLoadSense.isVisible(10000, "LoadSense option") && ddlSelectCordProtect.isVisible(10000, "CordProtect option") && ddlSelectRipProtect.isVisible(10000, "RipProtect option") && ddlSurfaceProtect.isVisible(10000, "SurfaceProtect option") &&
                 ddlSelectMultiProtect.isVisible(10000, "MultiProtect option") && ddlSelectOther.isVisible(10000, "Other option"), "All the options of device type are not visible", "All the options of device type are visible");
         deviceTypeDropDown.jsClick("Device Type");
         SyncUtil.waitFor(3000);
@@ -1284,10 +1289,10 @@ public class MonitoringDevicePage extends BasePage {
         verifyDeviceTypeDDL();
         dropdownSelectSearch(deviceTypeDropDown, tbDeviceTypedropdown, deviceType);
         clickAndVerifyStatusDropDown();
-        waitForElementVisible(driver.findElement(By.xpath("//ul[@role=\"listbox\"]//p-dropdownitem//li[contains(text(),'" + status + "')]")), 10000, 500);
+        waitForElementVisible(driver.findElement(By.xpath("//ul[@role=\"listbox\"]//p-selectitem//li[contains(text(),'" + status + "')]")), 10000, 500);
 //        statusOptionRunning.isVisible(10000,"Running");
 //        statusOptionRunning.click("Running");
-        driver.findElement(By.xpath("//ul[@role=\"listbox\"]//p-dropdownitem//li[contains(text(),'" + status + "')]")).click();
+        driver.findElement(By.xpath("//ul[@role=\"listbox\"]//p-selectitem//li[contains(text(),'" + status + "')]")).click();
     }
 
     public void verifyManualCalenderDateSelection(String inputDate) {

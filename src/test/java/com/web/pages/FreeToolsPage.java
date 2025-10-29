@@ -73,13 +73,13 @@ public class FreeToolsPage extends BasePage{
     @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Belt Reel Dimensions']")
     public CustomElement rollLengthTab;
 
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='PIW PN ST Conversion']")
+    @FindBy(locator = "xpath=//div/p-tab[text()='PIW PN ST Conversion ']")
     public CustomElement PIWConverterTab;
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Unit Converter']")
+    @FindBy(locator = "xpath=//div/p-tab[text()='Unit Converter ']")
     public CustomElement unitConverterTab;
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Belt Revolution']")
+    @FindBy(locator = "xpath=//div/p-tab[text()='Belt Revolution ']")
     public CustomElement beltRevolutionTab;
-    @FindBy(locator = "xpath=//ul[@role='tablist']//a/span[text()='Wrap Angle']")
+    @FindBy(locator = "xpath=//div/p-tab[text()='Wrap Angle ']")
     public CustomElement wrapAngleTab;
 
     @FindBy(locator = "xpath=//p-skeleton//div[@data-pc-name=\"skeleton\"]")
@@ -88,7 +88,7 @@ public class FreeToolsPage extends BasePage{
     @FindBy(locator = "xpath=//label[text()='Inclination of side idler rollers ']/parent::div//div[@role='button']")
     public CustomElement sideRollersTroughability;
 
-    public String ListItem = "//ul[@role='listbox']//li//span";
+    public String ListItem = "//ul[@role='listbox']//li//span[not(@aria-hidden)]";
 
     @FindBy(locator = "xpath=//label[contains(text(),'Min. value of ratio Deflection/Width')]/..//input")
     public CustomElement ratioTroughability;

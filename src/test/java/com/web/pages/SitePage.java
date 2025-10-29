@@ -57,7 +57,7 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement btCheckbox;
 
-    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]/..")
+    @FindBy(locator = "xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
 //    @FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
     public CustomElement btActions;
 
@@ -97,7 +97,7 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=//span[text()='Delete']")
     public CustomElement btDelete;
 
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator = "xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement btViewIcon;
 
     @FindBy(locator = "xpath=//span[text()='Update']")
@@ -125,9 +125,9 @@ public class SitePage  extends BasePage {
     public CustomElement subscribedPinIcon;
     @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement crCheckbox;
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator = "xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement crviewicon;
-    @FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator = "xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
     public CustomElement crActions;
 
     @FindBy(locator = "xpath=//span[text()='Edit']")
@@ -162,9 +162,9 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=//p-multiselect//li[@aria-label='Reset']")
     public CustomElement ddlReset;
 
-    @FindBy(locator = "xpath=(//p-calendar[@placeholder='MM/DD/YYYY']//input)[1]")
+    @FindBy(locator = "xpath=(//p-datepicker[@placeholder='MM/DD/YYYY']//input)[1]")
     public CustomElement tbFromDate;
-    @FindBy(locator = "xpath=(//p-calendar[@placeholder='MM/DD/YYYY']//input)[2]")
+    @FindBy(locator = "xpath=(//p-datepicker[@placeholder='MM/DD/YYYY']//input)[2]")
     public CustomElement tbToDate;
     @FindBy(locator = "xpath=//span[@class='p-button-icon pi pi-refresh']")
     public CustomElement btnRefresh;
@@ -189,7 +189,7 @@ public class SitePage  extends BasePage {
     @FindBy(locator = "xpath=//app-notification-item//div[text()=' Mark all as Read ']")
     public CustomElement markAllAsReadText;
 
-    @FindBy(locator = "xpath=//div//button//span[text()='Actions']/..//following-sibling::button//chevrondownicon")
+    @FindBy(locator = "xpath=//div//button//span[text()='Actions']/..//following-sibling::button//*[name()='svg']/..")
     public CustomElement btnNotificationAction;
 
     @FindBy(locator = "xpath=//p-tieredmenusub//li//a[.//span[contains(@class, 'pi-eye')] and .//span[text()=\"Mark all as Read\"]]")
@@ -220,7 +220,7 @@ public class SitePage  extends BasePage {
 
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
     public CustomElement btAddCorp;
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='companyType']/div/span")
     public CustomElement drCompanyDropdownLoader;
 
 
@@ -277,6 +277,8 @@ public class SitePage  extends BasePage {
 
     public void verifySiteDelete(String siteName) {
         searchSite(siteName);
+        SyncUtil.waitFor(3000);
+        waitForElementToDisplay(noList);
         Validator.assertTrue(noList.isVisible("No Site"), "Site was not deleted successfully", "Site Deleted Successfully");
     }
 

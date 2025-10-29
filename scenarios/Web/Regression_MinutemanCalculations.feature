@@ -12,7 +12,7 @@ Background:
      When  Login with '${UserName}' and '${Password}'
      And   Close warning popup
      And   User is at add minuteman conveyor page
-     When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+     When  User enters general info with '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
      And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
      And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
      And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
@@ -39,7 +39,7 @@ Background:
 
      And   Close warning popup
      And   User is at add minuteman conveyor page
-     When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+     When  User enters general info with '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
      And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
      And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
      And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
@@ -57,7 +57,7 @@ Background:
   Scenario: Verify minuteman calculation for legacy minuteman metric B flow
       And   Close warning popup
       And   User is at add minuteman conveyor page
-      When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+      When  User enters general info with '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
       And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
       And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
       And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
@@ -76,7 +76,7 @@ Background:
 
        And   Close warning popup
        And   User is at add minuteman conveyor page
-       When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+       When  User enters general info with '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
        And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
        And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
        And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
@@ -93,6 +93,8 @@ Background:
   @dataFile:resources/data/MinutemanPrePopulated.json
   Scenario: Verify minuteman Pre Populated values in the minuteman calculation page for metric
 
+      Given User is at Login page
+      When  Login with '${UserName}' and '${Password}'
       And   Close warning popup
       And  User is at add minuteman conveyor page
       And  Add calculation Name '${CalculationName}'

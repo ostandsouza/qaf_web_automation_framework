@@ -28,9 +28,9 @@ public class CordInspectPage extends BasePage {
 	public CustomElement addBeltScan;
 	@FindBy(locator = "xpath=//label[text()='Date Of Scan ']")
 	public CustomElement tbDateOfScan;
-	@FindBy(locator = "xpath=//p-dropdown[@formcontrolname=\"deviceType\"]")
+	@FindBy(locator = "xpath=//p-select[@formcontrolname=\"deviceType\"]")
 	public CustomElement deviceTypeDdl;
-	@FindBy(locator = "xpath=//p-dropdown[@formcontrolname=\"reasonForScan\"]")
+	@FindBy(locator = "xpath=//p-select[@formcontrolname=\"reasonForScan\"]")
 	public CustomElement reasonForScanDdl;
 	@FindBy(locator = "xpath=(//li//span[text()='Home'])[1]")
 	public CustomElement home;
@@ -44,9 +44,9 @@ public class CordInspectPage extends BasePage {
 	public CustomElement ddlConveyorName;
 	@FindBy(locator = "xpath=//label[text()='Notify CCM ']/parent::div//div[@role='button']")
 	public CustomElement ddlNotifyCCM;
-	@FindBy(locator = "xpath=//p-calendar//span//input")
+	@FindBy(locator = "xpath=//p-datepicker//span//input")
 	public CustomElement dateOfScan;
-	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+	@FindBy(locator = "xpath=//input[contains(@class,'p-select-filter p-component p-inputtext')]")
 	public CustomElement tbInput;
 	@FindBy(locator = "xpath=(//input[@type='file'])[1]")
 	public CustomElement crFileUpload;
@@ -105,7 +105,7 @@ public class CordInspectPage extends BasePage {
 	public CustomElement btnCancel;
 	@FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")
 	public CustomElement cbCheckbox;
-	@FindBy(locator = "xpath=(//button/chevrondownicon)[2]")
+	@FindBy(locator = "xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
 	public CustomElement ddlActions;
 	@FindBy(locator = "xpath=//span[text()='Delete']")
 	public CustomElement btnDelete;

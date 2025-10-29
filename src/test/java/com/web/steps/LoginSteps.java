@@ -2,6 +2,7 @@ package com.web.steps;
 
 import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
+import com.web.pages.ConveyorPage;
 import com.qmetry.qaf.automation.core.MessageTypes;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.util.Reporter;
@@ -12,6 +13,7 @@ public class LoginSteps {
 
     LoginPage loginPage = new LoginPage();
     DashboardPage dashboardPage = new DashboardPage();
+    ConveyorPage conveyorPage = new ConveyorPage();
 
     @QAFTestStep(description = "User is at Login page")
     public void verifyUserIsAtLoginPage() {
@@ -22,6 +24,13 @@ public class LoginSteps {
     public void loginWithAnd(String UserName, String Password) {
         loginPage.loginToApp(UserName, Password);
         dashboardPage.handleCookiePopup();
+    }
+
+    @QAFTestStep(description = "Login with {UserName} and {Password} and wait for pageload")
+    public void loginWithAndWait(String UserName, String Password) {
+        loginPage.loginToApp(UserName, Password);
+        dashboardPage.handleCookiePopup();
+        conveyorPage.goToConveyorListScreenAndWait();
     }
 
     @QAFTestStep(description="Verify Home page is displayed")

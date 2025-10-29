@@ -46,7 +46,7 @@ public class FileManagerPage extends BasePage {
     @FindBy(locator="xpath=//span[text()='Refresh']")
     public CustomElement refresh;
 
-    @FindBy(locator="xpath=(//homeicon)[2]/following-sibling::span")
+    @FindBy(locator="xpath=(//p-breadcrumb//li[@data-pc-section='home'])[2]")
     public CustomElement homeIcon;
 
     @FindBy(locator="xpath=//input[@placeholder='Search']")
@@ -115,7 +115,7 @@ public class FileManagerPage extends BasePage {
     @FindBy(locator="xpath=//span[text()='File Uploading']")
     public CustomElement btFileUploadingDialog;
 
-    @FindBy(locator="xpath=//span[text()='File Uploading']/following-sibling::div/button")
+    @FindBy(locator="xpath=//span[text()='File Uploading']/following-sibling::div//button")
     public CustomElement btFileUploadingCloseBtn;
 
     @FindBy(locator="xpath=//p-progressspinner/div")

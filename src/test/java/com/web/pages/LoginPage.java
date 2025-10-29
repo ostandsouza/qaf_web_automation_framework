@@ -23,17 +23,17 @@ public class LoginPage extends BasePage {
     @FindBy(locator = "xpath=//input[@id='email']")
     public CustomElement tbUserName;
 
-    @FindBy(locator = "css=#password > div > input")
+    @FindBy(locator = "xpath=//input[@type='password']")
     public CustomElement tbPassword;
 
     @FindBy(locator = "xpath=//span[text()='Login']")
     public CustomElement btnLogIn;
 
-	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"oldPassword\"]//div//input")
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"oldPassword\"]//input")
 	public CustomElement tbOldPassword;
-	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"password\"]//div//input")
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"password\"]//input")
 	public CustomElement tbNewPassword;
-	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"confirmPassword\"]//div//input")
+	@FindBy(locator = "xpath=//p-password[@formcontrolname=\"confirmPassword\"]//input")
 	public CustomElement tbConfirmPassword;
 	@FindBy(locator = "xpath=//span[text()='Save']")
 	public CustomElement btnSave;

@@ -20,19 +20,19 @@ public class SteelcordgeneratorPage extends BasePage {
 	@FindBy(locator = "xpath=//input[@name='designerName']")
 	public CustomElement tbdesignerName;
 
-	@FindBy(locator = "xpath= //p-dropdown[@ng-reflect-name='market']//div[2]")
+	@FindBy(locator = "xpath= //p-select[@ng-reflect-name='market']//div[2]")
 	public CustomElement drchoosetyourmarket;
 
 	@FindBy(locator = "xpath=//div[@ng-reflect-ng-class='p-dropdown-panel p-component']//input")
 	public CustomElement tbinput;
 	
-	@FindBy(locator = "xpath= //p-dropdown[@ng-reflect-name='productionLocation']//div[2]")
+	@FindBy(locator = "xpath= //p-select[@ng-reflect-name='productionLocation']//div[2]")
 	public CustomElement drproductionlocationofsplicekit;
 	
-	@FindBy(locator = "xpath= //p-dropdown[@ng-reflect-name='customer']//div[2]")
+	@FindBy(locator = "xpath= //p-select[@ng-reflect-name='customer']//div[2]")
 	public CustomElement drcustomername;
 	
-	@FindBy(locator = "xpath= //p-dropdown[@ng-reflect-name='conveyor']//div[2]")
+	@FindBy(locator = "xpath= //p-select[@ng-reflect-name='conveyor']//div[2]")
 	public CustomElement drconveyorname;
 	
 	@FindBy(locator = "xpath= //p-autocomplete[@ng-reflect-name='approver']//span//button")
@@ -40,22 +40,22 @@ public class SteelcordgeneratorPage extends BasePage {
 	
 	public String drapproverlist = "xpath= //ul[contains(@class,'p-autocomplete-items')]//li//div//span";
 	
-	@FindBy(locator = "xpath=  //p-dropdown[@ng-reflect-name='beltRating']//div[2]")
+	@FindBy(locator = "xpath=  //p-select[@ng-reflect-name='beltRating']//div[2]")
 	public CustomElement drBeltrating;
 
 	@FindBy(locator = "xpath=//input[@formcontrolname='beltWidth']")
 	public CustomElement tbBeltwidth;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='topCoverCompound']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='topCoverCompound']//div[2]")
 	public CustomElement drTopcovercompound;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='bottomCoverCompound']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='bottomCoverCompound']//div[2]")
 	public CustomElement drBottomcovercompound;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='topCoverThickness']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='topCoverThickness']//div[2]")
 	public CustomElement drTopcoverthickness;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='bottomCoverThickness']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='bottomCoverThickness']//div[2]")
 	public CustomElement drBottomcoverthickness;
 	
 	@FindBy(locator = "xpath=//input[@formcontrolname='overallThickness']")
@@ -70,7 +70,7 @@ public class SteelcordgeneratorPage extends BasePage {
 	@FindBy(locator = "xpath=//input[@formcontrolname='numberOfCord']")
 	public CustomElement tbNumberofcards;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='biasAngle']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='biasAngle']//div[2]")
 	public CustomElement drBiasangle;
 	
 	@FindBy(locator = "xpath=(//p-radiobutton[@ng-reflect-name='spliceCategory']//div[2])[1]")

@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding ="UTF-8"?> 
+<?xml version="1.0" encoding ="UTF-8"?>
 
 
 <suite name="QAF Demo" verbose="0">
 	<listeners>
-		<listener class-name="com.common.utils.TestListener" />
+<!--		<listener class-name="com.common.utils.TestListener" />-->
 		<listener class-name="com.common.utils.EmailableTestNGReport" />
 	</listeners>
 
 <!--	<test name="Regression High Priority testcases" enabled="true">&ndash;&gt;-->
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_HP_Distributor.feature" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_HP_MarketManager.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="true" />-->
 <!--		<parameter name="env.resources" value="resources/env_stg" />-->
 <!--		<groups>-->
@@ -72,143 +72,151 @@
 <!--		</classes>-->
 <!--	</test>-->
 
-	<test name="Stats" enabled="true">
-		<parameter name="step.provider.pkg" value="com.web.steps" />
-			<parameter name="scenario.file.loc" value="scenarios/Web/Regression_InspectionNew.feature" />
-		<parameter name="step.provider.sharedinstance" value="true" />
-		<parameter name="env.resources" value="resources/env_stg" />
-		<groups>
-			<run>
-				<include name="Regression1" />
-				<include name="Regression2" />
-				<include name="Regression3" />
-				<include name="Regression4" />
-				<include name="Regression5" />
-				<include name="Regression6" />
-				<include name="Regression7" />
-				<include name="Regression8" />
-				<include name="Regression9" />
-				<include name="Regression10" />
-				<include name="Regression11" />
-				<include name="Regression12" />
-<!--				<include name="Regression13" />-->
-<!--				<include name="Regression14" />-->
-<!--				<include name="Regression15" />-->
-<!--				<include name="Regression16" />-->
-<!--				<include name="Regression17" />-->
-<!--				<include name="Regression18" />-->
-<!--				<include name="Regression19" />-->
-<!--				<include name="Regression20" />-->
-<!--				<include name="Regression21" />-->
-<!--				<include name="Regression22" />-->
-<!--				<include name="Regression23" />-->
-<!--				<include name="Regression24" />-->
-<!--				<include name="Regression25" />-->
-<!--				<include name="Regression26" />-->
-<!--				<include name="Regression27" />-->
-<!--				<include name="Regression28" />-->
-<!--				<include name="Regression29" />-->
-<!--				<include name="Regression30" />-->
-<!--				<include name="Regression31" />-->
-<!--				<include name="Regression32" />-->
-<!--				<include name="Regression33" />-->
-<!--				<include name="Regression34" />-->
-<!--				<include name="Regression35" />-->
-<!--				<include name="Regression36" />-->
-<!--				<include name="Regression37" />-->
-<!--				<include name="Regression38" />-->
-<!--				<include name="Regression39" />-->
-<!--				<include name="Regression40" />-->
-<!--				<include name="Regression41" />-->
-<!--				<include name="Regression42" />-->
-<!--				<include name="Regression43" />-->
-<!--				<include name="Regression44" />-->
-<!--				<include name="Regression45" />-->
-<!--				<include name="Regression46" />-->
-<!--				<include name="Regression47" />-->
-<!--				<include name="Regression48" />-->
-<!--				<include name="Regression49" />-->
-<!--				<include name="Regression50" />-->
-<!--				<include name="Regression51" />-->
-<!--				<include name="Regression52" />-->
-<!--				<include name="Regression53" />-->
-<!--				<include name="Regression54" />-->
-<!--				<include name="Regression55" />-->
-<!--				<include name="Regression56" />-->
-<!--				<include name="Regression57" />-->
-<!--				<include name="Regression58" />-->
-<!--				<include name="Regression59" />-->
-<!--				<include name="Regression60" />-->
-<!--				<include name="Regression61" />-->
-<!--				<include name="Regression62" />-->
-<!--				<include name="Regression63" />-->
-<!--				<include name="Regression64" />-->
-<!--				<include name="Regression65" />-->
-<!--				<include name="Regression66" />-->
-<!--				<include name="Regression67" />-->
-<!--				<include name="Regression68" />-->
-<!--				<include name="Regression69" />-->
-<!--				<include name="Regression70" />-->
-<!--				<include name="Regression71" />-->
-<!--				<include name="Regression72" />-->
-<!--				<include name="Regression73" />-->
-<!--				<include name="Regression74" />-->
-<!--				<include name="Regression75" />-->
-<!--				<include name="Regression76" />-->
-<!--				<include name="Regression77" />-->
-<!--				<include name="Regression78" />-->
-<!--				<include name="Regression79" />-->
-<!--				<include name="Regression80" />-->
-<!--				<include name="Regression81" />-->
-<!--				<include name="Regression82" />-->
-<!--				<include name="Regression83" />-->
-<!--				<include name="Regression84" />-->
-<!--				<include name="Regression85" />-->
-<!--				<include name="Regression86" />-->
-<!--				<include name="Regression87" />-->
-<!--				<include name="Regression88" />-->
-<!--				<include name="Regression89" />-->
-<!--				<include name="Regression90" />-->
-<!--				<include name="Regression91" />-->
-<!--				<include name="Regression92" />-->
-<!--				<include name="Regression93" />-->
-<!--				<include name="Regression94" />-->
-<!--				<include name="Regression95" />-->
-<!--				<include name="Regression96" />-->
-<!--				<include name="Regression97" />-->
-<!--				<include name="Regression98" />-->
-<!--				<include name="Regression99" />-->
-<!--				<include name="Regression100" />-->
-<!--				<include name="Regression101" />-->
-<!--				<include name="Regression102" />-->
-<!--				<include name="Regression103" />-->
-<!--				<include name="Regression104" />-->
-<!--				<include name="Regression105" />-->
-<!--				<include name="Regression106" />-->
-<!--				<include name="Regression107" />-->
-<!--				<include name="Regression108" />-->
-<!--				<include name="Regression109" />-->
-<!--				<include name="Regression110" />-->
-<!--				<include name="Regression111" />-->
-<!--				<include name="Regression112" />-->
-<!--				<include name="Regression113" />-->
-<!--				<include name="Regression114" />-->
-<!--				<include name="Regression115" />-->
-<!--				<include name="Regression116" />-->
-			</run>
-		</groups>
-		<classes>
-			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />
-		</classes>
-	</test>
-<!--	<test name="Bucket Elevator" enabled="true">-->
+<!--	<test name="Stats" enabled="true">-->
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Permission.feature" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_InspectionNew.feature" />-->
 <!--		<parameter name="step.provider.sharedinstance" value="false" />-->
 <!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
-<!--				<include name="Regression13" />-->
+<!--&lt;!&ndash;				<include name="Regression1" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression2" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression3" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression4" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression6" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression7" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression8" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression9" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression10" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression11" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression12" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression13" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression14" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression15" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression16" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression17" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression18" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression19" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression20" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression21" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression22" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression23" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression24" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression25" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression26" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression27.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression28.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression29.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression30.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression31.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression32.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression33.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression34.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression35.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression36.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression37.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression38.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression39.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression40.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression41.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression42.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression43.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression44.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression45.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression46.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression47.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression48.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression49.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression50.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression51" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression52.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression53" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression54" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression55" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression56" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression57" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression58" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression59" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression60" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression61" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression62" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression63" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression64" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression65" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression66" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression67" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression68" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression69" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression70" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression71" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression72" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression73" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression74" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression75" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression76" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression77" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression78" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression79" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression80" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression81" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression82" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression83" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression84" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression85" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression86" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression87" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression88" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression89" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression90" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression91" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression92" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression93" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression94" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression95" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression96" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression97" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression98" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression99" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression100" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression101" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression102" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression103" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression104" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression105" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression106" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression107" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression108" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression109" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression110" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression111" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression112" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression113" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression114" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression115" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression116" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression117" />&ndash;&gt;-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
+<!--	<test name="Bucket Elevator" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_BucketElevatorCalculations.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="false" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression1" />-->
+<!--				<include name="Regression2" />-->
+<!--				<include name="Regression3" />-->
+<!--				<include name="Regression4" />-->
+<!--				<include name="Regression5" />-->
+<!--				<include name="Regression6" />-->
+<!--				<include name="Regression7" />-->
+<!--				<include name="Regression8" />-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
@@ -420,42 +428,42 @@
 <!--		<parameter name="step.provider.pkg" value="com.web.steps"/>-->
 <!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Permission.feature"/>-->
 <!--		<parameter name="step.provider.sharedinstance" value="false"/>-->
-<!--		<parameter name="env.resources" value="resources/env_stg"/>-->
+<!--		<parameter name="env.resources" value="resources/env_dev"/>-->
 <!--		<groups>-->
 <!--			<run>-->
-<!--&lt;!&ndash;				<include name="Regression1"/>&ndash;&gt;-->
+<!--				<include name="Regression1"/>-->
 <!--				<include name="Regression2"/>-->
-<!--&lt;!&ndash;				<include name="Regression3"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression4"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression5"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression6"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression7"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression8"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression9"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression10"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression11"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression12"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression13"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression14"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression15"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression16"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression17"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression18"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression19"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression20"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression21"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression22"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression23"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression24"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression25"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression26"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression27"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression28"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression29"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression30"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression31"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression32"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression33"/>&ndash;&gt;-->
+<!--				<include name="Regression3"/>-->
+<!--				<include name="Regression4"/>-->
+<!--				<include name="Regression5"/>-->
+<!--				<include name="Regression6"/>-->
+<!--				<include name="Regression7"/>-->
+<!--				<include name="Regression8"/>-->
+<!--				<include name="Regression9"/>-->
+<!--				<include name="Regression10"/>-->
+<!--				<include name="Regression11"/>-->
+<!--				<include name="Regression12"/>-->
+<!--				<include name="Regression13"/>-->
+<!--				<include name="Regression14"/>-->
+<!--				<include name="Regression15"/>-->
+<!--				<include name="Regression16"/>-->
+<!--				<include name="Regression17"/>-->
+<!--				<include name="Regression18"/>-->
+<!--				<include name="Regression19"/>-->
+<!--				<include name="Regression20"/>-->
+<!--				<include name="Regression21"/>-->
+<!--				<include name="Regression22"/>-->
+<!--				<include name="Regression23"/>-->
+<!--				<include name="Regression24"/>-->
+<!--				<include name="Regression25"/>-->
+<!--				<include name="Regression26"/>-->
+<!--				<include name="Regression27"/>-->
+<!--				<include name="Regression28"/>-->
+<!--				<include name="Regression29"/>-->
+<!--				<include name="Regression30"/>-->
+<!--				<include name="Regression31"/>-->
+<!--				<include name="Regression32"/>-->
+<!--				<include name="Regression33"/>-->
 
 
 <!--			</run>-->
@@ -491,31 +499,75 @@
 <!--		</classes>-->
 <!--	</test>-->
 
-<!--	<test name="IOT testcases" enabled="true">-->
-<!--		<parameter name="step.provider.pkg" value="com.web.steps"/>-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_IotDashboard.feature"/>-->
-<!--		<parameter name="step.provider.sharedinstance" value="false"/>-->
-<!--		<parameter name="env.resources" value="resources/env_stg"/>-->
+	<test name="IOT testcases" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps"/>
+		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_IotDashboard.feature"/>
+		<parameter name="step.provider.sharedinstance" value="false"/>
+		<parameter name="env.resources" value="resources/env_dev"/>
+		<groups>
+			<run>
+				<include name="Regression1"/>
+				<include name="Regression2"/>
+				<include name="Regression3"/>
+				<include name="Regression4"/>
+				<include name="Regression5"/>
+				<include name="Regression6"/>
+				<include name="Regression7"/>
+				<include name="Regression8"/>
+				<include name="Regression9"/>
+				<include name="Regression10"/>
+				<include name="Regression11"/>
+<!--				<include name="Regression12"/>-->
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+		</classes>
+	</test>
+
+<!--	<test name="Minuteman conveyor" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_MinutemanCalculations.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="true" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
 <!--		<groups>-->
 <!--			<run>-->
-<!--				<include name="Regression1"/>-->
-<!--				<include name="Regression2"/>-->
-<!--				<include name="Regression3"/>-->
-<!--				<include name="Regression4"/>-->
-<!--				<include name="Regression5"/>-->
-<!--				<include name="Regression6"/>-->
-<!--				<include name="Regression7"/>-->
-<!--				<include name="Regression8"/>-->
-<!--				<include name="Regression9"/>-->
-<!--				<include name="Regression10"/>-->
-<!--				<include name="Regression11"/>-->
-<!--&lt;!&ndash;				<include name="Regression12"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression1" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression2" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression3" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression4" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression5" />&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression6" />&ndash;&gt;-->
 <!--			</run>-->
 <!--		</groups>-->
 <!--		<classes>-->
-<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
 <!--		</classes>-->
 <!--	</test>-->
 
-
+<!--	<test name="Ultrasonics" enabled="true">-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Ultrasonics.feature" />-->
+<!--		<parameter name="step.provider.sharedinstance" value="true" />-->
+<!--		<parameter name="env.resources" value="resources/env_dev" />-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="Regression1" />-->
+<!--				<include name="Regression2" />-->
+<!--				<include name="Regression3" />-->
+<!--				<include name="Regression4" />-->
+<!--				<include name="Regression5" />-->
+<!--				<include name="Regression6" />-->
+<!--				<include name="Regression7" />-->
+<!--				<include name="Regression8" />-->
+<!--				<include name="Regression9" />-->
+<!--				<include name="Regression10" />-->
+<!--				<include name="Regression11" />-->
+<!--				<include name="Regression12" />-->
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2" />-->
+<!--		</classes>-->
+<!--	</test>-->
 </suite>

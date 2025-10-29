@@ -51,7 +51,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//input[@name='email']")
 	public CustomElement tbEmail;
 
-	@FindBy(locator = "xpath=//div[contains(@class,'conti-dropdown')]")
+	@FindBy(locator = "xpath=//p-select[@formcontrolname='profileType']")
 	public CustomElement ddlSelectprofiletype;
 
 	@FindBy(locator = "xpath=//li[@aria-label='USERS.USER_INFO.PROFILE_TYPES_MASTER']")
@@ -72,10 +72,10 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.PROFILE_TYPES_CUSTOMER_USER']")
 	public CustomElement rdbSelectprofiletypeCustomerUser;
 	
-	@FindBy(locator = "xpath=//p-password[@formcontrolname='password']//div//input")
+	@FindBy(locator = "xpath=//p-password[@formcontrolname='password']//input")
 	public CustomElement tbuserPassword;
 
-	@FindBy(locator = "xpath=//p-password[@formcontrolname='confirmPassword']//div//input")
+	@FindBy(locator = "xpath=//p-password[@formcontrolname='confirmPassword']//input")
 	public CustomElement tbRetypePassword;
 
 	@FindBy(locator = "xpath=//span[text()='Generate password']")
@@ -110,20 +110,51 @@ public class UsersPage extends BasePage{
 
 	@FindBy(locator = "xpath=//i[contains(@class,'pi-spinner')]")
 	public CustomElement cbSpinner;
-	@FindBy(locator = "xpath=//th[contains(text(),'Add')]/p-tristatecheckbox//div[@role='checkbox']")
+
+	@FindBy(locator = "xpath=//th[contains(text(),'Add')]/p-checkbox/input")
 	public CustomElement cbAllcheckboxAdd;
 
-	@FindBy(locator = "//th[contains(text(),'Edit')]/p-tristatecheckbox//div[@role='checkbox']")
+	@FindBy(locator = "xpath=//th[contains(text(),'Add')]/p-checkbox")
+	public CustomElement cbAllcheckboxAddState;
+
+	@FindBy(locator = "//th[contains(text(),'Edit')]/p-checkbox/input")
 	public CustomElement cbAllcheckboxEdit;
 
-	@FindBy(locator = "xpath=//th[contains(text(),'Delete')]/p-tristatecheckbox//div[@role='checkbox']")
+	@FindBy(locator = "//th[contains(text(),'Edit')]/p-checkbox")
+	public CustomElement cbAllcheckboxEditState;
+
+	@FindBy(locator = "xpath=//th[contains(text(),'Delete')]/p-checkbox/input")
 	public CustomElement cbAllcheckboxDelete;
 
-	@FindBy(locator = "xpath=//th[contains(text(),'View')]/p-tristatecheckbox//div[@role='checkbox']")
+	@FindBy(locator = "xpath=//th[contains(text(),'Delete')]/p-checkbox")
+	public CustomElement cbAllcheckboxDeleteState;
+
+	@FindBy(locator = "xpath=//th[contains(text(),'View')]/p-checkbox/input")
 	public CustomElement cbAllcheckboxView;
 
-	@FindBy(locator = "xpath=//th[contains(text(),'Download')]/p-tristatecheckbox//div[@role='checkbox']")
+	@FindBy(locator = "xpath=//th[contains(text(),'View')]/p-checkbox")
+	public CustomElement cbAllcheckboxViewState;
+
+	@FindBy(locator = "xpath=//th[contains(text(),'Download')]/p-checkbox/input")
 	public CustomElement cbAllcheckboxDownload;
+
+	@FindBy(locator = "xpath=//th[contains(text(),'Download')]/p-checkbox")
+	public CustomElement cbAllcheckboxDownloadState;
+
+	@FindBy(locator = "xpath=//th[contains(text(),'Add')]/p-checkbox")
+	public CustomElement cbAllcheckboxAddStatus;
+
+	@FindBy(locator = "//th[contains(text(),'Edit')]/p-checkbox")
+	public CustomElement cbAllcheckboxEditStatus;
+
+	@FindBy(locator = "xpath=//th[contains(text(),'Delete')]/p-checkbox")
+	public CustomElement cbAllcheckboxDeleteStatus;
+
+	@FindBy(locator = "xpath=//th[contains(text(),'View')]/p-checkbox")
+	public CustomElement cbAllcheckboxViewStatus;
+
+	@FindBy(locator = "xpath=//th[contains(text(),'Download')]/p-checkbox")
+	public CustomElement cbAllcheckboxDownloadStatus;
 	
 	@FindBy(locator = "xpath=//span[text()='Create']")
 	public CustomElement btCreate;
@@ -134,13 +165,13 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//h6[text()='Logout']")
 	public CustomElement btlogout;
 
-	@FindBy(locator = "xpath=//p-dropdown[@datakey='companyId']//div[@aria-label='dropdown trigger']")
+	@FindBy(locator = "xpath=//p-select[@datakey='companyId']//div[@aria-label='dropdown trigger']")
 	public CustomElement ddlCorportaedropdown;
 	
-	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+	@FindBy(locator = "xpath=//input[contains(@class,'p-select-filter p-component p-inputtext')]")
 	public CustomElement tbCorporateSearch;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@formcontrolname='corporateRole']//div[@aria-label='dropdown trigger']")	
+	@FindBy(locator = "xpath=//p-select[@formcontrolname='corporateRole']//div[@aria-label='dropdown trigger']")
 	public CustomElement ddlCorporateroledropdown;
 	
 	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.CORPORATE_ROLE_MANAGER']")
@@ -149,7 +180,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//li[@aria-label='USERS.USER_INFO.CORPORATE_ROLE_SERVICE_ENGINEER']")
 	public CustomElement rdbEngineer;
 	
-	@FindBy(locator="xpath=//p-multiselect[@formcontrolname='subscriptionType']//chevrondownicon")
+	@FindBy(locator="xpath=//p-multiselect[@formcontrolname='subscriptionType']//*[name()='svg']/..")
 //	@FindBy(locator="xpath=//p-multiselect//span[contains(@class,'pi-chevron-down')]")
 	public CustomElement ddlSubscriptionType;
 
@@ -201,7 +232,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=(//td[8]//p-chip/div)[1]")
 	public CustomElement btTerritory;
 
-	@FindBy(locator="xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+	@FindBy(locator="xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
 	public CustomElement btviewicon;
 
 	@FindBy(locator="xpath=//span[text()='Edit']")
@@ -210,7 +241,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator="xpath=//input[@placeholder='Search']")
 	public CustomElement btSearchinput;
 
-	@FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+	@FindBy(locator="xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
 //	@FindBy(locator="xpath=(//button/span[contains(@class,'pi-chevron-down')])[2]")
 	public CustomElement btActions;
 
@@ -255,7 +286,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//label[contains(text(),'Corporate')]/..//div[@role='button']")
 	public CustomElement corporateDropdown;
 
-	@FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+	@FindBy(locator= "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
 	public CustomElement tbSearchDropdown;
 
 	@FindBy(locator = "xpath=//div[text()=' Master ']")
@@ -438,7 +469,7 @@ public class UsersPage extends BasePage{
 	@FindBy(locator = "xpath=//div[text()=' Personal information ']")
 	public CustomElement txtPersonalInfo;
 
-	@FindBy(locator="xpath=(//button[@type='button']//chevrondownicon)[2]")
+	@FindBy(locator="xpath=(//button[@type='button']//*[name()='svg']/..)[2]")
 	public CustomElement ddlUserActions;
 
 
@@ -693,15 +724,15 @@ public class UsersPage extends BasePage{
         waitForElementToInvisible(cbSpinner, 20000);
         driver.findElement(By.xpath("//span[contains(text(),'" + mainModule + "')]/..//button")).click();
         if (add.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[1]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox/input)[1]")).click();
         if (edit.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[2]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox/input)[2]")).click();
         if (delete.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[3]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox/input)[3]")).click();
         if (view.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[4]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox/input)[4]")).click();
         if (download.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox)[5]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../../../tr/td//span[contains(text(),'" + subModule + "')]/../../following-sibling::td/p-checkbox/input)[5]")).click();
     }
 
     /**
@@ -724,15 +755,15 @@ public class UsersPage extends BasePage{
             waitForElementToInvisible(cbSpinner, 20000);
         }
         if (add.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[1]")).click();
-        if (edit.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[2]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'\" + mainModule + \"')]/../../following-sibling::td/p-checkbox/input)[1]")).click();
+		if (edit.equalsIgnoreCase("true"))
+			driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-checkbox/input)[2]")).click();
         if (delete.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[3]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-checkbox/input)[3]")).click();
         if (view.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[4]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-checkbox/input)[4]")).click();
         if (download.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-tristatecheckbox)[5]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-checkbox/input)[5]")).click();
     }
 
     public void setTerritory(String region) {
@@ -956,25 +987,25 @@ public class UsersPage extends BasePage{
 	public void verifyPermission(String add, String edit, String delete, String view, String download) {
 		waitForPageLoad(10000);
 		if(add.equalsIgnoreCase("TRUE"))
-			Validator.assertTrue(cbAllcheckboxAdd.getAttribute("aria-checked").equalsIgnoreCase("true"),"ADD permission for this user was supposed to checked","ADD permission  for this user is checked as expected");
+			Validator.assertTrue(cbAllcheckboxAddStatus.getAttribute("data-p-checked").equalsIgnoreCase("true"),"ADD permission for this user was supposed to checked","ADD permission  for this user is checked as expected");
 		else
-			Validator.assertTrue(cbAllcheckboxAdd.getAttribute("aria-checked").equalsIgnoreCase("false"),"ADD permission for this user was supposed to unchecked","ADD permission  for this user is unchecked as expected");
+			Validator.assertTrue(cbAllcheckboxAddStatus.getAttribute("data-p-checked").equalsIgnoreCase("false"),"ADD permission for this user was supposed to unchecked","ADD permission  for this user is unchecked as expected");
 		if(edit.equalsIgnoreCase("TRUE"))
-			Validator.assertTrue(cbAllcheckboxEdit.getAttribute("aria-checked").equalsIgnoreCase("true"),"EDIT permission for this user was supposed to checked","EDIT permission for this user is checked as expected");
+			Validator.assertTrue(cbAllcheckboxEditStatus.getAttribute("data-p-checked").equalsIgnoreCase("true"),"EDIT permission for this user was supposed to checked","EDIT permission for this user is checked as expected");
 		else
-			Validator.assertTrue(cbAllcheckboxEdit.getAttribute("aria-checked").equalsIgnoreCase("false"),"EDIT permission for this user was supposed to unchecked","EDIT permission for this user is unchecked as expected");
+			Validator.assertTrue(cbAllcheckboxEditStatus.getAttribute("data-p-checked").equalsIgnoreCase("false"),"EDIT permission for this user was supposed to unchecked","EDIT permission for this user is unchecked as expected");
 		if(delete.equalsIgnoreCase("TRUE"))
-			Validator.assertTrue(cbAllcheckboxDelete.getAttribute("aria-checked").equalsIgnoreCase("true"),"DELETE permission for this user was supposed to checked","DELETE permission for this user is checked as expected");
+			Validator.assertTrue(cbAllcheckboxDeleteStatus.getAttribute("data-p-checked").equalsIgnoreCase("true"),"DELETE permission for this user was supposed to checked","DELETE permission for this user is checked as expected");
 		else
-			Validator.assertTrue(cbAllcheckboxDelete.getAttribute("aria-checked").equalsIgnoreCase("false"),"DELETE permission for this user was supposed to unchecked","DELETE permission for this user is unchecked as expected");
+			Validator.assertTrue(cbAllcheckboxDeleteStatus.getAttribute("data-p-checked").equalsIgnoreCase("false"),"DELETE permission for this user was supposed to unchecked","DELETE permission for this user is unchecked as expected");
 		if(view.equalsIgnoreCase("TRUE"))
-			Validator.assertTrue(cbAllcheckboxView.getAttribute("aria-checked").equalsIgnoreCase("true"),"VIEW permission for this user was supposed to checked","VIEW permission for this user is checked as expected");
+			Validator.assertTrue(cbAllcheckboxViewStatus.getAttribute("data-p-checked").equalsIgnoreCase("true"),"VIEW permission for this user was supposed to checked","VIEW permission for this user is checked as expected");
 		else
-			Validator.assertTrue(cbAllcheckboxView.getAttribute("aria-checked").equalsIgnoreCase("false"),"VIEW permission for this user was supposed to unchecked","VIEW permission for this user is unchecked as expected");
+			Validator.assertTrue(cbAllcheckboxViewStatus.getAttribute("data-p-checked").equalsIgnoreCase("false"),"VIEW permission for this user was supposed to unchecked","VIEW permission for this user is unchecked as expected");
 		if(download.equalsIgnoreCase("TRUE"))
-			Validator.assertTrue(cbAllcheckboxDownload.getAttribute("aria-checked").equalsIgnoreCase("true"),"DOWNLOAD permission for this user was supposed to checked","DOWNLOAD permission for this user is checked as expected");
+			Validator.assertTrue(cbAllcheckboxDownloadStatus.getAttribute("data-p-checked").equalsIgnoreCase("true"),"DOWNLOAD permission for this user was supposed to checked","DOWNLOAD permission for this user is checked as expected");
 		else
-			Validator.assertTrue(cbAllcheckboxDownload.getAttribute("aria-checked").equalsIgnoreCase("false"),"DOWNLOAD permission for this user was supposed to unchecked","DOWNLOAD permission for this user is unchecked as expected");
+			Validator.assertTrue(cbAllcheckboxDownloadStatus.getAttribute("data-p-checked").equalsIgnoreCase("false"),"DOWNLOAD permission for this user was supposed to unchecked","DOWNLOAD permission for this user is unchecked as expected");
 	}
 
 	public void deleteUser(String user) {
@@ -1250,15 +1281,15 @@ public class UsersPage extends BasePage{
 
 	public void editPermission(String add, String edit, String delete, String view, String download) {
 		waitForElementToBeClickable(cbAllcheckboxAdd);
-		if(!(cbAllcheckboxAdd.getAttribute("aria-checked").equals(add)))
+		if(!(cbAllcheckboxAddStatus.getAttribute("data-p-checked").equals(add)))
 			cbAllcheckboxAdd.click();
-		if(!(cbAllcheckboxEdit.getAttribute("aria-checked").equals(edit)))
+		if(!(cbAllcheckboxEditStatus.getAttribute("data-p-checked").equals(edit)))
 			cbAllcheckboxEdit.click();
-		if(!(cbAllcheckboxDelete.getAttribute("aria-checked").equals(delete)))
+		if(!(cbAllcheckboxDeleteStatus.getAttribute("data-p-checked").equals(delete)))
 			cbAllcheckboxDelete.click();
-		if(!(cbAllcheckboxView.getAttribute("aria-checked").equals(view)))
+		if(!(cbAllcheckboxViewStatus.getAttribute("data-p-checked").equals(view)))
 			cbAllcheckboxView.click();
-		if(!(cbAllcheckboxDownload.getAttribute("aria-checked").equals(download)))
+		if(!(cbAllcheckboxDownloadStatus.getAttribute("data-p-checked").equals(download)))
 			cbAllcheckboxDownload.click();
 	}
 
@@ -1467,15 +1498,20 @@ public class UsersPage extends BasePage{
 	public void restPermission(){
 		SyncUtil.waitFor(1000);
 		waitForElementToInvisible(cbSpinner,20000);
-		if(cbAllcheckboxAdd.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+		cbAllcheckboxAdd.click();
+		cbAllcheckboxEdit.click();
+		cbAllcheckboxDelete.click();
+		cbAllcheckboxView.click();
+		cbAllcheckboxDownload.click();
+		if(cbAllcheckboxAddState.getAttribute("class").contains("p-checkbox-checked p-highlight"))
 			cbAllcheckboxAdd.click();
-		if(cbAllcheckboxEdit.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+		if(cbAllcheckboxEditState.getAttribute("class").contains("p-checkbox-checked p-highlight"))
 			cbAllcheckboxEdit.click();
-		if(cbAllcheckboxDelete.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+		if(cbAllcheckboxDeleteState.getAttribute("class").contains("p-checkbox-checked p-highlight"))
 			cbAllcheckboxDelete.click();
-		if(cbAllcheckboxView.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+		if(cbAllcheckboxViewState.getAttribute("class").contains("p-checkbox-checked p-highlight"))
 			cbAllcheckboxView.click();
-		if(cbAllcheckboxDownload.getAttribute("class").equalsIgnoreCase("p-checkbox-box p-highlight"))
+		if(cbAllcheckboxDownloadState.getAttribute("class").contains("p-checkbox-checked p-highlight"))
 			cbAllcheckboxDownload.click();
 
 	}

@@ -1,16 +1,22 @@
+#@dataProvider:CSV_DataProvider
+#@dataProviderClass:com.common.utils.CSVDataProvider
+
 Feature: Regression of P1 Inspection module
 
 Background:
 Launch the application through '/'
 
 @Regression1 @customer
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
+#@dataFile:resources/data/TestData.xls
+#@sheetName:Regression
+#@key:Inspection_CorpTemplateDefault
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
 @key:Inspection_CorpTemplateDefault
 Scenario: zzzVerify inspection default template functionality for customer corporate
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
     And   Navigation of corporate list screen
     And   Navigate to add corporate from list screen
     And   Navigation of corporate list screen
@@ -21,8 +27,11 @@ Scenario: zzzVerify inspection default template functionality for customer corpo
     And   Verify whether inspection template dropdown '${InsTemplate}' is disabled
 
 @Regression2 @customer
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
+#@dataFile:resources/data/TestData.xls
+#@sheetName:Regression
+#@key:Inspection_CorpTemplateVMC
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
 @key:Inspection_CorpTemplateVMC
 Scenario: zyVerify inspection VMC template functionality for customer corporate
 
@@ -34,8 +43,11 @@ Scenario: zyVerify inspection VMC template functionality for customer corporate
     And   Verify whether inspection template dropdown '${InsTemplate}' is disabled
 
 @Regression3 @card
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
+#@dataFile:resources/data/TestData.xls
+#@sheetName:Regression
+#@key:Inspection_ListNav
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
 @key:Inspection_ListNav
 Scenario: zxVerify inspection list page navigation
 
@@ -52,8 +64,11 @@ Scenario: zxVerify inspection list page navigation
     Then  Navigate to inspection list from inspection card at site/shop level '${ConveyorName}'
 
 @Regression4 @card
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
+#@dataFile:resources/data/TestData.xls
+#@sheetName:Regression
+#@key:Inspection_CorpTemplateDefault
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
 @key:Inspection_CorpTemplateDefault
 Scenario: Verify inspection card
 
@@ -61,8 +76,10 @@ Scenario: Verify inspection card
     Then  Verify tile count for total critical poor fault good and to be completed
 
 @Regression5 @card
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
+#@dataFile:resources/data/TestData.xls
+#@sheetName:Regression
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
 @key:Inspection_CardSingleInspection
 Scenario: zvVerify inspection card count functionality for add inspection at home level for single inspection
 
@@ -91,8 +108,10 @@ Scenario: zvVerify inspection card count functionality for add inspection at hom
     And   Verify the incremental tile count changes for '${ChangeTotal}','${ChangeTobeComplated}','${NoChange}','${NoChange}','${NoChange}','${ChangeCritical}'
 
 @Regression6 @card
-@dataFile:resources/data/TestData.xls
-@sheetName:Regression
+#@dataFile:resources/data/TestData.xls
+#@sheetName:Regression
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
 @key:Inspection_CardMultiInspection
 Scenario: zuVerify inspection card count functionality for add inspection at home level for multi inspection
 
@@ -345,8 +364,9 @@ Scenario: zdVerify the download functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_AddSingleInspection
-Scenario: zcVerify single conveyor inspection functionality
+Scenario: zzcVerify single conveyor inspection functionality
 
+    When  Navigate to inspection list screen
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for default template
     And   Verify the inspection name functionality for site '${CustSiteName}'
@@ -370,7 +390,7 @@ Scenario: zcVerify single conveyor inspection functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_AddMultiInspection
-Scenario: zbVerify multi conveyor inspection functionality
+Scenario: zzbVerify multi conveyor inspection functionality
 
     When  Navigate to inspection list screen
     When  Extract the inspection card count
@@ -398,8 +418,10 @@ Scenario: zbVerify multi conveyor inspection functionality
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EditInspectionDefault
-Scenario: zaVerify inspection item edit and delete functionality on edit mode
+Scenario: zzaVerify inspection item edit and delete functionality on edit mode
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     And   Verify the site dropdown is disabled on edit mode
@@ -414,7 +436,7 @@ Scenario: zaVerify inspection item edit and delete functionality on edit mode
     And   Verify the column conveyor functionality from list screen for column '${ColumnNumberConveyor}' and site '${EditInspectionName}' '${Count}'
     And   Verify name filter functionality with '${EditInspectionName}' and '${ColumnNumber}'
 
-@Regression27
+@Regression27.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteInspectionDefault
@@ -426,7 +448,7 @@ Scenario: yzVerify uinspection item delete functionality
     When  Delete default inspection Item for '${ConveyorName}' and '${AssetName}'
     Then  Verify the sorting order for inspection items
 
-@Regression28
+@Regression28.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemClearFilter
@@ -439,7 +461,7 @@ Scenario: yyVerify uinspection item clear filter functionality
     When  Clear filter for inspection items
     Then  Verify the clear filter functionality '${Asset}'
 
-@Regression29
+@Regression29.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemColumnSelection
@@ -449,7 +471,7 @@ Scenario: yxVerify uinspection item column selection functionality
     And   Verify change column selection and disable '${ColumnName1}'
     When  Verify change column selection and disable '${ColumnName2}'
 
-@Regression30
+@Regression30.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemSearch
@@ -460,7 +482,7 @@ Scenario: ywVerify vinspection item search functionality
     And   Verify the search functionality of the inspection item with '${Detail}'
     And   Verify the search functionality of the inspection item with '${FailureMode}'
 
-@Regression31
+@Regression31.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemPDF
@@ -473,7 +495,7 @@ Scenario: yvVerify multiple inspection items export functionality
     And   Verify the pdf content of inspection report for inspection '${InspectionName}' with conveyor '${Asset1}'
     And   Verify the pdf content of inspection report for inspection '${InspectionName}' with conveyor '${Asset2}'
 
-@Regression32
+@Regression32.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemDelete
@@ -486,7 +508,7 @@ Scenario: yuVerify multiple inspection items delete functionality
     Then  Verify the delete functionality of the inspection item for conveyor '${Asset1}'
     And   Verify the delete functionality of the inspection item for conveyor '${Asset1}'
 
-@Regression33
+@Regression33.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_GreenTick
@@ -503,7 +525,7 @@ Scenario: ytVerify the status green tick icon for completed event
     And   Navigate to inspection list screen
     Then  Verify the status when completed for '${InspectionName}'
 
-@Regression34
+@Regression34.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Flags
@@ -522,7 +544,7 @@ Scenario: ysVerify the condition flags functionality
     And   Navigate to inspection list screen
     Then  Verify the conditions flag column for inspection '${InspectionName}' with '${FlagCount}'
 
-@Regression35
+@Regression35.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Expand
@@ -535,7 +557,7 @@ Scenario: yrVerify the expand event functionality
     And   Verify the all inspection items are present in expanded view
     And   Verify the location column for map popup in expanded view
 
-@Regression36
+@Regression36.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
@@ -547,7 +569,7 @@ Scenario: yqVerify the pagination functionality
     Then  Verify the inspection event pagination count
 
 
-@Regression37
+@Regression37.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ClearFilter
@@ -559,7 +581,7 @@ Scenario: ypVerify the clear filter functionality in event list
     When  Clear filter for inspection items
     Then  Verify the clear filter functionality '${ColumnName}'
 
-@Regression38
+@Regression38.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ColumnSelection
@@ -569,7 +591,7 @@ Scenario: yoVerify inspection event column selection functionality
     And   Verify change column selection and disable '${ColumnName1}'
     When  Verify change column selection and disable '${ColumnName2}'
 
-@Regression39
+@Regression39.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Search
@@ -580,7 +602,7 @@ Scenario: ynVerify inspection event search functionality
     And   Verify the search functionality of the inspection event with '${CustSiteName}'
     And   Verify the search functionality of the inspection event with '${Inspector}'
 
-@Regression40
+@Regression40.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Navigation
@@ -596,7 +618,7 @@ Scenario: ymVerify inspection card count with pagination count
     And   Verify the filter functionality with condition 'Fault'
     And   Verify the filter functionality with condition 'Poor'
 
-@Regression41
+@Regression41.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteItem
@@ -613,7 +635,7 @@ Scenario: ylVerify inspection item delete functionality from event and verifying
     And   Add filter functionality with condition '${Condition}'
     Then  Verify the delete functionality of the inspection item for conveyor '${ConveyorName}'
 
-@Regression42
+@Regression42.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemColumnSort
@@ -658,7 +680,7 @@ Scenario: yjVerify inspection item column functionality from item list
     And   Verify the condition column item filter with '${Condition}' '${ColumnNumber}'
     When  Clear filter for inspection items
 
-@Regression43
+@Regression43.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_ItemActions
@@ -676,7 +698,7 @@ Scenario: wVerify inspection item action functionality from item list
     And   Expand the inspection event to display inspection items for '${InspectionName}'
     Then  Verify the all inspection items are present in expanded view
 
-@Regression44
+@Regression44.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_Refresh
@@ -688,12 +710,14 @@ Scenario: vVerify inspection item refresh functionality from item list
     When  Refresh the item table contents
     Then  Verify the search functionality of the inspection event with '${InspectionName}'
 
-@Regression45
+@Regression45.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_PDFMultiInspection
 Scenario: zVerify download pdf functionality
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
     When  Navigate to add inspection screen
     Then  Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName1}' '${AssetDetail1}' '${FailureMode1}' '${Condition1}' '${Status}'
@@ -709,7 +733,7 @@ Scenario: zVerify download pdf functionality
     And   Verify data displayed in inspection table for '${InspectionName}'
 
 
-@Regression46
+@Regression46.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_PDFMultiInspection
@@ -722,7 +746,7 @@ Scenario: yVerify unit conversion in pdf
     And   Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
     Then  Verify the inspection pdf report for imperial for '${InspectionName}'
 
-@Regression47
+@Regression47.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_PDFMultiInspection
@@ -737,7 +761,7 @@ Scenario: xVerify item report pdf download
     And   Verify the pdf content of inspection report for inspection '${InspectionName}' with conveyor '${AssetName2}'
     And   Verify the pdf content of inspection report for inspection '${InspectionName}' with conveyor '${AssetName8}'
 
-@Regression48
+@Regression48.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DefaultSequence
@@ -761,7 +785,7 @@ Scenario: wVerify asset sequence for default template
     When  Verify the add inspection item navigation
     Then  Verify the failure mode for selected asset '${ConveyorName}' '${AssetName3}'
 
-@Regression49
+@Regression49.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionImage
@@ -775,7 +799,7 @@ Scenario: vVerify image zoom functionality
     Then  Verify the image zoom out capabilities
     And   Verify the close add inspection item popup
 
-@Regression50
+@Regression50.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_SiteLogo
@@ -798,7 +822,7 @@ Scenario: tVerify site and inspection item logo functionality in pdf
     Then  Verify the export functionality of the single inspection item for inspection '${InspectionName}'
     And   Verify the site and item logo functionality in pdf report for '${InspectionName}'
 
-@Regression52
+@Regression52.5
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EventDelete
@@ -1113,7 +1137,7 @@ Scenario: rVerify the observation optional scenario
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_EditInspectionVMC
-Scenario: qVerify inspection item edit and delete functionality on edit mode
+Scenario: xVerify inspection item edit and delete functionality on edit mode
 
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
@@ -1133,7 +1157,7 @@ Scenario: qVerify inspection item edit and delete functionality on edit mode
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_DeleteInspectionVMC
-Scenario: pVerify inspection item delete functionality
+Scenario: zzpVerify inspection item delete functionality
 
     When  Navigate to Inspection detail page of the Inspection event '${EditInspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${EditInspectionName}'
@@ -1147,8 +1171,6 @@ Scenario: pVerify inspection item delete functionality
 @key:Inspection_ItemClearFilterVMC
 Scenario: zzVerify uinspection item clear filter functionality
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     Then  Verify column filter with '${Asset}' and '${ColumnNumber}'
@@ -1509,10 +1531,10 @@ Scenario: zbVerify action button functionality for event list screen
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:Inspection_InspectionDashboardVMC
-Scenario: zyVerify inspection dashboard screen for VMC
+Scenario: zzyVerify inspection dashboard screen for VMC
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
     And   Add customer corporate with '${CustCorpName}' and '${CustCorpAddress}' '${InsTemplate}'
     And   Create a Customer site '${CustSiteName}' and '${CustSiteAddress}' and '${CustCorpName}' and '${DistShopName}' and '${FullName}' and '${TerritoryInd}'
     And   Create a conveyor with '${ConveyorName1}' and '${DistShopName}' and '${CustSiteName}'
@@ -1788,3 +1810,362 @@ Scenario: Verify search applied for event table column for VMC
     And   Click on inspection dashboard symbol and verify user is able to click on dashboard
     Then  Verify the search functionality of the dashboard event with '${AssetName}'
     And   Verify the pagination count
+
+@Regression116 @tc
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_001
+Scenario: BVerify inspection total conveyance template functionality for customer corporate
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
+    And   Navigation of corporate list screen
+    And   Navigate to add corporate from list screen
+    And   Navigation of corporate list screen
+    And   Navigate to add corporate from list screen
+    Then  Verify Default should be selected under inspection template
+    And   Add customer corporate with '${CustCorpName}' and '${CustCorpAddress}' '${InsTemplate}'
+    And   Navigate to edit corporate for '${CustCorpName}'
+    And   Verify whether inspection template dropdown '${InsTemplate}' is disabled
+
+@Regression117
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_002
+Scenario: AVerify total conveyance inspection functionality
+
+    When  Navigate to inspection list screen
+    And   Create a Customer site '${CustSiteName}' and '${CustSiteAddress}' and '${CustCorpName}' and '${DistShopName}' and '${FullName}' and '${TerritoryInd}'
+    And   Navigate to Conveyor Bulk Upload
+    And   Add two conveyor via bulk upload in site '${CustSiteName}' with file '${FileUpload}'
+    When  Navigate to add inspection screen
+    Then  Verify the breadcrumb of the add page
+    And   Verify Site '${CustSiteName}' selection from dropdown for TC template
+    And   Verify Conveyor '${ConveyorName}' selection from dropdown for TC template
+    And   Verify the inspection name functionality for site '${CustSiteName}'
+    And   Enter inspection name as '${InspectionName}'
+    And   Verify default date in inspection date field
+    And   Verify auto-population of inspector name '${FullName}'
+    And   Verify weather inspection template dropdown '${InsTemplate}' is disabled in add screen
+    And   Verify the productivity field with '${Productivity}'
+    And   Verify the uptime field with '${Uptime}'
+    And   Verify profile image upload is disabled from add screen
+    And   Verify the inspection creation with success message
+#    And   Verify the conveying length value from conveyor card with '${ConveyingLength}' for '${ConveyorName}'
+    And   Verify the productivity value from productivity card with '${Productivity}' and change '${ProductivityChange}' with indicator as '${ProductivityIndicator}'
+    And   Verify the uptime value from uptime card with '${Uptime}' and change '${UpTimeChange}' with indicator as '${UpTimeIndicator}'
+    And   Verify the system health value from system health card with '${SystemHealth}' and change '${SystemhealthChange}' with indicator as '${SystemHealthIndicator}'
+    And   Verify the inspection items columns for VMC
+    And   Verify the add inspection item navigation
+    And   Verify the close add inspection item popup
+    And   Add inspection Item for TC conveyor '${ConveyorName}' for '${CustSiteName}' with '${AssetName1}' '${AssetDetail1}' '${Condition1}' '${Status}' '${observation}' '${recommendation}' '${address}' '${img}'
+    And   Add inspection Item for TC conveyor '${ConveyorName}' for '${CustSiteName}' with '${AssetName2}' '${AssetDetail2}' '${Condition2}' '${Status}'
+    And   Verify the sorting order for inspection items for TC
+    And   Verify whether the inspection event '${InspectionName}' is present in list view
+
+@Regression118 @tc
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_001
+Scenario: zzzVerify the conveyor graph on the inspection details page
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    And   Verify heather the conveyor graph is present
+    And   Verify the header for the conveyor graph
+    And   Verify all the traffic lights are visisble
+    And   Verify the pipe shape dropdown contents
+    And   Verify the pipe shape fields
+    And   Verify the belt condition fields
+    And   Verify the summary field is present
+
+@Regression119 @tc
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_001
+Scenario: zzzVerify the sections in inspection item popup for total conveyance
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    And   Verify the add inspection item navigation
+    And   Verify the asset section in items popup for TC
+
+@Regression120 @tc
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_001
+Scenario: zzzVerify the asset tail display sequence for total conveyance
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    And   Verify the add inspection item navigation
+    And   Verify the asset tail display sequence for TC
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail1}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail2}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail3}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail4}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail5}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+
+@Regression121 @tc
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_001
+Scenario: zzzVerify the asset center display sequence for total conveyance
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    And   Verify the add inspection item navigation
+    And   Verify the asset center display sequence for TC
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail1}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail2}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail3}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail4}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail5}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+
+@Regression122 @tc
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_001
+Scenario: zzzVerify the asset head display sequence for total conveyance
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    And   Verify the add inspection item navigation
+    And   Verify the asset head display sequence for TC
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail1}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail2}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail3}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail4}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail5}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+
+@Regression123 @tc
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_001
+Scenario: zzzVerify the asset belt display sequence for total conveyance
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    And   Verify the add inspection item navigation
+    And   Verify the asset belt display sequence for TC
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail1}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail2}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail3}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail4}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail5}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+
+@Regression124 @tc
+@csvDataFile:resources/data/Inspection.csv
+@filter:Env.equalsIgnoreCase('${env.setup}')
+@key:Ins_001
+Scenario: zzzVerify the asset belt display sequence for total conveyance
+
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}'
+    And   Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    And   Verify the add inspection item navigation
+    And   Verify the asset belt display sequence for TC
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail1}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail2}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail3}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail4}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+    And   Verify the add inspection item navigation
+    And   Verify condition for asset '${AssetName}' with '${AssetDetail5}' and conveyor '${ConveyorName}' for TC
+    And   Verify the close add inspection item popup
+
+@Regression261
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_EditInspectionDefault
+Scenario: zaVerify inspection item edit and delete functionality on edit mode
+
+    When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
+    And   Verify the site dropdown is disabled on edit mode
+    When  Edit Inspection event name to '${EditInspectionName}'
+    When  Search inspection Item with conveyor '${ConveyorName}' '${AssetName}' '${Condition}'
+    Then  Verify the conveyor and asset field are disabled on edit mode
+    When  Edit inspection Item condition for conveyor '${ConveyorName}' and '${AssetName}' to '${EditCondition}'
+    Then  Verify the sorting order for inspection items
+    When  Navigate to inspection list screen
+    And   Verify the column condition functionality from list screen for column '${ColumnNumberCondition}' and site '${EditInspectionName}'
+    And   Verify the column status functionality from list screen '${Status}' for column '${ColumnNumberStatus}' and site '${EditInspectionName}'
+    And   Verify the column conveyor functionality from list screen for column '${ColumnNumberConveyor}' and site '${EditInspectionName}' '${Count}'
+    And   Verify name filter functionality with '${EditInspectionName}' and '${ColumnNumber}'
+
+@Regression27
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_DeleteInspectionDefault
+Scenario: yzVerify uinspection item delete functionality
+
+    When  Navigate to Inspection detail page of the Inspection event '${EditInspectionName}'
+    Then  Verify the edit button functionality in inspection view mode for inspection '${EditInspectionName}'
+    When  Search inspection Item with conveyor '${ConveyorName}' '${AssetName}' '${Condition}'
+    When  Delete default inspection Item for '${ConveyorName}' and '${AssetName}'
+    Then  Verify the sorting order for inspection items
+
+@Regression28
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ItemClearFilter
+Scenario: yyVerify uinspection item clear filter functionality
+
+    When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
+    Then  Verify column filter with '${Asset}' and '${ColumnNumber}'
+    And   Verify asset filter functionality with '${Asset}' and '${ColumnNumber}'
+    When  Clear filter for inspection items
+    Then  Verify the clear filter functionality '${Asset}'
+
+@Regression29
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ItemColumnSelection
+Scenario: yxVerify uinspection item column selection functionality
+
+    Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
+    And   Verify change column selection and disable '${ColumnName1}'
+    When  Verify change column selection and disable '${ColumnName2}'
+
+@Regression30
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ItemSearch
+Scenario: ywVerify vinspection item search functionality
+
+    Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
+    And   Verify the search functionality of the inspection item with '${Asset}'
+    And   Verify the search functionality of the inspection item with '${Detail}'
+    And   Verify the search functionality of the inspection item with '${FailureMode}'
+
+@Regression31
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_ItemPDF
+Scenario: yvVerify multiple inspection items export functionality
+
+    Then  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
+    When  Select the inspection item with conveyor '${Asset1}'
+    And   Select the inspection item with conveyor '${Asset2}'
+    And   Verify the export functionality of the multiple inspection item for inspection '${InspectionName}'
+    And   Verify the pdf content of inspection report for inspection '${InspectionName}' with conveyor '${Asset1}'
+    And   Verify the pdf content of inspection report for inspection '${InspectionName}' with conveyor '${Asset2}'
+
+@Regression33
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_GreenTick
+Scenario: ytVerify the status green tick icon for completed event
+
+    When  Navigate to add inspection screen
+    And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName1}' '${AssetDetail1}' '${FailureMode1}' '${Condition1}' '${Status}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status1}'
+    And   Navigate to inspection list screen
+    Then  Verify the status when to be completed for '${InspectionName}' with '${StatusCount}'
+    And   Verify the edit button functionality in list view for inspection '${InspectionName}'
+    When  Edit inspection Item status for '${ConveyorName}' '${AssetName1}' to '${Status1}'
+    And   Navigate to inspection list screen
+    Then  Verify the status when completed for '${InspectionName}'
+
+@Regression34
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Flags
+Scenario: ysVerify the condition flags functionality
+
+    When  Navigate to add inspection screen
+    And   Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName1}' '${AssetDetail1}' '${FailureMode1}' '${Condition1}' '${Status1}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}' '${observation}' '${recommendation}' '${address}' '${img}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName3}' '${AssetDetail3}' '${FailureMode3}' '${Condition3}' '${Status}'
+    And   Navigate to inspection list screen
+    Then  Verify the conditions flag column for inspection '${InspectionName}' with '${FlagCount}'
+    And   Verify the edit button functionality in list view for inspection '${InspectionName}'
+    When  Edit inspection Item status for '${ConveyorName}' '${AssetName1}' to '${Status}'
+    When  Edit inspection Item status for '${ConveyorName}' '${AssetName2}' to '${Status1}'
+    And   Navigate to inspection list screen
+    Then  Verify the conditions flag column for inspection '${InspectionName}' with '${FlagCount}'
+
+@Regression35
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_Expand
+Scenario: yrVerify the expand event functionality
+
+    Then  Verify And validate the changes for '${InspectionName}' with '${ItemCount}'
+    When  Navigate to inspection list screen
+    And   Expand the inspection event to display inspection items for '${InspectionName}'
+    And   Verify the column displayed for expanded list table
+    And   Verify the all inspection items are present in expanded view
+    And   Verify the location column for map popup in expanded view
+
+@Regression45
+@dataFile:resources/data/TestData.xls
+@sheetName:Regression
+@key:Inspection_PDFMultiInspection
+Scenario: zVerify download pdf functionality
+
+    When  Navigate to add inspection screen
+    Then  Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName1}' '${AssetDetail1}' '${FailureMode1}' '${Condition1}' '${Status}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName3}' '${AssetDetail3}' '${FailureMode3}' '${Condition3}' '${Status}' '${observation}' '${recommendation}' '${address}' '${img}'
+    And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName4}' '${AssetDetail4}' '${FailureMode4}' '${Condition4}' '${Status1}'
+    And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName5}' '${AssetDetail5}' '${FailureMode5}' '${Condition5}' '${Status}' '${observation}' '${recommendation}' '${address}' '${img}'
+    And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName6}' '${AssetDetail6}' '${FailureMode6}' '${Condition6}' '${Status}'
+    And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName7}' '${AssetDetail7}' '${FailureMode7}' '${Condition7}' '${Status}'
+    And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName8}' '${AssetDetail8}' '${FailureMode8}' '${Condition8}' '${Status1}'
+    Then  Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
+    And   Verify data displayed in report header and footer for '${FullName}' '${CustSiteName}' '${InspectionName}'
+    And   Verify data displayed in inspection table for '${InspectionName}'

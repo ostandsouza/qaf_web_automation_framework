@@ -91,15 +91,15 @@ public class ConveyorInspectPage extends BasePage{
     @FindBy(locator="xpath=//label[text()='Time of flight (hh,mm)']/parent::div//input")
     public CustomElement ciTimeFlight;
 
-    @FindBy(locator="xpath=//div[contains(@class,'p-minute-picker')]/button[2]")
+    @FindBy(locator="xpath=//div[contains(@class,'p-datepicker-time-picker')]//p-button[2]")
     public CustomElement ciTimeFlightDecrease;
 
     @FindBy(locator="xpath=//label[text()='Side']/parent::div//div[@role='button']")
     public CustomElement ciSide;
 
-    public String ListItem = "//ul[@role='listbox']//li//span";
+    public String ListItem = "//ul[@role='listbox']//li//span[not(@aria-hidden)]";
 
-    public String ListColorMap = "//ul[@role='listbox']//li/div/div[2]";
+    public String ListColorMap = "//ul[@role='listbox']//li/span[1]";
 
     @FindBy(locator="xpath=//label[text()='Colormap']/parent::div//div[@role='button']")
     public CustomElement ciColourMap;

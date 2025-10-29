@@ -48,7 +48,7 @@ public class DemoPage extends BasePage {
     @FindBy(locator = "xpath=//span[@class='p-button-label']")
     public CustomElement btSaveandcloseCorp;
 
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname='companyType']/div/span")
+    @FindBy(locator = "xpath=//p-select[@formcontrolname='companyType']/div/span")
     public CustomElement drCompanyDropdownLoader;
 
     @FindBy(locator = "xpath=(//div[@role='button'])[1]")
@@ -75,7 +75,7 @@ public class DemoPage extends BasePage {
     @FindBy(locator = "xpath=//li[text()=' No results found ']")
     public CustomElement drTerritoryLoader;
 
-    @FindBy(locator = "xpath=//p-dropdown[@datakey='territoryId']/div/div[2]")
+    @FindBy(locator = "xpath=//p-select[@datakey='territoryId']/div/div[2]")
     public CustomElement drTerritorybutton;
 
     @FindBy(locator = "xpath=//input[@aria-activedescendant='p-highlighted-option']")
@@ -111,13 +111,13 @@ public class DemoPage extends BasePage {
     //public String drSitedropdownvalue = "xpath = //ul[contains(@class,'p-dropdown-items')]//li//span";
     public String drSitedropdownvalue = "xpath = //span";
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbSitedropdown;
 
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator = "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbAssociatedSitedropdown;
 
-    @FindBy(locator = "xpath=//p-dropdown[@datakey='companyId']/div/div[2]")
+    @FindBy(locator = "xpath=//p-select[@datakey='companyId']/div/div[2]")
     public CustomElement drDistShopdropdown;
 
     @FindBy(locator = "xpath= //input[@class='p-dropdown-filter p-inputtext p-component ng-tns-c82-105']")
@@ -164,7 +164,7 @@ public class DemoPage extends BasePage {
 
     @FindBy(locator = "xpath=//span[text()='Delete']")
     public CustomElement btDelete;
-    @FindBy(locator = "xpath=(//button[@icon='ctp-icon-Arrow-Right'])[1]")
+    @FindBy(locator = "xpath=(//p-button[@icon='ctp-icon-Arrow-Right']/button)[1]")
     public CustomElement btviewicon;
 
     @FindBy(locator = "xpath=(//td//p-tablecheckbox)[1]")

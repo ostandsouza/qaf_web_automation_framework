@@ -412,8 +412,9 @@ public class MinutemanSteps {
     @QAFTestStep(description="Verify download report option on final report {CalculationName}")
     public void verifyDownloadReportOptionOnFinalReport(String calc){
         minutemanPage.clickOnSaveAndDownload();
-        SyncUtil.waitFor(3000);
+        SyncUtil.waitFor(1000);
         minutemanPage.waitForElementToInvisible(minutemanPage.spinner,15000);
+        SyncUtil.waitFor(5000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(calc+".pdf"), "PDF report was not found", "PDF report was downloaded successfully");
         minutemanPage.verifyPDFContents(calc, minutemanPage.getConveyorInformation());
     }
@@ -482,6 +483,7 @@ public class MinutemanSteps {
         SyncUtil.waitFor(1000);
 //        minutemanPage.setConveyorDropdown(conveyorName);
         minutemanPage.setTbDescription(description);
+        SyncUtil.waitFor(500);
         minutemanPage.setTbProgram(program);
         minutemanPage.setTbManufacturingLocation(manufacturingLocation);
         minutemanPage.selectUnit(units);

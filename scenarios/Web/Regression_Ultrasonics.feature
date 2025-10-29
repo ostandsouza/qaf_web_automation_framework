@@ -10,7 +10,7 @@ Launch the application through '/'
 Scenario: Verify with the cover wear navigation
 
     Given User is at Login page
-    When  Login with '${UserName}' and '${Password}'
+    When  Login with 'oston.prithesh.dsouza-ext@continental.com' and '${Password}'
     Then  Navigate to cover wear listing screen and wait
 
 @Regression17

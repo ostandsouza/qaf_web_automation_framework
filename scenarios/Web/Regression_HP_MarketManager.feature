@@ -827,6 +827,8 @@ Scenario: Verify user Delete the MD from Customer corporate level and validate t
     @key:CoverWear_Create_MetricAdd
     Scenario: PUnit selected (In metric)Fill all mandatory parameter with data position selected as 50mm/2inch , add measurement and download the report
 
+        Given User is at Login page
+        When  Login with '${UserName}' and '${Password}' and wait for pageload
         And Verify data value in header as metric
         When Navigate to coverWear list screen and wait for data load
         And Wait for the list to load
@@ -1582,10 +1584,12 @@ Scenario: Verify user Delete the MD from Customer corporate level and validate t
 @dataFile:resources/data/LegacyImperialA.json
 Scenario: zVerify minuteman functionality for legacy minuteman calculation at home level
 
+    Given User is at Login page
+    When  Login with '${UserNameMarket}' and '${Password}'
     And   Navigate to minuteman screen from site card
     And   Extract the minuteman card data
     And   User is at add minuteman conveyor page '${CalculationName}'
-    When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    When  User enters general info with '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
     And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
     And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
     And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
@@ -1615,8 +1619,6 @@ Scenario: zVerify minuteman functionality for legacy minuteman calculation at ho
 @dataFile:resources/data/MinutemanMetricA.json
 Scenario: Verify minuteman functionality for minuteman calculation at conveyor level
 
-    Given User is at Login page
-    When  Login with '${UserNameMarket}' and '${Password}'
     And   Close warning popup
     And   User is at add minuteman conveyor page '${CalculationName}' from conveyor level '${ConveyorName}'
     And   Extract the minuteman card data
@@ -1649,7 +1651,7 @@ Scenario: Verify minuteman functionality for minuteman calculation at conveyor l
 
 @100HP @Regression31
 @dataFile:resources/data/CypherMetricA.json
-Scenario: zVerify minuteman functionality for cipher calculation at site level
+Scenario: Verify minuteman functionality for cipher calculation at site level
 
     And   Close warning popup
     When  Navigate to minuteman screen from site card
@@ -1683,8 +1685,6 @@ Scenario: zVerify minuteman functionality for cipher calculation at site level
 @dataFile:resources/data/CypherImperialB.json
 Scenario: Verify minuteman functionality for load data calculation
 
-    Given User is at Login page
-    When  Login with '${UserNameMarket}' and '${Password}'
     And   Close warning popup
     When  Navigate to minuteman screen from site card
     And   Extract the minuteman card data
@@ -1736,7 +1736,7 @@ Scenario: Verify minuteman functionality for final report notes
 
     And   Close warning popup
     And   User is at add minuteman conveyor page '${CalculationName}'
-    When  User enters general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
+    When  User enters general info with '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
     And   User enters inputs '${BeltWidth}' '${BeltSpeed}' '${TonsPerHourPeak}' '${PickMaterialName}' '${MaterialDensity}' '${AngleOfIdler}' '${CarrySideIdlerSpacing}' '${DriveWrapAngle}' '${FrictionFactor}' '${LengthFactor}' '${SurchargeAngle}' '${IdlerOffset}' '${DriverDetails}' '${TakeUpDetails}' '${SpliceType}' and click on next
     And   User enters stations '${Stations}' '${DriveLocation}' '${TakeUpLocation}' and click on next
     And   User enters flight info for '${Stations}' '${HorzOffset}' '${ElevOffset}' and click on calculate and next
@@ -1797,7 +1797,7 @@ Scenario: Verify duplicate name creation on the minuteman
 
 @100HP @Regression36
 @dataFile:resources/data/CipherImperialBucketElevatorB.json
-Scenario: Verify bucket elevator functionality for legacy cipher
+Scenario: yVerify bucket elevator functionality for legacy cipher
 
     And   Close warning popup
     When  Navigate to minuteman screen from site card
@@ -1825,7 +1825,7 @@ Scenario: Verify bucket elevator functionality for legacy cipher
 
 @100HP @Regression37
 @dataFile:resources/data/LegacyMetricBucketElevatorA.json
-Scenario: Verify bucket elevator functionality for legacy minuteman
+Scenario: sVerify bucket elevator functionality for legacy minuteman
 
     And   Close warning popup
     When  Navigate to minuteman screen from site card
@@ -1851,7 +1851,7 @@ Scenario: Verify bucket elevator functionality for legacy minuteman
 @dataFile:resources/data/TestData.xls
 @sheetName:Regression
 @key:minuteman_delete
-Scenario: AVerify delete functionality for minuteman and bucket elevator
+Scenario: oVerify delete functionality for minuteman and bucket elevator
 
     And   Close warning popup
     When  Navigate to minuteman screen from site card

@@ -21,7 +21,7 @@ public class BeltFormsPge extends BasePage{
 	@FindBy(locator = "xpath=//label[text()='Market ']/parent::div//div[@role='button']")
 	public CustomElement ddlMarket;
 	
-	@FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]")
+	@FindBy(locator = "xpath=//input[contains(@class,'p-select-filter p-component p-inputtext')]")
 	public CustomElement tbinput;
 	
 	@FindBy(locator = "xpath=//label[text()='Std. Requested by Customer ']/parent::div//div[@role='button']")
@@ -36,19 +36,19 @@ public class BeltFormsPge extends BasePage{
 	@FindBy(locator = "xpath=//label[text()='Top Cover Compound ']/parent::div//div[@role='button']")
 	public CustomElement ddlTopCoverCompound;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='topCoverGauge']//div[@role='button']")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='topCoverGauge']//div[@role='button']")
 	public CustomElement ddlTopCoverGauge;
 	
 	@FindBy(locator = "xpath=//label[text()='Bottom Cover Compound ']/parent::div//div[@role='button']")
 	public CustomElement ddlBottomCoverCompound;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='bottomCoverGauge']//div[@role='button']")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='bottomCoverGauge']//div[@role='button']")
 	public CustomElement ddlBottomCoverGauge;
 	
 	@FindBy(locator = "xpath=//input[contains(@class,'p-inputtext p-component p-element ng-st')]")
 	public CustomElement tbBeltlength;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='width']//div[@role='button']")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='width']//div[@role='button']")
 	public CustomElement ddlBeltwidth;
 	
 	@FindBy(locator = "xpath=//label[text()='Edge ']/parent::div//div[@role='button' and contains(@class,'p-dropdown-trigger')]")

@@ -40,20 +40,20 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=(//input[@name='drawing_num'])[2]")
 	public CustomElement tbDesignerName;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='marketType']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='marketType']//div[2]")
 	public CustomElement drChooseyourmarket;
 	//WebElement drChooseyourmarketvalue = driver.findElement(By.xpath("//li[@class='p-dropdown-item p-ripple']"));
 	
 	@FindBy(locator = "xpath=//div[@ng-reflect-ng-class='p-dropdown-panel p-component']//input")
 	public CustomElement tbinput;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='productionLocation']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='productionLocation']//div[2]")
 	public CustomElement drProductionLocationofSpliceKit;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='customer']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='customer']//div[2]")
 	public CustomElement drCustomerName;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='conveyor']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='conveyor']//div[2]")
 	public CustomElement drConveyorName;
 
 	@FindBy(locator = "xpath=//p-autocomplete[@ng-reflect-name='approverName']//button")
@@ -73,25 +73,25 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=(//span[@class='p-radiobutton-icon'])[6]")
 	public CustomElement radioRightarrow;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='beltConstruction']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='beltConstruction']//div[2]")
 	public CustomElement drBeltConstruction;
 	
 	@FindBy(locator = "xpath=//input[@formcontrolname='beltWidth']")
 	public CustomElement tbBeltwidth;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='beltFabric']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='beltFabric']//div[2]")
 	public CustomElement drBeltTypeFabric;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='topCoverCompound']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='topCoverCompound']//div[2]")
 	public CustomElement drTopcovercompound;
 	
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='bottomCoverCompound']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='bottomCoverCompound']//div[2]")
 	public CustomElement drBottomcovercompound;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='topThickness']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='topThickness']//div[2]")
 	public CustomElement drTopcoverthickness;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='beltThickness']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='beltThickness']//div[2]")
 	public CustomElement drBottomcoverthickness;
 
 	@FindBy(locator = "xpath=//input[@type='number']")
@@ -103,10 +103,10 @@ public class FabricspliceAddPage extends BasePage{
 	@FindBy(locator = "xpath=//span[@class='ng-tns-c82-76 p-dropdown-label p-inputtext ng-star-inserted']")
 	public CustomElement drBaisangle;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='spliceType']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='spliceType']//div[2]")
 	public CustomElement drSplicetype;
 
-	@FindBy(locator = "xpath=//p-dropdown[@ng-reflect-name='edge']//div[2]")
+	@FindBy(locator = "xpath=//p-select[@ng-reflect-name='edge']//div[2]")
 	public CustomElement drEdge;
 
 	@FindBy(locator = "xpath=(//span[@class='p-radiobutton-icon'])[7]")

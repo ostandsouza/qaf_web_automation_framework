@@ -24,7 +24,7 @@ public class BeltScanPage extends BasePage{
     @FindBy(locator="xpath=(//td//p-tablecheckbox)[1]")
     public CustomElement crCheckbox;
 
-    @FindBy(locator="xpath=(//button/chevrondownicon)[2]")
+    @FindBy(locator="xpath=(//p-splitbutton//button/*[name()='svg']/..)[2]")
     public CustomElement btActions;
 
     @FindBy(locator="xpath=//li//span[text()='Edit']")
@@ -51,16 +51,16 @@ public class BeltScanPage extends BasePage{
     @FindBy(locator = "xpath=(//span[@class='p-button-icon ctp-icon-Add-circle'])[2]")
     public CustomElement btnAdd;
 
-    @FindBy(locator= "xpath=//p-calendar[@formcontrolname='dateOfScan']//input[@placeholder=\"dd mmm yyyy\"]")
+    @FindBy(locator= "xpath=//p-datepicker[@formcontrolname='dateOfScan']//input[@placeholder=\"dd mmm yyyy\"]")
     public CustomElement tbDateOfScan;
 
-    @FindBy(locator= "xpath=(//p-dropdown[@formcontrolname=\"deviceType\"]//div[contains(@class,\"p-dropdown\")])[1]")
+    @FindBy(locator= "xpath=(//p-select[@formcontrolname=\"deviceType\"]//*[name()='svg']/..)[1]")
     public CustomElement tbDeviceType;
 
-    @FindBy(locator= "xpath=(//p-dropdown[@formcontrolname=\"reasonForScan\"]//div[contains(@class,\"p-dropdown\")])[1]")
+    @FindBy(locator= "xpath=(//p-select[@formcontrolname=\"reasonForScan\"]//*[name()='svg']/..)[1]")
     public CustomElement tbScanReason;
 
-    @FindBy(locator= "xpath=(//p-dropdown[@datakey=\"companyId\"]//div[contains(@class,\"p-dropdown\")])[1]")
+    @FindBy(locator= "xpath=(//p-select[@datakey=\"companyId\"]//*[name()='svg']/..)[1]")
     public CustomElement tbSite;
 
     @FindBy(locator= "xpath=//label[text()='Conveyor ']/..//input")
@@ -69,10 +69,10 @@ public class BeltScanPage extends BasePage{
     @FindBy(locator= "xpath=//label[text()='Notify CCM ']/..//input")
     public CustomElement tbCCMInput;
 
-    @FindBy(locator= "xpath=(//p-dropdown[@datakey=\"conveyorId\"]//div[contains(@class,\"p-dropdown\")])[1]")
+    @FindBy(locator= "xpath=(//p-select[@datakey=\"conveyorId\"]//*[name()='svg']/..)[1]")
     public CustomElement tbConveyorDropdown;
 
-    @FindBy(locator= "xpath=//label[text()='Notify CCM ']/..//p-dropdown/div")
+    @FindBy(locator= "xpath=//label[text()='Notify CCM ']/..//p-select/div")
     public CustomElement tbCCMDropdown;
 
     @FindBy(locator= "xpath=//label[text()='Upload Raw Capture File ']/..//app-any-file-uploader//input")
@@ -111,30 +111,30 @@ public class BeltScanPage extends BasePage{
     @FindBy(locator= "xpath=//div[contains(@class,\"p-datepicker-group-container\")]")
     public CustomElement calendarPopup;
 
-    public String ListItem = "//ul[@role='listbox']//li//span";
+    public String ListItem = "//ul[@role='listbox']//li//span[not(@aria-hidden)]";
 
-    @FindBy(locator= "xpath=//input[contains(@class,'p-dropdown-filter')]")
+    @FindBy(locator= "xpath=//input[contains(@class,'p-select-filter') or contains(@class,'p-dropdown-filter')]")
     public CustomElement tbDeviceTypedropdown;
 
     @FindBy(locator="xpath=//button[contains(@class,'p-button-loading')]")
     public CustomElement buttonLoader;
 
     @FindBy(locator = "xpath=//span[text()='Add Belt Scan']") public CustomElement addBeltScan;
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname=\"deviceType\"]") public CustomElement deviceTypeDdl;
-    @FindBy(locator = "xpath=//p-dropdown[@formcontrolname=\"reasonForScan\"]") public CustomElement reasonForScanDdl;
+    @FindBy(locator = "xpath=//p-select[@formcontrolname=\"deviceType\"]") public CustomElement deviceTypeDdl;
+    @FindBy(locator = "xpath=//p-select[@formcontrolname=\"reasonForScan\"]") public CustomElement reasonForScanDdl;
     @FindBy(locator = "xpath=//p-dropdownitem//span[text()=\"CordInspect\"]") public CustomElement cordInspectOption;
     @FindBy(locator = "xpath=//p-dropdownitem//span[text()=\"Splice problem\"]") public CustomElement spliceProblemOption;
     @FindBy(locator = "xpath=//label[text()='Site ']/parent::div//div[@role='button']") public CustomElement ddlSiteCustomername;
     @FindBy(locator = "xpath=//label[text()='Conveyor ']/parent::div//div[@role='button']") public CustomElement ddlConveyorName;
     @FindBy(locator = "xpath=//label[text()='Notify CCM ']/parent::div//div[@role='button']") public CustomElement ddlNotifyCCM;
     @FindBy(locator = "xpath=//p-progressspinner/div") public CustomElement btFileUploadingProgress;
-    @FindBy(locator = "xpath=//input[contains(@class,'p-dropdown-filter p-inputtext')]") public CustomElement tbInput;
+    @FindBy(locator = "xpath=//input[contains(@class,'p-select-filter p-component p-inputtext')]") public CustomElement tbInput;
     @FindBy(locator = "xpath=(//input[@type='file'])[1]") public CustomElement crFileUpload;
-    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')])[1]") public CustomElement crDeleteFileUpload;
-    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')]/../../preceding-sibling::div)[1]") public CustomElement crUploadedFileName;
-    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')])[2]") public CustomElement crBackUpDeleteFileUpload;
-    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-Delete')]/../../preceding-sibling::div)[2]") public CustomElement crBackUUploadedFileName;
-    @FindBy(locator = "xpath=//p-calendar//span//input") public CustomElement dateOfScan; @FindBy(locator = "xpath=//div[@class=\"p-carousel-items-content\"]/following-sibling::button[contains(@class,\"p-carousel-next \")]\n") public CustomElement carouselNextBtn;
+    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-delete-action')])[1]") public CustomElement crDeleteFileUpload;
+    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-delete-action')]/../../preceding-sibling::div)[1]") public CustomElement crUploadedFileName;
+    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-delete-action')])[2]") public CustomElement crBackUpDeleteFileUpload;
+    @FindBy(locator = "xpath=(//span[contains(@class,'ctp-icon-delete-action')]/../../preceding-sibling::div)[2]") public CustomElement crBackUUploadedFileName;
+    @FindBy(locator = "xpath=//p-datepicker//span//input") public CustomElement dateOfScan; @FindBy(locator = "xpath=//div[@class=\"p-carousel-items-content\"]/following-sibling::button[contains(@class,\"p-carousel-next \")]\n") public CustomElement carouselNextBtn;
     @FindBy(locator = "xpath=(//div[@class=\"p-carousel-items-content\"]//div[contains(@class, \"p-carousel-item\")]//app-card//div[contains(@class, \"header\") and normalize-space(text())=\"Belt Scans\"])[2]") public CustomElement beltScanCard;
     @FindBy(locator = "xpath=(//div//span//button[@icon=\"ctp-icon-Add-circle\"])[2]") public CustomElement addIcon;
     @FindBy(locator = "xpath=//li//a[contains(@class,\"p-menuitem-link-active\")]//span[text()=\"Add Scan Details\"]\n") public CustomElement addScanHeaderActive;

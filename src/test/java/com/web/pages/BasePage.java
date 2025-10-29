@@ -280,8 +280,8 @@ public class BasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
         SyncUtil.waitFor(100);
         Search.type(itemstosearch);
         setImplicitWait(60000,TimeUnit.MILLISECONDS);
-        waitForPresenceOfElement(By.xpath("//span[text()='"+itemstosearch+"']"));
-        driver.findElement("//span[text()='"+itemstosearch+"']").click();
+        waitForPresenceOfElement(By.xpath("//li//span[text()='"+itemstosearch+"']"));
+        driver.findElement("//li//span[text()='"+itemstosearch+"']").click();
 //        waitForPresenceOfElement(By.xpath("//li/span[1]"));
 //        driver.findElement("//li/span[1]").click();
         setImplicitWait(1000,TimeUnit.MILLISECONDS);

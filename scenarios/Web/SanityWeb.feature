@@ -272,8 +272,10 @@ Feature: Sanity Flow for Web
   @csvDataFile:resources/data/SanityData.csv
   @filter:Env.equalsIgnoreCase('${env.setup}')
   @key:BeltMonitoring
-  Scenario: Verify Complete monitoring device functionality
+  Scenario: zVerify Complete monitoring device functionality
 
+    Given User is at Login page
+    When  Login with normal user '${UserName}' and '${Password}'
     Then  Navigate to Belt Monitoring List page for '${DeviceName}'
     And   Navigate to Add monitoring device screen
     And   Add the device details with mandatory field '${DeviceName}' '${DeviceType}' '${Status}' and '${ConveyorName}'

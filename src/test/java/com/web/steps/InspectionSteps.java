@@ -2,6 +2,7 @@ package com.web.steps;
 
 import com.common.component.Condition;
 import com.common.component.InspectionItemSequencing;
+import com.common.component.InspectionType;
 import com.common.component.Item;
 import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
@@ -46,7 +47,7 @@ public class InspectionSteps {
 //		inspectionpage.apiBase.deleteInspectionAPI(inspectionId);
 		sortingInspectionItem.clearItems();
 		inspectionpage.goToInspection();
-		inspectionpage.	addInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName,custSiteName,fullName);
+		inspectionpage.addInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName,custSiteName,fullName);
 	}
 
 	@QAFTestStep(description="Add inspection Event for conveyor {ConveyorName} with {InspectionName}")
@@ -105,6 +106,23 @@ public class InspectionSteps {
 		inspectionpage.verifyCloseInspectionItem();
 	}
 
+	@QAFTestStep(description="Add inspection Item for TC conveyor {ConveyorName} for {InspectionName} with {AssetName} {AssetDetail} {Condition} {Status}")
+	public void createAddInspectionItemMandatoryFieldTC(String conveyorName, String inspectionName,String assetName, String assetDetail, String condition, String status){
+		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
+		inspectionpage.addItemMandatoryFieldTC(conveyorName,assetName, assetDetail, condition, status);
+		inspectionpage.createInspectionItem();
+		inspectionpage.verifyCloseInspectionItem();
+	}
+
+	@QAFTestStep(description="Add inspection Item for TC conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {Condition1} {Status} {observation} {recommendation} {address} {img}")
+	public void createAddInspectionItemOptionalFieldsTC(String conveyorName, String inspectionName,String assetName, String assetDetail, String condition, String status, String observation, String recommendation, String address, String img){
+		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
+		inspectionpage.addItemMandatoryFieldTC(conveyorName,assetName, assetDetail, condition, status);
+		inspectionpage.addItemOptionalField(observation,recommendation,address,img);
+		inspectionpage.createInspectionItem();
+		inspectionpage.verifyCloseInspectionItem();
+	}
+
 	@QAFTestStep(description="Add inspection Item for conveyor {ConveyorName} for {InspectionName} with {AssetName1} {AssetDetail1} {FailureMode1} {Condition1} {Status} {observation} {recommendation} {address} {img}")
 	public void createAddInspectionItemOptionalFields(String conveyorName, String inspectionName,String assetName, String assetDetail, String failureMode, String condition, String status, String observation, String recommendation, String address, String img){
 		sortingInspectionItem.addItem(conveyorName, assetName, condition, status.equalsIgnoreCase("completed"));
@@ -141,7 +159,8 @@ public class InspectionSteps {
 	public void InspectionDelete(String inspectionName) {
 		inspectionpage.searchInspection(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))+" "+inspectionName);
 		inspectionpage.inspectionDelete();
-		SyncUtil.waitFor(2000);
+		inspectionpage.waitForElementToInvisible(inspectionpage.spinner,10000);
+		SyncUtil.waitFor(3000);
 	}
 
 	@QAFTestStep(description="Verify inspection {InspectionName} is deleted from inspection list")
@@ -235,10 +254,59 @@ public class InspectionSteps {
 		Validator.assertTrue(inspectionpage.verifySiteSelectionForVMC(siteName),"One or more flag cards for VMC template are missing", "Flag cards verified successfully");
 	}
 
+	@QAFTestStep(description="Verify Site {0} selection from dropdown for TC template")
+	public void verifySiteSelectionFromDropdownTC(String siteName){
+		Validator.assertTrue(inspectionpage.verifySiteSelectionForTC(siteName),"One or more cards for TC template are missing", "All cards verified successfully");
+	}
+
+	@QAFTestStep(description="Verify Conveyor {0} selection from dropdown for TC template")
+	public void verifyConveyorSelectionFromDropdownTC(String conveyor){
+		Validator.assertTrue(inspectionpage.verifyConveyorSelectionForTC(conveyor),"One or more cards for TC template are missing", "All cards verified successfully");
+	}
+
+	@QAFTestStep(description="Verify weather inspection template dropdown {InsTemplate} is disabled in add screen")
+	public void verifyInspectionTemplate(String template){
+		inspectionpage.verifyInspTemplate(template);
+	}
 
 	@QAFTestStep(description="Verify the inspection name functionality for site {0}")
 	public void verifyInspectionName(String siteName){
 		inspectionpage.verifyInspectionName(siteName);
+	}
+
+	@QAFTestStep(description="Verify the productivity field with {0}")
+	public void verifyProductivityField(String productivity){
+		inspectionpage.enterProductivity(productivity);
+	}
+
+	@QAFTestStep(description="Verify the uptime field with {0}")
+	public void verifyUptimeField(String uptime){
+		inspectionpage.enterUptime(uptime);
+	}
+
+	@QAFTestStep(description="Verify the conveying length value from conveyor card with {0} for {1}")
+	public void verifyTheConveyingLengthValueFromConveyorCardWithFor(String conveyingLength, String conveyor){
+		inspectionpage.verifyConveyorName(conveyor);
+		inspectionpage.verifyConveyingLength(conveyingLength);
+	}
+
+	@QAFTestStep(description="Verify the productivity value from productivity card with {0} and change {1} with indicator as {2}")
+	public void verifyTheProductivityValueFromProductivityCardWithAndChangeWithIndicatorAs(String productivity, String change, String indicator){
+		SyncUtil.waitFor(5000);
+		inspectionpage.verifyProductivity(productivity);
+		inspectionpage.verifyProductivityChange(change,indicator);
+	}
+
+	@QAFTestStep(description="Verify the uptime value from uptime card with {0} and change {1} with indicator as {2}")
+	public void verifyTheUptimeValueFromUptimeCardWithAndChangeWithIndicatorAs(String uptime, String change, String indicator){
+		inspectionpage.verifyUptime(uptime);
+		inspectionpage.verifyUptimeChange(change,indicator);
+	}
+
+	@QAFTestStep(description="Verify the system health value from system health card with {0} and change {1} with indicator as {2}")
+	public void verifyTheSystemHealthValueFromSystemHealthCardWithAndChangeWithIndicatorAs(String systemHealth, String change, String indicator){
+		inspectionpage.verifySystemHealth(systemHealth);
+		inspectionpage.verifySystemHealthChange(change,indicator);
 	}
 
 	@QAFTestStep(description="Verify default Site selection {0}")
@@ -448,6 +516,10 @@ public class InspectionSteps {
 		inspectionpage.goToInspectionScreenAndWait();
 	}
 
+	@QAFTestStep(description="Verify the breadcrumb of the add page")
+	public void verifyAddInspectionBreadCrumb(){
+		inspectionpage.verifyAddInspectionBreadCrumb();
+	}
 
 	@QAFTestStep(description="Verify the breadcrumb of the page")
 	public void verifyInspectionBreadCrumb(){
@@ -990,6 +1062,11 @@ public class InspectionSteps {
 		inspectionpage.verifyInspectionInspectorFilterFunctionality(inspector, columnNumber);
 	}
 
+	@QAFTestStep(description = "Verify profile image upload is disabled from add screen")
+	public void verifyProfileImage() {
+		Validator.assertFalse(inspectionpage.isProfileImageUpload(),"Profile image upload should not be allowed","Profile image upload verified successfully");
+	}
+
 	@QAFTestStep(description = "Verify last modified filter functionality with {LastModified} and {ColumnNumber}")
 	public void verifyLastModifiedColumnFilter(String lastModified, String columnNumber) {
 		inspectionpage.verifyInspectionLastModifiedFilterFunctionality(lastModified, columnNumber);
@@ -1032,7 +1109,15 @@ public class InspectionSteps {
 	@QAFTestStep(description="Verify the sorting order for inspection items for VMC")
 	public void verifySortingInspectionItemVMC(){
 		inspectionpage.clickClearFilter();
-		sortingInspectionItem.switchComparator(true);
+		sortingInspectionItem.switchComparator(InspectionType.VMC);
+		List<Item> items = sortingInspectionItem.getSortedItems();
+		inspectionpage.verifyItemSequencingVMC(items);
+	}
+
+	@QAFTestStep(description="Verify the sorting order for inspection items for TC")
+	public void verifySortingInspectionItemTC(){
+		inspectionpage.clickClearFilter();
+		sortingInspectionItem.switchComparator(InspectionType.TC);
 		List<Item> items = sortingInspectionItem.getSortedItems();
 		items.forEach(System.out::println);
 		inspectionpage.verifyItemSequencingVMC(items);
@@ -1097,7 +1182,7 @@ public class InspectionSteps {
 		sortingInspectionItem.clearItems();
 		SyncUtil.waitFor(1500);
 //		sortingInspectionItem.addItems(inspectionpage.getRowData());
-		inspectionpage.searchInspectionItem(conveyorName, assetName, condition);
+		inspectionpage.searchInspectionItemList(conveyorName, assetName, condition);
 		SyncUtil.waitFor(1000);
 	}
 
@@ -1245,7 +1330,7 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Verify the all inspection items are present in expanded view for VMC")
 	public void verifyAllExpandedListItemVMC(){
-		sortingInspectionItem.switchComparator(true);
+		sortingInspectionItem.switchComparator(InspectionType.VMC);
 		List<Item> items = sortingInspectionItem.getSortedItems();
 		items.forEach(System.out::println);
 		inspectionpage.verifyAllInspectionItemsVMC(items);
@@ -1379,7 +1464,7 @@ public class InspectionSteps {
 
 	@QAFTestStep(description="Verify data displayed in inspection table for {Inspection} for VMC")
 	public void verifyPDFInspectionDetailsVMC(String inspectionName) {
-		sortingInspectionItem.switchComparator(true);
+		sortingInspectionItem.switchComparator(InspectionType.VMC);
 		List<Item> items = sortingInspectionItem.getSortedItems();
 		items.forEach(System.out::println);
 		String conveyor = items.get(0).conveyorName();
