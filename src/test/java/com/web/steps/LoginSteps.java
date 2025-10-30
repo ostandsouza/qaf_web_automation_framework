@@ -24,6 +24,7 @@ public class LoginSteps {
     public void loginWithAnd(String UserName, String Password) {
         loginPage.firstCookiePopup();
         loginPage.loginToApp(UserName, Password);
+        loginPage.firstCookiePopup();
         dashboardPage.handleCookiePopup();
     }
 
