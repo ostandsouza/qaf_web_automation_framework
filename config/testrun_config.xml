@@ -3,7 +3,7 @@
 
 <suite name="QAF Demo" verbose="0">
 	<listeners>
-<!--		<listener class-name="com.common.utils.TestListener" />-->
+		<listener class-name="com.common.utils.TestListener" />
 		<listener class-name="com.common.utils.EmailableTestNGReport" />
 	</listeners>
 
