@@ -38,11 +38,28 @@ public class LoginPage extends BasePage {
 	@FindBy(locator = "xpath=//span[text()='Save']")
 	public CustomElement btnSave;
 
+	@FindBy(locator = "id=cmpboxheadline1")
+	public CustomElement popupHeader;
+
+	@FindBy(locator = "id=cmpbntnotxt")
+	public CustomElement rejectBtn;
+
+	@FindBy(locator = "id=cmpbntyestxt")
+	public CustomElement acceptBtn;
+
 
 	public boolean verifyUserOnLoginPage()  {
 		waitForElementToDisplay(tbUserName);
 		tbUserName.isVisible(10000,"UserName");
 		return tbUserName.isDisplayed();
+	}
+
+	public void firstCookiePopup()  {
+		waitForElementToDisplay(popupHeader);
+		if(popupHeader.isVisible()){
+			acceptBtn.click();
+		}
+		waitForElementToInvisible(acceptBtn,10000);
 	}
 
 	public void loginToApp(String userName, String password)  {

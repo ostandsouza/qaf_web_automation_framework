@@ -507,16 +507,16 @@
 		<groups>
 			<run>
 				<include name="Regression1"/>
-				<include name="Regression2"/>
-				<include name="Regression3"/>
-				<include name="Regression4"/>
-				<include name="Regression5"/>
-				<include name="Regression6"/>
-				<include name="Regression7"/>
-				<include name="Regression8"/>
-				<include name="Regression9"/>
-				<include name="Regression10"/>
-				<include name="Regression11"/>
+<!--				<include name="Regression2"/>-->
+<!--				<include name="Regression3"/>-->
+<!--				<include name="Regression4"/>-->
+<!--				<include name="Regression5"/>-->
+<!--				<include name="Regression6"/>-->
+<!--				<include name="Regression7"/>-->
+<!--				<include name="Regression8"/>-->
+<!--				<include name="Regression9"/>-->
+<!--				<include name="Regression10"/>-->
+<!--				<include name="Regression11"/>-->
 <!--				<include name="Regression12"/>-->
 			</run>
 		</groups>

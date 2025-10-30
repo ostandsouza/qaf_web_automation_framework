@@ -22,6 +22,7 @@ public class LoginSteps {
 
     @QAFTestStep(description = "Login with {UserName} and {Password}")
     public void loginWithAnd(String UserName, String Password) {
+        loginPage.firstCookiePopup();
         loginPage.loginToApp(UserName, Password);
         dashboardPage.handleCookiePopup();
     }
