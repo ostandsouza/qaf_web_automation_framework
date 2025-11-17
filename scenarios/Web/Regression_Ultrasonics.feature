@@ -40,6 +40,8 @@ Scenario: Verify with add measure with no previous measurement
 @key:CoverWear_AddMeasurement
 Scenario: Verify with add measure having previous measurement
 
+    Given User is at Login page
+    When  Login with 'oston.prithesh.dsouza-ext@continental.com' and 'Abc@123456'
     When  Navigate to cover wear listing screen
     And   Go to add measurement window
     And   Select site from dropdown with '${CustSiteName}'

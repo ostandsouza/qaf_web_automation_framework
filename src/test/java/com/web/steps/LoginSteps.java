@@ -22,14 +22,16 @@ public class LoginSteps {
 
     @QAFTestStep(description = "Login with {UserName} and {Password}")
     public void loginWithAnd(String UserName, String Password) {
+        loginPage.waitForElementVisible(loginPage.tbUserName,20000,500);
         loginPage.firstCookiePopup();
         loginPage.loginToApp(UserName, Password);
-        loginPage.firstCookiePopup();
         dashboardPage.handleCookiePopup();
     }
 
     @QAFTestStep(description = "Login with {UserName} and {Password} and wait for pageload")
     public void loginWithAndWait(String UserName, String Password) {
+        loginPage.waitForElementVisible(loginPage.tbUserName,20000,500);
+        loginPage.firstCookiePopup();
         loginPage.loginToApp(UserName, Password);
         dashboardPage.handleCookiePopup();
         conveyorPage.goToConveyorListScreenAndWait();
@@ -66,6 +68,7 @@ public class LoginSteps {
 //                loginPage.apiBase.secretVerifyAPI(UserName, otp);
 //            }
 //        }
+        loginPage.firstCookiePopup();
         loginPage.loginToApp(UserName, Password);
         System.out.println("first login");
         if(loginPage.apiBase.isFirstSignIn(UserName)) {

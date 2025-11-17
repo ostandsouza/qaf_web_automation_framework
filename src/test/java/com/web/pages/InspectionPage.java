@@ -261,6 +261,9 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator = "xpath=//p-button[@icon='ctp-icon-Edit']")
 	public CustomElement btnEdit;
 
+	@FindBy(locator = "xpath=//button[@icon='ctp-icon-Edit']")
+	public CustomElement btnEditEvent;
+
 	@FindBy(locator = "xpath=//p-button[@icon='ctp-icon-delete-action']")
 	public CustomElement btnDelete;
 
@@ -570,7 +573,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//app-image-viewer[@cssclassname=\"wrapper-image\"]")
 	public CustomElement uploadedImage;
 
-	@FindBy(locator="xpath=//button[contains(@icon,\"ctp-icon-delete-action\")]")
+	@FindBy(locator="xpath=//p-button[contains(@icon,\"ctp-icon-delete-action\")]")
 	public CustomElement deleteBtn;
 
 	@FindBy(locator="xpath=//li//span[text()='Export PDF']")
@@ -579,7 +582,7 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator="xpath=//span[contains(@class,'ctp-icon-File-PDF')]")
 	public CustomElement btnExportPDFIcon;
 
-	@FindBy(locator="xpath=//p-confirmdialog//span[1]")
+	@FindBy(locator="xpath=//div[@role='alertdialog']")
 	public CustomElement deleteDialogbox;
 
 	@FindBy(locator="xpath=//span[text()='Yes']/..")
@@ -689,13 +692,13 @@ public class InspectionPage extends BasePage {
 	@FindBy(locator= "xpath=//label[text()='Site']/..//input")
 	public CustomElement ddlSiteDropdownView;
 
-		@FindBy(locator= "xpath=//div[contains(@class,'p-multiselect-panel')]//div[contains(@class,'p-multiselect-filter-container')]//input[contains(@class,'p-multiselect-filter')]")
+	@FindBy(locator= "xpath=//input[contains(@class,'p-multiselect-filter')]")
 	public CustomElement tbMultipleSiteDropdwn;
 
 	@FindBy(locator= "xpath=//div[contains(@aria-label,'All items')]")
 	public CustomElement ddlMultipleSelection;
 
-	@FindBy(locator= "xpath=(//p-multiselectitem//checkicon/..)[1]")
+	@FindBy(locator= "xpath=(//p-multiselect//p-checkbox)[1]")
 	public CustomElement inspectionItemFilterCheckbox;
 
 	@FindBy(locator="xpath=//button[contains(@class,'p-multiselect-close')]")
@@ -1328,9 +1331,9 @@ public class InspectionPage extends BasePage {
 		Validator.assertTrue(!ddlAssetView.isEnabled()," Asset name dropdown for add item popup is not disabled", "Asset name dropdown for add item popup is verified successfully");
 		Validator.assertTrue(!ddlAssetView.isEnabled(),"Asset detail dropdown for add item popup is not disabled", "Asset detail dropdown for add item popup is verified successfully");
 		dropdownSelect(ddlCondition, ListItem, condition);
-		if(status.equalsIgnoreCase("completed"))
-			ddlStatusCompleted.click();
-		else ddlStatusToBeCompleted.click();
+//		if(status.equalsIgnoreCase("completed"))
+//			ddlStatusCompleted.click();
+//		else ddlStatusToBeCompleted.click();
 	}
 
 	private void assetVMCTemplateSelection(String asset, String detail){
@@ -1562,7 +1565,6 @@ public class InspectionPage extends BasePage {
 		PDDocument doc = PDFHelper.getPDFData(System.getProperty("user.dir") + separator + "target" + separator + "downloads" + separator + inspectionName + ".pdf");
 		try {
 			String val = PDFHelper.getPageContent(doc).replaceAll("\r\n", " ").replaceAll("\n", " ").trim();
-			System.out.println(val);
 			Validator.assertTrue(val.contains(fullName), "PDF Report was generated for the wrong inspector", "PDF Report was generated for the right inspector");
 			Validator.assertTrue(val.contains(custSiteName), "PDF Report was generated for the wrong customer Site", "PDF Report was generated for the right customer Site");
 			Validator.assertTrue(val.contains(conveyorName) || val.contains("Multiple"), "PDF Report was generated for the wrong conveyor", "PDF Report was generated for the right conveyor");
@@ -1604,8 +1606,8 @@ public class InspectionPage extends BasePage {
 		searchInspection(inspectionName);
 		ddViewicon.click();
 		waitForElementToInvisible(spinner,3000);
-		btnEdit.isVisible("Edit");
-		btnEdit.click("edit Btn");
+		btnEditEvent.isVisible("Edit");
+		btnEditEvent.click("edit Btn");
 		waitForElementToInvisible(spinner,3000);
 		btnSave.isVisible("Save");
 	}

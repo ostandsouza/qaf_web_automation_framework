@@ -1,5 +1,5 @@
-#@dataProvider:CSV_DataProvider
-#@dataProviderClass:com.common.utils.CSVDataProvider
+@dataProvider:CSV_DataProvider
+@dataProviderClass:com.common.utils.CSVDataProvider
 
 Feature: Regression of P1 Inspection module
 
@@ -14,7 +14,6 @@ Launch the application through '/'
 @filter:Env.equalsIgnoreCase('${env.setup}')
 @key:Inspection_CorpTemplateDefault
 Scenario: zzzVerify inspection default template functionality for customer corporate
-
     Given User is at Login page
     When  Login with '${UserName}' and '${Password}' and wait for pageload
     And   Navigation of corporate list screen
@@ -420,8 +419,6 @@ Scenario: zzbVerify multi conveyor inspection functionality
 @key:Inspection_EditInspectionDefault
 Scenario: zzaVerify inspection item edit and delete functionality on edit mode
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}' and wait for pageload
     When  Navigate to Inspection detail page of the Inspection event '${InspectionName}'
     Then  Verify the edit button functionality in inspection view mode for inspection '${InspectionName}'
     And   Verify the site dropdown is disabled on edit mode
@@ -716,8 +713,6 @@ Scenario: vVerify inspection item refresh functionality from item list
 @key:Inspection_PDFMultiInspection
 Scenario: zVerify download pdf functionality
 
-    Given User is at Login page
-    When  Login with '${UserName}' and '${Password}' and wait for pageload
     When  Navigate to add inspection screen
     Then  Add inspection Event for conveyor '${ConveyorName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName1}' '${AssetDetail1}' '${FailureMode1}' '${Condition1}' '${Status}'
@@ -921,6 +916,8 @@ Scenario: zVerify single conveyor inspection functionality for VMC template
 @key:Inspection_AddMultiInspectionVMC
 Scenario: yVerify multi conveyor inspection functionality for VMC template
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
     When  Extract the inspection card count
     When  Navigate to add inspection screen
     Then  Verify Site '${CustSiteName}' selection from dropdown for VMC template
@@ -1441,6 +1438,8 @@ Scenario: ziVerify download pdf functionality
 @key:Inspection_PDFMultiInspectionVMC
 Scenario: zhVerify unit conversion in pdf
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
     When  Navigate to inspection list screen
     And   Download inspection '${InspectionName}' from inspection list with '${CustSiteName}' '${ConveyorName}'
     Then  Verify the inspection pdf report for metric for '${InspectionName}'
@@ -1834,10 +1833,12 @@ Scenario: BVerify inspection total conveyance template functionality for custome
 @key:Ins_002
 Scenario: AVerify total conveyance inspection functionality
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
     When  Navigate to inspection list screen
-    And   Create a Customer site '${CustSiteName}' and '${CustSiteAddress}' and '${CustCorpName}' and '${DistShopName}' and '${FullName}' and '${TerritoryInd}'
-    And   Navigate to Conveyor Bulk Upload
-    And   Add two conveyor via bulk upload in site '${CustSiteName}' with file '${FileUpload}'
+#    And   Create a Customer site '${CustSiteName}' and '${CustSiteAddress}' and '${CustCorpName}' and '${DistShopName}' and '${FullName}' and '${TerritoryInd}'
+#    And   Navigate to Conveyor Bulk Upload
+#    And   Add two conveyor via bulk upload in site '${CustSiteName}' with file '${FileUpload}'
     When  Navigate to add inspection screen
     Then  Verify the breadcrumb of the add page
     And   Verify Site '${CustSiteName}' selection from dropdown for TC template

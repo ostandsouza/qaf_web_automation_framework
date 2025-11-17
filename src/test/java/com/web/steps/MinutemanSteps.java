@@ -413,8 +413,8 @@ public class MinutemanSteps {
     public void verifyDownloadReportOptionOnFinalReport(String calc){
         minutemanPage.clickOnSaveAndDownload();
         SyncUtil.waitFor(1000);
-        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,15000);
-        SyncUtil.waitFor(5000);
+        minutemanPage.waitForElementToInvisible(minutemanPage.spinner,20000);
+        SyncUtil.waitFor(7000);
         Validator.assertTrue(MiscUtils.checkDownloadedFiles(calc+".pdf"), "PDF report was not found", "PDF report was downloaded successfully");
         minutemanPage.verifyPDFContents(calc, minutemanPage.getConveyorInformation());
     }

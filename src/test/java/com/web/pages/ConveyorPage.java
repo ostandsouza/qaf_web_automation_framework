@@ -1407,7 +1407,7 @@ public class ConveyorPage extends BasePage{
         goToConveyorListScreen();
         scrollPageDown();
         String val="";
-        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(120); stop>System.nanoTime();) {
+        for (long stop = System.nanoTime()+ TimeUnit.SECONDS.toNanos(150); stop>System.nanoTime();) {
             int extractedCardCount = Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='Conveyors']/..//div//span)[1]")).getText());
             int paginationCount = Integer.parseInt(MiscUtils.regexExtractor(pagination.getText(), "(\\d+)(?!.*\\d)"));
             if (val.equalsIgnoreCase(pagination.getText("Pagination")) && extractedCardCount == paginationCount) {

@@ -8,8 +8,6 @@ Background:
  @dataFile:resources/data/LegacyMetricBucketElevatorB.json
  Scenario: Verify zbucket elevator calculation for legacy minuteman metric flow
 
-     Given User is at Login page
-     When  Login with '${UserName}' and '${Password}'
      And   User is at add minuteman bucket elevator page
      When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next
      And   User enters elevator inputs '${ConveyorType}' '${MaterialDensity}' '${TonsPerHourPeak}' '${MaterialLength}' '${MaterialProjection}' '${BucketSpacing}' '${BucketWeight}' '${BucketVolume}' '${BucketRows}' '${BeltWidth}' '${BeltHeight}' '${BeltSpeed}' '${DrivePulley}' '${TakeUpType}' and click on next
@@ -71,6 +69,8 @@ Scenario: Verify bucket elevator calculation for cipher imperial flow
 @dataFile:resources/data/MinutemanMetricBucketElevatorB.json
 Scenario: Verify bucket elevator calculation for minuteman metric flow
 
+  Given User is at Login page
+  When  Login with '${UserName}' and '${Password}'
     And   Close warning popup
     And   User is at add minuteman bucket elevator page
     When  User enters elevator general info '${CalculationName}' '${Site}' '${ConveyorName}' '${Description}' '${Program}' '${ManufacturingLocation}' '${Units}' and click on next

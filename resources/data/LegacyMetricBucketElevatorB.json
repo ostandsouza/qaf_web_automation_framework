@@ -9,7 +9,7 @@
     "Program": "Legacy Minuteman",
     "ManufacturingLocation": "United States",
     "Units": "Metric",
-    "ConveyorType": "A",
+    "ConveyorType": "B",
     "MaterialDensity": "961.11",
     "TonsPerHourPeak": "100.00",
     "MaterialLength": "508",

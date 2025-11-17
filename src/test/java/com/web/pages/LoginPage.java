@@ -55,7 +55,6 @@ public class LoginPage extends BasePage {
 	}
 
 	public void firstCookiePopup()  {
-		waitForElementVisible(tbUserName,20000,500);
 		waitForElementToDisplay(popupHeader);
 		if(popupHeader.isVisible()){
 			acceptBtn.click();

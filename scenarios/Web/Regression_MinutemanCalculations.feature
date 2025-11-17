@@ -93,8 +93,6 @@ Background:
   @dataFile:resources/data/MinutemanPrePopulated.json
   Scenario: Verify minuteman Pre Populated values in the minuteman calculation page for metric
 
-      Given User is at Login page
-      When  Login with '${UserName}' and '${Password}'
       And   Close warning popup
       And  User is at add minuteman conveyor page
       And  Add calculation Name '${CalculationName}'
