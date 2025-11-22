@@ -20,6 +20,7 @@ public class CommonSteps {
         loginPage.getTestBase().getDriver().get(url);
         loginPage.apiBase.getLoginAPI(getBundle().getString("env.adminUsername"),getBundle().getString("env.adminPassword"));
         //loginPage.getTestBase().getDriver().get("https://Uie68917:Conti@2021@dev2.contiplus.net/#/auth/login:4444");
+        loginPage.getTestBase().getDriver().manage().window().setSize(new Dimension(1920,1080));
         Dimension windowSize = loginPage.getTestBase().getDriver().manage().window().getSize();
         int width = windowSize.getWidth();
         int height = windowSize.getHeight();
