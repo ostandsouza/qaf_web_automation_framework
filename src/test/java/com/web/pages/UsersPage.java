@@ -755,7 +755,7 @@ public class UsersPage extends BasePage{
             waitForElementToInvisible(cbSpinner, 20000);
         }
         if (add.equalsIgnoreCase("true"))
-            driver.findElement(By.xpath("(//span[contains(text(),'\" + mainModule + \"')]/../../following-sibling::td/p-checkbox/input)[1]")).click();
+            driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-checkbox/input)[1]")).click();
 		if (edit.equalsIgnoreCase("true"))
 			driver.findElement(By.xpath("(//span[contains(text(),'" + mainModule + "')]/../../following-sibling::td/p-checkbox/input)[2]")).click();
         if (delete.equalsIgnoreCase("true"))

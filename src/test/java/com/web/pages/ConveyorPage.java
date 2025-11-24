@@ -1387,6 +1387,7 @@ public class ConveyorPage extends BasePage{
             home.click("Home");
         conveyorList.jsClick("Conveyor List");
         btSearchinput.isVisible("Conveyor List Page");
+        btSearchinput.clear();
     }
 
     public void goToAddConveyor(){
@@ -1972,7 +1973,6 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyViewPermissionRights(String ConveyorName) {
-        goToConveyorListScreenAndWait();
         searchConveyor(ConveyorName);
         waitForElementToDisplay(crCheckbox);
         crCheckbox.check("Conveyor Name");
@@ -1981,7 +1981,6 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyViewAndEditRights(String ConveyorName) {
-        goToConveyorListScreenAndWait();
         searchConveyor(ConveyorName);
         waitForElementToDisplay(crCheckbox);
         crCheckbox.check("Conveyor Name");
@@ -1990,7 +1989,6 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyViewAndDeleteRights(String ConveyorName) {
-        goToConveyorListScreenAndWait();
         searchConveyor(ConveyorName);
         waitForElementToDisplay(crCheckbox);
         crCheckbox.check("Conveyor Name");
@@ -1999,7 +1997,6 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyViewAndAddRights(String ConveyorName) {
-        goToConveyorListScreenAndWait();
         searchConveyor(ConveyorName);
         waitForElementToDisplay(crCheckbox);
         crCheckbox.check("Conveyor Name");
@@ -2008,7 +2005,6 @@ public class ConveyorPage extends BasePage{
     }
 
     public boolean verifyViewAndDownloadRights(String ConveyorName) {
-        goToConveyorListScreenAndWait();
         searchConveyor(ConveyorName);
         waitForElementToDisplay(crCheckbox);
         crCheckbox.check("Conveyor Name");

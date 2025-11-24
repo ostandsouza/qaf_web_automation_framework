@@ -1,6 +1,7 @@
 package com.web.pages;
 
 import com.common.component.CustomElement;
+import com.common.utils.MiscUtils;
 import com.common.utils.SyncUtil;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.util.Reporter;
@@ -237,7 +238,12 @@ public class SitePage  extends BasePage {
         scrollPageDown();
         String val = "";
         for (long stop = System.nanoTime() + TimeUnit.SECONDS.toNanos(120); stop > System.nanoTime(); ) {
-            if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+//            if (val.equalsIgnoreCase(pagination.getText("Pagination"))) {
+//                break;
+//            }
+            int extractedCardCount = Integer.parseInt(driver.findElement(By.xpath("(//app-card//div[@class='header' and text()='Sites']/..//div//span)[1]")).getText());
+            int paginationCount = Integer.parseInt(MiscUtils.regexExtractor(pagination.getText(), "(\\d+)(?!.*\\d)"));
+            if (val.equalsIgnoreCase(pagination.getText("Pagination")) && extractedCardCount == paginationCount) {
                 break;
             }
             val = pagination.getText();

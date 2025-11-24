@@ -72,10 +72,10 @@ public class IotDashboardPage extends BasePage {
 	@FindBy(locator = "xpath=//span[contains(@class,'p-dialog-title')]")
 	public CustomElement dialogTitle;
 
-	@FindBy(locator = "xpath=//p-radiobutton[@value='Time Focused']/div")
+	@FindBy(locator = "xpath=//p-radiobutton[@value='Time Focused']/input")
 	public CustomElement timeFocused;
 
-	@FindBy(locator = "xpath=//p-radiobutton[@value='Belt Focused']/div")
+	@FindBy(locator = "xpath=//p-radiobutton[@value='Belt Focused']/input")
 	public CustomElement beltFocused;
 
 	@FindBy(locator = "id=dashboardName")
@@ -306,7 +306,7 @@ public class IotDashboardPage extends BasePage {
 			createNewDashboard.click("New Dashsboard");
 			dialogTitle.verifyText("Add Dashboard");
 			Validator.assertTrue(verifyDashboardTypes(),"All Dashboard types are not found","All Dashboard types found");
-			Validator.assertTrue(timeFocused.getAttribute("class").contains("p-radiobutton-checked"),"Time focused type was not defaulted","Time focused type was defaulted");
+			Validator.assertTrue(timeFocused.getAttribute("aria-checked").contains("true"),"Time focused type was not defaulted","Time focused type was defaulted");
 			Validator.assertTrue(verifyTimeFocussedFields(),"All fields for time focussed dashboard is not found","All fields for time focussed dashboard found");
 			Validator.assertTrue(verifyBeltFocusedFields(),"All fields for belt focussed dashboard is not found","All fields for belt focussed dashboard found");
 		}
@@ -354,14 +354,16 @@ public class IotDashboardPage extends BasePage {
 		crActions.click("Actions");
 		waitForElementToDisplay(btnDuplicate);
 		btnDuplicate.click("Duplicate");
+		SyncUtil.waitFor(1500);
 		btRefresh.click("Refresh");
+		SyncUtil.waitFor(2500);
 		return searchDashboard(dashboardName+" - copy");
 	}
 
 	public boolean createDefaultTypeIotDashboard(String dashboardName, String siteName) {
 		SyncUtil.waitFor(5000);
 		btnAddIot.click();
-		Validator.assertTrue(timeFocused.getAttribute("class").contains("p-radiobutton-checked"),"Time focused type was not defaulted","Time focused type was defaulted");
+		Validator.assertTrue(timeFocused.getAttribute("aria-checked").contains("true"),"Time focused type was not defaulted","Time focused type was defaulted");
 		dashboardField.type(dashboardName);
 		dropdownSelectSearch(siteDropdown, tbDropdownInput, siteName);
 		createBtn.click("create");

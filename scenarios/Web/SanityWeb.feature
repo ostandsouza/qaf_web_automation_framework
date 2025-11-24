@@ -126,6 +126,8 @@ Feature: Sanity Flow for Web
   @key:Inspection_Management
   Scenario: Verify Inspection management
 
+    Given User is at Login page
+    When  Login with '${UserName}' and '${Password}' and wait for pageload
     When  Add inspection Event for conveyor '${EditInspectionName}' with '${InspectionName}' '${CustSiteName}' '${FullName}'
     And   Add inspection Item for conveyor '${ConveyorName}' for '${InspectionName}' with '${AssetName}' '${AssetDetail}' '${FailureMode}' '${Condition}' '${Status}'
     And   Add inspection Item for conveyor '${ConveyorName1}' for '${InspectionName}' with '${AssetName2}' '${AssetDetail2}' '${FailureMode2}' '${Condition2}' '${Status}'
