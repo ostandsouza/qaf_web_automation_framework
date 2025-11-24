@@ -426,54 +426,54 @@
 <!--		</classes>-->
 <!--	</test>-->
 
-	<test name="Permission" enabled="true">-->
-		<parameter name="step.provider.pkg" value="com.web.steps"/>
-		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Permission.feature"/>
-		<parameter name="step.provider.sharedinstance" value="false"/>
-		<parameter name="env.resources" value="resources/env_stg"/>
-		<groups>
-			<run>
-<!--				<include name="Regression1"/>-->
-<!--				<include name="Regression2"/>-->
-<!--				<include name="Regression3"/>-->
-<!--				<include name="Regression4"/>-->
-<!--				<include name="Regression5"/>-->
-<!--				<include name="Regression6"/>-->
-<!--				<include name="Regression7"/>-->
-<!--				<include name="Regression8"/>-->
-<!--				<include name="Regression9"/>-->
-<!--				<include name="Regression10"/>-->
-<!--				<include name="Regression11"/>-->
-<!--				<include name="Regression12"/>-->
-				<include name="Regression13"/>
-<!--				<include name="Regression14"/>-->
-<!--				<include name="Regression15"/>-->
-<!--				<include name="Regression16"/>-->
-<!--				<include name="Regression17"/>-->
-<!--				<include name="Regression18"/>-->
-<!--				<include name="Regression19"/>-->
-<!--				<include name="Regression20"/>-->
-<!--				<include name="Regression21"/>-->
-<!--				<include name="Regression22"/>-->
-<!--				<include name="Regression23"/>-->
-<!--				<include name="Regression24"/>-->
-<!--				<include name="Regression25"/>-->
-<!--				<include name="Regression26"/>-->
-<!--				<include name="Regression27"/>-->
-<!--				<include name="Regression28"/>-->
-<!--				<include name="Regression29"/>-->
-<!--				<include name="Regression30"/>-->
-<!--				<include name="Regression31"/>-->
-<!--				<include name="Regression32"/>-->
-<!--				<include name="Regression33"/>-->
+<!--	<test name="Permission" enabled="true">&ndash;&gt;-->
+<!--		<parameter name="step.provider.pkg" value="com.web.steps"/>-->
+<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_Permission.feature"/>-->
+<!--		<parameter name="step.provider.sharedinstance" value="false"/>-->
+<!--		<parameter name="env.resources" value="resources/env_stg"/>-->
+<!--		<groups>-->
+<!--			<run>-->
+<!--&lt;!&ndash;				<include name="Regression1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression2"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression3"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression5"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression7"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression8"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression9"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression10"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression11"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression12"/>&ndash;&gt;-->
+<!--				<include name="Regression13"/>-->
+<!--&lt;!&ndash;				<include name="Regression14"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression15"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression16"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression17"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression18"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression19"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression20"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression21"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression22"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression23"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression24"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression25"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression26"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression27"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression28"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression29"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression30"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression31"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression32"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<include name="Regression33"/>&ndash;&gt;-->
 
 
-			</run>
-		</groups>
-		<classes>
-			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
-		</classes>
-	</test>
+<!--			</run>-->
+<!--		</groups>-->
+<!--		<classes>-->
+<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
+<!--		</classes>-->
+<!--	</test>-->
 
 <!--	<test name="User Stats testcases" enabled="true">-->
 <!--		<parameter name="step.provider.pkg" value="com.web.steps"/>-->
@@ -501,31 +501,31 @@
 <!--		</classes>-->
 <!--	</test>-->
 
-<!--	<test name="IOT testcases" enabled="true">-->
-<!--		<parameter name="step.provider.pkg" value="com.web.steps"/>-->
-<!--		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_IotDashboard.feature"/>-->
-<!--		<parameter name="step.provider.sharedinstance" value="false"/>-->
-<!--		<parameter name="env.resources" value="resources/env_stg"/>-->
-<!--		<groups>-->
-<!--			<run>-->
-<!--				<include name="Regression1"/>-->
-<!--&lt;!&ndash;				<include name="Regression2"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression3"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression4"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression5"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression6"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression7"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression8"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression9"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression10"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression11"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<include name="Regression12"/>&ndash;&gt;-->
-<!--			</run>-->
-<!--		</groups>-->
-<!--		<classes>-->
-<!--			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>-->
-<!--		</classes>-->
-<!--	</test>-->
+	<test name="IOT testcases" enabled="true">
+		<parameter name="step.provider.pkg" value="com.web.steps"/>
+		<parameter name="scenario.file.loc" value="scenarios/Web/Regression_IotDashboard.feature"/>
+		<parameter name="step.provider.sharedinstance" value="false"/>
+		<parameter name="env.resources" value="resources/env_stg"/>
+		<groups>
+			<run>
+				<include name="Regression1"/>
+<!--				<include name="Regression2"/>-->
+<!--				<include name="Regression3"/>-->
+<!--				<include name="Regression4"/>-->
+<!--				<include name="Regression5"/>-->
+<!--				<include name="Regression6"/>-->
+<!--				<include name="Regression7"/>-->
+<!--				<include name="Regression8"/>-->
+<!--				<include name="Regression9"/>-->
+<!--				<include name="Regression10"/>-->
+<!--				<include name="Regression11"/>-->
+<!--				<include name="Regression12"/>-->
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
+		</classes>
+	</test>
 
 <!--	<test name="Minuteman conveyor" enabled="true">-->
 <!--		<parameter name="step.provider.pkg" value="com.web.steps" />-->
