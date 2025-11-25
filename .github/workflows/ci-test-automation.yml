@@ -1,6 +1,6 @@
 name: web_automation_ci_test
 on: 
-  workflows_dispatch:
+  workflow_dispatch:
     inputs:
       app_env:
         description: 'Environment to run tests against'
