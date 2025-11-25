@@ -36,6 +36,10 @@ jobs:
         with:
           path: ~/.m2/repository
           key: maven-${{ hashFiles('**/pom.xml') }}
+      - name: clone repository
+        uses: actions/checkout@v6
+        with:
+        ref: workflows
       - name: Run Maven Tests
         uses: ./.github/actions/maven-test
       - name: Generate datetime
