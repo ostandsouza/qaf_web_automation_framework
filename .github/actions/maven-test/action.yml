@@ -8,10 +8,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: clone repository
-      uses: actions/checkout@v6
-      with:
-        ref: workflows
     - name: Run Maven Tests
       shell: bash
       run: mvn test -Denv.resources=resources/env_${{ inputs.env }}
