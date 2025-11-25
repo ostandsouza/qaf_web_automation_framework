@@ -1,8 +1,30 @@
-name: 'Print hello world'
+name: web_automation_ci_test
 on: 
   [push, workflow_dispatch]
 jobs:
-  print_job:
+  run_tests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "hello world"
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'oracle'
+          java-version: '21'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.8.2
+      - name: print java version
+        run: java -version
+      - name: print maven version
+        run: mvn -version
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: workflows
+      - name: Run tests
+        run: mvn clean test
+
+
+    
+
