@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
-          key: maven-${{ hashFiles('**/pom
+          key: maven-${{ hashFiles('**/pom.xml') }}
       - name: Run Maven Tests
         uses: ./.github/actions/maven-test
       - name: Generate datetime
