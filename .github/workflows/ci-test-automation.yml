@@ -6,7 +6,11 @@ on:
         description: 'Environment to run tests against'
         required: true
         default: 'stg'
-
+    secrets:
+      EMAIL_USERNAME:
+        description: 'Email username for SMTP authentication'
+      EMAIL_PASSWORD:
+        description: 'Email password for SMTP authentication'
 jobs:
   run_tests:
     runs-on: ubuntu-latest
@@ -24,17 +28,26 @@ jobs:
         run: java -version
       - name: print maven version
         run: mvn -version
-      - name: Checkout code
-        uses: actions/checkout@v6
+      - name: Run Maven Tests
+        uses: ./.github/actions/maven-test
+      - name: Generate datetime
+        id: dt
+        shell: bash
+        run: echo "now=$(TZ='Asia/Kolkata' date '+%Y/%m/%d %H:%M')" >> $GITHUB_OUTPUT
+      - name: Read HTML report
+        id: read_html
+        run: |
+          echo "html<<EOF" >> $GITHUB_OUTPUT
+          cat test-results/customized-emailable-report.html >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Send Email Notification
+        uses: ./.github/actions/email-notification
         with:
-          ref: workflows
-      - name: Run tests
-        run: mvn clean test -Denv.resources=resources/env_${{ github.event.inputs.app_env }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: html_reports
-          path: test-results
-
+          recipient: 'ostan@codecraft.co.in'
+          subject: '[CI] Conti+ Test Automation Report - ${{ steps.dt.outputs.now }}'
+          body: '${{ steps.read_html.outputs.html }}'
+          email_username: ${{ secrets.EMAIL_USERNAME }}
+          email_password: ${{ secrets.EMAIL_PASSWORD }}
 
 
     

@@ -1,0 +1,21 @@
+name: 'maven test action'
+description: 'Action to run maven tests with specified environment'
+inputs:
+  env:
+    description: 'Environment to run tests against'
+    required: true
+    default: 'dev'
+runs:
+  using: 'composite'
+  steps:
+    - name: clone repository
+      uses: actions/checkout@v6
+      with:
+        ref: workflows
+    - name: Run Maven Tests
+      shell: bash
+      run: mvn test -Denv.resources=resources/env_${{ inputs.env }}
+    - uses: actions/upload-artifact@v4
+      with:
+      name: html_reports
+      path: test-results

@@ -1,0 +1,33 @@
+name: send email notification
+description: 'Action to send email notification after test execution'
+inputs:
+  recipient:
+    description: 'Email address of the recipient'
+    required: true
+  subject:
+    description: 'Subject of the email'
+    required: true
+  body:
+    description: 'Body content of the email'
+    required: true
+  email_username:
+    description: 'Email username for SMTP authentication'
+    required: true
+  email_password:
+    description: 'Email password for SMTP authentication'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Send Email Notification
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ inputs.email_username }}
+        password: ${{ inputs.email_password }}
+        subject: ${{ inputs.subject }}
+        body: ${{ inputs.body }}
+        to: ${{ inputs.recipient }}
+        from: ${{ inputs.email_username }}
+    
