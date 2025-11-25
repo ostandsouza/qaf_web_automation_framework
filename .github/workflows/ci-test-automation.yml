@@ -39,7 +39,7 @@ jobs:
       - name: clone repository
         uses: actions/checkout@v6
         with:
-        ref: workflows
+          ref: workflows
       - name: Run Maven Tests
         uses: ./.github/actions/maven-test
       - name: Generate datetime
