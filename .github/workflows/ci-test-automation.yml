@@ -1,6 +1,12 @@
 name: web_automation_ci_test
 on: 
-  [push, workflow_dispatch]
+  workflows_dispatch:
+    inputs:
+      app_env:
+        description: 'Environment to run tests against'
+        required: true
+        default: 'stg'
+
 jobs:
   run_tests:
     runs-on: ubuntu-latest
@@ -23,7 +29,12 @@ jobs:
         with:
           ref: workflows
       - name: Run tests
-        run: mvn clean test
+        run: mvn clean test -Denv.resources=resources/env_${{ github.event.inputs.app_env }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: html_reports
+          path: test-results
+
 
 
     
