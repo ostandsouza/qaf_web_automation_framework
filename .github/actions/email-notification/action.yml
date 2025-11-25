@@ -27,7 +27,7 @@ runs:
         username: ${{ inputs.email_username }}
         password: ${{ inputs.email_password }}
         subject: ${{ inputs.subject }}
-        html_body: Githib CI<${{ inputs.body }}>
+        html_body: ${{ inputs.body }}
         to: ${{ inputs.recipient }}
-        from: ${{ inputs.email_username }}
+        from: Githib CI<${{ inputs.email_username }}>
     
