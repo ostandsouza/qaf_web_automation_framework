@@ -57,7 +57,7 @@ jobs:
         with:
           recipient: 'ostan@codecraft.co.in'
           subject: '[CI] Conti+ Test Automation Report - ${{ steps.dt.outputs.now }}'
-          body: '${{ steps.read_html.outputs.html }}'
+          body: ${{ steps.read_html.outputs.html }}
           email_username: ${{ secrets.EMAIL_USERNAME }}
           email_password: ${{ secrets.EMAIL_PASSWORD }}
 
